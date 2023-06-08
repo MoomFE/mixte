@@ -1,0 +1,30 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+    },
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "prettier.enable": false,
+    "files.exclude": {
+      "*.code-workspace": true,
+      "node_modules": true
+    },
+    "eslint.quiet": true,
+    "eslint.validate": [
+      "javascript",
+      "typescript",
+      "javascriptreact",
+      "typescriptreact",
+      "vue",
+      "html",
+      "markdown",
+      "json",
+      "json5"
+    ],
+  }
+}

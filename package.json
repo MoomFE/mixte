@@ -1,0 +1,39 @@
+{
+  "name": "library-name",
+  "type": "module",
+  "version": "0.0.0",
+  "packageManager": "pnpm@8.4.0",
+  "description": "",
+  "author": "Wei Zhang <https://github.com/Zhang-Wei-666>",
+  "license": "MIT",
+  "homepage": "https://github.com/MoomFE-Starter-Template/library#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MoomFE-Starter-Template/library.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MoomFE-Starter-Template/library/issues"
+  },
+  "keywords": [],
+  "scripts": {
+    "build": "unbuild",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
+  },
+  "devDependencies": {
+    "@moomfe/eslint-config": "^2.5.0",
+    "@vitest/ui": "^0.31.1",
+    "eslint": "^8.41.0",
+    "pnpm": "^8.5.1",
+    "simple-git-hooks": "^2.8.1",
+    "typescript": "^5.0.4",
+    "unbuild": "^1.2.1",
+    "vitest": "^0.31.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,vue}": "eslint --fix"
+  }
+}
