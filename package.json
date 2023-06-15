@@ -1,5 +1,5 @@
 {
-  "name": "library-name",
+  "name": "@mixte/monorepo",
   "type": "module",
   "version": "0.0.0",
   "packageManager": "pnpm@8.4.0",
