@@ -2,6 +2,10 @@
   "folders": [
     {
       "path": "."
+    },
+    {
+      "path": "packages/core",
+      "name": "Core"
     }
   ],
   "settings": {
@@ -12,7 +16,8 @@
     "prettier.enable": false,
     "files.exclude": {
       "*.code-workspace": true,
-      "node_modules": true
+      "node_modules": true,
+      "packages/core": true
     },
     "eslint.quiet": true,
     "eslint.validate": [
