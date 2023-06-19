@@ -9,7 +9,8 @@
     "strictNullChecks": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "allowJs": true
+    "allowJs": true,
+    "types": ["vitest/globals"]
   },
   "exclude": [
     "node_modules",
