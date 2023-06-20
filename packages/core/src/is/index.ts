@@ -24,3 +24,32 @@ export function isString(value: unknown): value is string {
 export function isNumber(value: unknown): value is number {
   return typeof value === 'number' && value === value; // eslint-disable-line no-self-compare
 }
+
+/**
+ * 判断传入参数是否数字字符串
+ *
+ * @param value 需要判断的参数
+ * @example
+ *
+ * isNumericString('666'); // -> true
+ * isNumericString(666); // -> false
+ * isNumericString(NaN); // -> false
+ */
+export function isNumericString(value: unknown): value is `${number}` {
+  // @ts-expect-error
+  return isString(value) && !Number.isNaN(value - Number.parseFloat(value));
+}
+
+/**
+ * 判断传入参数是否是数字, 支持判断数字字符串
+ *
+ * @param value 需要判断的参数
+ * @example
+ *
+ * isNumeric(666); // -> true
+ * isNumeric('666'); // -> true
+ * isNumeric(NaN); // -> false
+ */
+export function isNumeric(value: unknown): value is number | `${number}` {
+  return isNumber(value) || isNumericString(value);
+}
