@@ -1,3 +1,5 @@
+import { isNumber, isString } from './index';
+
 /** 所有用于测试的类型 */
 const types = {
   // Undefined
@@ -136,5 +138,20 @@ describe('testTypes', () => {
         ['numericString'],
       ),
     ).toBe(false);
+  });
+});
+
+describe('is', () => {
+  test('isString', () => {
+    expect(isString('666')).toBe(true);
+    expect(isString(666)).toBe(false);
+    expect(testTypes(isString, ['string', 'numericString'])).toBe(true);
+  });
+
+  test('isNumber', () => {
+    expect(isNumber(666)).toBe(true);
+    expect(isNumber('666')).toBe(false);
+    expect(isNumber(NaN)).toBe(false);
+    expect(testTypes(isNumber, ['number'])).toBe(true);
   });
 });
