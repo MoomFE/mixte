@@ -10,7 +10,10 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "allowJs": true,
-    "types": ["vitest/globals"]
+    "types": [
+      "vite/client",
+      "vitest/globals"
+    ]
   },
   "exclude": [
     "node_modules",
