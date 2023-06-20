@@ -58,7 +58,6 @@ const types = {
   ],
   // Promise Like
   promiseLike: [
-    { then: () => {} },
     { then: () => {}, catch: () => {} },
   ],
 };
@@ -79,7 +78,7 @@ function testTypes(
 
     if (checkTypes.includes(key)) {
       for (const value of values)
-        if (fn(value)) continue;
+        if (!fn(value)) return false;
     }
     else {
       for (const value of values)
@@ -113,6 +112,15 @@ describe('testTypes', () => {
         ['string', 'numericString'],
       ),
     ).toBe(true);
+  });
+
+  test('当传入的类型中有某项不可通过测试时, 会返回 false', () => {
+    expect(
+      testTypes(
+        (obj: unknown) => obj === true,
+        ['boolean'],
+      ),
+    ).toBe(false);
   });
 
   test('当传入的类型不可通过测试时, 会返回 false', () => {
