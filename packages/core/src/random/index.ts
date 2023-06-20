@@ -39,3 +39,23 @@ export function random(...args: number[]) {
 
   return result;
 }
+
+/**
+ * 随机一个小写英文字母
+ * @example
+ *
+ * randomLowercaseLetter(); // -> a ~ z
+ */
+export function randomLowercaseLetter() {
+  return String.fromCharCode(randomNatural(97, 122));
+}
+
+/**
+ * 随机一个大写英文字母
+ * @example
+ *
+ * randomUppercaseLetter(); // -> A ~ Z
+ */
+export function randomUppercaseLetter() {
+  return String.fromCharCode(randomNatural(65, 90));
+}

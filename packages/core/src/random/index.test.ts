@@ -1,4 +1,4 @@
-import { random, randomNatural } from './index';
+import { random, randomLowercaseLetter, randomNatural, randomUppercaseLetter } from './index';
 
 describe('randomNatural', () => {
   test('在传入的两个自然数之间随机生成一个自然数', () => {
@@ -92,5 +92,31 @@ describe('random', () => {
     ).toEqual(
       Array.from({ length: 101 }, (_, i) => i),
     );
+  });
+});
+
+describe('randomLowercaseLetter', () => {
+  test('随机一个小写英文字母', () => {
+    const letters = new Set<string>();
+
+    for (let i = 0; i < 2600; i++)
+      letters.add(randomLowercaseLetter());
+
+    expect(
+      Array.from(letters).sort(),
+    ).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
+  });
+});
+
+describe('randomUppercaseLetter', () => {
+  test('随机一个大写英文字母', () => {
+    const letters = new Set<string>();
+
+    for (let i = 0; i < 2600; i++)
+      letters.add(randomUppercaseLetter());
+
+    expect(
+      Array.from(letters).sort(),
+    ).toEqual(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
   });
 });
