@@ -1,4 +1,4 @@
-import { isNumber, isNumeric, isNumericString, isString } from './index';
+import { isNumber, isNumeric, isNumericString, isObject, isPlainObject, isString } from './index';
 
 /** 所有用于测试的类型 */
 const types = {
@@ -167,5 +167,21 @@ describe('is', () => {
     expect(isNumeric('666')).toBe(true);
     expect(isNumeric(NaN)).toBe(false);
     expect(testTypes(isNumeric, ['number', 'numericString'])).toBe(true);
+  });
+
+  test('isObject', () => {
+    expect(isObject({})).toBe(true);
+    expect(isObject([])).toBe(true);
+    expect(isObject(() => {})).toBe(false);
+    expect(isObject(function () {})).toBe(false); // eslint-disable-line prefer-arrow-callback
+    expect(isObject(666)).toBe(false);
+    expect(testTypes(isObject, ['object', 'array', 'promise', 'promiseLike', 'regexp'])).toBe(true);
+  });
+
+  test('isPlainObject', () => {
+    expect(isPlainObject({})).toBe(true);
+    expect(isPlainObject(Object.create(null))).toBe(true);
+    expect(isPlainObject([])).toBe(false);
+    expect(testTypes(isPlainObject, ['object', 'promiseLike'])).toBe(true);
   });
 });
