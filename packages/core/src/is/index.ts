@@ -111,6 +111,30 @@ export function isReference(value: unknown): value is object {
 }
 
 /**
+ * 判断传入参数是否是原始类型
+ *
+ * @param value 需要判断的参数
+ * @example
+ *
+ * isPrimitive(undefined); // -> true
+ * isPrimitive(null); // -> true
+ * isPrimitive(true); // -> true
+ * isPrimitive(false); // -> true
+ * isPrimitive(666); // -> true
+ * isPrimitive(NaN); // -> true
+ * isPrimitive('666'); // -> true
+ * isPrimitive(Symbol('666')); // -> true
+ * isPrimitive(666n); // -> true
+ * isPrimitive({}); // -> false
+ * isPrimitive([]); // -> false
+ * isPrimitive(() => {}); // -> false
+ * isPrimitive(function() {}); // -> false
+ */
+export function isPrimitive(value: unknown) {
+  return !isReference(value);
+}
+
+/**
  * 判断传入对象是否是一个空对象
  * @param value 需要判断的参数
  * @example

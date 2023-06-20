@@ -1,4 +1,4 @@
-import { isEmptyObject, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isReference, isString } from './index';
+import { isEmptyObject, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isReference, isString } from './index';
 
 /** 所有用于测试的类型 */
 const types = {
@@ -200,6 +200,23 @@ describe('is', () => {
     expect(isReference(Symbol('666'))).toBe(false);
     expect(isReference(666n)).toBe(false);
     expect(testTypes(isReference, ['object', 'array', 'function', 'promise', 'promiseLike', 'regexp'])).toBe(true);
+  });
+
+  test('isPrimitive', () => {
+    expect(isPrimitive(undefined)).toBe(true);
+    expect(isPrimitive(null)).toBe(true);
+    expect(isPrimitive(true)).toBe(true);
+    expect(isPrimitive(false)).toBe(true);
+    expect(isPrimitive(666)).toBe(true);
+    expect(isPrimitive(NaN)).toBe(true);
+    expect(isPrimitive('666')).toBe(true);
+    expect(isPrimitive(Symbol('666'))).toBe(true);
+    expect(isPrimitive(666n)).toBe(true);
+    expect(isPrimitive({})).toBe(false);
+    expect(isPrimitive([])).toBe(false);
+    expect(isPrimitive(() => {})).toBe(false);
+    expect(isPrimitive(function () {})).toBe(false); // eslint-disable-line prefer-arrow-callback
+    expect(testTypes(isPrimitive, ['undefined', 'null', 'boolean', 'number', 'numericString', 'nan', 'string', 'symbol', 'bigint'])).toBe(true);
   });
 
   test('isEmptyObject', () => {
