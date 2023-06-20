@@ -1,4 +1,4 @@
-import { isNumber, isNumeric, isNumericString, isObject, isPlainObject, isString } from './index';
+import { isEmptyObject, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isString } from './index';
 
 /** 所有用于测试的类型 */
 const types = {
@@ -183,5 +183,10 @@ describe('is', () => {
     expect(isPlainObject(Object.create(null))).toBe(true);
     expect(isPlainObject([])).toBe(false);
     expect(testTypes(isPlainObject, ['object', 'promiseLike'])).toBe(true);
+  });
+
+  test('isEmptyObject', () => {
+    expect(isEmptyObject({})).toBe(true);
+    expect(isEmptyObject({ mixte: 6 })).toBe(false);
   });
 });

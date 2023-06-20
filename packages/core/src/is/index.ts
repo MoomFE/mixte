@@ -1,3 +1,5 @@
+import type { EmptyObject } from 'type-fest';
+
 /**
  * 判断传入参数是否是 String 类型
  *
@@ -82,4 +84,18 @@ export function isObject(value: unknown): value is object {
  */
 export function isPlainObject<Value = unknown>(value: unknown): value is Record<PropertyKey, Value> {
   return Object.prototype.toString.call(value) === '[object Object]';
+}
+
+/**
+ * 判断传入对象是否是一个空对象
+ * @param value 需要判断的参数
+ * @example
+ *
+ * isEmptyObject({}); // -> true
+ * isEmptyObject({ mixte: 6 }); // -> false
+ */
+export function isEmptyObject(value: any): value is EmptyObject {
+  // eslint-disable-next-line no-unreachable-loop
+  for (const a in value) return false;
+  return true;
 }
