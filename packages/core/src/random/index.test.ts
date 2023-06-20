@@ -1,4 +1,4 @@
-import { random, randomLowercaseLetter, randomNatural, randomUppercaseLetter } from './index';
+import { random, randomLetter, randomLowercaseLetter, randomNatural, randomUppercaseLetter } from './index';
 
 describe('randomNatural', () => {
   test('在传入的两个自然数之间随机生成一个自然数', () => {
@@ -118,5 +118,40 @@ describe('randomUppercaseLetter', () => {
     expect(
       Array.from(letters).sort(),
     ).toEqual(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
+  });
+});
+
+describe('randomLetter', () => {
+  test('默认随机一个小写英文字母', () => {
+    const letters = new Set<string>();
+
+    for (let i = 0; i < 2600; i++)
+      letters.add(randomLetter());
+
+    expect(
+      Array.from(letters).sort(),
+    ).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
+  });
+
+  test('传入 true, 则随机一个大写英文字母', () => {
+    const letters = new Set<string>();
+
+    for (let i = 0; i < 2600; i++)
+      letters.add(randomLetter(true));
+
+    expect(
+      Array.from(letters).sort(),
+    ).toEqual(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
+  });
+
+  test('传入 false, 则随机一个小写英文字母', () => {
+    const letters = new Set<string>();
+
+    for (let i = 0; i < 2600; i++)
+      letters.add(randomLetter(false));
+
+    expect(
+      Array.from(letters).sort(),
+    ).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
   });
 });
