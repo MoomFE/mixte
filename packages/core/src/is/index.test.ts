@@ -1,4 +1,4 @@
-import { isEmptyObject, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isString } from './index';
+import { isEmptyObject, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isReference, isString } from './index';
 
 /** 所有用于测试的类型 */
 const types = {
@@ -17,7 +17,7 @@ const types = {
   // NaN
   nan: [NaN],
   // Symbol
-  symbol: [Symbol(''), Symbol('🌟')],
+  symbol: [Symbol(''), Symbol('666'), Symbol('🌟')],
   // BigInt
   bigint: [-6n, -6n, 0n, 6n, 6n],
   // Function
@@ -183,6 +183,23 @@ describe('is', () => {
     expect(isPlainObject(Object.create(null))).toBe(true);
     expect(isPlainObject([])).toBe(false);
     expect(testTypes(isPlainObject, ['object', 'promiseLike'])).toBe(true);
+  });
+
+  test('isReference', () => {
+    expect(isReference({})).toBe(true);
+    expect(isReference([])).toBe(true);
+    expect(isReference(() => {})).toBe(true);
+    expect(isReference(function () {})).toBe(true); // eslint-disable-line prefer-arrow-callback
+    expect(isReference(undefined)).toBe(false);
+    expect(isReference(null)).toBe(false);
+    expect(isReference(true)).toBe(false);
+    expect(isReference(false)).toBe(false);
+    expect(isReference(666)).toBe(false);
+    expect(isReference(NaN)).toBe(false);
+    expect(isReference('666')).toBe(false);
+    expect(isReference(Symbol('666'))).toBe(false);
+    expect(isReference(666n)).toBe(false);
+    expect(testTypes(isReference, ['object', 'array', 'function', 'promise', 'promiseLike', 'regexp'])).toBe(true);
   });
 
   test('isEmptyObject', () => {
