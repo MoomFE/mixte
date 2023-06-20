@@ -1,4 +1,4 @@
-import { isEmptyObject, isFunction, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isReference, isString } from './index';
+import { isEmptyObject, isFunction, isNativePromise, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isPromise, isReference, isString } from './index';
 
 /** 所有用于测试的类型 */
 const types = {
@@ -192,6 +192,20 @@ describe('is', () => {
     expect(isFunction([])).toBe(false);
     expect(isFunction(666)).toBe(false);
     expect(testTypes(isFunction, ['function'])).toBe(true);
+  });
+
+  test('isNativePromise', () => {
+    expect(isNativePromise(new Promise(() => {}))).toBe(true);
+    expect(isNativePromise(Promise.resolve())).toBe(true);
+    expect(isNativePromise({ then() {}, catch() {} })).toBe(false);
+    expect(testTypes(isNativePromise, ['promise'])).toBe(true);
+  });
+
+  test('isPromise', () => {
+    expect(isPromise(new Promise(() => {}))).toBe(true);
+    expect(isPromise(Promise.resolve())).toBe(true);
+    expect(isPromise({ then() {}, catch() {} })).toBe(true);
+    expect(testTypes(isPromise, ['promise', 'promiseLike'])).toBe(true);
   });
 
   test('isReference', () => {
