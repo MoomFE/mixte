@@ -1,4 +1,4 @@
-import { isEmptyObject, isFunction, isNativePromise, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isPromise, isReference, isString } from './index';
+import { isESModule, isEmptyObject, isFunction, isNativePromise, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isPromise, isReference, isString } from './index';
 
 /** 所有用于测试的类型 */
 const types = {
@@ -253,5 +253,12 @@ describe('is', () => {
   test('isEmptyObject', () => {
     expect(isEmptyObject({})).toBe(true);
     expect(isEmptyObject({ mixte: 6 })).toBe(false);
+  });
+
+  test('isESModule', async () => {
+    expect(isESModule({ __esModule: true })).toBe(true);
+    expect(isESModule({ [Symbol.toStringTag]: 'Module' })).toBe(true);
+    expect(isESModule(import.meta.glob('./index.ts', { eager: true })['./index.ts'])).toBe(true);
+    expect(isESModule({})).toBe(false);
   });
 });

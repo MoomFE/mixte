@@ -193,3 +193,19 @@ export function isEmptyObject(value: any): value is EmptyObject {
   for (const a in value) return false;
   return true;
 }
+
+/**
+ * 判断传入参数是否是 ES Module
+ *
+ * @param value 需要判断的参数
+ * @example
+ *
+ * isESModule(await import('https://unpkg.com/vue')); // -> true
+ * isESModule({}); // -> false
+ */
+export function isESModule<T = any>(module: any): module is { default: T } {
+  return (
+    typeof module === 'object'
+    && (module.__esModule === true || module[Symbol.toStringTag] === 'Module')
+  );
+}
