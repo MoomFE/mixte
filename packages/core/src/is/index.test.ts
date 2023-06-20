@@ -1,4 +1,4 @@
-import { isEmptyObject, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isReference, isString } from './index';
+import { isEmptyObject, isFunction, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isReference, isString } from './index';
 
 /** 所有用于测试的类型 */
 const types = {
@@ -183,6 +183,15 @@ describe('is', () => {
     expect(isPlainObject(Object.create(null))).toBe(true);
     expect(isPlainObject([])).toBe(false);
     expect(testTypes(isPlainObject, ['object', 'promiseLike'])).toBe(true);
+  });
+
+  test('isFunction', () => {
+    expect(isFunction(() => {})).toBe(true);
+    expect(isFunction(function () {})).toBe(true); // eslint-disable-line prefer-arrow-callback
+    expect(isFunction({})).toBe(false);
+    expect(isFunction([])).toBe(false);
+    expect(isFunction(666)).toBe(false);
+    expect(testTypes(isFunction, ['function'])).toBe(true);
   });
 
   test('isReference', () => {
