@@ -1,4 +1,4 @@
-import { random, randomLetter, randomLowercaseLetter, randomNatural, randomUppercaseLetter } from './index';
+import { random, randomLetter, randomLowercaseLetter, randomNatural, randomString, randomUppercaseLetter } from './index';
 
 describe('randomNatural', () => {
   test('在传入的两个自然数之间随机生成一个自然数', () => {
@@ -153,5 +153,154 @@ describe('randomLetter', () => {
     expect(
       Array.from(letters).sort(),
     ).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
+  });
+});
+
+describe('randomString', () => {
+  test('默认生成一个长度为 12 的随机小写字母字符串', () => {
+    for (let i = 0; i < 1000; i++)
+      expect(randomString().length).toEqual(12);
+  });
+
+  test('首个参数可以指定生成的字符串长度', () => {
+    for (let i = 0; i < 1000; i++)
+      expect(randomString(i).length).toEqual(i);
+  });
+
+  test('指定生成仅有小写字母的字符串, 这也是默认生成规则', () => {
+    for (let i = 100; i < 1000; i++) {
+      const str = randomString(i);
+      const str2 = randomString(i, {
+        lowercase: true,
+      });
+
+      expect(str.length).toEqual(i);
+      expect(str2.length).toEqual(i);
+      expect(/^[a-z]+$/.test(str)).toEqual(true);
+      expect(/^[a-z]+$/.test(str2)).toEqual(true);
+    }
+  });
+
+  test('指定生成仅有大写字母的字符串', () => {
+    for (let i = 100; i < 1000; i++) {
+      const str = randomString(i, {
+        lowercase: false,
+        uppercase: true,
+      });
+
+      expect(str.length).toEqual(i);
+      expect(/^[A-Z]+$/.test(str)).toEqual(true);
+    }
+  });
+
+  test('指定生成仅有数字的字符串', () => {
+    for (let i = 100; i < 1000; i++) {
+      const str = randomString(i, {
+        lowercase: false,
+        uppercase: false,
+        number: true,
+      });
+      const str2 = randomString(i, {
+        lowercase: false,
+        number: true,
+      });
+
+      expect(str.length).toEqual(i);
+      expect(str2.length).toEqual(i);
+      expect(/^[0-9]+$/.test(str)).toEqual(true);
+      expect(/^[0-9]+$/.test(str2)).toEqual(true);
+    }
+  });
+
+  test('指定生成包含小写字母和大写字母的字符串', () => {
+    for (let i = 100; i < 1000; i++) {
+      const str = randomString(i, {
+        uppercase: true,
+      });
+      const str2 = randomString(i, {
+        lowercase: true,
+        uppercase: true,
+      });
+
+      expect(str.length).toEqual(i);
+      expect(str2.length).toEqual(i);
+      expect(/^[a-zA-Z]+$/.test(str)).toEqual(true);
+      expect(/^[a-zA-Z]+$/.test(str2)).toEqual(true);
+      expect(/^[a-z]+$/.test(str)).toEqual(false);
+      expect(/^[a-z]+$/.test(str2)).toEqual(false);
+      expect(/^[A-Z]+$/.test(str)).toEqual(false);
+      expect(/^[A-Z]+$/.test(str2)).toEqual(false);
+    }
+  });
+
+  test('指定生成包含小写字母和数字的字符串', () => {
+    for (let i = 100; i < 1000; i++) {
+      const str = randomString(i, {
+        number: true,
+      });
+      const str2 = randomString(i, {
+        lowercase: true,
+        number: true,
+      });
+
+      expect(str.length).toEqual(i);
+      expect(str2.length).toEqual(i);
+      expect(/^[a-z0-9]+$/.test(str)).toEqual(true);
+      expect(/^[a-z0-9]+$/.test(str2)).toEqual(true);
+      expect(/^[a-z]+$/.test(str)).toEqual(false);
+      expect(/^[a-z]+$/.test(str2)).toEqual(false);
+      expect(/^[0-9]+$/.test(str)).toEqual(false);
+      expect(/^[0-9]+$/.test(str2)).toEqual(false);
+    }
+  });
+
+  test('指定生成包含大写字母和数字的字符串', () => {
+    for (let i = 100; i < 1000; i++) {
+      const str = randomString(i, {
+        lowercase: false,
+        uppercase: true,
+        number: true,
+      });
+
+      expect(str.length).toEqual(i);
+      expect(/^[A-Z0-9]+$/.test(str)).toEqual(true);
+      expect(/^[A-Z]+$/.test(str)).toEqual(false);
+      expect(/^[0-9]+$/.test(str)).toEqual(false);
+    }
+  });
+
+  test('指定生成包含小写字母、大写字母和数字的字符串', () => {
+    for (let i = 100; i < 1000; i++) {
+      const str = randomString(i, {
+        uppercase: true,
+        number: true,
+      });
+      const str2 = randomString(i, {
+        lowercase: true,
+        uppercase: true,
+        number: true,
+      });
+
+      expect(str.length).toEqual(i);
+      expect(str2.length).toEqual(i);
+      expect(/^[a-zA-Z0-9]+$/.test(str)).toEqual(true);
+      expect(/^[a-zA-Z0-9]+$/.test(str2)).toEqual(true);
+      expect(/^[a-z]+$/.test(str)).toEqual(false);
+      expect(/^[a-z]+$/.test(str2)).toEqual(false);
+      expect(/^[A-Z]+$/.test(str)).toEqual(false);
+      expect(/^[A-Z]+$/.test(str2)).toEqual(false);
+      expect(/^[0-9]+$/.test(str)).toEqual(false);
+      expect(/^[0-9]+$/.test(str2)).toEqual(false);
+    }
+  });
+
+  test('关闭所有选项, 方法将会报错', () => {
+    expect(() => {
+      randomString(10, {
+        lowercase: false,
+        uppercase: false,
+        number: false,
+      });
+    }).toThrow('???');
   });
 });
