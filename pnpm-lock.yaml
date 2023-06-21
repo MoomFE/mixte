@@ -38,6 +38,8 @@ importers:
 
   packages/core: {}
 
+  packages/use: {}
+
 packages:
 
   /@ampproject/remapping@2.2.1:

@@ -6,6 +6,10 @@
     {
       "path": "packages/core",
       "name": "Core"
+    },
+    {
+      "path": "packages/use",
+      "name": "Use"
     }
   ],
   "settings": {
@@ -17,7 +21,8 @@
     "files.exclude": {
       "*.code-workspace": true,
       "node_modules": true,
-      "packages/core": true
+      "packages/core": true,
+      "packages/use": true
     },
     "eslint.quiet": true,
     "eslint.validate": [
