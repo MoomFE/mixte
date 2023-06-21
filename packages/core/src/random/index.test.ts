@@ -1,4 +1,4 @@
-import { random, randomLetter, randomLowercaseLetter, randomNatural, randomString, randomUppercaseLetter } from './index';
+import { random, randomBoolean, randomLetter, randomLowercaseLetter, randomNatural, randomString, randomUppercaseLetter } from './index';
 
 describe('randomNatural', () => {
   test('在传入的两个自然数之间随机生成一个自然数', () => {
@@ -302,5 +302,20 @@ describe('randomString', () => {
         number: false,
       });
     }).toThrow('???');
+  });
+});
+
+describe('randomBoolean', () => {
+  test('生成一个随机的 boolean 值', () => {
+    const booleans = new Set<boolean>();
+
+    for (let i = 0; i < 200; i++)
+      booleans.add(randomBoolean());
+
+    expect(
+      Array.from(booleans).sort(),
+    ).toEqual(
+      [false, true],
+    );
   });
 });

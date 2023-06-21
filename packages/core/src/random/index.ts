@@ -118,3 +118,13 @@ export function randomString(length = 12, options: RandomStringOptions = {}) {
 
   return result;
 }
+
+/**
+ * 生成一个随机的 boolean 值
+ * @example
+ *
+ * randomBoolean(); // -> true or false
+ */
+export function randomBoolean() {
+  return Math.random() < 0.5;
+}
