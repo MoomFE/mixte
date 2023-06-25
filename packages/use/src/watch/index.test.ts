@@ -1,5 +1,5 @@
 import { nextTick, ref, watch } from 'vue-demi';
-import { watchImmediate } from './index';
+import { watchDeep, watchImmediate, watchImmediateDeep } from './index';
 
 describe('watchImmediate', () => {
   test('immediate 默认为 true 的 watch 方法', async () => {
@@ -63,5 +63,129 @@ describe('watchImmediate', () => {
     expect(fn1.mock.calls[0].slice(0, 2)).toEqual([2, 1]);
     expect(fn2).toHaveBeenCalledTimes(1);
     expect(fn2.mock.calls[0].slice(0, 2)).toEqual([2, 1]);
+  });
+});
+
+describe('watchDeep', () => {
+  test('deep 默认为 true 的 watch 方法', async () => {
+    const a = ref({ b: 1 });
+    const watchFns = {
+      fn1: () => {},
+      fn2: () => {},
+      fn3: () => {},
+    };
+
+    const fn1 = vi.spyOn(watchFns, 'fn1');
+    const fn2 = vi.spyOn(watchFns, 'fn2');
+    const fn3 = vi.spyOn(watchFns, 'fn3');
+
+    watch(a, watchFns.fn1);
+    watch(a, watchFns.fn2, { deep: true });
+    watchDeep(a, watchFns.fn3);
+
+    expect(fn1).not.toHaveBeenCalled();
+    expect(fn2).not.toHaveBeenCalled();
+    expect(fn3).not.toHaveBeenCalled();
+
+    a.value.b = 2;
+    await nextTick();
+    expect(fn1).not.toHaveBeenCalled();
+    expect(fn2).toHaveBeenCalledTimes(1);
+    expect(fn3).toHaveBeenCalledTimes(1);
+
+    a.value.b = 3;
+    await nextTick();
+    expect(fn1).not.toHaveBeenCalled();
+    expect(fn2).toHaveBeenCalledTimes(2);
+    expect(fn3).toHaveBeenCalledTimes(2);
+  });
+
+  test('重新传入 deep 选项是无效的', async () => {
+    const a = ref({ b: 1 });
+    const watchFns = {
+      fn1: () => {},
+      fn2: () => {},
+    };
+
+    const fn1 = vi.spyOn(watchFns, 'fn1');
+    const fn2 = vi.spyOn(watchFns, 'fn2');
+
+    watchDeep(a, watchFns.fn1);
+    watchDeep(a, watchFns.fn2, { deep: false } as any);
+
+    expect(fn1).not.toHaveBeenCalled();
+    expect(fn2).not.toHaveBeenCalled();
+
+    a.value.b = 2;
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(1);
+    expect(fn2).toHaveBeenCalledTimes(1);
+
+    a.value.b = 3;
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(2);
+    expect(fn2).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('watchImmediateDeep', () => {
+  test('immediate 和 deep 都为 true 的 watch 方法', async () => {
+    const a = ref({ b: 1 });
+    const watchFns = {
+      fn1: () => {},
+      fn2: () => {},
+      fn3: () => {},
+    };
+
+    const fn1 = vi.spyOn(watchFns, 'fn1');
+    const fn2 = vi.spyOn(watchFns, 'fn2');
+    const fn3 = vi.spyOn(watchFns, 'fn3');
+
+    watch(a, watchFns.fn1);
+    watch(a, watchFns.fn2, { immediate: true, deep: true });
+    watchImmediateDeep(a, watchFns.fn3);
+
+    expect(fn1).not.toHaveBeenCalled();
+    expect(fn2).toHaveBeenCalledTimes(1);
+    expect(fn3).toHaveBeenCalledTimes(1);
+
+    a.value.b = 2;
+    await nextTick();
+    expect(fn1).not.toHaveBeenCalled();
+    expect(fn2).toHaveBeenCalledTimes(2);
+    expect(fn3).toHaveBeenCalledTimes(2);
+
+    a.value.b = 3;
+    await nextTick();
+    expect(fn1).not.toHaveBeenCalled();
+    expect(fn2).toHaveBeenCalledTimes(3);
+    expect(fn3).toHaveBeenCalledTimes(3);
+  });
+
+  test('重新传入 immediate 和 deep 选项是无效的', async () => {
+    const a = ref({ b: 1 });
+    const watchFns = {
+      fn1: () => {},
+      fn2: () => {},
+    };
+
+    const fn1 = vi.spyOn(watchFns, 'fn1');
+    const fn2 = vi.spyOn(watchFns, 'fn2');
+
+    watchImmediateDeep(a, watchFns.fn1);
+    watchImmediateDeep(a, watchFns.fn2, { immediate: false, deep: false } as any);
+
+    expect(fn1).toHaveBeenCalledTimes(1);
+    expect(fn2).toHaveBeenCalledTimes(1);
+
+    a.value.b = 2;
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(2);
+    expect(fn2).toHaveBeenCalledTimes(2);
+
+    a.value.b = 3;
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(3);
+    expect(fn2).toHaveBeenCalledTimes(3);
   });
 });
