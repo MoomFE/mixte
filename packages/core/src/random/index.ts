@@ -29,7 +29,7 @@ export function random(...args: number[]) {
   if (from > to)
     [from, to] = [to, from];
 
-  if (from > 0)
+  if (from >= 0)
     return randomNatural(from, to);
 
   const result = randomNatural(0, to + Math.abs(from));
