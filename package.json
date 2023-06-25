@@ -18,11 +18,12 @@
   "scripts": {
     "build": "unbuild",
     "test": "vitest",
-    "test:ui": "vitest --ui",
+    "test:ui": "vitest --coverage --ui",
     "up": "npx taze latest -r -w -i"
   },
   "devDependencies": {
     "@moomfe/eslint-config": "^2.6.0",
+    "@vitest/coverage-v8": "^0.32.2",
     "@vitest/ui": "^0.32.2",
     "eslint": "^8.43.0",
     "pnpm": "^8.6.3",
