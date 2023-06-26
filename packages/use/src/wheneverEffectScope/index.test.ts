@@ -1,5 +1,5 @@
 import { nextTick, ref, watch } from 'vue-demi';
-import { wheneverEffectScope } from './index';
+import { wheneverEffectScope, wheneverEffectScopeImmediate } from './index';
 
 describe('wheneverEffectScope', () => {
   test('监听传入值为 truthy 时, 创建一个 effect 作用域', async () => {
@@ -230,5 +230,67 @@ describe('wheneverEffectScope', () => {
 
     source.value = 4;
     expect(value.value).toBe(3);
+  });
+});
+
+describe('wheneverEffectScopeImmediate', () => {
+  test('immediate 默认为 true 的 wheneverEffectScope 方法', async () => {
+    const source = ref<number | boolean>(1);
+    const watchFns = {
+      fn1: () => {},
+      fn2: () => {},
+      fn3: () => {},
+    };
+
+    const fn1 = vi.spyOn(watchFns, 'fn1');
+    const fn2 = vi.spyOn(watchFns, 'fn2');
+    const fn3 = vi.spyOn(watchFns, 'fn3');
+
+    wheneverEffectScope(source, watchFns.fn1);
+    wheneverEffectScope(source, watchFns.fn2, { immediate: true });
+    wheneverEffectScopeImmediate(source, watchFns.fn3);
+
+    expect(fn1).not.toHaveBeenCalled();
+    expect(fn2).toHaveBeenCalledTimes(1);
+    expect(fn3).toHaveBeenCalledTimes(1);
+
+    source.value = 2;
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(1);
+    expect(fn2).toHaveBeenCalledTimes(2);
+    expect(fn3).toHaveBeenCalledTimes(2);
+
+    source.value = false;
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(1);
+    expect(fn2).toHaveBeenCalledTimes(2);
+    expect(fn3).toHaveBeenCalledTimes(2);
+  });
+
+  test('重新传入 immediate 选项是无效的', async () => {
+    const source = ref<number | boolean>(1);
+    const watchFns = {
+      fn1: () => {},
+      fn2: () => {},
+    };
+
+    const fn1 = vi.spyOn(watchFns, 'fn1');
+    const fn2 = vi.spyOn(watchFns, 'fn2');
+
+    wheneverEffectScopeImmediate(source, watchFns.fn1);
+    wheneverEffectScopeImmediate(source, watchFns.fn2, { immediate: false } as any);
+
+    expect(fn1).toHaveBeenCalledTimes(1);
+    expect(fn2).toHaveBeenCalledTimes(1);
+
+    source.value = 2;
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(2);
+    expect(fn2).toHaveBeenCalledTimes(2);
+
+    source.value = false;
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(2);
+    expect(fn2).toHaveBeenCalledTimes(2);
   });
 });
