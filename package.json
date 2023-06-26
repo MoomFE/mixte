@@ -16,7 +16,7 @@
   },
   "keywords": [],
   "scripts": {
-    "build": "unbuild",
+    "build": "tsx scripts/build.ts",
     "test": "vitest",
     "test:ui": "vitest --coverage --ui",
     "up": "npx taze latest -r -w -i"
@@ -29,9 +29,10 @@
     "eslint": "^8.43.0",
     "pnpm": "^8.6.3",
     "simple-git-hooks": "^2.8.1",
+    "tsx": "^3.12.7",
     "type-fest": "^3.12.0",
     "typescript": "^5.1.3",
-    "unbuild": "^1.2.1",
+    "vite": "^4.3.9",
     "vitest": "^0.32.2"
   },
   "simple-git-hooks": {
