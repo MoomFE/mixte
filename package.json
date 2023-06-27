@@ -2,7 +2,7 @@
   "name": "@mixte/monorepo",
   "type": "module",
   "version": "0.0.0",
-  "packageManager": "pnpm@8.6.3",
+  "packageManager": "pnpm@8.6.5",
   "description": "",
   "author": "Wei Zhang <https://github.com/Zhang-Wei-666>",
   "license": "MIT",
@@ -17,7 +17,7 @@
   "keywords": [],
   "scripts": {
     "build": "tsx scripts/build.ts",
-    "test": "vitest",
+    "test": "vitest --coverage",
     "test:ui": "vitest --coverage --ui",
     "up": "npx taze latest -r -w -i"
   },
@@ -27,7 +27,7 @@
     "@vitest/ui": "^0.32.2",
     "@vueuse/core": "^10.2.0",
     "eslint": "^8.43.0",
-    "pnpm": "^8.6.3",
+    "pnpm": "^8.6.5",
     "simple-git-hooks": "^2.8.1",
     "tsx": "^3.12.7",
     "type-fest": "^3.12.0",
