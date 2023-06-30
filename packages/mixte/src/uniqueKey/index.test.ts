@@ -1,4 +1,4 @@
-import { uniqueKey, uniqueKeyCustomizer } from './index';
+import { uniqueKey, uniqueKeyCustomizer } from 'mixte';
 
 describe('uniqueKey', () => {
   test('使用传入方法为数组中对象的某个字段生成一个唯一的 key', () => {

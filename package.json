@@ -18,8 +18,11 @@
     "build": "tsx scripts/build.ts",
     "test": "vitest --coverage",
     "test:ui": "vitest --coverage --ui",
+    "test-build": "npm run build && vitest --mode test-build",
+    "test-build:ui": "vitest --mode test-build --ui",
+    "test-release": "vitest --run && npm run build && vitest --mode test-build --run",
     "up": "npx taze latest -r -w -i",
-    "release": "vitest --run && npx bumpp -r --no-tag --no-push"
+    "release": "npm run test-release && npx bumpp -r --no-tag --no-push"
   },
   "devDependencies": {
     "@moomfe/eslint-config": "^2.6.0",

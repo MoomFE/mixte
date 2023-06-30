@@ -1,4 +1,4 @@
-import { delay, wait } from './index';
+import { delay, wait } from 'mixte';
 
 describe('delay', () => {
   test('方法返回一个 Promise', () => {

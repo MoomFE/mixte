@@ -1,4 +1,4 @@
-import { random, randomBoolean, randomLetter, randomLowercaseLetter, randomNatural, randomString, randomUppercaseLetter } from './index';
+import { random, randomBoolean, randomLetter, randomLowercaseLetter, randomNatural, randomString, randomUppercaseLetter } from 'mixte';
 
 describe('randomNatural', () => {
   test('在传入的两个自然数之间随机生成一个自然数', () => {

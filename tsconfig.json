@@ -13,7 +13,11 @@
     "types": [
       "vite/client",
       "vitest/globals"
-    ]
+    ],
+    "paths": {
+      "mixte": ["./packages/mixte"],
+      "@mixte/*": ["./packages/*"],
+    }
   },
   "exclude": [
     "node_modules",
