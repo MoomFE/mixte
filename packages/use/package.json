@@ -3,6 +3,14 @@
   "version": "0.0.0",
   "author": "Wei Zhang <https://github.com/Zhang-Wei-666>",
   "license": "MIT",
+  "homepage": "https://github.com/MoomFE/mixte#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MoomFE/mixte.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MoomFE/mixte/issues"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
