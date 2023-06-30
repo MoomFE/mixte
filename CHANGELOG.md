@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [v0.0.1-beta.3]
+  - 📅 2023-06-30
+  - 🐞 [mixte] 修复 `uniqueKey`, `delay`, `wait` 工具方法未导出的问题
+
 ## [v0.0.1-beta.2]
   - 📅 2023-06-30
   - 🌟 [mixte] 新增 `uniqueKey` 工具方法
@@ -50,6 +54,7 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.2...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.3...HEAD
+[v0.0.1-beta.3]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.3
 [v0.0.1-beta.2]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.2
 [v0.0.1-beta.1]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.1
