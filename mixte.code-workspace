@@ -4,8 +4,8 @@
       "path": "."
     },
     {
-      "path": "packages/core",
-      "name": "Core"
+      "path": "packages/mixte",
+      "name": "Mixte"
     },
     {
       "path": "packages/use",

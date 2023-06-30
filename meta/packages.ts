@@ -1,4 +1,4 @@
 export const packages = [
-  { name: 'core' },
+  { name: 'mixte' },
   { name: 'use' },
 ];

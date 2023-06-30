@@ -2,27 +2,27 @@
 
 ## [v0.0.1-beta.2]
   - 📅 2023-06-30
-  - 🌟 [core] 新增 `uniqueKey` 工具方法
-  - 🐞 [core] 修复 `delay`, `wait` 工具方法未导出的问题
+  - 🌟 [mixte] 新增 `uniqueKey` 工具方法
+  - 🐞 [mixte] 修复 `delay`, `wait` 工具方法未导出的问题
 
 ## [v0.0.1-beta.1]
   - 📅 2023-06-30
-  - 🌟 [core] 新增 `isString` 工具方法
-  - 🌟 [core] 新增 `isNumber`, `isNumericString`, `isNumeric` 工具方法
-  - 🌟 [core] 新增 `isObject`, `isPlainObject` 工具方法
-  - 🌟 [core] 新增 `isFunction` 工具方法
-  - 🌟 [core] 新增 `isNativePromise`, `isPromise` 工具方法
-  - 🌟 [core] 新增 `isReference`, `isPrimitive` 工具方法
-  - 🌟 [core] 新增 `isEmptyObject` 工具方法
-  - 🌟 [core] 新增 `isESModule` 工具方法
-  - 🌟 [core] 新增 `randomNatural`, `random` 工具方法
-  - 🌟 [core] 新增 `randomLowercaseLetter`, `randomUppercaseLetter`, `randomLetter` 工具方法
-  - 🌟 [core] 新增 `randomString` 工具方法
-  - 🌟 [core] 新增 `randomBoolean` 工具方法
-  - 🌟 [core] 新增 `delay`, `wait` 工具方法
-  - 🌟 [use] 新增 `watchImmediate`, `watchDeep`, `watchImmediateDeep` 方法
-  - 🌟 [use] 新增 `wheneverImmediate`, `wheneverDeep`, `wheneverImmediateDeep` 方法
-  - 🌟 [use] 新增 `wheneverEffectScope`, `wheneverEffectScopeImmediate` 方法
+  - 🌟 [mixte] 新增 `isString` 工具方法
+  - 🌟 [mixte] 新增 `isNumber`, `isNumericString`, `isNumeric` 工具方法
+  - 🌟 [mixte] 新增 `isObject`, `isPlainObject` 工具方法
+  - 🌟 [mixte] 新增 `isFunction` 工具方法
+  - 🌟 [mixte] 新增 `isNativePromise`, `isPromise` 工具方法
+  - 🌟 [mixte] 新增 `isReference`, `isPrimitive` 工具方法
+  - 🌟 [mixte] 新增 `isEmptyObject` 工具方法
+  - 🌟 [mixte] 新增 `isESModule` 工具方法
+  - 🌟 [mixte] 新增 `randomNatural`, `random` 工具方法
+  - 🌟 [mixte] 新增 `randomLowercaseLetter`, `randomUppercaseLetter`, `randomLetter` 工具方法
+  - 🌟 [mixte] 新增 `randomString` 工具方法
+  - 🌟 [mixte] 新增 `randomBoolean` 工具方法
+  - 🌟 [mixte] 新增 `delay`, `wait` 工具方法
+  - 🌟 [@mixte/use] 新增 `watchImmediate`, `watchDeep`, `watchImmediateDeep` 方法
+  - 🌟 [@mixte/use] 新增 `wheneverImmediate`, `wheneverDeep`, `wheneverImmediateDeep` 方法
+  - 🌟 [@mixte/use] 新增 `wheneverEffectScope`, `wheneverEffectScopeImmediate` 方法
 
 <br>
 <hr>
