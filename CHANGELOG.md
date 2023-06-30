@@ -1,7 +1,7 @@
 ## [Unreleased]
 
 ## [v0.0.1-beta.1]
-  - 📅 2023-06-06
+  - 📅 2023-06-30
   - 🌟 [core] 新增 `isString` 工具方法
   - 🌟 [core] 新增 `isNumber`, `isNumericString`, `isNumeric` 工具方法
   - 🌟 [core] 新增 `isObject`, `isPlainObject` 工具方法
