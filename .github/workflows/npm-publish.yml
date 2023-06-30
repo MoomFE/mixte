@@ -26,4 +26,4 @@ jobs:
           pnpm build
 
       - name: Publish
-        run: pnpm publish -r --access public --publish-branch main -otp ${{secrets.NPM_TOKEN}}
+        run: pnpm publish -r --access public --no-git-checks -otp ${{secrets.NPM_TOKEN}}
