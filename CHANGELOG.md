@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v0.0.1-beta.1]
+  - 📅 2023-06-06
   - 🌟 [core] 新增 `isString` 工具方法
   - 🌟 [core] 新增 `isNumber`, `isNumericString`, `isNumeric` 工具方法
   - 🌟 [core] 新增 `isObject`, `isPlainObject` 工具方法
@@ -42,4 +45,5 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/main%40%7B666666666666666666day%7D...main
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.1...HEAD
+[v0.0.1-beta.1]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.1
