@@ -1,6 +1,6 @@
 {
   "name": "@mixte/monorepo",
-  "version": "0.0.0",
+  "version": "0.0.1-beta.0",
   "packageManager": "pnpm@8.6.5",
   "description": "",
   "author": "Wei Zhang <https://github.com/Zhang-Wei-666>",
@@ -18,7 +18,8 @@
     "build": "tsx scripts/build.ts",
     "test": "vitest --coverage",
     "test:ui": "vitest --coverage --ui",
-    "up": "npx taze latest -r -w -i"
+    "up": "npx taze latest -r -w -i",
+    "release": "vitest --run && npx bumpp -r"
   },
   "devDependencies": {
     "@moomfe/eslint-config": "^2.6.0",
