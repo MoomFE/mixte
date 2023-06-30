@@ -44,6 +44,22 @@ describe('uniqueKey', () => {
       arr.push({ id });
     }
   });
+
+  test('第一个参数不是数组时, 抛出错误', () => {
+    expect(() => uniqueKey(undefined as any)).toThrow('???');
+    expect(() => uniqueKey(null as any)).toThrow('???');
+    expect(() => uniqueKey('' as any)).toThrow('???');
+    expect(() => uniqueKey(0 as any)).toThrow('???');
+    expect(() => uniqueKey(true as any)).toThrow('???');
+    expect(() => uniqueKey(false as any)).toThrow('???');
+    expect(() => uniqueKey(NaN as any)).toThrow('???');
+    expect(() => uniqueKey(Symbol('') as any)).toThrow('???');
+    expect(() => uniqueKey(0n as any)).toThrow('???');
+    expect(() => uniqueKey((() => {}) as any)).toThrow('???');
+    expect(() => uniqueKey({} as any)).toThrow('???');
+    expect(() => uniqueKey(/^🌟$/ as any)).toThrow('???');
+    expect(() => uniqueKey(Promise.resolve() as any)).toThrow('???');
+  });
 });
 
 describe('uniqueKeyCustomizer', () => {
