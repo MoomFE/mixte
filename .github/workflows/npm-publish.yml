@@ -1,6 +1,7 @@
 name: Node.js Package
 
 on:
+  workflow_dispatch:
   release:
     types: [released]
 
@@ -25,4 +26,4 @@ jobs:
           pnpm build
 
       - name: Publish
-        run: pnpm publish -r --access public -otp ${{secrets.NPM_TOKEN}}
+        run: pnpm publish -r --access public --publish-branch main -otp ${{secrets.NPM_TOKEN}}
