@@ -19,7 +19,7 @@
     "test": "vitest --coverage",
     "test:ui": "vitest --coverage --ui",
     "up": "npx taze latest -r -w -i",
-    "release": "vitest --run && npx bumpp -r --no-push"
+    "release": "vitest --run && npx bumpp -r --no-tag --no-push"
   },
   "devDependencies": {
     "@moomfe/eslint-config": "^2.6.0",
