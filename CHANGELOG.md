@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v0.0.1-beta.5]
+  - 📅 2023-07-01
   - 🌟 [@mixte/use] 新增供 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) 使用的按需导入
 
 ## [v0.0.1-beta.4]
@@ -59,7 +62,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.4...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.5...HEAD
+[v0.0.1-beta.5]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.5
 [v0.0.1-beta.4]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.4
 [v0.0.1-beta.3]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.3
 [v0.0.1-beta.2]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.2
