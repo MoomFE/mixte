@@ -17,6 +17,11 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     },
+    "./vite": {
+      "types": "./dist/vite/index.d.ts",
+      "require": "./dist/vite/index.cjs",
+      "import": "./dist/vite/index.mjs"
+    },
     "./*": "./*"
   },
   "main": "./dist/index.cjs",
