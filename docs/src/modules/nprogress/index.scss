@@ -1,0 +1,9 @@
+#nprogress{
+  @apply pointer-events-none;
+
+  .bar{
+    @apply bg-(primary op-75);
+    @apply fixed top-0 left-0 z-[1031];
+    @apply w-full h-0.5;
+  }
+}
