@@ -21,7 +21,7 @@
     "files.exclude": {
       "*.code-workspace": true,
       "node_modules": true,
-      "packages/core": true,
+      "packages/mixte": true,
       "packages/use": true
     },
     "eslint.quiet": true,
