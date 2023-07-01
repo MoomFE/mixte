@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v0.0.1-beta.7]
+  - 📅 2023-07-01
   - 💄 [@mixte/use] 使按需导入可使用 `@mixte/use/vite` 使用
 
 ## [v0.0.1-beta.6]
@@ -68,6 +71,7 @@ CHANGELOG 图标规范
 <br>
 
 [Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.6...HEAD
+[v0.0.1-beta.7]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.7
 [v0.0.1-beta.6]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.6
 [v0.0.1-beta.5]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.5
 [v0.0.1-beta.4]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.4
