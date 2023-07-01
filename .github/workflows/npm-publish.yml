@@ -11,12 +11,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
 
-      - name: Use Node.js v16
+      - name: Install pnpm
+        run: npm install pnpm -g
+
+      - name: Use Node.js v18
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           registry-url: https://registry.npmjs.org/
           cache: pnpm
 
