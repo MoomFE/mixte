@@ -14,19 +14,21 @@ const externals = [
   'vue-demi',
 ];
 
-for (const { name } of packages) {
-  const input = `packages/${name}/index.ts`;
+for (const { name, external } of packages) {
+  const dir = name.split('/')[0];
+  const file = name.split('/').slice(1).join('/') || 'index';
+  const input = `packages/${dir}/${file}.ts`;
   const output: OutputOptions[] = [];
 
   // es
   output.push({
-    file: `packages/${name}/dist/index.mjs`,
+    file: `packages/${dir}/dist/${file}.mjs`,
     format: 'es',
   });
 
   // cjs
   output.push({
-    file: `packages/${name}/dist/index.cjs`,
+    file: `packages/${dir}/dist/${file}.cjs`,
     format: 'cjs',
   });
 
@@ -34,18 +36,18 @@ for (const { name } of packages) {
     input,
     output,
     plugins: [pluginEsbuild],
-    external: externals,
+    external: externals.concat(external || []),
   });
 
   // dts
   configs.push({
     input,
     output: {
-      file: `packages/${name}/dist/index.d.ts`,
+      file: `packages/${dir}/dist/${file}.d.ts`,
       format: 'es',
     },
     plugins: [pluginDts],
-    external: externals,
+    external: externals.concat(external || []),
   });
 }
 

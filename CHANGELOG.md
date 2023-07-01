@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/use] 新增供 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) 使用的按需导入
 
 ## [v0.0.1-beta.4]
   - 📅 2023-07-01
