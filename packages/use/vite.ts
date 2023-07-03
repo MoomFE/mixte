@@ -12,20 +12,23 @@ import type { ImportsMap } from 'unplugin-auto-import/types';
  * export default defineConfig({
  *   plugins: [
  *     AutoImport({
- *       imports: [MixteUseAutoImport]
+ *       imports: [MixteUseAutoImport()]
  *     }),
  *   ],
  * })
  */
-export const MixteUseAutoImport: ImportsMap = {
-  '@mixte/use': [
-    'watchDeep',
-    'watchImmediate',
-    'watchImmediateDeep',
-    'wheneverDeep',
-    'wheneverEffectScope',
-    'wheneverEffectScopeImmediate',
-    'wheneverImmediate',
-    'wheneverImmediateDeep',
-  ],
-};
+export function MixteUseAutoImport(): ImportsMap {
+  return {
+    '@mixte/use': [
+      'watchDeep',
+      'watchImmediate',
+      'watchImmediateDeep',
+      'whenever',
+      'wheneverDeep',
+      'wheneverEffectScope',
+      'wheneverEffectScopeImmediate',
+      'wheneverImmediate',
+      'wheneverImmediateDeep',
+    ],
+  };
+}

@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         'mixte': resolve(packagesDir, isTestBuild ? 'mixte/dist/index' : 'mixte/index'),
+        '@mixte/use/vite': resolve(packagesDir, isTestBuild ? 'use/dist/vite' : 'use/vite'),
         '@mixte/use': resolve(packagesDir, isTestBuild ? 'use/dist/index' : 'use/index'),
       },
     },
