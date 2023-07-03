@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v0.0.1-beta.8]
+  - 📅 2023-07-03
   - 🌟 [@mixte/use] 新增 `wheneverEffectScopeDeep`, `wheneverEffectScopeImmediateDeep` 方法
   - 🌟 [@mixte/use] 新增 `whenever` 方法, 来自 `@vueuse/core`
   - 🌟 [@mixte/use] 按需导入支持传入 `useWithVueUseCore` 选项排除与 `@vueuse/core` 功能相同且名称相同的方法
@@ -74,7 +77,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.6...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.8...HEAD
+[v0.0.1-beta.8]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.8
 [v0.0.1-beta.7]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.7
 [v0.0.1-beta.6]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.6
 [v0.0.1-beta.5]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.5
