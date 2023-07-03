@@ -21,3 +21,5 @@ export function wheneverDeep<T>(source: WatchSource<T | false | null | undefined
 export function wheneverImmediateDeep<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: Omit<WatchOptions, 'immediate' | 'deep'>) {
   return whenever(source, cb, { ...options, immediate: true, deep: true });
 }
+
+export { whenever } from '@vueuse/core';

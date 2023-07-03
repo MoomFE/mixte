@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/use] 新增对外导出的 `@vueuse/core` 的 `whenever` 方法
 
 ## [v0.0.1-beta.7]
   - 📅 2023-07-01
