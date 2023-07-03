@@ -1,6 +1,6 @@
 import { nextTick, ref } from 'vue-demi';
 import { whenever } from '@vueuse/core';
-import { wheneverDeep, wheneverImmediate, wheneverImmediateDeep } from '../whenever/index';
+import { wheneverDeep, wheneverImmediate, wheneverImmediateDeep } from '@mixte/use';
 
 describe('wheneverImmediate', () => {
   test('immediate 默认为 true 的 whenever 方法', async () => {

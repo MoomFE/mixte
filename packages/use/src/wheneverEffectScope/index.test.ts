@@ -1,5 +1,5 @@
 import { nextTick, ref, watch } from 'vue-demi';
-import { wheneverEffectScope, wheneverEffectScopeImmediate } from './index';
+import { wheneverEffectScope, wheneverEffectScopeImmediate } from '@mixte/use';
 
 describe('wheneverEffectScope', () => {
   test('监听传入值为 truthy 时, 创建一个 effect 作用域', async () => {
