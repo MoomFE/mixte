@@ -15,8 +15,9 @@
       "vitest/globals"
     ],
     "paths": {
-      "mixte": ["./packages/mixte"],
-      "@mixte/*": ["./packages/*"],
+      "mixte": ["./packages/mixte/index.ts"],
+      "@mixte/use/vite": ["./packages/use/vite.ts"],
+      "@mixte/*": ["./packages/*/index.ts"],
     }
   },
   "exclude": [
