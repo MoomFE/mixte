@@ -55,6 +55,8 @@ export function MixteUseAutoImport(options?: MixteUseAutoImportOptions): Imports
       'wheneverDeep',
       'wheneverEffectScope',
       'wheneverEffectScopeImmediate',
+      'wheneverEffectScopeDeep',
+      'wheneverEffectScopeImmediateDeep',
       'wheneverImmediate',
       'wheneverImmediateDeep',
     ],

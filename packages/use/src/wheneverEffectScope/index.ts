@@ -41,3 +41,17 @@ export function wheneverEffectScope<T>(source: WatchSource<T | false | null | un
 export function wheneverEffectScopeImmediate<T>(source: WatchSource<T | false | null | undefined>, run: WatchCallback<T>, options?: Omit<WatchOptions, 'immediate'>) {
   return wheneverEffectScope(source, run, { ...options, immediate: true });
 }
+
+/**
+ * deep 默认为 true 的 wheneverEffectScope 方法
+ */
+export function wheneverEffectScopeDeep<T>(source: WatchSource<T | false | null | undefined>, run: WatchCallback<T>, options?: Omit<WatchOptions, 'deep'>) {
+  return wheneverEffectScope(source, run, { ...options, deep: true });
+}
+
+/**
+ * immediate 和 deep 默认为 true 的 wheneverEffectScope 方法
+ */
+export function wheneverEffectScopeImmediateDeep<T>(source: WatchSource<T | false | null | undefined>, run: WatchCallback<T>, options?: Omit<WatchOptions, 'immediate' | 'deep'>) {
+  return wheneverEffectScope(source, run, { ...options, immediate: true, deep: true });
+}

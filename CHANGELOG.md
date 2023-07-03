@@ -1,5 +1,6 @@
 ## [Unreleased]
-  - 🌟 [@mixte/use] 新增对外导出的 `@vueuse/core` 的 `whenever` 方法
+  - 🌟 [@mixte/use] 新增 `wheneverEffectScopeDeep`, `wheneverEffectScopeImmediateDeep` 方法
+  - 🌟 [@mixte/use] 新增 `whenever` 方法, 来自 `@vueuse/core`
   - 🌟 [@mixte/use] 按需导入支持传入 `useWithVueUseCore` 选项排除与 `@vueuse/core` 功能相同且名称相同的方法
   - ⚠️ [@mixte/use] 按需导入转为函数形式
 

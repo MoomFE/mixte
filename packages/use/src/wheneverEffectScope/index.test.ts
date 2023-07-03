@@ -1,5 +1,5 @@
 import { nextTick, ref, watch } from 'vue-demi';
-import { wheneverEffectScope, wheneverEffectScopeImmediate } from '@mixte/use';
+import { wheneverEffectScope, wheneverEffectScopeDeep, wheneverEffectScopeImmediate, wheneverEffectScopeImmediateDeep } from '@mixte/use';
 
 describe('wheneverEffectScope', () => {
   test('监听传入值为 truthy 时, 创建一个 effect 作用域', async () => {
@@ -246,9 +246,9 @@ describe('wheneverEffectScopeImmediate', () => {
     const fn2 = vi.spyOn(watchFns, 'fn2');
     const fn3 = vi.spyOn(watchFns, 'fn3');
 
-    wheneverEffectScope(source, watchFns.fn1);
-    wheneverEffectScope(source, watchFns.fn2, { immediate: true });
-    wheneverEffectScopeImmediate(source, watchFns.fn3);
+    const unWatch = wheneverEffectScope(source, watchFns.fn1);
+    const unWatch2 = wheneverEffectScope(source, watchFns.fn2, { immediate: true });
+    const unWatch3 = wheneverEffectScopeImmediate(source, watchFns.fn3);
 
     expect(fn1).not.toHaveBeenCalled();
     expect(fn2).toHaveBeenCalledTimes(1);
@@ -265,6 +265,10 @@ describe('wheneverEffectScopeImmediate', () => {
     expect(fn1).toHaveBeenCalledTimes(1);
     expect(fn2).toHaveBeenCalledTimes(2);
     expect(fn3).toHaveBeenCalledTimes(2);
+
+    unWatch();
+    unWatch2();
+    unWatch3();
   });
 
   test('重新传入 immediate 选项是无效的', async () => {
@@ -277,8 +281,8 @@ describe('wheneverEffectScopeImmediate', () => {
     const fn1 = vi.spyOn(watchFns, 'fn1');
     const fn2 = vi.spyOn(watchFns, 'fn2');
 
-    wheneverEffectScopeImmediate(source, watchFns.fn1);
-    wheneverEffectScopeImmediate(source, watchFns.fn2, { immediate: false } as any);
+    const unWatch = wheneverEffectScopeImmediate(source, watchFns.fn1);
+    const unWatch2 = wheneverEffectScopeImmediate(source, watchFns.fn2, { immediate: false } as any);
 
     expect(fn1).toHaveBeenCalledTimes(1);
     expect(fn2).toHaveBeenCalledTimes(1);
@@ -292,5 +296,149 @@ describe('wheneverEffectScopeImmediate', () => {
     await nextTick();
     expect(fn1).toHaveBeenCalledTimes(2);
     expect(fn2).toHaveBeenCalledTimes(2);
+
+    unWatch();
+    unWatch2();
+  });
+});
+
+describe('wheneverEffectScopeDeep', () => {
+  test('deep 默认为 true 的 wheneverEffectScope 方法', async () => {
+    const source = ref({ a: 1 });
+    const watchFns = {
+      fn1: () => {},
+      fn2: () => {},
+      fn3: () => {},
+    };
+
+    const fn1 = vi.spyOn(watchFns, 'fn1');
+    const fn2 = vi.spyOn(watchFns, 'fn2');
+    const fn3 = vi.spyOn(watchFns, 'fn3');
+
+    const unWatch = wheneverEffectScope(source, watchFns.fn1);
+    const unWatch2 = wheneverEffectScope(source, watchFns.fn2, { deep: true });
+    const unWatch3 = wheneverEffectScopeDeep(source, watchFns.fn3);
+
+    expect(fn1).not.toHaveBeenCalled();
+    expect(fn2).not.toHaveBeenCalled();
+    expect(fn3).not.toHaveBeenCalled();
+
+    source.value.a = 2;
+    await nextTick();
+    expect(fn1).not.toHaveBeenCalled();
+    expect(fn2).toHaveBeenCalledTimes(1);
+    expect(fn3).toHaveBeenCalledTimes(1);
+
+    source.value = { a: 3 };
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(1);
+    expect(fn2).toHaveBeenCalledTimes(2);
+    expect(fn3).toHaveBeenCalledTimes(2);
+
+    source.value.a = 4;
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(1);
+    expect(fn2).toHaveBeenCalledTimes(3);
+    expect(fn3).toHaveBeenCalledTimes(3);
+
+    unWatch();
+    unWatch2();
+    unWatch3();
+  });
+
+  test('重新传入 deep 选项是无效的', async () => {
+    const source = ref({ a: 1 });
+    const watchFns = {
+      fn1: () => {},
+      fn2: () => {},
+    };
+
+    const fn1 = vi.spyOn(watchFns, 'fn1');
+    const fn2 = vi.spyOn(watchFns, 'fn2');
+
+    const unWatch = wheneverEffectScopeDeep(source, watchFns.fn1);
+    const unWatch2 = wheneverEffectScopeDeep(source, watchFns.fn2, { deep: false } as any);
+
+    expect(fn1).not.toHaveBeenCalled();
+    expect(fn2).not.toHaveBeenCalled();
+
+    source.value.a = 2;
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(1);
+    expect(fn2).toHaveBeenCalledTimes(1);
+
+    source.value = { a: 3 };
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(2);
+    expect(fn2).toHaveBeenCalledTimes(2);
+
+    source.value.a = 4;
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(3);
+    expect(fn2).toHaveBeenCalledTimes(3);
+
+    unWatch();
+    unWatch2();
+  });
+});
+
+describe('wheneverEffectScopeImmediateDeep', () => {
+  test('immediate 和 deep 默认为 true 的 wheneverEffectScope 方法', async () => {
+    const source = ref({ a: 1 });
+    const watchFns = {
+      fn1: () => {},
+      fn2: () => {},
+      fn3: () => {},
+      fn4: () => {},
+      fn5: () => {},
+    };
+
+    const fn1 = vi.spyOn(watchFns, 'fn1');
+    const fn2 = vi.spyOn(watchFns, 'fn2');
+    const fn3 = vi.spyOn(watchFns, 'fn3');
+    const fn4 = vi.spyOn(watchFns, 'fn4');
+    const fn5 = vi.spyOn(watchFns, 'fn5');
+
+    const unWatch = wheneverEffectScope(source, watchFns.fn1);
+    const unWatch2 = wheneverEffectScope(source, watchFns.fn2, { immediate: true });
+    const unWatch3 = wheneverEffectScope(source, watchFns.fn3, { deep: true });
+    const unWatch4 = wheneverEffectScope(source, watchFns.fn4, { immediate: true, deep: true });
+    const unWatch5 = wheneverEffectScopeImmediateDeep(source, watchFns.fn5);
+
+    expect(fn1).not.toHaveBeenCalled();
+    expect(fn2).toHaveBeenCalledTimes(1);
+    expect(fn3).not.toHaveBeenCalled();
+    expect(fn4).toHaveBeenCalledTimes(1);
+    expect(fn5).toHaveBeenCalledTimes(1);
+
+    source.value.a = 2;
+    await nextTick();
+    expect(fn1).not.toHaveBeenCalled();
+    expect(fn2).toHaveBeenCalledTimes(1);
+    expect(fn3).toHaveBeenCalledTimes(1);
+    expect(fn4).toHaveBeenCalledTimes(2);
+    expect(fn5).toHaveBeenCalledTimes(2);
+
+    source.value = { a: 3 };
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(1);
+    expect(fn2).toHaveBeenCalledTimes(2);
+    expect(fn3).toHaveBeenCalledTimes(2);
+    expect(fn4).toHaveBeenCalledTimes(3);
+    expect(fn5).toHaveBeenCalledTimes(3);
+
+    source.value.a = 4;
+    await nextTick();
+    expect(fn1).toHaveBeenCalledTimes(1);
+    expect(fn2).toHaveBeenCalledTimes(2);
+    expect(fn3).toHaveBeenCalledTimes(3);
+    expect(fn4).toHaveBeenCalledTimes(4);
+    expect(fn5).toHaveBeenCalledTimes(4);
+
+    unWatch();
+    unWatch2();
+    unWatch3();
+    unWatch4();
+    unWatch5();
   });
 });
