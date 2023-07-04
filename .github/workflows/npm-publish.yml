@@ -1,7 +1,6 @@
 name: Node.js Package
 
 on:
-  workflow_dispatch:
   release:
     types: [released]
 
@@ -25,7 +24,14 @@ jobs:
           pnpm install
           pnpm build
 
+      - name: Publish Beta
+        if: contains(github.event.release.name, 'beta') == true
+        run: pnpm publish -r --access public --no-git-checks --tag beta
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Publish
+        if: contains(github.event.release.name, 'beta') == false
         run: pnpm publish -r --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
