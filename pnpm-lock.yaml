@@ -194,11 +194,14 @@ importers:
 
   packages/use:
     dependencies:
+      '@vueuse/core':
+        specifier: '*'
+        version: 10.2.1(vue@3.3.4)
       mixte:
         specifier: workspace:*
         version: link:../mixte
       vue-demi:
-        specifier: ^0.14.5
+        specifier: '>=0.14.5'
         version: 0.14.5(vue@3.3.4)
 
 packages:

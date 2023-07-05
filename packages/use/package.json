@@ -11,6 +11,7 @@
   "bugs": {
     "url": "https://github.com/MoomFE/mixte/issues"
   },
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -31,7 +32,8 @@
     "dist"
   ],
   "dependencies": {
+    "@vueuse/core": "*",
     "mixte": "workspace:*",
-    "vue-demi": "^0.14.5"
+    "vue-demi": ">=0.14.5"
   }
 }
