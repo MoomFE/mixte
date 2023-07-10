@@ -17,8 +17,8 @@ interface MixteUseAutoImportOptions {
  *
  * @example
  *
- * import AutoImport from 'unplugin-auto-import/vite';
- * import { MixteUseAutoImport } from '@mixte/use/vite';
+ * import AutoImport from 'unplugin-auto-import/register';
+ * import { MixteUseAutoImport } from '@mixte/use/register';
  *
  * export default defineConfig({
  *   plugins: [
@@ -27,11 +27,11 @@ interface MixteUseAutoImportOptions {
  *       imports: [MixteUseAutoImport()]
  *     }),
  *     // 与 `@vueuse/core` 一起使用时
- *    AutoImport({
- *      imports: [
- *        '@vueuse/core',
- *        MixteUseAutoImport({ useWithVueUseCore: true }),
- *      ],
+ *     AutoImport({
+ *       imports: [
+ *         '@vueuse/core',
+ *         MixteUseAutoImport({ useWithVueUseCore: true }),
+ *       ],
  *   ],
  * })
  */

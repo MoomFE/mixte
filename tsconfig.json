@@ -16,7 +16,7 @@
     ],
     "paths": {
       "mixte": ["./packages/mixte/index.ts"],
-      "@mixte/use/vite": ["./packages/use/vite.ts"],
+      "@mixte/use/register": ["./packages/use/register.ts"],
       "@mixte/*": ["./packages/*/index.ts"],
     }
   },

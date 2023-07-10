@@ -18,12 +18,12 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     },
-    "./*": "./*",
-    "./vite": {
-      "types": "./dist/vite.d.ts",
-      "require": "./dist/vite.cjs",
-      "import": "./dist/vite.mjs"
-    }
+    "./register": {
+      "types": "./dist/register.d.ts",
+      "require": "./dist/register.cjs",
+      "import": "./dist/register.mjs"
+    },
+    "./*": "./*"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
