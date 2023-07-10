@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v0.0.1-beta.9]
+  - 📅 2023-07-10
   - 🌟 [mixte] 新增 `move`, `moveRange` 工具方法
   - ⚠️ [@mixte/use] 按需导入重命名, 改为使用 `@mixte/use/register` 引用
 
@@ -79,7 +82,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.8...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.9...HEAD
+[v0.0.1-beta.9]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.9
 [v0.0.1-beta.8]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.8
 [v0.0.1-beta.7]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.7
 [v0.0.1-beta.6]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.6
