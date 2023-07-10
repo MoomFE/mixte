@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [mixte] 新增 `move`, `moveRange` 工具方法
 
 ## [v0.0.1-beta.8]
   - 📅 2023-07-03
