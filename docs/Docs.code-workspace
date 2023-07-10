@@ -112,7 +112,9 @@
       "json",
       "jsonc",
       "json5"
-    ]
+    ],
+    "unocss.autocomplete.matchType": "fuzzy",
+    "unocss.remToPxPreview": true
   },
   "extensions": {
     "recommendations": [
