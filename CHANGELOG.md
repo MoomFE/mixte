@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v0.0.1-beta.10]
+  - 📅 2023-07-12
   - 🌟 [@mixte/use] 新增 `useCountdown` 方法
 
 ## [v0.0.1-beta.9]
@@ -83,7 +86,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.9...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.10...HEAD
+[v0.0.1-beta.10]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.10
 [v0.0.1-beta.9]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.9
 [v0.0.1-beta.8]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.8
 [v0.0.1-beta.7]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.7
