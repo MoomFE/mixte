@@ -24,6 +24,7 @@
     "node_modules",
     "coverage",
     "**/dist",
+    "docs",
     "rollup.config.js"
   ]
 }

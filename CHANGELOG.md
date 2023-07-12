@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/use] 新增 `useCountdown` 方法
 
 ## [v0.0.1-beta.9]
   - 📅 2023-07-10

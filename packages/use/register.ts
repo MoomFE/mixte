@@ -59,6 +59,7 @@ export function MixteUseAutoImport(options?: MixteUseAutoImportOptions): Imports
       'wheneverEffectScopeImmediateDeep',
       'wheneverImmediate',
       'wheneverImmediateDeep',
+      'useCountdown',
     ],
   };
 }
