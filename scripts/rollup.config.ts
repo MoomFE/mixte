@@ -12,6 +12,7 @@ const pluginDts = dts({
 
 const externals = [
   'vue-demi',
+  '@vueuse/core',
 ];
 
 for (const { name, external } of packages) {
