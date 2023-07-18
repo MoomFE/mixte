@@ -3,3 +3,4 @@ export * from './src/random/index';
 export * from './src/delay/index';
 export * from './src/uniqueKey/index';
 export * from './src/move/index';
+export * from './src/asyncArrayFn/index';

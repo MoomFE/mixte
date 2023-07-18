@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [mixte] 新增 `asyncForEach` 工具方法
 
 ## [v0.0.1-beta.10]
   - 📅 2023-07-12
