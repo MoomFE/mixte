@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v0.0.1-beta.11]
+  - 📅 2023-07-18
   - 🌟 [mixte] 新增 `asyncForEach` 工具方法
 
 ## [v0.0.1-beta.10]
@@ -87,7 +90,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.10...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.11...HEAD
+[v0.0.1-beta.11]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.11
 [v0.0.1-beta.10]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.10
 [v0.0.1-beta.9]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.9
 [v0.0.1-beta.8]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.8
