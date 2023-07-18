@@ -1,6 +1,6 @@
 import type { MaybeRefOrGetter } from 'vue-demi';
-import { TransitionPresets, useTransition } from '@vueuse/core';
-import { computed, ref, toValue, unref, watch } from 'vue-demi';
+import { TransitionPresets, toValue, useTransition } from '@vueuse/core';
+import { computed, ref, watch } from 'vue-demi';
 
 export interface UseCountdownOptions {
   /**
