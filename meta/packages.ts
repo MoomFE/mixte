@@ -1,8 +1,11 @@
 export const packages = [
   { name: 'mixte' },
-  { name: 'use' },
+  {
+    name: 'use',
+    external: ['mixte'],
+  },
   {
     name: 'use/register',
-    external: ['unplugin-auto-import/types'],
+    dtsExternal: ['unplugin-auto-import/types'],
   },
 ];
