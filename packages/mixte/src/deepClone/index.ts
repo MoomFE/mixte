@@ -1,26 +1,26 @@
 import { isPlainObject } from 'mixte';
 
 function clone<T>(value: T, cache = new WeakMap<object, object>()) {
-  const isArray = Array.isArray(value);
+  const isObject = isPlainObject(value);
   let cloneValue: any = value;
 
-  if (isArray || isPlainObject(value)) {
+  if (isObject || Array.isArray(value)) {
     if (cache.has(value))
       return cache.get(value);
 
     cache.set(
       value,
-      cloneValue = isArray ? [] : {},
+      cloneValue = isObject ? {} : [],
     );
 
-    if (isArray) {
-      for (const iterator of value)
-        cloneValue.push(clone(iterator, cache));
-    }
-    else {
+    if (isObject) {
       Object.entries(value as object).forEach(([k, v]) => {
         cloneValue[k] = clone(v, cache);
       });
+    }
+    else {
+      for (const iterator of value)
+        cloneValue.push(clone(iterator, cache));
     }
   }
 
