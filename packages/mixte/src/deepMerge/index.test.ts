@@ -187,4 +187,22 @@ describe('deepMerge', () => {
     expect(c).toBe(a);
     expect(c).not.toBe(b);
   });
+
+  // test('防御循环引用 ( 一 )', () => {
+  //   // 普通对象
+  //   const target = { a: 1 };
+  //   const source = { a: 2, b: target, c: 2 };
+  //   let cache = {} as any;
+
+  //   expect(deepMerge(target, source)).toEqual({ a: 2, b: target, c: 2 });
+  //   expect(deepMerge(cache, target, source)).toEqual({ a: 2, b: cache, c: 2 });
+
+  //   // 数组
+  //   const targetArr = [1] as any[];
+  //   const sourceArr = [2, targetArr, 3];
+  //   cache = [];
+
+  //   expect(deepMerge(targetArr, sourceArr)).toEqual([2, targetArr, 3]);
+  //   expect(deepMerge(cache, targetArr, sourceArr)).toEqual([2, cache, 3]);
+  // });
 });

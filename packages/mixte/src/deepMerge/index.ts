@@ -1,17 +1,22 @@
 import { isPlainObject } from 'mixte';
 import type { Merge } from 'type-fest';
 
-function merge<T, S>(target: T, source: S) {
-  if (!isPlainObject(source) && !Array.isArray(source)) return;
+function merge<T, S>(target: T, source: S, cache: WeakMap<object, object>) {
+  cache.set(source, target);
 
   for (const [key, value] of Object.entries(source)) {
     let isArray = false;
 
     if (isPlainObject(value) || (isArray = Array.isArray(value))) {
-      let targetValue;
-      const cloneValue: any = isArray ? [] : (isPlainObject(targetValue = target[key as keyof T]) ? targetValue : {});
+      let targetValue, cloneValue;
 
-      merge(cloneValue, value);
+      if (cache.has(value)) {
+        cloneValue = cache.get(value);
+      }
+      else {
+        cloneValue = isArray ? [] : (isPlainObject(targetValue = target[key]) ? targetValue : {});
+        merge(cloneValue, value, cache);
+      }
 
       target[key as keyof T] = cloneValue;
     }
@@ -42,8 +47,14 @@ export function deepMerge<T, S>(target: T, ...sources: S[]) {
   if ((!isPlainObject(target) && !Array.isArray(target)) || !sources.length)
     return target;
 
-  for (const source of sources)
-    merge(target, source);
+  const cache = new WeakMap<object, object>();
+
+  cache.set(target, target);
+
+  for (const source of sources) {
+    if (isPlainObject(source) || Array.isArray(source))
+      merge(target, source, cache);
+  }
 
   return target;
 }
