@@ -1,9 +1,12 @@
 ## [Unreleased]
+
+## [v0.0.1-beta.13]
+  - 📅 2023-07-22
   - 🌟 [mixte] 新增 `toArray` 工具方法
   - 🌟 [mixte] 新增 `deepClone` 工具方法
   - 🌟 [mixte] 新增 `deepMerge` 工具方法
 
-## [v0.0.1-beta.11]
+## [v0.0.1-beta.12]
   - 📅 2023-07-18
   - 🐞 [@mixte/use] 修复在 `vue2` 环境下导入 `toValue` 导致的报错
 
@@ -97,7 +100,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.12...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.13...HEAD
+[v0.0.1-beta.13]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.13
 [v0.0.1-beta.12]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.12
 [v0.0.1-beta.11]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.11
 [v0.0.1-beta.10]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.10
