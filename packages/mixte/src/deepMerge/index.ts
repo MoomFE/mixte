@@ -121,10 +121,20 @@ export function deepMerge<T, S>(target: T, ...sources: S[]) {
 
   cache.set(target, target);
 
-  for (const source of sources) {
-    if (isPlainObject(source) || Array.isArray(source))
-      merge(target, source, cache);
+  for (let i = 0; i < sources.length;) {
+    const source = sources[i];
+
+    if (isPlainObject(source) || Array.isArray(source)) {
+      cache.set(source, target);
+      i++;
+      continue;
+    }
+
+    sources.splice(i, 1);
   }
+
+  for (const source of sources)
+    merge(target, source as object, cache);
 
   return target;
 }

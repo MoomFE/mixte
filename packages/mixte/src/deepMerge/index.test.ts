@@ -188,21 +188,45 @@ describe('deepMerge', () => {
     expect(c).not.toBe(b);
   });
 
-  // test('防御循环引用 ( 一 )', () => {
-  //   // 普通对象
-  //   const target = { a: 1 };
-  //   const source = { a: 2, b: target, c: 2 };
-  //   let cache = {} as any;
+  test('防御循环引用 ( 一 )', () => {
+    // 普通对象
+    const target = {};
+    const source = { target };
+    const cache = {};
 
-  //   expect(deepMerge(target, source)).toEqual({ a: 2, b: target, c: 2 });
-  //   expect(deepMerge(cache, target, source)).toEqual({ a: 2, b: cache, c: 2 });
+    expect(deepMerge(cache, target, source)).toEqual({ target: cache });
+    expect(deepMerge(target, source)).toEqual({ target });
 
-  //   // 数组
-  //   const targetArr = [1] as any[];
-  //   const sourceArr = [2, targetArr, 3];
-  //   cache = [];
+    // 数组
+    const targetArr = [] as any[];
+    const sourceArr = [targetArr];
+    const cacheArr = [] as any[];
 
-  //   expect(deepMerge(targetArr, sourceArr)).toEqual([2, targetArr, 3]);
-  //   expect(deepMerge(cache, targetArr, sourceArr)).toEqual([2, cache, 3]);
-  // });
+    expect(deepMerge(cacheArr, targetArr, sourceArr)).toEqual([cacheArr]);
+    expect(deepMerge(targetArr, sourceArr)).toEqual([targetArr]);
+  });
+
+  test('防御循环引用 ( 二 )', () => {
+    // 普通对象
+    const target = {} as any;
+    const source = {} as any;
+    const cache = {};
+
+    target.source = source;
+    source.target = target;
+
+    expect(deepMerge(cache, target, source)).toEqual({ source: cache, target: cache });
+    expect(deepMerge(target, source)).toEqual({ source: { target }, target });
+
+    // 数组
+    const targetArr = [] as any[];
+    const sourceArr = [] as any[];
+    const cacheArr = [] as any[];
+
+    targetArr.push(sourceArr);
+    sourceArr.push(targetArr);
+
+    expect(deepMerge(cacheArr, targetArr, sourceArr)).toEqual([cacheArr]);
+    expect(deepMerge(targetArr, sourceArr)).toEqual([targetArr]);
+  });
 });
