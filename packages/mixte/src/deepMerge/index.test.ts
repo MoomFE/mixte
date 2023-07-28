@@ -5,8 +5,10 @@ describe('deepMerge', () => {
   test('目标对象不是普通对象和数组时, 会被直接返回', () => {
     Object.values(types).forEach((values) => {
       values.forEach((value) => {
-        if (!Array.isArray(value) && isPlainObject(value))
+        if (!Array.isArray(value) && !isPlainObject(value)) {
           expect(deepMerge(value, { a: 1 })).toBe(value);
+          expect(deepMerge(value, [{ a: 1 }])).toBe(value);
+        }
       });
     });
   });
@@ -25,6 +27,17 @@ describe('deepMerge', () => {
     expect(deepMerge([1], [2], [3])).toEqual([3]);
     expect(deepMerge([1], [2], [3], [4])).toEqual([4]);
     expect(deepMerge([1], [2], [3], [4], [5])).toEqual([5]);
+  });
+
+  test('来源对象不是普通对象和数组时, 会被直接跳过', () => {
+    Object.values(types).forEach((values) => {
+      values.forEach((value) => {
+        if (Array.isArray(value) || isPlainObject(value)) return;
+
+        expect(deepMerge({}, value, { a: 1 })).toEqual({ a: 1 });
+        expect(deepMerge([], value, [{ a: 1 }])).toEqual([{ a: 1 }]);
+      });
+    });
   });
 
   test('合并时是将所有来源对象的属性合并到目标对象上', () => {
@@ -47,6 +60,23 @@ describe('deepMerge', () => {
     expect(arr2).toEqual([2]);
     expect(arr3).toBe(arr1);
     expect(arr3).not.toBe(arr2);
+  });
+
+  test('来源对象中的普通对象和数组会覆盖目标对象中的同名不同类型的属性', () => {
+    Object.values(types).forEach((values) => {
+      values.forEach((value) => {
+        if (Array.isArray(value)) {
+          expect(deepMerge({ value }, { value: { a: 1 } })).toEqual({ value: { a: 1 } });
+        }
+        else if (isPlainObject(value)) {
+          expect(deepMerge({ value }, { value: [1] })).toEqual({ value: [1] });
+        }
+        else {
+          expect(deepMerge({ value }, { value: [1] })).toEqual({ value: [1] });
+          expect(deepMerge({ value }, { value: { a: 1 } })).toEqual({ value: { a: 1 } });
+        }
+      });
+    });
   });
 
   test('来源对象从左到右进行深拷贝, 后续的来源对象会覆盖之前拷贝的属性', () => {
