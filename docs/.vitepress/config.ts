@@ -1,9 +1,15 @@
 import { defineConfig } from 'vitepress';
+import Unocss from 'unocss/vite';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'Mixte',
   description: '',
+  vite: {
+    plugins: [
+      Unocss(),
+    ],
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
