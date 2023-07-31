@@ -25,7 +25,7 @@ jobs:
 
       - name: Test
         run: |
-          pnpm install 
+          pnpm install
           pnpm test -- --run
 
       - name: Upload coverage reports to Codecov
