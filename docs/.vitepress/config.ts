@@ -13,19 +13,15 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' },
+      { text: 'mixte', link: '/mixte/is' },
     ],
 
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' },
-        ],
-      },
-    ],
+    sidebar: {
+      '/mixte/': [
+        { text: 'is', link: '/mixte/is' },
+        { text: 'random', link: '/mixte/random' },
+      ],
+    },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/MoomFE/mixte' },
