@@ -24,9 +24,9 @@
     "test-release": "vitest --run && npm run build && vitest --mode test-build --run",
     "up": "npx taze latest -r -w -i",
     "release": "npm run test-release && npx bumpp -r --no-tag --no-push",
-    "docs:dev": "vitepress dev docs --host",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs --host"
+    "docs:dev": "vitepress dev packages --host",
+    "docs:build": "vitepress build packages",
+    "docs:preview": "vitepress preview packages --host"
   },
   "devDependencies": {
     "@moomfe/eslint-config": "^2.6.0",
