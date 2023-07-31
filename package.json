@@ -37,6 +37,7 @@
     "@vueuse/core": "^10.2.1",
     "esbuild-register": "^3.4.2",
     "eslint": "^8.45.0",
+    "lint-staged": "^13.2.3",
     "pnpm": "^8.6.8",
     "rollup": "^3.26.3",
     "rollup-plugin-dts": "^5.3.0",

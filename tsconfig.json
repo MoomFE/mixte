@@ -17,14 +17,13 @@
     "paths": {
       "mixte": ["./packages/mixte/index.ts"],
       "@mixte/use/register": ["./packages/use/register.ts"],
-      "@mixte/*": ["./packages/*/index.ts"],
+      "@mixte/*": ["./packages/*/index.ts"]
     }
   },
   "exclude": [
+    "**/dist/**",
     "node_modules",
     "coverage",
-    "**/dist",
-    "docs",
     "rollup.config.js"
   ]
 }
