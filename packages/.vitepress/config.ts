@@ -1,26 +1,28 @@
 import { defineConfig } from 'vitepress';
 import Unocss from 'unocss/vite';
+import { mixte } from '../../meta/docs.json';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'Mixte',
   description: '',
-  vite: {
-    plugins: [
-      Unocss(),
-    ],
+
+  cleanUrls: true,
+  rewrites: {
+    'mixte/src/:fn/index.md': 'mixte/:fn.md',
   },
+
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'mixte', link: '/mixte/is' },
+      { text: 'mixte', link: `/mixte/${mixte[0]}` },
     ],
 
     sidebar: {
-      '/mixte/': [
-        { text: 'is', link: '/mixte/is' },
-        { text: 'random', link: '/mixte/random' },
-      ],
+      '/mixte/': mixte.map(fn => ({
+        text: fn,
+        link: `/mixte/${fn}`,
+      })),
     },
 
     socialLinks: [
@@ -38,4 +40,10 @@ export default defineConfig({
   },
 
   lastUpdated: true,
+
+  vite: {
+    plugins: [
+      Unocss(),
+    ],
+  },
 });
