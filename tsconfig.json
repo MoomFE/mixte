@@ -20,10 +20,14 @@
       "@mixte/*": ["./packages/*/index.ts"]
     }
   },
+  "include": [
+    "packages",
+    "packages/.vitepress/**/*.ts",
+    "*.ts"
+  ],
   "exclude": [
     "**/dist/**",
-    "node_modules",
-    "coverage",
-    "rollup.config.js"
+    "**/node_modules/**",
+    "coverage"
   ]
 }
