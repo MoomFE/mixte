@@ -1,9 +1,18 @@
 # is
-类型判断
+- 常用的类型判断方法
+- 该页面的方法可以打开浏览器的 JavaScript 控制台, 使用 `Mixte.{fn-name}` 的方式使用
 
-## isString
+## `isString`
 
-> 判断传入参数是否是 String 类型
+判断传入参数是否是 String 类型
+
+### 类型
+
+```ts
+function isString(value: unknown): value is string;
+```
+
+### 示例
 
 ```ts
 import { isString } from 'mixte';
@@ -12,9 +21,17 @@ isString('666'); // -> true
 isString(666); // -> false
 ```
 
-## isNumber
+## `isNumber`
 
-> 判断传入参数是否是 Number 类型, 并且不为 NaN
+判断传入参数是否是 Number 类型, 并且不为 NaN
+
+### 类型
+
+```ts
+function isNumber(value: unknown): value is number;
+```
+
+### 示例
 
 ```ts
 import { isNumber } from 'mixte';
@@ -24,9 +41,17 @@ isNumber('666'); // -> false
 isNumber(NaN); // -> false
 ```
 
-## isNumericString
+## `isNumericString`
 
-> 判断传入参数是否数字字符串
+判断传入参数是否数字字符串
+
+### 类型
+
+```ts
+function isNumericString(value: unknown): value is `${number}`;
+```
+
+### 示例
 
 ```ts
 import { isNumericString } from 'mixte';
@@ -36,9 +61,17 @@ isNumericString(666); // -> false
 isNumericString(NaN); // -> false
 ```
 
-## isNumeric
+## `isNumeric`
 
-> 判断传入参数是否是数字, 支持判断数字字符串
+判断传入参数是否是数字, 支持判断数字字符串
+
+### 类型
+
+```ts
+function isNumeric(value: unknown): value is number | `${number}`;
+```
+
+### 示例
 
 ```ts
 import { isNumeric } from 'mixte';
@@ -48,9 +81,17 @@ isNumeric('666'); // -> true
 isNumeric(NaN); // -> false
 ```
 
-## isObject
+## `isObject`
 
-> 判断传入参数是否是 Object 类型, 并且不为 null
+判断传入参数是否是 Object 类型, 并且不为 null
+
+### 类型
+
+```ts
+function isObject(value: unknown): value is object;
+```
+
+### 示例
 
 ```ts
 import { isObject } from 'mixte';
@@ -61,9 +102,17 @@ isObject(() => {}); // -> false
 isObject(666); // -> false
 ```
 
-## isPlainObject
+## `isPlainObject`
 
-> 判断传入参数是否是纯粹的对象
+判断传入参数是否是纯粹的对象
+
+### 类型
+
+```ts
+function isPlainObject<Value = unknown>(value: unknown): value is Record<PropertyKey, Value>;
+```
+
+### 示例
 
 ```ts
 import { isPlainObject } from 'mixte';
@@ -73,9 +122,17 @@ isPlainObject(Object.create(null)); // -> true
 isPlainObject([]); // -> false
 ```
 
-## isFunction
+## `isFunction`
 
-> 判断传入参数是否是 Function 类型
+判断传入参数是否是 Function 类型
+
+### 类型
+
+```ts
+function isFunction(value: unknown): value is Function;
+```
+
+### 示例
 
 ```ts
 import { isFunction } from 'mixte';
@@ -86,9 +143,17 @@ isFunction([]); // -> false
 isFunction(666); // -> false
 ```
 
-## isNativePromise
+## `isNativePromise`
 
-> 判断传入参数是否是 Promise 对象
+判断传入参数是否是 Promise 对象
+
+### 类型
+
+```ts
+function isNativePromise<T = unknown>(value: unknown): value is Promise<T>;
+```
+
+### 示例
 
 ```ts
 import { isNativePromise } from 'mixte';
@@ -98,9 +163,17 @@ isNativePromise(Promise.resolve()); // -> true
 isNativePromise({ then() {}, catch() {} }); // -> false
 ```
 
-## isPromise
+## `isPromise`
 
-> 判断传入参数是否是 Promise 对象或是类似于 Promise 的对象
+判断传入参数是否是 Promise 对象或是类似于 Promise 的对象
+
+### 类型
+
+```ts
+function isPromise<T = unknown>(value: unknown): value is Promise<T>;
+```
+
+### 示例
 
 ```ts
 import { isPromise } from 'mixte';
@@ -110,9 +183,17 @@ isPromise(Promise.resolve()); // -> true
 isPromise({ then() {}, catch() {} }); // -> true
 ```
 
-## isReference
+## `isReference`
 
-> 判断传入参数是否是引用类型
+判断传入参数是否是引用类型
+
+### 类型
+
+```ts
+function isReference(value: unknown): value is object | Function;
+```
+
+### 示例
 
 ```ts
 import { isReference } from 'mixte';
@@ -131,9 +212,17 @@ isReference(Symbol('666')); // -> false
 isReference(666n); // -> false
 ```
 
-## isPrimitive
+## `isPrimitive`
 
-> 判断传入参数是否是原始类型
+判断传入参数是否是原始类型
+
+### 类型
+
+```ts
+function isPrimitive(value: unknown): boolean;
+```
+
+### 示例
 
 ```ts
 import { isPrimitive } from 'mixte';
@@ -152,9 +241,17 @@ isPrimitive([]); // -> false
 isPrimitive(() => {}); // -> false
 ```
 
-## isEmptyObject
+## `isEmptyObject`
 
-> 判断传入对象是否是一个空对象
+判断传入对象是否是一个空对象
+
+### 类型
+
+```ts
+function isEmptyObject(value: any): value is EmptyObject;
+```
+
+### 示例
 
 ```ts
 import { isEmptyObject } from 'mixte';
@@ -163,9 +260,17 @@ isEmptyObject({}); // -> true
 isEmptyObject({ mixte: 6 }); // -> false
 ```
 
-## isESModule
+## `isESModule`
 
-> 判断传入参数是否是 ES Module
+判断传入参数是否是 ES Module
+
+### 类型
+
+```ts
+function isESModule<T = any>(module: any): module is { default: T };
+```
+
+### 示例
 
 ```ts
 import { isESModule } from 'mixte';

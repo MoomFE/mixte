@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import { defineConfig } from 'vitepress';
 import Unocss from 'unocss/vite';
 import { mixte } from '../../meta/docs.json';
@@ -42,6 +43,11 @@ export default defineConfig({
   lastUpdated: true,
 
   vite: {
+    resolve: {
+      alias: {
+        mixte: resolve(__dirname, '../mixte/index'),
+      },
+    },
     plugins: [
       Unocss(),
     ],
