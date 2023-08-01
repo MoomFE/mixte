@@ -5,6 +5,10 @@
 *.log
 *.tgz
 
+components.d.ts
+auto-imports.d.ts
+.eslintrc-auto-import.json
+
 node_modules
 coverage
 dist

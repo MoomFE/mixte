@@ -1,6 +1,8 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vitepress';
 import Unocss from 'unocss/vite';
+import Components from 'unplugin-vue-components/vite';
+import AutoImport from 'unplugin-auto-import/vite';
 import { mixte, use } from '../../meta/docs.json';
 
 // https://vitepress.dev/reference/site-config
@@ -52,6 +54,23 @@ export default defineConfig({
     plugins: [
       Unocss({
         configFile: resolve(__dirname, '../unocss.config.ts'),
+      }),
+      Components({
+        dts: resolve(__dirname, '../components.d.ts'),
+        dirs: [
+          resolve(__dirname, './components'),
+        ],
+      }),
+      AutoImport({
+        dts: resolve(__dirname, '../auto-imports.d.ts'),
+        vueTemplate: true,
+        imports: [
+          'vue',
+        ],
+        eslintrc: {
+          enabled: true,
+          filepath: resolve(__dirname, '../.eslintrc-auto-import.json'),
+        },
       }),
     ],
   },
