@@ -13,7 +13,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
   import { useCountdown } from '@mixte/use';
 
   const source = ref(60);

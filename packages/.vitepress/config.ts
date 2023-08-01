@@ -4,8 +4,8 @@ import Unocss from 'unocss/vite';
 import Components from 'unplugin-vue-components/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import { mixte, use } from '../../meta/docs.json';
+import { alias } from '../../meta/alias';
 
-// https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'Mixte',
   description: '',
@@ -17,7 +17,6 @@ export default defineConfig({
   },
 
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'mixte', link: `/mixte/${mixte[0]}` },
       { text: 'use', link: `/mixte/use/${use[0]}` },
@@ -46,10 +45,7 @@ export default defineConfig({
 
   vite: {
     resolve: {
-      alias: {
-        'mixte': resolve(__dirname, '../mixte/index'),
-        '@mixte/use': resolve(__dirname, '../use/index'),
-      },
+      alias,
     },
     plugins: [
       Unocss({
