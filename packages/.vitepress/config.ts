@@ -52,6 +52,7 @@ export default defineConfig({
         configFile: resolve(__dirname, '../unocss.config.ts'),
       }),
       Components({
+        include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
         dts: resolve(__dirname, '../components.d.ts'),
         dirs: [
           resolve(__dirname, './components'),
