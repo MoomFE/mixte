@@ -37,5 +37,8 @@
       "json",
       "json5"
     ],
+    "unocss.autocomplete.matchType": "fuzzy",
+    "unocss.remToPxPreview": true,
+    "unocss.root": ["packages"],
   }
 }

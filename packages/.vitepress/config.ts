@@ -49,7 +49,9 @@ export default defineConfig({
       },
     },
     plugins: [
-      Unocss(),
+      Unocss({
+        configFile: resolve(__dirname, '../unocss.config.ts'),
+      }),
     ],
   },
 });
