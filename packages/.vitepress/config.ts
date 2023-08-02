@@ -3,6 +3,8 @@ import { defineConfig } from 'vitepress';
 import Unocss from 'unocss/vite';
 import Components from 'unplugin-vue-components/vite';
 import AutoImport from 'unplugin-auto-import/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import { MixteUseAutoImport } from '../use/register';
 import { mixte, use } from '../../meta/docs.json';
 import { alias } from '../../meta/alias';
 import { version } from '../../package.json';
@@ -75,12 +77,20 @@ export default defineConfig({
         dirs: [
           resolve(__dirname, './components'),
         ],
+        resolvers: [
+          ElementPlusResolver(),
+        ],
       }),
       AutoImport({
         dts: resolve(__dirname, '../auto-imports.d.ts'),
         vueTemplate: true,
         imports: [
           'vue',
+          '@vueuse/core',
+          MixteUseAutoImport({ useWithVueUseCore: true }),
+        ],
+        resolvers: [
+          ElementPlusResolver(),
         ],
         eslintrc: {
           enabled: true,

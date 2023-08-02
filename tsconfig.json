@@ -12,7 +12,8 @@
     "allowJs": true,
     "types": [
       "vite/client",
-      "vitest/globals"
+      "vitest/globals",
+      "element-plus/global"
     ],
     "paths": {
       "mixte": ["./packages/mixte/index.ts"],
@@ -23,7 +24,7 @@
   "include": [
     "packages",
     "packages/.vitepress/**/*.ts",
-    "*.ts"
+    "*.{ts,vue}"
   ],
   "exclude": [
     "**/dist/**",

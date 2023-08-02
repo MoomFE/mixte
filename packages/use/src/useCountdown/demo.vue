@@ -1,9 +1,9 @@
 <template>
   <div class="flex gap-2">
-    <button class="w-60 h-9 m-box bg-teal-5 c-white" :disabled="isStart" un:disabled="cursor-progress" @click="start">
+    <button class="w-60 m-btn" :disabled="isStart" @click="start">
       {{ isStart ? output.toFixed(0) : '点击开始倒计时' }}
     </button>
-    <button v-if="isStart" class="h-9 m-box bg-teal-5 c-white rounded-1 p-3" @click="stop">
+    <button v-if="isStart" class="m-btn" @click="stop">
       停止
     </button>
   </div>
@@ -11,11 +11,11 @@
   <div grid="~ gap-2" mt-6>
     <div>
       倒计时数字:
-      <input v-model="source" type="number" w-30 lh-none b="1 solid neutral-3 rounded-1" p="2 x-3">
+      <input v-model="source" type="number" w-30 m-input>
     </div>
     <div>
       倒计时所使用的时间 ( 毫秒 ):
-      <input v-model="duration" type="number" w-30 lh-none b="1 solid neutral-3 rounded-1" p="2 x-3">
+      <input v-model="duration" type="number" w-30 m-input>
     </div>
     <div>isStart: <b>{{ isStart }}</b></div>
     <div>output: <b>{{ output }}</b></div>
