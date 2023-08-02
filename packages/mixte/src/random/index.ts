@@ -20,6 +20,7 @@ export function randomNatural(from: number, to: number) {
  * random(10, 0); // -> 0 ~ 10
  * random(-10, 10); // -> -10 ~ 10
  */
+export function random(from: number, to: number): number;
 export function random(...args: number[]) {
   let [from = 0, to = 10] = args;
 
