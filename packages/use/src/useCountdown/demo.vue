@@ -1,9 +1,9 @@
 <template>
   <div class="flex gap-2">
-    <button class="w-60 h-9 box bg-teal-5 c-white" :disabled="isStart" un:disabled="cursor-progress" @click="start">
+    <button class="w-60 h-9 m-box bg-teal-5 c-white" :disabled="isStart" un:disabled="cursor-progress" @click="start">
       {{ isStart ? output.toFixed(0) : '点击开始倒计时' }}
     </button>
-    <button v-if="isStart" class="h-9 box bg-teal-5 c-white rounded-1 p-3" @click="stop">
+    <button v-if="isStart" class="h-9 m-box bg-teal-5 c-white rounded-1 p-3" @click="stop">
       停止
     </button>
   </div>

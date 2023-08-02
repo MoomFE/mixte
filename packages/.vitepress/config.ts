@@ -52,6 +52,10 @@ export default defineConfig({
       message: 'Released under the MIT License.',
       copyright: 'Copyright (c) 2023-present, Wei Zhang',
     },
+
+    returnToTopLabel: '回到顶部',
+    sidebarMenuLabel: '菜单',
+    darkModeSwitchLabel: '深色模式',
   },
 
   lastUpdated: true,

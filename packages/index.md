@@ -3,23 +3,22 @@
 layout: home
 
 hero:
-  name: "Mixte"
-  text: ""
-  tagline: My great project tagline
+  name: Mixte
+  text: 前端工具合集
+  tagline: 
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: 开始使用
+      link: /mixte/is
     - theme: alt
       text: View on GitHub
       link: https://github.com/MoomFE/mixte
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - icon: 🔩
+    title: mixte
+    details: 实用工具函数
+  - icon: 🛠️
+    title: '@mixte/use'
+    details: 一些 Vue 组合式函数, 可与 VueUse 一起使用
 ---
-

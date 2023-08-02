@@ -46,8 +46,8 @@ export function MarkdownTransform(): Plugin {
 
 const emptyMd = `
 <br>\n
-::: warning
-文档暂未完成 ...
+::: warning 啊
+文档还没写呢 ...
 :::
 `;
 
