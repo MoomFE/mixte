@@ -5,6 +5,7 @@ import Components from 'unplugin-vue-components/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import { mixte, use } from '../../meta/docs.json';
 import { alias } from '../../meta/alias';
+import { version } from '../../package.json';
 
 export default defineConfig({
   title: 'Mixte',
@@ -20,8 +21,17 @@ export default defineConfig({
 
   themeConfig: {
     nav: [
-      { text: 'mixte', link: `/mixte/${mixte[0]}`, activeMatch: '^/mixte/(?!use)' },
-      { text: 'use', link: `/mixte/use/${use[0]}`, activeMatch: '^/mixte/use/' },
+      {
+        text: 'Api',
+        items: [
+          { text: 'mixte', link: `/mixte/${mixte[0]}`, activeMatch: '^/mixte/(?!use)' },
+          { text: '@mixte/use', link: `/mixte/use/${use[0]}`, activeMatch: '^/mixte/use/' },
+        ],
+      },
+      {
+        text: `v${version}`,
+        items: [{ text: '更新日志', link: 'https://github.com/MoomFE/mixte/blob/main/CHANGELOG.md' }],
+      },
     ],
 
     sidebar: {
