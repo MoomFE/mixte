@@ -1,11 +1,4 @@
-# useCountdown
 - 创建一个倒计时
-
-## 演示
-
-<DemoCard>
-  <Demo />
-</DemoCard>
 
 ## 用法
 
@@ -26,7 +19,3 @@
   });
 </script>
 ```
-
-<script setup>
-  import Demo from './demo.vue';
-</script>

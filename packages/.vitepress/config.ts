@@ -6,6 +6,7 @@ import AutoImport from 'unplugin-auto-import/vite';
 import { mixte, use } from '../../meta/docs.json';
 import { alias } from '../../meta/alias';
 import { version } from '../../package.json';
+import { MarkdownTransform } from './plugins/markdownTransform';
 
 export default defineConfig({
   title: 'Mixte',
@@ -60,6 +61,7 @@ export default defineConfig({
       alias,
     },
     plugins: [
+      MarkdownTransform(),
       Unocss({
         configFile: resolve(__dirname, '../unocss.config.ts'),
       }),
