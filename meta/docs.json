@@ -1,8 +1,19 @@
 {
   "mixte": [
-    "is"
+    "asyncArrayFn",
+    "deepClone",
+    "deepMerge",
+    "delay",
+    "is",
+    "move",
+    "random",
+    "toArray",
+    "uniqueKey"
   ],
   "use": [
-    "useCountdown"
+    "useCountdown",
+    "watch",
+    "whenever",
+    "wheneverEffectScope"
   ]
 }

@@ -11,8 +11,8 @@ hero:
       text: Markdown Examples
       link: /markdown-examples
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: View on GitHub
+      link: https://github.com/MoomFE/mixte
 
 features:
   - title: Feature A

@@ -10,6 +10,8 @@ export default defineConfig({
   title: 'Mixte',
   description: '',
 
+  lang: 'zh-CN',
+
   cleanUrls: true,
   rewrites: {
     'mixte/src/:fn/index.md': 'mixte/:fn.md',
@@ -18,8 +20,8 @@ export default defineConfig({
 
   themeConfig: {
     nav: [
-      { text: 'mixte', link: `/mixte/${mixte[0]}` },
-      { text: 'use', link: `/mixte/use/${use[0]}` },
+      { text: 'mixte', link: `/mixte/${mixte[0]}`, activeMatch: '^/mixte/(?!use)' },
+      { text: 'use', link: `/mixte/use/${use[0]}`, activeMatch: '^/mixte/use/' },
     ],
 
     sidebar: {
