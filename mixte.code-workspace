@@ -22,6 +22,7 @@
     "files.exclude": {
       "*.code-workspace": true,
       "node_modules": true,
+      "packages/.vitepress/cache": true,
       "packages/mixte": true,
       "packages/use": true
     },
