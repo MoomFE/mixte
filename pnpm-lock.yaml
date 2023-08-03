@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@mixte/use':
+        specifier: workspace:*
+        version: link:packages/use
       '@moomfe/eslint-config':
         specifier: ^2.6.0
         version: 2.6.0(eslint@8.46.0)(typescript@5.1.6)
@@ -50,6 +53,9 @@ importers:
       magic-string:
         specifier: ^0.30.2
         version: 0.30.2
+      mixte:
+        specifier: workspace:*
+        version: link:packages/mixte
       pnpm:
         specifier: ^8.6.11
         version: 8.6.11

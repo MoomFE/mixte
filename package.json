@@ -23,7 +23,7 @@
     "test-release": "pnpm install && vitest --run && npm run build && vitest --mode test-build --run",
     "dev": "npm run docs:dev",
     "docs:dev": "npm run udd && vitepress dev packages --host",
-    "docs:build": "npm run udd && vitepress build packages",
+    "docs:build": "npm run udd && npm run build && vitepress build packages",
     "docs:preview": "npm run docs:build && vitepress preview packages --host",
     "up": "npx taze latest -r -w -i",
     "udd": "pnpm install && tsx scripts/updateDocsDetails.ts",
@@ -31,6 +31,7 @@
     "release": "npm run test-release && npx bumpp -r --no-tag --no-push"
   },
   "devDependencies": {
+    "@mixte/use": "workspace:*",
     "@moomfe/eslint-config": "^2.6.0",
     "@moomfe/small-utils": "^5.3.2",
     "@rollup/plugin-alias": "^5.0.0",
@@ -45,6 +46,7 @@
     "fs-extra": "^11.1.1",
     "lint-staged": "^13.2.3",
     "magic-string": "^0.30.2",
+    "mixte": "workspace:*",
     "pnpm": "^8.6.11",
     "rollup": "^3.27.0",
     "rollup-plugin-dts": "^5.3.0",
