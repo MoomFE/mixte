@@ -1,3 +1,5 @@
+import { isBoolean } from 'mixte';
+
 /**
  * 在传入的两个自然数之间随机生成一个自然数
  * @param from 最小的自然数
@@ -65,16 +67,23 @@ export function randomUppercaseLetter() {
 
 /**
  * 随机一个英文字母
- * @param uppercase 是否大写 ( default: false )
+ * @param uppercase 是否大写
  * @example
  *
- * randomLetter(); // -> a ~ z
+ * randomLetter(); // -> a ~ z, A ~ Z
  * randomLetter(true); // -> A ~ Z
+ * randomLetter(false); // -> a ~ z
  */
-export function randomLetter(uppercase = false) {
-  return String.fromCharCode(
-    uppercase ? randomNatural(65, 90) : randomNatural(97, 122),
-  );
+export function randomLetter(uppercase?: boolean) {
+  if (isBoolean(uppercase)) {
+    return uppercase
+      ? randomUppercaseLetter()
+      : randomLowercaseLetter();
+  }
+
+  return randomNatural(0, 1)
+    ? randomLowercaseLetter()
+    : randomUppercaseLetter();
 }
 
 /** 生成字符串的选项 */

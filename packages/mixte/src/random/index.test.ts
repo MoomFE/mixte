@@ -1,4 +1,5 @@
-import { random, randomBoolean, randomLetter, randomLowercaseLetter, randomNatural, randomString, randomUppercaseLetter } from 'mixte';
+import { isBoolean, random, randomBoolean, randomLetter, randomLowercaseLetter, randomNatural, randomString, randomUppercaseLetter } from 'mixte';
+import { types } from '../is/testTypes';
 
 describe('randomNatural', () => {
   test('在传入的两个自然数之间随机生成一个自然数', () => {
@@ -122,15 +123,20 @@ describe('randomUppercaseLetter', () => {
 });
 
 describe('randomLetter', () => {
-  test('默认随机一个小写英文字母', () => {
+  test('默认随机一个小写或大写英文字母', () => {
     const letters = new Set<string>();
 
-    for (let i = 0; i < 2600; i++)
+    for (let i = 0; i < 5200; i++)
       letters.add(randomLetter());
 
     expect(
       Array.from(letters).sort(),
-    ).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
+    ).toEqual(
+      [
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+      ].sort(),
+    );
   });
 
   test('传入 true, 则随机一个大写英文字母', () => {
@@ -153,6 +159,39 @@ describe('randomLetter', () => {
     expect(
       Array.from(letters).sort(),
     ).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
+  });
+
+  test('传入非布尔值, 则随机一个小写或大写英文字母', () => {
+    Object.values(types).forEach((values) => {
+      values.forEach((value) => {
+        const letters = new Set<string>();
+        const count = isBoolean(value) ? 2600 : 5200;
+
+        for (let i = 0; i < count; i++)
+          letters.add(randomLetter(value));
+
+        if (value === true) {
+          expect(
+            Array.from(letters).sort(),
+          ).toEqual(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
+        }
+        else if (value === false) {
+          expect(
+            Array.from(letters).sort(),
+          ).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
+        }
+        else {
+          expect(
+            Array.from(letters).sort(),
+          ).toEqual(
+            [
+              'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+              'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+            ].sort(),
+          );
+        }
+      });
+    });
   });
 });
 
