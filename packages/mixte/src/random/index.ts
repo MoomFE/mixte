@@ -14,6 +14,8 @@ export function randomNatural(from: number, to: number) {
 
 /**
  * 在传入的两个数字之间随机生成一个数字
+ * @param from 第一个数字
+ * @param to 第二个数字
  * @example
  *
  * random(0, 10); // -> 0 ~ 10
@@ -75,6 +77,7 @@ export function randomLetter(uppercase = false) {
   );
 }
 
+/** 生成字符串的选项 */
 interface RandomStringOptions {
   /** 是否包含小写字母 ( default: true ) */
   lowercase?: boolean
