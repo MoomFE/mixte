@@ -14,6 +14,20 @@ export function isString(value: unknown): value is string {
 }
 
 /**
+ * 判断传入参数是否是布尔值
+ *
+ * @param value 需要判断的参数
+ * @example
+ *
+ * isBoolean(true); // -> true
+ * isBoolean(false); // -> true
+ * isBoolean(666); // -> false
+ */
+export function isBoolean(value: unknown): value is boolean {
+  return typeof value === 'boolean';
+}
+
+/**
  * 判断传入参数是否是 Number 类型, 并且不为 NaN
  *
  * @param value 需要判断的参数

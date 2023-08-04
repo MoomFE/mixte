@@ -1,5 +1,6 @@
 ## [Unreleased]
-  - 💄 优化 `random`, `randomString` 工具方法类型定义
+  - 🌟 [mixte] 新增 `isBoolean` 工具方法
+  - 💄 [mixte] 优化 `random`, `randomString` 工具方法类型定义
 
 ## [v0.0.1-beta.13]
   - 📅 2023-07-22

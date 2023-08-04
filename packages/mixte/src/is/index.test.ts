@@ -1,4 +1,4 @@
-import { isESModule, isEmptyObject, isFunction, isNativePromise, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isPromise, isReference, isString } from 'mixte';
+import { isBoolean, isESModule, isEmptyObject, isFunction, isNativePromise, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isPromise, isReference, isString } from 'mixte';
 import { testTypes, types } from './testTypes';
 
 describe('testTypes', () => {
@@ -66,6 +66,13 @@ describe('is', () => {
     expect(isString('666')).toBe(true);
     expect(isString(666)).toBe(false);
     expect(testTypes(isString, ['string', 'numericString'])).toBe(true);
+  });
+
+  test('isBoolean', () => {
+    expect(isBoolean(true)).toBe(true);
+    expect(isBoolean(false)).toBe(true);
+    expect(isBoolean(666)).toBe(false);
+    expect(testTypes(isBoolean, ['boolean'])).toBe(true);
   });
 
   test('isNumber', () => {
