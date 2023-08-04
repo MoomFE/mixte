@@ -14,7 +14,9 @@
 
   const min = ref(0);
   const max = ref(100);
-  const value = ref();
+  const value = ref(
+    randomNatural(min.value, max.value),
+  );
 
   wheneverImmediate(() => min.value > max.value, () => {
     max.value = min.value;

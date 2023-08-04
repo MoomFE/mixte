@@ -14,5 +14,7 @@
 
   const from = ref(-100);
   const to = ref(100);
-  const value = ref();
+  const value = ref(
+    random(from.value, to.value),
+  );
 </script>
