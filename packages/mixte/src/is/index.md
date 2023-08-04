@@ -22,6 +22,27 @@ isString(666); // -> false
 ```
 
 
+## `isBoolean`
+
+判断传入参数是否是布尔值
+
+### 类型
+
+```ts
+function isBoolean(value: unknown): value is boolean;
+```
+
+### 示例
+
+```ts
+import { isBoolean } from 'mixte';
+
+isBoolean(true); // -> true
+isBoolean(false); // -> true
+isBoolean(666); // -> false
+```
+
+
 ## `isNumber`
 
 判断传入参数是否是 Number 类型, 并且不为 NaN
