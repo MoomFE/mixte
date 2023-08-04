@@ -1,6 +1,7 @@
 - 常用的类型判断方法
 - 该页面的方法可以打开浏览器的 JavaScript 控制台, 使用 `Mixte.{fn-name}` 的方式使用
 
+
 ## `isString`
 
 判断传入参数是否是 String 类型
@@ -19,6 +20,7 @@ import { isString } from 'mixte';
 isString('666'); // -> true
 isString(666); // -> false
 ```
+
 
 ## `isNumber`
 
@@ -40,6 +42,7 @@ isNumber('666'); // -> false
 isNumber(NaN); // -> false
 ```
 
+
 ## `isNumericString`
 
 判断传入参数是否数字字符串
@@ -60,6 +63,7 @@ isNumericString(666); // -> false
 isNumericString(NaN); // -> false
 ```
 
+
 ## `isNumeric`
 
 判断传入参数是否是数字, 支持判断数字字符串
@@ -79,6 +83,7 @@ isNumeric(666); // -> true
 isNumeric('666'); // -> true
 isNumeric(NaN); // -> false
 ```
+
 
 ## `isObject`
 
@@ -101,6 +106,7 @@ isObject(() => {}); // -> false
 isObject(666); // -> false
 ```
 
+
 ## `isPlainObject`
 
 判断传入参数是否是纯粹的对象
@@ -120,6 +126,7 @@ isPlainObject({}); // -> true
 isPlainObject(Object.create(null)); // -> true
 isPlainObject([]); // -> false
 ```
+
 
 ## `isFunction`
 
@@ -142,6 +149,7 @@ isFunction([]); // -> false
 isFunction(666); // -> false
 ```
 
+
 ## `isNativePromise`
 
 判断传入参数是否是 Promise 对象
@@ -162,6 +170,7 @@ isNativePromise(Promise.resolve()); // -> true
 isNativePromise({ then() {}, catch() {} }); // -> false
 ```
 
+
 ## `isPromise`
 
 判断传入参数是否是 Promise 对象或是类似于 Promise 的对象
@@ -181,6 +190,7 @@ isPromise(new Promise(() => {})); // -> true
 isPromise(Promise.resolve()); // -> true
 isPromise({ then() {}, catch() {} }); // -> true
 ```
+
 
 ## `isReference`
 
@@ -211,6 +221,7 @@ isReference(Symbol('666')); // -> false
 isReference(666n); // -> false
 ```
 
+
 ## `isPrimitive`
 
 判断传入参数是否是原始类型
@@ -240,6 +251,7 @@ isPrimitive([]); // -> false
 isPrimitive(() => {}); // -> false
 ```
 
+
 ## `isEmptyObject`
 
 判断传入对象是否是一个空对象
@@ -258,6 +270,7 @@ import { isEmptyObject } from 'mixte';
 isEmptyObject({}); // -> true
 isEmptyObject({ mixte: 6 }); // -> false
 ```
+
 
 ## `isESModule`
 
