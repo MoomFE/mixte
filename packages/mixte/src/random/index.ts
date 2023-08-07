@@ -81,7 +81,7 @@ export function randomLetter(uppercase?: boolean) {
       : randomLowercaseLetter();
   }
 
-  return randomNatural(0, 1)
+  return randomBoolean()
     ? randomLowercaseLetter()
     : randomUppercaseLetter();
 }
