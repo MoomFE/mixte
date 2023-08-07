@@ -1,7 +1,11 @@
 <template>
-  <TransitionGroup tag="div" text-sm flex="~ gap-2" mt-5>
-    <template v-for="num in array" :key="num">
-      <div ref="itemsRef" size-8 flex="~ items-center justify-center" transition-all bg-teal-3 el-2>
+  <TransitionGroup tag="div" move-class="move-item" text-sm flex="~ gap-2" mt-5>
+    <template v-for="(num, index) in array" :key="num">
+      <div
+        ref="itemsRef"
+        :class="{ jump: index === to }" :data-index="index"
+        size-8 flex="~ items-center justify-center" transition="all duration-300" bg-teal-3 el-2
+      >
         {{ num }}
       </div>
     </template>
@@ -15,8 +19,8 @@
     <button m-btn @click="move(array, from, to)">移动</button>
   </div>
 
-  <div ref="fromFloatingRef" transition-transform m-popover :style="fromFloatingStyles">from</div>
-  <div ref="toFloatingRef" transition-transform m-popover :style="toFloatingStyles">to</div>
+  <div ref="fromFloatingRef" m-popover :style="fromFloatingStyles">from</div>
+  <div ref="toFloatingRef" m-popover :style="toFloatingStyles">to</div>
 </template>
 
 <script lang="ts" setup>
@@ -31,8 +35,8 @@
   const from = ref(0);
   const to = ref(5);
 
-  const fromRef = computed(() => itemsRef.value[from.value]);
-  const toRef = computed(() => itemsRef.value[to.value]);
+  const fromRef = computed(() => itemsRef.value.find(item => item.dataset.index === `${from.value}`));
+  const toRef = computed(() => itemsRef.value.find(item => item.dataset.index === `${to.value}`));
 
   const { floatingStyles: fromFloatingStyles } = useFloating(fromRef, fromFloatingRef, {
     placement: 'top',
@@ -43,3 +47,9 @@
     middleware: [offset(6)],
   });
 </script>
+
+<style scoped>
+  .move-item.jump{
+    @apply -translate-y-8
+  }
+</style>

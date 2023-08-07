@@ -15,7 +15,7 @@ export default defineConfig({
     'm-input-sm': 'p-(1 x-1.5)',
 
     // 弹出框
-    'm-popover': 'text-sm bg-black c-white rounded p-(.5 x2)',
+    'm-popover': 'text-sm bg-black c-white rounded transition-transform  p-(.5 x2)',
   },
 
   presets: [
