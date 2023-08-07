@@ -1,6 +1,6 @@
 <template>
   <div flex items-center gap="x3 y2" lt-sm:flex-col>
-    <div grid="~ cols-[auto_1fr] items-center gap-1">
+    <div text-sm grid="~ cols-[auto_1fr] items-center gap-(x2 y1)">
       min: <el-input-number v-model="min" class="w-32!" controls-position="right" :min="0" />
       max: <el-input-number v-model="max" class="w-32!" controls-position="right" :min="min" />
     </div>
