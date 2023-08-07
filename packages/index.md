@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: 开始使用
-      link: /mixte/is
+      link: /mixte/random
     - theme: alt
       text: View on GitHub
       link: https://github.com/MoomFE/mixte
