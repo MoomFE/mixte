@@ -13,6 +13,9 @@ export default defineConfig({
     // 输入框
     'm-input': 'lh-none b-(1 solid neutral-3 rounded-1) p-(2 x-3)',
     'm-input-sm': 'p-(1 x-1.5)',
+
+    // 弹出框
+    'm-popover': 'text-sm bg-black c-white rounded p-(.5 x2)',
   },
 
   presets: [
