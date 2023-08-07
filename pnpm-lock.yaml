@@ -23,6 +23,9 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.1
         version: 11.0.1
+      '@vercel/analytics':
+        specifier: ^1.0.1
+        version: 1.0.1
       '@vitest/coverage-v8':
         specifier: ^0.34.1
         version: 0.34.1(vitest@0.34.1)
@@ -1530,6 +1533,10 @@ packages:
       vite: 4.4.8(@types/node@20.4.1)(sass@1.64.2)
     transitivePeerDependencies:
       - rollup
+    dev: true
+
+  /@vercel/analytics@1.0.1:
+    resolution: {integrity: sha512-Ux0c9qUfkcPqng3vrR0GTrlQdqNJ2JREn/2ydrVuKwM3RtMfF2mWX31Ijqo1opSjNAq6rK76PwtANw6kl6TAow==}
     dev: true
 
   /@vitejs/plugin-vue@4.2.3(vite@4.4.8)(vue@3.3.4):

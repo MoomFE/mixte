@@ -2,6 +2,7 @@
 import type { App } from 'vue';
 import { h } from 'vue';
 import { ID_INJECTION_KEY } from 'element-plus';
+import { inject } from '@vercel/analytics';
 import Theme from 'vitepress/theme';
 import * as Mixte from 'mixte';
 
@@ -23,7 +24,9 @@ export default {
       current: 0,
     });
 
-    if (typeof window !== 'undefined') // @ts-expect-error
+    if (typeof window !== 'undefined') { // @ts-expect-error
       window.Mixte = Mixte;
+      import.meta.env.PROD && inject();
+    }
   },
 };
