@@ -1,7 +1,7 @@
 <template>
-  <div flex flex-col gap-2 items-center>
-    <el-input v-model="value" class="w-36! [&_input]-text-center" readonly />
+  <div flex items-center gap="x3 y2" lt-sm:flex-col>
     <button m-btn @click="value = randomUppercaseLetter()">点击随机</button>
+    <el-input v-model="value" class="w-36! [&_input]-text-center" readonly />
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div flex gap-2 items-center lt-sm:flex-col>
+  <div flex items-center gap="x3 y2" lt-sm:flex-col>
     <div grid="~ cols-[auto_1fr] items-center gap-1">
       from: <el-input-number v-model="from" class="w-32!" controls-position="right" />
       to: <el-input-number v-model="to" class="w-32!" controls-position="right" />

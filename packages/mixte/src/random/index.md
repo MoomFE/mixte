@@ -95,7 +95,7 @@ randomUppercaseLetter(); // -> A ~ Z
 
 ```ts
 /**
- * @param uppercase 是否大写 ( default: false )
+ * @param uppercase 是否大写
  */
 function randomLetter(uppercase?: boolean): string;
 ```
@@ -105,8 +105,9 @@ function randomLetter(uppercase?: boolean): string;
 ```ts
 import { randomLetter } from 'mixte';
 
-randomLetter(); // -> a ~ z
+randomLetter(); // -> a ~ z, A ~ Z
 randomLetter(true); // -> A ~ Z
+randomLetter(false); // -> a ~ z
 ```
 
 
