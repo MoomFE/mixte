@@ -5,7 +5,7 @@
       to: <el-input-number v-model="to" class="w-32!" controls-position="right" />
     </div>
     <button m-btn @click="value = random(from, to)">点击随机</button>
-    <el-input v-model="value" class="w-36!" readonly />
+    <el-input :value="value" class="w-36!" readonly />
   </div>
 </template>
 

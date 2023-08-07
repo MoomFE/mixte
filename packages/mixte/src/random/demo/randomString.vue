@@ -1,13 +1,13 @@
 <template>
   <div flex items-center gap="x3 y2" lt-sm:flex-col>
     <div text-sm grid="~ cols-[auto_1fr] items-center gap-(x2 y1)">
-      字符串长度: <el-input-number v-model="length" class="w-32!" controls-position="right" />
+      字符串长度: <el-input-number v-model="length" class="w-32!" controls-position="right" :min="1" />
       包含小写字母: <el-checkbox v-model="lowercase" />
       包含大写字母: <el-checkbox v-model="uppercase" />
       包含数字: <el-checkbox v-model="number" />
     </div>
     <button m-btn @click="setValue">点击随机</button>
-    <el-input v-model="value" class="w-46! [&_input]-text-center" readonly />
+    <el-input :value="value" class="w-46! [&_input]-text-center" readonly />
   </div>
 </template>
 

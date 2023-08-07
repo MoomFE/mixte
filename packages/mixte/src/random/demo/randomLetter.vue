@@ -6,7 +6,7 @@
       <el-radio :label="false">小写</el-radio>
     </el-radio-group>
     <button m-btn @click="setValue">点击随机</button>
-    <el-input v-model="value" class="w-36! [&_input]-text-center" readonly />
+    <el-input :value="value" class="w-36! [&_input]-text-center" readonly />
   </div>
 </template>
 
