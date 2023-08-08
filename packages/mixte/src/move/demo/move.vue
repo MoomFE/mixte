@@ -1,10 +1,10 @@
 <template>
-  <TransitionGroup tag="div" move-class="move-item" text-sm flex="~ gap-2" mt-5>
+  <TransitionGroup ref="containerRef" tag="div" move-class="move-item" text-sm flex="~ gap-2 wrap" mt-5>
     <template v-for="(num, index) in array" :key="num">
       <div
         ref="itemsRef"
-        :class="{ jump: index === to }" :data-index="index"
-        size-8 flex="~ items-center justify-center" transition="all duration-300" bg-teal-3 el-2
+        :class="{ 'jump': index === to, 'will-move': [from, to].includes(index) }" :data-index="index"
+        size-8 flex="~ items-center justify-center" transition="all duration-360" bg-teal-3 el-2
       >
         {{ num }}
       </div>
@@ -27,29 +27,39 @@
   import { move } from 'mixte';
   import { offset, useFloating } from '@floating-ui/vue';
 
+  const containerRef = ref<HTMLElement>();
   const itemsRef = ref<HTMLElement[]>([]);
   const fromFloatingRef = ref<HTMLElement>();
   const toFloatingRef = ref<HTMLElement>();
 
-  const array = reactive([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const array = reactive([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
   const from = ref(0);
   const to = ref(5);
 
   const fromRef = computed(() => itemsRef.value.find(item => item.dataset.index === `${from.value}`));
   const toRef = computed(() => itemsRef.value.find(item => item.dataset.index === `${to.value}`));
 
-  const { floatingStyles: fromFloatingStyles } = useFloating(fromRef, fromFloatingRef, {
+  const { floatingStyles: fromFloatingStyles, update: fromFloatingUpdate } = useFloating(fromRef, fromFloatingRef, {
     placement: 'top',
     middleware: [offset(6)],
   });
-  const { floatingStyles: toFloatingStyles } = useFloating(toRef, toFloatingRef, {
+  const { floatingStyles: toFloatingStyles, update: toFloatingUpdate } = useFloating(toRef, toFloatingRef, {
     placement: 'bottom',
     middleware: [offset(6)],
   });
+
+  watch(useElementSize(containerRef).width, () => {
+    fromFloatingUpdate();
+    toFloatingUpdate();
+  });
 </script>
 
-<style scoped>
-  .move-item.jump{
-    @apply -translate-y-8
-  }
+<style lang="sass" scoped>
+  .move-item.jump
+    @apply -translate-y-8 z-1
+
+  .will-move
+    @apply relative
+    &::before
+      @apply content-[''] size-10 absolute b-(1 dashed gray rounded) z-666
 </style>
