@@ -21,6 +21,7 @@
     "prettier.enable": false,
     "files.exclude": {
       "*.code-workspace": true,
+      "coverage": true,
       "node_modules": true,
       "packages/.vitepress/cache": true,
       "packages/mixte": true,
