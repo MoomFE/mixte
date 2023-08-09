@@ -34,8 +34,8 @@
   const itemsSortRef = computed(() => itemsRef.value.sort((a, b) => Number(a.dataset.index) - Number(b.dataset.index)));
 
   const array = reactive([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
-  const from = ref(10);
-  const to = ref(2);
+  const from = ref(2);
+  const to = ref(10);
 
   const fromRef = computed(() => itemsRef.value.find(item => item.dataset.index === `${from.value}`));
   const toRef = computed(() => itemsRef.value.find(item => item.dataset.index === `${to.value}`));
@@ -60,11 +60,12 @@
     const itemsBounding = itemsSortRef.value.map(item => item.getBoundingClientRect());
 
     const timeline = gsap.timeline();
-    const range = itemsSortRef.value
-      .map((el, index) => [el, itemsBounding[index]!, itemsBounding[index + (index > fromV ? -1 : 1)]!])
-      .filter(([el], index) => el !== fromEl && index >= min && index <= max) as [HTMLElement, DOMRect, DOMRect][];
+    const range: [HTMLElement, DOMRect, DOMRect][] = [];
 
-    if (fromV > toV) range.reverse();
+    itemsSortRef.value.forEach((el, index) => {
+      if (el !== fromEl && index >= min && index <= max)
+        range.push([el, itemsBounding[index]!, itemsBounding[index + (index > fromV ? -1 : 1)]!]);
+    });
 
     // 移动到目标位置上方
     timeline.to(fromEl, {
@@ -75,7 +76,7 @@
       duration: Math.max(range.length / 10, 0.5),
     });
     // 移动范围内的元素
-    range.forEach(([el, fromBounding, toBounding], index) => {
+    (fromV > toV ? range.reverse() : range).forEach(([el, fromBounding, toBounding], index) => {
       timeline.to(
         el,
         { x: toBounding.x - fromBounding.x, y: toBounding.y - fromBounding.y, duration: 0.07 },
@@ -84,7 +85,7 @@
     });
     // 移动到目标位置
     timeline.to(fromEl, {
-      y: itemsBounding[toV]!.y - itemsBounding[fromV]!.y,
+      y: '+=50',
       ease: 'circ.in',
       duration: 0.3,
       onComplete() {
