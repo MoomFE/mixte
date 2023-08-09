@@ -12,8 +12,8 @@
 
   <div flex="~ items-center gap-3" mt-10>
     <div text-sm grid="~ cols-[auto_1fr] items-center gap-(x2 y1)">
-      from: <el-input-number v-model="from" class="w-32!" :disabled="isMove" controls-position="right" :min="0" :max="array.length - 1" />
-      to: <el-input-number v-model="to" class="w-32!" :disabled="isMove" controls-position="right" :min="0" :max="array.length - 1" />
+      from: <el-input-number v-model="from" class="w-32!" controls-position="right" :min="0" :max="array.length - 1" :disabled="isMove" />
+      to: <el-input-number v-model="to" class="w-32!" controls-position="right" :min="0" :max="array.length - 1" :disabled="isMove" />
     </div>
     <el-button class="c-white!" color="#14b8a6" :disabled="isMove" @click="toMove">移动</el-button>
   </div>
@@ -76,13 +76,16 @@
       duration: Math.max(range.length / 10, 0.5),
     });
     // 移动范围内的元素
-    (fromV > toV ? range.reverse() : range).forEach(([el, fromBounding, toBounding], index) => {
-      timeline.to(
-        el,
-        { x: toBounding.x - fromBounding.x, y: toBounding.y - fromBounding.y, duration: 0.07 },
-        index ? '>' : '<+=0.3',
-      );
-    });
+    timeline.to(
+      (fromV > toV ? range.reverse() : range).map(([el]) => el),
+      {
+        x: i => range[i][2].x - range[i][1].x,
+        y: i => range[i][2].y - range[i][1].y,
+        duration: 0.08,
+        stagger: 0.08,
+      },
+      '<=0.3',
+    );
     // 移动到目标位置
     timeline.to(fromEl, {
       y: '+=50',
@@ -90,7 +93,7 @@
       duration: 0.3,
       onComplete() {
         delay(300).then(() => {
-          itemsSortRef.value.filter((_, i) => i >= min && i <= max).forEach(el => gsap.set(el, { x: 0, y: 0, zIndex: 'auto' }));
+          itemsSortRef.value.forEach(el => gsap.set(el, { x: 0, y: 0, zIndex: 'auto' }));
           move(array, fromV, toV);
           isMove.value = false;
         });
