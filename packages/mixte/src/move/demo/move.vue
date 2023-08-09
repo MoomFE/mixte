@@ -59,37 +59,34 @@
     const [max, min] = [fromV, toV].sort((a, b) => b - a);
     const itemsBounding = itemsSortRef.value.map(item => item.getBoundingClientRect());
 
+    const timeline = gsap.timeline();
     const range = itemsSortRef.value
       .map((el, index) => [el, itemsBounding[index]!, itemsBounding[index + (index > fromV ? -1 : 1)]!])
       .filter(([el], index) => el !== fromEl && index >= min && index <= max) as [HTMLElement, DOMRect, DOMRect][];
-    const rangeTl = gsap.timeline();
-    let rangeIndex = 0;
 
     if (fromV > toV) range.reverse();
 
     // 移动到目标位置上方
-    gsap.to(fromEl, {
+    timeline.to(fromEl, {
       x: itemsBounding[toV]!.x - itemsBounding[fromV]!.x,
       y: itemsBounding[toV]!.y - itemsBounding[fromV]!.y - 50,
       zIndex: 6,
-      duration: Math.max(range.length / 10, 0.5),
       ease: 'circ.out',
+      duration: Math.max(range.length / 10, 0.5),
     });
     // 移动范围内的元素
-    range.forEach(([el, fromBounding, toBounding]) => {
-      rangeTl.to(el, {
-        x: toBounding.x - fromBounding.x,
-        y: toBounding.y - fromBounding.y,
-        duration: 0.07,
-        delay: (rangeIndex++) ? 0 : 0.3,
-      });
+    range.forEach(([el, fromBounding, toBounding], index) => {
+      timeline.to(
+        el,
+        { x: toBounding.x - fromBounding.x, y: toBounding.y - fromBounding.y, duration: 0.07 },
+        index ? '>' : '<+=0.3',
+      );
     });
     // 移动到目标位置
-    rangeTl.to(fromEl, {
+    timeline.to(fromEl, {
       y: itemsBounding[toV]!.y - itemsBounding[fromV]!.y,
       ease: 'circ.in',
       duration: 0.3,
-      delay: 0.1,
       onComplete() {
         delay(300).then(() => {
           itemsSortRef.value.filter((_, i) => i >= min && i <= max).forEach(el => gsap.set(el, { x: 0, y: 0, zIndex: 'auto' }));
