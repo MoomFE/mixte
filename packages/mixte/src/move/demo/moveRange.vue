@@ -42,9 +42,9 @@
   const itemsSortRef = computed(() => itemsRef.value.sort((a, b) => Number(a.dataset.index) - Number(b.dataset.index)));
 
   const array = reactive([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
-  const start = ref(0);
+  const start = ref(1);
   const moveCount = ref(3);
-  const to = ref(5);
+  const to = ref(8);
 
   const startRef = computed(() => itemsRef.value.find(item => item.dataset.index === `${start.value}`));
   const toRef = computed(() => itemsRef.value.find(item => item.dataset.index === `${to.value}`));
@@ -71,14 +71,15 @@
     const startRange: [HTMLElement, DOMRect, DOMRect][] = [];
     const range: [HTMLElement, DOMRect, DOMRect][] = [];
 
-    itemsSortRef.value.forEach((el, index) => {
+    itemsSortRef.value.forEach((el, index, list) => {
       if (index >= startV && index < startV + moveCountV) {
-        const i = index - startV;
-        startRange.push([el, itemsBounding[index], itemsBounding[toV + i]]);
+        const diff = (toV + moveCountV) > list.length ? (toV + moveCountV) - list.length : 0;
+        const toIndex = toV + index - startV - diff;
+        startRange.push([el, itemsBounding[index], itemsBounding[toIndex]]);
       }
       else if (index >= min && index < max + moveCountV) {
-        const i = toV > startV ? index - moveCountV : index + moveCountV;
-        range.push([el, itemsBounding[index], itemsBounding[i]]);
+        const toIndex = toV > startV ? index - moveCountV : index + moveCountV;
+        range.push([el, itemsBounding[index], itemsBounding[toIndex]]);
       }
     });
 
@@ -125,15 +126,15 @@
 <style lang="sass" scoped>
   .will-move-range, .will-move-to
     &::before
-      @apply content-[''] size-10 absolute b-(1 dashed gray rounded) z-666
+      @apply content-[''] size-10 absolute b-(1 dashed gray rounded) z-1
 
   .will-move-range
-    &.will-move-range-start:not(.will-move-range-end):not(.array-end)::before
+    &.will-move-range-start:not(.will-move-range-end):not(.array-end):not(.will-move-to)::before
       @apply b-r-none rounded-r-none
-    &:not(.will-move-range-start):not(.will-move-range-end):not(.array-end)::before
+    &:not(.will-move-range-start):not(.will-move-range-end):not(.array-end):not(.will-move-to)::before
       @apply b-r-none rounded-r-none
-    &:not(.will-move-range-start):not(.will-move-range-end)::before
+    &:not(.will-move-range-start):not(.will-move-range-end):not(.will-move-to)::before
       @apply b-l-none rounded-l-none
-    &.will-move-range-end:not(.will-move-range-start)::before
+    &.will-move-range-end:not(.will-move-range-start):not(.will-move-to)::before
       @apply b-l-none rounded-l-none
 </style>
