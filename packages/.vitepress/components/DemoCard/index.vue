@@ -24,23 +24,24 @@
   import { devDependencies } from '@@/package.json';
 
   const highlighter = ref<shiki.Highlighter>();
-  (async () => {
-    shiki.setCDN(`https://unpkg.com/shiki@${devDependencies.shiki.replace(/^\^/g, '')}/`);
-    highlighter.value = await shiki.getHighlighter({
-      langs: ['ts'],
-      theme: 'material-theme-darker',
-    });
-  })();
 
   const code = ref('');
   const codeHighlight = computed(() => {
     return highlighter.value?.codeToHtml(code.value, { lang: 'ts' }) ?? '';
   });
 
+  const hasCode = computed(() => !!code.value);
   const [showCode, toggleShowCode] = useToggle(true);
 
-  const hasCode = computed(() => !!code.value);
   const showExtra = computed(() => hasCode.value);
+
+  onMounted(async () => {
+    shiki.setCDN(`https://unpkg.com/shiki@${devDependencies.shiki.replace(/^\^/g, '')}/`);
+    highlighter.value = await shiki.getHighlighter({
+      langs: ['ts'],
+      theme: 'material-theme-darker',
+    });
+  });
 
   provide('code', code);
 </script>
