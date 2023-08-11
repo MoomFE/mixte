@@ -12,6 +12,7 @@
 
 <script lang="ts" setup>
   import { randomLetter } from 'mixte';
+  import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
 
   const uppercase = ref<boolean>();
   const value = ref(
@@ -23,4 +24,10 @@
   }
 
   watchImmediate(uppercase, setValue);
+
+  syncRef(
+    inject<InjectCode>('code')!,
+    computed(() => `randomLetter(${uppercase.value === undefined ? '' : uppercase.value});`),
+    { direction: 'rtl' },
+  );
 </script>

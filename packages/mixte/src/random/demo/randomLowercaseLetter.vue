@@ -5,10 +5,13 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
   import { randomLowercaseLetter } from 'mixte';
+  import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
 
   const value = ref(
     randomLowercaseLetter(),
   );
+
+  inject<InjectCode>('code')!.value = 'randomLowercaseLetter();';
 </script>

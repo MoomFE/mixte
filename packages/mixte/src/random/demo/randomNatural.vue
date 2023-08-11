@@ -9,8 +9,9 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
   import { randomNatural } from 'mixte';
+  import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
 
   const min = ref(0);
   const max = ref(100);
@@ -21,4 +22,10 @@
   wheneverImmediate(() => min.value > max.value, () => {
     max.value = min.value;
   });
+
+  syncRef(
+    inject<InjectCode>('code')!,
+    computed(() => `randomNatural(${min.value}, ${max.value});`),
+    { direction: 'rtl' },
+  );
 </script>

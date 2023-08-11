@@ -5,10 +5,13 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
   import { randomBoolean } from 'mixte';
+  import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
 
   const value = ref(
     randomBoolean(),
   );
+
+  inject<InjectCode>('code')!.value = 'randomBoolean();';
 </script>

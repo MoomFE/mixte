@@ -14,6 +14,7 @@
 <script lang="ts" setup>
   import { randomString } from 'mixte';
   import { ElMessage } from 'element-plus';
+  import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
 
   const length = ref<number>(12);
   const lowercase = ref<boolean>(true);
@@ -39,4 +40,14 @@
   }
 
   watchImmediate([length, lowercase, uppercase, number], setValue);
+
+  syncRef(
+    inject<InjectCode>('code')!,
+    computed(() => `randomString(${length.value}, {
+  lowercase: ${lowercase.value},
+  uppercase: ${uppercase.value},
+  number: ${number.value},
+});`),
+    { direction: 'rtl' },
+  );
 </script>

@@ -9,12 +9,19 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
   import { random } from 'mixte';
+  import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
 
   const from = ref(-100);
   const to = ref(100);
   const value = ref(
     random(from.value, to.value),
+  );
+
+  syncRef(
+    inject<InjectCode>('code')!,
+    computed(() => `random(${from.value}, ${to.value});`),
+    { direction: 'rtl' },
   );
 </script>

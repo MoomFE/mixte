@@ -1,5 +1,5 @@
 <template>
-  <div class="relative b m-theme-border rounded p-6 my-4" :class="{ pt8: showExtra, pb0: showCode }">
+  <div class="relative b m-theme-border rounded p-6 my-4" :class="{ pt8: showExtra, pb0: hasCode && showCode }">
     <slot />
 
     <!-- 功能区 -->
