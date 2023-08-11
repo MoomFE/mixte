@@ -26,6 +26,7 @@
   import { delay, move } from 'mixte';
   import { gsap } from 'gsap';
   import { offset, useFloating } from '@floating-ui/vue';
+  import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
 
   const containerRef = ref<HTMLElement>();
   const fromFloatingRef = ref<HTMLElement>();
@@ -105,6 +106,12 @@
     fromFloatingUpdate();
     toFloatingUpdate();
   });
+
+  syncRef(
+    inject<InjectCode>('code')!,
+    computed(() => `move(${JSON.stringify(array)}, ${from.value}, ${to.value});`),
+    { direction: 'rtl' },
+  );
 </script>
 
 <style lang="sass" scoped>
