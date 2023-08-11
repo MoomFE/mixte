@@ -3,6 +3,9 @@ import { presetExtra } from 'unocss-preset-extra';
 
 export default defineConfig({
   shortcuts: {
+    // 边框
+    'm-theme-border': 'b-0 b-solid b-neutral-2 dark:b-neutral-2/36',
+
     // 容器
     'm-box': 'flex-(~ items-center justify-center) rounded',
     'm-box-b': 'flex-(~ items-center justify-center) rounded b-(1 solid neutral-3)',
