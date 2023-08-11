@@ -1,6 +1,8 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vitepress';
 import Unocss from 'unocss/vite';
+import Icons from 'unplugin-icons/vite';
+import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
@@ -64,12 +66,20 @@ export default defineConfig({
 
   vite: {
     resolve: {
-      alias,
+      alias: {
+        ...alias,
+        '@': resolve(__dirname, '../'),
+        '@@': resolve(__dirname, '../../'),
+      },
     },
     plugins: [
       MarkdownTransform(),
       Unocss({
         configFile: resolve(__dirname, '../unocss.config.ts'),
+      }),
+      Icons({
+        scale: 1,
+        compiler: 'vue3',
       }),
       Components({
         include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
@@ -78,6 +88,7 @@ export default defineConfig({
           resolve(__dirname, './components'),
         ],
         resolvers: [
+          IconsResolver({ prefix: 'i' }),
           ElementPlusResolver(),
         ],
       }),
