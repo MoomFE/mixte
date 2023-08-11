@@ -6,7 +6,7 @@
       包含大写字母: <el-checkbox v-model="uppercase" />
       包含数字: <el-checkbox v-model="number" />
     </div>
-    <button m-btn @click="setValue">点击随机</button>
+    <button m-btn="~ primary" @click="setValue">点击随机</button>
     <el-input :value="value" class="w-46! [&_input]-text-center" readonly />
   </div>
 </template>

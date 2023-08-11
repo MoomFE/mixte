@@ -5,7 +5,7 @@
       <el-radio :label="true">大写</el-radio>
       <el-radio :label="false">小写</el-radio>
     </el-radio-group>
-    <button m-btn @click="setValue">点击随机</button>
+    <button m-btn="~ primary" @click="setValue">点击随机</button>
     <el-input :value="value" class="w-36! [&_input]-text-center" readonly />
   </div>
 </template>

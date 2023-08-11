@@ -1,9 +1,9 @@
 <template>
   <div class="flex gap-2">
-    <button class="w-60 m-btn" :disabled="isStart" @click="start">
+    <button class="w-60" m-btn="~ primary" :disabled="isStart" @click="start">
       {{ isStart ? output.toFixed(0) : '点击开始倒计时' }}
     </button>
-    <button v-if="isStart" class="m-btn" @click="stop">
+    <button v-if="isStart" m-btn="~ primary" @click="stop">
       停止
     </button>
   </div>
