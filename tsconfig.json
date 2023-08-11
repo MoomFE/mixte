@@ -18,12 +18,15 @@
     "paths": {
       "mixte": ["./packages/mixte/index.ts"],
       "@mixte/use/register": ["./packages/use/register.ts"],
-      "@mixte/*": ["./packages/*/index.ts"]
+      "@mixte/*": ["./packages/*/index.ts"],
+      "@/*": ["./packages/*"],
+      "@@/*": ["./*"]
     }
   },
   "include": [
     "packages",
-    "packages/.vitepress/**/*.{ts,vue}",
+    "packages/.vitepress/**/*.ts",
+    "packages/.vitepress/**/*.vue",
     "*.{ts,vue}"
   ],
   "exclude": [
