@@ -40,8 +40,16 @@ export default defineConfig({
     ],
 
     sidebar: {
-      '/mixte/': mixte.map(fn => ({ text: fn, link: `/mixte/${fn}` })),
-      '/mixte/use/': use.map(fn => ({ text: fn, link: `/mixte/use/${fn}` })),
+      '/mixte/': [
+        {
+          text: 'mixte',
+          items: mixte.map(fn => ({ text: fn, link: `/mixte/${fn}` })),
+        },
+        {
+          text: '@mixte/use',
+          items: use.map(fn => ({ text: fn, link: `/mixte/use/${fn}` })),
+        },
+      ],
     },
 
     socialLinks: [
