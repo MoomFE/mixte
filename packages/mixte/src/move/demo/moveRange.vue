@@ -98,7 +98,7 @@
       {
         x: i => range[i][2].x - range[i][1].x,
         y: i => range[i][2].y - range[i][1].y,
-        duration: 0.08,
+        duration: 0.08 * startRange.length,
         stagger: 0.08,
       },
       '<+=0.3',
