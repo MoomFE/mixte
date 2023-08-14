@@ -16,9 +16,6 @@
       "element-plus/global"
     ],
     "paths": {
-      "mixte": ["./packages/mixte/index.ts"],
-      "@mixte/use/register": ["./packages/use/register.ts"],
-      "@mixte/*": ["./packages/*/index.ts"],
       "@/*": ["./packages/*"],
       "@@/*": ["./*"]
     }
