@@ -1,5 +1,7 @@
-import type { MaybeRefOrGetter } from 'vue-demi';
-import { TransitionPresets, toValue, useTransition } from '@vueuse/core';
+import type { MaybeRefOrGetter, Ref } from 'vue-demi';
+import type { TransitionOptions } from '@vueuse/core';
+import { whenever, wheneverEffectScopeImmediate } from '@mixte/use';
+import { TransitionPresets, executeTransition, syncRef, toValue, tryOnScopeDispose } from '@vueuse/core';
 import { computed, ref, watch } from 'vue-demi';
 
 export interface UseCountdownOptions {
@@ -22,8 +24,6 @@ export function useCountdown(source: MaybeRefOrGetter<number>, options: UseCount
 
   /** 是否开始倒计时 */
   const isStart = ref(false);
-  /** 是否禁用倒计时转换计算 */
-  const isDisabled = computed(() => !isStart.value);
 
   /** 倒计时初始数字 */
   const finalSource = ref(toValue(source));
@@ -34,7 +34,7 @@ export function useCountdown(source: MaybeRefOrGetter<number>, options: UseCount
   const output = useTransition(finalSource, {
     duration: finalDuration,
     transition: TransitionPresets.linear,
-    disabled: isDisabled,
+    disabled: () => !isStart.value,
     onFinished: () => (isStart.value = false),
   });
 
@@ -43,6 +43,7 @@ export function useCountdown(source: MaybeRefOrGetter<number>, options: UseCount
    */
   function start() {
     isStart.value = true;
+    finalSource.value = 0;
   }
   /**
    * 结束倒计时
@@ -51,9 +52,9 @@ export function useCountdown(source: MaybeRefOrGetter<number>, options: UseCount
     isStart.value = false;
   }
 
-  // 重置倒计时时间
-  watch(isStart, (value) => {
-    finalSource.value = value ? 0 : toValue(source);
+  // 未开始倒计时时, 同步初始数字
+  wheneverEffectScopeImmediate(() => !isStart.value, () => {
+    syncRef(finalSource, computed(() => toValue(source)), { direction: 'rtl' });
   });
 
   return {
@@ -62,4 +63,38 @@ export function useCountdown(source: MaybeRefOrGetter<number>, options: UseCount
     start,
     stop,
   };
+}
+
+/**
+ * 改造自 @vueuse/core 中的 useTransition
+ * @see https://vueuse.org/core/useTransition
+ */
+function useTransition(source: Ref<number>, options: UseTransitionOptions = {}): Ref<any> {
+  const outputRef = ref(source.value);
+
+  watch(source, async (toVal) => {
+    if (toValue(options.disabled)) {
+      outputRef.value = toVal;
+      return;
+    }
+
+    await executeTransition(outputRef, outputRef.value, toVal, {
+      ...options,
+    });
+
+    options.onFinished?.();
+  });
+
+  return computed(() => toValue(options.disabled) ? source.value : outputRef.value);
+}
+
+interface UseTransitionOptions extends TransitionOptions {
+  /**
+   * Disables the transition
+   */
+  disabled?: MaybeRefOrGetter<boolean>
+  /**
+   * Callback to execute after transition finishes
+   */
+  onFinished?: () => void
 }

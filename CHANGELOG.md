@@ -1,6 +1,7 @@
 ## [Unreleased]
   - 🌟 [mixte] 新增 `isBoolean` 工具方法
   - 💄 [mixte] 优化 `random`, `randomString` 工具方法类型定义
+  - 🐞 [@mixte/use] 修复 `useCountdown` 开启倒计时未使用最新初始数字进行倒计时的问题
   - ⚠️ [mixte] 修改 `randomLetter` 工具方法逻辑, 当传参不是布尔值时, 随机一个小写或大写英文字母 ( 之前是随机一个小写字母 )
 
 ## [v0.0.1-beta.13]

@@ -2,9 +2,14 @@ import { useCountdown } from '@mixte/use';
 import { nextTick, ref } from 'vue-demi';
 
 describe('useCountdown', () => {
-  test('创建一个倒计时', async () => {
+  beforeEach(() => {
     vi.useFakeTimers();
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
 
+  test('创建一个倒计时', async () => {
     const source = ref(60);
     const { isStart, output, start, stop } = useCountdown(source);
 
@@ -33,8 +38,6 @@ describe('useCountdown', () => {
     expect(Math.round(output.value)).toBe(5);
     vi.advanceTimersByTime(5000);
     expect(output.value).toBe(0);
-
-    vi.useRealTimers();
   });
 
   test('首个传入参数为倒计时初始数字', () => {
@@ -47,9 +50,43 @@ describe('useCountdown', () => {
     expect(res3.output.value).toBe(15);
   });
 
-  test('默认倒计时所使用的时间为 60 秒', async () => {
-    vi.useFakeTimers();
+  test('开启倒计时时, 会重新读取最新的倒计时初始数字进行倒计时', async () => {
+    const source = ref(60);
+    const { isStart, output, start } = useCountdown(source);
 
+    expect(isStart.value).toBe(false);
+    expect(output.value).toBe(60);
+
+    source.value = 120;
+
+    expect(isStart.value).toBe(false);
+    expect(output.value).toBe(120);
+
+    await nextTick();
+
+    expect(isStart.value).toBe(false);
+    expect(output.value).toBe(120);
+
+    start();
+    await nextTick();
+
+    expect(isStart.value).toBe(true);
+    expect(output.value).toBe(120);
+
+    vi.advanceTimersByTime(30000);
+    expect(isStart.value).toBe(true);
+    expect(output.value).toBe(60);
+
+    vi.advanceTimersByTime(30000);
+    expect(isStart.value).toBe(true);
+    expect(output.value).toBe(0);
+
+    await nextTick();
+    expect(isStart.value).toBe(false);
+    expect(output.value).toBe(0);
+  });
+
+  test('默认倒计时所使用的时间为 60 秒', async () => {
     const source = ref(60);
     const { isStart, output, start } = useCountdown(source);
 
@@ -71,13 +108,9 @@ describe('useCountdown', () => {
     await nextTick();
     expect(isStart.value).toBe(false);
     expect(output.value).toBe(0);
-
-    vi.useRealTimers();
   });
 
   test('第二个参数可传入 duration 选项控制倒计时所使用的时间', async () => {
-    vi.useFakeTimers();
-
     const source = ref(60);
     const { isStart, output, start } = useCountdown(source, { duration: 30 * 1000 });
 
@@ -103,13 +136,9 @@ describe('useCountdown', () => {
     await nextTick();
     expect(isStart.value).toBe(false);
     expect(output.value).toBe(0);
-
-    vi.useRealTimers();
   });
 
   test('使用返回的 start 和 stop 方法控制倒计时开始及结束', async () => {
-    vi.useFakeTimers();
-
     const source = ref(60);
     const { isStart, output, start, stop } = useCountdown(source);
 
@@ -138,7 +167,5 @@ describe('useCountdown', () => {
     // 倒计时结束后，倒计时不会再继续
     vi.advanceTimersByTime(10000);
     expect(output.value).toBe(60);
-
-    vi.useRealTimers();
   });
 });
