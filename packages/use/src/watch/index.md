@@ -1,4 +1,3 @@
-
 ## `watchImmediate`
 
 immediate 默认为 true 的 watch 方法
