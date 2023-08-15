@@ -19,8 +19,11 @@ export function MarkdownTransform(): Plugin {
         const s = new MagicString(code = code.replace(/\r\n/g, '\n'));
         const imports = [];
 
+        const startIndex = code.match(/^---\n.+?\n---/m)?.[0]?.length ?? -1;
+
         // 添加标题
-        s.prepend(`# ${fn}\n\n`);
+        if (startIndex > 0) s.prependRight(startIndex, `\n\n# ${fn}\n\n`);
+        else s.prepend(`# ${fn}\n\n`);
 
         // 文档为空时添加提示
         if (!code.trim())

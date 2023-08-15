@@ -1,3 +1,7 @@
+---
+outline: [2, 3]
+---
+
 - 异步数组方法
 
 ## `asyncForEach`

@@ -65,9 +65,12 @@ export default defineConfig({
       copyright: 'Copyright (c) 2023-present, Wei Zhang',
     },
 
-    returnToTopLabel: '回到顶部',
+    outline: {
+      label: '大纲',
+    },
     sidebarMenuLabel: '菜单',
     darkModeSwitchLabel: '深色模式',
+    returnToTopLabel: '回到顶部',
   },
 
   lastUpdated: true,
