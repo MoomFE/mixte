@@ -5,6 +5,16 @@ import { effectScope, watch } from 'vue-demi';
  * 监听传入值为 truthy 时, 创建一个 effect 作用域
  *  - 当传入值改变但依旧为 truthy 时, 会停止之前创建的 effect 作用域并创建一个新的 effect 作用域
  *  - 当值变为 falsy 时, 将会停止之前创建的 effect 作用域
+ * @example
+ * const source = ref(false);
+ * const value = ref(1);
+ * const value2 = ref();
+ *
+ * wheneverEffectScope(source, (_value, _oldValue, _onCleanup) => {
+ *   watchImmediate(value, (v) => {
+ *     value2.value = v;
+ *   });
+ * });
  */
 export function wheneverEffectScope<T>(source: WatchSource<T | false | null | undefined>, run: WatchCallback<T>, options?: WatchOptions): WatchStopHandle {
   let scope: EffectScope | void;
