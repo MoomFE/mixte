@@ -5,6 +5,28 @@ outline: [1,3]
 - 创建一个倒计时
 
 
+### 类型
+
+```ts
+function useCountdown(
+  source: MaybeRefOrGetter<number>,
+  options?: UseCountdownOptions
+): {
+  isStart: Ref<boolean>
+  output: Ref<number>
+  start: () => void
+  stop: () => void
+};
+
+interface UseCountdownOptions {
+  /**
+   * 倒计时所使用的时间 ( 毫秒 )
+   * @default 60 * 1000
+   */
+  duration?: MaybeRefOrGetter<number>
+}
+```
+
 ### 用法
 
 ```html
