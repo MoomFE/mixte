@@ -1,5 +1,5 @@
 ---
-outline: [3,4]
+outline: [1,4]
 ---
 
 - 深拷贝合并一个或多个来源对象 `sources` 的属性到目标对象 `target`
