@@ -2,12 +2,6 @@
 
 监听值是 `truthy` 时执行回调函数, 是直接导出 `@vueuse/core` 的 [whenever](https://vueuse.org/shared/whenever)
 
-### 类型
-
-```ts
-function whenever<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: WatchOptions): WatchStopHandle;
-```
-
 ### 示例
 
 ```ts
@@ -38,16 +32,16 @@ watch(obj, (val) => {
 });
 ```
 
+### 类型
+
+```ts
+function whenever<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: WatchOptions): WatchStopHandle;
+```
+
 
 ## `wheneverImmediate`
 
 immediate 默认为 true 的 whenever 方法
-
-### 类型
-
-```ts
-function wheneverImmediate<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: Omit<WatchOptions, 'immediate'>): WatchStopHandle;
-```
 
 ### 示例
 
@@ -63,16 +57,16 @@ wheneverImmediate(obj, (val) => {
 obj.value = 2;
 ```
 
+### 类型
+
+```ts
+function wheneverImmediate<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: Omit<WatchOptions, 'immediate'>): WatchStopHandle;
+```
+
 
 ## `wheneverDeep`
 
 deep 默认为 true 的 whenever 方法
-
-### 类型
-
-```ts
-function wheneverDeep<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: Omit<WatchOptions, 'deep'>): WatchStopHandle;
-```
 
 ### 示例
 
@@ -88,16 +82,16 @@ wheneverDeep(obj, (val) => {
 obj.value.a = 2;
 ```
 
+### 类型
+
+```ts
+function wheneverDeep<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: Omit<WatchOptions, 'deep'>): WatchStopHandle;
+```
+
 
 ## `wheneverImmediateDeep`
 
 immediate 和 deep 默认为 true 的 whenever 方法
-
-### 类型
-
-```ts
-function wheneverImmediateDeep<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: Omit<WatchOptions, 'immediate' | 'deep'>): WatchStopHandle;
-```
 
 ### 示例
 
@@ -111,4 +105,10 @@ wheneverImmediateDeep(obj, (val) => {
 });
 
 obj.value.a = 2;
+```
+
+### 类型
+
+```ts
+function wheneverImmediateDeep<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: Omit<WatchOptions, 'immediate' | 'deep'>): WatchStopHandle;
 ```

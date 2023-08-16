@@ -6,12 +6,6 @@
 
 判断传入参数是否是 String 类型
 
-### 类型
-
-```ts
-function isString(value: unknown): value is string;
-```
-
 ### 示例
 
 ```ts
@@ -21,16 +15,16 @@ isString('666'); // -> true
 isString(666); // -> false
 ```
 
+### 类型
+
+```ts
+function isString(value: unknown): value is string;
+```
+
 
 ## `isBoolean`
 
 判断传入参数是否是布尔值
-
-### 类型
-
-```ts
-function isBoolean(value: unknown): value is boolean;
-```
 
 ### 示例
 
@@ -42,16 +36,16 @@ isBoolean(false); // -> true
 isBoolean(666); // -> false
 ```
 
+### 类型
+
+```ts
+function isBoolean(value: unknown): value is boolean;
+```
+
 
 ## `isNumber`
 
 判断传入参数是否是 Number 类型, 并且不为 NaN
-
-### 类型
-
-```ts
-function isNumber(value: unknown): value is number;
-```
 
 ### 示例
 
@@ -60,19 +54,19 @@ import { isNumber } from 'mixte';
 
 isNumber(666); // -> true
 isNumber('666'); // -> false
-isNumber(NaN); // -> false
+isNumber(Number.NaN); // -> false
+```
+
+### 类型
+
+```ts
+function isNumber(value: unknown): value is number;
 ```
 
 
 ## `isNumericString`
 
 判断传入参数是否数字字符串
-
-### 类型
-
-```ts
-function isNumericString(value: unknown): value is `${number}`;
-```
 
 ### 示例
 
@@ -81,19 +75,19 @@ import { isNumericString } from 'mixte';
 
 isNumericString('666'); // -> true
 isNumericString(666); // -> false
-isNumericString(NaN); // -> false
+isNumericString(Number.NaN); // -> false
+```
+
+### 类型
+
+```ts
+function isNumericString(value: unknown): value is `${number}`;
 ```
 
 
 ## `isNumeric`
 
 判断传入参数是否是数字, 支持判断数字字符串
-
-### 类型
-
-```ts
-function isNumeric(value: unknown): value is number | `${number}`;
-```
 
 ### 示例
 
@@ -102,19 +96,19 @@ import { isNumeric } from 'mixte';
 
 isNumeric(666); // -> true
 isNumeric('666'); // -> true
-isNumeric(NaN); // -> false
+isNumeric(Number.NaN); // -> false
+```
+
+### 类型
+
+```ts
+function isNumeric(value: unknown): value is number | `${number}`;
 ```
 
 
 ## `isObject`
 
 判断传入参数是否是 Object 类型, 并且不为 null
-
-### 类型
-
-```ts
-function isObject(value: unknown): value is object;
-```
 
 ### 示例
 
@@ -127,16 +121,16 @@ isObject(() => {}); // -> false
 isObject(666); // -> false
 ```
 
+### 类型
+
+```ts
+function isObject(value: unknown): value is object;
+```
+
 
 ## `isPlainObject`
 
 判断传入参数是否是纯粹的对象
-
-### 类型
-
-```ts
-function isPlainObject<Value = unknown>(value: unknown): value is Record<PropertyKey, Value>;
-```
 
 ### 示例
 
@@ -148,16 +142,16 @@ isPlainObject(Object.create(null)); // -> true
 isPlainObject([]); // -> false
 ```
 
+### 类型
+
+```ts
+function isPlainObject<Value = unknown>(value: unknown): value is Record<PropertyKey, Value>;
+```
+
 
 ## `isFunction`
 
 判断传入参数是否是 Function 类型
-
-### 类型
-
-```ts
-function isFunction(value: unknown): value is Function;
-```
 
 ### 示例
 
@@ -170,16 +164,16 @@ isFunction([]); // -> false
 isFunction(666); // -> false
 ```
 
+### 类型
+
+```ts
+function isFunction(value: unknown): value is Function;
+```
+
 
 ## `isNativePromise`
 
 判断传入参数是否是 Promise 对象
-
-### 类型
-
-```ts
-function isNativePromise<T = unknown>(value: unknown): value is Promise<T>;
-```
 
 ### 示例
 
@@ -191,16 +185,16 @@ isNativePromise(Promise.resolve()); // -> true
 isNativePromise({ then() {}, catch() {} }); // -> false
 ```
 
+### 类型
+
+```ts
+function isNativePromise<T = unknown>(value: unknown): value is Promise<T>;
+```
+
 
 ## `isPromise`
 
 判断传入参数是否是 Promise 对象或是类似于 Promise 的对象
-
-### 类型
-
-```ts
-function isPromise<T = unknown>(value: unknown): value is Promise<T>;
-```
 
 ### 示例
 
@@ -212,16 +206,16 @@ isPromise(Promise.resolve()); // -> true
 isPromise({ then() {}, catch() {} }); // -> true
 ```
 
+### 类型
+
+```ts
+function isPromise<T = unknown>(value: unknown): value is Promise<T>;
+```
+
 
 ## `isReference`
 
 判断传入参数是否是引用类型
-
-### 类型
-
-```ts
-function isReference(value: unknown): value is object | Function;
-```
 
 ### 示例
 
@@ -236,22 +230,22 @@ isReference(null); // -> false
 isReference(true); // -> false
 isReference(false); // -> false
 isReference(666); // -> false
-isReference(NaN); // -> false
+isReference(Number.NaN); // -> false
 isReference('666'); // -> false
 isReference(Symbol('666')); // -> false
 isReference(666n); // -> false
+```
+
+### 类型
+
+```ts
+function isReference(value: unknown): value is object | Function;
 ```
 
 
 ## `isPrimitive`
 
 判断传入参数是否是原始类型
-
-### 类型
-
-```ts
-function isPrimitive(value: unknown): boolean;
-```
 
 ### 示例
 
@@ -263,7 +257,7 @@ isPrimitive(null); // -> true
 isPrimitive(true); // -> true
 isPrimitive(false); // -> true
 isPrimitive(666); // -> true
-isPrimitive(NaN); // -> true
+isPrimitive(Number.NaN); // -> true
 isPrimitive('666'); // -> true
 isPrimitive(Symbol('666')); // -> true
 isPrimitive(666n); // -> true
@@ -272,16 +266,16 @@ isPrimitive([]); // -> false
 isPrimitive(() => {}); // -> false
 ```
 
+### 类型
+
+```ts
+function isPrimitive(value: unknown): boolean;
+```
+
 
 ## `isEmptyObject`
 
 判断传入对象是否是一个空对象
-
-### 类型
-
-```ts
-function isEmptyObject(value: any): value is EmptyObject;
-```
 
 ### 示例
 
@@ -292,16 +286,16 @@ isEmptyObject({}); // -> true
 isEmptyObject({ mixte: 6 }); // -> false
 ```
 
+### 类型
+
+```ts
+function isEmptyObject(value: any): value is EmptyObject;
+```
+
 
 ## `isESModule`
 
 判断传入参数是否是 ES Module
-
-### 类型
-
-```ts
-function isESModule<T = any>(module: any): module is { default: T };
-```
 
 ### 示例
 
@@ -310,4 +304,10 @@ import { isESModule } from 'mixte';
 
 isESModule(await import('https://unpkg.com/vue')); // -> true
 isESModule({}); // -> false
+```
+
+### 类型
+
+```ts
+function isESModule<T = any>(module: any): module is { default: T };
 ```

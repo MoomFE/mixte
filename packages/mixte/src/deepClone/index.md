@@ -5,12 +5,6 @@ outline: [1,4]
 - 创建传入值的深拷贝
   - 只会深拷贝普通对象和数组, 其他类型的值会直接被继承
 
-### 类型
-
-```ts
-function deepClone<T>(value: T): T;
-```
-
 ### 示例
 
 <br>
@@ -57,4 +51,10 @@ console.log(cloneObj.obj === cloneObj); // -> true
 
 console.log(obj === cloneObj); // -> false
 console.log(obj.obj === cloneObj.obj); // -> false
+```
+
+### 类型
+
+```ts
+function deepClone<T>(value: T): T;
 ```

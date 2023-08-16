@@ -8,18 +8,6 @@ outline: [1,4]
   - 来源对象中普通对象将会递归合并, 数组会被深拷贝后继承, 其他对象将会直接继承
   - 目标对象或来源对象的类型为数组时, 也遵循以上规则
 
-### 类型
-
-```ts
-function deepMerge<T>(target: T): T;
-function deepMerge<T, S1>(target: T, source: S1): Merge<T, S1>;
-function deepMerge<T, S1, S2>(target: T, source: S1, source2: S2): Merge<Merge<T, S1>, S2>;
-function deepMerge<T, S1, S2, S3>(target: T, source: S1, source2: S2, source3: S3): Merge<Merge<Merge<T, S1>, S2>, S3>;
-function deepMerge<T, S1, S2, S3, S4>(target: T, source: S1, source2: S2, source3: S3, source4: S4): Merge<Merge<Merge<Merge<T, S1>, S2>, S3>, S4>;
-function deepMerge<T, S1, S2, S3, S4, S5>(target: T, source: S1, source2: S2, source3: S3, source4: S4, source5: S5): Merge<Merge<Merge<Merge<Merge<T, S1>, S2>, S3>, S4>, S5>;
-function deepMerge<T, S1, S2, S3, S4, S5, S6>(target: T, source: S1, source2: S2, source3: S3, source4: S4, source5: S5, source6: S6): Merge<Merge<Merge<Merge<Merge<Merge<T, S1>, S2>, S3>, S4>, S5>, S6>;
-```
-
 ### 示例
 
 <br>
@@ -73,4 +61,16 @@ target.source = source;
 source.target = target;
 
 console.log(deepMerge(target, source)); // -> { source: { target: [Circular] }, target: { source: [Circular], target: [Circular] } }
+```
+
+### 类型
+
+```ts
+function deepMerge<T>(target: T): T;
+function deepMerge<T, S1>(target: T, source: S1): Merge<T, S1>;
+function deepMerge<T, S1, S2>(target: T, source: S1, source2: S2): Merge<Merge<T, S1>, S2>;
+function deepMerge<T, S1, S2, S3>(target: T, source: S1, source2: S2, source3: S3): Merge<Merge<Merge<T, S1>, S2>, S3>;
+function deepMerge<T, S1, S2, S3, S4>(target: T, source: S1, source2: S2, source3: S3, source4: S4): Merge<Merge<Merge<Merge<T, S1>, S2>, S3>, S4>;
+function deepMerge<T, S1, S2, S3, S4, S5>(target: T, source: S1, source2: S2, source3: S3, source4: S4, source5: S5): Merge<Merge<Merge<Merge<Merge<T, S1>, S2>, S3>, S4>, S5>;
+function deepMerge<T, S1, S2, S3, S4, S5, S6>(target: T, source: S1, source2: S2, source3: S3, source4: S4, source5: S5, source6: S6): Merge<Merge<Merge<Merge<Merge<Merge<T, S1>, S2>, S3>, S4>, S5>, S6>;
 ```
