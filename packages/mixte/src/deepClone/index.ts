@@ -30,6 +30,15 @@ function clone<T>(value: T, cache = new WeakMap<object, object>()) {
 /**
  * 创建传入值的深拷贝
  *  - 只会深拷贝普通对象和数组, 其他类型的值会直接被继承
+ * @example
+ * const obj = {
+ *   a: { b: 2 }
+ * };
+ *
+ * const cloneObj = deepClone(obj);
+ *
+ * console.log(obj === cloneObj); // -> false
+ * console.log(obj.a === cloneObj.a); // -> false
  */
 export function deepClone<T>(value: T): T {
   return clone(value);
