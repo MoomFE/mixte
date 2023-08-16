@@ -1,7 +1,7 @@
 import type { MaybeRefOrGetter, Ref } from 'vue-demi';
 import type { TransitionOptions } from '@vueuse/core';
-import { wheneverEffectScopeImmediate } from '@mixte/use';
-import { TransitionPresets, executeTransition, syncRef, toValue } from '@vueuse/core';
+import { whenever, wheneverEffectScopeImmediate } from '@mixte/use';
+import { TransitionPresets, executeTransition, syncRef, toValue, tryOnScopeDispose } from '@vueuse/core';
 import { computed, ref, watch } from 'vue-demi';
 
 export interface UseCountdownOptions {
@@ -35,7 +35,7 @@ export function useCountdown(source: MaybeRefOrGetter<number>, options: UseCount
     duration: finalDuration,
     transition: TransitionPresets.linear,
     disabled: () => !isStart.value,
-    onFinished: () => (isStart.value = false),
+    onFinished: () => isStart.value = false,
   });
 
   /**
@@ -69,8 +69,9 @@ export function useCountdown(source: MaybeRefOrGetter<number>, options: UseCount
  * 改造自 @vueuse/core 中的 useTransition
  * @see https://vueuse.org/core/useTransition
  */
-function useTransition(source: Ref<number>, options: UseTransitionOptions = {}): Ref<any> {
+function useTransition(source: Ref<number>, options: UseTransitionOptions): Ref<number> {
   const outputRef = ref(source.value);
+  let currentId = 0;
 
   watch(source, async (toVal) => {
     if (toValue(options.disabled)) {
@@ -78,23 +79,34 @@ function useTransition(source: Ref<number>, options: UseTransitionOptions = {}):
       return;
     }
 
+    const id = ++currentId;
+
     await executeTransition(outputRef, outputRef.value, toVal, {
       ...options,
+      abort: () => id !== currentId,
     });
 
-    options.onFinished?.();
+    id === currentId && options.onFinished();
   });
 
-  return computed(() => toValue(options.disabled) ? source.value : outputRef.value);
+  whenever(() => options.disabled(), () => {
+    currentId++;
+  });
+
+  tryOnScopeDispose(() => {
+    currentId++;
+  });
+
+  return computed(() => options.disabled() ? source.value : outputRef.value);
 }
 
 interface UseTransitionOptions extends TransitionOptions {
   /**
    * Disables the transition
    */
-  disabled?: MaybeRefOrGetter<boolean>
+  disabled: () => boolean
   /**
    * Callback to execute after transition finishes
    */
-  onFinished?: () => void
+  onFinished: () => void
 }

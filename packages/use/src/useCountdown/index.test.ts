@@ -6,6 +6,7 @@ describe('useCountdown', () => {
     vi.useFakeTimers();
   });
   afterEach(() => {
+    vi.advanceTimersByTime(60000);
     vi.useRealTimers();
   });
 
@@ -78,6 +79,45 @@ describe('useCountdown', () => {
     expect(output.value).toBe(60);
 
     vi.advanceTimersByTime(30000);
+    expect(isStart.value).toBe(true);
+    expect(output.value).toBe(0);
+
+    await nextTick();
+    expect(isStart.value).toBe(false);
+    expect(output.value).toBe(0);
+  });
+
+  test('停止倒计时过一会又重新开始, 会重新读取最新的倒计时初始数字进行倒计时', async () => {
+    const source = ref(60);
+    const { isStart, output, start, stop } = useCountdown(source);
+
+    expect(isStart.value).toBe(false);
+    expect(output.value).toBe(60);
+    start();
+    await nextTick();
+    expect(isStart.value).toBe(true);
+    expect(output.value).toBe(60);
+
+    vi.advanceTimersByTime(30000);
+    expect(isStart.value).toBe(true);
+    expect(output.value).toBe(30);
+    stop();
+    await nextTick();
+    expect(isStart.value).toBe(false);
+    expect(output.value).toBe(60);
+
+    vi.advanceTimersByTime(100000);
+
+    start();
+    await nextTick();
+    expect(isStart.value).toBe(true);
+    expect(output.value).toBe(60);
+
+    vi.advanceTimersByTime(59000);
+    expect(isStart.value).toBe(true);
+    expect(Math.round(output.value)).toBe(1);
+
+    vi.advanceTimersByTime(1000);
     expect(isStart.value).toBe(true);
     expect(output.value).toBe(0);
 
