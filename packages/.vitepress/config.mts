@@ -8,7 +8,6 @@ import AutoImport from 'unplugin-auto-import/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { MixteUseAutoImport } from '../use/register';
 import { mixte, use } from '../../meta/docs.json';
-import { alias } from '../../meta/alias';
 import { version } from '../../package.json';
 import { MarkdownTransform } from './plugins/markdownTransform';
 
@@ -78,7 +77,6 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        ...alias,
         '@': resolve(__dirname, '../'),
         '@@': resolve(__dirname, '../../'),
       },
