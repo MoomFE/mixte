@@ -1,3 +1,6 @@
 {
-  "extends": "@moomfe"
+  "extends": "@moomfe",
+  "rules": {
+    "unused-imports/no-unused-imports": "error"
+  }
 }
