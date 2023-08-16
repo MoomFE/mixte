@@ -27,7 +27,7 @@
 
   const code = ref('');
   const codeHighlight = computed(() => {
-    return highlighter.value?.codeToHtml(code.value, { lang: 'ts' }) ?? '';
+    return highlighter.value?.codeToHtml(code.value.trim(), { lang: 'ts' }) ?? '';
   });
 
   const hasCode = computed(() => !!code.value);

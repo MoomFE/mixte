@@ -13,6 +13,7 @@ export default defineConfig({
     // 按钮
     'm-btn': 'm-box flex-none rounded-1 p-(1.5 x-3) transition-color hover:c-teal-5 active:c-teal-6 disabled:cursor-not-allowed',
     'm-btn-primary': 'bg-teal-5 c-white! not-disabled:hover:bg-teal-5/80 not-disabled:active:bg-teal-6/90',
+    'm-btn-link': 'underline decoration-dotted',
 
     // 输入框
     'm-input': 'lh-none b-(1 solid neutral-3 rounded-1) p-(2 x-3)',

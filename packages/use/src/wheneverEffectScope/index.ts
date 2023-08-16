@@ -8,7 +8,7 @@ import { effectScope, watch } from 'vue-demi';
  * @example
  * const source = ref(false);
  * const value = ref(1);
- * const value2 = ref();
+ * const value2 = ref(0);
  *
  * wheneverEffectScope(source, (_value, _oldValue, _onCleanup) => {
  *   watchImmediate(value, (v) => {
