@@ -16,6 +16,20 @@ watchImmediate(obj, (val) => {
 obj.value = 2;
 ```
 
+```ts
+// 当前写法
+watchImmediate(obj, (val) => {
+  console.log(val);
+});
+
+// 相当于这种写法
+watch(obj, (val) => {
+  console.log(val);
+}, {
+  immediate: true
+});
+```
+
 ### 类型
 
 ```ts
@@ -44,6 +58,20 @@ watchDeep(obj, (val) => {
 obj.value.a = 2;
 ```
 
+```ts
+// 当前写法
+watchDeep(obj, (val) => {
+  console.log(val);
+});
+
+// 相当于这种写法
+watch(obj, (val) => {
+  console.log(val);
+}, {
+  deep: true
+});
+```
+
 ### 类型
 
 ```ts
@@ -70,6 +98,21 @@ watchImmediateDeep(obj, (val) => {
 });
 
 obj.value.a = 2;
+```
+
+```ts
+// 当前写法
+watchImmediateDeep(obj, (val) => {
+  console.log(val);
+});
+
+// 相当于这种写法
+watch(obj, (val) => {
+  console.log(val);
+}, {
+  immediate: true,
+  deep: true
+});
 ```
 
 ### 类型
