@@ -25,7 +25,7 @@
 
   syncRef(
     inject<InjectCode>('code')!,
-    computed(() => `randomNatural(${min.value}, ${max.value});`),
+    computed(() => `randomNatural(${min.value}, ${max.value}); // -> ${value.value}`),
     { direction: 'rtl' },
   );
 </script>

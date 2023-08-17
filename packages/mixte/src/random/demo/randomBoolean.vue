@@ -13,5 +13,9 @@
     randomBoolean(),
   );
 
-  inject<InjectCode>('code')!.value = 'randomBoolean();';
+  syncRef(
+    inject<InjectCode>('code')!,
+    computed(() => `randomBoolean(); // -> ${value.value}`),
+    { direction: 'rtl' },
+  );
 </script>

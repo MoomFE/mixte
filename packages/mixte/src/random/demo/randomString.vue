@@ -43,7 +43,7 @@
 
   syncRef(
     inject<InjectCode>('code')!,
-    computed(() => `randomString(${length.value}, {
+    computed(() => `randomString(${length.value}, { // -> ${value.value}
   lowercase: ${lowercase.value},
   uppercase: ${uppercase.value},
   number: ${number.value},

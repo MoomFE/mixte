@@ -21,7 +21,7 @@
 
   syncRef(
     inject<InjectCode>('code')!,
-    computed(() => `random(${from.value}, ${to.value});`),
+    computed(() => `random(${from.value}, ${to.value}); // -> ${value.value}`),
     { direction: 'rtl' },
   );
 </script>

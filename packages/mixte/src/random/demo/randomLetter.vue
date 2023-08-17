@@ -27,7 +27,7 @@
 
   syncRef(
     inject<InjectCode>('code')!,
-    computed(() => `randomLetter(${uppercase.value === undefined ? '' : uppercase.value});`),
+    computed(() => `randomLetter(${uppercase.value === undefined ? '' : uppercase.value}); // -> ${value.value}`),
     { direction: 'rtl' },
   );
 </script>

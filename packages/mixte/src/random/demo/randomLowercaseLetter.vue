@@ -13,5 +13,9 @@
     randomLowercaseLetter(),
   );
 
-  inject<InjectCode>('code')!.value = 'randomLowercaseLetter();';
+  syncRef(
+    inject<InjectCode>('code')!,
+    computed(() => `randomLowercaseLetter(); // -> ${value.value}`),
+    { direction: 'rtl' },
+  );
 </script>
