@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { watchImmediate, wheneverEffectScope } from '@mixte/use';
+  import { wheneverEffectScope } from '@mixte/use';
   import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
 
   const [source, toggleSource] = useToggle();
@@ -37,8 +37,9 @@ const value = ref('${value.value}');
 const value2 = ref('${value2.value}');
 
 wheneverEffectScope(source, (_value, _oldValue, _onCleanup) => {
-  watchImmediate(value, (v) => {
-    value2.value = v;
+  // 当 \`source\` 为 true 时, \`value\` he \`value2\` 是同步的
+  watch(value, val => value2.value = val, {
+    immediate: true,
   });
 });
 `),
