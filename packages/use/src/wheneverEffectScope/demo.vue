@@ -36,8 +36,9 @@ const source = ref(${source.value});
 const value = ref('${value.value}');
 const value2 = ref('${value2.value}');
 
+// 当 \`source\` 为 truthy 时, 执行的 effect 作用域
 wheneverEffectScope(source, (_value, _oldValue, _onCleanup) => {
-  // 当 \`source\` 为 true 时, \`value\` he \`value2\` 是同步的
+  // 监听 \`value\`, 同步值至 \`value2\`
   watch(value, val => value2.value = val, {
     immediate: true,
   });
