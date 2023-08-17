@@ -31,7 +31,7 @@
   });
 
   const hasCode = computed(() => !!code.value);
-  const [showCodeState, toggleShowCodeState] = useToggle(true);
+  const [showCodeState, toggleShowCodeState] = useToggle(false);
 
   const showCode = computed(() => hasCode.value && showCodeState.value);
   const showExtra = computed(() => hasCode.value);
