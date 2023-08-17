@@ -24,6 +24,7 @@
 
 <script lang="ts" setup>
   import { useCountdown } from '@mixte/use';
+  import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
 
   const source = ref(60);
   const duration = ref(60 * 1000);
@@ -31,4 +32,21 @@
   const { output, isStart, start, stop } = useCountdown(source, {
     duration,
   });
+
+  syncRef(
+    inject<InjectCode>('code')!,
+    computed(() => `
+const source = ref(${source.value});
+const duration = ref(${duration.value});
+
+const {
+  output, // -> ${output.value}
+  isStart, // -> ${isStart.value}
+  start, stop
+} = useCountdown(source, {
+  duration,
+});
+    `),
+    { direction: 'rtl' },
+  );
 </script>
