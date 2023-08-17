@@ -1,6 +1,9 @@
 ## [Unreleased]
+
+## [v0.0.1-beta.14]
+  - 📅 2023-08-17
   - 🌟 [mixte] 新增 `isBoolean` 工具方法
-  - 💄 [mixte] 优化 `random`, `randomLetter`, `randomString`, `isBoolean` 工具方法类型定义
+  - 💄 [mixte] 优化 `random`, `randomLetter`, `randomString` 工具方法类型定义
   - 💄 [mixte] 优化 `uniqueKey` 方法类型定义
   - 💄 [@mixte/use] 优化 `watchImmediate`, `watchDeep`, `watchImmediateDeep` 方法类型定义
   - 💄 [@mixte/use] 优化 `wheneverEffectScope`, `wheneverEffectScopeImmediate`, `wheneverEffectScopeDeep`, `wheneverEffectScopeImmediateDeep` 方法类型定义
@@ -108,7 +111,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.13...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.14...HEAD
+[v0.0.1-beta.14]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.14
 [v0.0.1-beta.13]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.13
 [v0.0.1-beta.12]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.12
 [v0.0.1-beta.11]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.11
