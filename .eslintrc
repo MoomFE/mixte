@@ -1,6 +1,7 @@
 {
   "extends": "@moomfe",
   "rules": {
-    "unused-imports/no-unused-imports": "error"
+    "unused-imports/no-unused-imports": "error",
+    "antfu/generic-spacing": "off"
   }
 }
