@@ -26,8 +26,10 @@
   const highlighter = ref<shiki.Highlighter>();
 
   const code = ref('');
+  const codeLang = ref('ts');
+
   const codeHighlight = computed(() => {
-    return highlighter.value?.codeToHtml(code.value.trim(), { lang: 'ts' }) ?? '';
+    return highlighter.value?.codeToHtml(code.value.trim(), { lang: codeLang.value }) ?? '';
   });
 
   const hasCode = computed(() => !!code.value);
@@ -42,11 +44,12 @@
 
       shiki.setCDN(`https://unpkg.com/shiki@${devDependencies.shiki.replace(/^\^/g, '')}/`);
       highlighter.value = await shiki.getHighlighter({
-        langs: ['ts'],
+        langs: ['ts', 'vue'],
         theme: 'material-theme-darker',
       });
     });
   });
 
   provide('code', code);
+  provide('codeLang', codeLang);
 </script>
