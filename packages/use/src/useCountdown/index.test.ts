@@ -6,7 +6,6 @@ describe('useCountdown', () => {
     vi.useFakeTimers();
   });
   afterEach(() => {
-    vi.advanceTimersByTime(60000);
     vi.useRealTimers();
   });
 
