@@ -42,5 +42,14 @@
     "unocss.autocomplete.matchType": "fuzzy",
     "unocss.remToPxPreview": true,
     "unocss.root": ["packages"],
+  },
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "antfu.iconify",
+      "antfu.unocss",
+      "csstools.postcss",
+      "syler.sass-indented"
+    ]
   }
 }
