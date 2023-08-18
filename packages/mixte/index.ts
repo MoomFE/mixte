@@ -7,3 +7,4 @@ export * from './src/asyncArrayFn/index';
 export * from './src/toArray/index';
 export * from './src/deepClone/index';
 export * from './src/deepMerge/index';
+export * from './src/onceRun/index';

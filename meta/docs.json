@@ -6,6 +6,7 @@
     "delay",
     "is",
     "move",
+    "onceRun",
     "random",
     "toArray",
     "uniqueKey"
