@@ -5,6 +5,7 @@
     "deepMerge",
     "defineArgs",
     "delay",
+    "env",
     "is",
     "leastRun",
     "move",
