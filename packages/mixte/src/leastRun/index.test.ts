@@ -12,7 +12,7 @@ describe('leastRun', () => {
     expect(end - start).toBeGreaterThanOrEqual(1000);
   });
 
-  test('运行函数并且保证最少执行指定 ms 的时间', async () => {
+  test('运行函数并且保证最少执行指定时间 ( 毫秒 )', async () => {
     const times = [1, 10, 20, 100, 200, 1000, 2000];
 
     for (const time of times) {

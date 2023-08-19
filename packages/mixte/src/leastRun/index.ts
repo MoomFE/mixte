@@ -2,9 +2,17 @@ import type { AsyncReturnType } from 'type-fest';
 import { delay, isFunction } from 'mixte';
 
 /**
- * 运行函数并且保证最少执行指定 ms 的时间
- * @param ms 最少执行的 ms 时间
+ * 运行函数并且保证最少执行指定时间 ( 毫秒 )
+ * @param ms 最少执行的时间 ( 毫秒 )
  * @param fn 要运行的函数
+ * @example
+ * function fn() {
+ *   await delay(500);
+ * }
+ *
+ * await leastRun(fn); // -> 运行了 1000ms
+ * await leastRun(1200, fn); // -> 运行了 1200ms
+ * await leastRun(100, fn); // ->  运行了 500ms
  */
 export async function leastRun<
   F extends ((...args: any[]) => any) | ((...args: any[]) => Promise<any>),
