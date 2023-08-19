@@ -9,3 +9,4 @@ export * from './src/deepClone/index';
 export * from './src/deepMerge/index';
 export * from './src/onceRun/index';
 export * from './src/leastRun/index';
+export * from './src/defineArgs/index';
