@@ -1,6 +1,6 @@
 {
   "name": "@mixte/monorepo",
-  "version": "0.0.1-beta.14",
+  "version": "1.0.0",
   "private": true,
   "packageManager": "pnpm@8.6.12",
   "description": "",

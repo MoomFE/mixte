@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.0.0]
+  - 📅 2023-08-19
   - 🌟 [mixte] 新增 `onceRun` 工具方法
   - 🌟 [mixte] 新增 `leastRun` 工具方法
   - 🌟 [mixte] 新增 `defineArgs` 工具方法
@@ -115,7 +118,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v0.0.1-beta.14...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.0.0...HEAD
+[v1.0.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.0.0
 [v0.0.1-beta.14]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.14
 [v0.0.1-beta.13]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.13
 [v0.0.1-beta.12]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.12
