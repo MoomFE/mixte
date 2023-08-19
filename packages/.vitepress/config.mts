@@ -24,6 +24,12 @@ export default defineConfig({
     'use/src/:fn/index.md': 'mixte/use/:fn.md',
   },
 
+  lastUpdated: true,
+
+  sitemap: {
+    hostname: 'https://mixte.moomfe.com/',
+  },
+
   themeConfig: {
     nav: [
       {
@@ -72,8 +78,6 @@ export default defineConfig({
     darkModeSwitchLabel: '深色模式',
     returnToTopLabel: '回到顶部',
   },
-
-  lastUpdated: true,
 
   vite: {
     resolve: {
