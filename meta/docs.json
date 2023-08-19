@@ -5,6 +5,7 @@
     "deepMerge",
     "delay",
     "is",
+    "leastRun",
     "move",
     "onceRun",
     "random",
