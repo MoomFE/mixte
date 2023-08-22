@@ -17,8 +17,8 @@ interface MixteUseAutoImportOptions {
  *
  * @example
  *
- * import AutoImport from 'unplugin-auto-import/register';
- * import { MixteUseAutoImport } from '@mixte/use/register';
+ * import AutoImport from 'unplugin-auto-import/resolvers';
+ * import { MixteUseAutoImport } from '@mixte/use/resolvers';
  *
  * export default defineConfig({
  *   plugins: [
