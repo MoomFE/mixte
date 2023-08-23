@@ -15,13 +15,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./register": {
       "types": "./dist/register.d.ts",
-      "require": "./dist/register.cjs",
-      "import": "./dist/register.mjs"
+      "import": "./dist/register.mjs",
+      "require": "./dist/register.cjs"
     },
     "./*": "./*"
   },
