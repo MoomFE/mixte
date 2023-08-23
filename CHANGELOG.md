@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🐞 [@mixte/use] 修复引入 `@mixte/use/register` 时类型错误的问题
   - ⚠️ [@mixte/use] Revert "按需导入重命名, 改为使用 `@mixte/use/resolvers` 引用"
 
 ## [v1.1.0-beta.0]
