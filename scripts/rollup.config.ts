@@ -27,21 +27,18 @@ const externals = [
   '@vueuse/core',
 ];
 
-for (const { name, external, dtsExternal } of packages) {
-  const dir = name.split('/')[0];
-  const file = name.split('/').slice(1).join('/') || 'index';
-  const input = `packages/${dir}/${file}.ts`;
+for (const { input, outputFile, external, dtsExternal } of packages) {
   const output: OutputOptions[] = [];
 
   // es
   output.push({
-    file: `packages/${dir}/dist/${file}.mjs`,
+    file: `${outputFile}.mjs`,
     format: 'es',
   });
 
   // cjs
   output.push({
-    file: `packages/${dir}/dist/${file}.cjs`,
+    file: `${outputFile}.cjs`,
     format: 'cjs',
   });
 
@@ -56,7 +53,7 @@ for (const { name, external, dtsExternal } of packages) {
   configs.push({
     input,
     output: {
-      file: `packages/${dir}/dist/${file}.d.ts`,
+      file: `${outputFile}.d.ts`,
       format: 'es',
     },
     plugins: [pluginDts],

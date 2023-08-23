@@ -2,7 +2,7 @@ import { resolve } from 'node:path';
 
 export const alias = {
   'mixte': resolve(__dirname, '../packages/mixte/index'),
-  '@mixte/use/register': resolve(__dirname, '../packages/use/register'),
+  '@mixte/use/register': resolve(__dirname, '../packages/use/src/register'),
   '@mixte/use': resolve(__dirname, '../packages/use/index'),
 };
 
