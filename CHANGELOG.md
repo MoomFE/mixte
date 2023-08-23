@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.1.0-beta.1]
+  - 📅 2023-08-23
   - 🐞 [@mixte/use] 修复引入 `@mixte/use/register` 时类型错误的问题
   - ⚠️ [@mixte/use] Revert "按需导入重命名, 改为使用 `@mixte/use/resolvers` 引用"
 
@@ -124,7 +127,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.1.0-beta.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.1.0-beta.1...HEAD
+[v1.1.0-beta.1]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.1.0-beta.1
 [v1.1.0-beta.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.1.0-beta.0
 [v1.0.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.0.0
 [v0.0.1-beta.14]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.14
