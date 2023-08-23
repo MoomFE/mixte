@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.1.0-beta.0]
+  - 📅 2023-08-19
   - ⚠️ [@mixte/use] 按需导入重命名, 改为使用 `@mixte/use/resolvers` 引用
 
 ## [v1.0.0]
@@ -119,7 +122,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.1.0-beta.0...HEAD
+[v1.1.0-beta.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.1.0-beta.0
 [v1.0.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.0.0
 [v0.0.1-beta.14]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.14
 [v0.0.1-beta.13]: https://github.com/MoomFE/Small-Utils/releases/tag/v0.0.1-beta.13
