@@ -5,7 +5,7 @@ export const packages = [
     external: ['mixte'],
   },
   {
-    name: 'use/resolvers',
+    name: 'use/register',
     dtsExternal: ['unplugin-auto-import/types'],
   },
 ];

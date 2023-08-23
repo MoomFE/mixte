@@ -1,4 +1,4 @@
-import { MixteUseAutoImport } from '@mixte/use/resolvers';
+import { MixteUseAutoImport } from '@mixte/use/register';
 
 describe('MixteUseAutoImport', () => {
   test('方法返回一个 key 为 @mixte/use 的对象', () => {
