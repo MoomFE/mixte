@@ -6,7 +6,7 @@ import { delay, isFunction } from 'mixte';
  * @param ms 最少执行的时间 ( 毫秒 )
  * @param fn 要运行的函数
  * @example
- * function fn() {
+ * async function fn() {
  *   await delay(500);
  * }
  *

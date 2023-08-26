@@ -9,7 +9,7 @@ outline: [1,3]
 ```ts
 import { delay, leastRun } from 'mixte';
 
-function fn() {
+async function fn() {
   await delay(500);
 }
 
