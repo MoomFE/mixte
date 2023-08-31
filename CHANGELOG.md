@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.1.1]
+  - 📅 2023-08-31
   - 💄 [@mixte/use] 设置依赖类库 `@vueuse/core` 最低版本号
   - 🐞 [mixte] 修改 `leastRun` 工具方法注释及文档错误
 
@@ -124,7 +127,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.1.1...HEAD
+[v1.1.1]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.1.1
 [v1.1.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.1.0
 [v1.1.0-beta.1]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.1.0-beta.1
 [v1.1.0-beta.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.1.0-beta.0
