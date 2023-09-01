@@ -60,6 +60,7 @@ export function MixteUseAutoImport(options?: MixteUseAutoImportOptions): Imports
       'wheneverImmediate',
       'wheneverImmediateDeep',
       'useCountdown',
+      'deepUnref',
     ],
   };
 }

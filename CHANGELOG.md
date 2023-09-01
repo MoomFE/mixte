@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/use] 新增 `deepUnref` 方法
 
 ## [v1.1.1]
   - 📅 2023-08-31

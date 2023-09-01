@@ -1,5 +1,7 @@
+import { readonly } from 'vue-demi';
+
 /** 所有用于测试的类型 */
-export const types = {
+export const types = readonly({
   // Undefined
   undefined: [undefined],
   // Null
@@ -7,13 +9,13 @@ export const types = {
   // String
   string: ['', 'mixte', '🌟'],
   // Number
-  number: [-6.6, -6, 0, 6, 6.6, Infinity, -Infinity],
+  number: [-6.6, -6, 0, 6, 6.6, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY],
   // Numeric String
   numericString: ['-6.6', '-6', '0', '6', '6.6'],
   // Boolean
   boolean: [true, false],
   // NaN
-  nan: [NaN],
+  nan: [Number.NaN],
   // Symbol
   symbol: [Symbol(''), Symbol('666'), Symbol('🌟')],
   // BigInt
@@ -58,7 +60,7 @@ export const types = {
   promiseLike: [
     { then: () => {}, catch: () => {} },
   ],
-};
+});
 
 /**
  * 测试传入判断类型的方法
