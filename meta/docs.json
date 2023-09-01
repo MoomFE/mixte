@@ -15,6 +15,7 @@
     "uniqueKey"
   ],
   "use": [
+    "deepUnref",
     "useCountdown",
     "watch",
     "whenever",
