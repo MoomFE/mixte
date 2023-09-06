@@ -235,4 +235,82 @@ describe('useRequest', () => {
     expect(errorEventCountAndArgs).toEqual([1, new Error('???')]);
     expect(finallyEventCountAndArgs).toEqual([2, null]);
   });
+
+  test('支持传入 immediate 选项立即发起请求', async () => {
+    const data = useRequest(async () => {
+      await delay(100);
+      return {
+        data: 1,
+      };
+    }, {
+      immediate: true,
+    });
+
+    expect(data.response).toBeUndefined();
+    expect(data.data).toBeUndefined();
+    expect(data.error).toBeUndefined();
+    expect(data.isExecuted).toBe(true);
+    expect(data.isLoading).toBe(true);
+    expect(data.isFinished).toBe(false);
+    expect(data.isSuccess).toBe(false);
+
+    await delay(100);
+
+    expect(data.response).toEqual({ data: 1 });
+    expect(data.data).toBe(1);
+    expect(data.error).toBeUndefined();
+    expect(data.isExecuted).toBe(true);
+    expect(data.isLoading).toBe(false);
+    expect(data.isFinished).toBe(true);
+    expect(data.isSuccess).toBe(true);
+  });
+
+  test('支持传入 initialData 选项定义初始数据, 每次发起请求时会重置 data 为传入的 initialData', async () => {
+    const data = useRequest(async () => {
+      await delay(100);
+      return {
+        data: 1,
+      };
+    }, {
+      initialData: 666,
+    });
+
+    expect(data.response).toBeUndefined();
+    expect(data.data).toBe(666);
+    expect(data.error).toBeUndefined();
+    expect(data.isExecuted).toBe(false);
+    expect(data.isLoading).toBe(false);
+    expect(data.isFinished).toBe(false);
+    expect(data.isSuccess).toBe(false);
+
+    const result = data.execute();
+
+    expect(data.response).toBeUndefined();
+    expect(data.data).toBe(666);
+    expect(data.error).toBeUndefined();
+    expect(data.isExecuted).toBe(true);
+    expect(data.isLoading).toBe(true);
+    expect(data.isFinished).toBe(false);
+    expect(data.isSuccess).toBe(false);
+
+    await result;
+
+    expect(data.response).toEqual({ data: 1 });
+    expect(data.data).toBe(1);
+    expect(data.error).toBeUndefined();
+    expect(data.isExecuted).toBe(true);
+    expect(data.isLoading).toBe(false);
+    expect(data.isFinished).toBe(true);
+    expect(data.isSuccess).toBe(true);
+
+    data.execute();
+
+    expect(data.response).toBeUndefined();
+    expect(data.data).toBe(666);
+    expect(data.error).toBeUndefined();
+    expect(data.isExecuted).toBe(true);
+    expect(data.isLoading).toBe(true);
+    expect(data.isFinished).toBe(false);
+    expect(data.isSuccess).toBe(false);
+  });
 });
