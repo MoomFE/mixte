@@ -53,7 +53,10 @@ export function useRequest(userExecute: () => Promise<any>, options: UseRequestO
     isExecuted.value = true;
     // 标记请求中
     isLoading.value = true;
-    // 重置状态
+    // 重置参数及状态
+    response.value = undefined;
+    data.value = deepClone(toValue(initialData));
+    error.value = undefined;
     isFinished.value = false;
     isSuccess.value = false;
 
