@@ -1,5 +1,4 @@
 import { createEventHook, toReactive, toValue } from '@vueuse/core';
-import { deepClone } from 'mixte';
 import { computed, ref, shallowRef } from 'vue-demi';
 import type { MaybeRefOrGetter } from 'vue-demi';
 
@@ -35,7 +34,7 @@ export function useRequest(userExecute: () => Promise<any>, options: UseRequestO
   /** 服务器响应 */
   const response = shallowRef();
   /** 服务器响应数据 */
-  const data = ref(deepClone(toValue(initialData)));
+  const data = ref(toValue(initialData));
   /** 服务器返回的错误 */
   const error = shallowRef<any>();
   /** 是否发起过请求 */
@@ -55,7 +54,7 @@ export function useRequest(userExecute: () => Promise<any>, options: UseRequestO
     isLoading.value = true;
     // 重置参数及状态
     response.value = undefined;
-    data.value = deepClone(toValue(initialData));
+    data.value = toValue(initialData);
     error.value = undefined;
     isFinished.value = false;
     isSuccess.value = false;

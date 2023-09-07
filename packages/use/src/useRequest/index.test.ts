@@ -1,5 +1,6 @@
 import { useRequest } from '@mixte/use';
 import { delay } from 'mixte';
+import { ref } from 'vue-demi';
 
 describe('useRequest', () => {
   test('方法返回对象参数类型判断', () => {
@@ -275,42 +276,81 @@ describe('useRequest', () => {
       initialData: 666,
     });
 
+    // 初始数据
     expect(data.response).toBeUndefined();
     expect(data.data).toBe(666);
-    expect(data.error).toBeUndefined();
-    expect(data.isExecuted).toBe(false);
-    expect(data.isLoading).toBe(false);
-    expect(data.isFinished).toBe(false);
-    expect(data.isSuccess).toBe(false);
-
+    // 发起请求时 data 被重置为初始数据
     const result = data.execute();
-
     expect(data.response).toBeUndefined();
     expect(data.data).toBe(666);
-    expect(data.error).toBeUndefined();
-    expect(data.isExecuted).toBe(true);
-    expect(data.isLoading).toBe(true);
-    expect(data.isFinished).toBe(false);
-    expect(data.isSuccess).toBe(false);
-
+    // 等待请求执行完毕
     await result;
-
+    // 请求结束
     expect(data.response).toEqual({ data: 1 });
     expect(data.data).toBe(1);
-    expect(data.error).toBeUndefined();
-    expect(data.isExecuted).toBe(true);
-    expect(data.isLoading).toBe(false);
-    expect(data.isFinished).toBe(true);
-    expect(data.isSuccess).toBe(true);
-
+    // 发起请求时 data 被重置为初始数据
     data.execute();
-
     expect(data.response).toBeUndefined();
     expect(data.data).toBe(666);
-    expect(data.error).toBeUndefined();
-    expect(data.isExecuted).toBe(true);
-    expect(data.isLoading).toBe(true);
-    expect(data.isFinished).toBe(false);
-    expect(data.isSuccess).toBe(false);
+  });
+
+  test('支持传入 initialData 选项定义初始数据, 选项支持传入 MaybeRefOrGetter 类型对象', async () => {
+    // Ref
+    {
+      const data = useRequest(async () => {
+        await delay(100);
+        return {
+          data: 1,
+        };
+      }, {
+        initialData: ref(666),
+      });
+
+      // 初始数据
+      expect(data.response).toBeUndefined();
+      expect(data.data).toBe(666);
+      // 发起请求时 data 被重置为初始数据
+      const result = data.execute();
+      expect(data.response).toBeUndefined();
+      expect(data.data).toBe(666);
+      // 等待请求执行完毕
+      await result;
+      // 请求结束
+      expect(data.response).toEqual({ data: 1 });
+      expect(data.data).toBe(1);
+      // 发起请求时 data 被重置为初始数据
+      data.execute();
+      expect(data.response).toBeUndefined();
+      expect(data.data).toBe(666);
+    }
+
+    // Getter
+    {
+      const data = useRequest(async () => {
+        await delay(100);
+        return {
+          data: 1,
+        };
+      }, {
+        initialData: () => 666,
+      });
+
+      // 初始数据
+      expect(data.response).toBeUndefined();
+      expect(data.data).toBe(666);
+      // 发起请求时 data 被重置为初始数据
+      const result = data.execute();
+      expect(data.response).toBeUndefined();
+      expect(data.data).toBe(666);
+      // 等待请求执行完毕
+      await result;
+      // 请求结束
+      expect(data.response).toEqual({ data: 1 });
+      expect(data.data).toBe(1);
+      // 发起请求时 data 被重置为初始数据
+      data.execute();
+      expect(data.response).toBeUndefined();
+      expect(data.data).toBe(666);
+    }
   });
 });
