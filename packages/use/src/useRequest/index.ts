@@ -2,6 +2,14 @@ import { createEventHook, toReactive, toValue } from '@vueuse/core';
 import { computed, ref, shallowRef } from 'vue-demi';
 import type { MaybeRefOrGetter } from 'vue-demi';
 
+// TODO
+//  1. 优化方法类型定义
+//  2. execute 方法返回 response
+//  3. execute 方法支持传参, 参数传递给 userExecute
+//  4. execute 方法类型定义需继承 userExecute
+//  5. data 支持 shallowRef
+//  6. 完善单元测试, 确保在各个请求钩子触发时, 对应的状态已更新 ( 防止以后维护时影响到 )
+
 export interface UseRequestOptions<T = undefined> {
   /**
    * 初始数据
@@ -96,19 +104,29 @@ export function useRequest(userExecute: () => Promise<any>, options: UseRequestO
 
   return toReactive(
     computed(() => ({
+      /** 服务器响应 */
       response,
+      /** 服务器响应数据 */
       data,
+      /** 服务器返回的错误 */
       error,
 
+      /** 是否发起过请求 */
       isExecuted,
+      /** 是否在请求中 */
       isLoading,
+      /** 是否已请求完成 */
       isFinished,
+      /** 是否已请求成功 */
       isSuccess,
 
       execute,
 
+      /** 请求成功事件钩子 */
       onSuccess: successEvent.on,
+      /** 请求失败事件钩子 */
       onError: errorEvent.on,
+      /** 请求完成事件钩子 */
       onFinally: finallyEvent.on,
     })),
   );
