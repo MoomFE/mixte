@@ -237,7 +237,7 @@ describe('useRequest', () => {
     expect(finallyEventCountAndArgs).toEqual([2, null]);
   });
 
-  test('支持传入 immediate 选项立即发起请求', async () => {
+  test('支持传入 immediate: true 选项立即发起请求', async () => {
     const data = useRequest(async () => {
       await delay(100);
       return {
@@ -266,7 +266,7 @@ describe('useRequest', () => {
     expect(data.isSuccess).toBe(true);
   });
 
-  test('支持传入 initialData 选项定义初始数据, 每次发起请求时会重置 data 为传入的 initialData', async () => {
+  test('支持传入 initialData 选项定义初始数据, 发起请求时会重置 data 为传入的 initialData', async () => {
     const data = useRequest(async () => {
       await delay(100);
       return {
@@ -279,7 +279,7 @@ describe('useRequest', () => {
     // 初始数据
     expect(data.response).toBeUndefined();
     expect(data.data).toBe(666);
-    // 发起请求时 data 被重置为初始数据
+    // 发起请求时数据被重置为初始数据
     const result = data.execute();
     expect(data.response).toBeUndefined();
     expect(data.data).toBe(666);
@@ -288,7 +288,7 @@ describe('useRequest', () => {
     // 请求结束
     expect(data.response).toEqual({ data: 1 });
     expect(data.data).toBe(1);
-    // 发起请求时 data 被重置为初始数据
+    // 发起请求时数据被重置为初始数据
     data.execute();
     expect(data.response).toBeUndefined();
     expect(data.data).toBe(666);
@@ -309,7 +309,7 @@ describe('useRequest', () => {
       // 初始数据
       expect(data.response).toBeUndefined();
       expect(data.data).toBe(666);
-      // 发起请求时 data 被重置为初始数据
+      // 发起请求时数据被重置为初始数据
       const result = data.execute();
       expect(data.response).toBeUndefined();
       expect(data.data).toBe(666);
@@ -318,7 +318,7 @@ describe('useRequest', () => {
       // 请求结束
       expect(data.response).toEqual({ data: 1 });
       expect(data.data).toBe(1);
-      // 发起请求时 data 被重置为初始数据
+      // 发起请求时数据被重置为初始数据
       data.execute();
       expect(data.response).toBeUndefined();
       expect(data.data).toBe(666);
@@ -338,7 +338,7 @@ describe('useRequest', () => {
       // 初始数据
       expect(data.response).toBeUndefined();
       expect(data.data).toBe(666);
-      // 发起请求时 data 被重置为初始数据
+      // 发起请求时数据被重置为初始数据
       const result = data.execute();
       expect(data.response).toBeUndefined();
       expect(data.data).toBe(666);
@@ -347,10 +347,77 @@ describe('useRequest', () => {
       // 请求结束
       expect(data.response).toEqual({ data: 1 });
       expect(data.data).toBe(1);
-      // 发起请求时 data 被重置为初始数据
+      // 发起请求时数据被重置为初始数据
       data.execute();
       expect(data.response).toBeUndefined();
       expect(data.data).toBe(666);
     }
+  });
+
+  test('支持传入 resetOnExecute 选项, 用于控制是否在发起请求时重置数据, 默认为 true', async () => {
+    let throwError: boolean = false;
+    let dataIndex = 1292;
+
+    const data = useRequest(async () => {
+      await delay(100);
+      if (throwError) throw new Error('???');
+      return {
+        data: ++dataIndex,
+      };
+    }, {
+      resetOnExecute: false,
+    });
+
+    // 初始数据
+    expect(data.response).toBeUndefined();
+    expect(data.data).toBeUndefined();
+    expect(data.error).toBeUndefined();
+
+    // 进行请求成功情况的测试
+
+    const result = data.execute();
+
+    expect(data.response).toBeUndefined();
+    expect(data.data).toBeUndefined();
+    expect(data.error).toBeUndefined();
+
+    await result;
+
+    expect(data.response).toEqual({ data: 1293 });
+    expect(data.data).toBe(1293);
+    expect(data.error).toBeUndefined();
+
+    data.execute();
+
+    expect(data.response).toEqual({ data: 1293 });
+    expect(data.data).toBe(1293);
+    expect(data.error).toBeUndefined();
+
+    // 进行请求失败情况的测试
+
+    await delay(100);
+    throwError = true;
+    const result3 = data.execute();
+
+    expect(data.response).toEqual({ data: 1294 });
+    expect(data.data).toBe(1294);
+    expect(data.error).toBeUndefined();
+
+    try {
+      await result3;
+    }
+    catch (error: any) {
+      expect(error).toEqual(new Error('???'));
+    }
+
+    expect(data.response).toEqual({ data: 1294 });
+    expect(data.data).toBe(1294);
+    expect(data.error).toEqual(new Error('???'));
+
+    data.execute();
+
+    expect(data.response).toEqual({ data: 1294 });
+    expect(data.data).toBe(1294);
+    expect(data.error).toEqual(new Error('???'));
   });
 });

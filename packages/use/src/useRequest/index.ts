@@ -13,6 +13,11 @@ export interface UseRequestOptions<T = undefined> {
    * @default false
    */
   immediate?: boolean
+  /**
+   * 是否在发起请求时重置数据
+   * @default true
+   */
+  resetOnExecute?: boolean
 }
 
 /**
@@ -22,6 +27,7 @@ export function useRequest(userExecute: () => Promise<any>, options: UseRequestO
   const {
     initialData,
     immediate = false,
+    resetOnExecute = true,
   } = options;
 
   /** 请求成功事件钩子 */
@@ -52,12 +58,15 @@ export function useRequest(userExecute: () => Promise<any>, options: UseRequestO
     isExecuted.value = true;
     // 标记请求中
     isLoading.value = true;
-    // 重置参数及状态
-    response.value = undefined;
-    data.value = toValue(initialData);
-    error.value = undefined;
+    // 重置状态
     isFinished.value = false;
     isSuccess.value = false;
+    // 重置变量
+    if (resetOnExecute) {
+      response.value = undefined;
+      data.value = toValue(initialData);
+      error.value = undefined;
+    }
 
     try {
       const res = await userExecute();
