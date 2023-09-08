@@ -12,7 +12,7 @@ describe('MixteUseAutoImport', () => {
     const autoImport = MixteUseAutoImport()['@mixte/use'].sort();
     const mixteUse = Object.keys(await import('@mixte/use')).sort();
 
-    expect(autoImport).toEqual(mixteUse);
+    expect(autoImport).toStrictEqual(mixteUse);
   });
 
   test('支持传入 `useWithVueUseCore` 选项标识是和 `@vueuse/core` 一起使用的场景, 会排除与 `@vueuse/core` 功能相同且名称相同的方法', async () => {
@@ -20,7 +20,7 @@ describe('MixteUseAutoImport', () => {
     const mixteUse = Object.keys(await import('@mixte/use')).sort();
     const vueuse = Object.keys(await import('@vueuse/core')).sort();
 
-    expect(autoImport).not.toEqual(mixteUse);
+    expect(autoImport).not.toStrictEqual(mixteUse);
 
     // 排除了 `@vueuse/core` 中已经导出的方法
     autoImport.forEach((name) => {

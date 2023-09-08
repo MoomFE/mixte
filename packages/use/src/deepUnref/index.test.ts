@@ -27,8 +27,8 @@ describe('deepUnref', () => {
     const a = { a: 1 };
     const b = [1, 2, 3];
 
-    expect(deepUnref(a)).toEqual(a);
-    expect(deepUnref(b)).toEqual(b);
+    expect(deepUnref(a)).toStrictEqual(a);
+    expect(deepUnref(b)).toStrictEqual(b);
     expect(deepUnref(a)).not.toBe(a);
     expect(deepUnref(b)).not.toBe(b);
   });
@@ -40,9 +40,9 @@ describe('deepUnref', () => {
           const refValue = ref(value);
           const computedValue = computed(() => value);
 
-          expect(deepUnref(value)).toEqual(value);
-          expect(deepUnref(refValue)).toEqual(value);
-          expect(deepUnref(computedValue)).toEqual(value);
+          expect(deepUnref(value)).toStrictEqual(value);
+          expect(deepUnref(refValue)).toStrictEqual(value);
+          expect(deepUnref(computedValue)).toStrictEqual(value);
 
           expect(deepUnref(value)).not.toBe(value);
           expect(deepUnref(refValue)).not.toBe(value);
@@ -124,9 +124,9 @@ describe('deepUnref', () => {
       },
     };
 
-    expect(deepUnrefA).toEqual(result);
-    expect(deepUnrefRefA).toEqual(result);
-    expect(deepUnrefComputedA).toEqual(result);
+    expect(deepUnrefA).toStrictEqual(result);
+    expect(deepUnrefRefA).toStrictEqual(result);
+    expect(deepUnrefComputedA).toStrictEqual(result);
   });
 
   test('会深度解包数组内的 ref 和 computed 对象, 包括解包数组本身', () => {
@@ -181,8 +181,8 @@ describe('deepUnref', () => {
       ],
     ];
 
-    expect(deepUnrefA).toEqual(result);
-    expect(deepUnrefRefA).toEqual(result);
-    expect(deepUnrefComputedA).toEqual(result);
+    expect(deepUnrefA).toStrictEqual(result);
+    expect(deepUnrefRefA).toStrictEqual(result);
+    expect(deepUnrefComputedA).toStrictEqual(result);
   });
 });

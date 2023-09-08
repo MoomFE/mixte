@@ -10,7 +10,7 @@ describe('randomNatural', () => {
 
     expect(
       Array.from(nums).sort((a, b) => a - b),
-    ).toEqual(
+    ).toStrictEqual(
       Array.from({ length: 101 }, (_, i) => i),
     );
   });
@@ -25,7 +25,7 @@ describe('random', () => {
 
     expect(
       Array.from(nums).sort((a, b) => a - b),
-    ).toEqual(
+    ).toStrictEqual(
       Array.from({ length: 101 }, (_, i) => i),
     );
   });
@@ -38,7 +38,7 @@ describe('random', () => {
 
     expect(
       Array.from(nums).sort((a, b) => a - b),
-    ).toEqual(
+    ).toStrictEqual(
       Array.from({ length: 100 }, (_, i) => i - 100),
     );
   });
@@ -51,7 +51,7 @@ describe('random', () => {
 
     expect(
       Array.from(nums).sort((a, b) => a - b),
-    ).toEqual(
+    ).toStrictEqual(
       Array.from({ length: 101 }, (_, i) => i - 50),
     );
   });
@@ -64,7 +64,7 @@ describe('random', () => {
 
     expect(
       Array.from(nums).sort((a, b) => a - b),
-    ).toEqual(
+    ).toStrictEqual(
       Array.from({ length: 101 }, (_, i) => i - 50),
     );
   });
@@ -77,7 +77,7 @@ describe('random', () => {
 
     expect(
       Array.from(nums).sort((a, b) => a - b),
-    ).toEqual(
+    ).toStrictEqual(
       Array.from({ length: 11 }, (_, i) => i),
     );
   });
@@ -90,7 +90,7 @@ describe('random', () => {
 
     expect(
       Array.from(nums).sort((a, b) => a - b),
-    ).toEqual(
+    ).toStrictEqual(
       Array.from({ length: 101 }, (_, i) => i),
     );
   });
@@ -105,7 +105,7 @@ describe('randomLowercaseLetter', () => {
 
     expect(
       Array.from(letters).sort(),
-    ).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
+    ).toStrictEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
   });
 });
 
@@ -118,7 +118,7 @@ describe('randomUppercaseLetter', () => {
 
     expect(
       Array.from(letters).sort(),
-    ).toEqual(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
+    ).toStrictEqual(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
   });
 });
 
@@ -131,7 +131,7 @@ describe('randomLetter', () => {
 
     expect(
       Array.from(letters).sort(),
-    ).toEqual(
+    ).toStrictEqual(
       [
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
@@ -147,7 +147,7 @@ describe('randomLetter', () => {
 
     expect(
       Array.from(letters).sort(),
-    ).toEqual(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
+    ).toStrictEqual(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
   });
 
   test('传入 false, 则随机一个小写英文字母', () => {
@@ -158,7 +158,7 @@ describe('randomLetter', () => {
 
     expect(
       Array.from(letters).sort(),
-    ).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
+    ).toStrictEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
   });
 
   test('传入非布尔值, 则随机一个小写或大写英文字母', () => {
@@ -173,17 +173,17 @@ describe('randomLetter', () => {
         if (value === true) {
           expect(
             Array.from(letters).sort(),
-          ).toEqual(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
+          ).toStrictEqual(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
         }
         else if (value === false) {
           expect(
             Array.from(letters).sort(),
-          ).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
+          ).toStrictEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
         }
         else {
           expect(
             Array.from(letters).sort(),
-          ).toEqual(
+          ).toStrictEqual(
             [
               'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
               'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
@@ -198,12 +198,12 @@ describe('randomLetter', () => {
 describe('randomString', () => {
   test('默认生成一个长度为 12 的随机小写字母字符串', () => {
     for (let i = 0; i < 1000; i++)
-      expect(randomString().length).toEqual(12);
+      expect(randomString().length).toStrictEqual(12);
   });
 
   test('首个参数可以指定生成的字符串长度', () => {
     for (let i = 0; i < 1000; i++)
-      expect(randomString(i).length).toEqual(i);
+      expect(randomString(i).length).toStrictEqual(i);
   });
 
   test('指定生成仅有小写字母的字符串, 这也是默认生成规则', () => {
@@ -213,10 +213,10 @@ describe('randomString', () => {
         lowercase: true,
       });
 
-      expect(str.length).toEqual(i);
-      expect(str2.length).toEqual(i);
-      expect(/^[a-z]+$/.test(str)).toEqual(true);
-      expect(/^[a-z]+$/.test(str2)).toEqual(true);
+      expect(str.length).toStrictEqual(i);
+      expect(str2.length).toStrictEqual(i);
+      expect(/^[a-z]+$/.test(str)).toStrictEqual(true);
+      expect(/^[a-z]+$/.test(str2)).toStrictEqual(true);
     }
   });
 
@@ -227,8 +227,8 @@ describe('randomString', () => {
         uppercase: true,
       });
 
-      expect(str.length).toEqual(i);
-      expect(/^[A-Z]+$/.test(str)).toEqual(true);
+      expect(str.length).toStrictEqual(i);
+      expect(/^[A-Z]+$/.test(str)).toStrictEqual(true);
     }
   });
 
@@ -244,10 +244,10 @@ describe('randomString', () => {
         number: true,
       });
 
-      expect(str.length).toEqual(i);
-      expect(str2.length).toEqual(i);
-      expect(/^[0-9]+$/.test(str)).toEqual(true);
-      expect(/^[0-9]+$/.test(str2)).toEqual(true);
+      expect(str.length).toStrictEqual(i);
+      expect(str2.length).toStrictEqual(i);
+      expect(/^[0-9]+$/.test(str)).toStrictEqual(true);
+      expect(/^[0-9]+$/.test(str2)).toStrictEqual(true);
     }
   });
 
@@ -261,14 +261,14 @@ describe('randomString', () => {
         uppercase: true,
       });
 
-      expect(str.length).toEqual(i);
-      expect(str2.length).toEqual(i);
-      expect(/^[a-zA-Z]+$/.test(str)).toEqual(true);
-      expect(/^[a-zA-Z]+$/.test(str2)).toEqual(true);
-      expect(/^[a-z]+$/.test(str)).toEqual(false);
-      expect(/^[a-z]+$/.test(str2)).toEqual(false);
-      expect(/^[A-Z]+$/.test(str)).toEqual(false);
-      expect(/^[A-Z]+$/.test(str2)).toEqual(false);
+      expect(str.length).toStrictEqual(i);
+      expect(str2.length).toStrictEqual(i);
+      expect(/^[a-zA-Z]+$/.test(str)).toStrictEqual(true);
+      expect(/^[a-zA-Z]+$/.test(str2)).toStrictEqual(true);
+      expect(/^[a-z]+$/.test(str)).toStrictEqual(false);
+      expect(/^[a-z]+$/.test(str2)).toStrictEqual(false);
+      expect(/^[A-Z]+$/.test(str)).toStrictEqual(false);
+      expect(/^[A-Z]+$/.test(str2)).toStrictEqual(false);
     }
   });
 
@@ -282,14 +282,14 @@ describe('randomString', () => {
         number: true,
       });
 
-      expect(str.length).toEqual(i);
-      expect(str2.length).toEqual(i);
-      expect(/^[a-z0-9]+$/.test(str)).toEqual(true);
-      expect(/^[a-z0-9]+$/.test(str2)).toEqual(true);
-      expect(/^[a-z]+$/.test(str)).toEqual(false);
-      expect(/^[a-z]+$/.test(str2)).toEqual(false);
-      expect(/^[0-9]+$/.test(str)).toEqual(false);
-      expect(/^[0-9]+$/.test(str2)).toEqual(false);
+      expect(str.length).toStrictEqual(i);
+      expect(str2.length).toStrictEqual(i);
+      expect(/^[a-z0-9]+$/.test(str)).toStrictEqual(true);
+      expect(/^[a-z0-9]+$/.test(str2)).toStrictEqual(true);
+      expect(/^[a-z]+$/.test(str)).toStrictEqual(false);
+      expect(/^[a-z]+$/.test(str2)).toStrictEqual(false);
+      expect(/^[0-9]+$/.test(str)).toStrictEqual(false);
+      expect(/^[0-9]+$/.test(str2)).toStrictEqual(false);
     }
   });
 
@@ -301,10 +301,10 @@ describe('randomString', () => {
         number: true,
       });
 
-      expect(str.length).toEqual(i);
-      expect(/^[A-Z0-9]+$/.test(str)).toEqual(true);
-      expect(/^[A-Z]+$/.test(str)).toEqual(false);
-      expect(/^[0-9]+$/.test(str)).toEqual(false);
+      expect(str.length).toStrictEqual(i);
+      expect(/^[A-Z0-9]+$/.test(str)).toStrictEqual(true);
+      expect(/^[A-Z]+$/.test(str)).toStrictEqual(false);
+      expect(/^[0-9]+$/.test(str)).toStrictEqual(false);
     }
   });
 
@@ -320,16 +320,16 @@ describe('randomString', () => {
         number: true,
       });
 
-      expect(str.length).toEqual(i);
-      expect(str2.length).toEqual(i);
-      expect(/^[a-zA-Z0-9]+$/.test(str)).toEqual(true);
-      expect(/^[a-zA-Z0-9]+$/.test(str2)).toEqual(true);
-      expect(/^[a-z]+$/.test(str)).toEqual(false);
-      expect(/^[a-z]+$/.test(str2)).toEqual(false);
-      expect(/^[A-Z]+$/.test(str)).toEqual(false);
-      expect(/^[A-Z]+$/.test(str2)).toEqual(false);
-      expect(/^[0-9]+$/.test(str)).toEqual(false);
-      expect(/^[0-9]+$/.test(str2)).toEqual(false);
+      expect(str.length).toStrictEqual(i);
+      expect(str2.length).toStrictEqual(i);
+      expect(/^[a-zA-Z0-9]+$/.test(str)).toStrictEqual(true);
+      expect(/^[a-zA-Z0-9]+$/.test(str2)).toStrictEqual(true);
+      expect(/^[a-z]+$/.test(str)).toStrictEqual(false);
+      expect(/^[a-z]+$/.test(str2)).toStrictEqual(false);
+      expect(/^[A-Z]+$/.test(str)).toStrictEqual(false);
+      expect(/^[A-Z]+$/.test(str2)).toStrictEqual(false);
+      expect(/^[0-9]+$/.test(str)).toStrictEqual(false);
+      expect(/^[0-9]+$/.test(str2)).toStrictEqual(false);
     }
   });
 
@@ -353,7 +353,7 @@ describe('randomBoolean', () => {
 
     expect(
       Array.from(booleans).sort(),
-    ).toEqual(
+    ).toStrictEqual(
       [false, true],
     );
   });

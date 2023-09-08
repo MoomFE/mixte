@@ -4,19 +4,19 @@ describe('uniqueKey', () => {
   test('使用传入方法为数组中对象的某个字段生成一个唯一的 key', () => {
     let arr: { key: any }[] = [];
     let index = 0;
-    expect(uniqueKey(arr, 'key', () => index++)).toEqual(0);
+    expect(uniqueKey(arr, 'key', () => index++)).toStrictEqual(0);
 
     // ------
 
     arr = [{ key: 0 }, { key: 1 }, { key: 2 }];
     index = 0;
-    expect(uniqueKey(arr, 'key', () => index++)).toEqual(3);
+    expect(uniqueKey(arr, 'key', () => index++)).toStrictEqual(3);
 
     // ------
 
     arr = [{ key: 'id:0' }, { key: 'id:1' }, { key: 'id:2' }];
     index = 0;
-    expect(uniqueKey(arr, 'key', () => `id:${index++}`)).toEqual('id:3');
+    expect(uniqueKey(arr, 'key', () => `id:${index++}`)).toStrictEqual('id:3');
   });
 
   test('第三个参数为空时, 使用默认的 key 生成器', () => {
@@ -52,7 +52,7 @@ describe('uniqueKey', () => {
     expect(() => uniqueKey(0 as any)).toThrow('???');
     expect(() => uniqueKey(true as any)).toThrow('???');
     expect(() => uniqueKey(false as any)).toThrow('???');
-    expect(() => uniqueKey(NaN as any)).toThrow('???');
+    expect(() => uniqueKey(Number.NaN as any)).toThrow('???');
     expect(() => uniqueKey(Symbol('') as any)).toThrow('???');
     expect(() => uniqueKey(0n as any)).toThrow('???');
     expect(() => uniqueKey((() => {}) as any)).toThrow('???');

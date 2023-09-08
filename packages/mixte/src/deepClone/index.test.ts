@@ -10,10 +10,10 @@ describe('deepClone', () => {
     const result = deepClone(obj);
 
     expect(result).not.toBe(obj);
-    expect(result).toEqual(obj);
+    expect(result).toStrictEqual(obj);
 
     expect(result.b).not.toBe(obj.b);
-    expect(result.b).toEqual(obj.b);
+    expect(result.b).toStrictEqual(obj.b);
   });
 
   test('深拷贝数组', () => {
@@ -24,13 +24,13 @@ describe('deepClone', () => {
     const result = deepClone(arr);
 
     expect(result).not.toBe(arr);
-    expect(result).toEqual(arr);
+    expect(result).toStrictEqual(arr);
 
     expect(result[0]).not.toBe(arr[0]);
-    expect(result[0]).toEqual(arr[0]);
+    expect(result[0]).toStrictEqual(arr[0]);
 
     expect(result[1]).not.toBe(arr[1]);
-    expect(result[1]).toEqual(arr[1]);
+    expect(result[1]).toStrictEqual(arr[1]);
   });
 
   test('所有类型测试', () => {
@@ -38,10 +38,10 @@ describe('deepClone', () => {
       values.forEach((value) => {
         if (Array.isArray(value) || isPlainObject(value)) {
           expect(deepClone(value)).not.toBe(value);
-          expect(deepClone(value)).toEqual(value);
+          expect(deepClone(value)).toStrictEqual(value);
         }
         else {
-          expect(deepClone(value)).toEqual(value);
+          expect(deepClone(value)).toStrictEqual(value);
         }
       });
     });
@@ -64,7 +64,7 @@ describe('deepClone', () => {
     expect(result.a).toBe(result.a.a);
     expect(result.a.a).toBe(result.a.a.a);
     expect(result).not.toBe(a);
-    expect(result).toEqual(a);
+    expect(result).toStrictEqual(a);
 
     // 数组
     const b = [] as unknown as CircularArray;
@@ -79,6 +79,6 @@ describe('deepClone', () => {
     expect(result2[0]).toBe(result2[0][0]);
     expect(result2[0][0]).toBe(result2[0][0][0]);
     expect(result2).not.toBe(b);
-    expect(result2).toEqual(b);
+    expect(result2).toStrictEqual(b);
   });
 });

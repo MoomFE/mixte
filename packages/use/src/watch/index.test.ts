@@ -20,9 +20,9 @@ describe('watchImmediate', () => {
 
     expect(fn1).not.toHaveBeenCalled();
     expect(fn2).toHaveBeenCalledTimes(1);
-    expect(fn2.mock.calls[0].slice(0, 2)).toEqual([1, undefined]);
+    expect(fn2.mock.calls[0].slice(0, 2)).toStrictEqual([1, undefined]);
     expect(fn3).toHaveBeenCalledTimes(1);
-    expect(fn3.mock.calls[0].slice(0, 2)).toEqual([1, undefined]);
+    expect(fn3.mock.calls[0].slice(0, 2)).toStrictEqual([1, undefined]);
     fn1.mockClear();
     fn2.mockClear();
     fn3.mockClear();
@@ -30,11 +30,11 @@ describe('watchImmediate', () => {
     a.value = 2;
     await nextTick();
     expect(fn1).toHaveBeenCalledTimes(1);
-    expect(fn1.mock.calls[0].slice(0, 2)).toEqual([2, 1]);
+    expect(fn1.mock.calls[0].slice(0, 2)).toStrictEqual([2, 1]);
     expect(fn2).toHaveBeenCalledTimes(1);
-    expect(fn2.mock.calls[0].slice(0, 2)).toEqual([2, 1]);
+    expect(fn2.mock.calls[0].slice(0, 2)).toStrictEqual([2, 1]);
     expect(fn3).toHaveBeenCalledTimes(1);
-    expect(fn3.mock.calls[0].slice(0, 2)).toEqual([2, 1]);
+    expect(fn3.mock.calls[0].slice(0, 2)).toStrictEqual([2, 1]);
   });
 
   test('重新传入 immediate 选项是无效的', async () => {
@@ -51,18 +51,18 @@ describe('watchImmediate', () => {
     watchImmediate(a, watchFns.fn2, { immediate: false } as any);
 
     expect(fn1).toHaveBeenCalledTimes(1);
-    expect(fn1.mock.calls[0].slice(0, 2)).toEqual([1, undefined]);
+    expect(fn1.mock.calls[0].slice(0, 2)).toStrictEqual([1, undefined]);
     expect(fn2).toHaveBeenCalledTimes(1);
-    expect(fn2.mock.calls[0].slice(0, 2)).toEqual([1, undefined]);
+    expect(fn2.mock.calls[0].slice(0, 2)).toStrictEqual([1, undefined]);
     fn1.mockClear();
     fn2.mockClear();
 
     a.value = 2;
     await nextTick();
     expect(fn1).toHaveBeenCalledTimes(1);
-    expect(fn1.mock.calls[0].slice(0, 2)).toEqual([2, 1]);
+    expect(fn1.mock.calls[0].slice(0, 2)).toStrictEqual([2, 1]);
     expect(fn2).toHaveBeenCalledTimes(1);
-    expect(fn2.mock.calls[0].slice(0, 2)).toEqual([2, 1]);
+    expect(fn2.mock.calls[0].slice(0, 2)).toStrictEqual([2, 1]);
   });
 });
 

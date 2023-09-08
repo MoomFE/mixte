@@ -6,7 +6,7 @@ describe('useRequest', () => {
   test('方法返回对象参数类型判断', () => {
     const data = useRequest(() => delay(100));
 
-    expect(Object.keys(data).sort()).toEqual([
+    expect(Object.keys(data).sort()).toStrictEqual([
       'response',
       'data',
       'error',
@@ -80,9 +80,9 @@ describe('useRequest', () => {
     expect(data.isLoading).toBe(false);
     expect(data.isFinished).toBe(false);
     expect(data.isSuccess).toBe(false);
-    expect(successEventCountAndArgs).toEqual([0]);
-    expect(errorEventCountAndArgs).toEqual([0]);
-    expect(finallyEventCountAndArgs).toEqual([0]);
+    expect(successEventCountAndArgs).toStrictEqual([0]);
+    expect(errorEventCountAndArgs).toStrictEqual([0]);
+    expect(finallyEventCountAndArgs).toStrictEqual([0]);
 
     // 进行请求成功情况的测试
 
@@ -95,22 +95,22 @@ describe('useRequest', () => {
     expect(data.isLoading).toBe(true);
     expect(data.isFinished).toBe(false);
     expect(data.isSuccess).toBe(false);
-    expect(successEventCountAndArgs).toEqual([0]);
-    expect(errorEventCountAndArgs).toEqual([0]);
-    expect(finallyEventCountAndArgs).toEqual([0]);
+    expect(successEventCountAndArgs).toStrictEqual([0]);
+    expect(errorEventCountAndArgs).toStrictEqual([0]);
+    expect(finallyEventCountAndArgs).toStrictEqual([0]);
 
-    expect(await result).toEqual(data.response);
+    expect(await result).toStrictEqual(data.response);
 
-    expect(data.response).toEqual({ data: 1293 });
+    expect(data.response).toStrictEqual({ data: 1293 });
     expect(data.data).toBe(1293);
     expect(data.error).toBeUndefined();
     expect(data.isExecuted).toBe(true);
     expect(data.isLoading).toBe(false);
     expect(data.isFinished).toBe(true);
     expect(data.isSuccess).toBe(true);
-    expect(successEventCountAndArgs).toEqual([1, { data: 1293 }]);
-    expect(errorEventCountAndArgs).toEqual([0]);
-    expect(finallyEventCountAndArgs).toEqual([1, null]);
+    expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
+    expect(errorEventCountAndArgs).toStrictEqual([0]);
+    expect(finallyEventCountAndArgs).toStrictEqual([1, null]);
 
     // 进行请求失败情况的测试
 
@@ -124,27 +124,27 @@ describe('useRequest', () => {
     expect(data.isLoading).toBe(true);
     expect(data.isFinished).toBe(false);
     expect(data.isSuccess).toBe(false);
-    expect(successEventCountAndArgs).toEqual([1, { data: 1293 }]);
-    expect(errorEventCountAndArgs).toEqual([0]);
-    expect(finallyEventCountAndArgs).toEqual([1, null]);
+    expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
+    expect(errorEventCountAndArgs).toStrictEqual([0]);
+    expect(finallyEventCountAndArgs).toStrictEqual([1, null]);
 
     try {
       await result2;
     }
     catch (error: any) {
-      expect(error).toEqual(new Error('???'));
+      expect(error).toStrictEqual(new Error('???'));
     }
 
     expect(data.response).toBeUndefined();
     expect(data.data).toBeUndefined();
-    expect(data.error).toEqual(new Error('???'));
+    expect(data.error).toStrictEqual(new Error('???'));
     expect(data.isExecuted).toBe(true);
     expect(data.isLoading).toBe(false);
     expect(data.isFinished).toBe(true);
     expect(data.isSuccess).toBe(false);
-    expect(successEventCountAndArgs).toEqual([1, { data: 1293 }]);
-    expect(errorEventCountAndArgs).toEqual([1, new Error('???')]);
-    expect(finallyEventCountAndArgs).toEqual([2, null]);
+    expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
+    expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
+    expect(finallyEventCountAndArgs).toStrictEqual([2, null]);
   });
 
   test('请求失败情况的返回对象参数', async () => {
@@ -188,9 +188,9 @@ describe('useRequest', () => {
     expect(data.isLoading).toBe(false);
     expect(data.isFinished).toBe(false);
     expect(data.isSuccess).toBe(false);
-    expect(successEventCountAndArgs).toEqual([0]);
-    expect(errorEventCountAndArgs).toEqual([0]);
-    expect(finallyEventCountAndArgs).toEqual([0]);
+    expect(successEventCountAndArgs).toStrictEqual([0]);
+    expect(errorEventCountAndArgs).toStrictEqual([0]);
+    expect(finallyEventCountAndArgs).toStrictEqual([0]);
 
     // 进行请求失败情况的测试
 
@@ -203,27 +203,27 @@ describe('useRequest', () => {
     expect(data.isLoading).toBe(true);
     expect(data.isFinished).toBe(false);
     expect(data.isSuccess).toBe(false);
-    expect(successEventCountAndArgs).toEqual([0]);
-    expect(errorEventCountAndArgs).toEqual([0]);
-    expect(finallyEventCountAndArgs).toEqual([0]);
+    expect(successEventCountAndArgs).toStrictEqual([0]);
+    expect(errorEventCountAndArgs).toStrictEqual([0]);
+    expect(finallyEventCountAndArgs).toStrictEqual([0]);
 
     try {
       await result;
     }
     catch (error: any) {
-      expect(error).toEqual(new Error('???'));
+      expect(error).toStrictEqual(new Error('???'));
     }
 
     expect(data.response).toBeUndefined();
     expect(data.data).toBeUndefined();
-    expect(data.error).toEqual(new Error('???'));
+    expect(data.error).toStrictEqual(new Error('???'));
     expect(data.isExecuted).toBe(true);
     expect(data.isLoading).toBe(false);
     expect(data.isFinished).toBe(true);
     expect(data.isSuccess).toBe(false);
-    expect(successEventCountAndArgs).toEqual([0]);
-    expect(errorEventCountAndArgs).toEqual([1, new Error('???')]);
-    expect(finallyEventCountAndArgs).toEqual([1, null]);
+    expect(successEventCountAndArgs).toStrictEqual([0]);
+    expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
+    expect(finallyEventCountAndArgs).toStrictEqual([1, null]);
 
     // 进行请求成功情况的测试
 
@@ -237,22 +237,22 @@ describe('useRequest', () => {
     expect(data.isLoading).toBe(true);
     expect(data.isFinished).toBe(false);
     expect(data.isSuccess).toBe(false);
-    expect(successEventCountAndArgs).toEqual([0]);
-    expect(errorEventCountAndArgs).toEqual([1, new Error('???')]);
-    expect(finallyEventCountAndArgs).toEqual([1, null]);
+    expect(successEventCountAndArgs).toStrictEqual([0]);
+    expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
+    expect(finallyEventCountAndArgs).toStrictEqual([1, null]);
 
-    expect(await result2).toEqual(data.response);
+    expect(await result2).toStrictEqual(data.response);
 
-    expect(data.response).toEqual({ data: 1293 });
+    expect(data.response).toStrictEqual({ data: 1293 });
     expect(data.data).toBe(1293);
     expect(data.error).toBeUndefined();
     expect(data.isExecuted).toBe(true);
     expect(data.isLoading).toBe(false);
     expect(data.isFinished).toBe(true);
     expect(data.isSuccess).toBe(true);
-    expect(successEventCountAndArgs).toEqual([1, { data: 1293 }]);
-    expect(errorEventCountAndArgs).toEqual([1, new Error('???')]);
-    expect(finallyEventCountAndArgs).toEqual([2, null]);
+    expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
+    expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
+    expect(finallyEventCountAndArgs).toStrictEqual([2, null]);
   });
 
   test('支持传入 immediate: true 选项立即发起请求', async () => {
@@ -275,7 +275,7 @@ describe('useRequest', () => {
 
     await delay(100);
 
-    expect(data.response).toEqual({ data: 1 });
+    expect(data.response).toStrictEqual({ data: 1 });
     expect(data.data).toBe(1);
     expect(data.error).toBeUndefined();
     expect(data.isExecuted).toBe(true);
@@ -304,7 +304,7 @@ describe('useRequest', () => {
     // 等待请求执行完毕
     await result;
     // 请求结束
-    expect(data.response).toEqual({ data: 1 });
+    expect(data.response).toStrictEqual({ data: 1 });
     expect(data.data).toBe(1);
     // 发起请求时数据被重置为初始数据
     data.execute();
@@ -334,7 +334,7 @@ describe('useRequest', () => {
       // 等待请求执行完毕
       await result;
       // 请求结束
-      expect(data.response).toEqual({ data: 1 });
+      expect(data.response).toStrictEqual({ data: 1 });
       expect(data.data).toBe(1);
       // 发起请求时数据被重置为初始数据
       data.execute();
@@ -363,7 +363,7 @@ describe('useRequest', () => {
       // 等待请求执行完毕
       await result;
       // 请求结束
-      expect(data.response).toEqual({ data: 1 });
+      expect(data.response).toStrictEqual({ data: 1 });
       expect(data.data).toBe(1);
       // 发起请求时数据被重置为初始数据
       data.execute();
@@ -401,13 +401,13 @@ describe('useRequest', () => {
 
     await result;
 
-    expect(data.response).toEqual({ data: 1293 });
+    expect(data.response).toStrictEqual({ data: 1293 });
     expect(data.data).toBe(1293);
     expect(data.error).toBeUndefined();
 
     data.execute();
 
-    expect(data.response).toEqual({ data: 1293 });
+    expect(data.response).toStrictEqual({ data: 1293 });
     expect(data.data).toBe(1293);
     expect(data.error).toBeUndefined();
 
@@ -417,7 +417,7 @@ describe('useRequest', () => {
     throwError = true;
     const result3 = data.execute();
 
-    expect(data.response).toEqual({ data: 1294 });
+    expect(data.response).toStrictEqual({ data: 1294 });
     expect(data.data).toBe(1294);
     expect(data.error).toBeUndefined();
 
@@ -425,17 +425,17 @@ describe('useRequest', () => {
       await result3;
     }
     catch (error: any) {
-      expect(error).toEqual(new Error('???'));
+      expect(error).toStrictEqual(new Error('???'));
     }
 
-    expect(data.response).toEqual({ data: 1294 });
+    expect(data.response).toStrictEqual({ data: 1294 });
     expect(data.data).toBe(1294);
-    expect(data.error).toEqual(new Error('???'));
+    expect(data.error).toStrictEqual(new Error('???'));
 
     data.execute();
 
-    expect(data.response).toEqual({ data: 1294 });
+    expect(data.response).toStrictEqual({ data: 1294 });
     expect(data.data).toBe(1294);
-    expect(data.error).toEqual(new Error('???'));
+    expect(data.error).toStrictEqual(new Error('???'));
   });
 });

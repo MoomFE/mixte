@@ -52,7 +52,7 @@ describe('onceRun', () => {
       wrapFn(),
     ]);
 
-    expect(list).toEqual([0]);
+    expect(list).toStrictEqual([0]);
   });
 
   test('传入的函数运行过程中报错, 不会影响下次运行', async () => {
@@ -74,15 +74,15 @@ describe('onceRun', () => {
 
     // 正常
     await Promise.allSettled([wrapFn(), wrapFn(), wrapFn()]);
-    expect(list).toEqual([0]);
+    expect(list).toStrictEqual([0]);
 
     // 报错
     await Promise.allSettled([wrapFn(), wrapFn(), wrapFn()]);
-    expect(list).toEqual([0]);
+    expect(list).toStrictEqual([0]);
 
     // 正常
     await Promise.allSettled([wrapFn(), wrapFn(), wrapFn()]);
-    expect(list).toEqual([0, 2]);
+    expect(list).toStrictEqual([0, 2]);
   });
 
   test('执行完成会返回传入函数的返回值', async () => {
