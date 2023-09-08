@@ -151,7 +151,7 @@ describe('deepMerge', () => {
     const b = { aa: [undefined, 3, 4] };
     const c = deepMerge(a, b);
 
-    expect(a).toStrictEqual({ aa: [undefined, 3, 4] });
+    expect(a).toStrictEqual({ aa: [1, 3, 4] });
     expect(b).toStrictEqual({ aa: [undefined, 3, 4] });
     expect(c).toBe(a);
     expect(c).not.toBe(b);
@@ -162,7 +162,7 @@ describe('deepMerge', () => {
     const arr2 = [[undefined, 3, 4], [5, undefined, 6]];
     const arr3 = deepMerge(arr1, arr2);
 
-    expect(arr1).toStrictEqual([[undefined, 3, 4], [5, undefined, 6]]);
+    expect(arr1).toStrictEqual([[1, 3, 4], [5, 4, 6]]);
     expect(arr2).toStrictEqual([[undefined, 3, 4], [5, undefined, 6]]);
     expect(arr3).toBe(arr1);
     expect(arr3).not.toBe(arr2);

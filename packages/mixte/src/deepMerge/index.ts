@@ -15,7 +15,9 @@ function merge<T extends object, S extends object>(target: T, source: S, cache: 
       }
       else {
         let targetValue;
-        cloneValue = isArray ? [] : (isPlainObject(targetValue = target[key as keyof T]) ? targetValue : {});
+        cloneValue = isArray
+          ? (Array.isArray(targetValue = target[key as keyof T]) ? targetValue : [])
+          : (isPlainObject(targetValue = target[key as keyof T]) ? targetValue : {});
         merge(cloneValue, value, cache);
       }
 
