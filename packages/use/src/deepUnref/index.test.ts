@@ -36,13 +36,22 @@ describe('deepUnref', () => {
   test('如果传入的不是普通对象和数组, 那么直接返回传入值的 `unref` 结果', () => {
     Object.values(types).forEach((values) => {
       values.forEach((value) => {
-        if (isPlainObject(value) || Array.isArray(value)) {
+        let isArray = false;
+
+        if (isPlainObject(value) || (isArray = Array.isArray(value))) {
           const refValue = ref(value);
           const computedValue = computed(() => value);
 
-          expect(deepUnref(value)).toStrictEqual(value);
-          expect(deepUnref(refValue)).toStrictEqual(value);
-          expect(deepUnref(computedValue)).toStrictEqual(value);
+          if (isArray) {
+            expect(deepUnref(value)).toStrictEqual(value);
+            expect(deepUnref(refValue)).toStrictEqual(value);
+            expect(deepUnref(computedValue)).toStrictEqual(value);
+          }
+          else {
+            expect(deepUnref(value)).toEqual(value);
+            expect(deepUnref(refValue)).toEqual(value);
+            expect(deepUnref(computedValue)).toEqual(value);
+          }
 
           expect(deepUnref(value)).not.toBe(value);
           expect(deepUnref(refValue)).not.toBe(value);

@@ -36,9 +36,15 @@ describe('deepClone', () => {
   test('所有类型测试', () => {
     Object.values(types).forEach((values) => {
       values.forEach((value) => {
-        if (Array.isArray(value) || isPlainObject(value)) {
+        let isArray = false;
+
+        if (isPlainObject(value) || (isArray = Array.isArray(value))) {
           expect(deepClone(value)).not.toBe(value);
-          expect(deepClone(value)).toStrictEqual(value);
+
+          if (isArray)
+            expect(deepClone(value)).toStrictEqual(value);
+          else
+            expect(deepClone(value)).toEqual(value);
         }
         else {
           expect(deepClone(value)).toStrictEqual(value);
