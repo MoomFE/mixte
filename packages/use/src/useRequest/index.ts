@@ -4,10 +4,9 @@ import type { MaybeRefOrGetter } from 'vue-demi';
 
 // TODO
 //  1. 优化方法类型定义
-//  2. execute 方法返回 response
-//  3. execute 方法支持传参, 参数传递给 userExecute
-//  4. execute 方法类型定义需继承 userExecute
-//  5. data 支持 shallowRef
+//  2. execute 方法支持传参, 参数传递给 userExecute
+//  3. execute 方法类型定义需继承 userExecute
+//  4. data 支持 shallowRef
 
 export interface UseRequestOptions<T = undefined> {
   /**
@@ -87,6 +86,7 @@ export function useRequest(userExecute: () => Promise<any>, options: UseRequestO
       isSuccess.value = true;
       successEvent.trigger(res);
       finallyEvent.trigger(null);
+      return res;
     }
     catch (e) {
       isLoading.value = false;

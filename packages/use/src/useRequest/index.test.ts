@@ -99,7 +99,7 @@ describe('useRequest', () => {
     expect(errorEventCountAndArgs).toEqual([0]);
     expect(finallyEventCountAndArgs).toEqual([0]);
 
-    await result;
+    expect(await result).toEqual(data.response);
 
     expect(data.response).toEqual({ data: 1293 });
     expect(data.data).toBe(1293);
@@ -241,7 +241,7 @@ describe('useRequest', () => {
     expect(errorEventCountAndArgs).toEqual([1, new Error('???')]);
     expect(finallyEventCountAndArgs).toEqual([1, null]);
 
-    await result2;
+    expect(await result2).toEqual(data.response);
 
     expect(data.response).toEqual({ data: 1293 });
     expect(data.data).toBe(1293);
