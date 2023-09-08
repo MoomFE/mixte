@@ -8,7 +8,6 @@ import type { MaybeRefOrGetter } from 'vue-demi';
 //  3. execute 方法支持传参, 参数传递给 userExecute
 //  4. execute 方法类型定义需继承 userExecute
 //  5. data 支持 shallowRef
-//  6. 完善单元测试, 确保在各个请求钩子触发时, 对应的状态已更新 ( 防止以后维护时影响到 )
 
 export interface UseRequestOptions<T = undefined> {
   /**

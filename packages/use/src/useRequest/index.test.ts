@@ -55,12 +55,21 @@ describe('useRequest', () => {
     });
 
     data.onSuccess((...args: any[]) => {
+      expect(data.isLoading).toBe(false);
+      expect(data.isFinished).toBe(true);
+      expect(data.isSuccess).toBe(true);
       successEventCountAndArgs = [++successEventCountAndArgs[0], ...args];
     });
     data.onError((...args: any[]) => {
+      expect(data.isLoading).toBe(false);
+      expect(data.isFinished).toBe(true);
+      expect(data.isSuccess).toBe(false);
       errorEventCountAndArgs = [++errorEventCountAndArgs[0], ...args];
     });
     data.onFinally((...args: any[]) => {
+      expect(data.isLoading).toBe(false);
+      expect(data.isFinished).toBe(true);
+      expect(data.isSuccess).toBe(!data.error);
       finallyEventCountAndArgs = [++finallyEventCountAndArgs[0], ...args];
     });
 
@@ -154,12 +163,21 @@ describe('useRequest', () => {
     });
 
     data.onSuccess((...args: any[]) => {
+      expect(data.isLoading).toBe(false);
+      expect(data.isFinished).toBe(true);
+      expect(data.isSuccess).toBe(true);
       successEventCountAndArgs = [++successEventCountAndArgs[0], ...args];
     });
     data.onError((...args: any[]) => {
+      expect(data.isLoading).toBe(false);
+      expect(data.isFinished).toBe(true);
+      expect(data.isSuccess).toBe(false);
       errorEventCountAndArgs = [++errorEventCountAndArgs[0], ...args];
     });
     data.onFinally((...args: any[]) => {
+      expect(data.isLoading).toBe(false);
+      expect(data.isFinished).toBe(true);
+      expect(data.isSuccess).toBe(!data.error);
       finallyEventCountAndArgs = [++finallyEventCountAndArgs[0], ...args];
     });
 
