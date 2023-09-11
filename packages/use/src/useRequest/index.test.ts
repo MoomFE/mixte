@@ -1,8 +1,8 @@
 import type { EventHookOn } from '@vueuse/core';
 import type { UseRequestOptions, UseRequestUserExecute } from '@mixte/use';
-import { useRequest } from '@mixte/use';
+import { useRequest, watchImmediateDeep } from '@mixte/use';
 import { delay } from 'mixte';
-import { ref } from 'vue-demi';
+import { isShallow, nextTick, ref } from 'vue-demi';
 
 describe('useRequest', () => {
   test('方法返回对象参数类型判断', () => {
@@ -25,14 +25,14 @@ describe('useRequest', () => {
       'onFinally',
     ].sort());
 
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBeUndefined();
-    expect(data.error).toBeUndefined();
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBeUndefined();
+    expect(data.error.value).toBeUndefined();
 
-    expect(data.isExecuted).toBeTypeOf('boolean');
-    expect(data.isLoading).toBeTypeOf('boolean');
-    expect(data.isFinished).toBeTypeOf('boolean');
-    expect(data.isSuccess).toBeTypeOf('boolean');
+    expect(data.isExecuted.value).toBeTypeOf('boolean');
+    expect(data.isLoading.value).toBeTypeOf('boolean');
+    expect(data.isFinished.value).toBeTypeOf('boolean');
+    expect(data.isSuccess.value).toBeTypeOf('boolean');
 
     expect(data.execute).toBeTypeOf('function');
 
@@ -57,31 +57,31 @@ describe('useRequest', () => {
     });
 
     data.onSuccess((...args: any[]) => {
-      expect(data.isLoading).toBe(false);
-      expect(data.isFinished).toBe(true);
-      expect(data.isSuccess).toBe(true);
+      expect(data.isLoading.value).toBe(false);
+      expect(data.isFinished.value).toBe(true);
+      expect(data.isSuccess.value).toBe(true);
       successEventCountAndArgs = [++successEventCountAndArgs[0], ...args];
     });
     data.onError((...args: any[]) => {
-      expect(data.isLoading).toBe(false);
-      expect(data.isFinished).toBe(true);
-      expect(data.isSuccess).toBe(false);
+      expect(data.isLoading.value).toBe(false);
+      expect(data.isFinished.value).toBe(true);
+      expect(data.isSuccess.value).toBe(false);
       errorEventCountAndArgs = [++errorEventCountAndArgs[0], ...args];
     });
     data.onFinally((...args: any[]) => {
-      expect(data.isLoading).toBe(false);
-      expect(data.isFinished).toBe(true);
-      expect(data.isSuccess).toBe(!data.error);
+      expect(data.isLoading.value).toBe(false);
+      expect(data.isFinished.value).toBe(true);
+      expect(data.isSuccess.value).toBe(!data.error.value);
       finallyEventCountAndArgs = [++finallyEventCountAndArgs[0], ...args];
     });
 
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBeUndefined();
-    expect(data.error).toBeUndefined();
-    expect(data.isExecuted).toBe(false);
-    expect(data.isLoading).toBe(false);
-    expect(data.isFinished).toBe(false);
-    expect(data.isSuccess).toBe(false);
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBeUndefined();
+    expect(data.error.value).toBeUndefined();
+    expect(data.isExecuted.value).toBe(false);
+    expect(data.isLoading.value).toBe(false);
+    expect(data.isFinished.value).toBe(false);
+    expect(data.isSuccess.value).toBe(false);
     expect(successEventCountAndArgs).toStrictEqual([0]);
     expect(errorEventCountAndArgs).toStrictEqual([0]);
     expect(finallyEventCountAndArgs).toStrictEqual([0]);
@@ -90,26 +90,26 @@ describe('useRequest', () => {
 
     const result = data.execute();
 
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBeUndefined();
-    expect(data.error).toBeUndefined();
-    expect(data.isExecuted).toBe(true);
-    expect(data.isLoading).toBe(true);
-    expect(data.isFinished).toBe(false);
-    expect(data.isSuccess).toBe(false);
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBeUndefined();
+    expect(data.error.value).toBeUndefined();
+    expect(data.isExecuted.value).toBe(true);
+    expect(data.isLoading.value).toBe(true);
+    expect(data.isFinished.value).toBe(false);
+    expect(data.isSuccess.value).toBe(false);
     expect(successEventCountAndArgs).toStrictEqual([0]);
     expect(errorEventCountAndArgs).toStrictEqual([0]);
     expect(finallyEventCountAndArgs).toStrictEqual([0]);
 
-    expect(await result).toStrictEqual(data.response);
+    expect(await result).toStrictEqual(data.response.value);
 
-    expect(data.response).toStrictEqual({ data: 1293 });
-    expect(data.data).toBe(1293);
-    expect(data.error).toBeUndefined();
-    expect(data.isExecuted).toBe(true);
-    expect(data.isLoading).toBe(false);
-    expect(data.isFinished).toBe(true);
-    expect(data.isSuccess).toBe(true);
+    expect(data.response.value).toStrictEqual({ data: 1293 });
+    expect(data.data.value).toBe(1293);
+    expect(data.error.value).toBeUndefined();
+    expect(data.isExecuted.value).toBe(true);
+    expect(data.isLoading.value).toBe(false);
+    expect(data.isFinished.value).toBe(true);
+    expect(data.isSuccess.value).toBe(true);
     expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
     expect(errorEventCountAndArgs).toStrictEqual([0]);
     expect(finallyEventCountAndArgs).toStrictEqual([1, null]);
@@ -119,13 +119,13 @@ describe('useRequest', () => {
     throwError = true;
     const result2 = data.execute();
 
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBeUndefined();
-    expect(data.error).toBeUndefined();
-    expect(data.isExecuted).toBe(true);
-    expect(data.isLoading).toBe(true);
-    expect(data.isFinished).toBe(false);
-    expect(data.isSuccess).toBe(false);
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBeUndefined();
+    expect(data.error.value).toBeUndefined();
+    expect(data.isExecuted.value).toBe(true);
+    expect(data.isLoading.value).toBe(true);
+    expect(data.isFinished.value).toBe(false);
+    expect(data.isSuccess.value).toBe(false);
     expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
     expect(errorEventCountAndArgs).toStrictEqual([0]);
     expect(finallyEventCountAndArgs).toStrictEqual([1, null]);
@@ -137,13 +137,13 @@ describe('useRequest', () => {
       expect(error).toStrictEqual(new Error('???'));
     }
 
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBeUndefined();
-    expect(data.error).toStrictEqual(new Error('???'));
-    expect(data.isExecuted).toBe(true);
-    expect(data.isLoading).toBe(false);
-    expect(data.isFinished).toBe(true);
-    expect(data.isSuccess).toBe(false);
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBeUndefined();
+    expect(data.error.value).toStrictEqual(new Error('???'));
+    expect(data.isExecuted.value).toBe(true);
+    expect(data.isLoading.value).toBe(false);
+    expect(data.isFinished.value).toBe(true);
+    expect(data.isSuccess.value).toBe(false);
     expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
     expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
     expect(finallyEventCountAndArgs).toStrictEqual([2, null]);
@@ -165,31 +165,31 @@ describe('useRequest', () => {
     });
 
     data.onSuccess((...args: any[]) => {
-      expect(data.isLoading).toBe(false);
-      expect(data.isFinished).toBe(true);
-      expect(data.isSuccess).toBe(true);
+      expect(data.isLoading.value).toBe(false);
+      expect(data.isFinished.value).toBe(true);
+      expect(data.isSuccess.value).toBe(true);
       successEventCountAndArgs = [++successEventCountAndArgs[0], ...args];
     });
     data.onError((...args: any[]) => {
-      expect(data.isLoading).toBe(false);
-      expect(data.isFinished).toBe(true);
-      expect(data.isSuccess).toBe(false);
+      expect(data.isLoading.value).toBe(false);
+      expect(data.isFinished.value).toBe(true);
+      expect(data.isSuccess.value).toBe(false);
       errorEventCountAndArgs = [++errorEventCountAndArgs[0], ...args];
     });
     data.onFinally((...args: any[]) => {
-      expect(data.isLoading).toBe(false);
-      expect(data.isFinished).toBe(true);
-      expect(data.isSuccess).toBe(!data.error);
+      expect(data.isLoading.value).toBe(false);
+      expect(data.isFinished.value).toBe(true);
+      expect(data.isSuccess.value).toBe(!data.error.value);
       finallyEventCountAndArgs = [++finallyEventCountAndArgs[0], ...args];
     });
 
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBeUndefined();
-    expect(data.error).toBeUndefined();
-    expect(data.isExecuted).toBe(false);
-    expect(data.isLoading).toBe(false);
-    expect(data.isFinished).toBe(false);
-    expect(data.isSuccess).toBe(false);
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBeUndefined();
+    expect(data.error.value).toBeUndefined();
+    expect(data.isExecuted.value).toBe(false);
+    expect(data.isLoading.value).toBe(false);
+    expect(data.isFinished.value).toBe(false);
+    expect(data.isSuccess.value).toBe(false);
     expect(successEventCountAndArgs).toStrictEqual([0]);
     expect(errorEventCountAndArgs).toStrictEqual([0]);
     expect(finallyEventCountAndArgs).toStrictEqual([0]);
@@ -198,13 +198,13 @@ describe('useRequest', () => {
 
     const result = data.execute();
 
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBeUndefined();
-    expect(data.error).toBeUndefined();
-    expect(data.isExecuted).toBe(true);
-    expect(data.isLoading).toBe(true);
-    expect(data.isFinished).toBe(false);
-    expect(data.isSuccess).toBe(false);
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBeUndefined();
+    expect(data.error.value).toBeUndefined();
+    expect(data.isExecuted.value).toBe(true);
+    expect(data.isLoading.value).toBe(true);
+    expect(data.isFinished.value).toBe(false);
+    expect(data.isSuccess.value).toBe(false);
     expect(successEventCountAndArgs).toStrictEqual([0]);
     expect(errorEventCountAndArgs).toStrictEqual([0]);
     expect(finallyEventCountAndArgs).toStrictEqual([0]);
@@ -216,13 +216,13 @@ describe('useRequest', () => {
       expect(error).toStrictEqual(new Error('???'));
     }
 
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBeUndefined();
-    expect(data.error).toStrictEqual(new Error('???'));
-    expect(data.isExecuted).toBe(true);
-    expect(data.isLoading).toBe(false);
-    expect(data.isFinished).toBe(true);
-    expect(data.isSuccess).toBe(false);
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBeUndefined();
+    expect(data.error.value).toStrictEqual(new Error('???'));
+    expect(data.isExecuted.value).toBe(true);
+    expect(data.isLoading.value).toBe(false);
+    expect(data.isFinished.value).toBe(true);
+    expect(data.isSuccess.value).toBe(false);
     expect(successEventCountAndArgs).toStrictEqual([0]);
     expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
     expect(finallyEventCountAndArgs).toStrictEqual([1, null]);
@@ -232,26 +232,26 @@ describe('useRequest', () => {
     throwError = false;
     const result2 = data.execute();
 
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBeUndefined();
-    expect(data.error).toBeUndefined();
-    expect(data.isExecuted).toBe(true);
-    expect(data.isLoading).toBe(true);
-    expect(data.isFinished).toBe(false);
-    expect(data.isSuccess).toBe(false);
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBeUndefined();
+    expect(data.error.value).toBeUndefined();
+    expect(data.isExecuted.value).toBe(true);
+    expect(data.isLoading.value).toBe(true);
+    expect(data.isFinished.value).toBe(false);
+    expect(data.isSuccess.value).toBe(false);
     expect(successEventCountAndArgs).toStrictEqual([0]);
     expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
     expect(finallyEventCountAndArgs).toStrictEqual([1, null]);
 
-    expect(await result2).toStrictEqual(data.response);
+    expect(await result2).toStrictEqual(data.response.value);
 
-    expect(data.response).toStrictEqual({ data: 1293 });
-    expect(data.data).toBe(1293);
-    expect(data.error).toBeUndefined();
-    expect(data.isExecuted).toBe(true);
-    expect(data.isLoading).toBe(false);
-    expect(data.isFinished).toBe(true);
-    expect(data.isSuccess).toBe(true);
+    expect(data.response.value).toStrictEqual({ data: 1293 });
+    expect(data.data.value).toBe(1293);
+    expect(data.error.value).toBeUndefined();
+    expect(data.isExecuted.value).toBe(true);
+    expect(data.isLoading.value).toBe(false);
+    expect(data.isFinished.value).toBe(true);
+    expect(data.isSuccess.value).toBe(true);
     expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
     expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
     expect(finallyEventCountAndArgs).toStrictEqual([2, null]);
@@ -267,23 +267,23 @@ describe('useRequest', () => {
       immediate: true,
     });
 
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBeUndefined();
-    expect(data.error).toBeUndefined();
-    expect(data.isExecuted).toBe(true);
-    expect(data.isLoading).toBe(true);
-    expect(data.isFinished).toBe(false);
-    expect(data.isSuccess).toBe(false);
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBeUndefined();
+    expect(data.error.value).toBeUndefined();
+    expect(data.isExecuted.value).toBe(true);
+    expect(data.isLoading.value).toBe(true);
+    expect(data.isFinished.value).toBe(false);
+    expect(data.isSuccess.value).toBe(false);
 
     await delay(100);
 
-    expect(data.response).toStrictEqual({ data: 1 });
-    expect(data.data).toBe(1);
-    expect(data.error).toBeUndefined();
-    expect(data.isExecuted).toBe(true);
-    expect(data.isLoading).toBe(false);
-    expect(data.isFinished).toBe(true);
-    expect(data.isSuccess).toBe(true);
+    expect(data.response.value).toStrictEqual({ data: 1 });
+    expect(data.data.value).toBe(1);
+    expect(data.error.value).toBeUndefined();
+    expect(data.isExecuted.value).toBe(true);
+    expect(data.isLoading.value).toBe(false);
+    expect(data.isFinished.value).toBe(true);
+    expect(data.isSuccess.value).toBe(true);
   });
 
   test('支持传入 initialData 选项定义初始数据, 发起请求时会重置 data 为传入的 initialData', async () => {
@@ -297,21 +297,21 @@ describe('useRequest', () => {
     });
 
     // 初始数据
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBe(666);
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBe(666);
     // 发起请求时数据被重置为初始数据
     const result = data.execute();
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBe(666);
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBe(666);
     // 等待请求执行完毕
     await result;
     // 请求结束
-    expect(data.response).toStrictEqual({ data: 1 });
-    expect(data.data).toBe(1);
+    expect(data.response.value).toStrictEqual({ data: 1 });
+    expect(data.data.value).toBe(1);
     // 发起请求时数据被重置为初始数据
     data.execute();
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBe(666);
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBe(666);
   });
 
   test('支持传入 initialData 选项定义初始数据, 选项支持传入 MaybeRefOrGetter 类型对象', async () => {
@@ -327,21 +327,21 @@ describe('useRequest', () => {
       });
 
       // 初始数据
-      expect(data.response).toBeUndefined();
-      expect(data.data).toBe(666);
+      expect(data.response.value).toBeUndefined();
+      expect(data.data.value).toBe(666);
       // 发起请求时数据被重置为初始数据
       const result = data.execute();
-      expect(data.response).toBeUndefined();
-      expect(data.data).toBe(666);
+      expect(data.response.value).toBeUndefined();
+      expect(data.data.value).toBe(666);
       // 等待请求执行完毕
       await result;
       // 请求结束
-      expect(data.response).toStrictEqual({ data: 1 });
-      expect(data.data).toBe(1);
+      expect(data.response.value).toStrictEqual({ data: 1 });
+      expect(data.data.value).toBe(1);
       // 发起请求时数据被重置为初始数据
       data.execute();
-      expect(data.response).toBeUndefined();
-      expect(data.data).toBe(666);
+      expect(data.response.value).toBeUndefined();
+      expect(data.data.value).toBe(666);
     }
 
     // Getter
@@ -356,21 +356,21 @@ describe('useRequest', () => {
       });
 
       // 初始数据
-      expect(data.response).toBeUndefined();
-      expect(data.data).toBe(666);
+      expect(data.response.value).toBeUndefined();
+      expect(data.data.value).toBe(666);
       // 发起请求时数据被重置为初始数据
       const result = data.execute();
-      expect(data.response).toBeUndefined();
-      expect(data.data).toBe(666);
+      expect(data.response.value).toBeUndefined();
+      expect(data.data.value).toBe(666);
       // 等待请求执行完毕
       await result;
       // 请求结束
-      expect(data.response).toStrictEqual({ data: 1 });
-      expect(data.data).toBe(1);
+      expect(data.response.value).toStrictEqual({ data: 1 });
+      expect(data.data.value).toBe(1);
       // 发起请求时数据被重置为初始数据
       data.execute();
-      expect(data.response).toBeUndefined();
-      expect(data.data).toBe(666);
+      expect(data.response.value).toBeUndefined();
+      expect(data.data.value).toBe(666);
     }
   });
 
@@ -389,29 +389,29 @@ describe('useRequest', () => {
     });
 
     // 初始数据
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBeUndefined();
-    expect(data.error).toBeUndefined();
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBeUndefined();
+    expect(data.error.value).toBeUndefined();
 
     // 进行请求成功情况的测试
 
     const result = data.execute();
 
-    expect(data.response).toBeUndefined();
-    expect(data.data).toBeUndefined();
-    expect(data.error).toBeUndefined();
+    expect(data.response.value).toBeUndefined();
+    expect(data.data.value).toBeUndefined();
+    expect(data.error.value).toBeUndefined();
 
     await result;
 
-    expect(data.response).toStrictEqual({ data: 1293 });
-    expect(data.data).toBe(1293);
-    expect(data.error).toBeUndefined();
+    expect(data.response.value).toStrictEqual({ data: 1293 });
+    expect(data.data.value).toBe(1293);
+    expect(data.error.value).toBeUndefined();
 
     data.execute();
 
-    expect(data.response).toStrictEqual({ data: 1293 });
-    expect(data.data).toBe(1293);
-    expect(data.error).toBeUndefined();
+    expect(data.response.value).toStrictEqual({ data: 1293 });
+    expect(data.data.value).toBe(1293);
+    expect(data.error.value).toBeUndefined();
 
     // 进行请求失败情况的测试
 
@@ -419,9 +419,9 @@ describe('useRequest', () => {
     throwError = true;
     const result3 = data.execute();
 
-    expect(data.response).toStrictEqual({ data: 1294 });
-    expect(data.data).toBe(1294);
-    expect(data.error).toBeUndefined();
+    expect(data.response.value).toStrictEqual({ data: 1294 });
+    expect(data.data.value).toBe(1294);
+    expect(data.error.value).toBeUndefined();
 
     try {
       await result3;
@@ -430,15 +430,45 @@ describe('useRequest', () => {
       expect(error).toStrictEqual(new Error('???'));
     }
 
-    expect(data.response).toStrictEqual({ data: 1294 });
-    expect(data.data).toBe(1294);
-    expect(data.error).toStrictEqual(new Error('???'));
+    expect(data.response.value).toStrictEqual({ data: 1294 });
+    expect(data.data.value).toBe(1294);
+    expect(data.error.value).toStrictEqual(new Error('???'));
 
     data.execute();
 
-    expect(data.response).toStrictEqual({ data: 1294 });
-    expect(data.data).toBe(1294);
-    expect(data.error).toStrictEqual(new Error('???'));
+    expect(data.response.value).toStrictEqual({ data: 1294 });
+    expect(data.data.value).toBe(1294);
+    expect(data.error.value).toStrictEqual(new Error('???'));
+  });
+
+  test('支持传入 shallow: true 选项, 用于控制是否使用 shallowRef 代替 ref 包裹 data 数据', async () => {
+    const data = useRequest(() => ({ data: { a: { b: 2 } } }), { immediate: true });
+    const data2 = useRequest(() => ({ data: { a: { b: 2 } } }), { immediate: true, shallow: true });
+
+    await delay(10);
+
+    expect(data.data.value).toStrictEqual({ a: { b: 2 } });
+    expect(data2.data.value).toStrictEqual({ a: { b: 2 } });
+
+    let dataTriggerCount = 0;
+    let data2TriggerCount = 0;
+
+    watchImmediateDeep(data.data, () => dataTriggerCount++);
+    watchImmediateDeep(data2.data, () => data2TriggerCount++);
+
+    expect(dataTriggerCount).toBe(1);
+    expect(data2TriggerCount).toBe(1);
+
+    data.data.value!.a.b++;
+    data2.data.value!.a.b++;
+
+    expect(isShallow(data.data)).toBe(false);
+    expect(isShallow(data2.data)).toBe(true);
+
+    await nextTick();
+
+    expect(dataTriggerCount).toBe(2);
+    expect(data2TriggerCount).toBe(1);
   });
 
   test('类型测试', async () => {

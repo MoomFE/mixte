@@ -1,10 +1,7 @@
 import type { Promisable } from 'type-fest';
 import type { MaybeRefOrGetter } from 'vue-demi';
-import { createEventHook, toReactive, toValue } from '@vueuse/core';
-import { computed, ref, shallowRef } from 'vue-demi';
-
-// TODO
-//  1. data 支持 shallowRef
+import { createEventHook, toValue } from '@vueuse/core';
+import { ref, shallowRef } from 'vue-demi';
 
 export interface UseRequestOptions<T = undefined> {
   /**
@@ -22,6 +19,11 @@ export interface UseRequestOptions<T = undefined> {
    * @default true
    */
   resetOnExecute?: boolean
+  /**
+   * 是否使用 shallowRef 代替 ref 包裹 data 数据
+   * @default false
+   */
+  shallow?: boolean
 }
 
 export type UseRequestUserExecute<Response, Args extends any[]> = (...args: Args) => Promisable<Response>;
@@ -41,6 +43,7 @@ export function useRequest<
     initialData,
     immediate = false,
     resetOnExecute = true,
+    shallow = false,
   } = options;
 
   /** 请求成功事件钩子 */
@@ -53,7 +56,7 @@ export function useRequest<
   /** 服务器响应 */
   const response = shallowRef<Response>();
   /** 服务器响应数据 */
-  const data = ref<Data>();
+  const data = (shallow ? shallowRef : ref)<Data>();
   /** 服务器返回的错误 */
   const error = shallowRef<any>();
   /** 是否发起过请求 */
@@ -98,6 +101,7 @@ export function useRequest<
     catch (e) {
       isLoading.value = false;
       isFinished.value = true;
+      isSuccess.value = false;
       error.value = e;
       errorEvent.trigger(e);
       finallyEvent.trigger(null);
@@ -111,32 +115,30 @@ export function useRequest<
   // @ts-expect-error
   immediate && execute();
 
-  return toReactive(
-    computed(() => ({
-      /** 服务器响应 */
-      response,
-      /** 服务器响应数据 */
-      data,
-      /** 服务器返回的错误 */
-      error,
+  return {
+    /** 服务器响应 */
+    response,
+    /** 服务器响应数据 */
+    data,
+    /** 服务器返回的错误 */
+    error,
 
-      /** 是否发起过请求 */
-      isExecuted,
-      /** 是否在请求中 */
-      isLoading,
-      /** 是否已请求完成 */
-      isFinished,
-      /** 是否已请求成功 */
-      isSuccess,
+    /** 是否发起过请求 */
+    isExecuted,
+    /** 是否在请求中 */
+    isLoading,
+    /** 是否已请求完成 */
+    isFinished,
+    /** 是否已请求成功 */
+    isSuccess,
 
-      execute,
+    execute,
 
-      /** 请求成功事件钩子 */
-      onSuccess: successEvent.on,
-      /** 请求失败事件钩子 */
-      onError: errorEvent.on,
-      /** 请求完成事件钩子 */
-      onFinally: finallyEvent.on,
-    })),
-  );
+    /** 请求成功事件钩子 */
+    onSuccess: successEvent.on,
+    /** 请求失败事件钩子 */
+    onError: errorEvent.on,
+    /** 请求完成事件钩子 */
+    onFinally: finallyEvent.on,
+  };
 }
