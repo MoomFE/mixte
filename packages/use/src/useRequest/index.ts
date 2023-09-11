@@ -1,12 +1,10 @@
+import type { Promisable } from 'type-fest';
+import type { MaybeRefOrGetter } from 'vue-demi';
 import { createEventHook, toReactive, toValue } from '@vueuse/core';
 import { computed, ref, shallowRef } from 'vue-demi';
-import type { MaybeRefOrGetter } from 'vue-demi';
 
 // TODO
-//  1. 优化方法类型定义
-//  2. execute 方法支持传参, 参数传递给 userExecute
-//  3. execute 方法类型定义需继承 userExecute
-//  4. data 支持 shallowRef
+//  1. data 支持 shallowRef
 
 export interface UseRequestOptions<T = undefined> {
   /**
@@ -26,10 +24,19 @@ export interface UseRequestOptions<T = undefined> {
   resetOnExecute?: boolean
 }
 
+type RequestFunction<Response, Args extends any[]> = (...args: Args) => Promisable<Response>;
+
 /**
  *
  */
-export function useRequest(userExecute: () => Promise<any>, options: UseRequestOptions<number> = {}) {
+export function useRequest<
+  Response,
+  Data extends Response extends { data: infer D } ? D : never = Response extends { data: infer D } ? D : never,
+  Args extends any[] = any[],
+>(
+  userExecute: RequestFunction<Response, Args>,
+  options: UseRequestOptions<Data> = {},
+) {
   const {
     initialData,
     immediate = false,
@@ -44,9 +51,9 @@ export function useRequest(userExecute: () => Promise<any>, options: UseRequestO
   const finallyEvent = createEventHook<null>();
 
   /** 服务器响应 */
-  const response = shallowRef();
+  const response = shallowRef<Response>();
   /** 服务器响应数据 */
-  const data = ref(toValue(initialData));
+  const data = ref<Data>();
   /** 服务器返回的错误 */
   const error = shallowRef<any>();
   /** 是否发起过请求 */
@@ -59,7 +66,7 @@ export function useRequest(userExecute: () => Promise<any>, options: UseRequestO
   const isSuccess = ref(false);
 
   /** 发起请求 */
-  async function execute() {
+  async function execute(...args: Args): Promise<Response> {
     // 标记发起过请求
     isExecuted.value = true;
     // 标记请求中
@@ -75,8 +82,8 @@ export function useRequest(userExecute: () => Promise<any>, options: UseRequestO
     }
 
     try {
-      const res = await userExecute();
-      const resData = res?.data;
+      const res = await userExecute(...args);
+      const resData = (res as { data: Data })?.data;
 
       response.value = res;
       data.value = resData;
@@ -98,7 +105,10 @@ export function useRequest(userExecute: () => Promise<any>, options: UseRequestO
     }
   }
 
+  // 初始化数据
+  data.value = toValue(initialData);
   // 立即发起请求
+  // @ts-expect-error
   immediate && execute();
 
   return toReactive(
