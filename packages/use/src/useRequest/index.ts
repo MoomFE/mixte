@@ -26,10 +26,15 @@ export interface UseRequestOptions<T = undefined> {
   shallow?: boolean
 }
 
+/**
+ * 用户传入的发起请求的函数
+ */
 export type UseRequestUserExecute<Response, Args extends any[]> = (...args: Args) => Promisable<Response>;
 
 /**
- *
+ * 发起请求的组合式方法
+ * @param userExecute 用户传入的发起请求的函数
+ * @param options 配置项
  */
 export function useRequest<
   Response,
@@ -86,7 +91,7 @@ export function useRequest<
 
     try {
       const res = await userExecute(...args);
-      const resData = (res as { data: Data })?.data;
+      const resData = (res as { data: Data } | undefined)?.data;
 
       response.value = res;
       data.value = resData;
