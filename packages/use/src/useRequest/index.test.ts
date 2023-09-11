@@ -1,3 +1,4 @@
+import type { EventHookOn } from '@vueuse/core';
 import { useRequest } from '@mixte/use';
 import { delay } from 'mixte';
 import { ref } from 'vue-demi';
@@ -437,5 +438,81 @@ describe('useRequest', () => {
     expect(data.response).toStrictEqual({ data: 1294 });
     expect(data.data).toBe(1294);
     expect(data.error).toStrictEqual(new Error('???'));
+  });
+
+  test('类型测试', async () => {
+    // 非异步, 无方法传参, 无其他参数返回
+    {
+      const res = useRequest(() => ({ data: 1 }));
+
+      expectTypeOf(res.response).toEqualTypeOf<{ data: number } | undefined>();
+      expectTypeOf(res.data).toEqualTypeOf<number | undefined>();
+      expectTypeOf(res.error).toEqualTypeOf<any>();
+      expectTypeOf(res.isExecuted).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isLoading).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
+      expectTypeOf(res.execute).toEqualTypeOf<() => Promise<{ data: number }>>();
+      expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number }>>();
+      expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+    }
+
+    // 非异步, 有方法传参, 有其他参数返回
+    {
+      const res = useRequest((a: number) => ({ data: a, code: 0 }));
+
+      expectTypeOf(res.response).toEqualTypeOf<{ data: number; code: number } | undefined>();
+      expectTypeOf(res.data).toEqualTypeOf<number | undefined>();
+      expectTypeOf(res.error).toEqualTypeOf<any>();
+      expectTypeOf(res.isExecuted).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isLoading).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
+      expectTypeOf(res.execute).toEqualTypeOf<(a: number) => Promise<{ data: number; code: number }>>();
+      expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
+      expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+    }
+
+    // 异步, 无方法传参, 无其他参数返回
+    {
+      const res = useRequest(async () => {
+        delay(100);
+        return { data: 1 };
+      });
+
+      expectTypeOf(res.response).toEqualTypeOf<{ data: number } | undefined>();
+      expectTypeOf(res.data).toEqualTypeOf<number | undefined>();
+      expectTypeOf(res.error).toEqualTypeOf<any>();
+      expectTypeOf(res.isExecuted).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isLoading).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
+      expectTypeOf(res.execute).toEqualTypeOf<() => Promise<{ data: number }>>();
+      expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number }>>();
+      expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+    }
+
+    // 异步, 有方法传参, 有其他参数返回
+    {
+      const res = useRequest(async (a: number) => {
+        delay(100);
+        return { data: a, code: 0 };
+      });
+
+      expectTypeOf(res.response).toEqualTypeOf<{ data: number; code: number } | undefined>();
+      expectTypeOf(res.data).toEqualTypeOf<number | undefined>();
+      expectTypeOf(res.error).toEqualTypeOf<any>();
+      expectTypeOf(res.isExecuted).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isLoading).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
+      expectTypeOf(res.execute).toEqualTypeOf<(a: number) => Promise<{ data: number; code: number }>>();
+      expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
+      expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+    }
   });
 });

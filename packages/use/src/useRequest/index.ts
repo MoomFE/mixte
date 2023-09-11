@@ -44,9 +44,9 @@ export function useRequest<
   } = options;
 
   /** 请求成功事件钩子 */
-  const successEvent = createEventHook();
+  const successEvent = createEventHook<Response>();
   /** 请求失败事件钩子 */
-  const errorEvent = createEventHook();
+  const errorEvent = createEventHook<any>();
   /** 请求完成事件钩子 */
   const finallyEvent = createEventHook<null>();
 
