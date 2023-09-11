@@ -14,6 +14,12 @@ describe('randomNatural', () => {
       Array.from({ length: 101 }, (_, i) => i),
     );
   });
+
+  test('类型测试', () => {
+    expectTypeOf(randomNatural).parameter(0).toBeNumber();
+    expectTypeOf(randomNatural).parameter(1).toBeNumber();
+    expectTypeOf(randomNatural(0, 10)).toBeNumber();
+  });
 });
 
 describe('random', () => {
@@ -56,7 +62,7 @@ describe('random', () => {
     );
   });
 
-  test('支持第一个参数大于第二个参数', () => {
+  test('支持第一个数字大于第二个数字', () => {
     const nums = new Set<number>();
 
     for (let i = 0; i < 10000; i++)
@@ -82,7 +88,7 @@ describe('random', () => {
     );
   });
 
-  test('如果只传了一个参数, 则默认在 0 和传入参数之间随机生成一个数字', () => {
+  test('如果只传了一个参数, 则默认在 0 和传入数字之间随机生成一个数字', () => {
     const nums = new Set<number>();
 
     for (let i = 0; i < 10000; i++)
@@ -93,6 +99,13 @@ describe('random', () => {
     ).toStrictEqual(
       Array.from({ length: 101 }, (_, i) => i),
     );
+  });
+
+  test('类型测试', () => {
+    expectTypeOf(random).parameters.toEqualTypeOf<[]>();
+    expectTypeOf(random(0, 10)).toBeNumber();
+    expectTypeOf(random(10)).toBeNumber();
+    expectTypeOf(random()).toBeNumber();
   });
 });
 
@@ -107,6 +120,11 @@ describe('randomLowercaseLetter', () => {
       Array.from(letters).sort(),
     ).toStrictEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
   });
+
+  test('类型测试', () => {
+    expectTypeOf(randomLowercaseLetter).parameter(0).toBeUndefined();
+    expectTypeOf(randomLowercaseLetter()).toBeString();
+  });
 });
 
 describe('randomUppercaseLetter', () => {
@@ -119,6 +137,11 @@ describe('randomUppercaseLetter', () => {
     expect(
       Array.from(letters).sort(),
     ).toStrictEqual(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
+  });
+
+  test('类型测试', () => {
+    expectTypeOf(randomUppercaseLetter).parameter(0).toBeUndefined();
+    expectTypeOf(randomUppercaseLetter()).toBeString();
   });
 });
 
@@ -192,6 +215,11 @@ describe('randomLetter', () => {
         }
       });
     });
+  });
+
+  test('类型测试', () => {
+    expectTypeOf(randomLetter).parameters.toEqualTypeOf<[boolean?]>();
+    expectTypeOf(randomLetter()).toBeString();
   });
 });
 
@@ -341,6 +369,24 @@ describe('randomString', () => {
         number: false,
       });
     }).toThrow('???');
+  });
+
+  test('类型测试', () => {
+    expectTypeOf(randomString).parameters.toEqualTypeOf<[number?, {
+      lowercase?: boolean
+      uppercase?: boolean
+      number?: boolean
+    }?]>();
+    expectTypeOf(randomString()).toBeString();
+    expectTypeOf(randomString(10)).toBeString();
+    expectTypeOf(randomString(10, {})).toBeString();
+    expectTypeOf(randomString(10, { lowercase: true })).toBeString();
+    expectTypeOf(randomString(10, { uppercase: true })).toBeString();
+    expectTypeOf(randomString(10, { number: true })).toBeString();
+    expectTypeOf(randomString(10, { lowercase: true, uppercase: true })).toBeString();
+    expectTypeOf(randomString(10, { lowercase: true, number: true })).toBeString();
+    expectTypeOf(randomString(10, { uppercase: true, number: true })).toBeString();
+    expectTypeOf(randomString(10, { lowercase: true, uppercase: true, number: true })).toBeString();
   });
 });
 

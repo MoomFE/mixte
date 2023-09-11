@@ -25,6 +25,27 @@ export function randomNatural(from: number, to: number) {
  * random(-10, 10); // -> -10 ~ 10
  */
 export function random(from: number, to: number): number;
+/**
+ * 在 0 和传入数字之间随机生成一个数字
+ *  - 当前传入了一个参数
+ *  - 传入两个参数时, 在传入的两个数字之间随机生成一个数字
+ * @param to 传入的数字
+ * @example
+ *
+ * random(10); // -> 0 ~ 10
+ * random(-10); // -> -10 ~ 0
+ */
+export function random(to: number): number;
+/**
+ * 在 0 和 10 之间随机生成一个数字
+ *  - 当前未传参数
+ *  - 传入一个参数时, 在 0 和传入数字之间随机生成一个数字
+ *  - 传入两个参数时, 在传入的两个数字之间随机生成一个数字
+ * @example
+ *
+ * random(); // -> 0 ~ 10
+ */
+export function random(): number;
 export function random(...args: number[]) {
   let [from = 0, to = 10] = args;
 

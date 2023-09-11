@@ -36,16 +36,31 @@ import { random } from 'mixte';
 random(0, 10); // -> 0 ~ 10
 random(10, 0); // -> 0 ~ 10
 random(-10, 10); // -> -10 ~ 10
+
+random(10); // -> 0 ~ 10
+random(-10); // -> -10 ~ 0
+
+random(); // -> 0 ~ 10
 ```
 
 ### 类型
 
 ```ts
 /**
+ * 在传入的两个数字之间随机生成一个数字
  * @param from 第一个数字
  * @param to 第二个数字
  */
 function random(from: number, to: number): number;
+/**
+ * 在 0 和传入数字之间随机生成一个数字
+ * @param to 传入的数字
+ */
+function random(to: number): number;
+/**
+ * 在 0 和 10 之间随机生成一个数字
+ */
+function random(): number;
 ```
 
 
