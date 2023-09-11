@@ -24,7 +24,7 @@ export interface UseRequestOptions<T = undefined> {
   resetOnExecute?: boolean
 }
 
-type RequestFunction<Response, Args extends any[]> = (...args: Args) => Promisable<Response>;
+export type UseRequestUserExecute<Response, Args extends any[]> = (...args: Args) => Promisable<Response>;
 
 /**
  *
@@ -34,7 +34,7 @@ export function useRequest<
   Data extends Response extends { data: infer D } ? D : never = Response extends { data: infer D } ? D : never,
   Args extends any[] = any[],
 >(
-  userExecute: RequestFunction<Response, Args>,
+  userExecute: UseRequestUserExecute<Response, Args>,
   options: UseRequestOptions<Data> = {},
 ) {
   const {

@@ -1,4 +1,5 @@
 import type { EventHookOn } from '@vueuse/core';
+import type { UseRequestOptions, UseRequestUserExecute } from '@mixte/use';
 import { useRequest } from '@mixte/use';
 import { delay } from 'mixte';
 import { ref } from 'vue-demi';
@@ -441,6 +442,11 @@ describe('useRequest', () => {
   });
 
   test('类型测试', async () => {
+    expectTypeOf(useRequest).parameters.toEqualTypeOf<[
+      UseRequestUserExecute<unknown, any[]>,
+      UseRequestOptions<never>?,
+    ]>();
+
     // 非异步, 无方法传参, 无其他参数返回
     {
       const res = useRequest(() => ({ data: 1 }));
