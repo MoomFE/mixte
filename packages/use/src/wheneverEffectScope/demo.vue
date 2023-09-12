@@ -9,7 +9,15 @@
       </span>
     </div>
     value:
-    <el-input v-model="value" />
+    <el-input v-model="value">
+      <template #append>
+        <el-tooltip :content="`已${isAutoPlay ? '启用' : '关闭'}值自动改变, 点击${isAutoPlay ? '关闭' : '启用'}`">
+          <el-button class="important-(flex items-center py-0 px-2)" @click="isAutoPlay = !isAutoPlay">
+            <i-material-symbols-time-auto-outline class="size-5" :class="{ 'c-teal-5': isAutoPlay }" />
+          </el-button>
+        </el-tooltip>
+      </template>
+    </el-input>
     value2:
     <el-input :value="value2" disabled />
   </div>
@@ -17,6 +25,7 @@
 
 <script lang="ts" setup>
   import { wheneverEffectScope } from '@mixte/use';
+  import { randomNatural, randomString } from 'mixte';
   import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
 
   const [source, toggleSource] = useToggle();
@@ -26,6 +35,14 @@
   wheneverEffectScope(source, (_value, _oldValue, _onCleanup) => {
     watchImmediate(value, (v) => {
       value2.value = v;
+    });
+  });
+
+  const isAutoPlay = ref(true);
+
+  wheneverEffectScopeImmediate(isAutoPlay, () => {
+    useIntervalFn(() => value.value = randomString(randomNatural(6, 18)), 360, {
+      immediateCallback: true,
     });
   });
 
