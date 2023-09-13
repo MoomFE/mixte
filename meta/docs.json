@@ -17,6 +17,7 @@
   "use": [
     "deepUnref",
     "useCountdown",
+    "useRequest",
     "watch",
     "whenever",
     "wheneverEffectScope"

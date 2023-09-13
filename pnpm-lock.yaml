@@ -29,6 +29,9 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.1
         version: 11.0.1
+      '@types/js-yaml':
+        specifier: ^4.0.5
+        version: 4.0.5
       '@vercel/analytics':
         specifier: ^1.0.2
         version: 1.0.2
@@ -59,6 +62,9 @@ importers:
       gsap:
         specifier: ^3.12.2
         version: 3.12.2
+      js-yaml:
+        specifier: ^4.1.0
+        version: 4.1.0
       jsdom:
         specifier: ^22.1.0
         version: 22.1.0
@@ -1411,6 +1417,10 @@ packages:
 
   /@types/istanbul-lib-coverage@2.0.4:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
+    dev: true
+
+  /@types/js-yaml@4.0.5:
+    resolution: {integrity: sha512-FhpRzf927MNQdRZP0J5DLIdTXhjLYzeUTmLAu69mnVksLH9CJY3IuSeEgbKUki7GQZm0WqDkGzyxju2EZGD2wA==}
     dev: true
 
   /@types/json-schema@7.0.12:
