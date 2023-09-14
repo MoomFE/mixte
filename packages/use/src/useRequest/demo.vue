@@ -14,21 +14,21 @@
 </template>
 
 <script lang="ts" setup>
+  import { omit } from 'lodash-es';
+  import axios from 'axios';
   import yaml from 'js-yaml';
+  import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
 
-  const url = ref('https://httpbin.org/get');
+  const url = ref('https://httpbin.org/uuid');
 
   const {
     response, data, error,
     isExecuted, isLoading, isFinished, isSuccess,
     execute,
   } = useRequest(() => {
-    return fetch(url.value).then(async (res) => {
-      try {
-        return res.json();
-      }
-      catch (error) {}
-    });
+    return axios.get(url.value).then(res => omit(res, 'config'));
+  }, {
+    immediate: true,
   });
 
   const responseParsed = computed(() => {
@@ -45,4 +45,26 @@
       { skipInvalid: true, condenseFlow: true, noCompatMode: true },
     );
   });
+
+  inject<InjectCodeLang>('codeLang')!.value = 'vue';
+  syncRef(
+    inject<InjectCode>('code')!,
+    computed(() => `
+<template>
+  <input v-model="url">
+  <button @click="execute">请求</button>
+</template>
+
+<script lang="ts" setup>
+  const {
+    response, data, error,
+    isExecuted, isLoading, isFinished, isSuccess,
+    execute
+  } = useRequest(() => {
+    return axios.get('${url.value}');
+  });
+<\/script>
+    `),
+    { direction: 'rtl' },
+  );
 </script>

@@ -22,7 +22,7 @@ importers:
         version: 2.7.2
       '@moomfe/small-utils':
         specifier: ^5.3.2
-        version: 5.3.2(@vueuse/core@10.4.1)(axios@1.4.0)(vue@3.3.4)
+        version: 5.3.2(@vueuse/core@10.4.1)(axios@1.5.0)(vue@3.3.4)
       '@rollup/plugin-alias':
         specifier: ^5.0.0
         version: 5.0.0(rollup@3.29.0)
@@ -32,6 +32,9 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.5
         version: 4.0.5
+      '@types/lodash-es':
+        specifier: ^4.17.9
+        version: 4.17.9
       '@vercel/analytics':
         specifier: ^1.0.2
         version: 1.0.2
@@ -44,6 +47,9 @@ importers:
       '@vueuse/core':
         specifier: ^10.4.1
         version: 10.4.1(vue@3.3.4)
+      axios:
+        specifier: ^1.5.0
+        version: 1.5.0
       element-plus:
         specifier: ^2.3.12
         version: 2.3.12(vue@3.3.4)
@@ -71,6 +77,9 @@ importers:
       lint-staged:
         specifier: ^14.0.1
         version: 14.0.1
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
       magic-string:
         specifier: ^0.30.3
         version: 0.30.3
@@ -127,7 +136,7 @@ importers:
         version: 4.4.9(@types/node@20.4.1)(sass@1.66.1)
       vitepress:
         specifier: 1.0.0-rc.10
-        version: 1.0.0-rc.10(@algolia/client-search@4.19.1)(axios@1.4.0)(sass@1.66.1)(search-insights@2.7.0)
+        version: 1.0.0-rc.10(@algolia/client-search@4.19.1)(axios@1.5.0)(sass@1.66.1)(search-insights@2.7.0)
       vitest:
         specifier: ^0.34.3
         version: 0.34.3(@vitest/ui@0.34.3)(jsdom@22.1.0)(sass@1.66.1)
@@ -1291,7 +1300,7 @@ packages:
       - supports-color
     dev: true
 
-  /@moomfe/small-utils@5.3.2(@vueuse/core@10.4.1)(axios@1.4.0)(vue@3.3.4):
+  /@moomfe/small-utils@5.3.2(@vueuse/core@10.4.1)(axios@1.5.0)(vue@3.3.4):
     resolution: {integrity: sha512-DS6GC41N84OxnucVd+ijpIf4BZggLma2jbp26zv7aWf+f9f3hdv5SJq1y17CdwGmoXzmW2FN3p4uuwBA5B+txg==}
     peerDependencies:
       '@vue/composition-api': '>=1.1.0'
@@ -1305,7 +1314,7 @@ packages:
         optional: true
     dependencies:
       '@vueuse/core': 10.4.1(vue@3.3.4)
-      axios: 1.4.0
+      axios: 1.5.0
       local-pkg: 0.4.3
       overlayscrollbars: 1.13.3
       type-fest: 3.13.0
@@ -1433,8 +1442,8 @@ packages:
       '@types/node': 20.4.1
     dev: true
 
-  /@types/lodash-es@4.17.8:
-    resolution: {integrity: sha512-euY3XQcZmIzSy7YH5+Unb3b2X12Wtk54YWINBvvGQ5SmMvwb11JQskGsfkH/5HXK77Kr8GF0wkVDIxzAisWtog==}
+  /@types/lodash-es@4.17.9:
+    resolution: {integrity: sha512-ZTcmhiI3NNU7dEvWLZJkzG6ao49zOIjEgIE0RgV7wbPxU0f2xT3VSAHw2gmst8swH6V0YkLRGp4qPlX/6I90MQ==}
     dependencies:
       '@types/lodash': 4.14.196
     dev: true
@@ -2037,7 +2046,7 @@ packages:
       - vue
     dev: true
 
-  /@vueuse/integrations@10.4.1(axios@1.4.0)(focus-trap@7.5.2)(vue@3.3.4):
+  /@vueuse/integrations@10.4.1(axios@1.5.0)(focus-trap@7.5.2)(vue@3.3.4):
     resolution: {integrity: sha512-uRBPyG5Lxoh1A/J+boiioPT3ELEAPEo4t8W6Mr4yTKIQBeW/FcbsotZNPr4k9uz+3QEksMmflWloS9wCnypM7g==}
     peerDependencies:
       async-validator: '*'
@@ -2080,7 +2089,7 @@ packages:
     dependencies:
       '@vueuse/core': 10.4.1(vue@3.3.4)
       '@vueuse/shared': 10.4.1(vue@3.3.4)
-      axios: 1.4.0
+      axios: 1.5.0
       focus-trap: 7.5.2
       vue-demi: 0.14.6(vue@3.3.4)
     transitivePeerDependencies:
@@ -2247,8 +2256,8 @@ packages:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
     dev: true
 
-  /axios@1.4.0:
-    resolution: {integrity: sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==}
+  /axios@1.5.0:
+    resolution: {integrity: sha512-D4DdjDo5CY50Qms0qGQTTw6Q44jl7zRwY7bthds06pUGfChBCTcQs+N743eFWGEd6pRTMd6A+I87aWyFV5wiZQ==}
     dependencies:
       follow-redirects: 1.15.2
       form-data: 4.0.0
@@ -2636,14 +2645,14 @@ packages:
       '@floating-ui/dom': 1.5.1
       '@popperjs/core': /@sxzz/popperjs-es@2.11.7
       '@types/lodash': 4.14.196
-      '@types/lodash-es': 4.17.8
+      '@types/lodash-es': 4.17.9
       '@vueuse/core': 9.13.0(vue@3.3.4)
       async-validator: 4.2.5
       dayjs: 1.11.9
       escape-html: 1.0.3
       lodash: 4.17.21
       lodash-es: 4.17.21
-      lodash-unified: 1.0.3(@types/lodash-es@4.17.8)(lodash-es@4.17.21)(lodash@4.17.21)
+      lodash-unified: 1.0.3(@types/lodash-es@4.17.9)(lodash-es@4.17.21)(lodash@4.17.21)
       memoize-one: 6.0.0
       normalize-wheel-es: 1.2.0
       vue: 3.3.4
@@ -3813,14 +3822,14 @@ packages:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
     dev: true
 
-  /lodash-unified@1.0.3(@types/lodash-es@4.17.8)(lodash-es@4.17.21)(lodash@4.17.21):
+  /lodash-unified@1.0.3(@types/lodash-es@4.17.9)(lodash-es@4.17.21)(lodash@4.17.21):
     resolution: {integrity: sha512-WK9qSozxXOD7ZJQlpSqOT+om2ZfcT4yO+03FuzAHD0wF6S0l0090LRPDx3vhTTLZ8cFKpBn+IOcVXK6qOcIlfQ==}
     peerDependencies:
       '@types/lodash-es': '*'
       lodash: '*'
       lodash-es: '*'
     dependencies:
-      '@types/lodash-es': 4.17.8
+      '@types/lodash-es': 4.17.9
       lodash: 4.17.21
       lodash-es: 4.17.21
     dev: true
@@ -5103,7 +5112,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitepress@1.0.0-rc.10(@algolia/client-search@4.19.1)(axios@1.4.0)(sass@1.66.1)(search-insights@2.7.0):
+  /vitepress@1.0.0-rc.10(@algolia/client-search@4.19.1)(axios@1.5.0)(sass@1.66.1)(search-insights@2.7.0):
     resolution: {integrity: sha512-+MsahIWqq5WUEmj6MR4obcKYbT7im07jZPCQPdNJExkeOSbOAJ4xypSLx88x7rvtzWHhHc5aXbOhCRvGEGjFrw==}
     hasBin: true
     dependencies:
@@ -5111,7 +5120,7 @@ packages:
       '@docsearch/js': 3.5.2(@algolia/client-search@4.19.1)(search-insights@2.7.0)
       '@vue/devtools-api': 6.5.0
       '@vueuse/core': 10.4.1(vue@3.3.4)
-      '@vueuse/integrations': 10.4.1(axios@1.4.0)(focus-trap@7.5.2)(vue@3.3.4)
+      '@vueuse/integrations': 10.4.1(axios@1.5.0)(focus-trap@7.5.2)(vue@3.3.4)
       focus-trap: 7.5.2
       mark.js: 8.11.1
       minisearch: 6.1.0

@@ -3,6 +3,8 @@ outline: [1,3]
 ---
 
 发起请求的组合式方法
+  - 旨在解决请求前中后的状态管理、响应数据管理及提供事件钩子
+  - 可与任意请求库搭配使用
 
 ### 示例
 
@@ -15,11 +17,7 @@ const {
   execute,
   onSuccess, onError, onFinally,
 } = useRequest(() => {
-  return fetch('https://api.github.com/users/mixte');
-});
-
-onMounted(() => {
-  execute();
+  return axios.get('https://httpbin.org/uuid');
 });
 ```
 
