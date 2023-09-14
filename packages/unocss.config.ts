@@ -1,5 +1,6 @@
 import { defineConfig, presetAttributify, presetIcons, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss';
 import { presetExtra } from 'unocss-preset-extra';
+import { presetScrollbar } from 'unocss-preset-scrollbar';
 
 export default defineConfig({
   shortcuts: {
@@ -30,6 +31,7 @@ export default defineConfig({
     }),
     presetIcons(),
     presetExtra(),
+    presetScrollbar(),
   ],
   transformers: [
     transformerDirectives(),
