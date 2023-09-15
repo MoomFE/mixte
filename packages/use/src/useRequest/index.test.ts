@@ -545,6 +545,19 @@ describe('useRequest', () => {
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+      expectTypeOf(res.reactive).toEqualTypeOf<{
+        response: { data: number } | undefined
+        data: number | undefined
+        error: any
+        isExecuted: boolean
+        isLoading: boolean
+        isFinished: boolean
+        isSuccess: boolean
+        execute: () => Promise<{ data: number }>
+        onSuccess: EventHookOn<{ data: number }>
+        onError: EventHookOn<any>
+        onFinally: EventHookOn<null>
+      }>();
     }
 
     // 非异步, 有方法传参, 有其他参数返回
@@ -562,6 +575,19 @@ describe('useRequest', () => {
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+      expectTypeOf(res.reactive).toEqualTypeOf<{
+        response: { data: number; code: number } | undefined
+        data: number | undefined
+        error: any
+        isExecuted: boolean
+        isLoading: boolean
+        isFinished: boolean
+        isSuccess: boolean
+        execute: (a: number) => Promise<{ data: number; code: number }>
+        onSuccess: EventHookOn<{ data: number; code: number }>
+        onError: EventHookOn<any>
+        onFinally: EventHookOn<null>
+      }>();
     }
 
     // 异步, 无方法传参, 无其他参数返回
@@ -582,6 +608,19 @@ describe('useRequest', () => {
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+      expectTypeOf(res.reactive).toEqualTypeOf<{
+        response: { data: number } | undefined
+        data: number | undefined
+        error: any
+        isExecuted: boolean
+        isLoading: boolean
+        isFinished: boolean
+        isSuccess: boolean
+        execute: () => Promise<{ data: number }>
+        onSuccess: EventHookOn<{ data: number }>
+        onError: EventHookOn<any>
+        onFinally: EventHookOn<null>
+      }>();
     }
 
     // 异步, 有方法传参, 有其他参数返回
@@ -602,6 +641,19 @@ describe('useRequest', () => {
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+      expectTypeOf(res.reactive).toEqualTypeOf<{
+        response: { data: number; code: number } | undefined
+        data: number | undefined
+        error: any
+        isExecuted: boolean
+        isLoading: boolean
+        isFinished: boolean
+        isSuccess: boolean
+        execute: (a: number) => Promise<{ data: number; code: number }>
+        onSuccess: EventHookOn<{ data: number; code: number }>
+        onError: EventHookOn<any>
+        onFinally: EventHookOn<null>
+      }>();
     }
   });
 });
