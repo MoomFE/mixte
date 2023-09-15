@@ -28,7 +28,7 @@
     "docs:preview": "npm run docs:build && vitepress preview packages --host",
     "up": "npx taze latest -r -w -i",
     "udd": "pnpm install && tsx scripts/updateDocsDetails.ts",
-    "build": "pnpm install && tsx scripts/build.ts",
+    "build": "pnpm install && node --max_old_space_size=4096 node_modules/tsx/dist/cli.js scripts/build.ts",
     "release": "npm run test-release && npx bumpp -r --no-tag --no-push"
   },
   "devDependencies": {
@@ -59,7 +59,7 @@
     "magic-string": "^0.30.3",
     "mixte": "workspace:*",
     "pnpm": "^8.7.5",
-    "rollup": "^3.28.1",
+    "rollup": "^3.29.1",
     "rollup-plugin-dts": "^6.0.2",
     "rollup-plugin-esbuild": "^5.0.0",
     "sass": "^1.67.0",
