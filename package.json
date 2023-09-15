@@ -18,12 +18,13 @@
   "scripts": {
     "test": "pnpm install && vitest --coverage",
     "test:ui": "pnpm test -- --ui",
-    "test-build": "pnpm install && npm run build && vitest --mode test-build",
+    "test-build:pure": "vitest --mode test-build",
+    "test-build": "pnpm install && pnpm build && pnpm test-build:pure",
     "test-build:ui": "pnpm test-build -- --ui",
-    "test-release": "pnpm install && vitest --run && pnpm test-build --run",
+    "test-release": "pnpm install && vitest --run && pnpm docs:build && vue-tsc --noEmit && pnpm test-build:pure --run",
     "dev": "npm run docs:dev",
     "docs:dev": "npm run udd && vitepress dev packages --host",
-    "docs:build": "npm run udd && npm run build && vitepress build packages",
+    "docs:build": "npm run udd && pnpm build && vitepress build packages",
     "docs:preview": "npm run docs:build && vitepress preview packages --host",
     "up": "npx taze latest -r -w -i",
     "udd": "pnpm install && tsx scripts/updateDocsDetails.ts",
@@ -76,7 +77,8 @@
     "vite": "^4.4.9",
     "vitepress": "1.0.0-rc.13",
     "vitest": "^0.34.4",
-    "vue-demi": "^0.14.6"
+    "vue-demi": "^0.14.6",
+    "vue-tsc": "^1.8.11"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
