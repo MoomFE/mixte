@@ -2,44 +2,58 @@ import type { EventHookOn } from '@vueuse/core';
 import type { UseRequestOptions, UseRequestUserExecute } from '@mixte/use';
 import { useRequest, watchImmediateDeep } from '@mixte/use';
 import { delay } from 'mixte';
-import type { ShallowRef } from 'vue-demi';
-import { nextTick, ref } from 'vue-demi';
+import type { Ref, ShallowRef } from 'vue-demi';
+import { isRef, nextTick, ref } from 'vue-demi';
 
 describe('useRequest', () => {
   test('方法返回对象参数类型判断', () => {
     const data = useRequest(() => delay(100));
 
+    // 返回属性测试
     expect(Object.keys(data).sort()).toStrictEqual([
-      'response',
-      'data',
-      'error',
-
-      'isExecuted',
-      'isLoading',
-      'isFinished',
-      'isSuccess',
-
+      'response', 'data', 'error',
+      'isExecuted', 'isLoading', 'isFinished', 'isSuccess',
       'execute',
-
-      'onSuccess',
-      'onError',
-      'onFinally',
+      'onSuccess', 'onError', 'onFinally',
+      'reactive',
     ].sort());
 
-    expect(data.response.value).toBeUndefined();
-    expect(data.data.value).toBeUndefined();
-    expect(data.error.value).toBeUndefined();
+    expect(Object.keys(data.reactive).sort()).toStrictEqual([
+      'response', 'data', 'error',
+      'isExecuted', 'isLoading', 'isFinished', 'isSuccess',
+      'execute',
+      'onSuccess', 'onError', 'onFinally',
+    ].sort());
 
-    expect(data.isExecuted.value).toBeTypeOf('boolean');
-    expect(data.isLoading.value).toBeTypeOf('boolean');
-    expect(data.isFinished.value).toBeTypeOf('boolean');
-    expect(data.isSuccess.value).toBeTypeOf('boolean');
+    // 类型测试
+    ([
+      { key: 'response', type: 'undefined' },
+      { key: 'data', type: 'undefined' },
+      { key: 'error', type: 'undefined' },
 
-    expect(data.execute).toBeTypeOf('function');
+      { key: 'isExecuted', type: 'boolean' },
+      { key: 'isLoading', type: 'boolean' },
+      { key: 'isFinished', type: 'boolean' },
+      { key: 'isSuccess', type: 'boolean' },
 
-    expect(data.onSuccess).toBeTypeOf('function');
-    expect(data.onError).toBeTypeOf('function');
-    expect(data.onFinally).toBeTypeOf('function');
+      { key: 'execute', type: 'function' },
+      { key: 'onSuccess', type: 'function' },
+      { key: 'onError', type: 'function' },
+      { key: 'onFinally', type: 'function' },
+    ] as const).forEach(({ key, type }) => {
+      expect(data.reactive[key]).toBeTypeOf(type);
+      expect(
+        isRef(data[key])
+          ? (data[key] as Ref<any>).value
+          : data[key],
+      ).toBeTypeOf(type);
+    });
+
+    // 方法相等测试 ( 后续就不用分开测了 )
+    expect(data.execute).toBe(data.reactive.execute);
+    expect(data.onSuccess).toBe(data.reactive.onSuccess);
+    expect(data.onError).toBe(data.reactive.onError);
+    expect(data.onFinally).toBe(data.reactive.onFinally);
   });
 
   test('请求成功情况的返回对象参数', async () => {
@@ -61,6 +75,9 @@ describe('useRequest', () => {
       expect(data.isLoading.value).toBe(false);
       expect(data.isFinished.value).toBe(true);
       expect(data.isSuccess.value).toBe(true);
+      expect(data.reactive.isLoading).toBe(false);
+      expect(data.reactive.isFinished).toBe(true);
+      expect(data.reactive.isSuccess).toBe(true);
       successEventCountAndArgs = [++successEventCountAndArgs[0], ...args];
     });
     data.onError((...args: any[]) => {

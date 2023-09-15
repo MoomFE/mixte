@@ -1,7 +1,7 @@
 import type { Promisable } from 'type-fest';
 import type { MaybeRefOrGetter } from 'vue-demi';
-import { createEventHook, toValue } from '@vueuse/core';
-import { ref, shallowRef } from 'vue-demi';
+import { createEventHook, toReactive, toValue } from '@vueuse/core';
+import { computed, ref, shallowRef } from 'vue-demi';
 
 export interface UseRequestOptions<T = undefined> {
   /**
@@ -120,6 +120,10 @@ export function useRequest<
   // @ts-expect-error
   immediate && execute();
 
+  const onSuccess = successEvent.on;
+  const onError = errorEvent.on;
+  const onFinally = finallyEvent.on;
+
   return {
     /** 服务器响应 */
     response,
@@ -140,10 +144,39 @@ export function useRequest<
     execute,
 
     /** 请求成功事件钩子 */
-    onSuccess: successEvent.on,
+    onSuccess,
     /** 请求失败事件钩子 */
-    onError: errorEvent.on,
+    onError,
     /** 请求完成事件钩子 */
-    onFinally: finallyEvent.on,
+    onFinally,
+
+    reactive: toReactive(
+      computed(() => ({
+        /** 服务器响应 */
+        response: computed(() => shallowRef(response.value)) as unknown as typeof response,
+        /** 服务器响应数据 */
+        data: computed(() => shallowRef(data.value)) as unknown as typeof data,
+        /** 服务器返回的错误 */
+        error: computed(() => shallowRef(error.value)) as typeof error,
+
+        /** 是否发起过请求 */
+        isExecuted,
+        /** 是否在请求中 */
+        isLoading,
+        /** 是否已请求完成 */
+        isFinished,
+        /** 是否已请求成功 */
+        isSuccess,
+
+        execute,
+
+        /** 请求成功事件钩子 */
+        onSuccess,
+        /** 请求失败事件钩子 */
+        onError,
+        /** 请求完成事件钩子 */
+        onFinally,
+      })),
+    ),
   };
 }
