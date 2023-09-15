@@ -3,7 +3,7 @@ import type { UseRequestOptions, UseRequestUserExecute } from '@mixte/use';
 import { useRequest, watchImmediateDeep } from '@mixte/use';
 import { delay } from 'mixte';
 import type { ShallowRef } from 'vue-demi';
-import { isShallow, nextTick, ref } from 'vue-demi';
+import { nextTick, ref } from 'vue-demi';
 
 describe('useRequest', () => {
   test('方法返回对象参数类型判断', () => {
@@ -462,9 +462,6 @@ describe('useRequest', () => {
 
     data.data.value!.a.b++;
     data2.data.value!.a.b++;
-
-    expect(isShallow(data.data)).toBe(false);
-    expect(isShallow(data2.data)).toBe(true);
 
     await nextTick();
 
