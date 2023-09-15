@@ -4,13 +4,12 @@ import Unocss from 'unocss/vite';
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
-import AutoImport from 'unplugin-auto-import/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import { MixteUseAutoImport } from '../use/src/register';
 import { mixte, use } from '../../meta/docs.json';
 import { alias } from '../../meta/alias';
 import { version } from '../../package.json';
 import { MarkdownTransform } from './plugins/markdownTransform';
+import VitePlugins from './vite.common.plugins';
 
 export default defineConfig({
   title: 'Mixte',
@@ -107,22 +106,7 @@ export default defineConfig({
           ElementPlusResolver(),
         ],
       }),
-      AutoImport({
-        dts: resolve(__dirname, '../auto-imports.d.ts'),
-        vueTemplate: true,
-        imports: [
-          'vue',
-          '@vueuse/core',
-          MixteUseAutoImport({ useWithVueUseCore: true }),
-        ],
-        resolvers: [
-          ElementPlusResolver(),
-        ],
-        eslintrc: {
-          enabled: true,
-          filepath: resolve(__dirname, '../.eslintrc-auto-import.json'),
-        },
-      }),
+      ...VitePlugins,
     ],
     ssr: {
       noExternal: ['element-plus'],

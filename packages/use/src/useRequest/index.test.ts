@@ -2,7 +2,7 @@ import type { EventHookOn } from '@vueuse/core';
 import type { UseRequestOptions, UseRequestUserExecute } from '@mixte/use';
 import { useRequest, watchImmediateDeep } from '@mixte/use';
 import { delay } from 'mixte';
-import type { Ref, ShallowRef } from 'vue-demi';
+import type { ShallowRef } from 'vue-demi';
 import { isRef, nextTick, ref } from 'vue-demi';
 
 describe('useRequest', () => {

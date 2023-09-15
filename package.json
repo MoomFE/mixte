@@ -18,10 +18,9 @@
   "scripts": {
     "test": "pnpm install && vitest --coverage",
     "test:ui": "pnpm test -- --ui",
-    "test-build:pure": "vitest --mode test-build",
-    "test-build": "pnpm install && pnpm build && pnpm test-build:pure",
+    "test-build": "pnpm install && npm run build && vitest --mode test-build",
     "test-build:ui": "pnpm test-build -- --ui",
-    "test-release": "pnpm install && vitest --run && pnpm docs:build && vue-tsc --noEmit && pnpm test-build:pure --run",
+    "test-release": "pnpm install && vitest --run && vue-tsc --noEmit && pnpm test-build --run",
     "dev": "npm run docs:dev",
     "docs:dev": "npm run udd && vitepress dev packages --host",
     "docs:build": "npm run udd && pnpm build && vitepress build packages",
