@@ -36,7 +36,9 @@ function login(info) { // [!code --]
 } // [!code --]
 
 function login() { // [!code ++]
-  return useRequest(info => axios.post('/api/user/login', info)); // [!code ++]
+  return useRequest((info) => { // [!code ++]
+    return axios.post('/api/user/login', info); // [!code ++]
+  }); // [!code ++]
 } // [!code ++]
 ```
 
@@ -120,6 +122,21 @@ function useRequest<
   onError: EventHookOn<any>
   /** 请求完成事件钩子 */
   onFinally: EventHookOn<null>
+
+  /** 方法的响应式代理返回值 ( 里面的注释就不写了, 和上面的一样 ) */
+  reactive: {
+    response: Response | undefined
+    data: Data | undefined
+    error: any
+    isExecuted: boolean
+    isLoading: boolean
+    isFinished: boolean
+    isSuccess: boolean
+    execute: (...args: Args) => Promise<Response>
+    onSuccess: EventHookOn<Response>
+    onError: EventHookOn<any>
+    onFinally: EventHookOn<null>
+  }
 };
 
 interface UseRequestOptions<T = undefined> {
