@@ -7,8 +7,8 @@
         ← <i text-xs>点击发起请求</i>
       </span>
     </div>
-    <div class="bg-gray/10" rounded overflow-x-auto p="y1 x3">
-      <pre my-0>{{ responseParsed }}</pre>
+    <div class="rounded bg-gray/10">
+      <pre scrollbar my-0 p="y1 x3">{{ responseParsed }}</pre>
     </div>
   </div>
 </template>
@@ -51,7 +51,6 @@
     inject<InjectCode>('code')!,
     computed(() => `
 <template>
-  <input v-model="url">
   <button @click="execute">请求</button>
 </template>
 
@@ -60,8 +59,8 @@
     response, data, error,
     isExecuted, isLoading, isFinished, isSuccess,
     execute
-  } = useRequest(() => {
-    return axios.get('${url.value}');
+  } = useRequest(() => axios.get('${url.value}'), {
+    immediate: true,
   });
 <\/script>
     `),

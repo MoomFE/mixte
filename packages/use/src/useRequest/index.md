@@ -1,12 +1,16 @@
 ---
-outline: [1,3]
+outline: [1,4]
 ---
 
 发起请求的组合式方法
-  - 旨在解决请求前中后的状态管理、响应数据管理及提供事件钩子
+  - 旨在解决请求前中后的状态管理、响应数据存储及提供事件钩子
   - 可与任意请求库搭配使用
 
 ### 示例
+
+<br>
+
+#### 基础示例
 
 ```ts
 import { useRequest } from '@mixte/use';
@@ -20,6 +24,61 @@ const {
   return axios.get('https://httpbin.org/uuid');
 });
 ```
+
+#### 在现有项目中使用
+
+:::info 修改步骤
+1. 把现有定义接口的方式, 改为使用 `useRequest` 的方式:
+
+```ts
+function login(info) { // [!code --]
+  return axios.post('/api/user/login', info); // [!code --]
+} // [!code --]
+
+function login() { // [!code ++]
+  return useRequest(info => axios.post('/api/user/login', info)); // [!code ++]
+} // [!code ++]
+```
+
+2. 在调用端, 从:
+
+```ts
+const form = reactive({ username: '', password: '' });
+const data = ref();
+const loading = ref(false);
+
+async function submit() {
+  loading.value = true;
+
+  try {
+    data.value = (await getUserInfo(form))?.data;
+    // do something
+  }
+  finally {
+    loading.value = false;
+  }
+}
+```
+
+改为:
+
+```ts
+const form = reactive({ username: '', password: '' });
+const { data, isLoading, execute } = getUserInfo();
+
+async function submit() {
+  await execute(form);
+  // do something
+}
+```
+
+大功告成 !
+:::
+
+
+
+
+
 
 ### 类型
 
