@@ -51,7 +51,7 @@ async function submit() {
   loading.value = true;
 
   try {
-    data.value = (await getUserInfo(form))?.data;
+    data.value = (await login(form))?.data;
     // do something
   }
   finally {
@@ -64,7 +64,7 @@ async function submit() {
 
 ```ts
 const form = reactive({ username: '', password: '' });
-const { data, isLoading, execute } = getUserInfo();
+const { data, isLoading, execute } = login();
 
 async function submit() {
   await execute(form);
