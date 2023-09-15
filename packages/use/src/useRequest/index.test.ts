@@ -435,11 +435,18 @@ describe('useRequest', () => {
     expect(data.data.value).toBe(1294);
     expect(data.error.value).toStrictEqual(new Error('???'));
 
-    data.execute();
+    const result4 = data.execute();
 
     expect(data.response.value).toStrictEqual({ data: 1294 });
     expect(data.data.value).toBe(1294);
     expect(data.error.value).toStrictEqual(new Error('???'));
+
+    try {
+      await result4;
+    }
+    catch (error: any) {
+      expect(error).toStrictEqual(new Error('???'));
+    }
   });
 
   test('支持传入 shallow: true 选项, 用于控制是否使用 shallowRef 代替 ref 包裹 data 数据', async () => {
