@@ -2,6 +2,7 @@ import type { EventHookOn } from '@vueuse/core';
 import type { UseRequestOptions, UseRequestUserExecute } from '@mixte/use';
 import { useRequest, watchImmediateDeep } from '@mixte/use';
 import { delay } from 'mixte';
+import type { ShallowRef } from 'vue-demi';
 import { isShallow, nextTick, ref } from 'vue-demi';
 
 describe('useRequest', () => {
@@ -481,13 +482,13 @@ describe('useRequest', () => {
     {
       const res = useRequest(() => ({ data: 1 }));
 
-      expectTypeOf(res.response).toEqualTypeOf<{ data: number } | undefined>();
-      expectTypeOf(res.data).toEqualTypeOf<number | undefined>();
-      expectTypeOf(res.error).toEqualTypeOf<any>();
-      expectTypeOf(res.isExecuted).toEqualTypeOf<boolean>();
-      expectTypeOf(res.isLoading).toEqualTypeOf<boolean>();
-      expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
-      expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
+      expectTypeOf(res.response).toEqualTypeOf<ShallowRef<{ data: number } | undefined>>();
+      expectTypeOf(res.data).toEqualTypeOf<Ref<number | undefined>>();
+      expectTypeOf(res.error).toEqualTypeOf<ShallowRef<any>>();
+      expectTypeOf(res.isExecuted).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isLoading).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isFinished).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isSuccess).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.execute).toEqualTypeOf<() => Promise<{ data: number }>>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
@@ -498,13 +499,13 @@ describe('useRequest', () => {
     {
       const res = useRequest((a: number) => ({ data: a, code: 0 }));
 
-      expectTypeOf(res.response).toEqualTypeOf<{ data: number; code: number } | undefined>();
-      expectTypeOf(res.data).toEqualTypeOf<number | undefined>();
-      expectTypeOf(res.error).toEqualTypeOf<any>();
-      expectTypeOf(res.isExecuted).toEqualTypeOf<boolean>();
-      expectTypeOf(res.isLoading).toEqualTypeOf<boolean>();
-      expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
-      expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
+      expectTypeOf(res.response).toEqualTypeOf<ShallowRef<{ data: number; code: number } | undefined>>();
+      expectTypeOf(res.data).toEqualTypeOf<Ref<number | undefined>>();
+      expectTypeOf(res.error).toEqualTypeOf<ShallowRef<any>>();
+      expectTypeOf(res.isExecuted).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isLoading).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isFinished).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isSuccess).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.execute).toEqualTypeOf<(a: number) => Promise<{ data: number; code: number }>>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
@@ -518,13 +519,13 @@ describe('useRequest', () => {
         return { data: 1 };
       });
 
-      expectTypeOf(res.response).toEqualTypeOf<{ data: number } | undefined>();
-      expectTypeOf(res.data).toEqualTypeOf<number | undefined>();
-      expectTypeOf(res.error).toEqualTypeOf<any>();
-      expectTypeOf(res.isExecuted).toEqualTypeOf<boolean>();
-      expectTypeOf(res.isLoading).toEqualTypeOf<boolean>();
-      expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
-      expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
+      expectTypeOf(res.response).toEqualTypeOf<ShallowRef<{ data: number } | undefined>>();
+      expectTypeOf(res.data).toEqualTypeOf<Ref<number | undefined>>();
+      expectTypeOf(res.error).toEqualTypeOf<ShallowRef<any>>();
+      expectTypeOf(res.isExecuted).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isLoading).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isFinished).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isSuccess).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.execute).toEqualTypeOf<() => Promise<{ data: number }>>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
@@ -538,13 +539,13 @@ describe('useRequest', () => {
         return { data: a, code: 0 };
       });
 
-      expectTypeOf(res.response).toEqualTypeOf<{ data: number; code: number } | undefined>();
-      expectTypeOf(res.data).toEqualTypeOf<number | undefined>();
-      expectTypeOf(res.error).toEqualTypeOf<any>();
-      expectTypeOf(res.isExecuted).toEqualTypeOf<boolean>();
-      expectTypeOf(res.isLoading).toEqualTypeOf<boolean>();
-      expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
-      expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
+      expectTypeOf(res.response).toEqualTypeOf<ShallowRef<{ data: number; code: number } | undefined>>();
+      expectTypeOf(res.data).toEqualTypeOf<Ref<number | undefined>>();
+      expectTypeOf(res.error).toEqualTypeOf<ShallowRef<any>>();
+      expectTypeOf(res.isExecuted).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isLoading).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isFinished).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isSuccess).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.execute).toEqualTypeOf<(a: number) => Promise<{ data: number; code: number }>>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
