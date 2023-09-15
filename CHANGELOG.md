@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.2.0]
+  - 📅 2023-09-15
   - 🌟 [@mixte/use] 新增 `deepUnref` 方法
   - 🌟 [@mixte/use] 新增 `useRequest` 方法
   - 💄 [mixte] 优化 `random` 工具方法类型定义
@@ -131,7 +134,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.2.0...HEAD
+[v1.2.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.2.0
 [v1.1.1]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.1.1
 [v1.1.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.1.0
 [v1.1.0-beta.1]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.1.0-beta.1
