@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [v1.3.0]
+  - 📅 2023-09-15
+  - 🌟 [@mixte/use] 方法 `useRequest` 方法新增 `reactive` 返回值, 是原有返回值的响应式代理对象
+
 ## [v1.2.0]
   - 📅 2023-09-15
   - 🌟 [@mixte/use] 新增 `deepUnref` 方法
@@ -134,7 +138,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.3.0...HEAD
+[v1.3.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.3.0
 [v1.2.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.2.0
 [v1.1.1]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.1.1
 [v1.1.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.1.0
