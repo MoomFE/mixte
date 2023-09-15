@@ -6,8 +6,17 @@ import type { ShallowRef } from 'vue-demi';
 import { isRef, nextTick, ref } from 'vue-demi';
 
 describe('useRequest', () => {
-  test('方法返回对象参数类型判断', () => {
-    const data = useRequest(() => delay(100));
+  test('方法返回对象参数类型判断', async () => {
+    let throwError: boolean = false;
+    const data = useRequest(async () => {
+      await delay(100);
+      if (throwError) throw new Error('???');
+      return {
+        data: {
+          a: { b: 2 },
+        },
+      };
+    });
 
     // 返回属性测试
     expect(Object.keys(data).sort()).toStrictEqual([
@@ -54,6 +63,26 @@ describe('useRequest', () => {
     expect(data.onSuccess).toBe(data.reactive.onSuccess);
     expect(data.onError).toBe(data.reactive.onError);
     expect(data.onFinally).toBe(data.reactive.onFinally);
+
+    await data.execute();
+
+    // response 相等测试 ( 后续就不用分开测了 )
+    expect(data.response.value).toStrictEqual({ data: { a: { b: 2 } } });
+    expect(toRaw(data.response.value)).toBe(toRaw(data.reactive.response));
+
+    // data 相等测试 ( 后续就不用分开测了 )
+    expect(data.data.value).toStrictEqual({ a: { b: 2 } });
+    expect(toRaw(data.data.value)).toBe(toRaw(data.reactive.data));
+
+    throwError = true;
+    try {
+      await data.execute();
+    }
+    catch (error) {}
+
+    // error 相等测试 ( 后续就不用分开测了 )
+    expect(data.error.value).toStrictEqual(new Error('???'));
+    expect(toRaw(data.error.value)).toBe(toRaw(data.reactive.error));
   });
 
   test('请求成功情况的返回对象参数', async () => {
@@ -475,22 +504,24 @@ describe('useRequest', () => {
     expect(data.data.value).toStrictEqual({ a: { b: 2 } });
     expect(data2.data.value).toStrictEqual({ a: { b: 2 } });
 
-    let dataTriggerCount = 0;
-    let data2TriggerCount = 0;
+    const dataTriggerCount = [0, 0];
+    const data2TriggerCount = [0, 0];
 
-    watchImmediateDeep(data.data, () => dataTriggerCount++);
-    watchImmediateDeep(data2.data, () => data2TriggerCount++);
+    watchImmediateDeep(data.data, () => dataTriggerCount[0]++);
+    watchImmediateDeep(() => data.reactive.data, () => dataTriggerCount[1]++);
+    watchImmediateDeep(data2.data, () => data2TriggerCount[0]++);
+    watchImmediateDeep(() => data2.reactive.data, () => data2TriggerCount[1]++);
 
-    expect(dataTriggerCount).toBe(1);
-    expect(data2TriggerCount).toBe(1);
+    expect(dataTriggerCount).toStrictEqual([1, 1]);
+    expect(data2TriggerCount).toStrictEqual([1, 1]);
 
     data.data.value!.a.b++;
     data2.data.value!.a.b++;
 
     await nextTick();
 
-    expect(dataTriggerCount).toBe(2);
-    expect(data2TriggerCount).toBe(1);
+    expect(dataTriggerCount).toStrictEqual([2, 2]);
+    expect(data2TriggerCount).toStrictEqual([1, 1]);
   });
 
   test('类型测试', async () => {

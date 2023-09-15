@@ -150,6 +150,7 @@ export function useRequest<
     /** 请求完成事件钩子 */
     onFinally,
 
+    /** 方法的响应式代理返回值 */
     reactive: toReactive(
       computed(() => ({
         /** 服务器响应 */
