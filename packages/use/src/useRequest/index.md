@@ -89,7 +89,7 @@ import { getUserInfo, login } from '@/api/auth';
 const loginInfo = login();
 const userInfo = getUserInfo();
 
-function submit() {
+async function submit() {
   await loginInfo.execute(/* {...} */);
   await userInfo.execute();
 
@@ -110,7 +110,7 @@ import { getUserInfo, login } from '@/api/auth';
 const loginInfo = login().reactive;
 const userInfo = getUserInfo().reactive;
 
-function submit() {
+async function submit() {
   await loginInfo.execute(/* {...} */);
   await userInfo.execute();
 
@@ -128,11 +128,11 @@ import { getUserInfo, login } from '@/api/auth';
 const loginInfo = login().reactive;
 const userInfo = getUserInfo().reactive;
 
-userInfo.onSuccess((data) => {
+userInfo.onSuccess(() => {
   userInfo.data.name = 'Mixte';
 });
 
-function submit() {
+async function submit() {
   await loginInfo.execute(/* {...} */);
   await userInfo.execute();
 
