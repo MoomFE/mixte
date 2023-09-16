@@ -304,6 +304,22 @@ describe('useRequest', () => {
     expect(finallyEventCountAndArgs).toStrictEqual([2, null]);
   });
 
+  test('请求完成后修改传参', async () => {
+    const data = useRequest(async () => ({
+      data: {
+        a: { b: 2 },
+      },
+    }));
+
+    data.onSuccess(() => {
+      data.data.value!.a.b++;
+    });
+
+    await data.execute();
+
+    expect(data.data.value).toStrictEqual({ a: { b: 3 } });
+  });
+
   test('支持传入 immediate: true 选项立即发起请求', async () => {
     const data = useRequest(async () => {
       await delay(100);
