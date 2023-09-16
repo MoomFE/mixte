@@ -137,3 +137,7 @@
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
 
+/* Custom  */
+.outline-title{
+  box-shadow: none !important;
+}
