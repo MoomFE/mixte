@@ -83,7 +83,7 @@ async function submit() {
 :::info
 通常, 在页面或组件中都会发起多次请求, 这时候, 可以使用一个变量接受所有的返回值:
 
-```ts
+```ts {3,4,10,11}
 import { getUserInfo, login } from '@/api/auth';
 
 const loginInfo = login();
@@ -94,7 +94,7 @@ function submit() {
   await userInfo.execute();
 
   console.log(userInfo.data.value.name); // 取值是不是很长
-  console.log(userInfo.data.value.age); // 往下看, 有解决方案
+  console.log(userInfo.data.value.age); // 往下看, 下面就有解决方案
 }
 ```
 :::
@@ -119,6 +119,26 @@ function submit() {
 }
 ```
 :::
+
+#### 请求完成后修改数据
+
+```ts {6,7,8,14}
+import { getUserInfo, login } from '@/api/auth';
+
+const loginInfo = login().reactive;
+const userInfo = getUserInfo().reactive;
+
+userInfo.onSuccess((data) => {
+  userInfo.data.name = 'Mixte';
+});
+
+function submit() {
+  await loginInfo.execute(/* {...} */);
+  await userInfo.execute();
+
+  console.log(userInfo.data.name); // -> Mixte
+}
+```
 
 ### 类型
 
