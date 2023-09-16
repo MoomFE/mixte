@@ -146,6 +146,41 @@ async function otherLogic() {
 }
 ```
 
+#### 配置项
+
+:::info
+在定义接口处配置:
+
+```ts {4}
+function login() {
+  return useRequest(
+    info => axios.post('/api/user/login', info),
+    { immediate: true }
+  );
+}
+
+const loginInfo = login();
+```
+
+也可以在定义接口处接收相关配置选项, 在调用端根据需求自行配置:
+
+```ts {3,6,10,11,12,13}
+import type { UseRequestOptions } from '@mixte/use';
+
+function login(options?: UseRequestOptions) {
+  return useRequest(
+    info => axios.post('/api/user/login', info),
+    options
+  );
+}
+
+const loginInfo = login({
+  immediate: true,
+  resetOnExecute: false,
+});
+```
+:::
+
 ### 类型
 
 ```ts
