@@ -20,6 +20,7 @@ const {
   isExecuted, isLoading, isFinished, isSuccess,
   execute,
   onSuccess, onError, onFinally,
+  reactive,
 } = useRequest(() => {
   return axios.get('https://httpbin.org/uuid');
 });
@@ -77,10 +78,47 @@ async function submit() {
 大功告成 !
 :::
 
+#### 同时定义多个请求
 
+:::info
+通常, 在页面或组件中都会发起多次请求, 这时候, 可以使用一个变量接受所有的返回值:
 
+```ts
+import { getUserInfo, login } from '@/api/auth';
 
+const loginInfo = login();
+const userInfo = getUserInfo();
 
+function submit() {
+  await loginInfo.execute(/* {...} */);
+  await userInfo.execute();
+
+  console.log(userInfo.data.value.name); // 取值是不是很长
+  console.log(userInfo.data.value.age); // 往下看, 有解决方案
+}
+```
+:::
+
+#### 使用响应式代理式的返回值
+
+:::info
+当使用变量接受所有的返回值时, 会导致调用链很长, 这时候, 可以使用响应式代理式的返回值:
+
+```ts {3,4,10,11}
+import { getUserInfo, login } from '@/api/auth';
+
+const loginInfo = login().reactive;
+const userInfo = getUserInfo().reactive;
+
+function submit() {
+  await loginInfo.execute(/* {...} */);
+  await userInfo.execute();
+
+  console.log(userInfo.data.name);
+  console.log(userInfo.data.age);
+}
+```
+:::
 
 ### 类型
 
