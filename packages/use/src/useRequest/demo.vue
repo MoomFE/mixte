@@ -51,7 +51,7 @@
     inject<InjectCode>('code')!,
     computed(() => `
 <template>
-  <button @click="execute">请求</button>
+  <el-button :loading="isLoading" @click="execute">请求</el-button>
 </template>
 
 <script lang="ts" setup>
