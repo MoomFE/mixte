@@ -120,9 +120,9 @@ async function submit() {
 ```
 :::
 
-#### 请求完成后修改数据
+#### 统一在请求完成后数据处理
 
-```ts {6,7,8,14}
+```ts {6,7,8,14,20}
 import { getUserInfo, login } from '@/api/auth';
 
 const loginInfo = login().reactive;
@@ -134,6 +134,12 @@ userInfo.onSuccess(() => {
 
 async function submit() {
   await loginInfo.execute(/* {...} */);
+  await userInfo.execute();
+
+  console.log(userInfo.data.name); // -> Mixte
+}
+
+async function otherLogic() {
   await userInfo.execute();
 
   console.log(userInfo.data.name); // -> Mixte
