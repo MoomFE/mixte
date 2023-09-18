@@ -1,1 +1,5 @@
-export const xxx = 123;
+import AutoGrid from './index.vue';
+
+export {
+  AutoGrid,
+};
