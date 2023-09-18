@@ -144,6 +144,21 @@ importers:
         specifier: ^1.8.11
         version: 1.8.11(typescript@5.2.2)
 
+  packages/components:
+    dependencies:
+      '@mixte/use':
+        specifier: workspace:*
+        version: link:../use
+      '@vueuse/core':
+        specifier: '>=10.4.1'
+        version: 10.4.1(vue@3.3.4)
+      mixte:
+        specifier: workspace:*
+        version: link:../mixte
+      vue-demi:
+        specifier: '>=0.14.6'
+        version: 0.14.6(vue@3.3.4)
+
   packages/mixte: {}
 
   packages/use:

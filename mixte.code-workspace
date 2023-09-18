@@ -11,6 +11,10 @@
     {
       "path": "packages/use",
       "name": "Use"
+    },
+    {
+      "path": "packages/components",
+      "name": "Components"
     }
   ],
   "settings": {
@@ -24,6 +28,7 @@
       "coverage": true,
       "node_modules": true,
       "packages/.vitepress/cache": true,
+      "packages/components": true,
       "packages/mixte": true,
       "packages/use": true
     },
