@@ -14,9 +14,6 @@ importers:
       '@iconify/json':
         specifier: ^2.2.115
         version: 2.2.115
-      '@mixte/use':
-        specifier: workspace:*
-        version: link:packages/use
       '@moomfe/eslint-config':
         specifier: ^2.7.2
         version: 2.7.2
@@ -83,9 +80,6 @@ importers:
       magic-string:
         specifier: ^0.30.3
         version: 0.30.3
-      mixte:
-        specifier: workspace:*
-        version: link:packages/mixte
       pnpm:
         specifier: ^8.7.5
         version: 8.7.5
