@@ -5,7 +5,7 @@ import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import { mixte, use } from '../../meta/docs.json';
+import { components, mixte, use } from '../../meta/docs.json';
 import { alias } from '../../meta/alias';
 import { version } from '../../package.json';
 import { MarkdownTransform } from './plugins/markdownTransform';
@@ -21,6 +21,7 @@ export default defineConfig({
   rewrites: {
     'mixte/src/:fn/index.md': 'mixte/:fn.md',
     'use/src/:fn/index.md': 'mixte/use/:fn.md',
+    'components/src/:fn/index.md': 'mixte/components/:fn.md',
   },
 
   lastUpdated: true,
@@ -53,6 +54,10 @@ export default defineConfig({
         {
           text: '@mixte/use',
           items: use.map(fn => ({ text: fn, link: `/mixte/use/${fn}` })),
+        },
+        {
+          text: '@mixte/components',
+          items: components.map(fn => ({ text: fn, link: `/mixte/components/${fn}` })),
         },
       ],
     },

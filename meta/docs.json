@@ -21,5 +21,8 @@
     "watch",
     "whenever",
     "wheneverEffectScope"
+  ],
+  "components": [
+    "auto-grid"
   ]
 }

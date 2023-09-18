@@ -6,6 +6,7 @@ import fs from 'fs-extra';
   const docsDetails = {
     mixte: [] as string[],
     use: [] as string[],
+    components: [] as string[],
   };
 
   const docsFile = await fg([`packages/(${Object.keys(docsDetails).join('|')})/src/*/index.md`], {
