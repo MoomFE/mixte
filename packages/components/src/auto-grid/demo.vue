@@ -1,7 +1,7 @@
 <template>
-  <AutoGrid>
+  <AutoGrid item-width="100" gap-2>
     <template v-for="i in 30" :key="i">
-      <div>item-{{ i }}</div>
+      <div bg-gray-2>item-{{ i }}</div>
     </template>
   </AutoGrid>
 </template>
