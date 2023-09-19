@@ -1,6 +1,9 @@
+import { resolve } from 'node:path';
+import { outputFileSync } from 'fs-extra';
 import { defineConfig, presetAttributify, presetIcons, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss';
 import { presetExtra } from 'unocss-preset-extra';
 import { presetScrollbar } from 'unocss-preset-scrollbar';
+import { dataToEsm } from '@rollup/pluginutils';
 
 export default defineConfig({
   shortcuts: {
@@ -37,4 +40,15 @@ export default defineConfig({
     transformerDirectives(),
     transformerVariantGroup(),
   ],
+  extendTheme: (theme) => {
+    // 始终生成一个 UnoCSS 主题样式配置文件, 方便在 JS 中引用
+    outputFileSync(
+      resolve(__dirname, './.vitepress/shared/unocss.theme.ts'),
+      `/* eslint-disable */\n\n${dataToEsm(theme, {
+        preferConst: true,
+        indent: '  ',
+        objectShorthand: true,
+      })}`,
+    );
+  },
 });

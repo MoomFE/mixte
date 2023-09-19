@@ -36,6 +36,7 @@
     "@moomfe/eslint-config": "^2.7.2",
     "@moomfe/small-utils": "^5.3.2",
     "@rollup/plugin-alias": "^5.0.0",
+    "@rollup/pluginutils": "^5.0.4",
     "@types/fs-extra": "^11.0.2",
     "@types/js-yaml": "^4.0.5",
     "@types/lodash-es": "^4.17.9",
