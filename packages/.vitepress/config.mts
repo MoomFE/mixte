@@ -36,9 +36,9 @@ export default defineConfig({
       {
         text: 'Api',
         items: [
-          { text: 'mixte', link: `/mixte/${mixte[0]}`, activeMatch: '^/mixte/(?!use)' },
-          { text: '@mixte/use', link: `/mixte/use/${use[0]}`, activeMatch: '^/mixte/use/' },
-          { text: '@mixte/components', link: `/mixte/components/${components[0]}`, activeMatch: '^/mixte/components/' },
+          { text: 'mixte', link: `/mixte/${mixte[0].fn}`, activeMatch: '^/mixte/(?!use)' },
+          { text: '@mixte/use', link: `/mixte/use/${use[0].fn}`, activeMatch: '^/mixte/use/' },
+          { text: '@mixte/components', link: `/mixte/components/${components[0].fn}`, activeMatch: '^/mixte/components/' },
         ],
       },
       {
@@ -51,17 +51,17 @@ export default defineConfig({
       '/mixte/': [
         {
           text: 'mixte',
-          items: mixte.map(fn => ({ text: fn, link: `/mixte/${fn}` })),
+          items: mixte.map(info => ({ text: info.fn, link: `/mixte/${info.fn}` })),
         },
         {
           text: '@mixte/use',
-          items: use.map(fn => ({ text: fn, link: `/mixte/use/${fn}` })),
+          items: use.map(info => ({ text: info.fn, link: `/mixte/use/${info.fn}` })),
         },
         {
           text: '@mixte/components',
-          items: components.map(fn => ({
-            text: pascalCase(fn),
-            link: `/mixte/components/${fn}`,
+          items: components.map(info => ({
+            text: `${pascalCase(info.fn)}${info.name ? ` ( ${info.name} )` : ''}`,
+            link: `/mixte/components/${info.fn}`,
           })),
         },
       ],

@@ -5,6 +5,8 @@ import type { Plugin } from 'vite';
 import MagicString from 'magic-string';
 import fs from 'fs-extra';
 import { pascalCase } from 'change-case';
+import { find } from 'lodash-es';
+import type { ValueOf } from 'type-fest';
 import docs from '../../../meta/docs.json';
 
 export function MarkdownTransform(): Plugin {
@@ -15,15 +17,20 @@ export function MarkdownTransform(): Plugin {
       if (!id.endsWith('.md')) return;
 
       const [, fn,, pkg] = id.split('/').reverse();
+      let info: ValueOf<ValueOf<typeof docs>> | undefined;
 
-      if (Reflect.has(docs, pkg) && docs[pkg as keyof typeof docs].includes(fn)) {
+      if (Reflect.has(docs, pkg) && (info = find(docs[pkg as keyof typeof docs], { fn }))) {
         const s = new MagicString(code = code.replace(/\r\n/g, '\n'));
         const imports = [];
 
         const startIndex = code.match(/^---\n.+?\n---/m)?.[0]?.length ?? -1;
 
         /** 标题 ( 组件包显示大驼峰 ) */
-        const fnTitle = pkg === 'components' ? pascalCase(fn) : fn;
+        const fnTitle = `${
+          pkg === 'components' ? pascalCase(fn) : fn
+        }${
+          info.name ? ` <small><small>( ${info.name} )</small></small>` : ''
+        }`;
 
         // 添加标题
         if (startIndex > 0) s.prependRight(startIndex, `\n\n# ${fnTitle}\n\n`);

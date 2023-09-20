@@ -1,28 +1,88 @@
 {
   "mixte": [
-    "asyncArrayFn",
-    "deepClone",
-    "deepMerge",
-    "defineArgs",
-    "delay",
-    "env",
-    "is",
-    "leastRun",
-    "move",
-    "onceRun",
-    "random",
-    "toArray",
-    "uniqueKey"
+    {
+      "fn": "asyncArrayFn",
+      "name": ""
+    },
+    {
+      "fn": "deepClone",
+      "name": ""
+    },
+    {
+      "fn": "deepMerge",
+      "name": ""
+    },
+    {
+      "fn": "defineArgs",
+      "name": ""
+    },
+    {
+      "fn": "delay",
+      "name": ""
+    },
+    {
+      "fn": "env",
+      "name": ""
+    },
+    {
+      "fn": "is",
+      "name": ""
+    },
+    {
+      "fn": "leastRun",
+      "name": ""
+    },
+    {
+      "fn": "move",
+      "name": ""
+    },
+    {
+      "fn": "onceRun",
+      "name": ""
+    },
+    {
+      "fn": "random",
+      "name": ""
+    },
+    {
+      "fn": "toArray",
+      "name": ""
+    },
+    {
+      "fn": "uniqueKey",
+      "name": ""
+    }
   ],
   "use": [
-    "deepUnref",
-    "useCountdown",
-    "useRequest",
-    "watch",
-    "whenever",
-    "wheneverEffectScope"
+    {
+      "fn": "deepUnref",
+      "name": ""
+    },
+    {
+      "fn": "useCountdown",
+      "name": ""
+    },
+    {
+      "fn": "useRequest",
+      "name": ""
+    },
+    {
+      "fn": "watch",
+      "name": ""
+    },
+    {
+      "fn": "whenever",
+      "name": ""
+    },
+    {
+      "fn": "wheneverEffectScope",
+      "name": ""
+    }
   ],
   "components": [
-    "auto-grid"
+    {
+      "fn": "auto-grid",
+      "name": "自适应栅格"
+    }
   ]
 }
