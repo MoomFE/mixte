@@ -8,15 +8,15 @@ export const autoGridProps = {
   itemWidth: {
     type: [Number, String] as PropType<number | `${number}`>,
   },
-  /** 间隔 */
+  /** 横纵间距 */
   gap: {
     type: [Number, String] as PropType<number | `${number}`>,
   },
-  /** 横向间隔 */
+  /** 横向间距 */
   gapX: {
     type: [Number, String] as PropType<number | `${number}`>,
   },
-  /** 纵向间隔 */
+  /** 纵向间距 */
   gapY: {
     type: [Number, String] as PropType<number | `${number}`>,
   },
@@ -39,14 +39,12 @@ export const AutoGrid = defineComponent({
       return flatVNode(slots.default?.());
     });
 
-    const basicLength = computed(() => {
-      return Math.floor(rootWidth.value / itemWidth.value);
-    });
-    const rootRemainWidth = computed(() => {
-      return rootWidth.value - gapX.value * (basicLength.value - 1);
-    });
     const length = computed(() => {
-      return Math.floor(rootRemainWidth.value / itemWidth.value);
+      const gap = children.value.length > 1 ? gapX.value : 0;
+
+      return Math.floor(
+        (rootWidth.value + gap) / (itemWidth.value + gap),
+      );
     });
 
     return () => h('div', {
@@ -57,6 +55,10 @@ export const AutoGrid = defineComponent({
         columnGap: `${gapX.value}px`,
         rowGap: `${gapY.value}px`,
       },
-    }, children.value.map(Node => h(Node)));
+    }, children.value.map((Node) => {
+      return h('div', {
+        style: { overflow: 'hidden' },
+      }, [Node]);
+    }));
   },
 });
