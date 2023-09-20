@@ -5,6 +5,7 @@ import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import { pascalCase } from 'change-case';
 import { components, mixte, use } from '../../meta/docs.json';
 import { alias } from '../../meta/alias';
 import { version } from '../../package.json';
@@ -37,6 +38,7 @@ export default defineConfig({
         items: [
           { text: 'mixte', link: `/mixte/${mixte[0]}`, activeMatch: '^/mixte/(?!use)' },
           { text: '@mixte/use', link: `/mixte/use/${use[0]}`, activeMatch: '^/mixte/use/' },
+          { text: '@mixte/components', link: `/mixte/components/${components[0]}`, activeMatch: '^/mixte/components/' },
         ],
       },
       {
@@ -57,7 +59,10 @@ export default defineConfig({
         },
         {
           text: '@mixte/components',
-          items: components.map(fn => ({ text: fn, link: `/mixte/components/${fn}` })),
+          items: components.map(fn => ({
+            text: pascalCase(fn),
+            link: `/mixte/components/${fn}`,
+          })),
         },
       ],
     },

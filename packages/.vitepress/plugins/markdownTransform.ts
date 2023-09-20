@@ -4,6 +4,7 @@ import { dirname, resolve } from 'node:path';
 import type { Plugin } from 'vite';
 import MagicString from 'magic-string';
 import fs from 'fs-extra';
+import { pascalCase } from 'change-case';
 import docs from '../../../meta/docs.json';
 
 export function MarkdownTransform(): Plugin {
@@ -21,9 +22,12 @@ export function MarkdownTransform(): Plugin {
 
         const startIndex = code.match(/^---\n.+?\n---/m)?.[0]?.length ?? -1;
 
+        /** 标题 ( 组件包显示大驼峰 ) */
+        const fnTitle = pkg === 'components' ? pascalCase(fn) : fn;
+
         // 添加标题
-        if (startIndex > 0) s.prependRight(startIndex, `\n\n# ${fn}\n\n`);
-        else s.prepend(`# ${fn}\n\n`);
+        if (startIndex > 0) s.prependRight(startIndex, `\n\n# ${fnTitle}\n\n`);
+        else s.prepend(`# ${fnTitle}\n\n`);
 
         // 文档为空时添加提示
         if (!code.trim())
