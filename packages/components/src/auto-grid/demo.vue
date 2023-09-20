@@ -1,10 +1,10 @@
 <template>
-  <AutoGrid item-width="100" gap-2>
+  <AutoGrid item-width="100" gap="10">
     <template v-for="i in count" :key="i">
       <div
         h-8 rounded-sm flex="~ justify-center items-center"
         text-sm
-        :style="{ backgroundColor: randomColors[i] }"
+        :style="{ backgroundColor: randomColors[i - 1] }"
       >
         item-{{ i }}
       </div>
@@ -26,6 +26,8 @@
       }),
   );
 
-  const count = 30;
-  const randomColors = Array.from({ length: count }, () => colors[random(0, colors.length - 1)]);
+  const count = ref(36);
+  const randomColors = computed(() => {
+    return Array.from({ length: count.value }, () => colors[random(0, colors.length - 1)]);
+  });
 </script>
