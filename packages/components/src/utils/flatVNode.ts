@@ -1,5 +1,6 @@
 import { isNumber, isObject, isString } from 'mixte';
-import { Comment, Fragment, type VNodeChild, createTextVNode } from 'vue';
+import { Comment, Fragment, createTextVNode } from 'vue-demi';
+import type { VNode, VNodeChild } from 'vue-demi';
 
 export function flatVNode(vNodes?: VNodeChild[], nodes: VNode[] = []) {
   vNodes?.forEach((vNode) => {
