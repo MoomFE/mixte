@@ -5,15 +5,16 @@
 
     <template v-if="splitGap">
       <span>横向间距 <small>( px )</small>:</span>
-      <el-input-number v-model="gapX" class="w-30! grid-col-span-2" controls-position="right" />
+      <el-input-number v-model="gapX" class="w-30!" controls-position="right" />
+      <el-checkbox v-model="splitGap" label="拆分" />
       <span>纵向间距 <small>( px )</small>:</span>
       <el-input-number v-model="gapY" class="w-30!" controls-position="right" />
     </template>
     <template v-else>
       <span>横纵间距 <small>( px )</small>:</span>
       <el-input-number v-model="gap" class="w-30!" controls-position="right" />
+      <el-checkbox v-model="splitGap" label="拆分" />
     </template>
-    <el-checkbox v-model="splitGap" label="拆分" />
   </div>
 
   <AutoGrid :item-width="itemWidth" :gap="gap" :gap-x="gapX" :gap-y="gapY">
