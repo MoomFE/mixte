@@ -17,7 +17,7 @@
     </template>
   </div>
 
-  <AutoGrid :item-width="itemWidth" :gap="gap" :gap-x="gapX" :gap-y="gapY">
+  <MixteAutoGrid :item-width="itemWidth" :gap="gap" :gap-x="gapX" :gap-y="gapY">
     <div
       v-for="i in count" :key="i"
       h-8 rounded-sm text-sm flex="~ justify-center items-center"
@@ -25,11 +25,11 @@
     >
       item-{{ i }}
     </div>
-  </AutoGrid>
+  </MixteAutoGrid>
 </template>
 
 <script lang="ts" setup>
-  import { AutoGrid } from '@mixte/components';
+  import { MixteAutoGrid } from '@mixte/components';
   import { isNumeric, isPlainObject, random } from 'mixte';
   import { omit } from 'lodash-es';
   import { colors as colorsMap } from '@/.vitepress/shared/unocss.theme';
