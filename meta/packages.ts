@@ -2,18 +2,19 @@ export const packages = [
   // mixte
   {
     input: 'packages/mixte/index.ts',
-    outputFile: 'packages/mixte/dist/index',
+    outputDir: 'packages/mixte/dist',
   },
   // @mixte/use/register
   {
     input: 'packages/use/src/register.ts',
-    outputFile: 'packages/use/dist/register',
+    outputDir: 'packages/use/dist',
+    outputFileName: 'register',
     dtsExternal: ['unplugin-auto-import/types'],
   },
   // @mixte/use
   {
     input: 'packages/use/index.ts',
-    outputFile: 'packages/use/dist/index',
+    outputDir: 'packages/use/dist',
     external: ['mixte'],
   },
 ];
