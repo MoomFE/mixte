@@ -40,10 +40,10 @@ export default defineComponent({
 
     const length = computed(() => {
       const gap = children.value.length > 1 ? gapX.value : 0;
+      const length = Math.floor((rootWidth.value + gap) / (itemWidth.value + gap));
 
-      return Math.floor(
-        (rootWidth.value + gap) / (itemWidth.value + gap),
-      );
+      if (length !== length) return 0; // eslint-disable-line no-self-compare
+      return length;
     });
 
     return () => h('div', {
