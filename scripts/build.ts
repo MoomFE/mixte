@@ -1,6 +1,6 @@
 import { resolve } from 'node:path';
 import { build } from 'vite';
-import { type RollupBuild, rollup } from 'rollup';
+import { rollup } from 'rollup';
 import fs from 'fs-extra';
 import dts from 'rollup-plugin-dts';
 import { alias } from '../meta/alias';
@@ -37,23 +37,16 @@ const externals = [
   });
 
   // dts
-  let bundle: RollupBuild | undefined;
+  const bundle = await rollup({
+    input: info.input,
+    external: externals.concat(info.dtsExternal ?? []),
+    plugins: [
+      dts({ respectExternal: true }),
+    ],
+  });
 
-  try {
-    bundle = await rollup({
-      input: info.input,
-      external: externals.concat(info.dtsExternal ?? []),
-      plugins: [
-        dts({ respectExternal: true }),
-      ],
-    });
-
-    await bundle.write({
-      file: `${info.outputDir}/${info.outputFileName ?? 'index'}.d.ts`,
-      format: 'es',
-    });
-  }
-  finally {
-    bundle?.close();
-  }
+  await bundle.write({
+    file: `${info.outputDir}/${info.outputFileName ?? 'index'}.d.ts`,
+    format: 'es',
+  });
 }))();
