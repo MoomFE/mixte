@@ -1,5 +1,6 @@
 import { MixteAutoGrid } from '@mixte/components';
 import { mount } from '@vue/test-utils';
+import { h } from 'vue-demi';
 
 describe('AutoGrid', () => {
   const emptyOptions = {
@@ -36,6 +37,26 @@ describe('AutoGrid', () => {
 
         </MixteAutoGrid>
       `,
+    });
+
+    expect(wrapper.html()).matchSnapshot();
+  });
+
+  test('使用渲染函数给组件传入各个类型的子节点', () => {
+    const wrapper = mount({
+      render() {
+        return h(MixteAutoGrid, [
+          123,
+          '<!-- comment -->',
+          h('div', '456'),
+          h(MixteAutoGrid),
+          Array.from({ length: 6 }).map((_, i) => h('div', `item-${i + 1}`)),
+          '789',
+          [1, '2'],
+          null,
+          false,
+        ]);
+      },
     });
 
     expect(wrapper.html()).matchSnapshot();
