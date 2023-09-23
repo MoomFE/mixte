@@ -23,6 +23,8 @@ jobs:
         run: |
           pnpm install
           pnpm build
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
 
       - name: Publish Beta
         if: contains(github.event.release.name, 'beta') == true
