@@ -51,7 +51,6 @@ describe('AutoGrid', () => {
         </MixteAutoGrid>
       `,
     });
-
     const wrapper2 = mount({
       ...emptyOptions,
       template: `
@@ -79,7 +78,6 @@ describe('AutoGrid', () => {
         </MixteAutoGrid>
       `,
     });
-
     const wrapper2 = mount({
       ...emptyOptions,
       template: `
@@ -107,11 +105,91 @@ describe('AutoGrid', () => {
         </MixteAutoGrid>
       `,
     });
-
     const wrapper2 = mount({
       ...emptyOptions,
       template: `
         <MixteAutoGrid :gapY="2">
+          <div>item-1</div>
+          <div>item-2</div>
+        </MixteAutoGrid>
+      `,
+    });
+
+    const html = wrapper.html();
+    const html2 = wrapper2.html();
+
+    expect(html).toBe(html2);
+    expect(html).matchSnapshot();
+  });
+
+  test('同时设置横纵间距和横向间距时, 以横向间距为准', () => {
+    const wrapper = mount({
+      ...emptyOptions,
+      template: `
+        <MixteAutoGrid gap="6" gapX="2">
+          <div>item-1</div>
+          <div>item-2</div>
+        </MixteAutoGrid>
+      `,
+    });
+    const wrapper2 = mount({
+      ...emptyOptions,
+      template: `
+        <MixteAutoGrid :gap="6" :gapX="2">
+          <div>item-1</div>
+          <div>item-2</div>
+        </MixteAutoGrid>
+      `,
+    });
+
+    const html = wrapper.html();
+    const html2 = wrapper2.html();
+
+    expect(html).toBe(html2);
+    expect(html).matchSnapshot();
+  });
+
+  test('同时设置横纵间距和纵向间距时, 以纵向间距为准', () => {
+    const wrapper = mount({
+      ...emptyOptions,
+      template: `
+        <MixteAutoGrid gap="6" gapY="2">
+          <div>item-1</div>
+          <div>item-2</div>
+        </MixteAutoGrid>
+      `,
+    });
+    const wrapper2 = mount({
+      ...emptyOptions,
+      template: `
+        <MixteAutoGrid :gap="6" :gapY="2">
+          <div>item-1</div>
+          <div>item-2</div>
+        </MixteAutoGrid>
+      `,
+    });
+
+    const html = wrapper.html();
+    const html2 = wrapper2.html();
+
+    expect(html).toBe(html2);
+    expect(html).matchSnapshot();
+  });
+
+  test('同时设置横纵间距和"横向间距/纵向间距"时, 以"横向间距/纵向间距"为准', () => {
+    const wrapper = mount({
+      ...emptyOptions,
+      template: `
+        <MixteAutoGrid gap="6" gapX="2" gapY="2">
+          <div>item-1</div>
+          <div>item-2</div>
+        </MixteAutoGrid>
+      `,
+    });
+    const wrapper2 = mount({
+      ...emptyOptions,
+      template: `
+        <MixteAutoGrid :gap="6" :gapX="2" :gapY="2">
           <div>item-1</div>
           <div>item-2</div>
         </MixteAutoGrid>
