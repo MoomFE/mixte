@@ -1,7 +1,6 @@
 {
   "name": "@mixte/components",
-  "version": "1.3.0",
-  "private": true,
+  "version": "1.4.0",
   "author": "Wei Zhang <https://github.com/Zhang-Wei-666>",
   "license": "MIT",
   "homepage": "https://github.com/MoomFE/mixte#readme",
