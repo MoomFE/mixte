@@ -1,5 +1,5 @@
 import type { Promisable } from 'type-fest';
-import type { MaybeRefOrGetter } from 'vue-demi';
+import type { MaybeRefOrGetter } from '@vueuse/core';
 import { createEventHook, toReactive, toValue } from '@vueuse/core';
 import { computed, isVue2, ref, shallowRef } from 'vue-demi';
 

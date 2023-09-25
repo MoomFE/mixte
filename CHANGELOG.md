@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/use] 优化在 vue2 下 `useCountdown` 和 `useRequest` 方法的类型定义
   - 🐞 [@mixte/use] 修复 vue2 下使用 `useRequest` 方法的 `reactive` 返回值时, 部分返回值未被响应式代理的问题
 
 ## [v1.4.1]
