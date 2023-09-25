@@ -1,13 +1,18 @@
 import { delay, wait } from 'mixte';
 
 describe('delay', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   test('方法返回一个 Promise', () => {
     expect(delay()).toBeInstanceOf(Promise);
   });
 
   test('默认延迟时间为 1000', () => {
-    vi.useFakeTimers();
-
     expect(vi.getTimerCount()).toBe(0);
     delay();
     expect(vi.getTimerCount()).toBe(1);
@@ -16,13 +21,9 @@ describe('delay', () => {
     expect(vi.getTimerCount()).toBe(1);
     vi.advanceTimersByTime(1);
     expect(vi.getTimerCount()).toBe(0);
-
-    vi.useRealTimers();
   });
 
   test('指定延迟时间', () => {
-    vi.useFakeTimers();
-
     const times = [1, 10, 20, 100, 200, 1000, 2000];
 
     for (const time of times) {
@@ -35,8 +36,6 @@ describe('delay', () => {
       vi.advanceTimersByTime(1);
       expect(vi.getTimerCount()).toBe(0);
     }
-
-    vi.useRealTimers();
   });
 });
 
