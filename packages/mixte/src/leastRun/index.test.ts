@@ -28,6 +28,22 @@ describe('leastRun', () => {
     expect(vi.getTimerCount()).toBe(0);
   });
 
+  test('仅传递执行时间', async () => {
+    expect(vi.getTimerCount()).toBe(0);
+    leastRun(2000);
+
+    // await fn
+    expect(vi.getTimerCount()).toBe(0);
+    await Promise.resolve();
+
+    // await delay
+    expect(vi.getTimerCount()).toBe(1);
+    vi.advanceTimersByTime(1999);
+    expect(vi.getTimerCount()).toBe(1);
+    vi.advanceTimersByTime(1);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
   test('运行函数并且保证最少执行指定时间 ( 毫秒 )', async () => {
     const times = [1, 10, 20, 100, 200, 1000, 2000];
 
