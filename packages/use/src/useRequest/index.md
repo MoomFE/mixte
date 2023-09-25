@@ -93,10 +93,16 @@ async function submit() {
   await loginInfo.execute(/* {...} */);
   await userInfo.execute();
 
-  console.log(userInfo.data.value.name); // 取值是不是很长
-  console.log(userInfo.data.value.age); // 往下看, 下面就有解决方案
+  console.log(userInfo.data.value.name);
+  console.log(userInfo.data.value.age);
 }
 ```
+
+::: tip
+因为 `data`、`isLoading`、`...` 是一个 `ref` 变量, 所以需要加 `.value` 取值, 导致调用链很长
+
+往下看, 下面就有解决方案
+:::
 :::
 
 #### 使用响应式代理式的返回值
