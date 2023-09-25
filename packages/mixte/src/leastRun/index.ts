@@ -21,11 +21,35 @@ export async function leastRun<
 /**
  * 运行函数并且保证最少执行 1000ms 的时间
  * @param fn 要运行的函数
+ * @example
+ * async function fn() {
+ *   await delay(500);
+ * }
+ *
+ * await leastRun(fn); // -> 运行了 1000ms
+ * await leastRun(1200, fn); // -> 运行了 1200ms
+ * await leastRun(100, fn); // ->  运行了 500ms
  */
 export async function leastRun<
   F extends ((...args: any[]) => any) | ((...args: any[]) => Promise<any>),
   R extends AsyncReturnType<F>,
 >(fn: F): Promise<R>;
+/**
+ * 运行函数并且保证最少执行 1000ms 的时间
+ * @param fn 要运行的函数
+ * @example
+ * async function fn() {
+ *   await delay(500);
+ * }
+ *
+ * await leastRun(fn); // -> 运行了 1000ms
+ * await leastRun(1200, fn); // -> 运行了 1200ms
+ * await leastRun(100, fn); // ->  运行了 500ms
+ */
+export async function leastRun<
+  F extends ((...args: any[]) => any) | ((...args: any[]) => Promise<any>),
+  R extends AsyncReturnType<F>,
+>(ms: number): Promise<R>;
 
 export async function leastRun<
   F extends ((...args: any[]) => any) | ((...args: any[]) => Promise<any>),
