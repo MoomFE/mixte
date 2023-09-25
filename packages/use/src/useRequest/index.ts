@@ -1,7 +1,7 @@
 import type { Promisable } from 'type-fest';
 import type { MaybeRefOrGetter } from 'vue-demi';
 import { createEventHook, toReactive, toValue } from '@vueuse/core';
-import { computed, ref, shallowRef } from 'vue-demi';
+import { computed, isVue2, ref, shallowRef } from 'vue-demi';
 
 export interface UseRequestOptions<T = undefined> {
   /**
@@ -154,11 +154,11 @@ export function useRequest<
     reactive: toReactive(
       computed(() => ({
         /** 服务器响应 */
-        response: computed(() => shallowRef(response.value)) as unknown as typeof response,
+        response: (isVue2 ? shallowRef(response.value) : computed(() => shallowRef(response.value))) as unknown as typeof response,
         /** 服务器响应数据 */
-        data: computed(() => shallowRef(data.value)) as unknown as typeof data,
+        data: (isVue2 ? shallowRef(data.value) : computed(() => shallowRef(data.value))) as unknown as typeof data,
         /** 服务器返回的错误 */
-        error: computed(() => shallowRef(error.value)) as typeof error,
+        error: (isVue2 ? shallowRef(error.value) : computed(() => shallowRef(error.value))) as typeof error,
 
         /** 是否发起过请求 */
         isExecuted,
