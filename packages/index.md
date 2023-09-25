@@ -23,5 +23,5 @@ features:
     details: 一些 Vue 组合式函数, 可与 VueUse 一起使用
   - icon: 📦
     title: '@mixte/components'
-    details: 工具向组件库包
+    details: 工具向组件库
 ---
