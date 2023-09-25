@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.4.2]
+  - 📅 2023-09-25
   - 💄 [@mixte/use] 优化在 vue2 下 `useCountdown` 和 `useRequest` 方法的类型定义
   - 🐞 [@mixte/use] 修复 vue2 下使用 `useRequest` 方法的 `reactive` 返回值时, 部分返回值未被响应式代理的问题
 
@@ -149,7 +152,10 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.4.2...HEAD
+[v1.4.2]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.4.2
+[v1.4.1]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.4.1
+[v1.4.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.4.0
 [v1.3.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.3.0
 [v1.2.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.2.0
 [v1.1.1]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.1.1
