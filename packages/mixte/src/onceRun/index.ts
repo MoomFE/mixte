@@ -34,8 +34,6 @@ export function onceRun<
   let cache: Promise<R> | undefined;
 
   async function wrap(this: any, ...args: any[]) {
-    if (cache) return;
-
     let result;
 
     try {
