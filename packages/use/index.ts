@@ -4,3 +4,4 @@ export * from './src/wheneverEffectScope/index';
 export * from './src/useCountdown/index';
 export * from './src/deepUnref/index';
 export * from './src/useRequest/index';
+export * from './src/createNamedSharedComposable/index';

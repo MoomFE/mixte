@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/use] 新增 `createNamedSharedComposable` 方法
   - 💄 [mixte] 优化 `leastRun` 方法类型定义
   - 💄 [mixte] 移除 `onceRun` 方法无用代码逻辑
 
