@@ -1,4 +1,4 @@
-import { useCountdown, wheneverEffectScopeImmediate } from '@mixte/use';
+import { useCountdown } from '@mixte/use';
 import { nextTick, ref } from 'vue-demi';
 
 describe('useCountdown', () => {
@@ -209,12 +209,13 @@ describe('useCountdown', () => {
   });
 
   test('作用域销毁时, 倒计时会自动停止', async () => {
-    const value = ref(true);
     let isStart: Ref<boolean>;
     let output: Ref<number>;
     let start: (() => void);
 
-    wheneverEffectScopeImmediate(value, () => {
+    const scope = effectScope();
+
+    scope.run(() => {
       const {
         isStart: _isStart,
         output: _output,
@@ -241,7 +242,7 @@ describe('useCountdown', () => {
     expect(Math.round(output!.value)).toBe(50);
 
     // 销毁作用域
-    value.value = false;
+    scope.stop();
     await nextTick();
 
     // 倒计时结束后，倒计时不会再继续, 相关的 ref 也会被销毁
