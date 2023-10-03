@@ -65,4 +65,37 @@ describe('createNamedSharedComposable', () => {
     expect(await res2).toBe(obj);
     expect(await newFn('name', obj2)).toBe(obj);
   });
+
+  test('在 effect 作用域中使用时, 当作用域被注销, 缓存会被清除', () => {
+    const fn = (obj?: any) => obj;
+    const newFn = createNamedSharedComposable(fn);
+
+    const obj = { a: 1 };
+    const obj2 = { a: 2 };
+
+    const scope = effectScope();
+    const scope2 = effectScope();
+    const scope3 = effectScope();
+    const scope4 = effectScope();
+
+    scope.run(() => {
+      expect(newFn('name', obj)).toBe(obj);
+    });
+    scope2.run(() => {
+      expect(newFn('name', obj2)).toBe(obj);
+    });
+
+    scope.stop();
+
+    scope3.run(() => {
+      expect(newFn('name', obj2)).toBe(obj);
+    });
+
+    scope2.stop();
+    scope3.stop();
+
+    scope4.run(() => {
+      expect(newFn('name', obj2)).toBe(obj2);
+    });
+  });
 });
