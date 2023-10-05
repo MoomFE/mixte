@@ -55,6 +55,10 @@
   ],
   "use": [
     {
+      "fn": "createNamedSharedComposable",
+      "name": ""
+    },
+    {
       "fn": "deepUnref",
       "name": ""
     },
