@@ -138,6 +138,10 @@
 }
 
 /* Custom  */
+:root {
+  --vp-sidebar-width: 300px;
+}
+
 .outline-title{
   box-shadow: none !important;
 }
