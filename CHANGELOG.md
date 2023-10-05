@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.5.0]
+  - 📅 2023-10-05
   - 🌟 [@mixte/use] 新增 `createNamedSharedComposable` 方法
   - 💄 [mixte] 优化 `leastRun` 方法类型定义
   - 💄 [mixte] 移除 `onceRun` 方法无用代码逻辑
@@ -155,7 +158,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.4.2...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.5.0...HEAD
+[v1.5.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.5.0
 [v1.4.2]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.4.2
 [v1.4.1]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.4.1
 [v1.4.0]: https://github.com/MoomFE/Small-Utils/releases/tag/v1.4.0
