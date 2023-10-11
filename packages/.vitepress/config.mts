@@ -33,6 +33,7 @@ export default defineConfig({
 
   themeConfig: {
     nav: [
+      { text: '首页', link: '/' },
       {
         text: 'Api',
         items: [
@@ -43,7 +44,7 @@ export default defineConfig({
       },
       {
         text: `v${version}`,
-        items: [{ text: '更新日志', link: 'https://github.com/MoomFE/mixte/blob/main/CHANGELOG.md' }],
+        items: [{ text: '更新日志', link: '/changelog.md' }],
       },
     ],
 

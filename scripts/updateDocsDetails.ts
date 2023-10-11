@@ -14,10 +14,6 @@ import { asyncForEach } from '../packages/mixte/index';
     cwd: resolve(__dirname, '../'),
   });
 
-  const infoFile = await fg([`packages/(${Object.keys(docsDetails).join('|')})/src/*/info.ts`], {
-    cwd: resolve(__dirname, '../'),
-  });
-
   await asyncForEach(docsFile, async (path) => {
     const [, pkg,, fn] = path.split('/');
     let name = '';
