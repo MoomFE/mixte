@@ -120,11 +120,7 @@ export function useRequest<
   // @ts-expect-error
   immediate && execute();
 
-  const onSuccess = successEvent.on;
-  const onError = errorEvent.on;
-  const onFinally = finallyEvent.on;
-
-  return {
+  const common = {
     /** 服务器响应 */
     response,
     /** 服务器响应数据 */
@@ -144,40 +140,42 @@ export function useRequest<
     execute,
 
     /** 请求成功事件钩子 */
-    onSuccess,
+    onSuccess: successEvent.on,
     /** 请求失败事件钩子 */
-    onError,
+    onError: errorEvent.on,
     /** 请求完成事件钩子 */
-    onFinally,
-
-    /** 方法的响应式代理返回值 */
-    reactive: toReactive(
-      computed(() => ({
-        /** 服务器响应 */
-        response: (isVue2 ? shallowRef(response.value) : computed(() => shallowRef(response.value))) as unknown as typeof response,
-        /** 服务器响应数据 */
-        data: (isVue2 ? shallowRef(data.value) : computed(() => shallowRef(data.value))) as unknown as typeof data,
-        /** 服务器返回的错误 */
-        error: (isVue2 ? shallowRef(error.value) : computed(() => shallowRef(error.value))) as typeof error,
-
-        /** 是否发起过请求 */
-        isExecuted,
-        /** 是否在请求中 */
-        isLoading,
-        /** 是否已请求完成 */
-        isFinished,
-        /** 是否已请求成功 */
-        isSuccess,
-
-        execute,
-
-        /** 请求成功事件钩子 */
-        onSuccess,
-        /** 请求失败事件钩子 */
-        onError,
-        /** 请求完成事件钩子 */
-        onFinally,
-      })),
-    ),
+    onFinally: finallyEvent.on,
   };
+
+  const reactive = toReactive(
+    computed(() => ({
+      ...common,
+      /** 服务器响应 */
+      response: (isVue2 ? shallowRef(response.value) : computed(() => shallowRef(response.value))) as unknown as typeof response,
+      /** 服务器响应数据 */
+      data: (isVue2 ? shallowRef(data.value) : computed(() => shallowRef(data.value))) as unknown as typeof data,
+      /** 服务器返回的错误 */
+      error: (isVue2 ? shallowRef(error.value) : computed(() => shallowRef(error.value))) as typeof error,
+    })),
+  );
+
+  return {
+    ...common,
+    /** 方法的响应式代理返回值 */
+    reactive,
+  };
+}
+
+/**
+ * 发起请求的组合式方法, 返回响应式代理返回值
+ */
+export function useRequestReactive<
+  Response,
+  Data extends Response extends { data: infer D } ? D : never = Response extends { data: infer D } ? D : never,
+  Args extends any[] = any[],
+>(
+  userExecute: UseRequestUserExecute<Response, Args>,
+  options: UseRequestOptions<Data> = {},
+) {
+  return useRequest(userExecute, options).reactive;
 }

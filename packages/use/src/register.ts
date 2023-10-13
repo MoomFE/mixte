@@ -62,6 +62,7 @@ export function MixteUseAutoImport(options?: MixteUseAutoImportOptions): Imports
       'useCountdown',
       'deepUnref',
       'useRequest',
+      'useRequestReactive',
       'createNamedSharedComposable',
     ],
   };
