@@ -1,6 +1,8 @@
 ---
-outline: [1,4]
+outline: [2,4]
 ---
+
+## `useRequest`
 
 发起请求的组合式方法
   - 旨在解决请求前中后的状态管理、响应数据存储及提供事件钩子
@@ -272,3 +274,41 @@ interface UseRequestOptions<T = undefined> {
  */
 type UseRequestUserExecute<Response, Args extends any[]> = (...args: Args) => Promisable<Response>;
 ```
+
+
+## `useRequestReactive`
+
+发起请求的组合式方法
+  - 和 `useRequest` 方法一致, 只是返回响应式代理对象
+
+### 示例
+
+<br>
+
+#### 从 `useRequest` 改为使用 `useRequestReactive`
+
+:::info 修改步骤
+1. 原有使用 `useRequest` 时:
+
+```ts {1,5,6,7}
+const uuid = useRequest(() => {
+  return axios.get('https://httpbin.org/uuid');
+});
+
+console.log(uuid.response.value); // 需要使用 `.value` 获取值
+console.log(uuid.data.value); // 需要使用 `.value` 获取值
+console.log(uuid.error.value); // 需要使用 `.value` 获取值
+```
+
+2. 修改方法为 `useRequestReactive` 后:
+
+```ts {1,5,6,7}
+const uuid = useRequestReactive(() => {
+  return axios.get('https://httpbin.org/uuid');
+});
+
+console.log(uuid.response); // 不用再使用 `.value` 了
+console.log(uuid.data); // 不用再使用 `.value` 了
+console.log(uuid.error); // 不用再使用 `.value` 了
+```
+:::

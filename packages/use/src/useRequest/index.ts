@@ -167,7 +167,8 @@ export function useRequest<
 }
 
 /**
- * 发起请求的组合式方法, 返回响应式代理返回值
+ * 发起请求的组合式方法
+ *  - 和 `useRequest` 方法一致, 只是返回响应式代理对象
  */
 export function useRequestReactive<
   Response,
