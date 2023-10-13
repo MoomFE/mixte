@@ -29,12 +29,14 @@ export function MarkdownTransform(): Plugin {
         const fnTitle = `${
           pkg === 'components' ? pascalCase(fn) : fn
         }${
-          info.name ? ` <small><small>( ${info.name} )</small></small>` : ''
+          info.name && pkg === 'components' ? ` <small><small>( ${info.name} )</small></small>` : ''
         }`;
 
         // 添加标题
-        if (startIndex > 0) s.prependRight(startIndex, `\n\n# ${fnTitle}\n\n`);
-        else s.prepend(`# ${fnTitle}\n\n`);
+        if (!info.hiddenH1) {
+          if (startIndex > 0) s.prependRight(startIndex, `\n\n# ${fnTitle}\n\n`);
+          else s.prepend(`# ${fnTitle}\n\n`);
+        }
 
         // 文档为空时添加提示
         if (!code.trim())

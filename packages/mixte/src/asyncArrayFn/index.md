@@ -2,9 +2,7 @@
 outline: [2, 3]
 ---
 
-- 异步数组方法
-
-## `asyncForEach`
+# `asyncForEach`
 
 异步地遍历数组, 并对每个元素执行回调函数
 

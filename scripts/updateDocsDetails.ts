@@ -17,17 +17,20 @@ import { asyncForEach } from '../packages/mixte/index';
   await asyncForEach(docsFile, async (path) => {
     const [, pkg,, fn] = path.split('/');
     let name = '';
+    let hiddenH1 = false;
 
     // 获取显示名称
     try {
       const info = await import(`../packages/${pkg}/src/${fn}/info`);
-      name = info.name;
+      name = info.name ?? name;
+      hiddenH1 = info.hiddenH1 ?? hiddenH1;
     }
     catch (error) {}
 
     docsDetails[pkg as keyof typeof docsDetails].push({
       fn,
       name,
+      hiddenH1,
     });
   });
 

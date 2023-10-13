@@ -52,18 +52,15 @@ export default defineConfig({
       '/mixte/': [
         {
           text: 'mixte',
-          items: mixte.map(info => ({ text: info.fn, link: `/mixte/${info.fn}` })),
+          items: mixte.map(info => ({ text: `${info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/${info.fn}` })),
         },
         {
           text: '@mixte/use',
-          items: use.map(info => ({ text: info.fn, link: `/mixte/use/${info.fn}` })),
+          items: use.map(info => ({ text: `${info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/use/${info.fn}` })),
         },
         {
           text: '@mixte/components',
-          items: components.map(info => ({
-            text: `${pascalCase(info.fn)}${info.name ? ` ( ${info.name} )` : ''}`,
-            link: `/mixte/components/${info.fn}`,
-          })),
+          items: components.map(info => ({ text: `${pascalCase(info.fn)}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/components/${info.fn}` })),
         },
       ],
     },

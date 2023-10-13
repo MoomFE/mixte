@@ -2,91 +2,112 @@
   "mixte": [
     {
       "fn": "asyncArrayFn",
-      "name": ""
+      "name": "异步数组方法",
+      "hiddenH1": true
     },
     {
       "fn": "deepClone",
-      "name": ""
+      "name": "深拷贝",
+      "hiddenH1": false
     },
     {
       "fn": "deepMerge",
-      "name": ""
+      "name": "深拷贝继承",
+      "hiddenH1": false
     },
     {
       "fn": "defineArgs",
-      "name": ""
+      "name": "",
+      "hiddenH1": false
     },
     {
       "fn": "delay",
-      "name": ""
+      "name": "异步延迟",
+      "hiddenH1": false
     },
     {
       "fn": "env",
-      "name": ""
+      "name": "",
+      "hiddenH1": false
     },
     {
       "fn": "is",
-      "name": ""
+      "name": "类型判断",
+      "hiddenH1": false
     },
     {
       "fn": "leastRun",
-      "name": ""
+      "name": "",
+      "hiddenH1": false
     },
     {
       "fn": "move",
-      "name": ""
+      "name": "",
+      "hiddenH1": false
     },
     {
       "fn": "onceRun",
-      "name": ""
+      "name": "",
+      "hiddenH1": false
     },
     {
       "fn": "random",
-      "name": ""
+      "name": "随机",
+      "hiddenH1": false
     },
     {
       "fn": "toArray",
-      "name": ""
+      "name": "",
+      "hiddenH1": false
     },
     {
       "fn": "uniqueKey",
-      "name": ""
+      "name": "",
+      "hiddenH1": false
     }
   ],
   "use": [
     {
       "fn": "createNamedSharedComposable",
-      "name": ""
+      "name": "",
+      "hiddenH1": false
     },
     {
       "fn": "deepUnref",
-      "name": ""
+      "name": "",
+      "hiddenH1": false
     },
     {
       "fn": "useCountdown",
-      "name": ""
+      "name": "",
+      "hiddenH1": false
     },
     {
       "fn": "useRequest",
-      "name": ""
+      "name": "",
+      "hiddenH1": false
     },
     {
       "fn": "watch",
-      "name": ""
+      "name": "",
+      "hiddenH1": false
     },
     {
       "fn": "whenever",
-      "name": ""
+      "name": "",
+      "hiddenH1": false
     },
     {
       "fn": "wheneverEffectScope",
-      "name": ""
+      "name": "",
+      "hiddenH1": false
     }
   ],
   "components": [
     {
       "fn": "auto-grid",
-      "name": "自适应栅格"
+      "name": "自适应栅格",
+      "hiddenH1": false
     }
   ]
 }
