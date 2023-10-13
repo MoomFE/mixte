@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.6.0]
+  - 📅 2023-10-13
   - 🌟 [@mixte/use] 新增 `useRequestReactive` 方法
 
 ## [v1.5.0]
