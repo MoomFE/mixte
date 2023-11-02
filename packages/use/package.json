@@ -33,7 +33,7 @@
     "*.d.ts"
   ],
   "dependencies": {
-    "@vueuse/core": ">=10.4.1",
+    "@vueuse/core": ">=10.5.0",
     "mixte": "workspace:*",
     "vue-demi": ">=0.14.6"
   }
