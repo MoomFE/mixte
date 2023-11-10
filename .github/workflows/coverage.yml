@@ -25,8 +25,7 @@ jobs:
 
       - name: Test
         run: |
-          pnpm install
-          pnpm test -- --run
+          pnpm test-release
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
