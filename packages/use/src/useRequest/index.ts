@@ -56,7 +56,7 @@ export function useRequest<
   /** 请求失败事件钩子 */
   const errorEvent = createEventHook<any>();
   /** 请求完成事件钩子 */
-  const finallyEvent = createEventHook<null>();
+  const finallyEvent = createEventHook();
 
   /** 服务器响应 */
   const response = shallowRef<Response>();
@@ -100,7 +100,7 @@ export function useRequest<
       isFinished.value = true;
       isSuccess.value = true;
       successEvent.trigger(res);
-      finallyEvent.trigger(null);
+      finallyEvent.trigger();
       return res;
     }
     catch (e) {
@@ -109,7 +109,7 @@ export function useRequest<
       isSuccess.value = false;
       error.value = e;
       errorEvent.trigger(e);
-      finallyEvent.trigger(null);
+      finallyEvent.trigger();
       throw e;
     }
   }

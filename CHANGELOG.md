@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/use] 移除 `useRequest` 的 `onFinally` 事件钩子的 `null` 传参
 
 ## [v1.6.0]
   - 📅 2023-10-13

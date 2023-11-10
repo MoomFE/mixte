@@ -159,7 +159,7 @@ describe('useRequest', () => {
     expect(data.isSuccess.value).toBe(true);
     expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
     expect(errorEventCountAndArgs).toStrictEqual([0]);
-    expect(finallyEventCountAndArgs).toStrictEqual([1, null]);
+    expect(finallyEventCountAndArgs).toStrictEqual([1]);
 
     // 进行请求失败情况的测试
 
@@ -175,7 +175,7 @@ describe('useRequest', () => {
     expect(data.isSuccess.value).toBe(false);
     expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
     expect(errorEventCountAndArgs).toStrictEqual([0]);
-    expect(finallyEventCountAndArgs).toStrictEqual([1, null]);
+    expect(finallyEventCountAndArgs).toStrictEqual([1]);
 
     try {
       await result2;
@@ -193,7 +193,7 @@ describe('useRequest', () => {
     expect(data.isSuccess.value).toBe(false);
     expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
     expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
-    expect(finallyEventCountAndArgs).toStrictEqual([2, null]);
+    expect(finallyEventCountAndArgs).toStrictEqual([2]);
   });
 
   test('请求失败情况的返回对象参数', async () => {
@@ -272,7 +272,7 @@ describe('useRequest', () => {
     expect(data.isSuccess.value).toBe(false);
     expect(successEventCountAndArgs).toStrictEqual([0]);
     expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
-    expect(finallyEventCountAndArgs).toStrictEqual([1, null]);
+    expect(finallyEventCountAndArgs).toStrictEqual([1]);
 
     // 进行请求成功情况的测试
 
@@ -288,7 +288,7 @@ describe('useRequest', () => {
     expect(data.isSuccess.value).toBe(false);
     expect(successEventCountAndArgs).toStrictEqual([0]);
     expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
-    expect(finallyEventCountAndArgs).toStrictEqual([1, null]);
+    expect(finallyEventCountAndArgs).toStrictEqual([1]);
 
     expect(await result2).toStrictEqual(data.response.value);
 
@@ -301,7 +301,7 @@ describe('useRequest', () => {
     expect(data.isSuccess.value).toBe(true);
     expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
     expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
-    expect(finallyEventCountAndArgs).toStrictEqual([2, null]);
+    expect(finallyEventCountAndArgs).toStrictEqual([2]);
   });
 
   test('请求完成后修改传参', async () => {
@@ -560,7 +560,7 @@ describe('useRequest', () => {
       expectTypeOf(res.execute).toEqualTypeOf<() => Promise<{ data: number }>>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
-      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
       expectTypeOf(res.reactive).toEqualTypeOf<{
         response: { data: number } | undefined
         data: number | undefined
@@ -572,7 +572,7 @@ describe('useRequest', () => {
         execute: () => Promise<{ data: number }>
         onSuccess: EventHookOn<{ data: number }>
         onError: EventHookOn<any>
-        onFinally: EventHookOn<null>
+        onFinally: EventHookOn
       }>();
     }
 
@@ -590,7 +590,7 @@ describe('useRequest', () => {
       expectTypeOf(res.execute).toEqualTypeOf<(a: number) => Promise<{ data: number; code: number }>>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
-      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
       expectTypeOf(res.reactive).toEqualTypeOf<{
         response: { data: number; code: number } | undefined
         data: number | undefined
@@ -602,7 +602,7 @@ describe('useRequest', () => {
         execute: (a: number) => Promise<{ data: number; code: number }>
         onSuccess: EventHookOn<{ data: number; code: number }>
         onError: EventHookOn<any>
-        onFinally: EventHookOn<null>
+        onFinally: EventHookOn
       }>();
     }
 
@@ -623,7 +623,7 @@ describe('useRequest', () => {
       expectTypeOf(res.execute).toEqualTypeOf<() => Promise<{ data: number }>>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
-      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
       expectTypeOf(res.reactive).toEqualTypeOf<{
         response: { data: number } | undefined
         data: number | undefined
@@ -635,7 +635,7 @@ describe('useRequest', () => {
         execute: () => Promise<{ data: number }>
         onSuccess: EventHookOn<{ data: number }>
         onError: EventHookOn<any>
-        onFinally: EventHookOn<null>
+        onFinally: EventHookOn
       }>();
     }
 
@@ -656,7 +656,7 @@ describe('useRequest', () => {
       expectTypeOf(res.execute).toEqualTypeOf<(a: number) => Promise<{ data: number; code: number }>>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
-      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
       expectTypeOf(res.reactive).toEqualTypeOf<{
         response: { data: number; code: number } | undefined
         data: number | undefined
@@ -668,7 +668,7 @@ describe('useRequest', () => {
         execute: (a: number) => Promise<{ data: number; code: number }>
         onSuccess: EventHookOn<{ data: number; code: number }>
         onError: EventHookOn<any>
-        onFinally: EventHookOn<null>
+        onFinally: EventHookOn
       }>();
     }
   });
@@ -748,7 +748,7 @@ describe('useRequestReactive', () => {
       expectTypeOf(res.execute).toEqualTypeOf<() => Promise<{ data: number }>>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
-      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
     }
 
     // 非异步, 有方法传参, 有其他参数返回
@@ -765,7 +765,7 @@ describe('useRequestReactive', () => {
       expectTypeOf(res.execute).toEqualTypeOf<(a: number) => Promise<{ data: number; code: number }>>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
-      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
     }
 
     // 异步, 无方法传参, 无其他参数返回
@@ -785,7 +785,7 @@ describe('useRequestReactive', () => {
       expectTypeOf(res.execute).toEqualTypeOf<() => Promise<{ data: number }>>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
-      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
     }
 
     // 异步, 有方法传参, 有其他参数返回
@@ -805,7 +805,7 @@ describe('useRequestReactive', () => {
       expectTypeOf(res.execute).toEqualTypeOf<(a: number) => Promise<{ data: number; code: number }>>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
-      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn<null>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
     }
   });
 });
