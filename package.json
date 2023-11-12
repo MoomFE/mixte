@@ -2,7 +2,7 @@
   "name": "@mixte/monorepo",
   "version": "1.6.1",
   "private": true,
-  "packageManager": "pnpm@8.10.2",
+  "packageManager": "pnpm@8.10.3",
   "description": "",
   "author": "Wei Zhang <https://github.com/Zhang-Wei-666>",
   "license": "MIT",
