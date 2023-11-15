@@ -1102,25 +1102,25 @@ export const wordSpacing = {
 };
 export const boxShadow = {
   DEFAULT: [
-    "var(--un-shadow-inset) 0 1px 3px 0 rgba(0,0,0,0.1)",
-    "var(--un-shadow-inset) 0 1px 2px -1px rgba(0,0,0,0.1)"
+    "var(--un-shadow-inset) 0 1px 3px 0 rgb(0 0 0 / 0.1)",
+    "var(--un-shadow-inset) 0 1px 2px -1px rgb(0 0 0 / 0.1)"
   ],
-  none: "0 0 rgba(0,0,0,0)",
-  sm: "var(--un-shadow-inset) 0 1px 2px 0 rgba(0,0,0,0.05)",
+  none: "0 0 rgb(0 0 0 / 0)",
+  sm: "var(--un-shadow-inset) 0 1px 2px 0 rgb(0 0 0 / 0.05)",
   md: [
-    "var(--un-shadow-inset) 0 4px 6px -1px rgba(0,0,0,0.1)",
-    "var(--un-shadow-inset) 0 2px 4px -2px rgba(0,0,0,0.1)"
+    "var(--un-shadow-inset) 0 4px 6px -1px rgb(0 0 0 / 0.1)",
+    "var(--un-shadow-inset) 0 2px 4px -2px rgb(0 0 0 / 0.1)"
   ],
   lg: [
-    "var(--un-shadow-inset) 0 10px 15px -3px rgba(0,0,0,0.1)",
-    "var(--un-shadow-inset) 0 4px 6px -4px rgba(0,0,0,0.1)"
+    "var(--un-shadow-inset) 0 10px 15px -3px rgb(0 0 0 / 0.1)",
+    "var(--un-shadow-inset) 0 4px 6px -4px rgb(0 0 0 / 0.1)"
   ],
   xl: [
-    "var(--un-shadow-inset) 0 20px 25px -5px rgba(0,0,0,0.1)",
-    "var(--un-shadow-inset) 0 8px 10px -6px rgba(0,0,0,0.1)"
+    "var(--un-shadow-inset) 0 20px 25px -5px rgb(0 0 0 / 0.1)",
+    "var(--un-shadow-inset) 0 8px 10px -6px rgb(0 0 0 / 0.1)"
   ],
-  "2xl": "var(--un-shadow-inset) 0 25px 50px -12px rgba(0,0,0,0.25)",
-  inner: "inset 0 2px 4px 0 rgba(0,0,0,0.05)"
+  "2xl": "var(--un-shadow-inset) 0 25px 50px -12px rgb(0 0 0 / 0.25)",
+  inner: "inset 0 2px 4px 0 rgb(0 0 0 / 0.05)"
 };
 export const textIndent = {
   DEFAULT: "1.5rem",
@@ -1134,22 +1134,22 @@ export const textIndent = {
 };
 export const textShadow = {
   DEFAULT: [
-    "0 0 1px rgba(0,0,0,0.2)",
-    "0 0 1px rgba(1,0,5,0.1)"
+    "0 0 1px rgb(0 0 0 / 0.2)",
+    "0 0 1px rgb(1 0 5 / 0.1)"
   ],
-  none: "0 0 rgba(0,0,0,0)",
-  sm: "1px 1px 3px rgba(36,37,47,0.25)",
+  none: "0 0 rgb(0 0 0 / 0)",
+  sm: "1px 1px 3px rgb(36 37 47 / 0.25)",
   md: [
-    "0 1px 2px rgba(30,29,39,0.19)",
-    "1px 2px 4px rgba(54,64,147,0.18)"
+    "0 1px 2px rgb(30 29 39 / 0.19)",
+    "1px 2px 4px rgb(54 64 147 / 0.18)"
   ],
   lg: [
-    "3px 3px 6px rgba(0,0,0,0.26)",
-    "0 0 5px rgba(15,3,86,0.22)"
+    "3px 3px 6px rgb(0 0 0 / 0.26)",
+    "0 0 5px rgb(15 3 86 / 0.22)"
   ],
   xl: [
-    "1px 1px 3px rgba(0,0,0,0.29)",
-    "2px 4px 7px rgba(73,64,125,0.35)"
+    "1px 1px 3px rgb(0 0 0 / 0.29)",
+    "2px 4px 7px rgb(73 64 125 / 0.35)"
   ]
 };
 export const textStrokeWidth = {
@@ -1171,24 +1171,24 @@ export const blur = {
 };
 export const dropShadow = {
   DEFAULT: [
-    "0 1px 2px rgba(0,0,0,0.1)",
-    "0 1px 1px rgba(0,0,0,0.06)"
+    "0 1px 2px rgb(0 0 0 / 0.1)",
+    "0 1px 1px rgb(0 0 0 / 0.06)"
   ],
-  sm: "0 1px 1px rgba(0,0,0,0.05)",
+  sm: "0 1px 1px rgb(0 0 0 / 0.05)",
   md: [
-    "0 4px 3px rgba(0,0,0,0.07)",
-    "0 2px 2px rgba(0,0,0,0.06)"
+    "0 4px 3px rgb(0 0 0 / 0.07)",
+    "0 2px 2px rgb(0 0 0 / 0.06)"
   ],
   lg: [
-    "0 10px 8px rgba(0,0,0,0.04)",
-    "0 4px 3px rgba(0,0,0,0.1)"
+    "0 10px 8px rgb(0 0 0 / 0.04)",
+    "0 4px 3px rgb(0 0 0 / 0.1)"
   ],
   xl: [
-    "0 20px 13px rgba(0,0,0,0.03)",
-    "0 8px 5px rgba(0,0,0,0.08)"
+    "0 20px 13px rgb(0 0 0 / 0.03)",
+    "0 8px 5px rgb(0 0 0 / 0.08)"
   ],
-  "2xl": "0 25px 25px rgba(0,0,0,0.15)",
-  none: "0 0 rgba(0,0,0,0)"
+  "2xl": "0 25px 25px rgb(0 0 0 / 0.15)",
+  none: "0 0 rgb(0 0 0 / 0)"
 };
 export const easing = {
   DEFAULT: "cubic-bezier(0.4, 0, 0.2, 1)",
@@ -1257,15 +1257,15 @@ export const preflightBase = {
   "--un-numeric-fraction": " ",
   "--un-border-spacing-x": 0,
   "--un-border-spacing-y": 0,
-  "--un-ring-offset-shadow": "0 0 rgba(0,0,0,0)",
-  "--un-ring-shadow": "0 0 rgba(0,0,0,0)",
+  "--un-ring-offset-shadow": "0 0 rgb(0 0 0 / 0)",
+  "--un-ring-shadow": "0 0 rgb(0 0 0 / 0)",
   "--un-shadow-inset": " ",
-  "--un-shadow": "0 0 rgba(0,0,0,0)",
+  "--un-shadow": "0 0 rgb(0 0 0 / 0)",
   "--un-ring-inset": " ",
   "--un-ring-offset-width": "0px",
   "--un-ring-offset-color": "#fff",
   "--un-ring-width": "0px",
-  "--un-ring-color": "rgba(147,197,253,0.5)",
+  "--un-ring-color": "rgb(147 197 253 / 0.5)",
   "--un-blur": " ",
   "--un-brightness": " ",
   "--un-contrast": " ",
@@ -1301,6 +1301,25 @@ export const containers = {
 };
 export const zIndex = {
   auto: "auto"
+};
+export const media = {
+  portrait: "(orientation: portrait)",
+  landscape: "(orientation: landscape)",
+  os_dark: "(prefers-color-scheme: dark)",
+  os_light: "(prefers-color-scheme: light)",
+  motion_ok: "(prefers-reduced-motion: no-preference)",
+  motion_not_ok: "(prefers-reduced-motion: reduce)",
+  high_contrast: "(prefers-contrast: high)",
+  low_contrast: "(prefers-contrast: low)",
+  opacity_ok: "(prefers-reduced-transparency: no-preference)",
+  opacity_not_ok: "(prefers-reduced-transparency: reduce)",
+  use_data_ok: "(prefers-reduced-data: no-preference)",
+  use_data_not_ok: "(prefers-reduced-data: reduce)",
+  touch: "(hover: none) and (pointer: coarse)",
+  stylus: "(hover: none) and (pointer: fine)",
+  pointer: "(hover) and (pointer: coarse)",
+  mouse: "(hover) and (pointer: fine)",
+  hd_color: "(dynamic-range: high)"
 };
 export const aria = {
   busy: "busy=\"true\"",
@@ -1517,25 +1536,6 @@ export const animation = {
     "bounce-alt": "infinite"
   }
 };
-export const media = {
-  portrait: "(orientation: portrait)",
-  landscape: "(orientation: landscape)",
-  os_dark: "(prefers-color-scheme: dark)",
-  os_light: "(prefers-color-scheme: light)",
-  motion_ok: "(prefers-reduced-motion: no-preference)",
-  motion_not_ok: "(prefers-reduced-motion: reduce)",
-  high_contrast: "(prefers-contrast: high)",
-  low_contrast: "(prefers-contrast: low)",
-  opacity_ok: "(prefers-reduced-transparency: no-preference)",
-  opacity_not_ok: "(prefers-reduced-transparency: reduce)",
-  useData_ok: "(prefers-reduced-data: no-preference)",
-  useData_not_ok: "(prefers-reduced-data: reduce)",
-  touch: "(hover: none) and (pointer: coarse)",
-  stylus: "(hover: none) and (pointer: fine)",
-  pointer: "(hover) and (pointer: coarse)",
-  mouse: "(hover) and (pointer: fine)",
-  hd_color: "(dynamic-range: high)"
-};
 export const supports = {
   grid: "(display: grid)"
 };
@@ -1576,8 +1576,8 @@ export default {
   preflightBase,
   containers,
   zIndex,
+  media,
   aria,
   animation,
-  media,
   supports
 };

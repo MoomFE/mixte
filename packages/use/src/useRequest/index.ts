@@ -1,14 +1,14 @@
 import type { Promisable } from 'type-fest';
-import type { MaybeRefOrGetter } from '@vueuse/core';
 import { createEventHook, toReactive, toValue } from '@vueuse/core';
 import { computed, isVue2, ref, shallowRef } from 'vue-demi';
 
-export interface UseRequestOptions<T = undefined> {
+export interface UseRequestOptions {
   /**
    * 初始数据
+   *  - 传递的数据会使用 `toValue` 进行转换
    * @default undefined
    */
-  initialData?: MaybeRefOrGetter<T>
+  initialData?: any
   /**
    * 是否立即发起请求
    * @default false
@@ -42,7 +42,7 @@ export function useRequest<
   Args extends any[] = any[],
 >(
   userExecute: UseRequestUserExecute<Response, Args>,
-  options: UseRequestOptions<Data> = {},
+  options: UseRequestOptions = {},
 ) {
   const {
     initialData,
@@ -176,7 +176,7 @@ export function useRequestReactive<
   Args extends any[] = any[],
 >(
   userExecute: UseRequestUserExecute<Response, Args>,
-  options: UseRequestOptions<Data> = {},
+  options: UseRequestOptions = {},
 ) {
   return useRequest(userExecute, options).reactive;
 }

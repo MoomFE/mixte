@@ -543,7 +543,7 @@ describe('useRequest', () => {
   test('类型测试', async () => {
     expectTypeOf(useRequest).parameters.toEqualTypeOf<[
       UseRequestUserExecute<unknown, any[]>,
-      UseRequestOptions<never>?,
+      UseRequestOptions?,
     ]>();
 
     // 非异步, 无方法传参, 无其他参数返回
@@ -731,7 +731,7 @@ describe('useRequestReactive', () => {
   test('类型测试', async () => {
     expectTypeOf(useRequestReactive).parameters.toEqualTypeOf<[
       UseRequestUserExecute<unknown, any[]>,
-      UseRequestOptions<never>?,
+      UseRequestOptions?,
     ]>();
 
     // 非异步, 无方法传参, 无其他参数返回
