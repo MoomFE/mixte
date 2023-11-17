@@ -72,7 +72,7 @@
     "unplugin-icons": "^0.17.4",
     "unplugin-vue-components": "^0.25.2",
     "vite": "^5.0.0",
-    "vitepress": "1.0.0-rc.25",
+    "vitepress": "1.0.0-rc.26",
     "vitest": "^0.34.6",
     "vue": "^3.3.8",
     "vue-demi": "^0.14.6",
