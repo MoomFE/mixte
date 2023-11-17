@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.6.2]
+  - 📅 2023-11-17
   - 💄 [@mixte/use] 优化 `useRequest` 方法 `options` 类型定义, 不再强制要求 `initialData` 类型, 减轻使用时的类型定义负担
 
 ## [v1.6.1]
@@ -167,7 +170,10 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.6.2...HEAD
+[v1.6.2]: https://github.com/MoomFE/mixte/releases/tag/v1.6.2
+[v1.6.1]: https://github.com/MoomFE/mixte/releases/tag/v1.6.1
+[v1.6.0]: https://github.com/MoomFE/mixte/releases/tag/v1.6.0
 [v1.5.0]: https://github.com/MoomFE/mixte/releases/tag/v1.5.0
 [v1.4.2]: https://github.com/MoomFE/mixte/releases/tag/v1.4.2
 [v1.4.1]: https://github.com/MoomFE/mixte/releases/tag/v1.4.1
