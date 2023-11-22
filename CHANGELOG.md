@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.6.3]
+  - 📅 2023-11-22
   - 💄 [@mixte/use] 使用 `useRequest` 定义的方法, 同时发起多个请求, 仅最后一次请求生效
 
 ## [v1.6.2]
@@ -171,7 +174,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.6.2...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.6.3...HEAD
+[v1.6.3]: https://github.com/MoomFE/mixte/releases/tag/v1.6.3
 [v1.6.2]: https://github.com/MoomFE/mixte/releases/tag/v1.6.2
 [v1.6.1]: https://github.com/MoomFE/mixte/releases/tag/v1.6.1
 [v1.6.0]: https://github.com/MoomFE/mixte/releases/tag/v1.6.0
