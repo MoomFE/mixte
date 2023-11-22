@@ -73,8 +73,12 @@ export function useRequest<
   /** 是否已请求成功 */
   const isSuccess = ref(false);
 
+  let executeCounter = 0;
+
   /** 发起请求 */
   async function execute(...args: Args): Promise<Response> {
+    const currentExecuteCounter = ++executeCounter;
+
     // 标记发起过请求
     isExecuted.value = true;
     // 标记请求中
@@ -91,10 +95,12 @@ export function useRequest<
 
     try {
       const res = await userExecute(...args);
-      const resData = (res as { data: Data } | undefined)?.data;
+
+      if (currentExecuteCounter !== executeCounter)
+        return res;
 
       response.value = res;
-      data.value = resData;
+      data.value = (res as { data: Data } | undefined)?.data;
 
       isLoading.value = false;
       isFinished.value = true;
@@ -104,6 +110,9 @@ export function useRequest<
       return res;
     }
     catch (e) {
+      if (currentExecuteCounter !== executeCounter)
+        throw e;
+
       isLoading.value = false;
       isFinished.value = true;
       isSuccess.value = false;

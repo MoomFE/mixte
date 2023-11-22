@@ -320,6 +320,42 @@ describe('useRequest', () => {
     expect(data.data.value).toStrictEqual({ a: { b: 3 } });
   });
 
+  test('同时发起多个请求, 仅最后一次请求生效', async () => {
+    let throwError: boolean = false;
+    let successIndex = 0;
+    let finallyIndex = 0;
+    let errorIndex = 0;
+
+    const data = useRequest(async () => {
+      if (throwError) throw new Error('???');
+      return 123;
+    });
+
+    data.onSuccess(() => {
+      successIndex++;
+    });
+    data.onFinally(() => {
+      finallyIndex++;
+    });
+    data.onError(() => {
+      errorIndex++;
+    });
+
+    await Promise.all([data.execute(), data.execute(), data.execute()]);
+
+    expect(successIndex).toBe(1);
+    expect(finallyIndex).toBe(1);
+    expect(errorIndex).toBe(0);
+
+    throwError = true;
+
+    await Promise.allSettled([data.execute(), data.execute(), data.execute()]);
+
+    expect(successIndex).toBe(1);
+    expect(finallyIndex).toBe(2);
+    expect(errorIndex).toBe(1);
+  });
+
   test('支持传入 immediate: true 选项立即发起请求', async () => {
     const data = useRequest(async () => {
       await delay(100);
