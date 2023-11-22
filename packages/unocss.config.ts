@@ -1,9 +1,12 @@
-import { resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { outputFileSync } from 'fs-extra';
 import { defineConfig, presetAttributify, presetIcons, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss';
 import { presetExtra } from 'unocss-preset-extra';
 import { presetScrollbar } from 'unocss-preset-scrollbar';
 import { dataToEsm } from '@rollup/pluginutils';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   shortcuts: {

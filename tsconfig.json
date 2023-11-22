@@ -24,6 +24,8 @@
     }
   },
   "include": [
+    "meta",
+    "scripts",
     "packages",
     "packages/.vitepress/**/*.ts",
     "packages/.vitepress/**/*.vue",

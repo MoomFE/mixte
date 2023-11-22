@@ -1,4 +1,5 @@
-import { resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitepress';
 import Unocss from 'unocss/vite';
 import Icons from 'unplugin-icons/vite';
@@ -11,6 +12,8 @@ import { alias } from '../../meta/alias';
 import { version } from '../../package.json';
 import { MarkdownTransform } from './plugins/markdownTransform';
 import VitePlugins from './vite.common.plugins';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   title: 'Mixte',
