@@ -69,7 +69,7 @@
     "unocss": "^0.57.7",
     "unocss-preset-extra": "^0.5.3",
     "unocss-preset-scrollbar": "^0.3.0",
-    "unplugin-auto-import": "^0.16.7",
+    "unplugin-auto-import": "^0.17.0",
     "unplugin-icons": "^0.17.4",
     "unplugin-vue-components": "^0.25.2",
     "vite": "^5.0.1",
