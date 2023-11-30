@@ -675,6 +675,8 @@ describe('useRequest', () => {
         isLoading: boolean
         isFinished: boolean
         isSuccess: boolean
+        successCount: number
+        clearSuccessCount: () => void
         execute: () => Promise<{ data: number }>
         onSuccess: EventHookOn<{ data: number }>
         onError: EventHookOn<any>
@@ -705,6 +707,8 @@ describe('useRequest', () => {
         isLoading: boolean
         isFinished: boolean
         isSuccess: boolean
+        successCount: number
+        clearSuccessCount: () => void
         execute: (a: number) => Promise<{ data: number; code: number }>
         onSuccess: EventHookOn<{ data: number; code: number }>
         onError: EventHookOn<any>
@@ -738,6 +742,8 @@ describe('useRequest', () => {
         isLoading: boolean
         isFinished: boolean
         isSuccess: boolean
+        successCount: number
+        clearSuccessCount: () => void
         execute: () => Promise<{ data: number }>
         onSuccess: EventHookOn<{ data: number }>
         onError: EventHookOn<any>
@@ -771,6 +777,8 @@ describe('useRequest', () => {
         isLoading: boolean
         isFinished: boolean
         isSuccess: boolean
+        successCount: number
+        clearSuccessCount: () => void
         execute: (a: number) => Promise<{ data: number; code: number }>
         onSuccess: EventHookOn<{ data: number; code: number }>
         onError: EventHookOn<any>
