@@ -73,11 +73,18 @@ export function useRequest<
   /** 是否已请求成功 */
   const isSuccess = ref(false);
 
-  let executeCounter = 0;
+  /** 请求成功次数 */
+  const successCount = ref(0);
+  /** 清除请求成功次数 */
+  function clearSuccessCount() {
+    successCount.value = 0;
+  }
+
+  let executeCount = 0;
 
   /** 发起请求 */
   async function execute(...args: Args): Promise<Response> {
-    const currentExecuteCounter = ++executeCounter;
+    const currentExecuteCount = ++executeCount;
 
     // 标记发起过请求
     isExecuted.value = true;
@@ -96,7 +103,7 @@ export function useRequest<
     try {
       const res = await userExecute(...args);
 
-      if (currentExecuteCounter !== executeCounter)
+      if (currentExecuteCount !== executeCount)
         return res;
 
       response.value = res;
@@ -105,12 +112,13 @@ export function useRequest<
       isLoading.value = false;
       isFinished.value = true;
       isSuccess.value = true;
+      successCount.value++;
       successEvent.trigger(res);
       finallyEvent.trigger();
       return res;
     }
     catch (e) {
-      if (currentExecuteCounter !== executeCounter)
+      if (currentExecuteCount !== executeCount)
         throw e;
 
       isLoading.value = false;
@@ -146,6 +154,12 @@ export function useRequest<
     /** 是否已请求成功 */
     isSuccess,
 
+    /** 请求成功次数 */
+    successCount,
+    /** 清除请求成功次数 */
+    clearSuccessCount,
+
+    /** 发起请求 */
     execute,
 
     /** 请求成功事件钩子 */
@@ -187,5 +201,5 @@ export function useRequestReactive<
   userExecute: UseRequestUserExecute<Response, Args>,
   options: UseRequestOptions = {},
 ) {
-  return useRequest(userExecute, options).reactive;
+  return useRequest<Response, Data, Args>(userExecute, options).reactive;
 }

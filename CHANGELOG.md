@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/use] 方法 `useRequest` 新增 `successCount` 和 `clearSuccessCount` 返回值, 统计请求成功次数
 
 ## [v1.6.3]
   - 📅 2023-11-22
