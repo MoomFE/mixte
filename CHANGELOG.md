@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.6.4]
+  - 📅 2023-11-30
   - 🌟 [@mixte/use] 方法 `useRequest` 新增 `successCount` 和 `clearSuccessCount` 返回值, 统计请求成功次数
   - 💄 [@mixte/use] 优化 `useRequestReactive` 方法类型定义
 
@@ -176,7 +179,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.6.3...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.6.4...HEAD
+[v1.6.4]: https://github.com/MoomFE/mixte/releases/tag/v1.6.4
 [v1.6.3]: https://github.com/MoomFE/mixte/releases/tag/v1.6.3
 [v1.6.2]: https://github.com/MoomFE/mixte/releases/tag/v1.6.2
 [v1.6.1]: https://github.com/MoomFE/mixte/releases/tag/v1.6.1
