@@ -8,6 +8,9 @@
     "strict": true,
     "strictNullChecks": true,
     "resolveJsonModule": true,
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
     "skipLibCheck": true,
     "allowJs": true,
     "types": [
