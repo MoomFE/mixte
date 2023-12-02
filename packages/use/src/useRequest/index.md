@@ -105,7 +105,6 @@ async function submit() {
 
 往下看, 下面就有解决方案
 :::
-:::
 
 #### 使用响应式代理式的返回值
 
@@ -192,6 +191,35 @@ const loginInfo = login({
 ### 类型
 
 ```ts
+interface UseRequestOptions {
+  /**
+   * 初始数据
+   *  - 传递的数据会使用 `toValue` 进行转换
+   * @default undefined
+   */
+  initialData?: MaybeRefOrGetter<any>
+  /**
+   * 是否立即发起请求
+   * @default false
+   */
+  immediate?: boolean
+  /**
+   * 是否在发起请求时重置数据
+   * @default true
+   */
+  resetOnExecute?: MaybeRefOrGetter<boolean>
+  /**
+   * 是否使用 shallowRef 代替 ref 包裹 data 数据
+   * @default false
+   */
+  shallow?: boolean
+}
+
+/**
+ * 用户传入的发起请求的函数
+ */
+type UseRequestUserExecute<Response, Args extends any[]> = (...args: Args) => Promisable<Response>;
+
 /**
  * @param userExecute 用户传入的发起请求的函数
  * @param options 配置项
@@ -202,7 +230,7 @@ function useRequest<
   Args extends any[] = any[],
 >(
   userExecute: UseRequestUserExecute<Response, Args>,
-  options?: UseRequestOptions<Data>
+  options?: UseRequestOptions
 ): {
   /** 服务器响应 */
   response: ShallowRef<Response | undefined>
@@ -219,6 +247,11 @@ function useRequest<
   isFinished: Ref<boolean>
   /** 是否已请求成功 */
   isSuccess: Ref<boolean>
+
+  /** 请求成功次数 */
+  successCount: Ref<number>
+  /** 清除请求成功次数 */
+  clearSuccessCount: () => void
 
   /** 发起请求 */
   execute: (...args: Args) => Promise<Response>
@@ -239,40 +272,14 @@ function useRequest<
     isLoading: boolean
     isFinished: boolean
     isSuccess: boolean
+    successCount: number
+    clearSuccessCount: () => void
     execute: (...args: Args) => Promise<Response>
     onSuccess: EventHookOn<Response>
     onError: EventHookOn<any>
     onFinally: EventHookOn<null>
   }
 };
-
-interface UseRequestOptions<T = undefined> {
-  /**
-   * 初始数据
-   * @default undefined
-   */
-  initialData?: MaybeRefOrGetter<T>
-  /**
-   * 是否立即发起请求
-   * @default false
-   */
-  immediate?: boolean
-  /**
-   * 是否在发起请求时重置数据
-   * @default true
-   */
-  resetOnExecute?: boolean
-  /**
-   * 是否使用 shallowRef 代替 ref 包裹 data 数据
-   * @default false
-   */
-  shallow?: boolean
-}
-
-/**
- * 用户传入的发起请求的函数
- */
-type UseRequestUserExecute<Response, Args extends any[]> = (...args: Args) => Promisable<Response>;
 ```
 
 
