@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/use] 方法 `useRequest` 的配置项 `resetOnExecute` 支持传入 ref 值
 
 ## [v1.6.5]
   - 📅 2023-11-30

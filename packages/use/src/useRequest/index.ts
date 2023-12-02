@@ -1,4 +1,5 @@
 import type { Promisable } from 'type-fest';
+import type { MaybeRefOrGetter } from 'vue-demi';
 import { createEventHook, toReactive, toValue } from '@vueuse/core';
 import { computed, isVue2, ref, shallowRef } from 'vue-demi';
 
@@ -18,7 +19,7 @@ export interface UseRequestOptions {
    * 是否在发起请求时重置数据
    * @default true
    */
-  resetOnExecute?: boolean
+  resetOnExecute?: MaybeRefOrGetter<boolean>
   /**
    * 是否使用 shallowRef 代替 ref 包裹 data 数据
    * @default false
@@ -47,7 +48,6 @@ export function useRequest<
   const {
     initialData,
     immediate = false,
-    resetOnExecute = true,
     shallow = false,
   } = options;
 
@@ -94,7 +94,7 @@ export function useRequest<
     isFinished.value = false;
     isSuccess.value = false;
     // 重置变量
-    if (resetOnExecute) {
+    if (toValue(options.resetOnExecute) ?? true) {
       response.value = undefined;
       data.value = toValue(initialData);
       error.value = undefined;

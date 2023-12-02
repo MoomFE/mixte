@@ -617,6 +617,158 @@ describe('useRequest', () => {
     }
   });
 
+  test('支持传入 resetOnExecute 选项, 选项支持传入 MaybeRefOrGetter 类型对象', async () => {
+    // Ref
+    {
+      let throwError: boolean = false;
+      let dataIndex = 1292;
+
+      const data = useRequest(async () => {
+        await delay(100);
+        if (throwError) throw new Error('???');
+        return {
+          data: ++dataIndex,
+        };
+      }, {
+        resetOnExecute: ref(false),
+      });
+
+      // 初始数据
+      expect(data.response.value).toBeUndefined();
+      expect(data.data.value).toBeUndefined();
+      expect(data.error.value).toBeUndefined();
+
+      // 进行请求成功情况的测试
+
+      const result = data.execute();
+
+      expect(data.response.value).toBeUndefined();
+      expect(data.data.value).toBeUndefined();
+      expect(data.error.value).toBeUndefined();
+
+      await result;
+
+      expect(data.response.value).toStrictEqual({ data: 1293 });
+      expect(data.data.value).toBe(1293);
+      expect(data.error.value).toBeUndefined();
+
+      data.execute();
+
+      expect(data.response.value).toStrictEqual({ data: 1293 });
+      expect(data.data.value).toBe(1293);
+      expect(data.error.value).toBeUndefined();
+
+      // 进行请求失败情况的测试
+
+      await delay(100);
+      throwError = true;
+      const result3 = data.execute();
+
+      expect(data.response.value).toStrictEqual({ data: 1294 });
+      expect(data.data.value).toBe(1294);
+      expect(data.error.value).toBeUndefined();
+
+      try {
+        await result3;
+      }
+      catch (error: any) {
+        expect(error).toStrictEqual(new Error('???'));
+      }
+
+      expect(data.response.value).toStrictEqual({ data: 1294 });
+      expect(data.data.value).toBe(1294);
+      expect(data.error.value).toStrictEqual(new Error('???'));
+
+      const result4 = data.execute();
+
+      expect(data.response.value).toStrictEqual({ data: 1294 });
+      expect(data.data.value).toBe(1294);
+      expect(data.error.value).toStrictEqual(new Error('???'));
+
+      try {
+        await result4;
+      }
+      catch (error: any) {
+        expect(error).toStrictEqual(new Error('???'));
+      }
+    }
+
+    // Getter
+    {
+      let throwError: boolean = false;
+      let dataIndex = 1292;
+
+      const data = useRequest(async () => {
+        await delay(100);
+        if (throwError) throw new Error('???');
+        return {
+          data: ++dataIndex,
+        };
+      }, {
+        resetOnExecute: () => false,
+      });
+
+      // 初始数据
+      expect(data.response.value).toBeUndefined();
+      expect(data.data.value).toBeUndefined();
+      expect(data.error.value).toBeUndefined();
+
+      // 进行请求成功情况的测试
+
+      const result = data.execute();
+
+      expect(data.response.value).toBeUndefined();
+      expect(data.data.value).toBeUndefined();
+      expect(data.error.value).toBeUndefined();
+
+      await result;
+
+      expect(data.response.value).toStrictEqual({ data: 1293 });
+      expect(data.data.value).toBe(1293);
+      expect(data.error.value).toBeUndefined();
+
+      data.execute();
+
+      expect(data.response.value).toStrictEqual({ data: 1293 });
+      expect(data.data.value).toBe(1293);
+      expect(data.error.value).toBeUndefined();
+
+      // 进行请求失败情况的测试
+
+      await delay(100);
+      throwError = true;
+      const result3 = data.execute();
+
+      expect(data.response.value).toStrictEqual({ data: 1294 });
+      expect(data.data.value).toBe(1294);
+      expect(data.error.value).toBeUndefined();
+
+      try {
+        await result3;
+      }
+      catch (error: any) {
+        expect(error).toStrictEqual(new Error('???'));
+      }
+
+      expect(data.response.value).toStrictEqual({ data: 1294 });
+      expect(data.data.value).toBe(1294);
+      expect(data.error.value).toStrictEqual(new Error('???'));
+
+      const result4 = data.execute();
+
+      expect(data.response.value).toStrictEqual({ data: 1294 });
+      expect(data.data.value).toBe(1294);
+      expect(data.error.value).toStrictEqual(new Error('???'));
+
+      try {
+        await result4;
+      }
+      catch (error: any) {
+        expect(error).toStrictEqual(new Error('???'));
+      }
+    }
+  });
+
   test('支持传入 shallow: true 选项, 用于控制是否使用 shallowRef 代替 ref 包裹 data 数据', async () => {
     const data = useRequest(() => ({ data: { a: { b: 2 } } }), { immediate: true });
     const data2 = useRequest(() => ({ data: { a: { b: 2 } } }), { immediate: true, shallow: true });
