@@ -7,7 +7,7 @@ import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { pascalCase } from 'change-case';
-import { components, mixte, use } from '../../meta/docs.json';
+import { components, mixte, snippets, use } from '../../meta/docs.json';
 import { alias } from '../../meta/alias';
 import { version } from '../../package.json';
 import { MarkdownTransform } from './plugins/markdownTransform';
@@ -26,6 +26,7 @@ export default defineConfig({
     'mixte/src/:fn/index.md': 'mixte/:fn.md',
     'use/src/:fn/index.md': 'mixte/use/:fn.md',
     'components/src/:fn/index.md': 'mixte/components/:fn.md',
+    'snippets/src/:fn/index.md': 'mixte/snippets/:fn.md',
   },
 
   lastUpdated: true,
@@ -43,6 +44,7 @@ export default defineConfig({
           { text: 'mixte', link: `/mixte/${mixte[0].fn}`, activeMatch: '^/mixte/(?!use)' },
           { text: '@mixte/use', link: `/mixte/use/${use[0].fn}`, activeMatch: '^/mixte/use/' },
           { text: '@mixte/components', link: `/mixte/components/${components[0].fn}`, activeMatch: '^/mixte/components/' },
+          { text: '@mixte/snippets', link: `/mixte/snippets/${snippets[0].fn}`, activeMatch: '^/mixte/snippets/' },
         ],
       },
       {
@@ -64,6 +66,10 @@ export default defineConfig({
         {
           text: '@mixte/components',
           items: components.map(info => ({ text: `${pascalCase(info.fn)}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/components/${info.fn}` })),
+        },
+        {
+          text: '@mixte/snippets',
+          items: snippets.map(info => ({ text: `${info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/snippets/${info.fn}` })),
         },
       ],
     },
@@ -91,11 +97,11 @@ export default defineConfig({
 
   vite: {
     resolve: {
-      alias: {
+      alias: [
         ...alias,
-        '@': resolve(__dirname, '../'),
-        '@@': resolve(__dirname, '../../'),
-      },
+        { find: '@', replacement: resolve(__dirname, '../') },
+        { find: '@@', replacement: resolve(__dirname, '../../') },
+      ],
     },
     plugins: [
       MarkdownTransform(),
