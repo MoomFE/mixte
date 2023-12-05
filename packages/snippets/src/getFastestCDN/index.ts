@@ -3,8 +3,6 @@ const jsdelivr = 'https://cdn.jsdelivr.net/npm'; // https://www.jsdelivr.com/
 const esmsh = 'https://esm.sh'; // https://esm.sh/
 const cdnjs = 'https://cdnjs.cloudflare.com/ajax/libs'; // https://cdnjs.com/
 const bootcdn = 'https://cdn.bootcdn.net/ajax/libs'; // https://www.bootcdn.cn/
-const baomitu = 'https://lib.baomitu.com'; // https://cdn.baomitu.com/
-const bytedance = 'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M'; // https://cdn.bytedance.com/
 const staticfile = 'https://cdn.staticfile.org'; // https://www.staticfile.org/
 
 export interface GetFastestCDNOptions {
@@ -12,41 +10,53 @@ export interface GetFastestCDNOptions {
   file?: string
 }
 
-export function getFastestCDN(pkg: string, options?: GetFastestCDNOptions) {
+export async function getFastestCDN(pkg: string, options?: GetFastestCDNOptions) {
   const { version, file } = options ?? {};
-  const list: Record<string, string>[] = [];
+  const list: [string, string][] = [];
 
   const pkgVersion = `${pkg}${version ? `@${version}` : ''}`;
-  const finalFile = file ?? 'package.json';
+  const finalFile = file || '/package.json';
 
   const unpkgPkgRoot = `${unpkg}/${pkgVersion}`;
   const jsdelivrPkgRoot = `${jsdelivr}/${pkgVersion}`;
   const esmshPkgRoot = `${esmsh}/${pkgVersion}`;
 
   list.push(
-    { [unpkgPkgRoot]: `${unpkgPkgRoot}/${finalFile}?meta` },
-    { [jsdelivrPkgRoot]: `${jsdelivrPkgRoot}/${finalFile}` },
-    { [esmshPkgRoot]: `${esmshPkgRoot}/${finalFile}` },
+    [unpkgPkgRoot, `${unpkgPkgRoot}${finalFile}`],
+    [jsdelivrPkgRoot, `${jsdelivrPkgRoot}${finalFile}`],
+    [esmshPkgRoot, `${esmshPkgRoot}${finalFile}`],
   );
 
-  if (version && file) {
+  if (version) {
     const pkgVersion = `${pkg}/${version}`;
 
     const cdnjsPkgRoot = `${cdnjs}/${pkgVersion}`;
     const bootcdnPkgRoot = `${bootcdn}/${pkgVersion}`;
-    const baomituPkgRoot = `${baomitu}/${pkgVersion}`;
-    const bytedancePkgRoot = `${bytedance}/${pkgVersion}`;
     const staticfilePkgRoot = `${staticfile}/${pkgVersion}`;
 
     list.push(
-      { [cdnjsPkgRoot]: `${cdnjsPkgRoot}/${file}` },
-      { [bootcdnPkgRoot]: `${bootcdnPkgRoot}/${file}` },
-      { [baomituPkgRoot]: `${baomituPkgRoot}/${file}` },
-      { [bytedancePkgRoot]: `${bytedancePkgRoot}/${file}` },
-      { [staticfilePkgRoot]: `${staticfilePkgRoot}/${file}` },
+      [cdnjsPkgRoot, `${cdnjsPkgRoot}${file || ''}`],
+      [bootcdnPkgRoot, `${bootcdnPkgRoot}${file || ''}`],
+      [staticfilePkgRoot, `${staticfilePkgRoot}${file || ''}`],
     );
   }
 
-  // eslint-disable-next-line no-console
-  console.log(list);
+  const controller = new AbortController();
+  const fetchOptions = {
+    method: 'get',
+    signal: controller.signal,
+  };
+
+  const fastestCDN = await Promise.any(
+    list.map(async ([CND, url]) => {
+      return fetch(url, fetchOptions).then((res) => {
+        if (res.ok) return CND;
+        throw new Error(CND);
+      });
+    }),
+  );
+
+  controller.abort();
+
+  return fastestCDN;
 }
