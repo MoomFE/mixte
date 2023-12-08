@@ -6,10 +6,17 @@ const bootcdn = 'https://cdn.bootcdn.net/ajax/libs'; // https://www.bootcdn.cn/
 const staticfile = 'https://cdn.staticfile.org'; // https://www.staticfile.org/
 
 export interface GetFastestCDNOptions {
+  /** 类库版本号 */
   version?: string
+  /** 用于检测用的文件地址 */
   file?: string
 }
 
+/**
+ * 获取在当前网络环境, 最快的 CDN 服务下的指定类库的根目录地址
+ * @param pkg 类库名称
+ * @param options 可选项
+ */
 export async function getFastestCDN(pkg: string, options?: GetFastestCDNOptions) {
   const { version, file } = options ?? {};
   const list: [string, string][] = [];
