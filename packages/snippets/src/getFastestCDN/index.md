@@ -1,5 +1,5 @@
 ---
-outline: [1,3]
+outline: [1,4]
 ---
 
 获取在当前网络环境, 最快的 CDN 服务下的指定类库的根目录地址
@@ -22,13 +22,65 @@ outline: [1,3]
   > - 访问类库必须指定版本号
 :::
 
-::: info 可选项说明 ( `version` 和 `file` )
-  当未提供 `version` 时, 将会同时使用 [unpkg], [jsdelivr], [esm.sh] 的 CDN 服务.<br>
-  当提供了 `version` 时, 将会同时使用 [unpkg], [jsdelivr], [esm.sh], [cdnjs], [bootcdn], [staticfile] 的 CDN 服务.
+::: info 可选项说明
+  - version:
 
-  当未提供 `file` 时, [unpkg], [jsdelivr], [esm.sh] 将会默认请求 `/package.json` 文件.<br>
-  而 [cdnjs], [bootcdn], [staticfile] 将会请求类库根目录.
+  > 当未提供 `version` 时, 将仅使用 [unpkg], [jsdelivr], [esm.sh] 的 CDN 服务<br>
+  > 当提供了 `version` 时, 将会同时使用全部 CDN 服务
+
+  - file:
+
+  > 当未提供 `file` 时, [unpkg], [jsdelivr], [esm.sh] 将会默认请求 `/package.json` 文件<br>
+  > 而 [cdnjs], [bootcdn], [staticfile] 将会请求类库根目录
 :::
+
+### 示例
+
+<br>
+
+#### 和 [`shiki`](https://github.com/shikijs/shiki) 一起使用, 加载主题和语言
+
+
+```ts {4,5,6,7,9}
+import * as shiki from 'shiki';
+import { getFastestCDN } from '@mixte/snippets/getFastestCDN';
+
+const fastestCDN = await getFastestCDN('shiki', {
+  version: '0.14.5',
+  file: '/languages/html.tmLanguage.json'
+});
+
+shiki.setCDN(`${fastestCDN}/`);
+
+shiki.getHighlighter({
+  langs: ['ts', 'vue'],
+  theme: 'material-theme-darker',
+}).then((highlighter) => {
+  // ...
+});
+```
+
+#### 和 [`@monaco-editor/loader`](https://github.com/suren-atoyan/monaco-loader) 一起使用
+
+```ts {4,5,6,7,,11}
+import loader from '@monaco-editor/loader';
+import { getFastestCDN } from '@mixte/snippets/getFastestCDN';
+
+const fastestCDN = await getFastestCDN('monaco-editor', {
+  version: '0.43.0',
+  file: '/min/vs/basic-languages/yaml/yaml.js'
+});
+
+loader.config({
+  paths: {
+    vs: `${fastestCDN}/min/vs`,
+  },
+});
+
+loader.init().then((monaco) => {
+  // ...
+});
+```
 
 ### 类型
 
