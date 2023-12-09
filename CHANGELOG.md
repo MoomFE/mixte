@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/snippets] 新增 `getFastestCDN` 方法
   - 💄 [@mixte/use] 方法 `useRequest` 的配置项 `resetOnExecute` 支持传入 ref 值
 
 ## [v1.6.5]
