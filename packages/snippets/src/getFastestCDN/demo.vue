@@ -77,8 +77,3 @@
     `),
   );
 </script>
-
-<!-- , {
-  version: '${version.value}',
-  file: '${file.value}'
-} -->
