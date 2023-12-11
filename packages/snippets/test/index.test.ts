@@ -24,9 +24,9 @@ describe('@mixte/snippets', async () => {
       }),
     );
 
-    result.forEach((item) => {
-      expect(item.status).toBe('fulfilled');
+    for (const item of result) {
+      expect(item.status).toBe('fulfilled'); // @ts-expect-error
       expect(item.value).toBe(true);
-    });
+    }
   });
 });

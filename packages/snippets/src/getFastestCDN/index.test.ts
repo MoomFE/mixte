@@ -10,36 +10,36 @@ describe('getFastestCDN', () => {
   });
 
   test('支持传入 version 参数', async () => {
-    const url = await getFastestCDN('shiki', {
-      version: '0.14.5',
+    const url = await getFastestCDN('monaco-editor', {
+      version: '0.43.0',
     });
 
     expect(url).toBeTypeOf('string');
-    expect(url).toMatch('/shiki');
-    expect(url).toMatch('0.14.5');
+    expect(url).toMatch('/monaco-editor');
+    expect(url).toMatch('0.43.0');
     expect(url[url.length - 1]).not.toBe('/');
   });
 
   test('支持传入 file 参数', async () => {
-    const url = await getFastestCDN('shiki', {
-      file: '/languages/html.tmLanguage.json',
+    const url = await getFastestCDN('monaco-editor', {
+      file: '/min/vs/basic-languages/yaml/yaml.js',
     });
 
     expect(url).toBeTypeOf('string');
-    expect(url).toMatch('/shiki');
+    expect(url).toMatch('/monaco-editor');
     expect(url).not.toMatch('html.tmLanguage.json');
     expect(url[url.length - 1]).not.toBe('/');
   });
 
   test('支持传入 version 和 file 参数', async () => {
-    const url = await getFastestCDN('shiki', {
-      version: '0.14.5',
-      file: '/languages/html.tmLanguage.json',
+    const url = await getFastestCDN('monaco-editor', {
+      version: '0.43.0',
+      file: '/min/vs/basic-languages/yaml/yaml.js',
     });
 
     expect(url).toBeTypeOf('string');
-    expect(url).toMatch('/shiki');
-    expect(url).toMatch('0.14.5');
+    expect(url).toMatch('/monaco-editor');
+    expect(url).toMatch('0.43.0');
     expect(url).not.toMatch('html.tmLanguage.json');
     expect(url[url.length - 1]).not.toBe('/');
   });
@@ -49,9 +49,9 @@ describe('getFastestCDN', () => {
       // 错误的类库名称
       getFastestCDN('zhang-wei-666'),
       // 错误的 version 参数
-      getFastestCDN('shiki', { version: '0.14.5678' }),
+      getFastestCDN('monaco-editor', { version: '0.14.5678' }),
       // 错误的 file 参数
-      getFastestCDN('shiki', { file: '/zhang-wei-666.json' }),
+      getFastestCDN('monaco-editor', { file: '/zhang-wei-666.json' }),
     ]);
 
     result.forEach((item) => {
@@ -59,4 +59,4 @@ describe('getFastestCDN', () => {
       expect(item.reason).toBeInstanceOf(Error);
     });
   }, Number.POSITIVE_INFINITY);
-});
+}, Number.POSITIVE_INFINITY);
