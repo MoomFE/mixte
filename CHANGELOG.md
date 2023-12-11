@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.7.0-beta.0]
+  - 📅 2023-12-11
   - 🌟 [@mixte/snippets] 新增 `getFastestCDN` 方法
   - 💄 [@mixte/use] 方法 `useRequest` 的配置项 `resetOnExecute` 支持传入 ref 值
 
@@ -185,7 +188,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.6.5...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.7.0-beta.0...HEAD
+[v1.7.0-beta.0]: https://github.com/MoomFE/mixte/releases/tag/v1.7.0-beta.0
 [v1.6.5]: https://github.com/MoomFE/mixte/releases/tag/v1.6.5
 [v1.6.4]: https://github.com/MoomFE/mixte/releases/tag/v1.6.4
 [v1.6.3]: https://github.com/MoomFE/mixte/releases/tag/v1.6.3
