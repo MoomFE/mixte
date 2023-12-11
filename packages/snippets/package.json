@@ -13,16 +13,13 @@
     "url": "https://github.com/MoomFE/mixte/issues"
   },
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+    "./getFastestCDN": {
+      "types": "./dist/getFastestCDN.d.ts",
+      "import": "./dist/getFastestCDN.mjs",
+      "require": "./dist/getFastestCDN.cjs"
     },
     "./*": "./*"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
