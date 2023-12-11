@@ -17,5 +17,5 @@ export const testAlias: Alias[] = [
   { find: '@mixte/use/register', replacement: resolve(__dirname, '../packages/use/dist/register') },
   { find: '@mixte/use', replacement: resolve(__dirname, '../packages/use/dist/index') },
   { find: '@mixte/components', replacement: resolve(__dirname, '../packages/components/dist/index') },
-  { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/dist/$1/index') },
+  { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/dist/$1') },
 ];
