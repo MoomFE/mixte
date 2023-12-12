@@ -25,8 +25,8 @@
 
 <script lang="ts" setup>
   import * as shiki from 'shiki';
-  import axios from 'axios';
   import { devDependencies } from '@@/package.json';
+  import { getFastestCDN } from '@mixte/snippets/getFastestCDN';
 
   const highlighter = ref<shiki.Highlighter>();
 
@@ -47,13 +47,8 @@
     const unWatch = wheneverImmediate(showCode, async () => {
       nextTick(() => unWatch());
 
-      const shikiVersion = devDependencies.shiki.replace(/^\^/g, '');
-      const fastestCDN = await Promise.any([
-        `https://unpkg.com/shiki@${shikiVersion}`,
-        `https://cdn.jsdelivr.net/npm/shiki@${shikiVersion}`,
-      ].map((CDN) => {
-        return axios.get(`${CDN}/package.json`).then(() => CDN);
-      }));
+      const version = devDependencies.shiki.replace(/^\^/g, '');
+      const fastestCDN = await getFastestCDN('shiki', { version });
 
       shiki.setCDN(`${fastestCDN}/`);
       highlighter.value = await shiki.getHighlighter({

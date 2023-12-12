@@ -109,5 +109,12 @@
       "name": "自适应栅格",
       "hiddenH1": false
     }
+  ],
+  "snippets": [
+    {
+      "fn": "getFastestCDN",
+      "name": "",
+      "hiddenH1": false
+    }
   ]
 }

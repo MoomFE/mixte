@@ -164,6 +164,8 @@ importers:
 
   packages/mixte: {}
 
+  packages/snippets: {}
+
   packages/use:
     dependencies:
       '@vueuse/core':
