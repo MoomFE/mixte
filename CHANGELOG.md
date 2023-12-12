@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🐞 [@mixte/snippets] 修复无法使用 `@mixte/snippets/getFastestCDN` 导入的问题
 
 ## [v1.7.0-beta.0]
   - 📅 2023-12-11
