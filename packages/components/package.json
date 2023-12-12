@@ -30,8 +30,8 @@
   ],
   "dependencies": {
     "@mixte/use": "workspace:*",
-    "@vueuse/core": ">=10.6.1",
+    "@vueuse/core": "*",
     "mixte": "workspace:*",
-    "vue-demi": ">=0.14.6"
+    "vue-demi": "*"
   }
 }
