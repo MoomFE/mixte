@@ -4,6 +4,7 @@ export const packages = [
     input: 'packages/mixte/index.ts',
     outputDir: 'packages/mixte/dist',
   },
+
   // @mixte/use/register
   {
     input: 'packages/use/src/register.ts',
@@ -17,10 +18,18 @@ export const packages = [
     outputDir: 'packages/use/dist',
     external: ['mixte'],
   },
+
   // @mixte/components
   {
     input: 'packages/components/index.ts',
     outputDir: 'packages/components/dist',
     external: ['mixte'],
+  },
+
+  // @mixte/snippets/getFastestCDN
+  {
+    input: 'packages/snippets/src/getFastestCDN/index.ts',
+    outputDir: 'packages/snippets/dist',
+    outputFileName: 'getFastestCDN',
   },
 ];

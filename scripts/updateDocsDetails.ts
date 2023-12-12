@@ -10,6 +10,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
     mixte: [] as { fn: string; name: string; hiddenH1: boolean }[],
     use: [] as { fn: string; name: string; hiddenH1: boolean }[],
     components: [] as { fn: string; name: string; hiddenH1: boolean }[],
+    snippets: [] as { fn: string; name: string; hiddenH1: boolean }[],
   };
 
   const docsFile = await fg([`packages/(${Object.keys(docsDetails).join('|')})/src/*/index.md`], {

@@ -13,6 +13,7 @@
 
 | Package | Downloads |
 | ------- | --------- |
-| mixte | [![Downloads](https://img.shields.io/npm/dm/mixte.svg)](https://www.npmjs.com/package/mixte) |
-| @mixte/use | [![Downloads](https://img.shields.io/npm/dm/@mixte/use.svg)](https://www.npmjs.com/package/@mixte/use) |
-| @mixte/components | [![Downloads](https://img.shields.io/npm/dm/@mixte/components.svg)](https://www.npmjs.com/package/@mixte/components) |
+| [mixte](./packages/mixte) | [![Downloads](https://img.shields.io/npm/dm/mixte.svg)](https://www.npmjs.com/package/mixte) |
+| [@mixte/use](./packages/use) | [![Downloads](https://img.shields.io/npm/dm/@mixte/use.svg)](https://www.npmjs.com/package/@mixte/use) |
+| [@mixte/components](./packages/components) | [![Downloads](https://img.shields.io/npm/dm/@mixte/components.svg)](https://www.npmjs.com/package/@mixte/components) |
+| [@mixte/snippets](./packages/snippets) | [![Downloads](https://img.shields.io/npm/dm/@mixte/snippets.svg)](https://www.npmjs.com/package/@mixte/snippets) |
