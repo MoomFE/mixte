@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.7.0-beta.1]
+  - 📅 2023-12-12
   - 🐞 [@mixte/snippets] 修复无法使用 `@mixte/snippets/getFastestCDN` 导入的问题
 
 ## [v1.7.0-beta.0]
@@ -189,7 +192,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.7.0-beta.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.7.0-beta.1...HEAD
+[v1.7.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v1.7.0-beta.1
 [v1.7.0-beta.0]: https://github.com/MoomFE/mixte/releases/tag/v1.7.0-beta.0
 [v1.6.5]: https://github.com/MoomFE/mixte/releases/tag/v1.6.5
 [v1.6.4]: https://github.com/MoomFE/mixte/releases/tag/v1.6.4
