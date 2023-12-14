@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - [@mixte/use] 新增 `useDraggableDistance` 方法
 
 ## [v1.7.0-beta.0], [v1.7.0-beta.1] ~ [v1.7.0]
   - 📅 2023-12-12

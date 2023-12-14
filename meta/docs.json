@@ -83,6 +83,11 @@
       "hiddenH1": false
     },
     {
+      "fn": "useDraggableDistance",
+      "name": "",
+      "hiddenH1": false
+    },
+    {
       "fn": "useRequest",
       "name": "",
       "hiddenH1": false
