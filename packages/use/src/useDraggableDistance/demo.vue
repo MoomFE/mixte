@@ -30,12 +30,17 @@
 
   const { x, y, isDragging } = useDraggableDistance(targetRef);
 
-  const { floatingStyles } = useFloating(targetRef, floatingRef, {
+  const { floatingStyles, update: fromFloatingUpdate } = useFloating(targetRef, floatingRef, {
     whileElementsMounted: autoUpdate,
     middleware: [
       offset(6),
       shift({ crossAxis: true }),
     ],
+  });
+
+  wheneverEffectScope(() => !isDragging.value, () => {
+    const { pause } = useRafFn(() => fromFloatingUpdate());
+    useTimeoutFn(() => pause(), 150);
   });
 
   watch(isDragging, (isDragging) => {
