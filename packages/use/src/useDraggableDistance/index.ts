@@ -3,6 +3,10 @@ import { unrefElement, useDraggable, useMouse } from '@vueuse/core';
 import { watchImmediate, wheneverEffectScopeImmediate } from '@mixte/use';
 import type { MaybeRefOrGetter } from '@vueuse/core';
 
+/**
+ * 获取拖拽距离
+ * @param target - 要拖动的目标元素
+ */
 export function useDraggableDistance(target: MaybeRefOrGetter<HTMLElement | SVGElement | null | undefined>) {
   const { x, y } = useMouse();
   const { isDragging } = useDraggable(() => unrefElement(target));
