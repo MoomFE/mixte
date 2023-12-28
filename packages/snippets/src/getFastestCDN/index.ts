@@ -3,6 +3,7 @@ const jsdelivr = 'https://cdn.jsdelivr.net/npm'; // https://www.jsdelivr.com/
 const esmsh = 'https://esm.sh'; // https://esm.sh/
 const cdnjs = 'https://cdnjs.cloudflare.com/ajax/libs'; // https://cdnjs.com/
 const bootcdn = 'https://cdn.bootcdn.net/ajax/libs'; // https://www.bootcdn.cn/
+const baomitu = 'https://lib.baomitu.com'; // https://cdn.baomitu.com/
 const staticfile = 'https://cdn.staticfile.org'; // https://www.staticfile.org/
 
 export interface GetFastestCDNOptions {
@@ -39,11 +40,13 @@ export async function getFastestCDN(pkg: string, options?: GetFastestCDNOptions)
 
     const cdnjsPkgRoot = `${cdnjs}/${pkgVersion}`;
     const bootcdnPkgRoot = `${bootcdn}/${pkgVersion}`;
+    const baomituPkgRoot = `${baomitu}/${pkgVersion}`;
     const staticfilePkgRoot = `${staticfile}/${pkgVersion}`;
 
     list.push(
       [cdnjsPkgRoot, `${cdnjsPkgRoot}${file || ''}`],
       [bootcdnPkgRoot, `${bootcdnPkgRoot}${file || ''}`],
+      [baomituPkgRoot, `${baomituPkgRoot}${file || ''}`],
       [staticfilePkgRoot, `${staticfilePkgRoot}${file || ''}`],
     );
   }
