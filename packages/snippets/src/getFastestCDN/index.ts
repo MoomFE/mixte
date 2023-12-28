@@ -59,7 +59,13 @@ export async function getFastestCDN(pkg: string, options?: GetFastestCDNOptions)
 
   const fastestCDN = await Promise.any(
     list.map(async ([CND, url]) => {
-      return fetch(url, fetchOptions).then((res) => {
+      return fetch(url, fetchOptions).then(async (res) => {
+        // 这几个 CND 即使未找到资源, 也会返回 200 状态, 但是内容是 Not Found
+        if (CND.startsWith(bootcdn) || CND.startsWith(staticfile) || CND.startsWith(baomitu)) {
+          const text = await res.text();
+          if (text.includes('Not Found')) throw new Error(CND);
+        }
+
         if (res.ok) return CND;
         throw new Error(CND);
       });

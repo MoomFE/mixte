@@ -54,6 +54,9 @@ describe('getFastestCDN', () => {
       getFastestCDN('monaco-editor', { file: '/zhang-wei-666.json' }),
     ]);
 
+    // eslint-disable-next-line no-console
+    console.log(result);
+
     result.forEach((item) => {
       expect(item.status).toBe('rejected'); // @ts-expect-error
       expect(item.reason).toBeInstanceOf(Error);

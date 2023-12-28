@@ -1,6 +1,7 @@
 ## [Unreleased]
   - 🌟 [@mixte/use] 新增 `useDraggableDistance` 方法
   - 🌟 [@mixte/snippets] 为 `getFastestCDN` 方法新增360静态资源托管库 CDN
+  - 🐞 [@mixte/snippets] 修复 `getFastestCDN` 方法访问的某些 CDN 即使未找到资源, 也会返回 200 状态导致返回错误地址的问题
 
 ## [v1.7.0-beta.0], [v1.7.0-beta.1] ~ [v1.7.0]
   - 📅 2023-12-12
