@@ -64,6 +64,7 @@ export function MixteUseAutoImport(options?: MixteUseAutoImportOptions): Imports
       'useRequest',
       'useRequestReactive',
       'createNamedSharedComposable',
+      'useDraggableDistance',
     ],
   };
 }
