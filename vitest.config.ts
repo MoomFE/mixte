@@ -17,6 +17,7 @@ export default defineConfig(({ mode }) => {
       environment: 'jsdom',
       coverage: {
         provider: 'v8',
+        include: ['packages/*/src/*/index.ts'],
       },
     },
   };
