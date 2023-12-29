@@ -5,7 +5,7 @@ outline: [1,4]
 获取在当前网络环境, 最快的 CDN 服务下的指定类库的根目录地址
 
 ::: info CDN 服务
-  目前使用的全部 CDN 服务为:  [unpkg], [jsdelivr], [esm.sh], [cdnjs], [bootcdn], [staticfile]
+  目前使用的全部 CDN 服务为:  [unpkg], [jsdelivr], [esm.sh], [cdnjs], [bootcdn], [baomitu], [staticfile]
 
   这些 CDN 可以分为两类:
 
@@ -17,7 +17,7 @@ outline: [1,4]
 
   ---
 
-  > [cdnjs], [bootcdn], [staticfile]
+  > [cdnjs], [bootcdn], [baomitu], [staticfile]
   > - 存储着部分类库的文件及文件夹层级
   > - 访问类库必须指定版本号
 :::
@@ -31,7 +31,7 @@ outline: [1,4]
   - file:
 
   > 当未提供 `file` 时, [unpkg], [jsdelivr], [esm.sh] 将会默认请求 `/package.json` 文件<br>
-  > 而 [cdnjs], [bootcdn], [staticfile] 将会请求类库根目录
+  > 而 [cdnjs], [bootcdn], [baomitu], [staticfile] 将会请求类库根目录
 :::
 
 ### 示例
@@ -104,5 +104,6 @@ function getFastestCDN(pkg: string, options?: GetFastestCDNOptions): Promise<str
 [esm.sh]: https://esm.sh/
 [cdnjs]: https://cdnjs.com/
 [bootcdn]: https://www.bootcdn.cn/
+[baomitu]: https://cdn.baomitu.com/
 [staticfile]: https://www.staticfile.org/
 [npmjs]: https://www.npmjs.com/
