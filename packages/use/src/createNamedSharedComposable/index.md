@@ -27,6 +27,9 @@ console.log(await getSharedUserInfo('xxx/1', 'xxx', '1'));
 // CompB.vue
 //  - 复用第一次调用时的结果
 console.log(await getSharedUserInfo('xxx/1', 'xxx', '1'));
+
+// 如果你十分确定之前执行过, 也可以只传入命名不传参数
+// console.log(await getSharedUserInfo('xxx/1'))
 ```
 
 ### 类型

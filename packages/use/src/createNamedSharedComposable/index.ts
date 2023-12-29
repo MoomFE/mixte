@@ -28,6 +28,9 @@ import { tryOnScopeDispose } from '@vueuse/core';
  * // CompB.vue
  * //  - 复用第一次调用时的结果
  * console.log(await getSharedUserInfo('xxx/1', 'xxx', '1'));
+ *
+ * // 如果你十分确定之前执行过, 也可以只传入命名不传参数
+ * // console.log(await getSharedUserInfo('xxx/1'))
  */
 export function createNamedSharedComposable<Fn extends (...args: any[]) => any>(composable: Fn) {
   const cache: Record<string, {
