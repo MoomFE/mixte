@@ -15,7 +15,7 @@ describe('createNamedSharedComposable', () => {
     expect(fn).not.toBe(newFn);
 
     expect(fn(1, 2)).toEqual([1, 2]);
-    expect(newFn('name', 1, 2)).toEqual([1, 2]);
+    expect(newFn('name', 3, 4)).toEqual([3, 4]);
   });
 
   test('使用同样的 name 时, 多次调用, 返回首次调用的结果', () => {
@@ -26,10 +26,12 @@ describe('createNamedSharedComposable', () => {
     const obj2 = { a: 2 };
 
     expect(newFn('name', obj)).toBe(obj);
-    expect(newFn('name', obj2)).toBe(obj);
+    expect(newFn('name')).toBe(obj);
+    expect(newFn('name', obj)).toBe(obj);
     expect(newFn('name', obj2)).toBe(obj);
 
     expect(newFn('name2', obj2)).toBe(obj2);
+    expect(newFn('name2')).toBe(obj2);
     expect(newFn('name2', obj)).toBe(obj2);
     expect(newFn('name2', obj2)).toBe(obj2);
   });
@@ -97,5 +99,40 @@ describe('createNamedSharedComposable', () => {
     scope4.run(() => {
       expect(newFn('name', obj2)).toBe(obj2);
     });
+  });
+
+  test('使用返回的函数上的 clear 方法清除指定名称的缓存或全部缓存', () => {
+    const fn = (obj?: any) => obj;
+    const newFn = createNamedSharedComposable(fn);
+
+    const obj = { a: 1 };
+    const obj2 = { a: 2 };
+    const obj3 = { a: 3 };
+    const obj4 = { a: 4 };
+
+    expect(newFn.clear).toBeInstanceOf(Function);
+    expect(newFn.clear('name')).toBeUndefined();
+    expect(newFn.clear()).toBeUndefined();
+
+    expect(newFn('name1', obj)).toBe(obj);
+    expect(newFn('name2', obj2)).toBe(obj2);
+
+    // clear('name1') 会清除 name1 的缓存, 但不会影响 name2 的缓存
+    newFn.clear('name1');
+
+    expect(newFn('name1', obj3)).toBe(obj3);
+    expect(newFn('name2', obj4)).toBe(obj2);
+
+    // clear('name2') 会清除 name2 的缓存, 但不会影响 name1 的缓存
+    newFn.clear('name2');
+
+    expect(newFn('name1', obj)).toBe(obj3);
+    expect(newFn('name2', obj4)).toBe(obj4);
+
+    // clear() 会清除所有缓存
+    newFn.clear();
+
+    expect(newFn('name1', obj)).toBe(obj);
+    expect(newFn('name2', obj2)).toBe(obj2);
   });
 });

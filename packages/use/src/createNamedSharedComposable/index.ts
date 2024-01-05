@@ -22,15 +22,17 @@ import { tryOnScopeDispose } from '@vueuse/core';
  * const getSharedUserInfo = createNamedSharedComposable(getUserInfo);
  *
  * // CompA.vue
- * //  - 在这里, 前面的参数是命名, 后面的参数会全部传递给 getUserInfo 方法
- * console.log(await getSharedUserInfo('xxx/1', 'xxx', '1'));
+ * //  - 第一个参数是命名, 后面的参数会全部传递给 getUserInfo 方法并执行
+ * console.log(getSharedUserInfo('xxx/1', 'xxx', '1'));
  *
  * // CompB.vue
- * //  - 复用第一次调用时的结果
- * console.log(await getSharedUserInfo('xxx/1', 'xxx', '1'));
+ * //  - 相同的命名, 会复用第一次调用时的缓存
+ * console.log(getSharedUserInfo('xxx/1', 'xxx', '1'));
+ * //  - 使用不同的命名, 会使用新命名创建缓存并执行 getUserInfo 方法
+ * console.log(getSharedUserInfo('xxx/2', 'xxx', '2'));
  *
  * // 如果你十分确定之前执行过, 也可以只传入命名不传参数
- * // console.log(await getSharedUserInfo('xxx/1'))
+ * // console.log(getSharedUserInfo('xxx/1'))
  */
 export function createNamedSharedComposable<Fn extends (...args: any[]) => any>(composable: Fn) {
   const cache: Record<string, {
@@ -39,26 +41,38 @@ export function createNamedSharedComposable<Fn extends (...args: any[]) => any>(
     scope?: EffectScope
   }> = {};
 
-  return function (name: string, ...args: Parameters<Fn>): AsyncReturnType<Fn> {
-    const result = cache[name] || (cache[name] = {
-      subscribers: 0,
-      state: undefined,
-      scope: undefined,
-    });
+  function clear(name?: string) {
+    const names = ([] as string[]).concat(name ?? Object.keys(cache));
 
-    result.subscribers++;
+    for (const name of names) {
+      cache[name]?.scope?.stop();
+      delete cache[name];
+    }
+  }
 
-    if (!result.scope)
-      result.state = (result.scope = effectScope()).run(() => composable(...args));
+  return Object.assign(
+    (name: string, ...args: Parameters<Fn>): AsyncReturnType<Fn> => {
+      const result = cache[name] || (cache[name] = {
+        subscribers: 0,
+        state: undefined,
+        scope: undefined,
+      });
 
-    tryOnScopeDispose(() => {
-      result.subscribers--;
-      if (result.scope && result.subscribers <= 0) {
-        result.scope.stop();
-        delete cache[name];
-      }
-    });
+      result.subscribers++;
 
-    return result.state!;
-  };
+      if (!result.scope)
+        result.state = (result.scope = effectScope()).run(() => composable(...args));
+
+      tryOnScopeDispose(() => {
+        result.subscribers--;
+        if (result.scope && result.subscribers <= 0) {
+          result.scope.stop();
+          delete cache[name];
+        }
+      });
+
+      return result.state!;
+    },
+    { clear },
+  );
 }
