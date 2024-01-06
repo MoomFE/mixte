@@ -1,4 +1,4 @@
-## `watchImmediate`
+## `watchImmediate` {#watchImmediate}
 
 immediate 默认为 true 的 watch 方法
 
@@ -40,7 +40,7 @@ function watchImmediate<T extends object>(source: T, cb: WatchCallback<T, true>,
 ```
 
 
-## `watchDeep`
+## `watchDeep` {#watchDeep}
 
 deep 默认为 true 的 watch 方法
 
@@ -82,7 +82,7 @@ export function watchDeep<T extends object, Immediate extends Readonly<boolean> 
 ```
 
 
-## `watchImmediateDeep`
+## `watchImmediateDeep` {#watchImmediateDeep}
 
 immediate 和 deep 都为 true 的 watch 方法
 

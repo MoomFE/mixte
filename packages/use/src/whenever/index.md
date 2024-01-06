@@ -1,4 +1,4 @@
-## `whenever`
+## `whenever` {#whenever}
 
 监听值是 `truthy` 时执行回调函数, 是直接导出 `@vueuse/core` 的 [whenever](https://vueuse.org/shared/whenever)
 
@@ -39,7 +39,7 @@ function whenever<T>(source: WatchSource<T | false | null | undefined>, cb: Watc
 ```
 
 
-## `wheneverImmediate`
+## `wheneverImmediate` {#wheneverImmediate}
 
 immediate 默认为 true 的 whenever 方法
 
@@ -64,7 +64,7 @@ function wheneverImmediate<T>(source: WatchSource<T | false | null | undefined>,
 ```
 
 
-## `wheneverDeep`
+## `wheneverDeep` {#wheneverDeep}
 
 deep 默认为 true 的 whenever 方法
 
@@ -89,7 +89,7 @@ function wheneverDeep<T>(source: WatchSource<T | false | null | undefined>, cb: 
 ```
 
 
-## `wheneverImmediateDeep`
+## `wheneverImmediateDeep` {#wheneverImmediateDeep}
 
 immediate 和 deep 默认为 true 的 whenever 方法
 

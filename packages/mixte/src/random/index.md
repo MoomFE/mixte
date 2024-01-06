@@ -1,7 +1,7 @@
 - 各种随机函数
 
 
-## `randomNatural`
+## `randomNatural` {#randomNatural}
 
 在传入的两个自然数之间随机生成一个自然数
 
@@ -24,7 +24,7 @@ function randomNatural(from: number, to: number): number;
 ```
 
 
-## `random`
+## `random` {#random}
 
 在传入的两个数字之间随机生成一个数字
 
@@ -64,7 +64,7 @@ function random(): number;
 ```
 
 
-## `randomLowercaseLetter`
+## `randomLowercaseLetter` {#randomLowercaseLetter}
 
 随机一个小写英文字母
 
@@ -83,7 +83,7 @@ function randomLowercaseLetter(): string;
 ```
 
 
-## `randomUppercaseLetter`
+## `randomUppercaseLetter` {#randomUppercaseLetter}
 
 随机一个大写英文字母
 
@@ -102,7 +102,7 @@ function randomUppercaseLetter(): string;
 ```
 
 
-## `randomLetter`
+## `randomLetter` {#randomLetter}
 
 随机一个英文字母
 
@@ -126,7 +126,7 @@ function randomLetter(uppercase?: boolean): string;
 ```
 
 
-## `randomString`
+## `randomString` {#randomString}
 
 生成一个随机的字符串
 
@@ -165,7 +165,7 @@ interface RandomStringOptions {
 ```
 
 
-## `randomBoolean`
+## `randomBoolean` {#randomBoolean}
 
 生成一个随机的 boolean 值
 

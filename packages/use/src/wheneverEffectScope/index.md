@@ -1,4 +1,4 @@
-## `wheneverEffectScope`
+## `wheneverEffectScope` {#wheneverEffectScope}
 
 - 监听传入值为 truthy 时, 创建一个 effect 作用域
   - 当传入值改变但依旧为 truthy 时, 会停止之前创建的 effect 作用域并创建一个新的 effect 作用域
@@ -37,7 +37,7 @@ function wheneverEffectScope<T>(source: WatchSource<T | false | null | undefined
 ```
 
 
-## `wheneverEffectScopeImmediate`
+## `wheneverEffectScopeImmediate` {#wheneverEffectScopeImmediate}
 
 immediate 为 true 的 wheneverEffectScope 方法
 
@@ -69,7 +69,7 @@ function wheneverEffectScopeImmediate<T>(source: WatchSource<T | false | null | 
 ```
 
 
-## `wheneverEffectScopeDeep`
+## `wheneverEffectScopeDeep` {#wheneverEffectScopeDeep}
 
 deep 为 true 的 wheneverEffectScope 方法
 
@@ -103,7 +103,7 @@ source.value.a = 2;
 function wheneverEffectScopeDeep<T>(source: WatchSource<T | false | null | undefined>, run: WatchCallback<T>, options?: Omit<WatchOptions, 'deep'>): WatchStopHandle;
 ```
 
-## `wheneverEffectScopeImmediateDeep`
+## `wheneverEffectScopeImmediateDeep` {#wheneverEffectScopeImmediateDeep}
 
 immediate 和 deep 为 true 的 wheneverEffectScope 方法
 

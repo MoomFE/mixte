@@ -2,7 +2,7 @@
 outline: [2,4]
 ---
 
-## `useRequest`
+## `useRequest` {#useRequest}
 
 发起请求的组合式方法
   - 旨在解决请求前中后的状态管理、响应数据存储及提供事件钩子
@@ -283,7 +283,7 @@ function useRequest<
 ```
 
 
-## `useRequestReactive`
+## `useRequestReactive` {#useRequestReactive}
 
 发起请求的组合式方法
   - 和 `useRequest` 方法一致, 只是返回响应式代理对象

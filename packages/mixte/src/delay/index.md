@@ -1,4 +1,4 @@
-## `delay` {#delay-fn}
+## `delay` {#delay}
 
 返回一个延迟指定时间的 Promise
 

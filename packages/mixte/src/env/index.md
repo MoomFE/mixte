@@ -1,4 +1,4 @@
-## `isBrowser`
+## `isBrowser` {#isBrowser}
 
 是否是浏览器环境
 
