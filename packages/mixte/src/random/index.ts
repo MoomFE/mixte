@@ -2,6 +2,8 @@ import { isBoolean } from 'mixte';
 
 /**
  * 在传入的两个自然数之间随机生成一个自然数
+ *
+ * @see https://mixte.moomfe.com/mixte/random#randomNatural
  * @param from 最小的自然数
  * @param to 最大的自然数
  * @example
@@ -16,6 +18,8 @@ export function randomNatural(from: number, to: number) {
 
 /**
  * 在传入的两个数字之间随机生成一个数字
+ *
+ * @see https://mixte.moomfe.com/mixte/random#random
  * @param from 第一个数字
  * @param to 第二个数字
  * @example
@@ -29,6 +33,8 @@ export function random(from: number, to: number): number;
  * 在 0 和传入数字之间随机生成一个数字
  *  - 当前传入了一个参数
  *  - 传入两个参数时, 在传入的两个数字之间随机生成一个数字
+ *
+ * @see https://mixte.moomfe.com/mixte/random#random
  * @param to 传入的数字
  * @example
  *
@@ -41,6 +47,8 @@ export function random(to: number): number;
  *  - 当前未传参数
  *  - 传入一个参数时, 在 0 和传入数字之间随机生成一个数字
  *  - 传入两个参数时, 在传入的两个数字之间随机生成一个数字
+ *
+ * @see https://mixte.moomfe.com/mixte/random#random
  * @example
  *
  * random(); // -> 0 ~ 10
@@ -68,6 +76,8 @@ export function random(...args: number[]) {
 
 /**
  * 随机一个小写英文字母
+ *
+ * @see https://mixte.moomfe.com/mixte/random#randomLowercaseLetter
  * @example
  *
  * randomLowercaseLetter(); // -> a ~ z
@@ -78,6 +88,8 @@ export function randomLowercaseLetter() {
 
 /**
  * 随机一个大写英文字母
+ *
+ * @see https://mixte.moomfe.com/mixte/random#randomUppercaseLetter
  * @example
  *
  * randomUppercaseLetter(); // -> A ~ Z
@@ -88,6 +100,8 @@ export function randomUppercaseLetter() {
 
 /**
  * 随机一个英文字母
+ *
+ * @see https://mixte.moomfe.com/mixte/random#randomLetter
  * @param uppercase 是否大写
  * @example
  *
@@ -119,6 +133,8 @@ interface RandomStringOptions {
 
 /**
  * 生成一个随机的字符串
+ *
+ * @see https://mixte.moomfe.com/mixte/random#randomString
  * @param length 字符串的长度 ( default: 12 )
  * @param options 生成字符串的选项
  * @example
@@ -155,6 +171,8 @@ export function randomString(length = 12, options: RandomStringOptions = {}) {
 
 /**
  * 生成一个随机的 boolean 值
+ *
+ * @see https://mixte.moomfe.com/mixte/random#randomBoolean
  * @example
  *
  * randomBoolean(); // -> true or false

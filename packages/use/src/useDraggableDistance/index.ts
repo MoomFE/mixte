@@ -5,6 +5,8 @@ import type { MaybeRefOrGetter } from '@vueuse/core';
 
 /**
  * 获取拖拽距离
+ *
+ * @see https://mixte.moomfe.com/mixte/use/useDraggableDistance
  * @param target - 要拖动的目标元素
  */
 export function useDraggableDistance(target: MaybeRefOrGetter<HTMLElement | SVGElement | null | undefined>) {

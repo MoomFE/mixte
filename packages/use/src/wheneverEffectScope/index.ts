@@ -5,6 +5,8 @@ import { effectScope, watch } from 'vue-demi';
  * 监听传入值为 truthy 时, 创建一个 effect 作用域
  *  - 当传入值改变但依旧为 truthy 时, 会停止之前创建的 effect 作用域并创建一个新的 effect 作用域
  *  - 当值变为 falsy 时, 将会停止之前创建的 effect 作用域
+ *
+ * @see https://mixte.moomfe.com/mixte/use/wheneverEffectScope#wheneverEffectScope
  * @param source 侦听器的源, 和 watch 一致
  * @param run 当 source 为 truthy 时执行的 effect 作用域
  * @param options 选项, 和 watch 一致
@@ -55,6 +57,8 @@ export function wheneverEffectScope<T>(source: WatchSource<T | false | null | un
 
 /**
  * immediate 为 true 的 wheneverEffectScope 方法
+ *
+ * @see https://mixte.moomfe.com/mixte/use/wheneverEffectScope#wheneverEffectScopeImmediate
  * @param source 侦听器的源, 和 watch 一致
  * @param run 当 source 为 truthy 时执行的 effect 作用域
  * @param options 选项, immediate 为 true, 其他和 watch 一致
@@ -75,6 +79,8 @@ export function wheneverEffectScopeImmediate<T>(source: WatchSource<T | false | 
 
 /**
  * deep 为 true 的 wheneverEffectScope 方法
+ *
+ * @see https://mixte.moomfe.com/mixte/use/wheneverEffectScope#wheneverEffectScopeDeep
  * @param source 侦听器的源, 和 watch 一致
  * @param run 当 source 为 truthy 时执行的 effect 作用域
  * @param options 选项, deep 为 true, 其他和 watch 一致
@@ -98,6 +104,8 @@ export function wheneverEffectScopeDeep<T>(source: WatchSource<T | false | null 
 
 /**
  * immediate 和 deep 为 true 的 wheneverEffectScope 方法
+ *
+ * @see https://mixte.moomfe.com/mixte/use/wheneverEffectScope#wheneverEffectScopeImmediateDeep
  * @param source 侦听器的源, 和 watch 一致
  * @param run 当 source 为 truthy 时执行的 effect 作用域
  * @param options 选项, immediate 和 deep 为 true, 其他和 watch 一致

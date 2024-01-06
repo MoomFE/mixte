@@ -1,5 +1,7 @@
 /**
  * 返回一个延迟指定时间的 Promise
+ *
+ * @see https://mixte.moomfe.com/mixte/delay#delay
  * @param ms 延迟时间 ( default: 1000 )
  * @example
  *
@@ -13,6 +15,8 @@ export function delay(ms = 1000) {
 
 /**
  * 返回一个延迟指定时间的 Promise
+ *
+ * @see https://mixte.moomfe.com/mixte/delay#wait
  * @param ms 延迟时间 ( default: 1000 )
  * @example
  *

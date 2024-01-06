@@ -3,6 +3,8 @@ import { delay, isFunction } from 'mixte';
 
 /**
  * 运行函数并且保证最少执行指定时间 ( 毫秒 )
+ *
+ * @see https://mixte.moomfe.com/mixte/leastRun
  * @param ms 最少执行的时间 ( 毫秒 )
  * @param fn 要运行的函数
  * @example

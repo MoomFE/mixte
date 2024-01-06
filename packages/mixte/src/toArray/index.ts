@@ -1,5 +1,7 @@
 /**
  * 转换传入参数为数组
+ *
+ * @see https://mixte.moomfe.com/mixte/toArray
  * @param value 需要转换的参数
  * @example
  *

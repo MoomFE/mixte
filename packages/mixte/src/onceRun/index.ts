@@ -2,6 +2,8 @@ import type { AsyncReturnType } from 'type-fest';
 
 /**
  * 包装传入函数并返回一个新函数, 确保它在同一时间只运行一次, 并返回一个 Promise, 该 Promise 会解析为同一时间第一次运行的结果
+ *
+ * @see https://mixte.moomfe.com/mixte/onceRun
  * @param fn 要运行的函数
  * @returns 一个函数, 包装原始函数并确保它只运行一次
  * @example

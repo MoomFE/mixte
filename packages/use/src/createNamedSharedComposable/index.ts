@@ -10,6 +10,8 @@ import { tryOnScopeDispose } from '@vueuse/core';
  *     - 再次调用时, 如果是相同的命名, 则会直接返回上次的结果, 不会再次执行原函数
  *   - 在 Vue 实例 / effect 作用域中使用时
  *     - 当引用该函数的所有 Vue 实例 / effect 作用域销毁时, 会自动清除缓存
+ *
+ * @see https://mixte.moomfe.com/mixte/use/createNamedSharedComposable
  * @param composable 要共享的函数/组合式函数
  * @returns 包装后的新函数
  * @example

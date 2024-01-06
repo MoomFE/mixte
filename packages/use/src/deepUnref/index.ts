@@ -5,6 +5,8 @@ import { unref } from 'vue-demi';
 /**
  * 方法 `unref` 的加强版本
  *  - 如果传入的是普通对象和数组, 会不断向下查找然后解包并返回传入对象的副本, 否则直接返回传入值的 `unref` 结果
+ *
+ * @see https://mixte.moomfe.com/mixte/use/deepUnref
  * @example
  * const source = {
  *   a: ref(1),

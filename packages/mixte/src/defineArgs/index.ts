@@ -2,6 +2,8 @@ import { isFunction, isNumeric } from 'mixte';
 
 /**
  * 对传入方法进行参数定义, 返回一个新方法
+ *
+ * @see https://mixte.moomfe.com/mixte/defineArgs
  * @param func 需要进行参数定义的方法
  * @param oArgs 参数定义
  * @example

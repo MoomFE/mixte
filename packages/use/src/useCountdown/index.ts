@@ -14,6 +14,8 @@ export interface UseCountdownOptions {
 
 /**
  * 创建一个倒计时
+ *
+ * @see https://mixte.moomfe.com/mixte/use/useCountdown
  * @param source 倒计时初始数字
  * @param options 倒计时选项
  */

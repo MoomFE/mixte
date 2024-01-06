@@ -34,6 +34,8 @@ export type UseRequestUserExecute<Response, Args extends any[]> = (...args: Args
 
 /**
  * 发起请求的组合式方法
+ *
+ * @see https://mixte.moomfe.com/mixte/use/useRequest#useRequest
  * @param userExecute 用户传入的发起请求的函数
  * @param options 配置项
  */
@@ -192,6 +194,8 @@ export function useRequest<
 /**
  * 发起请求的组合式方法
  *  - 和 `useRequest` 方法一致, 只是返回响应式代理对象
+ *
+ * @see https://mixte.moomfe.com/mixte/use/useRequest#useRequestReactive
  */
 export function useRequestReactive<
   Response,

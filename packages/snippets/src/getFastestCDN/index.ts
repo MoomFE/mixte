@@ -15,6 +15,8 @@ export interface GetFastestCDNOptions {
 
 /**
  * 获取在当前网络环境, 最快的 CDN 服务下的指定类库的根目录地址
+ *
+ * @see https://mixte.moomfe.com/mixte/snippets/getFastestCDN
  * @param pkg 类库名称
  * @param options 可选项
  */

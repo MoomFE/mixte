@@ -35,6 +35,8 @@ function merge<T extends object, S extends object>(target: T, source: S, cache: 
  *  - 来源对象中值为 `undefined` 的属性会被跳过
  *  - 来源对象中普通对象将会递归合并, 数组会被深拷贝后继承, 其他对象将会直接继承
  *  - 目标对象或来源对象的类型为数组时, 也遵循以上规则
+ *
+ * @see https://mixte.moomfe.com/mixte/deepMerge
  * @param target 目标对象
  * @param source 来源对象
  */
