@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.8.0]
+  - 📅 2023-01-06
   - 🌟 [@mixte/use] 新增 `useDraggableDistance` 方法
   - 🌟 [@mixte/use] 为 `createNamedSharedComposable` 返回的函数新增 clear 方法用于清除缓存
   - 🌟 [@mixte/snippets] 为 `getFastestCDN` 方法新增360静态资源托管库 CDN
@@ -194,7 +197,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.8.0...HEAD
+[v1.8.0]: https://github.com/MoomFE/mixte/releases/tag/v1.8.0
 [v1.7.0]: https://github.com/MoomFE/mixte/releases/tag/v1.7.0
 [v1.7.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v1.7.0-beta.1
 [v1.7.0-beta.0]: https://github.com/MoomFE/mixte/releases/tag/v1.7.0-beta.0
