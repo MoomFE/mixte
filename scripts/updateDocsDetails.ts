@@ -2,15 +2,16 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import fg from 'fast-glob';
 import fs from 'fs-extra';
+import type { Info } from '@/.vitepress/types/info';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 (async () => {
   const docsDetails = {
-    mixte: [] as { fn: string; name: string; hiddenH1: boolean }[],
-    use: [] as { fn: string; name: string; hiddenH1: boolean }[],
-    components: [] as { fn: string; name: string; hiddenH1: boolean }[],
-    snippets: [] as { fn: string; name: string; hiddenH1: boolean }[],
+    mixte: [] as ({ fn: string } & Info)[],
+    use: [] as ({ fn: string } & Info)[],
+    components: [] as ({ fn: string } & Info)[],
+    snippets: [] as ({ fn: string } & Info)[],
   };
 
   const docsFile = await fg([`packages/(${Object.keys(docsDetails).join('|')})/src/*/index.md`], {

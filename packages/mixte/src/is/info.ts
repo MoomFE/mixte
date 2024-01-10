@@ -1,1 +1,3 @@
-export const name = '类型判断';
+import type { Info } from '@/.vitepress/types/info';
+
+export const name: Info['name'] = '类型判断';
