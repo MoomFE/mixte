@@ -34,8 +34,10 @@ export function MarkdownTransform(): Plugin {
 
         // 添加标题
         if (!info.hiddenH1) {
-          if (startIndex > 0) s.prependRight(startIndex, `\n\n# ${fnTitle} {#${fnTitle}-header}\n\n`);
-          else s.prepend(`# ${fnTitle} {#${fnTitle}-header}\n\n`);
+          const h1 = `# ${fnTitle} {#${fn}-header}\n\n`;
+
+          if (startIndex > 0) s.prependRight(startIndex, `\n\n${h1}`);
+          else s.prepend(h1);
         }
 
         // 文档为空时添加提示
