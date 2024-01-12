@@ -22,6 +22,7 @@
     "test-build": "pnpm build && vitest --mode test-build",
     "test-build:ui": "pnpm test-build --ui",
     "test-release": "pnpm install && vitest --run && vue-tsc --noEmit && pnpm test-build --run",
+    "test-coverage": "pnpm install && vitest --run",
     "dev": "pnpm docs:dev",
     "docs:dev": "pnpm udd && vitepress dev packages --host",
     "docs:build": "pnpm udd && pnpm build && vitepress build packages",
