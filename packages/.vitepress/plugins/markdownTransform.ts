@@ -99,7 +99,9 @@ function createDemoMd(component = 'Demo') {
 ### 演示
 
 <DemoCard>
-  <${component} />
+  <ClientOnly>
+    <${component} />
+  </ClientOnly>
 </DemoCard>
 `;
 }

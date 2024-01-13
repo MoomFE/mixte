@@ -2,9 +2,7 @@
 
 <template>
   <div class="relative b m-theme-border rounded p-6 my-4" :class="{ pt8: showExtra, pb0: showCode }">
-    <ClientOnly>
-      <slot />
-    </ClientOnly>
+    <slot />
 
     <!-- 功能区 -->
     <div v-if="showExtra" class="h-8 mr-2" flex="~ items-center" text="xs lh-none" pos="absolute top-0 right-0">
