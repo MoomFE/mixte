@@ -30,7 +30,7 @@
 
   const { x, y, isDragging } = useDraggableDistance(targetRef);
 
-  const { floatingStyles, update: fromFloatingUpdate } = useFloating(targetRef, floatingRef, {
+  const { floatingStyles, update: fromFloatingUpdate } = useFloating(computed(() => unrefElement(targetRef)), floatingRef, {
     whileElementsMounted: autoUpdate,
     middleware: [
       offset(6),
