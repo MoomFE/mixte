@@ -1,13 +1,13 @@
 import { getFastestCDN } from '@mixte/snippets/getFastestCDN';
 
-describe('getFastestCDN', () => {
+describe.sequential('getFastestCDN', () => {
   test('获取在当前网络环境, 最快的 CDN 服务下的指定类库的根目录地址', async () => {
     const url = await getFastestCDN('mixte');
 
     expect(url).toBeTypeOf('string');
     expect(url).toMatch('/mixte');
     expect(url[url.length - 1]).not.toBe('/');
-  });
+  }, Number.POSITIVE_INFINITY);
 
   test('支持传入 version 参数', async () => {
     const url = await getFastestCDN('monaco-editor', {
@@ -18,7 +18,7 @@ describe('getFastestCDN', () => {
     expect(url).toMatch('/monaco-editor');
     expect(url).toMatch('0.43.0');
     expect(url[url.length - 1]).not.toBe('/');
-  });
+  }, Number.POSITIVE_INFINITY);
 
   test('支持传入 file 参数', async () => {
     const url = await getFastestCDN('monaco-editor', {
@@ -29,7 +29,7 @@ describe('getFastestCDN', () => {
     expect(url).toMatch('/monaco-editor');
     expect(url).not.toMatch('html.tmLanguage.json');
     expect(url[url.length - 1]).not.toBe('/');
-  });
+  }, Number.POSITIVE_INFINITY);
 
   test('支持传入 version 和 file 参数', async () => {
     const url = await getFastestCDN('monaco-editor', {
@@ -42,7 +42,7 @@ describe('getFastestCDN', () => {
     expect(url).toMatch('0.43.0');
     expect(url).not.toMatch('html.tmLanguage.json');
     expect(url[url.length - 1]).not.toBe('/');
-  });
+  }, Number.POSITIVE_INFINITY);
 
   test('传入错误的类库名称, version 或 file 参数时, 导致未获取到 CND 地址时, 会抛出异常', async () => {
     const result = await Promise.allSettled([
