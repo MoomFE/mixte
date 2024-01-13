@@ -22,6 +22,8 @@ export async function leastRun<
 >(ms: number, fn: F): Promise<R>;
 /**
  * 运行函数并且保证最少执行 1000ms 的时间
+ *
+ * @see https://mixte.moomfe.com/mixte/leastRun
  * @param fn 要运行的函数
  * @example
  * async function fn() {
@@ -38,6 +40,8 @@ export async function leastRun<
 >(fn: F): Promise<R>;
 /**
  * 运行函数并且保证最少执行 1000ms 的时间
+ *
+ * @see https://mixte.moomfe.com/mixte/leastRun
  * @param fn 要运行的函数
  * @example
  * async function fn() {

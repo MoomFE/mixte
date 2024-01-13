@@ -47,6 +47,8 @@ export function deepMerge<T>(target: T): T;
  *  - 来源对象中值为 `undefined` 的属性会被跳过
  *  - 来源对象中普通对象将会递归合并, 数组会被深拷贝后继承, 其他对象将会直接继承
  *  - 目标对象或来源对象的类型为数组时, 也遵循以上规则
+ *
+ * @see https://mixte.moomfe.com/mixte/deepMerge
  * @param target 目标对象
  * @param source 来源对象
  */
@@ -57,6 +59,8 @@ export function deepMerge<T, S1>(target: T, source: S1): Merge<T, S1>;
  *  - 来源对象中值为 `undefined` 的属性会被跳过
  *  - 来源对象中普通对象将会递归合并, 数组会被深拷贝后继承, 其他对象将会直接继承
  *  - 目标对象或来源对象的类型为数组时, 也遵循以上规则
+ *
+ * @see https://mixte.moomfe.com/mixte/deepMerge
  * @param target 目标对象
  * @param source 来源对象
  * @param source2 来源对象2
@@ -68,6 +72,8 @@ export function deepMerge<T, S1, S2>(target: T, source: S1, source2: S2): Merge<
  *  - 来源对象中值为 `undefined` 的属性会被跳过
  *  - 来源对象中普通对象将会递归合并, 数组会被深拷贝后继承, 其他对象将会直接继承
  *  - 目标对象或来源对象的类型为数组时, 也遵循以上规则
+ *
+ * @see https://mixte.moomfe.com/mixte/deepMerge
  * @param target 目标对象
  * @param source 来源对象
  * @param source2 来源对象2
@@ -80,6 +86,8 @@ export function deepMerge<T, S1, S2, S3>(target: T, source: S1, source2: S2, sou
  *  - 来源对象中值为 `undefined` 的属性会被跳过
  *  - 来源对象中普通对象将会递归合并, 数组会被深拷贝后继承, 其他对象将会直接继承
  *  - 目标对象或来源对象的类型为数组时, 也遵循以上规则
+ *
+ * @see https://mixte.moomfe.com/mixte/deepMerge
  * @param target 目标对象
  * @param source 来源对象
  * @param source2 来源对象2
@@ -93,6 +101,8 @@ export function deepMerge<T, S1, S2, S3, S4>(target: T, source: S1, source2: S2,
  *  - 来源对象中值为 `undefined` 的属性会被跳过
  *  - 来源对象中普通对象将会递归合并, 数组会被深拷贝后继承, 其他对象将会直接继承
  *  - 目标对象或来源对象的类型为数组时, 也遵循以上规则
+ *
+ * @see https://mixte.moomfe.com/mixte/deepMerge
  * @param target 目标对象
  * @param source 来源对象
  * @param source2 来源对象2
@@ -107,6 +117,8 @@ export function deepMerge<T, S1, S2, S3, S4, S5>(target: T, source: S1, source2:
  *  - 来源对象中值为 `undefined` 的属性会被跳过
  *  - 来源对象中普通对象将会递归合并, 数组会被深拷贝后继承, 其他对象将会直接继承
  *  - 目标对象或来源对象的类型为数组时, 也遵循以上规则
+ *
+ * @see https://mixte.moomfe.com/mixte/deepMerge
  * @param target 目标对象
  * @param source 来源对象
  * @param source2 来源对象2
