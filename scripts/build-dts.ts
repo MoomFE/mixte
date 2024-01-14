@@ -17,6 +17,8 @@ const externals = [
 
 (async () => {
   for (const info of packages) {
+    console.log(`Building ${info.input}...`);
+
     const bundle = await rollup({
       input: info.input,
       external: externals.concat(info.dtsExternal ?? []),
