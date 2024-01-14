@@ -20,9 +20,12 @@ jobs:
           cache: pnpm
 
       - name: Build
-        run: |
-          pnpm install
-          pnpm build
+        run: pnpm build
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
+
+      - name: Build dts
+        run: pnpm build-dts
         env:
           NODE_OPTIONS: --max-old-space-size=6144
 
