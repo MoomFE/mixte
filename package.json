@@ -30,6 +30,7 @@
     "up": "npx taze latest -r -w -i -x",
     "udd": "pnpm install && tsx scripts/updateDocsDetails.ts",
     "build": "pnpm install && tsx scripts/build.ts",
+    "build-dts": "pnpm install && tsx scripts/build-dts.ts",
     "release": "pnpm test-release && npx bumpp -r --no-tag --no-push"
   },
   "devDependencies": {

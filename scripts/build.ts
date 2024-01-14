@@ -1,9 +1,7 @@
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from 'vite';
-import { rollup } from 'rollup';
 import fs from 'fs-extra';
-import dts from 'rollup-plugin-dts';
 import { alias } from '../meta/alias';
 import { packages } from '../meta/packages';
 
@@ -19,7 +17,6 @@ const externals = [
 
 (async () => {
   for (const info of packages) {
-    // mjs, cjs
     await build({
       resolve: {
         alias,
@@ -37,20 +34,6 @@ const externals = [
           external: externals.concat(info.external ?? []),
         },
       },
-    });
-
-    // dts
-    const bundle = await rollup({
-      input: info.input,
-      external: externals.concat(info.dtsExternal ?? []),
-      plugins: [
-        dts({ respectExternal: true }),
-      ],
-    });
-
-    await bundle.write({
-      file: `${info.outputDir}/${info.outputFileName ?? 'index'}.d.ts`,
-      format: 'es',
     });
   }
 })();
