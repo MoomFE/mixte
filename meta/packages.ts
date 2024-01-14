@@ -32,4 +32,10 @@ export const packages = [
     outputDir: 'packages/snippets/dist',
     outputFileName: 'getFastestCDN',
   },
+  // @mixte/snippets/useNaiveForm
+  {
+    input: 'packages/snippets/src/useNaiveForm/index.ts',
+    outputDir: 'packages/snippets/dist',
+    outputFileName: 'useNaiveForm',
+  },
 ];

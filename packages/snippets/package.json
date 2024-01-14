@@ -18,6 +18,11 @@
       "import": "./dist/getFastestCDN.mjs",
       "require": "./dist/getFastestCDN.cjs"
     },
+    "./useNaiveForm": {
+      "types": "./dist/useNaiveForm.d.ts",
+      "import": "./dist/useNaiveForm.mjs",
+      "require": "./dist/useNaiveForm.cjs"
+    },
     "./*": "./*"
   },
   "files": [
