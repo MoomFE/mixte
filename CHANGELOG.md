@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/snippets] 新增 `useNaiveForm` 方法
 
 ## [v1.8.0]
   - 📅 2023-01-06
