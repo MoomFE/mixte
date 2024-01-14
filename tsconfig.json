@@ -9,8 +9,7 @@
     "strictNullChecks": true,
     "resolveJsonModule": true,
     "jsx": "preserve",
-    "jsxFactory": "h",
-    "jsxFragmentFactory": "Fragment",
+    "jsxImportSource": "vue",
     "skipLibCheck": true,
     "allowJs": true,
     "types": [
