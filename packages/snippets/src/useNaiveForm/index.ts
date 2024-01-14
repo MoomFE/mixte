@@ -1,7 +1,7 @@
 import type { FormItemRule, NForm } from 'naive-ui';
 import type { Ref } from 'vue-demi';
 import type { MaybeRefOrGetter } from '@vueuse/core';
-import { reactive } from 'vue-demi';
+import { isReactive, reactive } from 'vue-demi';
 import { toValue } from '@vueuse/core';
 import { deepClone, deepMerge, onceRun, toArray } from 'mixte';
 
@@ -16,7 +16,7 @@ export interface UseNaiveFormOptions<Form extends object> {
   /** 表单数据 */
   form?: MaybeRefOrGetter<Form>
   /** 表单数据验证规则 */
-  formValidateRules?: Partial<Record<keyof Form, FormItemRule[]>>
+  formValidateRules?: MaybeRefOrGetter<Partial<Record<keyof Form, FormItemRule[]>>>
 }
 
 /**
@@ -26,11 +26,10 @@ export function useNaiveForm<Form extends object>(options: UseNaiveFormOptions<F
   const userForm = toValue(options.form) ?? {};
   const formValidateRules = toValue(options.formValidateRules);
 
+  /** 表单数据 */
+  const form = (isReactive(userForm) ? userForm : reactive(userForm)) as Form;
   /** 表单初始值缓存 */
   const formInitialValues = deepClone(userForm);
-
-  /** 表单数据 */
-  const form = reactive(userForm);
 
   /**
    * 生成的默认的表单参数
@@ -66,8 +65,9 @@ export function useNaiveForm<Form extends object>(options: UseNaiveFormOptions<F
 
   return {
     form,
+    formValidateRules,
     formProps,
-    reset,
     validate,
+    reset,
   };
 }
