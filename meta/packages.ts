@@ -37,5 +37,7 @@ export const packages = [
     input: 'packages/snippets/src/useNaiveForm/index.ts',
     outputDir: 'packages/snippets/dist',
     outputFileName: 'useNaiveForm',
+    external: ['mixte'],
+    dtsExternal: ['naive-ui'],
   },
 ];

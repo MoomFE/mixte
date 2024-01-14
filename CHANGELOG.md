@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.9.0-beta.0]
+  - 📅 2023-01-14
   - 🌟 [@mixte/snippets] 新增 `useNaiveForm` 方法
 
 ## [v1.8.0]
@@ -198,7 +201,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.8.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.9.0-beta.0...HEAD
+[v1.9.0-beta.0]: https://github.com/MoomFE/mixte/releases/tag/v1.9.0-beta.0
 [v1.8.0]: https://github.com/MoomFE/mixte/releases/tag/v1.8.0
 [v1.7.0]: https://github.com/MoomFE/mixte/releases/tag/v1.7.0
 [v1.7.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v1.7.0-beta.1
