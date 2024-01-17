@@ -20,7 +20,9 @@ export interface UseNaiveFormOptions<Form extends object> {
 }
 
 /**
- * 定义一个表单数据及数据验证规则
+ * 定义一个 [Naive UI 表单](https://www.naiveui.com/zh-CN/os-theme/components/form) 数据及数据验证规则
+ *
+ * @see https://mixte.moomfe.com/mixte/snippets/useNaiveForm
  */
 export function useNaiveForm<Form extends object>(options: UseNaiveFormOptions<Form>) {
   const userForm = toValue(options.form) ?? {};

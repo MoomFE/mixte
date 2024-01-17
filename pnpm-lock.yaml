@@ -68,6 +68,9 @@ importers:
       gsap:
         specifier: ^3.12.4
         version: 3.12.4
+      js-base64:
+        specifier: ^3.7.5
+        version: 3.7.5
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
@@ -3924,6 +3927,10 @@ packages:
   /jiti@1.21.0:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
+    dev: true
+
+  /js-base64@3.7.5:
+    resolution: {integrity: sha512-3MEt5DTINKqfScXKfJFrRbxkrnk2AxPWGBL/ycjz4dK8iqiSJ06UxD8jh8xuh6p10TX4t2+7FsBYVxxQbMg+qA==}
     dev: true
 
   /js-beautify@1.14.11:

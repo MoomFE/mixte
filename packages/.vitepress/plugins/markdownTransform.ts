@@ -2,11 +2,13 @@
 
 import { dirname, resolve } from 'node:path';
 import type { Plugin } from 'vite';
+import type { ValueOf } from 'type-fest';
+import type { Lang } from 'shiki';
 import MagicString from 'magic-string';
 import fs from 'fs-extra';
 import { pascalCase } from 'change-case';
 import { find } from 'lodash-es';
-import type { ValueOf } from 'type-fest';
+import { encode } from 'js-base64';
 import docs from '../../../meta/docs.json';
 
 export function MarkdownTransform(): Plugin {
@@ -17,6 +19,7 @@ export function MarkdownTransform(): Plugin {
       if (!id.endsWith('.md')) return;
 
       const [, fn,, pkg] = id.split('/').reverse();
+      const dir = dirname(id);
       let info: ValueOf<ValueOf<typeof docs>> | undefined;
 
       if (Reflect.has(docs, pkg) && (info = find(docs[pkg as keyof typeof docs], { fn }))) {
@@ -44,18 +47,29 @@ export function MarkdownTransform(): Plugin {
         if (!code.trim())
           s.append(emptyMd);
 
+        /** 主 Demo 文件名 */
+        let demoName = 'demo';
+
         // 添加主 Demo
-        if (await fs.pathExists(resolve(dirname(id), 'demo.vue'))) {
+        if (
+          (await fs.pathExists(resolve(dir, 'demo.vue')))
+          || (await fs.pathExists(resolve(dir, `${demoName = 'demo.preview'}.vue`)))
+        ) {
           let index;
 
-          // 查找第一个二级以上的标题
-          if ((index = code.indexOf('\n##')) > -1) s.appendLeft(index, createDemoMd());
-          // 没有二级以上的标题, 查找第一个空行
-          else if ((index = code.search(/\n\s\n/)) > -1) s.appendRight(index + 2, createDemoMd());
-          // 没有二级以上的标题和空行时添加到最后
-          else s.append(createDemoMd());
+          function getDemoMd() {
+            if (demoName === 'demo') return createDemoMd();
+            return createDemoMd('Demo', fs.readFileSync(resolve(dir, `${demoName}.vue`), 'utf-8'), 'vue');
+          }
 
-          imports.push(createImportScript());
+          // 查找第一个二级以上的标题
+          if ((index = code.indexOf('\n##')) > -1) s.appendLeft(index, getDemoMd());
+          // 没有二级以上的标题, 查找第一个空行
+          else if ((index = code.search(/\n\s\n/)) > -1) s.appendRight(index + 2, getDemoMd());
+          // 没有二级以上的标题和空行时添加到最后
+          else s.append(getDemoMd());
+
+          imports.push(createImportScript('Demo', demoName));
         }
 
         // 添加二级标题 Demo
@@ -63,7 +77,7 @@ export function MarkdownTransform(): Plugin {
           const name = match[1];
           const matchEndIndex = match.index! + match[0].length;
 
-          if (await fs.pathExists(resolve(dirname(id), `demo/${name}.vue`))) {
+          if (await fs.pathExists(resolve(dir, `demo/${name}.vue`))) {
             let index;
 
             // 查找下一个二级以上的标题
@@ -94,11 +108,11 @@ const emptyMd = `
 :::
 `;
 
-function createDemoMd(component = 'Demo') {
+function createDemoMd(component = 'Demo', code?: string, codeLang?: Lang) {
   return `
 ### 演示
 
-<DemoCard>
+<DemoCard ${code ? `code="${encodeURIComponent(encode(code))}"` : ''} ${codeLang ? `codeLang="${codeLang}"` : ''}>
   <ClientOnly>
     <${component} />
   </ClientOnly>
@@ -106,6 +120,6 @@ function createDemoMd(component = 'Demo') {
 `;
 }
 
-function createImportScript(component = 'Demo', path = 'demo') {
+function createImportScript(component: string, path: string) {
   return `import ${component} from "./${path}.vue";`;
 }

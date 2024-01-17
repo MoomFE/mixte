@@ -2,7 +2,9 @@
 
 <template>
   <div class="relative b m-theme-border rounded p-6 my-4" :class="{ pt8: showExtra, pb0: showCode }">
-    <slot />
+    <NConfigProvider :locale="zhCN" :date-locale="dateZhCN" abstract>
+      <slot />
+    </NConfigProvider>
 
     <!-- 功能区 -->
     <div v-if="showExtra" class="h-8 mr-2" flex="~ items-center" text="xs lh-none" pos="absolute top-0 right-0">
@@ -22,9 +24,18 @@
 </template>
 
 <script lang="ts" setup>
+  import { NConfigProvider, dateZhCN, zhCN } from 'naive-ui';
   import * as shiki from 'shiki';
+  import { decode } from 'js-base64';
   import { devDependencies } from '@@/package.json';
   import { getFastestCDN } from '@mixte/snippets/getFastestCDN';
+
+  interface Props {
+    code?: string
+    codeLang?: string
+  }
+
+  const props = defineProps<Props>();
 
   const highlighter = ref<shiki.Highlighter>();
 
@@ -54,6 +65,9 @@
         theme: 'material-theme-darker',
       });
     });
+
+    props.code && (code.value = decode(decodeURIComponent(props.code)));
+    props.codeLang && (codeLang.value = props.codeLang);
   });
 
   provide('code', code);

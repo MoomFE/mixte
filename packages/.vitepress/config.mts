@@ -5,7 +5,7 @@ import Unocss from 'unocss/vite';
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
-import { ElementPlusResolver, NaiveUiResolver } from 'unplugin-vue-components/resolvers';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { pascalCase } from 'change-case';
 import { components, mixte, snippets, use } from '../../meta/docs.json';
 import { alias } from '../../meta/alias';
@@ -121,13 +121,12 @@ export default defineConfig({
         resolvers: [
           IconsResolver({ prefix: 'i' }),
           ElementPlusResolver(),
-          NaiveUiResolver(),
         ],
       }),
       ...VitePlugins,
     ],
     ssr: {
-      noExternal: ['element-plus'],
+      noExternal: ['element-plus', 'naive-ui', 'vueuc', 'date-fns'],
     },
   },
 });

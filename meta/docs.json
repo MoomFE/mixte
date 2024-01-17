@@ -120,6 +120,11 @@
       "fn": "getFastestCDN",
       "name": "",
       "hiddenH1": false
+    },
+    {
+      "fn": "useNaiveForm",
+      "name": "",
+      "hiddenH1": false
     }
   ]
 }
