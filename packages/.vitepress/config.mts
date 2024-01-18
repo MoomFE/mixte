@@ -49,7 +49,10 @@ export default defineConfig({
       },
       {
         text: `v${version}`,
-        items: [{ text: '更新日志', link: '/changelog.md' }],
+        items: [
+          { text: '更新日志', link: '/changelog.md' },
+          { text: 'dev 分支文档地址', link: 'https://mixte-git-dev-moomfe.vercel.app/' },
+        ],
       },
     ],
 
