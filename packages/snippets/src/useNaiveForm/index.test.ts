@@ -17,6 +17,16 @@ describe('useNaiveForm', () => {
       formValidateRules: userFormValidateRules,
     });
 
+    expect(Object.keys(form)).toStrictEqual([
+      'form',
+      'formValidateRules',
+      'formProps',
+      'validate',
+      'resetValidation',
+      'resetForm',
+      'reset',
+    ]);
+
     // form
     expect(form.form).not.toBe(userForm);
     expect(form.form).toStrictEqual(userForm);
@@ -35,11 +45,10 @@ describe('useNaiveForm', () => {
     });
     expect(isReactive(form.formProps)).toBe(false);
 
-    // validate
-    expect(form.validate).toBeInstanceOf(Function);
-
-    // reset
-    expect(form.reset).toBeInstanceOf(Function);
+    // validate, resetValidation, resetForm, reset
+    (['validate', 'resetValidation', 'resetForm', 'reset'] as const).forEach((key) => {
+      expect(form[key]).toBeInstanceOf(Function);
+    });
   });
 
   test('form 传入普通对象时, 将会使用 reactive 包装传入的对象', () => {
@@ -84,7 +93,7 @@ describe('useNaiveForm', () => {
     expect(userForm.name).toBe('王五');
   });
 
-  test ('form 选项支持传入 MaybeRefOrGetter 类型对象', () => {
+  test('form 选项支持传入 MaybeRefOrGetter 类型对象', () => {
     // Ref
     {
       const userForm = ref({
@@ -167,13 +176,15 @@ describe('useNaiveForm', () => {
     });
   });
 
-  test('返回的 reset 方法会充值 form 数据为初始状态', () => {
+  test('返回的 reset 和 resetForm 方法会重置 form 数据为初始状态', () => {
     const form = useNaiveForm({
       form: {
         name: '张三',
         age: 18,
       },
     });
+
+    // reset
 
     form.form.name = '李四';
     form.form.age = 20;
@@ -189,9 +200,26 @@ describe('useNaiveForm', () => {
       name: '张三',
       age: 18,
     });
+
+    // resetForm
+
+    form.form.name = '王五';
+    form.form.age = 22;
+
+    expect(form.form).toStrictEqual({
+      name: '王五',
+      age: 22,
+    });
+
+    form.resetForm();
+
+    expect(form.form).toStrictEqual({
+      name: '张三',
+      age: 18,
+    });
   });
 
-  test('返回的 reset 方法会调用传入的 formRef 的 restoreValidation 方法', () => {
+  test('返回的 reset 和 resetValidation 方法会重置表单验证, 调用传入的 formRef 的 restoreValidation 方法', () => {
     const formRef = {
       restoreValidation: vi.fn(),
     };
@@ -213,6 +241,11 @@ describe('useNaiveForm', () => {
     expect(formRef.restoreValidation).toBeCalledTimes(1);
     expect(formRef2.restoreValidation).not.toBeCalled();
 
+    form.resetValidation();
+
+    expect(formRef.restoreValidation).toBeCalledTimes(2);
+    expect(formRef2.restoreValidation).not.toBeCalled();
+
     // 多个 formRef
     const form2 = useNaiveForm({ // @ts-expect-error
       formRef: [ref(formRef), ref(formRef2)],
@@ -224,11 +257,16 @@ describe('useNaiveForm', () => {
 
     form2.reset();
 
-    expect(formRef.restoreValidation).toBeCalledTimes(2);
+    expect(formRef.restoreValidation).toBeCalledTimes(3);
     expect(formRef2.restoreValidation).toBeCalledTimes(1);
+
+    form2.resetValidation();
+
+    expect(formRef.restoreValidation).toBeCalledTimes(4);
+    expect(formRef2.restoreValidation).toBeCalledTimes(2);
   });
 
-  test('返回的 validate 方法会调用传入的 formRef 的 validate 方法', async () => {
+  test('返回的 validate 方法会验证表单, 调用传入的 formRef 的 validate 方法', async () => {
     const formRef = {
       validate: vi.fn(async () => {}),
     };

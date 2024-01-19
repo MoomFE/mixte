@@ -51,12 +51,15 @@ export function useNaiveForm<Form extends object>(options: UseNaiveFormOptions<F
     );
   });
 
-  /** 重置表单数据 */
-  function reset() {
-    // 清空表单验证
+  /** 重置表单验证 */
+  function resetValidation() {
     toArray(options.formRef).forEach((formRef) => {
       formRef.value?.restoreValidation();
     });
+  }
+
+  /** 重置表单数据 */
+  function resetForm() {
     // 清空表单数据
     Object.keys(form).forEach((key) => { // @ts-expect-error
       delete form[key];
@@ -65,11 +68,19 @@ export function useNaiveForm<Form extends object>(options: UseNaiveFormOptions<F
     deepMerge(form, formInitialValues);
   }
 
+  /** 重置表单验证和表单数据 */
+  function reset() {
+    resetValidation();
+    resetForm();
+  }
+
   return {
     form,
     formValidateRules,
     formProps,
     validate,
+    resetValidation,
+    resetForm,
     reset,
   };
 }
