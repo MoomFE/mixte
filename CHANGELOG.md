@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [v1.9.0]
+  - 📅 2023-01-20
+  - [@mixte/snippets] 方法 `useNaiveForm` 新增 `resetValidation`、`resetForm` 方法返回
+
 ## [v1.9.0-beta.0]
   - 📅 2023-01-14
   - 🌟 [@mixte/snippets] 新增 `useNaiveForm` 方法
@@ -201,7 +205,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.9.0-beta.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.9.0...HEAD
+[v1.9.0]: https://github.com/MoomFE/mixte/releases/tag/v1.9.0
 [v1.9.0-beta.0]: https://github.com/MoomFE/mixte/releases/tag/v1.9.0-beta.0
 [v1.8.0]: https://github.com/MoomFE/mixte/releases/tag/v1.8.0
 [v1.7.0]: https://github.com/MoomFE/mixte/releases/tag/v1.7.0
