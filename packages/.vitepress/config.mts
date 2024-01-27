@@ -1,6 +1,7 @@
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitepress';
+import VueJsx from '@vitejs/plugin-vue-jsx';
 import Unocss from 'unocss/vite';
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
@@ -107,6 +108,7 @@ export default defineConfig({
       ],
     },
     plugins: [
+      VueJsx(),
       MarkdownTransform(),
       Unocss({
         configFile: resolve(__dirname, '../unocss.config.ts'),
