@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.9.1]
+  - 📅 2023-01-29
   - 💄 [@mixte/use] 优化 `useRequestReactive` 方法类型定义
 
 ## [v1.9.0-beta.0], [v1.9.0]
@@ -203,7 +206,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.9.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.9.1...HEAD
+[v1.9.1]: https://github.com/MoomFE/mixte/releases/tag/v1.9.1
 [v1.9.0]: https://github.com/MoomFE/mixte/releases/tag/v1.9.0
 [v1.9.0-beta.0]: https://github.com/MoomFE/mixte/releases/tag/v1.9.0-beta.0
 [v1.8.0]: https://github.com/MoomFE/mixte/releases/tag/v1.8.0
