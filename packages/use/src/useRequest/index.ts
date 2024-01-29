@@ -199,10 +199,11 @@ export function useRequest<
  */
 export function useRequestReactive<
   Response,
+  Data extends Response extends { data: infer D } ? D : never = Response extends { data: infer D } ? D : never,
   Args extends any[] = any[],
 >(
   userExecute: UseRequestUserExecute<Response, Args>,
   options: UseRequestOptions = {},
 ) {
-  return useRequest(userExecute, options).reactive;
+  return useRequest<Response, Data, Args>(userExecute, options).reactive;
 }

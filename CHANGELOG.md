@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/use] 优化 `useRequestReactive` 方法类型定义
 
 ## [v1.9.0-beta.0], [v1.9.0]
   - 📅 2023-01-20
