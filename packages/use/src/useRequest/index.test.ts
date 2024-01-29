@@ -937,6 +937,75 @@ describe('useRequest', () => {
         onFinally: EventHookOn
       }>();
     }
+
+    interface UserInfo {
+      id: number
+      name: string
+    }
+
+    // 手动指定类型 ( 指定 response, 自动推导 data )
+    {
+      const res = useRequest<{ data: UserInfo }>(() => ({} as any));
+
+      expectTypeOf(res.response).toEqualTypeOf<ShallowRef<{ data: UserInfo } | undefined>>();
+      expectTypeOf(res.data).toEqualTypeOf<Ref<UserInfo | undefined>>();
+      expectTypeOf(res.error).toEqualTypeOf<ShallowRef<any>>();
+      expectTypeOf(res.isExecuted).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isLoading).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isFinished).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isSuccess).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.execute).toEqualTypeOf<(...args: any[]) => Promise<{ data: UserInfo }>>();
+      expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: UserInfo }>>();
+      expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
+      expectTypeOf(res.reactive).toEqualTypeOf<{
+        response: { data: UserInfo } | undefined
+        data: UserInfo | undefined
+        error: any
+        isExecuted: boolean
+        isLoading: boolean
+        isFinished: boolean
+        isSuccess: boolean
+        successCount: number
+        clearSuccessCount: () => void
+        execute: (...args: any[]) => Promise<{ data: UserInfo }>
+        onSuccess: EventHookOn<{ data: UserInfo }>
+        onError: EventHookOn<any>
+        onFinally: EventHookOn
+      }>();
+    }
+
+    // 手动指定类型 ( 忽略 response, 指定 data )
+    {
+      const res = useRequest<any, UserInfo>(() => ({} as any));
+
+      expectTypeOf(res.response).toEqualTypeOf<ShallowRef<any>>();
+      expectTypeOf(res.data).toEqualTypeOf<Ref<UserInfo | undefined>>();
+      expectTypeOf(res.error).toEqualTypeOf<ShallowRef<any>>();
+      expectTypeOf(res.isExecuted).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isLoading).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isFinished).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.isSuccess).toEqualTypeOf<Ref<boolean>>();
+      expectTypeOf(res.execute).toEqualTypeOf<(...args: any[]) => Promise<any>>();
+      expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<any>>();
+      expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
+      expectTypeOf(res.reactive).toEqualTypeOf<{
+        response: any
+        data: UserInfo | undefined
+        error: any
+        isExecuted: boolean
+        isLoading: boolean
+        isFinished: boolean
+        isSuccess: boolean
+        successCount: number
+        clearSuccessCount: () => void
+        execute: (...args: any[]) => Promise<any>
+        onSuccess: EventHookOn<any>
+        onError: EventHookOn<any>
+        onFinally: EventHookOn
+      }>();
+    }
   });
 });
 
@@ -1074,6 +1143,45 @@ describe('useRequestReactive', () => {
       expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
       expectTypeOf(res.execute).toEqualTypeOf<(a: number) => Promise<{ data: number; code: number }>>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
+      expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
+    }
+
+    interface UserInfo {
+      id: number
+      name: string
+    }
+
+    // 手动指定类型 ( 指定 response, 自动推导 data )
+    {
+      const res = useRequestReactive<{ data: UserInfo }>(() => ({} as any));
+
+      expectTypeOf(res.response).toEqualTypeOf<{ data: UserInfo } | undefined>();
+      expectTypeOf(res.data).toEqualTypeOf<UserInfo | undefined>();
+      expectTypeOf(res.error).toEqualTypeOf<any>();
+      expectTypeOf(res.isExecuted).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isLoading).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
+      expectTypeOf(res.execute).toEqualTypeOf<(...args: any[]) => Promise<{ data: UserInfo }>>();
+      expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: UserInfo }>>();
+      expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
+      expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
+    }
+
+    // 手动指定类型 ( 忽略 response, 指定 data )
+    {
+      const res = useRequestReactive<any, UserInfo>(() => ({} as any));
+
+      expectTypeOf(res.response).toEqualTypeOf<any>();
+      expectTypeOf(res.data).toEqualTypeOf<UserInfo | undefined>();
+      expectTypeOf(res.error).toEqualTypeOf<any>();
+      expectTypeOf(res.isExecuted).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isLoading).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
+      expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
+      expectTypeOf(res.execute).toEqualTypeOf<(...args: any[]) => Promise<any>>();
+      expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
     }
