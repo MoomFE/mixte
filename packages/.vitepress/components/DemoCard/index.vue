@@ -27,8 +27,6 @@
   import { NConfigProvider, dateZhCN, zhCN } from 'naive-ui';
   import * as shiki from 'shiki';
   import { decode } from 'js-base64';
-  import { devDependencies } from '@@/package.json';
-  import { getFastestCDN } from '@mixte/snippets/getFastestCDN';
 
   interface Props {
     code?: string
@@ -37,13 +35,16 @@
 
   const props = defineProps<Props>();
 
-  const highlighter = ref<shiki.Highlighter>();
+  const highlighter = shallowRef<shiki.Highlighter>();
 
   const code = ref('');
   const codeLang = ref('ts');
 
   const codeHighlight = computed(() => {
-    return highlighter.value?.codeToHtml(code.value.trim(), { lang: codeLang.value }) ?? '';
+    return highlighter.value?.codeToHtml(code.value.trim(), {
+      lang: codeLang.value,
+      theme: 'material-theme-darker',
+    }) ?? '';
   });
 
   const hasCode = computed(() => !!code.value);
@@ -53,16 +54,12 @@
   const showExtra = computed(() => hasCode.value);
 
   onMounted(() => {
-    const unWatch = wheneverImmediate(showCode, async () => {
+    const unWatch = wheneverImmediate(showCode as any, async () => {
       nextTick(() => unWatch());
 
-      const version = devDependencies.shiki.replace(/^\^/g, '');
-      const fastestCDN = await getFastestCDN('shiki', { version });
-
-      shiki.setCDN(`${fastestCDN}/`);
       highlighter.value = await shiki.getHighlighter({
         langs: ['ts', 'vue'],
-        theme: 'material-theme-darker',
+        themes: ['material-theme-darker'],
       });
     });
 
