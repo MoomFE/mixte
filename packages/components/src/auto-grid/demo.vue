@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { MixteAutoGrid } from '@mixte/components';
+  import { MixteAutoGrid } from '@mixte/components/auto-grid';
   import { isNumeric, isPlainObject, random } from 'mixte';
   import { omit } from 'lodash-es';
   import { colors as colorsMap } from '@/.vitepress/shared/unocss.theme';
@@ -86,6 +86,10 @@
     </div>
   </MixteAutoGrid>
 </template>
+
+<script lang="ts" setup>
+  import { MixteAutoGrid } from '@mixte/components/auto-grid';
+<\/script>
     `),
     { direction: 'rtl' },
   );

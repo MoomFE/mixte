@@ -8,6 +8,7 @@ export const alias: Alias[] = [
   { find: 'mixte', replacement: resolve(__dirname, '../packages/mixte/index') },
   { find: '@mixte/use/register', replacement: resolve(__dirname, '../packages/use/src/register') },
   { find: '@mixte/use', replacement: resolve(__dirname, '../packages/use/index') },
+  { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/src/$1/index') },
   { find: '@mixte/components', replacement: resolve(__dirname, '../packages/components/index') },
   { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/src/$1/index') },
 ];
@@ -16,6 +17,7 @@ export const testAlias: Alias[] = [
   { find: 'mixte', replacement: resolve(__dirname, '../packages/mixte/dist/index') },
   { find: '@mixte/use/register', replacement: resolve(__dirname, '../packages/use/dist/register') },
   { find: '@mixte/use', replacement: resolve(__dirname, '../packages/use/dist/index') },
+  { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/dist/$1') },
   { find: '@mixte/components', replacement: resolve(__dirname, '../packages/components/dist/index') },
   { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/dist/$1') },
 ];

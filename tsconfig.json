@@ -21,6 +21,7 @@
     "paths": {
       "mixte": ["./packages/mixte/index.ts"],
       "@mixte/use/register": ["./packages/use/src/register.ts"],
+      "@mixte/components/*": ["./packages/components/src/*/index.ts"],
       "@mixte/snippets/*": ["./packages/snippets/src/*/index.ts"],
       "@mixte/*": ["./packages/*/index.ts"],
       "@/*": ["./packages/*"],

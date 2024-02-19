@@ -14,6 +14,11 @@
   },
   "sideEffects": false,
   "exports": {
+    "./auto-grid": {
+      "types": "./dist/auto-grid.d.ts",
+      "import": "./dist/auto-grid.mjs",
+      "require": "./dist/auto-grid.cjs"
+    },
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
