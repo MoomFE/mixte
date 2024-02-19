@@ -3,7 +3,7 @@
 import { dirname, resolve } from 'node:path';
 import type { Plugin } from 'vite';
 import type { ValueOf } from 'type-fest';
-import type { Lang } from 'shiki';
+import type { BundledLanguage } from 'shiki';
 import MagicString from 'magic-string';
 import fs from 'fs-extra';
 import { pascalCase } from 'change-case';
@@ -108,7 +108,7 @@ const emptyMd = `
 :::
 `;
 
-function createDemoMd(component = 'Demo', code?: string, codeLang?: Lang) {
+function createDemoMd(component = 'Demo', code?: string, codeLang?: BundledLanguage) {
   return `
 ### 演示
 
