@@ -5,7 +5,6 @@
   ],
   "ignoreDeps": [
     "vue",
-    "change-case",
     "pnpm"
   ]
 }
