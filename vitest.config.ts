@@ -26,6 +26,10 @@ export default defineConfig(({ mode }) => {
         enabled: true,
         provider: 'v8',
         all: false,
+        exclude: [
+          'meta/packages.ts',
+          'packages/mixte/src/is/testTypes.ts',
+        ],
       },
     },
   };
