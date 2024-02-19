@@ -1,7 +1,7 @@
 <template>
   <div grid="~ cols-[auto_auto_1fr] items-center gap-2" text-sm mb5>
     <span>子元素最小宽度 <small>( px )</small>:</span>
-    <el-input-number v-model="itemWidth" class="w-30! grid-col-span-2" controls-position="right" />
+    <el-slider v-model="itemWidth" class="grid-col-span-2" :max="Math.max(100, rootWidth)" />
 
     <template v-if="splitGap">
       <span>横向间距 <small>( px )</small>:</span>
@@ -17,7 +17,7 @@
     </template>
   </div>
 
-  <MixteAutoGrid :item-width="itemWidth" :gap="gap" :gap-x="gapX" :gap-y="gapY">
+  <MixteAutoGrid ref="rootRef" :item-width="itemWidth" :gap="gap" :gap-x="gapX" :gap-y="gapY">
     <div
       v-for="i in count" :key="i"
       h-8 rounded-sm text-sm flex="~ justify-center items-center"
@@ -34,6 +34,9 @@
   import { omit } from 'lodash-es';
   import { colors as colorsMap } from '@/.vitepress/shared/unocss.theme';
   import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
+
+  const rootRef = ref<InstanceType<typeof MixteAutoGrid>>();
+  const rootWidth = useElementSize(rootRef).width;
 
   const colors = ([] as string[]).concat(
     ...Object.values(omit(colorsMap, ['dark']))
