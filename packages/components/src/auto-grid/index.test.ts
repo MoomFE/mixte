@@ -45,17 +45,19 @@ describe('AutoGrid', () => {
   test('使用渲染函数给组件传入各个类型的子节点', () => {
     const wrapper = mount({
       render() {
-        return h(MixteAutoGrid, [
-          123,
-          '<!-- comment -->',
-          h('div', '456'),
-          h(MixteAutoGrid),
-          Array.from({ length: 6 }).map((_, i) => h('div', `item-${i + 1}`)),
-          '789',
-          [1, '2'],
-          null,
-          false,
-        ]);
+        return h(MixteAutoGrid, {}, {
+          default: () => [
+            123,
+            '<!-- comment -->',
+            h('div', '456'),
+            h(MixteAutoGrid),
+            Array.from({ length: 6 }).map((_, i) => h('div', `item-${i + 1}`)),
+            '789',
+            [1, '2'],
+            null,
+            false,
+          ],
+        });
       },
     });
 

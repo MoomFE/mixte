@@ -78,21 +78,21 @@ describe('is', () => {
   test('isNumber', () => {
     expect(isNumber(666)).toBe(true);
     expect(isNumber('666')).toBe(false);
-    expect(isNumber(NaN)).toBe(false);
+    expect(isNumber(Number.NaN)).toBe(false);
     expect(testTypes(isNumber, ['number'])).toBe(true);
   });
 
   test('isNumericString', () => {
     expect(isNumericString('666')).toBe(true);
     expect(isNumericString(666)).toBe(false);
-    expect(isNumericString(NaN)).toBe(false);
+    expect(isNumericString(Number.NaN)).toBe(false);
     expect(testTypes(isNumericString, ['numericString'])).toBe(true);
   });
 
   test('isNumeric', () => {
     expect(isNumeric(666)).toBe(true);
     expect(isNumeric('666')).toBe(true);
-    expect(isNumeric(NaN)).toBe(false);
+    expect(isNumeric(Number.NaN)).toBe(false);
     expect(testTypes(isNumeric, ['number', 'numericString'])).toBe(true);
   });
 
@@ -145,7 +145,7 @@ describe('is', () => {
     expect(isReference(true)).toBe(false);
     expect(isReference(false)).toBe(false);
     expect(isReference(666)).toBe(false);
-    expect(isReference(NaN)).toBe(false);
+    expect(isReference(Number.NaN)).toBe(false);
     expect(isReference('666')).toBe(false);
     expect(isReference(Symbol('666'))).toBe(false);
     expect(isReference(666n)).toBe(false);
@@ -158,7 +158,7 @@ describe('is', () => {
     expect(isPrimitive(true)).toBe(true);
     expect(isPrimitive(false)).toBe(true);
     expect(isPrimitive(666)).toBe(true);
-    expect(isPrimitive(NaN)).toBe(true);
+    expect(isPrimitive(Number.NaN)).toBe(true);
     expect(isPrimitive('666')).toBe(true);
     expect(isPrimitive(Symbol('666'))).toBe(true);
     expect(isPrimitive(666n)).toBe(true);
