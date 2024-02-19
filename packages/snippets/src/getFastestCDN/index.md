@@ -38,28 +38,6 @@ outline: [1,4]
 
 <br>
 
-#### 和 [`shiki`](https://github.com/shikijs/shiki) 一起使用, 加载主题和语言
-
-
-```ts {4,5,6,7,9}
-import * as shiki from 'shiki';
-import { getFastestCDN } from '@mixte/snippets/getFastestCDN';
-
-const fastestCDN = await getFastestCDN('shiki', {
-  version: '0.14.5',
-  file: '/languages/html.tmLanguage.json'
-});
-
-shiki.setCDN(`${fastestCDN}/`);
-
-shiki.getHighlighter({
-  langs: ['ts', 'vue'],
-  theme: 'material-theme-darker',
-}).then((highlighter) => {
-  // ...
-});
-```
-
 #### 和 [`@monaco-editor/loader`](https://github.com/suren-atoyan/monaco-loader) 一起使用
 
 ```ts {4,5,6,7,,11}
@@ -78,6 +56,31 @@ loader.config({
 });
 
 loader.init().then((monaco) => {
+  // ...
+});
+```
+
+#### 和 [`shiki`](https://github.com/shikijs/shiki) 一起使用, 加载主题和语言
+
+::: warning
+该方式仅限于版本 `<= v0.14.6` 使用, 版本 `>= v1.0.0` 不再需要 `setCDN` 方法
+:::
+
+```ts {4,5,6,7,9}
+import * as shiki from 'shiki';
+import { getFastestCDN } from '@mixte/snippets/getFastestCDN';
+
+const fastestCDN = await getFastestCDN('shiki', {
+  version: '0.14.5',
+  file: '/languages/html.tmLanguage.json'
+});
+
+shiki.setCDN(`${fastestCDN}/`);
+
+shiki.getHighlighter({
+  langs: ['ts', 'vue'],
+  theme: 'material-theme-darker',
+}).then((highlighter) => {
   // ...
 });
 ```
