@@ -13,7 +13,7 @@ importers:
         version: 1.0.6(vue@3.4.19)
       '@iconify/json':
         specifier: ^2.2.183
-        version: 2.2.183
+        version: 2.2.186
       '@moomfe/eslint-config':
         specifier: ^2.7.2
         version: 2.7.2
@@ -1301,8 +1301,8 @@ packages:
     resolution: {integrity: sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==}
     dev: true
 
-  /@iconify/json@2.2.183:
-    resolution: {integrity: sha512-LvlU0SWHlDGEmX9XZpK5lVVANRQNdToF2Vd0CgV+q6ntEYtza2QEvKHY318m+9sCEMm5CH6RkaSOtWTguAENjQ==}
+  /@iconify/json@2.2.186:
+    resolution: {integrity: sha512-Qcg7WA0fSOZJuBcNY5lZWbIZVLhdjYxI4kNxq1gWF5G5vFiBr2Xa1ScIKsvcKQwVSGax9E5tbTAHgdvgdr+IMQ==}
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.2
@@ -1794,7 +1794,7 @@ packages:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.5.4
+      semver: 7.6.0
       tsutils: 3.21.0(typescript@5.3.3)
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -1816,7 +1816,7 @@ packages:
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.3
-      semver: 7.5.4
+      semver: 7.6.0
       ts-api-utils: 1.0.3(typescript@5.3.3)
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -1837,7 +1837,7 @@ packages:
       '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.3.3)
       eslint: 8.56.0
       eslint-scope: 5.1.1
-      semver: 7.5.4
+      semver: 7.6.0
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -2927,7 +2927,7 @@ packages:
     engines: {node: '>=18'}
     dependencies:
       slice-ansi: 5.0.0
-      string-width: 7.0.0
+      string-width: 7.1.0
     dev: true
 
   /color-convert@1.9.3:
@@ -3404,7 +3404,7 @@ packages:
       is-glob: 4.0.3
       minimatch: 3.1.2
       resolve: 1.22.8
-      semver: 7.5.4
+      semver: 7.6.0
     transitivePeerDependencies:
       - '@typescript-eslint/parser'
       - eslint-import-resolver-typescript
@@ -4546,7 +4546,7 @@ packages:
     resolution: {integrity: sha512-hXdUTZYIVOt1Ex//jAQi+wTZZpUpwBj/0QsOzqegb3rGMMeJiSEu5xLHnYfBrRV4RH2+OCSOO95Is/7x1WJ4bw==}
     engines: {node: '>=10'}
     dependencies:
-      semver: 7.5.4
+      semver: 7.6.0
     dev: true
 
   /mark.js@8.11.1:
@@ -5245,6 +5245,14 @@ packages:
       lru-cache: 6.0.0
     dev: true
 
+  /semver@7.6.0:
+    resolution: {integrity: sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      lru-cache: 6.0.0
+    dev: true
+
   /server-only@0.0.1:
     resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
     dev: true
@@ -5389,8 +5397,8 @@ packages:
       strip-ansi: 7.1.0
     dev: true
 
-  /string-width@7.0.0:
-    resolution: {integrity: sha512-GPQHj7row82Hjo9hKZieKcHIhaAIKOJvFSIZXuCU9OASVZrMNUaZuz++SPVrBjnLsnk4k+z9f2EIypgxf2vNFw==}
+  /string-width@7.1.0:
+    resolution: {integrity: sha512-SEIJCWiX7Kg4c129n48aDRwLbFb2LJmXXFrWBG4NGaRtMQ3myKPKbwrD1BKqQn74oCoNMBVrfDEr5M9YxCsrkw==}
     engines: {node: '>=18'}
     dependencies:
       emoji-regex: 10.3.0
@@ -6249,7 +6257,7 @@ packages:
     engines: {node: '>=18'}
     dependencies:
       ansi-styles: 6.2.1
-      string-width: 7.0.0
+      string-width: 7.1.0
       strip-ansi: 7.1.0
     dev: true
 
