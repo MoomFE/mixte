@@ -1,17 +1,17 @@
 import { asyncForEach, delay } from 'mixte';
 
-describe('asyncForEach', () => {
+describe.concurrent('asyncForEach', () => {
   test('方法返回一个 Promise', () => {
     expect(asyncForEach([], () => {})).toBeInstanceOf(Promise);
   });
 
-  test('遍历空数组', async () => {
+  test('遍历空数组', async ({ expect }) => {
     const callback = vi.fn();
     await asyncForEach([], callback);
     expect(callback).not.toHaveBeenCalled();
   });
 
-  test('遍历非空数组', async () => {
+  test('遍历非空数组', async ({ expect }) => {
     const array = [1, 2, 3, 4, 5];
     const callback = vi.fn();
 
@@ -25,7 +25,7 @@ describe('asyncForEach', () => {
     expect(callback).toHaveBeenNthCalledWith(5, 5, 4, array);
   });
 
-  test('回调函数可以是异步的, 可以返回一个 Promise', async () => {
+  test('回调函数可以是异步的, 可以返回一个 Promise', async ({ expect }) => {
     const array = [1, 2, 3, 4, 5];
     const callback = vi.fn(() => delay(10));
 
@@ -39,7 +39,7 @@ describe('asyncForEach', () => {
     expect(callback).toHaveBeenNthCalledWith(5, 5, 4, array);
   });
 
-  test('方法返回的 Promise 在所有回调函数执行完毕后才会被 resolve', async () => {
+  test('方法返回的 Promise 在所有回调函数执行完毕后才会被 resolve', async ({ expect }) => {
     const array = [1, 2, 3, 4, 5];
     const callback = vi.fn(async () => {
       await delay(10);

@@ -5,8 +5,8 @@ import { delay } from 'mixte';
 import type { ShallowRef } from 'vue-demi';
 import { isRef, nextTick, ref } from 'vue-demi';
 
-describe('useRequest', () => {
-  test('方法返回对象参数类型判断', async () => {
+describe.concurrent('useRequest', () => {
+  test('方法返回对象参数类型判断', async ({ expect }) => {
     let throwError: boolean = false;
     const data = useRequest(async () => {
       await delay(100);
@@ -91,7 +91,7 @@ describe('useRequest', () => {
     expect(toRaw(data.error.value)).toBe(toRaw(data.reactive.error));
   });
 
-  test('请求成功情况的返回对象参数', async () => {
+  test('请求成功情况的返回对象参数', async ({ expect }) => {
     let throwError: boolean = false;
     let successEventCountAndArgs = [0] as [number, ...any[]];
     let errorEventCountAndArgs = [0] as [number, ...any[]];
@@ -207,7 +207,7 @@ describe('useRequest', () => {
     expect(finallyEventCountAndArgs).toStrictEqual([2]);
   });
 
-  test('请求失败情况的返回对象参数', async () => {
+  test('请求失败情况的返回对象参数', async ({ expect }) => {
     let throwError: boolean = true;
     let successEventCountAndArgs = [0] as [number, ...any[]];
     let errorEventCountAndArgs = [0] as [number, ...any[]];
@@ -320,7 +320,7 @@ describe('useRequest', () => {
     expect(finallyEventCountAndArgs).toStrictEqual([2]);
   });
 
-  test('请求完成后修改传参', async () => {
+  test('请求完成后修改传参', async ({ expect }) => {
     const data = useRequest(async () => ({
       data: {
         a: { b: 2 },
@@ -336,7 +336,7 @@ describe('useRequest', () => {
     expect(data.data.value).toStrictEqual({ a: { b: 3 } });
   });
 
-  test('同时发起多个请求, 仅最后一次请求生效', async () => {
+  test('同时发起多个请求, 仅最后一次请求生效', async ({ expect }) => {
     let throwError: boolean = false;
     let successIndex = 0;
     let finallyIndex = 0;
@@ -374,7 +374,7 @@ describe('useRequest', () => {
     expect(data.successCount.value).toBe(1);
   });
 
-  test('请求成功后, 请求成功次数会进行累计, 可以使用方法清除请求成功次数', async () => {
+  test('请求成功后, 请求成功次数会进行累计, 可以使用方法清除请求成功次数', async ({ expect }) => {
     let throwError: boolean = false;
 
     const data = useRequest(async () => {
@@ -424,7 +424,7 @@ describe('useRequest', () => {
     expect(data.successCount.value).toBe(1);
   });
 
-  test('支持传入 immediate: true 选项立即发起请求', async () => {
+  test('支持传入 immediate: true 选项立即发起请求', async ({ expect }) => {
     const data = useRequest(async () => {
       await delay(100);
       return {
@@ -455,7 +455,7 @@ describe('useRequest', () => {
     expect(data.successCount.value).toBe(1);
   });
 
-  test('支持传入 initialData 选项定义初始数据, 发起请求时会重置 data 为传入的 initialData', async () => {
+  test('支持传入 initialData 选项定义初始数据, 发起请求时会重置 data 为传入的 initialData', async ({ expect }) => {
     const data = useRequest(async () => {
       await delay(100);
       return {
@@ -483,7 +483,7 @@ describe('useRequest', () => {
     expect(data.data.value).toBe(666);
   });
 
-  test('支持传入 initialData 选项定义初始数据, 选项支持传入 MaybeRefOrGetter 类型对象', async () => {
+  test('支持传入 initialData 选项定义初始数据, 选项支持传入 MaybeRefOrGetter 类型对象', async ({ expect }) => {
     // Ref
     {
       const data = useRequest(async () => {
@@ -543,7 +543,7 @@ describe('useRequest', () => {
     }
   });
 
-  test('支持传入 resetOnExecute 选项, 用于控制是否在发起请求时重置数据, 默认为 true', async () => {
+  test('支持传入 resetOnExecute 选项, 用于控制是否在发起请求时重置数据, 默认为 true', async ({ expect }) => {
     let throwError: boolean = false;
     let dataIndex = 1292;
 
@@ -617,7 +617,7 @@ describe('useRequest', () => {
     }
   });
 
-  test('支持传入 resetOnExecute 选项, 选项支持传入 MaybeRefOrGetter 类型对象', async () => {
+  test('支持传入 resetOnExecute 选项, 选项支持传入 MaybeRefOrGetter 类型对象', async ({ expect }) => {
     // Ref
     {
       let throwError: boolean = false;
@@ -769,7 +769,7 @@ describe('useRequest', () => {
     }
   });
 
-  test('支持传入 shallow: true 选项, 用于控制是否使用 shallowRef 代替 ref 包裹 data 数据', async () => {
+  test('支持传入 shallow: true 选项, 用于控制是否使用 shallowRef 代替 ref 包裹 data 数据', async ({ expect }) => {
     const data = useRequest(() => ({ data: { a: { b: 2 } } }), { immediate: true });
     const data2 = useRequest(() => ({ data: { a: { b: 2 } } }), { immediate: true, shallow: true });
 
@@ -798,7 +798,7 @@ describe('useRequest', () => {
     expect(data2TriggerCount).toStrictEqual([1, 1]);
   });
 
-  test('类型测试', async () => {
+  test('类型测试', () => {
     expectTypeOf(useRequest).parameters.toEqualTypeOf<[
       UseRequestUserExecute<unknown, any[]>,
       UseRequestOptions?,
@@ -1010,7 +1010,7 @@ describe('useRequest', () => {
 });
 
 describe('useRequestReactive', () => {
-  test('方法返回对象参数类型判断', async () => {
+  test('方法返回对象参数类型判断', async ({ expect }) => {
     let throwError: boolean = false;
     const data = useRequestReactive(async () => {
       await delay(100);
@@ -1067,7 +1067,7 @@ describe('useRequestReactive', () => {
     expect(data.error).toStrictEqual(new Error('???'));
   });
 
-  test('类型测试', async () => {
+  test('类型测试', () => {
     expectTypeOf(useRequestReactive).parameters.toEqualTypeOf<[
       UseRequestUserExecute<unknown, any[]>,
       UseRequestOptions?,
