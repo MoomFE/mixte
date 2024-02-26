@@ -13,7 +13,7 @@ importers:
         version: 1.0.6(vue@3.4.20)
       '@iconify/json':
         specifier: ^2.2.186
-        version: 2.2.186
+        version: 2.2.187
       '@moomfe/eslint-config':
         specifier: ^2.7.2
         version: 2.7.2
@@ -1301,8 +1301,8 @@ packages:
     resolution: {integrity: sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==}
     dev: true
 
-  /@iconify/json@2.2.186:
-    resolution: {integrity: sha512-Qcg7WA0fSOZJuBcNY5lZWbIZVLhdjYxI4kNxq1gWF5G5vFiBr2Xa1ScIKsvcKQwVSGax9E5tbTAHgdvgdr+IMQ==}
+  /@iconify/json@2.2.187:
+    resolution: {integrity: sha512-s2YGP9Nuz1x4xAQq78Y6TZFqGZ8wUO7YlOdbqjwoMgmwJPhEhUrxLs2S17im1rG5g9TzAQsYzt4vsSlgCmoKDA==}
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.2
