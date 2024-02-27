@@ -65,6 +65,7 @@ export function MixteUseAutoImport(options?: MixteUseAutoImportOptions): Imports
       'useRequestReactive',
       'createNamedSharedComposable',
       'useDraggableDistance',
+      'useFileReader',
     ],
   };
 }

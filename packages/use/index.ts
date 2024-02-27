@@ -6,3 +6,4 @@ export * from './src/deepUnref/index';
 export * from './src/useRequest/index';
 export * from './src/createNamedSharedComposable/index';
 export * from './src/useDraggableDistance/index';
+export * from './src/useFileReader/index';
