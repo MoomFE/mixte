@@ -5,26 +5,41 @@
 
     <template v-if="splitGap">
       <span>横向间距 <small>( px )</small>:</span>
-      <el-input-number v-model="gapX" class="w-30!" controls-position="right" />
+      <el-input-number v-model="gapX" class="w-30!" controls-position="right" :min="0" />
       <el-checkbox v-model="splitGap" label="拆分" />
       <span>纵向间距 <small>( px )</small>:</span>
-      <el-input-number v-model="gapY" class="w-30!" controls-position="right" />
+      <el-input-number v-model="gapY" class="w-30!" controls-position="right" :min="0" />
     </template>
     <template v-else>
       <span>横纵间距 <small>( px )</small>:</span>
-      <el-input-number v-model="gap" class="w-30!" controls-position="right" />
+      <el-input-number v-model="gap" class="w-30!" controls-position="right" :min="0" />
       <el-checkbox v-model="splitGap" label="拆分" />
+    </template>
+
+    <span>折叠:</span>
+    <el-checkbox v-model="collapsed" class="grid-col-span-2" />
+    <template v-if="collapsed">
+      <span>默认显示的行数:</span>
+      <el-input-number v-model="collapsedRows" class="w-30! grid-col-span-2" controls-position="right" :min="1" />
+      <span>溢出后缀插槽:</span>
+      <el-checkbox v-model="overflowSuffix" />
     </template>
   </div>
 
-  <MixteAutoGrid ref="rootRef" :item-width="itemWidth" :gap="gap" :gap-x="gapX" :gap-y="gapY">
+  <MixteAutoGrid ref="rootRef" :item-width="itemWidth" :gap="gap" :gap-x="gapX" :gap-y="gapY" :collapsed="collapsed" :collapsed-rows="collapsedRows">
     <div
       v-for="i in count" :key="i"
-      h-8 rounded-sm text-sm flex="~ justify-center items-center"
+      h-8 text-sm flex="~ justify-center items-center"
       :style="{ backgroundColor: randomColors[i - 1] }"
     >
       item-{{ i }}
     </div>
+
+    <template v-if="overflowSuffix" #overflowSuffix>
+      <div size-full flex="~ justify-center items-center" text="sm white" bg-black>
+        溢出后缀插槽
+      </div>
+    </template>
   </MixteAutoGrid>
 </template>
 
@@ -53,6 +68,10 @@
   const gapX = ref<number | undefined>();
   const gapY = ref<number | undefined>();
 
+  const collapsed = ref(false);
+  const collapsedRows = ref<number | undefined>();
+  const overflowSuffix = ref(false);
+
   const count = ref(24);
   const randomColors = computed(() => {
     return Array.from({ length: count.value }, () => colors[random(0, colors.length - 1)]);
@@ -80,10 +99,21 @@
       isNumeric(gapX.value) ? ` gap-x="${gapX.value}"` : ''
     }${
       isNumeric(gapY.value) ? ` gap-y="${gapY.value}"` : ''
+    }${
+      collapsed.value ? ' collapsed' : ''
+    }${
+      isNumeric(collapsedRows.value) ? ` collapsed-rows="${collapsedRows.value}"` : ''
     }>
     <div v-for="i in ${count.value}" :key="i">
       item-{{ i }}
-    </div>
+    </div>${
+      overflowSuffix.value
+        ? `\n
+    <template #overflowSuffix>
+      溢出后缀插槽
+    </template>`
+        : ''
+    }
   </MixteAutoGrid>
 </template>
 

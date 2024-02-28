@@ -1,4 +1,4 @@
-import type { PropType } from 'vue-demi';
+import type { PropType, VNode } from 'vue-demi';
 import { computed, defineComponent, h, ref } from 'vue-demi';
 import { isNumeric } from 'mixte';
 import { useElementSize } from '@vueuse/core';
@@ -21,6 +21,14 @@ export const autoGridProps = {
   gapY: {
     type: [Number, String] as PropType<number | `${number}`>,
   },
+  /** 是否折叠 */
+  collapsed: {
+    type: Boolean,
+  },
+  /** 默认显示的行数 */
+  collapsedRows: {
+    type: [Number, String] as PropType<number | `${number}`>,
+  },
 } as const;
 
 export default defineComponent({
@@ -34,6 +42,8 @@ export default defineComponent({
     const gapX = computed(() => isNumeric(props.gapX) ? +props.gapX : gap.value);
     const gapY = computed(() => isNumeric(props.gapY) ? +props.gapY : gap.value);
 
+    const collapsedRows = computed(() => isNumeric(props.collapsedRows) ? Math.max(1, +props.collapsedRows) : 1);
+
     const children = computed(() => {
       return flatVNode(slots.default?.());
     });
@@ -46,18 +56,38 @@ export default defineComponent({
       return length;
     });
 
-    return () => h('div', {
-      ref: rootRef,
-      style: {
-        display: 'grid',
-        gridTemplateColumns: `repeat(${length.value}, 1fr)`,
-        columnGap: `${gapX.value}px`,
-        rowGap: `${gapY.value}px`,
-      },
-    }, children.value.map((Node) => {
-      return h('div', {
-        style: { overflow: 'hidden' },
-      }, [Node]);
-    }));
+    return () => {
+      let renderChildren = children.value;
+
+      if (props.collapsed) {
+        const hasSuffix = !!slots.overflowSuffix;
+        const childrenLength = children.value.length;
+        const rowsChildrenLength = collapsedRows.value * length.value;
+        const count = childrenLength <= rowsChildrenLength ? childrenLength : (rowsChildrenLength - (hasSuffix ? 1 : 0));
+
+        renderChildren = ([] as VNode[]).concat(
+          children.value.slice(0, count),
+          hasSuffix && childrenLength > rowsChildrenLength ? slots.overflowSuffix!() : [],
+        );
+      }
+
+      return h(
+        'div',
+        {
+          ref: rootRef,
+          style: {
+            display: 'grid',
+            gridTemplateColumns: `repeat(${length.value}, 1fr)`,
+            columnGap: `${gapX.value}px`,
+            rowGap: `${gapY.value}px`,
+          },
+        },
+        renderChildren.map((Node) => {
+          return h('div', {
+            style: { overflow: 'hidden' },
+          }, [Node]);
+        }),
+      );
+    };
   },
 });
