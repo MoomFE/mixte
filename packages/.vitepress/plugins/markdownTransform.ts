@@ -9,6 +9,7 @@ import fs from 'fs-extra';
 import { pascalCase } from 'change-case';
 import { find } from 'lodash-es';
 import { encode } from 'js-base64';
+import { randomString } from 'mixte';
 import docs from '../../../meta/docs.json';
 
 export function MarkdownTransform(): Plugin {
@@ -78,14 +79,15 @@ export function MarkdownTransform(): Plugin {
           const matchEndIndex = match.index! + match[0].length;
 
           if (await fs.pathExists(resolve(dir, `demo/${name}.vue`))) {
+            const demoComponentName = `Second${randomString(18, { uppercase: true, number: true })}Demo`;
             let index;
 
             // 查找下一个二级以上的标题
-            if ((index = code.indexOf('\n##', matchEndIndex)) > -1) s.appendLeft(index, createDemoMd(name));
+            if ((index = code.indexOf('\n##', matchEndIndex)) > -1) s.appendLeft(index, createDemoMd(demoComponentName));
             // 没有二级以上的标题, 直接插入到当前标题的后面
-            else s.appendRight(matchEndIndex, createDemoMd(name));
+            else s.appendRight(matchEndIndex, createDemoMd(demoComponentName));
 
-            imports.push(createImportScript(name, `demo/${name}`));
+            imports.push(createImportScript(demoComponentName, `demo/${name}`));
           }
         }
 

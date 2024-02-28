@@ -89,6 +89,9 @@ importers:
       magic-string:
         specifier: ^0.30.7
         version: 0.30.7
+      mixte:
+        specifier: workspace:^
+        version: link:packages/mixte
       naive-ui:
         specifier: ^2.38.1
         version: 2.38.1(vue@3.4.20)

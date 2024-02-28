@@ -61,6 +61,7 @@
     "lint-staged": "^15.2.2",
     "lodash-es": "^4.17.21",
     "magic-string": "^0.30.7",
+    "mixte": "workspace:^",
     "naive-ui": "^2.38.1",
     "pnpm": "^8.15.4",
     "rollup": "^4.12.0",
