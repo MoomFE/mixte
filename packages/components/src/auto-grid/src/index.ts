@@ -25,7 +25,7 @@ export const autoGridProps = {
   collapsed: {
     type: Boolean,
   },
-  /** 默认显示的行数 */
+  /** 显示的行数 */
   collapsedRows: {
     type: [Number, String] as PropType<number | `${number}`>,
   },

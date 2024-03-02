@@ -19,7 +19,7 @@
     <span>折叠:</span>
     <el-checkbox v-model="collapsed" class="grid-col-span-2" />
     <template v-if="collapsed">
-      <span>默认显示的行数:</span>
+      <span>显示的行数:</span>
       <el-input-number v-model="collapsedRows" class="w-30! grid-col-span-2" controls-position="right" :min="1" />
       <span>溢出后缀插槽:</span>
       <el-checkbox v-model="overflowSuffix" />
