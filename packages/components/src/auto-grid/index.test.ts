@@ -225,4 +225,31 @@ describe('AutoGrid', () => {
     expect(html).toBe(html2);
     expect(html).matchSnapshot();
   });
+
+  test('支持手动传入组件宽度, 会使用传入宽度进行宽度计算每列子元素个数', () => {
+    const wrapper = mount({
+      ...emptyOptions,
+      template: `
+        <MixteAutoGrid width="400" item-width="200">
+          <div>item-1</div>
+          <div>item-2</div>
+        </MixteAutoGrid>
+      `,
+    });
+    const wrapper2 = mount({
+      ...emptyOptions,
+      template: `
+        <MixteAutoGrid :width="400" :item-width="200">
+          <div>item-1</div>
+          <div>item-2</div>
+        </MixteAutoGrid>
+      `,
+    });
+
+    const html = wrapper.html();
+    const html2 = wrapper2.html();
+
+    expect(html).toBe(html2);
+    expect(html).matchSnapshot();
+  });
 });

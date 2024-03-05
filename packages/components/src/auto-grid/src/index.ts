@@ -5,19 +5,26 @@ import { useElementSize } from '@vueuse/core';
 import { flatVNode } from '../../utils/flatVNode';
 
 export const autoGridProps = {
-  /** 子元素最小宽度 */
+  /**
+   * 组件宽度 (单位: px)
+   *  - 正常情况无需使用, 会自动获取组件宽度
+   */
+  width: {
+    type: [Number, String] as PropType<number | `${number}`>,
+  },
+  /** 子元素最小宽度 (单位: px) */
   itemWidth: {
     type: [Number, String] as PropType<number | `${number}`>,
   },
-  /** 横纵间距 */
+  /** 横纵间距 (单位: px) */
   gap: {
     type: [Number, String] as PropType<number | `${number}`>,
   },
-  /** 横向间距 */
+  /** 横向间距 (单位: px) */
   gapX: {
     type: [Number, String] as PropType<number | `${number}`>,
   },
-  /** 纵向间距 */
+  /** 纵向间距 (单位: px) */
   gapY: {
     type: [Number, String] as PropType<number | `${number}`>,
   },
@@ -37,7 +44,10 @@ export default defineComponent({
     const rootRef = ref<HTMLElement>();
     const rootWidth = useElementSize(rootRef).width;
 
-    const itemWidth = computed(() => isNumeric(props.itemWidth) ? +props.itemWidth : rootWidth.value);
+    const isCustomWidth = computed(() => isNumeric(props.width));
+    const width = computed(() => isCustomWidth.value ? +props.width! : rootWidth.value);
+
+    const itemWidth = computed(() => isNumeric(props.itemWidth) ? +props.itemWidth : width.value);
     const gap = computed(() => isNumeric(props.gap) ? +props.gap : 0);
     const gapX = computed(() => isNumeric(props.gapX) ? +props.gapX : gap.value);
     const gapY = computed(() => isNumeric(props.gapY) ? +props.gapY : gap.value);
@@ -50,7 +60,7 @@ export default defineComponent({
 
     const length = computed(() => {
       const gap = children.value.length > 1 ? gapX.value : 0;
-      const length = Math.floor((rootWidth.value + gap) / (itemWidth.value + gap));
+      const length = Math.floor((width.value + gap) / (itemWidth.value + gap));
 
       if (length !== length) return 0; // eslint-disable-line no-self-compare
       return length;
@@ -76,6 +86,7 @@ export default defineComponent({
         {
           ref: rootRef,
           style: {
+            width: isCustomWidth.value ? `${props.width}px` : '100%',
             display: 'grid',
             gridTemplateColumns: `repeat(${length.value}, 1fr)`,
             columnGap: `${gapX.value}px`,
