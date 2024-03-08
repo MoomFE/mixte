@@ -34,39 +34,6 @@ exports[`AutoGrid > 使用渲染函数给组件传入各个类型的子节点 1`
 </div>"
 `;
 
-exports[`AutoGrid > 同时设置横纵间距和"横向间距/纵向间距"时, 以"横向间距/纵向间距"为准 1`] = `
-"<div style="width: 100%; display: grid; grid-template-columns: repeat(1, 1fr); column-gap: 2px; row-gap: 2px;">
-  <div style="overflow: hidden;">
-    <div>item-1</div>
-  </div>
-  <div style="overflow: hidden;">
-    <div>item-2</div>
-  </div>
-</div>"
-`;
-
-exports[`AutoGrid > 同时设置横纵间距和横向间距时, 以横向间距为准 1`] = `
-"<div style="width: 100%; display: grid; grid-template-columns: repeat(1, 1fr); column-gap: 2px; row-gap: 6px;">
-  <div style="overflow: hidden;">
-    <div>item-1</div>
-  </div>
-  <div style="overflow: hidden;">
-    <div>item-2</div>
-  </div>
-</div>"
-`;
-
-exports[`AutoGrid > 同时设置横纵间距和纵向间距时, 以纵向间距为准 1`] = `
-"<div style="width: 100%; display: grid; grid-template-columns: repeat(1, 1fr); column-gap: 6px; row-gap: 2px;">
-  <div style="overflow: hidden;">
-    <div>item-1</div>
-  </div>
-  <div style="overflow: hidden;">
-    <div>item-2</div>
-  </div>
-</div>"
-`;
-
 exports[`AutoGrid > 支持手动传入组件宽度, 会使用传入宽度进行宽度计算每列子元素个数 1`] = `
 "<div style="width: 400px; display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 0px; row-gap: 0px;">
   <div style="overflow: hidden;">
@@ -121,6 +88,17 @@ exports[`AutoGrid > 设置横向间距 1`] = `
 </div>"
 `;
 
+exports[`AutoGrid > 设置横向间距 2`] = `
+"<div style="width: 100%; display: grid; grid-template-columns: repeat(1, 1fr); column-gap: 2px; row-gap: 6px;">
+  <div style="overflow: hidden;">
+    <div>item-1</div>
+  </div>
+  <div style="overflow: hidden;">
+    <div>item-2</div>
+  </div>
+</div>"
+`;
+
 exports[`AutoGrid > 设置横纵间距 1`] = `
 "<div style="width: 100%; display: grid; grid-template-columns: repeat(1, 1fr); column-gap: 2px; row-gap: 2px;">
   <div style="overflow: hidden;">
@@ -132,8 +110,30 @@ exports[`AutoGrid > 设置横纵间距 1`] = `
 </div>"
 `;
 
+exports[`AutoGrid > 设置横纵间距 2`] = `
+"<div style="width: 100%; display: grid; grid-template-columns: repeat(1, 1fr); column-gap: 2px; row-gap: 4px;">
+  <div style="overflow: hidden;">
+    <div>item-1</div>
+  </div>
+  <div style="overflow: hidden;">
+    <div>item-2</div>
+  </div>
+</div>"
+`;
+
 exports[`AutoGrid > 设置纵向间距 1`] = `
 "<div style="width: 100%; display: grid; grid-template-columns: repeat(0, 1fr); column-gap: 0px; row-gap: 2px;">
+  <div style="overflow: hidden;">
+    <div>item-1</div>
+  </div>
+  <div style="overflow: hidden;">
+    <div>item-2</div>
+  </div>
+</div>"
+`;
+
+exports[`AutoGrid > 设置纵向间距 2`] = `
+"<div style="width: 100%; display: grid; grid-template-columns: repeat(1, 1fr); column-gap: 6px; row-gap: 2px;">
   <div style="overflow: hidden;">
     <div>item-1</div>
   </div>

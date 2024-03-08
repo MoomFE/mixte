@@ -64,6 +64,33 @@ describe('AutoGrid', () => {
     expect(wrapper.html()).matchSnapshot();
   });
 
+  test('支持手动传入组件宽度, 会使用传入宽度进行宽度计算每列子元素个数', () => {
+    const wrapper = mount({
+      ...emptyOptions,
+      template: `
+        <MixteAutoGrid width="400" item-width="200">
+          <div>item-1</div>
+          <div>item-2</div>
+        </MixteAutoGrid>
+      `,
+    });
+    const wrapper2 = mount({
+      ...emptyOptions,
+      template: `
+        <MixteAutoGrid :width="400" :item-width="200">
+          <div>item-1</div>
+          <div>item-2</div>
+        </MixteAutoGrid>
+      `,
+    });
+
+    const html = wrapper.html();
+    const html2 = wrapper2.html();
+
+    expect(html).toBe(html2);
+    expect(html).matchSnapshot();
+  });
+
   test('设置横纵间距', () => {
     const wrapper = mount({
       ...emptyOptions,
@@ -89,6 +116,32 @@ describe('AutoGrid', () => {
 
     expect(html).toBe(html2);
     expect(html).matchSnapshot();
+
+    // 同时设置横纵间距和"横向间距/纵向间距"时, 以"横向间距/纵向间距"为准
+    const wrapper3 = mount({
+      ...emptyOptions,
+      template: `
+        <MixteAutoGrid gap="6" gapX="2" gapY="4">
+          <div>item-1</div>
+          <div>item-2</div>
+        </MixteAutoGrid>
+      `,
+    });
+    const wrapper4 = mount({
+      ...emptyOptions,
+      template: `
+        <MixteAutoGrid :gap="6" :gapX="2" :gapY="4">
+          <div>item-1</div>
+          <div>item-2</div>
+        </MixteAutoGrid>
+      `,
+    });
+
+    const html3 = wrapper3.html();
+    const html4 = wrapper4.html();
+
+    expect(html3).toBe(html4);
+    expect(html3).matchSnapshot();
   });
 
   test('设置横向间距', () => {
@@ -116,6 +169,32 @@ describe('AutoGrid', () => {
 
     expect(html).toBe(html2);
     expect(html).matchSnapshot();
+
+    // 同时设置横纵间距和横向间距时, 以横向间距为准
+    const wrapper3 = mount({
+      ...emptyOptions,
+      template: `
+        <MixteAutoGrid gap="6" gapX="2">
+          <div>item-1</div>
+          <div>item-2</div>
+        </MixteAutoGrid>
+      `,
+    });
+    const wrapper4 = mount({
+      ...emptyOptions,
+      template: `
+        <MixteAutoGrid :gap="6" :gapX="2">
+          <div>item-1</div>
+          <div>item-2</div>
+        </MixteAutoGrid>
+      `,
+    });
+
+    const html3 = wrapper3.html();
+    const html4 = wrapper4.html();
+
+    expect(html3).toBe(html4);
+    expect(html3).matchSnapshot();
   });
 
   test('设置纵向间距', () => {
@@ -143,37 +222,9 @@ describe('AutoGrid', () => {
 
     expect(html).toBe(html2);
     expect(html).matchSnapshot();
-  });
 
-  test('同时设置横纵间距和横向间距时, 以横向间距为准', () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      template: `
-        <MixteAutoGrid gap="6" gapX="2">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
-    });
-    const wrapper2 = mount({
-      ...emptyOptions,
-      template: `
-        <MixteAutoGrid :gap="6" :gapX="2">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
-    });
-
-    const html = wrapper.html();
-    const html2 = wrapper2.html();
-
-    expect(html).toBe(html2);
-    expect(html).matchSnapshot();
-  });
-
-  test('同时设置横纵间距和纵向间距时, 以纵向间距为准', () => {
-    const wrapper = mount({
+    // 同时设置横纵间距和纵向间距时, 以纵向间距为准
+    const wrapper3 = mount({
       ...emptyOptions,
       template: `
         <MixteAutoGrid gap="6" gapY="2">
@@ -182,7 +233,7 @@ describe('AutoGrid', () => {
         </MixteAutoGrid>
       `,
     });
-    const wrapper2 = mount({
+    const wrapper4 = mount({
       ...emptyOptions,
       template: `
         <MixteAutoGrid :gap="6" :gapY="2">
@@ -192,64 +243,10 @@ describe('AutoGrid', () => {
       `,
     });
 
-    const html = wrapper.html();
-    const html2 = wrapper2.html();
+    const html3 = wrapper3.html();
+    const html4 = wrapper4.html();
 
-    expect(html).toBe(html2);
-    expect(html).matchSnapshot();
-  });
-
-  test('同时设置横纵间距和"横向间距/纵向间距"时, 以"横向间距/纵向间距"为准', () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      template: `
-        <MixteAutoGrid gap="6" gapX="2" gapY="2">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
-    });
-    const wrapper2 = mount({
-      ...emptyOptions,
-      template: `
-        <MixteAutoGrid :gap="6" :gapX="2" :gapY="2">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
-    });
-
-    const html = wrapper.html();
-    const html2 = wrapper2.html();
-
-    expect(html).toBe(html2);
-    expect(html).matchSnapshot();
-  });
-
-  test('支持手动传入组件宽度, 会使用传入宽度进行宽度计算每列子元素个数', () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      template: `
-        <MixteAutoGrid width="400" item-width="200">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
-    });
-    const wrapper2 = mount({
-      ...emptyOptions,
-      template: `
-        <MixteAutoGrid :width="400" :item-width="200">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
-    });
-
-    const html = wrapper.html();
-    const html2 = wrapper2.html();
-
-    expect(html).toBe(html2);
-    expect(html).matchSnapshot();
+    expect(html3).toBe(html4);
+    expect(html3).matchSnapshot();
   });
 });
