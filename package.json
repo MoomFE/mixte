@@ -50,7 +50,7 @@
     "@vueuse/core": "^10.9.0",
     "axios": "^1.6.7",
     "change-case": "^5.4.3",
-    "element-plus": "^2.6.0",
+    "element-plus": "^2.6.1",
     "eslint": "^8.57.0",
     "fast-glob": "^3.3.2",
     "fs-extra": "^11.2.0",
