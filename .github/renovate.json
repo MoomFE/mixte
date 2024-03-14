@@ -3,7 +3,6 @@
   "extends": [
     "github>moomfe/renovate-config"
   ],
-  "rangeStrategy": "bump",
   "ignoreDeps": [
     "vue",
     "pnpm"
