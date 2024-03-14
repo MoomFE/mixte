@@ -68,7 +68,7 @@
     "rollup-plugin-dts": "^6.1.0",
     "sass": "^1.71.1",
     "shiki": "^1.1.7",
-    "simple-git-hooks": "^2.9.0",
+    "simple-git-hooks": "^2.10.0",
     "tsx": "^4.7.1",
     "type-fest": "^4.10.3",
     "typescript": "^5.3.3",
