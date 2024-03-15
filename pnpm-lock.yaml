@@ -19,7 +19,7 @@ importers:
         version: 2.7.2
       '@moomfe/small-utils':
         specifier: ^5.3.2
-        version: 5.3.2(@vueuse/core@10.9.0)(axios@1.6.7)(vue@3.4.21)
+        version: 5.3.2(@vueuse/core@10.9.0)(axios@1.6.8)(vue@3.4.21)
       '@rollup/pluginutils':
         specifier: ^5.1.0
         version: 5.1.0(rollup@4.13.0)
@@ -51,8 +51,8 @@ importers:
         specifier: ^10.9.0
         version: 10.9.0(vue@3.4.21)
       axios:
-        specifier: ^1.6.7
-        version: 1.6.7
+        specifier: ^1.6.8
+        version: 1.6.8
       change-case:
         specifier: ^5.4.3
         version: 5.4.3
@@ -108,8 +108,8 @@ importers:
         specifier: ^1.72.0
         version: 1.72.0
       shiki:
-        specifier: ^1.1.7
-        version: 1.1.7
+        specifier: ^1.2.0
+        version: 1.2.0
       simple-git-hooks:
         specifier: ^2.10.0
         version: 2.10.0
@@ -145,7 +145,7 @@ importers:
         version: 5.1.6(sass@1.72.0)
       vitepress:
         specifier: ^1.0.0-rc.45
-        version: 1.0.0-rc.45(@algolia/client-search@4.22.1)(axios@1.6.7)(change-case@5.4.3)(postcss@8.4.35)(sass@1.72.0)(search-insights@2.13.0)(typescript@5.4.2)
+        version: 1.0.0-rc.45(@algolia/client-search@4.22.1)(axios@1.6.8)(change-case@5.4.3)(postcss@8.4.35)(sass@1.72.0)(search-insights@2.13.0)(typescript@5.4.2)
       vitest:
         specifier: ^1.4.0
         version: 1.4.0(@vitest/ui@1.4.0)(jsdom@24.0.0)(sass@1.72.0)
@@ -1409,7 +1409,7 @@ packages:
       - supports-color
     dev: true
 
-  /@moomfe/small-utils@5.3.2(@vueuse/core@10.9.0)(axios@1.6.7)(vue@3.4.21):
+  /@moomfe/small-utils@5.3.2(@vueuse/core@10.9.0)(axios@1.6.8)(vue@3.4.21):
     resolution: {integrity: sha512-DS6GC41N84OxnucVd+ijpIf4BZggLma2jbp26zv7aWf+f9f3hdv5SJq1y17CdwGmoXzmW2FN3p4uuwBA5B+txg==}
     peerDependencies:
       '@vue/composition-api': '>=1.1.0'
@@ -1423,7 +1423,7 @@ packages:
         optional: true
     dependencies:
       '@vueuse/core': 10.9.0(vue@3.4.21)
-      axios: 1.6.7
+      axios: 1.6.8
       local-pkg: 0.4.3
       overlayscrollbars: 1.13.3
       type-fest: 3.13.1
@@ -1588,6 +1588,10 @@ packages:
 
   /@shikijs/core@1.1.7:
     resolution: {integrity: sha512-gTYLUIuD1UbZp/11qozD3fWpUTuMqPSf3svDMMrL0UmlGU7D9dPw/V1FonwAorCUJBltaaESxq90jrSjQyGixg==}
+    dev: true
+
+  /@shikijs/core@1.2.0:
+    resolution: {integrity: sha512-OlFvx+nyr5C8zpcMBnSGir0YPD6K11uYhouqhNmm1qLiis4GA7SsGtu07r9gKS9omks8RtQqHrJL4S+lqWK01A==}
     dev: true
 
   /@shikijs/transformers@1.1.7:
@@ -2502,7 +2506,7 @@ packages:
       - vue
     dev: true
 
-  /@vueuse/integrations@10.8.0(axios@1.6.7)(change-case@5.4.3)(focus-trap@7.5.4)(vue@3.4.21):
+  /@vueuse/integrations@10.8.0(axios@1.6.8)(change-case@5.4.3)(focus-trap@7.5.4)(vue@3.4.21):
     resolution: {integrity: sha512-sw3P/7cXOfNLQfERp7P0IJ2ODjLE2C3BGXpBQJQkS309c1jbJak9yu4EnY70WaZjkj53aeWSFU6BbHrUxXJ7SA==}
     peerDependencies:
       async-validator: '*'
@@ -2545,7 +2549,7 @@ packages:
     dependencies:
       '@vueuse/core': 10.8.0(vue@3.4.21)
       '@vueuse/shared': 10.8.0(vue@3.4.21)
-      axios: 1.6.7
+      axios: 1.6.8
       change-case: 5.4.3
       focus-trap: 7.5.4
       vue-demi: 0.14.7(vue@3.4.21)
@@ -2723,10 +2727,10 @@ packages:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
     dev: true
 
-  /axios@1.6.7:
-    resolution: {integrity: sha512-/hDJGff6/c7u0hDkvkGxR/oy6CbCs8ziCsC7SqmhjfozqiJGc8Z11wrv9z9lYfY4K8l+H9TpjcMDX0xOZmx+RA==}
+  /axios@1.6.8:
+    resolution: {integrity: sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==}
     dependencies:
-      follow-redirects: 1.15.5
+      follow-redirects: 1.15.6
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -3799,8 +3803,8 @@ packages:
       tabbable: 6.2.0
     dev: true
 
-  /follow-redirects@1.15.5:
-    resolution: {integrity: sha512-vSFWUON1B+yAw1VN4xMfxgn5fTUiaOzAJCKBwIIgT/+7CuGy9+r+5gITvP62j3RmaD5Ph65UaERdOSRGUzZtgw==}
+  /follow-redirects@1.15.6:
+    resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -5259,6 +5263,12 @@ packages:
       '@shikijs/core': 1.1.7
     dev: true
 
+  /shiki@1.2.0:
+    resolution: {integrity: sha512-xLhiTMOIUXCv5DqJ4I70GgQCtdlzsTqFLZWcMHHG3TAieBUbvEGthdrlPDlX4mL/Wszx9C6rEcxU6kMlg4YlxA==}
+    dependencies:
+      '@shikijs/core': 1.2.0
+    dev: true
+
   /siginfo@2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}
     dev: true
@@ -5912,7 +5922,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitepress@1.0.0-rc.45(@algolia/client-search@4.22.1)(axios@1.6.7)(change-case@5.4.3)(postcss@8.4.35)(sass@1.72.0)(search-insights@2.13.0)(typescript@5.4.2):
+  /vitepress@1.0.0-rc.45(@algolia/client-search@4.22.1)(axios@1.6.8)(change-case@5.4.3)(postcss@8.4.35)(sass@1.72.0)(search-insights@2.13.0)(typescript@5.4.2):
     resolution: {integrity: sha512-/OiYsu5UKpQKA2c0BAZkfyywjfauDjvXyv6Mo4Ra57m5n4Bxg1HgUGoth1CLH2vwUbR/BHvDA9zOM0RDvgeSVQ==}
     hasBin: true
     peerDependencies:
@@ -5932,12 +5942,12 @@ packages:
       '@vitejs/plugin-vue': 5.0.4(vite@5.1.6)(vue@3.4.21)
       '@vue/devtools-api': 7.0.15(vue@3.4.21)
       '@vueuse/core': 10.9.0(vue@3.4.21)
-      '@vueuse/integrations': 10.8.0(axios@1.6.7)(change-case@5.4.3)(focus-trap@7.5.4)(vue@3.4.21)
+      '@vueuse/integrations': 10.8.0(axios@1.6.8)(change-case@5.4.3)(focus-trap@7.5.4)(vue@3.4.21)
       focus-trap: 7.5.4
       mark.js: 8.11.1
       minisearch: 6.3.0
       postcss: 8.4.35
-      shiki: 1.1.7
+      shiki: 1.2.0
       vite: 5.1.6(sass@1.72.0)
       vue: 3.4.21(typescript@5.4.2)
     transitivePeerDependencies:
