@@ -12,18 +12,22 @@ describe('AutoGrid', () => {
     },
   };
 
+  const defaultStyle = {
+    width: '100%',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(0, 1fr)',
+    columnGap: '0px',
+    rowGap: '0px',
+  };
+
   test('未给组件传入子节点', () => {
     const wrapper = mount(emptyOptions);
 
+    // 渲染节点数量
     expect(wrapper.element.children.length).toBe(0);
 
-    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
-      width: '100%',
-      display: 'grid',
-      gridTemplateColumns: 'repeat(0, 1fr)',
-      columnGap: '0px',
-      rowGap: '0px',
-    });
+    // 组件样式
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual(defaultStyle);
   });
 
   test('给组件传入各个类型的子节点', () => {
@@ -55,6 +59,9 @@ describe('AutoGrid', () => {
 
     // 渲染节点数量
     expect(children.length).toBe(9);
+
+    // 组件样式
+    expect(postcssJs.objectify(postcss.parse(element.getAttribute('style')!))).toStrictEqual(defaultStyle);
 
     // 子节点包裹层及其样式
     Array.from(children).forEach((child) => {
@@ -98,6 +105,9 @@ describe('AutoGrid', () => {
     // 渲染节点数量
     expect(children.length).toBe(13);
 
+    // 组件样式
+    expect(postcssJs.objectify(postcss.parse(element.getAttribute('style')!))).toStrictEqual(defaultStyle);
+
     // 子节点包裹层及其样式
     Array.from(children).forEach((child) => {
       expect((child.cloneNode() as HTMLDivElement).outerHTML).toBe('<div style="overflow: hidden;"></div>');
@@ -122,186 +132,168 @@ describe('AutoGrid', () => {
   test('支持手动传入组件宽度, 会使用传入宽度进行宽度计算每列子元素个数', () => {
     const wrapper = mount({
       ...emptyOptions,
-      template: `
-        <MixteAutoGrid width="400" item-width="200">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
+      template: '<MixteAutoGrid width="400" item-width="200" />',
     });
     const wrapper2 = mount({
       ...emptyOptions,
-      template: `
-        <MixteAutoGrid :width="400" :item-width="200">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
+      template: '<MixteAutoGrid :width="400" :item-width="200" />',
     });
 
-    const html = wrapper.html();
-    const html2 = wrapper2.html();
+    const element = wrapper.element;
 
-    expect(html).toBe(html2);
-    expect(html).matchSnapshot();
+    // 不同传参方式的渲染结果一致
+    expect(wrapper.html()).toBe(wrapper2.html());
+
+    // 渲染节点数量
+    expect(element.children.length).toBe(0);
+
+    // 组件样式
+    expect(postcssJs.objectify(postcss.parse(element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '400px',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+    });
   });
 
   test('设置横纵间距 ( 样式测试 )', () => {
     const wrapper = mount({
       ...emptyOptions,
-      template: `
-        <MixteAutoGrid gap="2">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
+      template: '<MixteAutoGrid gap="2" />',
     });
     const wrapper2 = mount({
       ...emptyOptions,
-      template: `
-        <MixteAutoGrid :gap="2">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
+      template: '<MixteAutoGrid :gap="2" />',
     });
 
-    const html = wrapper.html();
-    const html2 = wrapper2.html();
+    // 不同传参方式的渲染结果一致
+    expect(wrapper.html()).toBe(wrapper2.html());
 
-    expect(html).toBe(html2);
-    expect(html).matchSnapshot();
+    // 渲染节点数量
+    expect(wrapper.element.children.length).toBe(0);
 
-    // 同时设置横纵间距和"横向间距/纵向间距"时, 以"横向间距/纵向间距"为准
-    const wrapper3 = mount({
+    // 组件样式
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      columnGap: '2px',
+      rowGap: '2px',
+    });
+  });
+
+  test('同时设置横纵间距和 "横向间距/纵向间距" 时, 以 "横向间距/纵向间距" 为准 ( 样式测试 )', () => {
+    const wrapper = mount({
       ...emptyOptions,
-      template: `
-        <MixteAutoGrid gap="6" gapX="2" gapY="4">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
+      template: '<MixteAutoGrid gap="6" gapX="2" gapY="4" />',
     });
-    const wrapper4 = mount({
+    const wrapper2 = mount({
       ...emptyOptions,
-      template: `
-        <MixteAutoGrid :gap="6" :gapX="2" :gapY="4">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
+      template: '<MixteAutoGrid :gap="6" :gapX="2" :gapY="4" />',
     });
 
-    const html3 = wrapper3.html();
-    const html4 = wrapper4.html();
+    // 不同传参方式的渲染结果一致
+    expect(wrapper.html()).toBe(wrapper2.html());
 
-    expect(html3).toBe(html4);
-    expect(html3).matchSnapshot();
+    // 渲染节点数量
+    expect(wrapper.element.children.length).toBe(0);
+
+    // 组件样式
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      columnGap: '2px',
+      rowGap: '4px',
+    });
   });
 
   test('设置横向间距 ( 样式测试 )', () => {
     const wrapper = mount({
       ...emptyOptions,
-      template: `
-        <MixteAutoGrid gapX="2">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
+      template: '<MixteAutoGrid gapX="2" />',
     });
     const wrapper2 = mount({
       ...emptyOptions,
-      template: `
-        <MixteAutoGrid :gapX="2">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
+      template: '<MixteAutoGrid :gapX="2" />',
     });
 
-    const html = wrapper.html();
-    const html2 = wrapper2.html();
+    // 不同传参方式的渲染结果一致
+    expect(wrapper.html()).toBe(wrapper2.html());
 
-    expect(html).toBe(html2);
-    expect(html).matchSnapshot();
+    // 渲染节点数量
+    expect(wrapper.element.children.length).toBe(0);
 
-    // 同时设置横纵间距和横向间距时, 以横向间距为准
-    const wrapper3 = mount({
+    // 组件样式
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      columnGap: '2px',
+    });
+  });
+
+  test('同时设置横纵间距和横向间距时, 以横向间距为准 ( 样式测试 )', () => {
+    const wrapper = mount({
       ...emptyOptions,
-      template: `
-        <MixteAutoGrid gap="6" gapX="2">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
+      template: '<MixteAutoGrid gap="6" gapX="2" />',
     });
-    const wrapper4 = mount({
+    const wrapper2 = mount({
       ...emptyOptions,
-      template: `
-        <MixteAutoGrid :gap="6" :gapX="2">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
+      template: '<MixteAutoGrid :gap="6" :gapX="2" />',
     });
 
-    const html3 = wrapper3.html();
-    const html4 = wrapper4.html();
+    // 不同传参方式的渲染结果一致
+    expect(wrapper.html()).toBe(wrapper2.html());
 
-    expect(html3).toBe(html4);
-    expect(html3).matchSnapshot();
+    // 渲染节点数量
+    expect(wrapper.element.children.length).toBe(0);
+
+    // 组件样式
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      columnGap: '2px',
+      rowGap: '6px',
+    });
   });
 
   test('设置纵向间距 ( 样式测试 )', () => {
     const wrapper = mount({
       ...emptyOptions,
-      template: `
-        <MixteAutoGrid gapY="2">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
+      template: '<MixteAutoGrid gapY="2" />',
     });
     const wrapper2 = mount({
       ...emptyOptions,
-      template: `
-        <MixteAutoGrid :gapY="2">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
+      template: '<MixteAutoGrid :gapY="2" />',
     });
 
-    const html = wrapper.html();
-    const html2 = wrapper2.html();
+    // 不同传参方式的渲染结果一致
+    expect(wrapper.html()).toBe(wrapper2.html());
 
-    expect(html).toBe(html2);
-    expect(html).matchSnapshot();
+    // 渲染节点数量
+    expect(wrapper.element.children.length).toBe(0);
 
-    // 同时设置横纵间距和纵向间距时, 以纵向间距为准
-    const wrapper3 = mount({
+    // 组件样式
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      rowGap: '2px',
+    });
+  });
+
+  test('同时设置横纵间距和纵向间距时, 以纵向间距为准 ( 样式测试 )', () => {
+    const wrapper = mount({
       ...emptyOptions,
-      template: `
-        <MixteAutoGrid gap="6" gapY="2">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
+      template: '<MixteAutoGrid gap="6" gapY="2" />',
     });
-    const wrapper4 = mount({
+    const wrapper2 = mount({
       ...emptyOptions,
-      template: `
-        <MixteAutoGrid :gap="6" :gapY="2">
-          <div>item-1</div>
-          <div>item-2</div>
-        </MixteAutoGrid>
-      `,
+      template: '<MixteAutoGrid :gap="6" :gapY="2" />',
     });
 
-    const html3 = wrapper3.html();
-    const html4 = wrapper4.html();
+    // 不同传参方式的渲染结果一致
+    expect(wrapper.html()).toBe(wrapper2.html());
 
-    expect(html3).toBe(html4);
-    expect(html3).matchSnapshot();
+    // 渲染节点数量
+    expect(wrapper.element.children.length).toBe(0);
+
+    // 组件样式
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      columnGap: '6px',
+      rowGap: '2px',
+    });
   });
 });
