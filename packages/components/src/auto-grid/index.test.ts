@@ -129,7 +129,7 @@ describe('AutoGrid', () => {
     expect(children[12].innerHTML.trim()).toBe('2');
   });
 
-  test('支持手动传入组件宽度, 会使用传入宽度进行宽度计算每列子元素个数', () => {
+  test('支持手动传入组件宽度, 会使用传入宽度进行宽度计算每列子元素个数 ( 样式测试 )', () => {
     const wrapper = mount({
       ...emptyOptions,
       template: '<MixteAutoGrid width="400" item-width="200" />',
@@ -295,5 +295,147 @@ describe('AutoGrid', () => {
       columnGap: '6px',
       rowGap: '2px',
     });
+  });
+
+  test('调整组件宽度时, 会重新计算每列子元素个数', async () => {
+    const wrapper = mount({
+      ...emptyOptions,
+      props: {
+        width: String,
+      },
+      template: '<MixteAutoGrid :width="width" item-width="200" />',
+    });
+
+    wrapper.setProps({ width: '200' });
+    await nextTick();
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '200px',
+      gridTemplateColumns: 'repeat(1, 1fr)',
+    });
+
+    wrapper.setProps({ width: '399' });
+    await nextTick();
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '399px',
+      gridTemplateColumns: 'repeat(1, 1fr)',
+    });
+
+    wrapper.setProps({ width: '400' });
+    await nextTick();
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '400px',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+    });
+
+    wrapper.setProps({ width: '401' });
+    await nextTick();
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '401px',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+    });
+
+    wrapper.setProps({ width: '599' });
+    await nextTick();
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '599px',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+    });
+
+    wrapper.setProps({ width: '600' });
+    await nextTick();
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '600px',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+    });
+  });
+
+  test('横向间距会影响每列子元素个数', async () => {
+    const wrapper = mount({
+      ...emptyOptions,
+      props: {
+        width: String,
+        gapX: String,
+      },
+      template: `
+        <MixteAutoGrid item-width="200" :width="width" :gap-x="gapX">
+          <div v-for="i in 6" :key="i">item-{{ i }}</div>
+        </MixteAutoGrid>
+      `,
+    });
+
+    wrapper.setProps({ width: '400', gapX: '100' });
+    await nextTick();
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '400px',
+      gridTemplateColumns: 'repeat(1, 1fr)',
+      columnGap: '100px',
+    });
+
+    wrapper.setProps({ width: '499', gapX: '100' });
+    await nextTick();
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '499px',
+      gridTemplateColumns: 'repeat(1, 1fr)',
+      columnGap: '100px',
+    });
+
+    wrapper.setProps({ width: '500', gapX: '100' });
+    await nextTick();
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '500px',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      columnGap: '100px',
+    });
+  });
+
+  test('启用折叠时, 超出指定显示行数的子元素不会渲染', async () => {
+    const wrapper = mount({
+      ...emptyOptions,
+      props: {
+        width: String,
+        collapsedRows: String,
+      },
+      template: `
+        <MixteAutoGrid :width="width" item-width="200" collapsed :collapsed-rows="collapsedRows">
+          <div v-for="i in 10" :key="i">item</div>
+        </MixteAutoGrid>
+      `,
+    });
+
+    const element = wrapper.element;
+
+    // 未设置显示行数时, 默认只显示一行
+    wrapper.setProps({ width: '400' });
+    await nextTick();
+    expect(element.children.length).toBe(2);
+
+    // 设置显示行数为 1
+    wrapper.setProps({ width: '400', collapsedRows: '1' });
+    await nextTick();
+    expect(element.children.length).toBe(2);
+
+    // 设置显示行数为 2
+    wrapper.setProps({ width: '400', collapsedRows: '2' });
+    await nextTick();
+    expect(element.children.length).toBe(4);
+
+    // 行数足够时, 显示所有子元素
+    wrapper.setProps({ width: '400', collapsedRows: '5' });
+    await nextTick();
+    expect(element.children.length).toBe(10);
+
+    // 宽度足够时, 显示所有子元素
+    wrapper.setProps({ width: '2000', collapsedRows: '1' });
+    await nextTick();
+    expect(element.children.length).toBe(10);
   });
 });
