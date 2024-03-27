@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🐞 [@mixte/components] 修复组件 `AutoGrid` 子元素小于等于一个时, 计算每行渲染的子元素数量错误的问题
 
 ## [v1.10.0-beta.1]
   - 📅 2024-03-27
@@ -217,7 +218,9 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.9.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.10.0-beta.1...HEAD
+[v1.10.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v1.10.0-beta.1
+[v1.10.0-beta.0]: https://github.com/MoomFE/mixte/releases/tag/v1.10.0-beta.0
 [v1.9.1]: https://github.com/MoomFE/mixte/releases/tag/v1.9.1
 [v1.9.0]: https://github.com/MoomFE/mixte/releases/tag/v1.9.0
 [v1.9.0-beta.0]: https://github.com/MoomFE/mixte/releases/tag/v1.9.0-beta.0

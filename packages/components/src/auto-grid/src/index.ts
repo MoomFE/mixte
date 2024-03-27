@@ -61,11 +61,7 @@ export default defineComponent({
 
     /** 每行渲染的子元素数量 */
     const length = computed(() => {
-      const gap = children.value.length > 1 ? gapX.value : 0;
-      const length = Math.floor((width.value + gap) / (itemWidth.value + gap));
-
-      if (length !== length) return 1; // eslint-disable-line no-self-compare
-      return length || 1;
+      return Math.floor((width.value + gapX.value) / (itemWidth.value + gapX.value)) || 1;
     });
 
     return () => {

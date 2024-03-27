@@ -405,6 +405,57 @@ describe('AutoGrid', () => {
     });
   });
 
+  test('横向间距会影响每列子元素个数 ( 单子组件测试 )', async () => {
+    const wrapper = mount({
+      ...emptyOptions,
+      props: {
+        width: String,
+        gapX: String,
+      },
+      template: `
+        <MixteAutoGrid item-width="200" :width="width" :gap-x="gapX">
+          <div>item</div>
+        </MixteAutoGrid>
+      `,
+    });
+
+    wrapper.setProps({ width: '1400', gapX: '1000' });
+    await nextTick();
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '1400px',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      columnGap: '1000px',
+    });
+
+    wrapper.setProps({ width: '2600', gapX: '1000' });
+    await nextTick();
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '2600px',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      columnGap: '1000px',
+    });
+
+    wrapper.setProps({ width: '3600', gapX: '1000' });
+    await nextTick();
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '3600px',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      columnGap: '1000px',
+    });
+
+    wrapper.setProps({ width: '3800', gapX: '1000' });
+    await nextTick();
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '3800px',
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      columnGap: '1000px',
+    });
+  });
+
   test('启用折叠时, 超出指定显示行数的子元素不会渲染', async () => {
     const wrapper = mount({
       ...emptyOptions,
