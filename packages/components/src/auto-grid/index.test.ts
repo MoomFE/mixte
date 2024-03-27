@@ -15,7 +15,7 @@ describe('AutoGrid', () => {
   const defaultStyle = {
     width: '100%',
     display: 'grid',
-    gridTemplateColumns: 'repeat(0, 1fr)',
+    gridTemplateColumns: 'repeat(1, 1fr)',
     columnGap: '0px',
     rowGap: '0px',
   };
@@ -304,6 +304,14 @@ describe('AutoGrid', () => {
         width: String,
       },
       template: '<MixteAutoGrid :width="width" item-width="200" />',
+    });
+
+    wrapper.setProps({ width: '199' });
+    await nextTick();
+    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
+      ...defaultStyle,
+      width: '199px',
+      gridTemplateColumns: 'repeat(1, 1fr)',
     });
 
     wrapper.setProps({ width: '200' });

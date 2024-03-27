@@ -1,5 +1,6 @@
 ## [Unreleased]
   - 🌟 [@mixte/components] 组件 `AutoGrid` 新增支持 "组件宽度" 参数
+  - 🐞 [@mixte/components] 修复组件 `AutoGrid` 组件宽度小于子元素最小宽度时, 计算出每行渲染的子元素数量为 0 导致样式出错的问题
 
 ## [v1.10.0-beta.0]
   - 📅 2023-02-28

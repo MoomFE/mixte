@@ -54,16 +54,18 @@ export default defineComponent({
 
     const collapsedRows = computed(() => isNumeric(props.collapsedRows) ? Math.max(1, +props.collapsedRows) : 1);
 
+    /** 所有子元素 */
     const children = computed(() => {
       return flatVNode(slots.default?.());
     });
 
+    /** 每行渲染的子元素数量 */
     const length = computed(() => {
       const gap = children.value.length > 1 ? gapX.value : 0;
       const length = Math.floor((width.value + gap) / (itemWidth.value + gap));
 
-      if (length !== length) return 0; // eslint-disable-line no-self-compare
-      return length;
+      if (length !== length) return 1; // eslint-disable-line no-self-compare
+      return length || 1;
     });
 
     return () => {
