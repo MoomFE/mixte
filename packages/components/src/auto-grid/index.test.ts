@@ -465,36 +465,88 @@ describe('AutoGrid', () => {
       },
       template: `
         <MixteAutoGrid :width="width" item-width="200" collapsed :collapsed-rows="collapsedRows">
-          <div v-for="i in 10" :key="i">item</div>
+          <div v-for="i in 10" :key="i">item-{{ i }}</div>
         </MixteAutoGrid>
       `,
     });
 
-    const element = wrapper.element;
-
     // 未设置显示行数时, 默认只显示一行
     wrapper.setProps({ width: '400' });
     await nextTick();
-    expect(element.children.length).toBe(2);
+    expect(wrapper.element.children.length).toBe(2);
 
     // 设置显示行数为 1
     wrapper.setProps({ width: '400', collapsedRows: '1' });
     await nextTick();
-    expect(element.children.length).toBe(2);
+    expect(wrapper.element.children.length).toBe(2);
 
     // 设置显示行数为 2
     wrapper.setProps({ width: '400', collapsedRows: '2' });
     await nextTick();
-    expect(element.children.length).toBe(4);
+    expect(wrapper.element.children.length).toBe(4);
 
     // 行数足够时, 显示所有子元素
     wrapper.setProps({ width: '400', collapsedRows: '5' });
     await nextTick();
-    expect(element.children.length).toBe(10);
+    expect(wrapper.element.children.length).toBe(10);
 
     // 宽度足够时, 显示所有子元素
     wrapper.setProps({ width: '2000', collapsedRows: '1' });
     await nextTick();
-    expect(element.children.length).toBe(10);
+    expect(wrapper.element.children.length).toBe(10);
+  });
+
+  test('启用折叠时并且有子元素溢出时, 可以使用 overflowSuffix 插槽替代最后一个子节点显示', async () => {
+    const wrapper = mount({
+      ...emptyOptions,
+      props: {
+        width: String,
+        collapsedRows: String,
+        renderCount: Number,
+      },
+      template: `
+        <MixteAutoGrid :width="width" item-width="200" collapsed :collapsed-rows="collapsedRows">
+          <div v-for="i in renderCount" :key="i">item-{{ i }}</div>
+
+          <template #overflowSuffix>
+            item-overflowSuffix
+          </template>
+        </MixteAutoGrid>
+      `,
+    });
+
+    // 单行无节点溢出, 不显示 overflowSuffix 插槽
+    wrapper.setProps({ width: '2000', collapsedRows: '1', renderCount: 10 });
+    await nextTick();
+    expect(wrapper.element.children.length).toBe(10);
+    Array.from(wrapper.element.children).forEach((child, i) => {
+      expect(child.innerHTML.trim()).toBe(`<div>item-${i + 1}</div>`);
+    });
+
+    // 单行有节点溢出, 显示 overflowSuffix 插槽
+    wrapper.setProps({ width: '2000', collapsedRows: '1', renderCount: 11 });
+    await nextTick();
+    expect(wrapper.element.children.length).toBe(10);
+    Array.from(wrapper.element.children).forEach((child, i) => {
+      if (i < 9) expect(child.innerHTML.trim()).toBe(`<div>item-${i + 1}</div>`);
+      else expect(child.innerHTML.trim()).toBe('item-overflowSuffix');
+    });
+
+    // 多行无节点溢出, 不显示 overflowSuffix 插槽
+    wrapper.setProps({ width: '2000', collapsedRows: '2', renderCount: 20 });
+    await nextTick();
+    expect(wrapper.element.children.length).toBe(20);
+    Array.from(wrapper.element.children).forEach((child, i) => {
+      expect(child.innerHTML.trim()).toBe(`<div>item-${i + 1}</div>`);
+    });
+
+    // 多行有节点溢出, 显示 overflowSuffix 插槽
+    wrapper.setProps({ width: '2000', collapsedRows: '2', renderCount: 21 });
+    await nextTick();
+    expect(wrapper.element.children.length).toBe(20);
+    Array.from(wrapper.element.children).forEach((child, i) => {
+      if (i < 19) expect(child.innerHTML.trim()).toBe(`<div>item-${i + 1}</div>`);
+      else expect(child.innerHTML.trim()).toBe('item-overflowSuffix');
+    });
   });
 });

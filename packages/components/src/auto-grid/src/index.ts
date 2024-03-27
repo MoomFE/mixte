@@ -1,4 +1,4 @@
-import type { PropType, VNode } from 'vue-demi';
+import type { PropType } from 'vue-demi';
 import { computed, defineComponent, h, ref } from 'vue-demi';
 import { isNumeric } from 'mixte';
 import { useElementSize } from '@vueuse/core';
@@ -68,15 +68,12 @@ export default defineComponent({
       let renderChildren = children.value;
 
       if (props.collapsed) {
-        const hasSuffix = !!slots.overflowSuffix;
-        const childrenLength = children.value.length;
         const rowsChildrenLength = collapsedRows.value * length.value;
-        const count = childrenLength <= rowsChildrenLength ? childrenLength : (rowsChildrenLength - (hasSuffix ? 1 : 0));
 
-        renderChildren = ([] as VNode[]).concat(
-          children.value.slice(0, count),
-          hasSuffix && childrenLength > rowsChildrenLength ? slots.overflowSuffix!() : [],
-        );
+        renderChildren = renderChildren.slice(0, rowsChildrenLength);
+
+        if (children.value.length > rowsChildrenLength && !!slots.overflowSuffix)
+          renderChildren.splice(-1, 1, slots.overflowSuffix!() as any);
       }
 
       return h(
