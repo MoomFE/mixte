@@ -4,7 +4,6 @@
     "github>moomfe/renovate-config"
   ],
   "ignoreDeps": [
-    "vue",
-    "pnpm"
+    "vue"
   ]
 }
