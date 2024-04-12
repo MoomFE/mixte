@@ -1,1 +1,1 @@
-export * from './dist/getFastestCDN'
+export * from './dist/getFastestCDN';

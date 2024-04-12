@@ -23,8 +23,12 @@
   const formRef = ref<InstanceType<typeof NForm>>();
 
   const {
-    form, formProps,
-    validate, reset, resetForm, resetValidation,
+    form,
+    formProps,
+    validate,
+    reset,
+    resetForm,
+    resetValidation,
   } = useNaiveForm({
     formRef,
     form: {

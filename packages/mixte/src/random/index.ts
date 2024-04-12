@@ -124,11 +124,11 @@ export function randomLetter(uppercase?: boolean) {
 /** 生成字符串的选项 */
 interface RandomStringOptions {
   /** 是否包含小写字母 ( default: true ) */
-  lowercase?: boolean
+  lowercase?: boolean;
   /** 是否包含大写字母 ( default: false ) */
-  uppercase?: boolean
+  uppercase?: boolean;
   /** 是否包含数字 ( default: false ) */
-  number?: boolean
+  number?: boolean;
 }
 
 /**

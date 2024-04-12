@@ -9,7 +9,7 @@ export interface UseCountdownOptions {
    * 倒计时所使用的时间 ( 毫秒 )
    * @default 60 * 1000
    */
-  duration?: MaybeRefOrGetter<number>
+  duration?: MaybeRefOrGetter<number>;
 }
 
 /**
@@ -106,9 +106,9 @@ interface UseTransitionOptions extends TransitionOptions {
   /**
    * Disables the transition
    */
-  disabled: () => boolean
+  disabled: () => boolean;
   /**
    * Callback to execute after transition finishes
    */
-  onFinished: () => void
+  onFinished: () => void;
 }

@@ -2,7 +2,7 @@ import { nextTick, ref, watch } from 'vue-demi';
 import { watchDeep, watchImmediate, watchImmediateDeep } from '@mixte/use';
 
 describe('watchImmediate', () => {
-  test('immediate 默认为 true 的 watch 方法', async () => {
+  it('immediate 默认为 true 的 watch 方法', async () => {
     const a = ref(1);
     const watchFns = {
       fn1: () => {},
@@ -37,7 +37,7 @@ describe('watchImmediate', () => {
     expect(fn3.mock.calls[0].slice(0, 2)).toStrictEqual([2, 1]);
   });
 
-  test('重新传入 immediate 选项是无效的', async () => {
+  it('重新传入 immediate 选项是无效的', async () => {
     const a = ref(1);
     const watchFns = {
       fn1: () => {},
@@ -67,7 +67,7 @@ describe('watchImmediate', () => {
 });
 
 describe('watchDeep', () => {
-  test('deep 默认为 true 的 watch 方法', async () => {
+  it('deep 默认为 true 的 watch 方法', async () => {
     const a = ref({ b: 1 });
     const watchFns = {
       fn1: () => {},
@@ -100,7 +100,7 @@ describe('watchDeep', () => {
     expect(fn3).toHaveBeenCalledTimes(2);
   });
 
-  test('重新传入 deep 选项是无效的', async () => {
+  it('重新传入 deep 选项是无效的', async () => {
     const a = ref({ b: 1 });
     const watchFns = {
       fn1: () => {},
@@ -129,7 +129,7 @@ describe('watchDeep', () => {
 });
 
 describe('watchImmediateDeep', () => {
-  test('immediate 和 deep 都为 true 的 watch 方法', async () => {
+  it('immediate 和 deep 都为 true 的 watch 方法', async () => {
     const a = ref({ b: 1 });
     const watchFns = {
       fn1: () => {},
@@ -162,7 +162,7 @@ describe('watchImmediateDeep', () => {
     expect(fn3).toHaveBeenCalledTimes(3);
   });
 
-  test('重新传入 immediate 和 deep 选项是无效的', async () => {
+  it('重新传入 immediate 和 deep 选项是无效的', async () => {
     const a = ref({ b: 1 });
     const watchFns = {
       fn1: () => {},

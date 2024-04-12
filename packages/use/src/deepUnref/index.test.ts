@@ -4,7 +4,7 @@ import { isPlainObject } from 'mixte';
 import { types } from '../../../mixte/src/is/testTypes';
 
 describe('deepUnref', () => {
-  test('最基础的作用和 unref 相同', () => {
+  it('最基础的作用和 unref 相同', () => {
     const a = ref(1);
     const b = computed(() => a.value + 1);
 
@@ -23,7 +23,7 @@ describe('deepUnref', () => {
     expect(deepUnref(b)).toBe(3);
   });
 
-  test('如果传入的是普通对象或数组, 那么会返回对象的副本', () => {
+  it('如果传入的是普通对象或数组, 那么会返回对象的副本', () => {
     const a = { a: 1 };
     const b = [1, 2, 3];
 
@@ -33,7 +33,7 @@ describe('deepUnref', () => {
     expect(deepUnref(b)).not.toBe(b);
   });
 
-  test('如果传入的不是普通对象和数组, 那么直接返回传入值的 `unref` 结果', () => {
+  it('如果传入的不是普通对象和数组, 那么直接返回传入值的 `unref` 结果', () => {
     Object.values(types).forEach((values) => {
       values.forEach((value) => {
         let isArray = false;
@@ -69,7 +69,7 @@ describe('deepUnref', () => {
     });
   });
 
-  test('会深度解包普通对象内的 ref 和 computed 对象, 包括解包普通对象本身', () => {
+  it('会深度解包普通对象内的 ref 和 computed 对象, 包括解包普通对象本身', () => {
     const a = {
       b: ref(1),
       c: computed(() => 2),
@@ -138,7 +138,7 @@ describe('deepUnref', () => {
     expect(deepUnrefComputedA).toStrictEqual(result);
   });
 
-  test('会深度解包数组内的 ref 和 computed 对象, 包括解包数组本身', () => {
+  it('会深度解包数组内的 ref 和 computed 对象, 包括解包数组本身', () => {
     const a = [
       ref(1),
       computed(() => 2),

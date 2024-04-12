@@ -8,23 +8,23 @@ interface UseNaiveFormOptions<Form extends object> {
    * 表单组件引用
    *  - 如果有多个表单组件, 可以传入数组
    */
-  formRef?: NFormRef | NFormRef[]
+  formRef?: NFormRef | NFormRef[];
   /** 表单数据 */
-  form?: MaybeRefOrGetter<Form>
+  form?: MaybeRefOrGetter<Form>;
   /** 表单数据验证规则 */
-  formValidateRules?: MaybeRefOrGetter<Partial<Record<keyof Form, FormItemRule[]>>>
+  formValidateRules?: MaybeRefOrGetter<Partial<Record<keyof Form, FormItemRule[]>>>;
 }
 
 function useNaiveForm<Form extends object>(options: UseNaiveFormOptions<Form>): {
-  form: Form
-  formValidateRules: Partial<Record<keyof Form, FormItemRule[]>> | undefined
+  form: Form;
+  formValidateRules: Partial<Record<keyof Form, FormItemRule[]>> | undefined;
   formProps: {
-    model: Form
-    rules: Partial<Record<keyof Form, FormItemRule[]>> | undefined
-  }
-  validate: () => Promise<void>
-  resetValidation: () => void
-  resetForm: () => void
-  reset: () => void
+    model: Form;
+    rules: Partial<Record<keyof Form, FormItemRule[]>> | undefined;
+  };
+  validate: () => Promise<void>;
+  resetValidation: () => void;
+  resetForm: () => void;
+  reset: () => void;
 };
 ```

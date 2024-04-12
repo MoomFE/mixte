@@ -1,7 +1,6 @@
 - 常用的类型判断方法
 - 该页面的方法可以打开浏览器的 JavaScript 控制台, 使用 `Mixte.{fn-name}` 的方式使用
 
-
 ## `isString` {#isString}
 
 判断传入参数是否是 String 类型
@@ -20,7 +19,6 @@ isString(666); // -> false
 ```ts
 function isString(value: unknown): value is string;
 ```
-
 
 ## `isBoolean` {#isBoolean}
 
@@ -42,7 +40,6 @@ isBoolean(666); // -> false
 function isBoolean(value: unknown): value is boolean;
 ```
 
-
 ## `isNumber` {#isNumber}
 
 判断传入参数是否是 Number 类型, 并且不为 NaN
@@ -62,7 +59,6 @@ isNumber(Number.NaN); // -> false
 ```ts
 function isNumber(value: unknown): value is number;
 ```
-
 
 ## `isNumericString` {#isNumericString}
 
@@ -84,7 +80,6 @@ isNumericString(Number.NaN); // -> false
 function isNumericString(value: unknown): value is `${number}`;
 ```
 
-
 ## `isNumeric` {#isNumeric}
 
 判断传入参数是否是数字, 支持判断数字字符串
@@ -104,7 +99,6 @@ isNumeric(Number.NaN); // -> false
 ```ts
 function isNumeric(value: unknown): value is number | `${number}`;
 ```
-
 
 ## `isObject` {#isObject}
 
@@ -127,7 +121,6 @@ isObject(666); // -> false
 function isObject(value: unknown): value is object;
 ```
 
-
 ## `isPlainObject` {#isPlainObject}
 
 判断传入参数是否是纯粹的对象
@@ -147,7 +140,6 @@ isPlainObject([]); // -> false
 ```ts
 function isPlainObject<Value = unknown>(value: unknown): value is Record<PropertyKey, Value>;
 ```
-
 
 ## `isFunction` {#isFunction}
 
@@ -170,7 +162,6 @@ isFunction(666); // -> false
 function isFunction(value: unknown): value is Function;
 ```
 
-
 ## `isNativePromise` {#isNativePromise}
 
 判断传入参数是否是 Promise 对象
@@ -191,7 +182,6 @@ isNativePromise({ then() {}, catch() {} }); // -> false
 function isNativePromise<T = unknown>(value: unknown): value is Promise<T>;
 ```
 
-
 ## `isPromise` {#isPromise}
 
 判断传入参数是否是 Promise 对象或是类似于 Promise 的对象
@@ -211,7 +201,6 @@ isPromise({ then() {}, catch() {} }); // -> true
 ```ts
 function isPromise<T = unknown>(value: unknown): value is Promise<T>;
 ```
-
 
 ## `isReference` {#isReference}
 
@@ -242,7 +231,6 @@ isReference(666n); // -> false
 function isReference(value: unknown): value is object | Function;
 ```
 
-
 ## `isPrimitive` {#isPrimitive}
 
 判断传入参数是否是原始类型
@@ -272,7 +260,6 @@ isPrimitive(() => {}); // -> false
 function isPrimitive(value: unknown): boolean;
 ```
 
-
 ## `isEmptyObject` {#isEmptyObject}
 
 判断传入对象是否是一个空对象
@@ -291,7 +278,6 @@ isEmptyObject({ mixte: 6 }); // -> false
 ```ts
 function isEmptyObject(value: any): value is EmptyObject;
 ```
-
 
 ## `isESModule` {#isESModule}
 

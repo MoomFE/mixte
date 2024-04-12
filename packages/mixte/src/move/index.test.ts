@@ -1,7 +1,7 @@
 import { move, moveRange } from 'mixte';
 
 describe('move', () => {
-  test('移动数组内的某个元素到指定的下标位置', () => {
+  it('移动数组内的某个元素到指定的下标位置', () => {
     const arr = [1, 2, 3, 4, 5, 6];
 
     expect(move(arr, 0, 5)).toStrictEqual([2, 3, 4, 5, 6, 1]);
@@ -16,14 +16,14 @@ describe('move', () => {
     expect(move(arr, 3, 3)).toStrictEqual([1, 2, 3, 4, 5, 6]);
   });
 
-  test('方法修改的和返回的是原数组', () => {
+  it('方法修改的和返回的是原数组', () => {
     const arr = [1, 2, 3, 4, 5, 6];
     expect(move(arr, 0, 5)).toBe(arr);
   });
 });
 
 describe('moveRange', () => {
-  test('移动数组内一个范围内的元素到指定的下标位置', () => {
+  it('移动数组内一个范围内的元素到指定的下标位置', () => {
     const arr = [1, 2, 3, 4, 5, 6];
 
     expect(moveRange(arr, 0, 1, 5)).toStrictEqual([2, 3, 4, 5, 6, 1]);
@@ -38,7 +38,7 @@ describe('moveRange', () => {
     expect(moveRange(arr, 3, 3, 3)).toStrictEqual([1, 2, 3, 4, 5, 6]);
   });
 
-  test('方法修改的和返回的是原数组', () => {
+  it('方法修改的和返回的是原数组', () => {
     const arr = [1, 2, 3, 4, 5, 6];
     expect(moveRange(arr, 0, 1, 5)).toBe(arr);
   });

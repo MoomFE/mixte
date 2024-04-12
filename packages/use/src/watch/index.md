@@ -39,7 +39,6 @@ function watchImmediate<T>(source: WatchSource<T>, cb: WatchCallback<T, true>, o
 function watchImmediate<T extends object>(source: T, cb: WatchCallback<T, true>, options?: Omit<WatchOptions, 'immediate'>): WatchStopHandle;
 ```
 
-
 ## `watchDeep` {#watchDeep}
 
 deep 默认为 true 的 watch 方法
@@ -80,7 +79,6 @@ export function watchDeep<T extends Readonly<MultiWatchSources>, Immediate exten
 export function watchDeep<T, Immediate extends Readonly<boolean> = false>(source: WatchSource<T>, cb: WatchCallback<T, Immediate extends true ? T | undefined : T>, options?: Omit<WatchOptions<Immediate>, 'deep'>): WatchStopHandle;
 export function watchDeep<T extends object, Immediate extends Readonly<boolean> = false>(source: T, cb: WatchCallback<T, Immediate extends true ? T | undefined : T>, options?: Omit<WatchOptions<Immediate>, 'deep'>): WatchStopHandle;
 ```
-
 
 ## `watchImmediateDeep` {#watchImmediateDeep}
 

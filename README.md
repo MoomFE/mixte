@@ -4,7 +4,6 @@
 [![npm](https://img.shields.io/npm/v/mixte.svg)](https://www.npmjs.com/package/mixte)
 [![Codecov](https://img.shields.io/codecov/c/gh/MoomFE/mixte)](https://codecov.io/gh/MoomFE/mixte)
 
-
 ## 文档
 
 [https://mixte.moomfe.com/](https://mixte.moomfe.com/)

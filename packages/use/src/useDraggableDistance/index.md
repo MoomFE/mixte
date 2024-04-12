@@ -11,8 +11,8 @@ outline: [1,3]
  * @param target - 要拖动的目标元素
  */
 function useDraggableDistance(target: MaybeRefOrGetter<HTMLElement | SVGElement | null | undefined>): {
-  x: Ref<number>
-  y: Ref<number>
-  isDragging: ComputedRef<boolean>
+  x: Ref<number>;
+  y: Ref<number>;
+  isDragging: ComputedRef<boolean>;
 };
 ```

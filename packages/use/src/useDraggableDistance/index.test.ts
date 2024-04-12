@@ -1,7 +1,7 @@
 import { useDraggableDistance } from '@mixte/use';
 
 describe('useDraggableDistance', () => {
-  test('方法返回参数类型判断', () => {
+  it('方法返回参数类型判断', () => {
     const { x, y, isDragging } = useDraggableDistance(() => null);
 
     expect(x.value).toBeTypeOf('number');

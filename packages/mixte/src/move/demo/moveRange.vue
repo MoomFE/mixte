@@ -40,7 +40,7 @@
   const startFloatingRef = ref<HTMLElement>();
   const toFloatingRef = ref<HTMLElement>();
   const itemsRef = ref<HTMLElement[]>([]);
-  const itemsSortRef = computed(() => itemsRef.value.sort((a, b) => Number(a.dataset.index) - Number(b.dataset.index)));
+  const itemsSortRef = computed(() => itemsRef.value.toSorted((a, b) => Number(a.dataset.index) - Number(b.dataset.index)));
 
   const array = reactive([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
   const start = ref(1);

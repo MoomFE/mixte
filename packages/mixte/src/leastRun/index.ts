@@ -42,7 +42,7 @@ export async function leastRun<
  * 运行函数并且保证最少执行 1000ms 的时间
  *
  * @see https://mixte.moomfe.com/mixte/leastRun
- * @param fn 要运行的函数
+ * @param ms 最少执行的时间 ( 毫秒 )
  * @example
  * async function fn() {
  *   await delay(500);

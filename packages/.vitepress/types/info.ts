@@ -3,7 +3,7 @@
  */
 export interface Info {
   /** 中文名 / 简称 ( 显示到文档侧边栏及文档大标题中 ) */
-  name?: string
+  name?: string;
   /** 是否隐藏文档大标题 */
-  hiddenH1?: boolean
+  hiddenH1?: boolean;
 }

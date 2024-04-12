@@ -5,7 +5,7 @@ layout: home
 hero:
   name: Mixte
   text: 前端工具合集
-  tagline: 
+  tagline:
   actions:
     - theme: brand
       text: 开始使用

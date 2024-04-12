@@ -4,7 +4,7 @@ import { h } from 'vue-demi';
 import postcss from 'postcss';
 import postcssJs from 'postcss-js';
 
-describe('AutoGrid', () => {
+describe('autoGrid', () => {
   const emptyOptions = {
     template: '<MixteAutoGrid />',
     components: {
@@ -20,7 +20,7 @@ describe('AutoGrid', () => {
     rowGap: '0px',
   };
 
-  test('未给组件传入子节点', () => {
+  it('未给组件传入子节点', () => {
     const wrapper = mount(emptyOptions);
 
     // 渲染节点数量
@@ -30,7 +30,7 @@ describe('AutoGrid', () => {
     expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual(defaultStyle);
   });
 
-  test('给组件传入各个类型的子节点', () => {
+  it('给组件传入各个类型的子节点', () => {
     const wrapper = mount({
       ...emptyOptions,
       template: `
@@ -80,7 +80,7 @@ describe('AutoGrid', () => {
     expect(children[8].innerHTML.trim()).toBe('<div>item-6</div>');
   });
 
-  test('使用渲染函数给组件传入各个类型的子节点', () => {
+  it('使用渲染函数给组件传入各个类型的子节点', () => {
     const wrapper = mount({
       render() {
         return h(MixteAutoGrid, {}, {
@@ -129,7 +129,7 @@ describe('AutoGrid', () => {
     expect(children[12].innerHTML.trim()).toBe('2');
   });
 
-  test('支持手动传入组件宽度, 会使用传入宽度进行宽度计算每列子元素个数 ( 样式测试 )', () => {
+  it('支持手动传入组件宽度, 会使用传入宽度进行宽度计算每列子元素个数 ( 样式测试 )', () => {
     const wrapper = mount({
       ...emptyOptions,
       template: '<MixteAutoGrid width="400" item-width="200" />',
@@ -155,7 +155,7 @@ describe('AutoGrid', () => {
     });
   });
 
-  test('设置横纵间距 ( 样式测试 )', () => {
+  it('设置横纵间距 ( 样式测试 )', () => {
     const wrapper = mount({
       ...emptyOptions,
       template: '<MixteAutoGrid gap="2" />',
@@ -179,7 +179,7 @@ describe('AutoGrid', () => {
     });
   });
 
-  test('同时设置横纵间距和 "横向间距/纵向间距" 时, 以 "横向间距/纵向间距" 为准 ( 样式测试 )', () => {
+  it('同时设置横纵间距和 "横向间距/纵向间距" 时, 以 "横向间距/纵向间距" 为准 ( 样式测试 )', () => {
     const wrapper = mount({
       ...emptyOptions,
       template: '<MixteAutoGrid gap="6" gapX="2" gapY="4" />',
@@ -203,7 +203,7 @@ describe('AutoGrid', () => {
     });
   });
 
-  test('设置横向间距 ( 样式测试 )', () => {
+  it('设置横向间距 ( 样式测试 )', () => {
     const wrapper = mount({
       ...emptyOptions,
       template: '<MixteAutoGrid gapX="2" />',
@@ -226,7 +226,7 @@ describe('AutoGrid', () => {
     });
   });
 
-  test('同时设置横纵间距和横向间距时, 以横向间距为准 ( 样式测试 )', () => {
+  it('同时设置横纵间距和横向间距时, 以横向间距为准 ( 样式测试 )', () => {
     const wrapper = mount({
       ...emptyOptions,
       template: '<MixteAutoGrid gap="6" gapX="2" />',
@@ -250,7 +250,7 @@ describe('AutoGrid', () => {
     });
   });
 
-  test('设置纵向间距 ( 样式测试 )', () => {
+  it('设置纵向间距 ( 样式测试 )', () => {
     const wrapper = mount({
       ...emptyOptions,
       template: '<MixteAutoGrid gapY="2" />',
@@ -273,7 +273,7 @@ describe('AutoGrid', () => {
     });
   });
 
-  test('同时设置横纵间距和纵向间距时, 以纵向间距为准 ( 样式测试 )', () => {
+  it('同时设置横纵间距和纵向间距时, 以纵向间距为准 ( 样式测试 )', () => {
     const wrapper = mount({
       ...emptyOptions,
       template: '<MixteAutoGrid gap="6" gapY="2" />',
@@ -297,7 +297,7 @@ describe('AutoGrid', () => {
     });
   });
 
-  test('调整组件宽度时, 会重新计算每列子元素个数', async () => {
+  it('调整组件宽度时, 会重新计算每列子元素个数', async () => {
     const wrapper = mount({
       ...emptyOptions,
       props: {
@@ -363,7 +363,7 @@ describe('AutoGrid', () => {
     });
   });
 
-  test('横向间距会影响每列子元素个数', async () => {
+  it('横向间距会影响每列子元素个数', async () => {
     const wrapper = mount({
       ...emptyOptions,
       props: {
@@ -405,7 +405,7 @@ describe('AutoGrid', () => {
     });
   });
 
-  test('横向间距会影响每列子元素个数 ( 单子组件测试 )', async () => {
+  it('横向间距会影响每列子元素个数 ( 单子组件测试 )', async () => {
     const wrapper = mount({
       ...emptyOptions,
       props: {
@@ -456,7 +456,7 @@ describe('AutoGrid', () => {
     });
   });
 
-  test('启用折叠时, 超出指定显示行数的子元素不会渲染', async () => {
+  it('启用折叠时, 超出指定显示行数的子元素不会渲染', async () => {
     const wrapper = mount({
       ...emptyOptions,
       props: {
@@ -496,7 +496,7 @@ describe('AutoGrid', () => {
     expect(wrapper.element.children.length).toBe(10);
   });
 
-  test('启用折叠时并且有子元素溢出时, 可以使用 overflowSuffix 插槽替代最后一个子节点显示', async () => {
+  it('启用折叠时并且有子元素溢出时, 可以使用 overflowSuffix 插槽替代最后一个子节点显示', async () => {
     const wrapper = mount({
       ...emptyOptions,
       props: {

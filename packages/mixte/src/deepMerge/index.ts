@@ -38,7 +38,6 @@ function merge<T extends object, S extends object>(target: T, source: S, cache: 
  *
  * @see https://mixte.moomfe.com/mixte/deepMerge
  * @param target 目标对象
- * @param source 来源对象
  */
 export function deepMerge<T>(target: T): T;
 /**

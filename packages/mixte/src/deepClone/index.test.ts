@@ -2,7 +2,7 @@ import { deepClone, isPlainObject } from 'mixte';
 import { types } from '../is/testTypes';
 
 describe('deepClone', () => {
-  test('深拷贝普通对象', () => {
+  it('深拷贝普通对象', () => {
     const obj = {
       a: 1,
       b: { c: 2 },
@@ -16,7 +16,7 @@ describe('deepClone', () => {
     expect(result.b).toStrictEqual(obj.b);
   });
 
-  test('深拷贝数组', () => {
+  it('深拷贝数组', () => {
     const arr = [
       [1],
       { b: 2 },
@@ -33,7 +33,7 @@ describe('deepClone', () => {
     expect(result[1]).toStrictEqual(arr[1]);
   });
 
-  test('所有类型测试', () => {
+  it('所有类型测试', () => {
     Object.values(types).forEach((values) => {
       values.forEach((value) => {
         let isArray = false;
@@ -53,7 +53,7 @@ describe('deepClone', () => {
     });
   });
 
-  test('防御循环引用', () => {
+  it('防御循环引用', () => {
     interface Circular { a: Circular }
     type CircularArray = [CircularArray];
 

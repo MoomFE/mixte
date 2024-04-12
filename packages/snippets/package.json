@@ -26,8 +26,8 @@
     "./*": "./*"
   },
   "files": [
-    "dist",
-    "*.ts"
+    "*.ts",
+    "dist"
   ],
   "dependencies": {},
   "devDependencies": {}

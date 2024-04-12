@@ -6,7 +6,7 @@ import type { ShallowRef } from 'vue-demi';
 import { isRef, nextTick, ref } from 'vue-demi';
 
 describe.concurrent('useRequest', () => {
-  test('方法返回对象参数类型判断', async ({ expect }) => {
+  it('方法返回对象参数类型判断', async ({ expect }) => {
     let throwError: boolean = false;
     const data = useRequest(async () => {
       await delay(100);
@@ -20,20 +20,36 @@ describe.concurrent('useRequest', () => {
 
     // 返回属性测试
     expect(Object.keys(data).sort()).toStrictEqual([
-      'response', 'data', 'error',
-      'isExecuted', 'isLoading', 'isFinished', 'isSuccess',
-      'successCount', 'clearSuccessCount',
+      'response',
+      'data',
+      'error',
+      'isExecuted',
+      'isLoading',
+      'isFinished',
+      'isSuccess',
+      'successCount',
+      'clearSuccessCount',
       'execute',
-      'onSuccess', 'onError', 'onFinally',
+      'onSuccess',
+      'onError',
+      'onFinally',
       'reactive',
     ].sort());
 
     expect(Object.keys(data.reactive).sort()).toStrictEqual([
-      'response', 'data', 'error',
-      'isExecuted', 'isLoading', 'isFinished', 'isSuccess',
-      'successCount', 'clearSuccessCount',
+      'response',
+      'data',
+      'error',
+      'isExecuted',
+      'isLoading',
+      'isFinished',
+      'isSuccess',
+      'successCount',
+      'clearSuccessCount',
       'execute',
-      'onSuccess', 'onError', 'onFinally',
+      'onSuccess',
+      'onError',
+      'onFinally',
     ].sort());
 
     // 类型测试
@@ -91,7 +107,7 @@ describe.concurrent('useRequest', () => {
     expect(toRaw(data.error.value)).toBe(toRaw(data.reactive.error));
   });
 
-  test('请求成功情况的返回对象参数', async ({ expect }) => {
+  it('请求成功情况的返回对象参数', async ({ expect }) => {
     let throwError: boolean = false;
     let successEventCountAndArgs = [0] as [number, ...any[]];
     let errorEventCountAndArgs = [0] as [number, ...any[]];
@@ -207,7 +223,7 @@ describe.concurrent('useRequest', () => {
     expect(finallyEventCountAndArgs).toStrictEqual([2]);
   });
 
-  test('请求失败情况的返回对象参数', async ({ expect }) => {
+  it('请求失败情况的返回对象参数', async ({ expect }) => {
     let throwError: boolean = true;
     let successEventCountAndArgs = [0] as [number, ...any[]];
     let errorEventCountAndArgs = [0] as [number, ...any[]];
@@ -320,7 +336,7 @@ describe.concurrent('useRequest', () => {
     expect(finallyEventCountAndArgs).toStrictEqual([2]);
   });
 
-  test('请求完成后修改传参', async ({ expect }) => {
+  it('请求完成后修改传参', async ({ expect }) => {
     const data = useRequest(async () => ({
       data: {
         a: { b: 2 },
@@ -336,7 +352,7 @@ describe.concurrent('useRequest', () => {
     expect(data.data.value).toStrictEqual({ a: { b: 3 } });
   });
 
-  test('同时发起多个请求, 仅最后一次请求生效', async ({ expect }) => {
+  it('同时发起多个请求, 仅最后一次请求生效', async ({ expect }) => {
     let throwError: boolean = false;
     let successIndex = 0;
     let finallyIndex = 0;
@@ -374,7 +390,7 @@ describe.concurrent('useRequest', () => {
     expect(data.successCount.value).toBe(1);
   });
 
-  test('请求成功后, 请求成功次数会进行累计, 可以使用方法清除请求成功次数', async ({ expect }) => {
+  it('请求成功后, 请求成功次数会进行累计, 可以使用方法清除请求成功次数', async ({ expect }) => {
     let throwError: boolean = false;
 
     const data = useRequest(async () => {
@@ -424,7 +440,7 @@ describe.concurrent('useRequest', () => {
     expect(data.successCount.value).toBe(1);
   });
 
-  test('支持传入 immediate: true 选项立即发起请求', async ({ expect }) => {
+  it('支持传入 immediate: true 选项立即发起请求', async ({ expect }) => {
     const data = useRequest(async () => {
       await delay(100);
       return {
@@ -455,7 +471,7 @@ describe.concurrent('useRequest', () => {
     expect(data.successCount.value).toBe(1);
   });
 
-  test('支持传入 initialData 选项定义初始数据, 发起请求时会重置 data 为传入的 initialData', async ({ expect }) => {
+  it('支持传入 initialData 选项定义初始数据, 发起请求时会重置 data 为传入的 initialData', async ({ expect }) => {
     const data = useRequest(async () => {
       await delay(100);
       return {
@@ -483,7 +499,7 @@ describe.concurrent('useRequest', () => {
     expect(data.data.value).toBe(666);
   });
 
-  test('支持传入 initialData 选项定义初始数据, 选项支持传入 MaybeRefOrGetter 类型对象', async ({ expect }) => {
+  it('支持传入 initialData 选项定义初始数据, 选项支持传入 MaybeRefOrGetter 类型对象', async ({ expect }) => {
     // Ref
     {
       const data = useRequest(async () => {
@@ -543,7 +559,7 @@ describe.concurrent('useRequest', () => {
     }
   });
 
-  test('支持传入 resetOnExecute 选项, 用于控制是否在发起请求时重置数据, 默认为 true', async ({ expect }) => {
+  it('支持传入 resetOnExecute 选项, 用于控制是否在发起请求时重置数据, 默认为 true', async ({ expect }) => {
     let throwError: boolean = false;
     let dataIndex = 1292;
 
@@ -617,7 +633,7 @@ describe.concurrent('useRequest', () => {
     }
   });
 
-  test('支持传入 resetOnExecute 选项, 选项支持传入 MaybeRefOrGetter 类型对象', async ({ expect }) => {
+  it('支持传入 resetOnExecute 选项, 选项支持传入 MaybeRefOrGetter 类型对象', async ({ expect }) => {
     // Ref
     {
       let throwError: boolean = false;
@@ -769,7 +785,7 @@ describe.concurrent('useRequest', () => {
     }
   });
 
-  test('支持传入 shallow: true 选项, 用于控制是否使用 shallowRef 代替 ref 包裹 data 数据', async ({ expect }) => {
+  it('支持传入 shallow: true 选项, 用于控制是否使用 shallowRef 代替 ref 包裹 data 数据', async ({ expect }) => {
     const data = useRequest(() => ({ data: { a: { b: 2 } } }), { immediate: true });
     const data2 = useRequest(() => ({ data: { a: { b: 2 } } }), { immediate: true, shallow: true });
 
@@ -798,7 +814,7 @@ describe.concurrent('useRequest', () => {
     expect(data2TriggerCount).toStrictEqual([1, 1]);
   });
 
-  test('类型测试', () => {
+  it('类型测试', () => {
     expectTypeOf(useRequest).parameters.toEqualTypeOf<[
       UseRequestUserExecute<unknown, any[]>,
       UseRequestOptions?,
@@ -820,19 +836,19 @@ describe.concurrent('useRequest', () => {
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
       expectTypeOf(res.reactive).toEqualTypeOf<{
-        response: { data: number } | undefined
-        data: number | undefined
-        error: any
-        isExecuted: boolean
-        isLoading: boolean
-        isFinished: boolean
-        isSuccess: boolean
-        successCount: number
-        clearSuccessCount: () => void
-        execute: () => Promise<{ data: number }>
-        onSuccess: EventHookOn<{ data: number }>
-        onError: EventHookOn<any>
-        onFinally: EventHookOn
+        response: { data: number } | undefined;
+        data: number | undefined;
+        error: any;
+        isExecuted: boolean;
+        isLoading: boolean;
+        isFinished: boolean;
+        isSuccess: boolean;
+        successCount: number;
+        clearSuccessCount: () => void;
+        execute: () => Promise<{ data: number }>;
+        onSuccess: EventHookOn<{ data: number }>;
+        onError: EventHookOn<any>;
+        onFinally: EventHookOn;
       }>();
     }
 
@@ -852,19 +868,19 @@ describe.concurrent('useRequest', () => {
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
       expectTypeOf(res.reactive).toEqualTypeOf<{
-        response: { data: number; code: number } | undefined
-        data: number | undefined
-        error: any
-        isExecuted: boolean
-        isLoading: boolean
-        isFinished: boolean
-        isSuccess: boolean
-        successCount: number
-        clearSuccessCount: () => void
-        execute: (a: number) => Promise<{ data: number; code: number }>
-        onSuccess: EventHookOn<{ data: number; code: number }>
-        onError: EventHookOn<any>
-        onFinally: EventHookOn
+        response: { data: number; code: number } | undefined;
+        data: number | undefined;
+        error: any;
+        isExecuted: boolean;
+        isLoading: boolean;
+        isFinished: boolean;
+        isSuccess: boolean;
+        successCount: number;
+        clearSuccessCount: () => void;
+        execute: (a: number) => Promise<{ data: number; code: number }>;
+        onSuccess: EventHookOn<{ data: number; code: number }>;
+        onError: EventHookOn<any>;
+        onFinally: EventHookOn;
       }>();
     }
 
@@ -887,19 +903,19 @@ describe.concurrent('useRequest', () => {
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
       expectTypeOf(res.reactive).toEqualTypeOf<{
-        response: { data: number } | undefined
-        data: number | undefined
-        error: any
-        isExecuted: boolean
-        isLoading: boolean
-        isFinished: boolean
-        isSuccess: boolean
-        successCount: number
-        clearSuccessCount: () => void
-        execute: () => Promise<{ data: number }>
-        onSuccess: EventHookOn<{ data: number }>
-        onError: EventHookOn<any>
-        onFinally: EventHookOn
+        response: { data: number } | undefined;
+        data: number | undefined;
+        error: any;
+        isExecuted: boolean;
+        isLoading: boolean;
+        isFinished: boolean;
+        isSuccess: boolean;
+        successCount: number;
+        clearSuccessCount: () => void;
+        execute: () => Promise<{ data: number }>;
+        onSuccess: EventHookOn<{ data: number }>;
+        onError: EventHookOn<any>;
+        onFinally: EventHookOn;
       }>();
     }
 
@@ -922,25 +938,25 @@ describe.concurrent('useRequest', () => {
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
       expectTypeOf(res.reactive).toEqualTypeOf<{
-        response: { data: number; code: number } | undefined
-        data: number | undefined
-        error: any
-        isExecuted: boolean
-        isLoading: boolean
-        isFinished: boolean
-        isSuccess: boolean
-        successCount: number
-        clearSuccessCount: () => void
-        execute: (a: number) => Promise<{ data: number; code: number }>
-        onSuccess: EventHookOn<{ data: number; code: number }>
-        onError: EventHookOn<any>
-        onFinally: EventHookOn
+        response: { data: number; code: number } | undefined;
+        data: number | undefined;
+        error: any;
+        isExecuted: boolean;
+        isLoading: boolean;
+        isFinished: boolean;
+        isSuccess: boolean;
+        successCount: number;
+        clearSuccessCount: () => void;
+        execute: (a: number) => Promise<{ data: number; code: number }>;
+        onSuccess: EventHookOn<{ data: number; code: number }>;
+        onError: EventHookOn<any>;
+        onFinally: EventHookOn;
       }>();
     }
 
     interface UserInfo {
-      id: number
-      name: string
+      id: number;
+      name: string;
     }
 
     // 手动指定类型 ( 指定 response, 自动推导 data )
@@ -959,19 +975,19 @@ describe.concurrent('useRequest', () => {
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
       expectTypeOf(res.reactive).toEqualTypeOf<{
-        response: { data: UserInfo } | undefined
-        data: UserInfo | undefined
-        error: any
-        isExecuted: boolean
-        isLoading: boolean
-        isFinished: boolean
-        isSuccess: boolean
-        successCount: number
-        clearSuccessCount: () => void
-        execute: (...args: any[]) => Promise<{ data: UserInfo }>
-        onSuccess: EventHookOn<{ data: UserInfo }>
-        onError: EventHookOn<any>
-        onFinally: EventHookOn
+        response: { data: UserInfo } | undefined;
+        data: UserInfo | undefined;
+        error: any;
+        isExecuted: boolean;
+        isLoading: boolean;
+        isFinished: boolean;
+        isSuccess: boolean;
+        successCount: number;
+        clearSuccessCount: () => void;
+        execute: (...args: any[]) => Promise<{ data: UserInfo }>;
+        onSuccess: EventHookOn<{ data: UserInfo }>;
+        onError: EventHookOn<any>;
+        onFinally: EventHookOn;
       }>();
     }
 
@@ -991,26 +1007,26 @@ describe.concurrent('useRequest', () => {
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
       expectTypeOf(res.reactive).toEqualTypeOf<{
-        response: any
-        data: UserInfo | undefined
-        error: any
-        isExecuted: boolean
-        isLoading: boolean
-        isFinished: boolean
-        isSuccess: boolean
-        successCount: number
-        clearSuccessCount: () => void
-        execute: (...args: any[]) => Promise<any>
-        onSuccess: EventHookOn<any>
-        onError: EventHookOn<any>
-        onFinally: EventHookOn
+        response: any;
+        data: UserInfo | undefined;
+        error: any;
+        isExecuted: boolean;
+        isLoading: boolean;
+        isFinished: boolean;
+        isSuccess: boolean;
+        successCount: number;
+        clearSuccessCount: () => void;
+        execute: (...args: any[]) => Promise<any>;
+        onSuccess: EventHookOn<any>;
+        onError: EventHookOn<any>;
+        onFinally: EventHookOn;
       }>();
     }
   });
 });
 
 describe('useRequestReactive', () => {
-  test('方法返回对象参数类型判断', async ({ expect }) => {
+  it('方法返回对象参数类型判断', async ({ expect }) => {
     let throwError: boolean = false;
     const data = useRequestReactive(async () => {
       await delay(100);
@@ -1024,11 +1040,19 @@ describe('useRequestReactive', () => {
 
     // 返回属性测试
     expect(Object.keys(data).sort()).toStrictEqual([
-      'response', 'data', 'error',
-      'isExecuted', 'isLoading', 'isFinished', 'isSuccess',
-      'successCount', 'clearSuccessCount',
+      'response',
+      'data',
+      'error',
+      'isExecuted',
+      'isLoading',
+      'isFinished',
+      'isSuccess',
+      'successCount',
+      'clearSuccessCount',
       'execute',
-      'onSuccess', 'onError', 'onFinally',
+      'onSuccess',
+      'onError',
+      'onFinally',
     ].sort());
 
     // 类型测试
@@ -1067,7 +1091,7 @@ describe('useRequestReactive', () => {
     expect(data.error).toStrictEqual(new Error('???'));
   });
 
-  test('类型测试', () => {
+  it('类型测试', () => {
     expectTypeOf(useRequestReactive).parameters.toEqualTypeOf<[
       UseRequestUserExecute<unknown, any[]>,
       UseRequestOptions?,
@@ -1148,8 +1172,8 @@ describe('useRequestReactive', () => {
     }
 
     interface UserInfo {
-      id: number
-      name: string
+      id: number;
+      name: string;
     }
 
     // 手动指定类型 ( 指定 response, 自动推导 data )

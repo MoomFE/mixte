@@ -2,6 +2,6 @@
   "extends": "./tsconfig.json",
   "exclude": [
     "packages/.vitepress/**/*.ts",
-    "packages/.vitepress/**/*.vue",
+    "packages/.vitepress/**/*.vue"
   ]
 }

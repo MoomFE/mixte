@@ -25,7 +25,6 @@ move(array, 0, 5); // -> [2, 3, 4, 5, 6, 1]
 function move<T>(array: T[], from: number, to: number): T[];
 ```
 
-
 ## `moveRange` {#moveRange}
 
 移动数组内一个范围内的元素到指定的下标位置

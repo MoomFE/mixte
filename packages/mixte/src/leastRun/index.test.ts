@@ -8,11 +8,11 @@ describe('leastRun', () => {
     vi.useRealTimers();
   });
 
-  test('返回一个 Promise', () => {
+  it('返回一个 Promise', () => {
     expect(leastRun(() => {})).toBeInstanceOf(Promise);
   });
 
-  test('直接传递函数, 运行函数并且保证最少执行 1000ms 的时间', async () => {
+  it('直接传递函数, 运行函数并且保证最少执行 1000ms 的时间', async () => {
     expect(vi.getTimerCount()).toBe(0);
     leastRun(() => {});
 
@@ -28,7 +28,7 @@ describe('leastRun', () => {
     expect(vi.getTimerCount()).toBe(0);
   });
 
-  test('仅传递执行时间', async () => {
+  it('仅传递执行时间', async () => {
     expect(vi.getTimerCount()).toBe(0);
     leastRun(2000);
 
@@ -44,7 +44,7 @@ describe('leastRun', () => {
     expect(vi.getTimerCount()).toBe(0);
   });
 
-  test('运行函数并且保证最少执行指定时间 ( 毫秒 )', async () => {
+  it('运行函数并且保证最少执行指定时间 ( 毫秒 )', async () => {
     const times = [1, 10, 20, 100, 200, 1000, 2000];
 
     for (const time of times) {
@@ -64,7 +64,7 @@ describe('leastRun', () => {
     }
   });
 
-  test('传入的函数执行时间超过指定的时间时, 直接完成', async () => {
+  it('传入的函数执行时间超过指定的时间时, 直接完成', async () => {
     expect(vi.getTimerCount()).toBe(0);
 
     leastRun(10, () => {

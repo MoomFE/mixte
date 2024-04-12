@@ -1,1 +1,1 @@
-export * from './dist/auto-grid'
+export * from './dist/auto-grid';

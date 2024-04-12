@@ -120,7 +120,7 @@ export function isPlainObject<Value = unknown>(value: unknown): value is Record<
  * isFunction([]); // -> false
  * isFunction(666); // -> false
  */
-export function isFunction(value: unknown): value is Function { // eslint-disable-line @typescript-eslint/ban-types
+export function isFunction(value: unknown): value is Function {
   return typeof value === 'function';
 }
 
@@ -177,7 +177,7 @@ export function isPromise<T = unknown>(value: unknown): value is Promise<T> {
  * isReference(Symbol('666')); // -> false
  * isReference(666n); // -> false
  */
-export function isReference(value: unknown): value is object | Function { // eslint-disable-line @typescript-eslint/ban-types
+export function isReference(value: unknown): value is object | Function {
   return isObject(value) || isFunction(value);
 }
 
@@ -226,7 +226,7 @@ export function isEmptyObject(value: any): value is EmptyObject {
  * 判断传入参数是否是 ES Module
  *
  * @see https://mixte.moomfe.com/mixte/is#isESModule
- * @param value 需要判断的参数
+ * @param module 需要判断的参数
  * @example
  *
  * isESModule(await import('https://unpkg.com/vue')); // -> true

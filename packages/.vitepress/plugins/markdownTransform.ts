@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable ts/no-use-before-define */
 
 import { dirname, resolve } from 'node:path';
 import type { Plugin } from 'vite';
@@ -16,7 +16,7 @@ export function MarkdownTransform(): Plugin {
   return {
     name: 'mixte-markdown-transform',
     enforce: 'pre',
-    async transform(code, id, options) {
+    async transform(code, id) {
       if (!id.endsWith('.md')) return;
 
       const [, fn,, pkg] = id.split('/').reverse();

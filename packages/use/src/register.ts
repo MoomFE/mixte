@@ -8,7 +8,7 @@ interface MixteUseAutoImportOptions {
    *
    * @default false
    */
-  useWithVueUseCore?: boolean
+  useWithVueUseCore?: boolean;
 }
 
 /**
