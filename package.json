@@ -28,6 +28,8 @@
     "docs:build": "pnpm udd && pnpm build && vitepress build packages",
     "docs:preview": "pnpm docs:build && vitepress preview packages --host",
     "up": "npx taze latest -r -w -i -x",
+    "lint": "pnpm install && eslint .",
+    "lint:fix": "pnpm install && eslint . --fix",
     "udd": "pnpm install && tsx scripts/updateDocsDetails.ts",
     "build": "pnpm install && tsx scripts/build.ts",
     "build-dts": "pnpm install && tsx scripts/build-dts.ts",
@@ -36,7 +38,7 @@
   "devDependencies": {
     "@floating-ui/vue": "^1.0.6",
     "@iconify/json": "^2.2.198",
-    "@moomfe/eslint-config": "^2.7.2",
+    "@moomfe/eslint-config": "^3.0.0-beta.3",
     "@moomfe/small-utils": "^5.3.2",
     "@rollup/pluginutils": "^5.1.0",
     "@types/fs-extra": "^11.0.4",

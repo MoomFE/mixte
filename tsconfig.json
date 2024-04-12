@@ -1,23 +1,11 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "resolveJsonModule": true,
     "jsx": "preserve",
     "jsxImportSource": "vue",
-    "skipLibCheck": true,
-    "allowJs": true,
-    "types": [
-      "vite/client",
-      "vitest/globals",
-      "element-plus/global",
-      "naive-ui/volar"
-    ],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "paths": {
       "mixte": ["./packages/mixte/index.ts"],
       "@mixte/use/register": ["./packages/use/src/register.ts"],
@@ -26,7 +14,19 @@
       "@mixte/*": ["./packages/*/index.ts"],
       "@/*": ["./packages/*"],
       "@@/*": ["./*"]
-    }
+    },
+    "resolveJsonModule": true,
+    "types": [
+      "vite/client",
+      "vitest/globals",
+      "element-plus/global",
+      "naive-ui/volar"
+    ],
+    "allowJs": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "include": [
     "meta",
