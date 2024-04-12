@@ -90,9 +90,9 @@ shiki.getHighlighter({
 ```ts
 interface GetFastestCDNOptions {
   /** 类库版本号 */
-  version?: string
+  version?: string;
   /** 用于检测用的文件地址 */
-  file?: string
+  file?: string;
 }
 
 /**

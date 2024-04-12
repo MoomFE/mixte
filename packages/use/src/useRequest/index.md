@@ -18,10 +18,17 @@ outline: [2,4]
 import { useRequest } from '@mixte/use';
 
 const {
-  response, data, error,
-  isExecuted, isLoading, isFinished, isSuccess,
+  response,
+  data,
+  error,
+  isExecuted,
+  isLoading,
+  isFinished,
+  isSuccess,
   execute,
-  onSuccess, onError, onFinally,
+  onSuccess,
+  onError,
+  onFinally,
   reactive,
 } = useRequest(() => {
   return axios.get('https://httpbin.org/uuid');
@@ -197,22 +204,22 @@ interface UseRequestOptions {
    *  - 传递的数据会使用 `toValue` 进行转换
    * @default undefined
    */
-  initialData?: MaybeRefOrGetter<any>
+  initialData?: MaybeRefOrGetter<any>;
   /**
    * 是否立即发起请求
    * @default false
    */
-  immediate?: boolean
+  immediate?: boolean;
   /**
    * 是否在发起请求时重置数据
    * @default true
    */
-  resetOnExecute?: MaybeRefOrGetter<boolean>
+  resetOnExecute?: MaybeRefOrGetter<boolean>;
   /**
    * 是否使用 shallowRef 代替 ref 包裹 data 数据
    * @default false
    */
-  shallow?: boolean
+  shallow?: boolean;
 }
 
 /**
@@ -233,55 +240,54 @@ function useRequest<
   options?: UseRequestOptions
 ): {
   /** 服务器响应 */
-  response: ShallowRef<Response | undefined>
+  response: ShallowRef<Response | undefined>;
   /** 服务器响应数据 */
-  data: Ref<Data | undefined>
+  data: Ref<Data | undefined>;
   /** 服务器返回的错误 */
-  error: ShallowRef<any>
+  error: ShallowRef<any>;
 
   /** 是否发起过请求 */
-  isExecuted: Ref<boolean>
+  isExecuted: Ref<boolean>;
   /** 是否在请求中 */
-  isLoading: Ref<boolean>
+  isLoading: Ref<boolean>;
   /** 是否已请求完成 */
-  isFinished: Ref<boolean>
+  isFinished: Ref<boolean>;
   /** 是否已请求成功 */
-  isSuccess: Ref<boolean>
+  isSuccess: Ref<boolean>;
 
   /** 请求成功次数 */
-  successCount: Ref<number>
+  successCount: Ref<number>;
   /** 清除请求成功次数 */
-  clearSuccessCount: () => void
+  clearSuccessCount: () => void;
 
   /** 发起请求 */
-  execute: (...args: Args) => Promise<Response>
+  execute: (...args: Args) => Promise<Response>;
 
   /** 请求成功事件钩子 */
-  onSuccess: EventHookOn<Response>
+  onSuccess: EventHookOn<Response>;
   /** 请求失败事件钩子 */
-  onError: EventHookOn<any>
+  onError: EventHookOn<any>;
   /** 请求完成事件钩子 */
-  onFinally: EventHookOn<null>
+  onFinally: EventHookOn<null>;
 
   /** 方法的响应式代理返回值 ( 里面的注释就不写了, 和上面的一样 ) */
   reactive: {
-    response: Response | undefined
-    data: Data | undefined
-    error: any
-    isExecuted: boolean
-    isLoading: boolean
-    isFinished: boolean
-    isSuccess: boolean
-    successCount: number
-    clearSuccessCount: () => void
-    execute: (...args: Args) => Promise<Response>
-    onSuccess: EventHookOn<Response>
-    onError: EventHookOn<any>
-    onFinally: EventHookOn<null>
-  }
+    response: Response | undefined;
+    data: Data | undefined;
+    error: any;
+    isExecuted: boolean;
+    isLoading: boolean;
+    isFinished: boolean;
+    isSuccess: boolean;
+    successCount: number;
+    clearSuccessCount: () => void;
+    execute: (...args: Args) => Promise<Response>;
+    onSuccess: EventHookOn<Response>;
+    onError: EventHookOn<any>;
+    onFinally: EventHookOn<null>;
+  };
 };
 ```
-
 
 ## `useRequestReactive` {#useRequestReactive}
 

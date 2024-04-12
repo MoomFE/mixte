@@ -38,9 +38,9 @@ import { tryOnScopeDispose } from '@vueuse/core';
  */
 export function createNamedSharedComposable<Fn extends (...args: any[]) => any>(composable: Fn) {
   const cache: Record<string, {
-    subscribers: number
-    state?: ReturnType<Fn>
-    scope?: EffectScope
+    subscribers: number;
+    state?: ReturnType<Fn>;
+    scope?: EffectScope;
   }> = {};
 
   function clear(name?: string) {

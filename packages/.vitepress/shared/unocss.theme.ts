@@ -1230,7 +1230,7 @@ export const duration = {
   none: "0s"
 };
 export const ringWidth = {
-  DEFAULT: "1px",
+  DEFAULT: "3px",
   none: "0"
 };
 export const preflightBase = {

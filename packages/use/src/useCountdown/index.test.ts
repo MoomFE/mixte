@@ -9,7 +9,7 @@ describe('useCountdown', () => {
     vi.useRealTimers();
   });
 
-  test('创建一个倒计时', async () => {
+  it('创建一个倒计时', async () => {
     const source = ref(60);
     const { isStart, output, start, stop } = useCountdown(source);
 
@@ -40,7 +40,7 @@ describe('useCountdown', () => {
     expect(output.value).toBe(0);
   });
 
-  test('首个传入参数为倒计时初始数字', () => {
+  it('首个传入参数为倒计时初始数字', () => {
     const res = useCountdown(60);
     const res2 = useCountdown(ref(30));
     const res3 = useCountdown(() => 15);
@@ -50,7 +50,7 @@ describe('useCountdown', () => {
     expect(res3.output.value).toBe(15);
   });
 
-  test('开启倒计时时, 会重新读取最新的倒计时初始数字进行倒计时', async () => {
+  it('开启倒计时时, 会重新读取最新的倒计时初始数字进行倒计时', async () => {
     const source = ref(60);
     const { isStart, output, start } = useCountdown(source);
 
@@ -86,7 +86,7 @@ describe('useCountdown', () => {
     expect(output.value).toBe(0);
   });
 
-  test('停止倒计时过一会又重新开始, 会重新读取最新的倒计时初始数字进行倒计时', async () => {
+  it('停止倒计时过一会又重新开始, 会重新读取最新的倒计时初始数字进行倒计时', async () => {
     const source = ref(60);
     const { isStart, output, start, stop } = useCountdown(source);
 
@@ -125,7 +125,7 @@ describe('useCountdown', () => {
     expect(output.value).toBe(0);
   });
 
-  test('默认倒计时所使用的时间为 60 秒', async () => {
+  it('默认倒计时所使用的时间为 60 秒', async () => {
     const source = ref(60);
     const { isStart, output, start } = useCountdown(source);
 
@@ -149,7 +149,7 @@ describe('useCountdown', () => {
     expect(output.value).toBe(0);
   });
 
-  test('第二个参数可传入 duration 选项控制倒计时所使用的时间', async () => {
+  it('第二个参数可传入 duration 选项控制倒计时所使用的时间', async () => {
     const source = ref(60);
     const { isStart, output, start } = useCountdown(source, { duration: 30 * 1000 });
 
@@ -177,7 +177,7 @@ describe('useCountdown', () => {
     expect(output.value).toBe(0);
   });
 
-  test('使用返回的 start 和 stop 方法控制倒计时开始及结束', async () => {
+  it('使用返回的 start 和 stop 方法控制倒计时开始及结束', async () => {
     const source = ref(60);
     const { isStart, output, start, stop } = useCountdown(source);
 
@@ -208,7 +208,7 @@ describe('useCountdown', () => {
     expect(output.value).toBe(60);
   });
 
-  test('作用域销毁时, 倒计时会自动停止', async () => {
+  it('作用域销毁时, 倒计时会自动停止', async () => {
     let isStart: Ref<boolean>;
     let output: Ref<number>;
     let start: (() => void);

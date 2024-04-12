@@ -36,7 +36,6 @@ source.value = true;
 function wheneverEffectScope<T>(source: WatchSource<T | false | null | undefined>, run: WatchCallback<T>, options?: WatchOptions): WatchStopHandle;
 ```
 
-
 ## `wheneverEffectScopeImmediate` {#wheneverEffectScopeImmediate}
 
 immediate 为 true 的 wheneverEffectScope 方法
@@ -67,7 +66,6 @@ wheneverEffectScopeImmediate(source, (_value, _oldValue, _onCleanup) => {
  */
 function wheneverEffectScopeImmediate<T>(source: WatchSource<T | false | null | undefined>, run: WatchCallback<T>, options?: Omit<WatchOptions, 'immediate'>): WatchStopHandle;
 ```
-
 
 ## `wheneverEffectScopeDeep` {#wheneverEffectScopeDeep}
 

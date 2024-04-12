@@ -38,7 +38,6 @@ watch(obj, (val) => {
 function whenever<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: WatchOptions): WatchStopHandle;
 ```
 
-
 ## `wheneverImmediate` {#wheneverImmediate}
 
 immediate 默认为 true 的 whenever 方法
@@ -63,7 +62,6 @@ obj.value = 2;
 function wheneverImmediate<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: Omit<WatchOptions, 'immediate'>): WatchStopHandle;
 ```
 
-
 ## `wheneverDeep` {#wheneverDeep}
 
 deep 默认为 true 的 whenever 方法
@@ -87,7 +85,6 @@ obj.value.a = 2;
 ```ts
 function wheneverDeep<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: Omit<WatchOptions, 'deep'>): WatchStopHandle;
 ```
-
 
 ## `wheneverImmediateDeep` {#wheneverImmediateDeep}
 

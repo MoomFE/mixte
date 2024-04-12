@@ -15,7 +15,7 @@
 
     <!-- 代码区 -->
     <div v-if="showCode" class="text-sm b-t m-theme-border rounded-b overflow-hidden m-(t6 x--6)">
-      <div v-if="highlighter" class="highlighter" v-html="codeHighlight" />
+      <div v-if="highlighter" v-html="codeHighlight" class="highlighter" />
       <div v-else flex="~ justify-center" py-2>
         <i-svg-spinners-ring-resize />
       </div>
@@ -29,8 +29,8 @@
   import { decode } from 'js-base64';
 
   interface Props {
-    code?: string
-    codeLang?: string
+    code?: string;
+    codeLang?: string;
   }
 
   const props = defineProps<Props>();

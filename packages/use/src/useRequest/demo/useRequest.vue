@@ -28,10 +28,16 @@
   const resetOnExecute = ref(true);
 
   const {
-    response, data, error,
-    isExecuted, isLoading, isFinished, isSuccess,
+    response,
+    data,
+    error,
+    isExecuted,
+    isLoading,
+    isFinished,
+    isSuccess,
     successCount,
-    execute, clearSuccessCount,
+    execute,
+    clearSuccessCount,
   } = useRequest(() => {
     return axios.get(url.value).then(res => omit(res, 'config'));
   }, {
@@ -51,7 +57,9 @@
       <pre class="scrollbar my-0 p-(y1 x3)">
         {yamlDump({ isExecuted, isLoading, isFinished, isSuccess })}
         <div>
-          successCount: {successCount.value}
+          successCount:
+          {' '}
+          {successCount.value}
           <button class="lh-none rounded el-3 ml-4 p-(x2 y1)" onClick={clearSuccessCount}>清除请求成功次数</button>
         </div>
         {yamlDump({

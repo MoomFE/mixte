@@ -2,7 +2,7 @@ import { deepMerge, isPlainObject } from 'mixte';
 import { types } from '../is/testTypes';
 
 describe('deepMerge', () => {
-  test('目标对象不是普通对象和数组时, 会被直接返回', () => {
+  it('目标对象不是普通对象和数组时, 会被直接返回', () => {
     Object.values(types).forEach((values) => {
       values.forEach((value) => {
         if (!Array.isArray(value) && !isPlainObject(value)) {
@@ -13,7 +13,7 @@ describe('deepMerge', () => {
     });
   });
 
-  test('会合并所有传入参数的属性', () => {
+  it('会合并所有传入参数的属性', () => {
     // 普通对象
     expect(deepMerge({ a: 1 })).toStrictEqual({ a: 1 });
     expect(deepMerge({ a: 1 }, { b: 2 })).toStrictEqual({ a: 1, b: 2 });
@@ -29,7 +29,7 @@ describe('deepMerge', () => {
     expect(deepMerge([1], [2], [3], [4], [5])).toStrictEqual([5]);
   });
 
-  test('来源对象不是普通对象和数组时, 会被直接跳过', () => {
+  it('来源对象不是普通对象和数组时, 会被直接跳过', () => {
     Object.values(types).forEach((values) => {
       values.forEach((value) => {
         if (Array.isArray(value) || isPlainObject(value)) return;
@@ -40,7 +40,7 @@ describe('deepMerge', () => {
     });
   });
 
-  test('合并时是将所有来源对象的属性合并到目标对象上', () => {
+  it('合并时是将所有来源对象的属性合并到目标对象上', () => {
     // 普通对象
     const a = { aa: 1 };
     const b = { bb: 2 };
@@ -62,7 +62,7 @@ describe('deepMerge', () => {
     expect(arr3).not.toBe(arr2);
   });
 
-  test('来源对象中的普通对象和数组会覆盖目标对象中的同名不同类型的属性', () => {
+  it('来源对象中的普通对象和数组会覆盖目标对象中的同名不同类型的属性', () => {
     Object.values(types).forEach((values) => {
       values.forEach((value) => {
         if (Array.isArray(value)) {
@@ -79,7 +79,7 @@ describe('deepMerge', () => {
     });
   });
 
-  test('来源对象从左到右进行深拷贝, 后续的来源对象会覆盖之前拷贝的属性', () => {
+  it('来源对象从左到右进行深拷贝, 后续的来源对象会覆盖之前拷贝的属性', () => {
     // 普通对象
     const a = { aa: 1 };
     const b = { aa: 2, bb: 3 };
@@ -101,7 +101,7 @@ describe('deepMerge', () => {
     expect(arr3).not.toBe(arr2);
   });
 
-  test('来源对象中值为 `undefined` 的属性会被跳过', () => {
+  it('来源对象中值为 `undefined` 的属性会被跳过', () => {
     // 普通对象
     const a = { aa: 1 };
     const b = { aa: undefined, bb: 2 };
@@ -123,7 +123,7 @@ describe('deepMerge', () => {
     expect(arr3).not.toBe(arr2);
   });
 
-  test('来源对象中普通对象将会递归合并', () => {
+  it('来源对象中普通对象将会递归合并', () => {
     // 普通对象
     const a = { aa: { aaa: 1, bbb: 2 } };
     const b = { aa: { aaa: undefined, bbb: 3, ccc: 4 } };
@@ -145,7 +145,7 @@ describe('deepMerge', () => {
     expect(arr3).not.toBe(arr2);
   });
 
-  test('来源对象中数组会被深拷贝后继承', () => {
+  it('来源对象中数组会被深拷贝后继承', () => {
     // 普通对象
     const a = { aa: [1, 2] };
     const b = { aa: [undefined, 3, 4] };
@@ -170,7 +170,7 @@ describe('deepMerge', () => {
     expect(arr1[1]).not.toBe(arr2[1]);
   });
 
-  test('来源对象中其他对象将会直接继承', () => {
+  it('来源对象中其他对象将会直接继承', () => {
     expect(/mixte/).not.toBe(/mixte/);
 
     // 普通对象
@@ -196,7 +196,7 @@ describe('deepMerge', () => {
     expect(arr1[0]).toBe(arr2[0]);
   });
 
-  test('从数组合并到普通对象', () => {
+  it('从数组合并到普通对象', () => {
     const a = { aa: 1 };
     const b = [2, 3, 4];
     const c = deepMerge(a, b);
@@ -207,7 +207,7 @@ describe('deepMerge', () => {
     expect(c).not.toBe(b);
   });
 
-  test('从普通对象合并到数组', () => {
+  it('从普通对象合并到数组', () => {
     const a = [1, 2, 3];
     const b = { 3: 4 };
     const c = deepMerge(a, b);
@@ -218,7 +218,7 @@ describe('deepMerge', () => {
     expect(c).not.toBe(b);
   });
 
-  test('防御循环引用 ( 一 )', () => {
+  it('防御循环引用 ( 一 )', () => {
     // 普通对象
     const target = {};
     const source = { target };
@@ -236,7 +236,7 @@ describe('deepMerge', () => {
     expect(deepMerge(targetArr, sourceArr)).toStrictEqual([targetArr]);
   });
 
-  test('防御循环引用 ( 二 )', () => {
+  it('防御循环引用 ( 二 )', () => {
     // 普通对象
     const target = {} as any;
     const source = {} as any;

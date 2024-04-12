@@ -1,7 +1,7 @@
 import { delay, onceRun } from 'mixte';
 
 describe.concurrent('onceRun', () => {
-  test('返回一个新的函数', () => {
+  it('返回一个新的函数', () => {
     const fn = () => {};
     const wrapFn = onceRun(fn);
 
@@ -9,7 +9,7 @@ describe.concurrent('onceRun', () => {
     expect(wrapFn !== fn).is.true;
   });
 
-  test('运行函数返回一个 Promise', () => {
+  it('运行函数返回一个 Promise', () => {
     const fn = () => {};
     const wrapFn = onceRun(fn);
 
@@ -18,7 +18,7 @@ describe.concurrent('onceRun', () => {
     expect(wrapFn()).toBeInstanceOf(Promise);
   });
 
-  test('传入的函数未执行完成时, 重复执行时返回的 Promise 和首次一致', () => {
+  it('传入的函数未执行完成时, 重复执行时返回的 Promise 和首次一致', () => {
     const list: number[] = [];
     let index = 0;
 
@@ -36,7 +36,7 @@ describe.concurrent('onceRun', () => {
     expect(res2).toBe(res3);
   });
 
-  test('传入的函数未执行完成时, 重复执行无效果', async ({ expect }) => {
+  it('传入的函数未执行完成时, 重复执行无效果', async ({ expect }) => {
     const list: number[] = [];
     let index = 0;
 
@@ -55,7 +55,7 @@ describe.concurrent('onceRun', () => {
     expect(list).toStrictEqual([0]);
   });
 
-  test('传入的函数运行过程中报错, 不会影响下次运行', async ({ expect }) => {
+  it('传入的函数运行过程中报错, 不会影响下次运行', async ({ expect }) => {
     const list: number[] = [];
     let index = 0;
 
@@ -85,7 +85,7 @@ describe.concurrent('onceRun', () => {
     expect(list).toStrictEqual([0, 2]);
   });
 
-  test('执行完成会返回传入函数的返回值', async ({ expect }) => {
+  it('执行完成会返回传入函数的返回值', async ({ expect }) => {
     let index = 0;
 
     const wrapFn = onceRun(() => index++);
@@ -105,13 +105,13 @@ describe.concurrent('onceRun', () => {
     expect(await res4).toBe(1);
   });
 
-  test('传入的函数执行时的 this 应该被继承', async ({ expect }) => {
+  it('传入的函数执行时的 this 应该被继承', async ({ expect }) => {
     const that = 6;
     let res;
 
     const wrapFn = onceRun(function () {
       // @ts-expect-error
-      // eslint-disable-next-line @typescript-eslint/no-this-alias, @typescript-eslint/no-invalid-this
+      // eslint-disable-next-line ts/no-this-alias
       res = this;
     });
 

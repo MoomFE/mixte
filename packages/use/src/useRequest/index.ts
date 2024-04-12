@@ -9,22 +9,22 @@ export interface UseRequestOptions {
    *  - 传递的数据会使用 `toValue` 进行转换
    * @default undefined
    */
-  initialData?: any
+  initialData?: any;
   /**
    * 是否立即发起请求
    * @default false
    */
-  immediate?: boolean
+  immediate?: boolean;
   /**
    * 是否在发起请求时重置数据
    * @default true
    */
-  resetOnExecute?: MaybeRefOrGetter<boolean>
+  resetOnExecute?: MaybeRefOrGetter<boolean>;
   /**
    * 是否使用 shallowRef 代替 ref 包裹 data 数据
    * @default false
    */
-  shallow?: boolean
+  shallow?: boolean;
 }
 
 /**

@@ -8,7 +8,7 @@ describe('createNamedSharedComposable', () => {
     vi.useRealTimers();
   });
 
-  test('传入函数, 返回一个新函数, 接收 name 参数和原有函数的所有参数', () => {
+  it('传入函数, 返回一个新函数, 接收 name 参数和原有函数的所有参数', () => {
     const fn = (a: number, b: number) => [a, b];
     const newFn = createNamedSharedComposable(fn);
 
@@ -18,7 +18,7 @@ describe('createNamedSharedComposable', () => {
     expect(newFn('name', 3, 4)).toEqual([3, 4]);
   });
 
-  test('使用同样的 name 时, 多次调用, 返回首次调用的结果', () => {
+  it('使用同样的 name 时, 多次调用, 返回首次调用的结果', () => {
     const fn = (obj?: any) => obj;
     const newFn = createNamedSharedComposable(fn);
 
@@ -36,7 +36,7 @@ describe('createNamedSharedComposable', () => {
     expect(newFn('name2', obj2)).toBe(obj2);
   });
 
-  test('包装异步函数', async () => {
+  it('包装异步函数', async () => {
     let result: any;
 
     const fn = async (a?: any) => {
@@ -68,7 +68,7 @@ describe('createNamedSharedComposable', () => {
     expect(await newFn('name', obj2)).toBe(obj);
   });
 
-  test('在 effect 作用域中使用时, 当作用域被注销, 缓存会被清除', () => {
+  it('在 effect 作用域中使用时, 当作用域被注销, 缓存会被清除', () => {
     const fn = (obj?: any) => obj;
     const newFn = createNamedSharedComposable(fn);
 
@@ -101,7 +101,7 @@ describe('createNamedSharedComposable', () => {
     });
   });
 
-  test('使用返回的函数上的 clear 方法清除指定名称的缓存或全部缓存', () => {
+  it('使用返回的函数上的 clear 方法清除指定名称的缓存或全部缓存', () => {
     const fn = (obj?: any) => obj;
     const newFn = createNamedSharedComposable(fn);
 

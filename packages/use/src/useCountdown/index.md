@@ -31,10 +31,10 @@ function useCountdown(
   source: MaybeRefOrGetter<number>,
   options?: UseCountdownOptions
 ): {
-  isStart: Ref<boolean>
-  output: Ref<number>
-  start: () => void
-  stop: () => void
+  isStart: Ref<boolean>;
+  output: Ref<number>;
+  start: () => void;
+  stop: () => void;
 };
 
 interface UseCountdownOptions {
@@ -42,6 +42,6 @@ interface UseCountdownOptions {
    * 倒计时所使用的时间 ( 毫秒 )
    * @default 60 * 1000
    */
-  duration?: MaybeRefOrGetter<number>
+  duration?: MaybeRefOrGetter<number>;
 }
 ```

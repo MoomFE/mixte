@@ -2,7 +2,7 @@ import { isBoolean, random, randomBoolean, randomLetter, randomLowercaseLetter, 
 import { types } from '../is/testTypes';
 
 describe('randomNatural', () => {
-  test('在传入的两个自然数之间随机生成一个自然数', () => {
+  it('在传入的两个自然数之间随机生成一个自然数', () => {
     const nums = new Set<number>();
 
     for (let i = 0; i < 10000; i++)
@@ -15,7 +15,7 @@ describe('randomNatural', () => {
     );
   });
 
-  test('类型测试', () => {
+  it('类型测试', () => {
     expectTypeOf(randomNatural).parameter(0).toBeNumber();
     expectTypeOf(randomNatural).parameter(1).toBeNumber();
     expectTypeOf(randomNatural(0, 10)).toBeNumber();
@@ -23,7 +23,7 @@ describe('randomNatural', () => {
 });
 
 describe('random', () => {
-  test('在传入的两个数字之间随机生成一个数字', () => {
+  it('在传入的两个数字之间随机生成一个数字', () => {
     const nums = new Set<number>();
 
     for (let i = 0; i < 10000; i++)
@@ -36,7 +36,7 @@ describe('random', () => {
     );
   });
 
-  test('支持传入数值均为负数', () => {
+  it('支持传入数值均为负数', () => {
     const nums = new Set<number>();
 
     for (let i = 0; i < 10000; i++)
@@ -49,7 +49,7 @@ describe('random', () => {
     );
   });
 
-  test('支持传入正数和负数', () => {
+  it('支持传入正数和负数', () => {
     const nums = new Set<number>();
 
     for (let i = 0; i < 10000; i++)
@@ -62,7 +62,7 @@ describe('random', () => {
     );
   });
 
-  test('支持第一个数字大于第二个数字', () => {
+  it('支持第一个数字大于第二个数字', () => {
     const nums = new Set<number>();
 
     for (let i = 0; i < 10000; i++)
@@ -75,7 +75,7 @@ describe('random', () => {
     );
   });
 
-  test('不传参数, 则默认在 0 和 10 之间随机生成一个数字', () => {
+  it('不传参数, 则默认在 0 和 10 之间随机生成一个数字', () => {
     const nums = new Set<number>();
 
     for (let i = 0; i < 1000; i++)
@@ -88,7 +88,7 @@ describe('random', () => {
     );
   });
 
-  test('如果只传了一个参数, 则默认在 0 和传入数字之间随机生成一个数字', () => {
+  it('如果只传了一个参数, 则默认在 0 和传入数字之间随机生成一个数字', () => {
     const nums = new Set<number>();
 
     for (let i = 0; i < 10000; i++)
@@ -101,7 +101,7 @@ describe('random', () => {
     );
   });
 
-  test('类型测试', () => {
+  it('类型测试', () => {
     expectTypeOf(random).parameters.toEqualTypeOf<[]>();
     expectTypeOf(random(0, 10)).toBeNumber();
     expectTypeOf(random(10)).toBeNumber();
@@ -110,7 +110,7 @@ describe('random', () => {
 });
 
 describe('randomLowercaseLetter', () => {
-  test('随机一个小写英文字母', () => {
+  it('随机一个小写英文字母', () => {
     const letters = new Set<string>();
 
     for (let i = 0; i < 2600; i++)
@@ -121,14 +121,14 @@ describe('randomLowercaseLetter', () => {
     ).toStrictEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
   });
 
-  test('类型测试', () => {
+  it('类型测试', () => {
     expectTypeOf(randomLowercaseLetter).parameter(0).toBeUndefined();
     expectTypeOf(randomLowercaseLetter()).toBeString();
   });
 });
 
 describe('randomUppercaseLetter', () => {
-  test('随机一个大写英文字母', () => {
+  it('随机一个大写英文字母', () => {
     const letters = new Set<string>();
 
     for (let i = 0; i < 2600; i++)
@@ -139,14 +139,14 @@ describe('randomUppercaseLetter', () => {
     ).toStrictEqual(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
   });
 
-  test('类型测试', () => {
+  it('类型测试', () => {
     expectTypeOf(randomUppercaseLetter).parameter(0).toBeUndefined();
     expectTypeOf(randomUppercaseLetter()).toBeString();
   });
 });
 
 describe('randomLetter', () => {
-  test('默认随机一个小写或大写英文字母', () => {
+  it('默认随机一个小写或大写英文字母', () => {
     const letters = new Set<string>();
 
     for (let i = 0; i < 5200; i++)
@@ -156,13 +156,63 @@ describe('randomLetter', () => {
       Array.from(letters).sort(),
     ).toStrictEqual(
       [
-        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+        'a',
+        'b',
+        'c',
+        'd',
+        'e',
+        'f',
+        'g',
+        'h',
+        'i',
+        'j',
+        'k',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'q',
+        'r',
+        's',
+        't',
+        'u',
+        'v',
+        'w',
+        'x',
+        'y',
+        'z',
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'U',
+        'V',
+        'W',
+        'X',
+        'Y',
+        'Z',
       ].sort(),
     );
   });
 
-  test('传入 true, 则随机一个大写英文字母', () => {
+  it('传入 true, 则随机一个大写英文字母', () => {
     const letters = new Set<string>();
 
     for (let i = 0; i < 2600; i++)
@@ -173,7 +223,7 @@ describe('randomLetter', () => {
     ).toStrictEqual(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
   });
 
-  test('传入 false, 则随机一个小写英文字母', () => {
+  it('传入 false, 则随机一个小写英文字母', () => {
     const letters = new Set<string>();
 
     for (let i = 0; i < 2600; i++)
@@ -184,7 +234,7 @@ describe('randomLetter', () => {
     ).toStrictEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
   });
 
-  test('传入非布尔值, 则随机一个小写或大写英文字母', () => {
+  it('传入非布尔值, 则随机一个小写或大写英文字母', () => {
     Object.values(types).forEach((values) => {
       values.forEach((value) => {
         const letters = new Set<string>();
@@ -208,8 +258,58 @@ describe('randomLetter', () => {
             Array.from(letters).sort(),
           ).toStrictEqual(
             [
-              'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-              'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+              'a',
+              'b',
+              'c',
+              'd',
+              'e',
+              'f',
+              'g',
+              'h',
+              'i',
+              'j',
+              'k',
+              'l',
+              'm',
+              'n',
+              'o',
+              'p',
+              'q',
+              'r',
+              's',
+              't',
+              'u',
+              'v',
+              'w',
+              'x',
+              'y',
+              'z',
+              'A',
+              'B',
+              'C',
+              'D',
+              'E',
+              'F',
+              'G',
+              'H',
+              'I',
+              'J',
+              'K',
+              'L',
+              'M',
+              'N',
+              'O',
+              'P',
+              'Q',
+              'R',
+              'S',
+              'T',
+              'U',
+              'V',
+              'W',
+              'X',
+              'Y',
+              'Z',
             ].sort(),
           );
         }
@@ -217,24 +317,24 @@ describe('randomLetter', () => {
     });
   });
 
-  test('类型测试', () => {
+  it('类型测试', () => {
     expectTypeOf(randomLetter).parameters.toEqualTypeOf<[boolean?]>();
     expectTypeOf(randomLetter()).toBeString();
   });
 });
 
 describe('randomString', () => {
-  test('默认生成一个长度为 12 的随机小写字母字符串', () => {
+  it('默认生成一个长度为 12 的随机小写字母字符串', () => {
     for (let i = 0; i < 1000; i++)
       expect(randomString().length).toStrictEqual(12);
   });
 
-  test('首个参数可以指定生成的字符串长度', () => {
+  it('首个参数可以指定生成的字符串长度', () => {
     for (let i = 0; i < 1000; i++)
       expect(randomString(i).length).toStrictEqual(i);
   });
 
-  test('指定生成仅有小写字母的字符串, 这也是默认生成规则', () => {
+  it('指定生成仅有小写字母的字符串, 这也是默认生成规则', () => {
     for (let i = 100; i < 1000; i++) {
       const str = randomString(i);
       const str2 = randomString(i, {
@@ -248,7 +348,7 @@ describe('randomString', () => {
     }
   });
 
-  test('指定生成仅有大写字母的字符串', () => {
+  it('指定生成仅有大写字母的字符串', () => {
     for (let i = 100; i < 1000; i++) {
       const str = randomString(i, {
         lowercase: false,
@@ -260,7 +360,7 @@ describe('randomString', () => {
     }
   });
 
-  test('指定生成仅有数字的字符串', () => {
+  it('指定生成仅有数字的字符串', () => {
     for (let i = 100; i < 1000; i++) {
       const str = randomString(i, {
         lowercase: false,
@@ -279,7 +379,7 @@ describe('randomString', () => {
     }
   });
 
-  test('指定生成包含小写字母和大写字母的字符串', () => {
+  it('指定生成包含小写字母和大写字母的字符串', () => {
     for (let i = 100; i < 1000; i++) {
       const str = randomString(i, {
         uppercase: true,
@@ -300,7 +400,7 @@ describe('randomString', () => {
     }
   });
 
-  test('指定生成包含小写字母和数字的字符串', () => {
+  it('指定生成包含小写字母和数字的字符串', () => {
     for (let i = 100; i < 1000; i++) {
       const str = randomString(i, {
         number: true,
@@ -321,7 +421,7 @@ describe('randomString', () => {
     }
   });
 
-  test('指定生成包含大写字母和数字的字符串', () => {
+  it('指定生成包含大写字母和数字的字符串', () => {
     for (let i = 100; i < 1000; i++) {
       const str = randomString(i, {
         lowercase: false,
@@ -336,7 +436,7 @@ describe('randomString', () => {
     }
   });
 
-  test('指定生成包含小写字母、大写字母和数字的字符串', () => {
+  it('指定生成包含小写字母、大写字母和数字的字符串', () => {
     for (let i = 100; i < 1000; i++) {
       const str = randomString(i, {
         uppercase: true,
@@ -361,7 +461,7 @@ describe('randomString', () => {
     }
   });
 
-  test('关闭所有选项, 方法将会报错', () => {
+  it('关闭所有选项, 方法将会报错', () => {
     expect(() => {
       randomString(10, {
         lowercase: false,
@@ -371,11 +471,11 @@ describe('randomString', () => {
     }).toThrow('???');
   });
 
-  test('类型测试', () => {
+  it('类型测试', () => {
     expectTypeOf(randomString).parameters.toEqualTypeOf<[number?, {
-      lowercase?: boolean
-      uppercase?: boolean
-      number?: boolean
+      lowercase?: boolean;
+      uppercase?: boolean;
+      number?: boolean;
     }?]>();
     expectTypeOf(randomString()).toBeString();
     expectTypeOf(randomString(10)).toBeString();
@@ -391,7 +491,7 @@ describe('randomString', () => {
 });
 
 describe('randomBoolean', () => {
-  test('生成一个随机的 boolean 值', () => {
+  it('生成一个随机的 boolean 值', () => {
     const booleans = new Set<boolean>();
 
     for (let i = 0; i < 200; i++)

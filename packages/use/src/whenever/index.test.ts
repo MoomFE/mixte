@@ -3,13 +3,13 @@ import { whenever as vueuseWhenever } from '@vueuse/core';
 import { whenever, wheneverDeep, wheneverImmediate, wheneverImmediateDeep } from '@mixte/use';
 
 describe('whenever', () => {
-  test('导出的 whenever 方法为 @vueuse/core 中的 whenever 方法', () => {
+  it('导出的 whenever 方法为 @vueuse/core 中的 whenever 方法', () => {
     expect(whenever).toBe(vueuseWhenever);
   });
 });
 
 describe('wheneverImmediate', () => {
-  test('immediate 默认为 true 的 whenever 方法', async () => {
+  it('immediate 默认为 true 的 whenever 方法', async () => {
     const a = ref(1);
     const watchFns = {
       fn1: () => {},
@@ -42,7 +42,7 @@ describe('wheneverImmediate', () => {
     expect(fn3).toHaveBeenCalledTimes(3);
   });
 
-  test('重新传入 immediate 选项是无效的', async () => {
+  it('重新传入 immediate 选项是无效的', async () => {
     const a = ref(1);
     const watchFns = {
       fn1: () => {},
@@ -71,7 +71,7 @@ describe('wheneverImmediate', () => {
 });
 
 describe('wheneverDeep', () => {
-  test('deep 默认为 true 的 whenever 方法', async () => {
+  it('deep 默认为 true 的 whenever 方法', async () => {
     const a = ref({ b: 1 });
     const watchFns = {
       fn1: () => {},
@@ -104,7 +104,7 @@ describe('wheneverDeep', () => {
     expect(fn3).toHaveBeenCalledTimes(2);
   });
 
-  test('重新传入 deep 选项是无效的', async () => {
+  it('重新传入 deep 选项是无效的', async () => {
     const a = ref({ b: 1 });
     const watchFns = {
       fn1: () => {},
@@ -133,7 +133,7 @@ describe('wheneverDeep', () => {
 });
 
 describe('wheneverImmediateDeep', () => {
-  test('immediate 和 deep 默认为 true 的 whenever 方法', async () => {
+  it('immediate 和 deep 默认为 true 的 whenever 方法', async () => {
     const a = ref({ b: 1 });
     const watchFns = {
       fn1: () => {},
@@ -166,7 +166,7 @@ describe('wheneverImmediateDeep', () => {
     expect(fn3).toHaveBeenCalledTimes(3);
   });
 
-  test('重新传入 immediate 和 deep 选项是无效的', async () => {
+  it('重新传入 immediate 和 deep 选项是无效的', async () => {
     const a = ref({ b: 1 });
     const watchFns = {
       fn1: () => {},

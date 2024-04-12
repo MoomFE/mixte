@@ -1,7 +1,7 @@
 import { useNaiveForm } from '@mixte/snippets/useNaiveForm';
 
 describe('useNaiveForm', () => {
-  test('定义一个表单数据及数据验证规则', () => {
+  it('定义一个表单数据及数据验证规则', () => {
     const userForm = {
       name: '张三',
       age: 18,
@@ -51,7 +51,7 @@ describe('useNaiveForm', () => {
     });
   });
 
-  test('form 传入普通对象时, 将会使用 reactive 包装传入的对象', () => {
+  it('form 传入普通对象时, 将会使用 reactive 包装传入的对象', () => {
     const userForm = {
       name: '张三',
       age: 18,
@@ -72,7 +72,7 @@ describe('useNaiveForm', () => {
     expect(userForm.name).toBe('王五');
   });
 
-  test('form 支持传入 reactive 对象, 将直接使用', () => {
+  it('form 支持传入 reactive 对象, 将直接使用', () => {
     const userForm = reactive({
       name: '张三',
       age: 18,
@@ -93,7 +93,7 @@ describe('useNaiveForm', () => {
     expect(userForm.name).toBe('王五');
   });
 
-  test('form 选项支持传入 MaybeRefOrGetter 类型对象', () => {
+  it('form 选项支持传入 MaybeRefOrGetter 类型对象', () => {
     // Ref
     {
       const userForm = ref({
@@ -127,7 +127,7 @@ describe('useNaiveForm', () => {
     }
   });
 
-  test('formValidateRules 选项支持传入 MaybeRefOrGetter 类型对象', () => {
+  it('formValidateRules 选项支持传入 MaybeRefOrGetter 类型对象', () => {
     // Ref
     {
       const userFormValidateRules = ref({
@@ -163,7 +163,7 @@ describe('useNaiveForm', () => {
     }
   });
 
-  test('formRef 支持传入表单组件引用 ref 对象, 支持以数组形式传入多个表单组件引用', () => {
+  it('formRef 支持传入表单组件引用 ref 对象, 支持以数组形式传入多个表单组件引用', () => {
     const formRef1 = ref();
     const formRef2 = ref();
 
@@ -176,7 +176,7 @@ describe('useNaiveForm', () => {
     });
   });
 
-  test('返回的 reset 和 resetForm 方法会重置 form 数据为初始状态', () => {
+  it('返回的 reset 和 resetForm 方法会重置 form 数据为初始状态', () => {
     const form = useNaiveForm({
       form: {
         name: '张三',
@@ -219,7 +219,7 @@ describe('useNaiveForm', () => {
     });
   });
 
-  test('返回的 reset 和 resetValidation 方法会重置表单验证, 调用传入的 formRef 的 restoreValidation 方法', () => {
+  it('返回的 reset 和 resetValidation 方法会重置表单验证, 调用传入的 formRef 的 restoreValidation 方法', () => {
     const formRef = {
       restoreValidation: vi.fn(),
     };
@@ -266,7 +266,7 @@ describe('useNaiveForm', () => {
     expect(formRef2.restoreValidation).toBeCalledTimes(2);
   });
 
-  test('返回的 validate 方法会验证表单, 调用传入的 formRef 的 validate 方法', async () => {
+  it('返回的 validate 方法会验证表单, 调用传入的 formRef 的 validate 方法', async () => {
     const formRef = {
       validate: vi.fn(async () => {}),
     };

@@ -84,7 +84,7 @@ export function wheneverEffectScopeImmediate<T>(source: WatchSource<T | false | 
  * @param source 侦听器的源, 和 watch 一致
  * @param run 当 source 为 truthy 时执行的 effect 作用域
  * @param options 选项, deep 为 true, 其他和 watch 一致
- * @param
+ * @example
  * const source = ref({ a: 1 });
  * const value = ref(1);
  * const value2 = ref(0);

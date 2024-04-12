@@ -8,11 +8,11 @@ describe('delay', () => {
     vi.useRealTimers();
   });
 
-  test('方法返回一个 Promise', () => {
+  it('方法返回一个 Promise', () => {
     expect(delay()).toBeInstanceOf(Promise);
   });
 
-  test('默认延迟时间为 1000', () => {
+  it('默认延迟时间为 1000', () => {
     expect(vi.getTimerCount()).toBe(0);
     delay();
     expect(vi.getTimerCount()).toBe(1);
@@ -23,7 +23,7 @@ describe('delay', () => {
     expect(vi.getTimerCount()).toBe(0);
   });
 
-  test('指定延迟时间', () => {
+  it('指定延迟时间', () => {
     const times = [1, 10, 20, 100, 200, 1000, 2000];
 
     for (const time of times) {
@@ -40,7 +40,7 @@ describe('delay', () => {
 });
 
 describe('wait', () => {
-  test('wait 是 delay 的别名', () => {
+  it('wait 是 delay 的别名', () => {
     expect(wait).toBe(delay);
   });
 });

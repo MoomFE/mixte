@@ -2,7 +2,7 @@ import { nextTick, ref, watch } from 'vue-demi';
 import { wheneverEffectScope, wheneverEffectScopeDeep, wheneverEffectScopeImmediate, wheneverEffectScopeImmediateDeep } from '@mixte/use';
 
 describe('wheneverEffectScope', () => {
-  test('监听传入值为 truthy 时, 创建一个 effect 作用域', async () => {
+  it('监听传入值为 truthy 时, 创建一个 effect 作用域', async () => {
     const source = ref(false);
 
     const isScopeRun = ref(false);
@@ -56,7 +56,7 @@ describe('wheneverEffectScope', () => {
     unWatch();
   });
 
-  test('当传入值改变但依旧为 truthy 时, 会停止之前创建的 effect 作用域并创建一个新的 effect 作用域', async () => {
+  it('当传入值改变但依旧为 truthy 时, 会停止之前创建的 effect 作用域并创建一个新的 effect 作用域', async () => {
     const source = ref<number | boolean>(false);
 
     const isScopeRun = ref(false);
@@ -120,7 +120,7 @@ describe('wheneverEffectScope', () => {
     unWatch();
   });
 
-  test('当值变为 falsy 时, 将会停止之前创建的 effect 作用域', async () => {
+  it('当值变为 falsy 时, 将会停止之前创建的 effect 作用域', async () => {
     const source = ref(false);
 
     const isScopeRun = ref(false);
@@ -154,7 +154,7 @@ describe('wheneverEffectScope', () => {
     unWatch();
   });
 
-  test('调用方法返回的 unWatch 方法, 会停止创建的 effect 作用域', async () => {
+  it('调用方法返回的 unWatch 方法, 会停止创建的 effect 作用域', async () => {
     const source = ref(1);
     const value = ref();
     const unWatch = wheneverEffectScope(source, (v) => {
@@ -181,7 +181,7 @@ describe('wheneverEffectScope', () => {
     expect(value.value).toBe(3);
   });
 
-  test('本质上是创建一个 watch', async () => {
+  it('本质上是创建一个 watch', async () => {
     const source = ref(1);
     const value = ref();
     const unWatch = wheneverEffectScope(source, (v) => {
@@ -208,7 +208,7 @@ describe('wheneverEffectScope', () => {
     expect(value.value).toBe(3);
   });
 
-  test('为创建的 watch 传递 options', () => {
+  it('为创建的 watch 传递 options', () => {
     const source = ref(1);
     const value = ref();
     const unWatch = wheneverEffectScope(source, (v) => {
@@ -234,7 +234,7 @@ describe('wheneverEffectScope', () => {
 });
 
 describe('wheneverEffectScopeImmediate', () => {
-  test('immediate 默认为 true 的 wheneverEffectScope 方法', async () => {
+  it('immediate 默认为 true 的 wheneverEffectScope 方法', async () => {
     const source = ref<number | boolean>(1);
     const watchFns = {
       fn1: () => {},
@@ -271,7 +271,7 @@ describe('wheneverEffectScopeImmediate', () => {
     unWatch3();
   });
 
-  test('重新传入 immediate 选项是无效的', async () => {
+  it('重新传入 immediate 选项是无效的', async () => {
     const source = ref<number | boolean>(1);
     const watchFns = {
       fn1: () => {},
@@ -303,7 +303,7 @@ describe('wheneverEffectScopeImmediate', () => {
 });
 
 describe('wheneverEffectScopeDeep', () => {
-  test('deep 默认为 true 的 wheneverEffectScope 方法', async () => {
+  it('deep 默认为 true 的 wheneverEffectScope 方法', async () => {
     const source = ref({ a: 1 });
     const watchFns = {
       fn1: () => {},
@@ -346,7 +346,7 @@ describe('wheneverEffectScopeDeep', () => {
     unWatch3();
   });
 
-  test('重新传入 deep 选项是无效的', async () => {
+  it('重新传入 deep 选项是无效的', async () => {
     const source = ref({ a: 1 });
     const watchFns = {
       fn1: () => {},
@@ -383,7 +383,7 @@ describe('wheneverEffectScopeDeep', () => {
 });
 
 describe('wheneverEffectScopeImmediateDeep', () => {
-  test('immediate 和 deep 默认为 true 的 wheneverEffectScope 方法', async () => {
+  it('immediate 和 deep 默认为 true 的 wheneverEffectScope 方法', async () => {
     const source = ref({ a: 1 });
     const watchFns = {
       fn1: () => {},
