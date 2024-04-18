@@ -4,12 +4,14 @@ import { h } from 'vue';
 import { ID_INJECTION_KEY } from 'element-plus';
 import { inject } from '@vercel/analytics';
 import Theme from 'vitepress/theme';
+import TwoSlashFloatingVue from '@shikijs/vitepress-twoslash/client';
 import * as Mixte from 'mixte';
 
 import './style.css';
 import 'uno.css';
 import 'element-plus/theme-chalk/dark/css-vars.css';
 import 'element-plus/theme-chalk/el-message.css';
+import '@shikijs/vitepress-twoslash/style.css';
 
 export default {
   extends: Theme,
@@ -28,5 +30,7 @@ export default {
       window.Mixte = Mixte;
       import.meta.env.PROD && inject();
     }
+
+    app.use(TwoSlashFloatingVue);
   },
 };

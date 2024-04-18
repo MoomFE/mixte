@@ -8,6 +8,7 @@ import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { pascalCase } from 'change-case';
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash';
 import { components, mixte, snippets, use } from '../../meta/docs.json';
 import { alias } from '../../meta/alias';
 import { version } from '../../package.json';
@@ -28,6 +29,12 @@ export default defineConfig({
     'use/src/:fn/index.md': 'mixte/use/:fn.md',
     'components/src/:fn/index.md': 'mixte/components/:fn.md',
     'snippets/src/:fn/index.md': 'mixte/snippets/:fn.md',
+  },
+
+  markdown: {
+    codeTransformers: [
+      transformerTwoslash(),
+    ],
   },
 
   lastUpdated: true,

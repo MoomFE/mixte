@@ -88,6 +88,11 @@
       "hiddenH1": false
     },
     {
+      "fn": "useFileReader",
+      "name": "",
+      "hiddenH1": false
+    },
+    {
       "fn": "useRequest",
       "name": "",
       "hiddenH1": false
