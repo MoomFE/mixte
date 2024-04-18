@@ -11,7 +11,7 @@ https://mixte.moomfe.com/
 
 ## License
 
-[MIT](./LICENSE) License © 2023-PRESENT [Wei Zhang](https://github.com/Zhang-Wei-666)
+[MIT](https://github.com/MoomFE/mixte/main/LICENSE) License © 2023-PRESENT [Wei Zhang](https://github.com/Zhang-Wei-666)
 
 <!-- Badges -->
 
