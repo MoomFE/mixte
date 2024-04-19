@@ -4,8 +4,11 @@ immediate 默认为 true 的 watch 方法
 
 ### 示例
 
-```ts
+```ts twoslash
 import { watchImmediate } from '@mixte/use';
+// ---cut-start---
+import { ref } from 'vue';
+// ---cut-end---
 
 const obj = ref(1);
 
@@ -16,7 +19,12 @@ watchImmediate(obj, (val) => {
 obj.value = 2;
 ```
 
-```ts
+```ts twoslash
+// ---cut-start---
+import { ref, watch } from 'vue';
+import { watchImmediate } from '@mixte/use';
+const obj = ref(1);
+// ---cut-end---
 // 当前写法
 watchImmediate(obj, (val) => {
   console.log(val);
@@ -30,23 +38,17 @@ watch(obj, (val) => {
 });
 ```
 
-### 类型
-
-```ts
-function watchImmediate<T extends MultiWatchSources>(sources: [...T], cb: WatchCallback<MapSources<T, true>, MapSources<T, true>>, options?: Omit<WatchOptions, 'immediate'>): WatchStopHandle;
-function watchImmediate<T extends Readonly<MultiWatchSources>>(source: T, cb: WatchCallback<MapSources<T, true>, MapSources<T, true>>, options?: Omit<WatchOptions, 'immediate'>): WatchStopHandle;
-function watchImmediate<T>(source: WatchSource<T>, cb: WatchCallback<T, true>, options?: Omit<WatchOptions, 'immediate'>): WatchStopHandle;
-function watchImmediate<T extends object>(source: T, cb: WatchCallback<T, true>, options?: Omit<WatchOptions, 'immediate'>): WatchStopHandle;
-```
-
 ## `watchDeep` {#watchDeep}
 
 deep 默认为 true 的 watch 方法
 
 ### 示例
 
-```ts
+```ts twoslash
 import { watchDeep } from '@mixte/use';
+// ---cut-start---
+import { ref } from 'vue';
+// ---cut-end---
 
 const obj = ref({ a: 1 });
 
@@ -57,7 +59,12 @@ watchDeep(obj, (val) => {
 obj.value.a = 2;
 ```
 
-```ts
+```ts twoslash
+// ---cut-start---
+import { ref, watch } from 'vue';
+import { watchDeep } from '@mixte/use';
+const obj = ref(1);
+// ---cut-end---
 // 当前写法
 watchDeep(obj, (val) => {
   console.log(val);
@@ -71,23 +78,17 @@ watch(obj, (val) => {
 });
 ```
 
-### 类型
-
-```ts
-export function watchDeep<T extends MultiWatchSources, Immediate extends Readonly<boolean> = false>(sources: [...T], cb: WatchCallback<MapSources<T, false>, MapSources<T, Immediate>>, options?: Omit<WatchOptions<Immediate>, 'deep'>): WatchStopHandle;
-export function watchDeep<T extends Readonly<MultiWatchSources>, Immediate extends Readonly<boolean> = false>(source: T, cb: WatchCallback<MapSources<T, false>, MapSources<T, Immediate>>, options?: Omit<WatchOptions<Immediate>, 'deep'>): WatchStopHandle;
-export function watchDeep<T, Immediate extends Readonly<boolean> = false>(source: WatchSource<T>, cb: WatchCallback<T, Immediate extends true ? T | undefined : T>, options?: Omit<WatchOptions<Immediate>, 'deep'>): WatchStopHandle;
-export function watchDeep<T extends object, Immediate extends Readonly<boolean> = false>(source: T, cb: WatchCallback<T, Immediate extends true ? T | undefined : T>, options?: Omit<WatchOptions<Immediate>, 'deep'>): WatchStopHandle;
-```
-
 ## `watchImmediateDeep` {#watchImmediateDeep}
 
 immediate 和 deep 都为 true 的 watch 方法
 
 ### 示例
 
-```ts
+```ts twoslash
 import { watchImmediateDeep } from '@mixte/use';
+// ---cut-start---
+import { ref } from 'vue';
+// ---cut-end---
 
 const obj = ref({ a: 1 });
 
@@ -98,7 +99,12 @@ watchImmediateDeep(obj, (val) => {
 obj.value.a = 2;
 ```
 
-```ts
+```ts twoslash
+// ---cut-start---
+import { ref, watch } from 'vue';
+import { watchImmediateDeep } from '@mixte/use';
+const obj = ref(1);
+// ---cut-end---
 // 当前写法
 watchImmediateDeep(obj, (val) => {
   console.log(val);
@@ -111,13 +117,4 @@ watch(obj, (val) => {
   immediate: true,
   deep: true
 });
-```
-
-### 类型
-
-```ts
-export function watchImmediateDeep<T extends MultiWatchSources>(sources: [...T], cb: WatchCallback<MapSources<T, true>, MapSources<T, true>>, options?: Omit<WatchOptions, 'immediate' | 'deep'>): WatchStopHandle;
-export function watchImmediateDeep<T extends Readonly<MultiWatchSources>>(source: T, cb: WatchCallback<MapSources<T, true>, MapSources<T, true>>, options?: Omit<WatchOptions, 'immediate' | 'deep'>): WatchStopHandle;
-export function watchImmediateDeep<T>(source: WatchSource<T>, cb: WatchCallback<T, true>, options?: Omit<WatchOptions, 'immediate' | 'deep'>): WatchStopHandle;
-export function watchImmediateDeep<T extends object>(source: T, cb: WatchCallback<T, true>, options?: Omit<WatchOptions, 'immediate' | 'deep'>): WatchStopHandle;
 ```

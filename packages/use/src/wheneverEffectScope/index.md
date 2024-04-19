@@ -6,8 +6,11 @@
 
 ### 示例
 
-```ts
+```ts twoslash
 import { wheneverEffectScope } from '@mixte/use';
+// ---cut-start---
+import { ref, watch } from 'vue';
+// ---cut-end---
 
 const source = ref(false);
 const value = ref(1);
@@ -25,25 +28,17 @@ wheneverEffectScope(source, (_value, _oldValue, _onCleanup) => {
 source.value = true;
 ```
 
-### 类型
-
-```ts
-/**
- * @param source 侦听器的源, 和 watch 一致
- * @param run 当 source 为 truthy 时执行的 effect 作用域
- * @param options 选项, 和 watch 一致
- */
-function wheneverEffectScope<T>(source: WatchSource<T | false | null | undefined>, run: WatchCallback<T>, options?: WatchOptions): WatchStopHandle;
-```
-
 ## `wheneverEffectScopeImmediate` {#wheneverEffectScopeImmediate}
 
 immediate 为 true 的 wheneverEffectScope 方法
 
 ### 示例
 
-```ts
+```ts twoslash
 import { wheneverEffectScopeImmediate } from '@mixte/use';
+// ---cut-start---
+import { ref, watch } from 'vue';
+// ---cut-end---
 
 const source = ref(true);
 const value = ref(1);
@@ -56,25 +51,17 @@ wheneverEffectScopeImmediate(source, (_value, _oldValue, _onCleanup) => {
 });
 ```
 
-### 类型
-
-```ts
-/**
- * @param source 侦听器的源, 和 watch 一致
- * @param run 当 source 为 truthy 时执行的 effect 作用域
- * @param options 选项, immediate 为 true, 其他和 watch 一致
- */
-function wheneverEffectScopeImmediate<T>(source: WatchSource<T | false | null | undefined>, run: WatchCallback<T>, options?: Omit<WatchOptions, 'immediate'>): WatchStopHandle;
-```
-
 ## `wheneverEffectScopeDeep` {#wheneverEffectScopeDeep}
 
 deep 为 true 的 wheneverEffectScope 方法
 
 ### 示例
 
-```ts
+```ts twoslash
 import { wheneverEffectScopeDeep } from '@mixte/use';
+// ---cut-start---
+import { ref, watch } from 'vue';
+// ---cut-end---
 
 const source = ref({ a: 1 });
 const value = ref(1);
@@ -90,25 +77,17 @@ wheneverEffectScopeDeep(source, (_value, _oldValue, _onCleanup) => {
 source.value.a = 2;
 ```
 
-### 类型
-
-```ts
-/**
- * @param source 侦听器的源, 和 watch 一致
- * @param run 当 source 为 truthy 时执行的 effect 作用域
- * @param options 选项, deep 为 true, 其他和 watch 一致
- */
-function wheneverEffectScopeDeep<T>(source: WatchSource<T | false | null | undefined>, run: WatchCallback<T>, options?: Omit<WatchOptions, 'deep'>): WatchStopHandle;
-```
-
 ## `wheneverEffectScopeImmediateDeep` {#wheneverEffectScopeImmediateDeep}
 
 immediate 和 deep 为 true 的 wheneverEffectScope 方法
 
 ### 示例
 
-```ts
+```ts twoslash
 import { wheneverEffectScopeImmediateDeep } from '@mixte/use';
+// ---cut-start---
+import { ref, watch } from 'vue';
+// ---cut-end---
 
 const source = ref({ a: 1 });
 const value = ref(1);
@@ -120,15 +99,4 @@ wheneverEffectScopeImmediateDeep(source, (_value, _oldValue, _onCleanup) => {
   // 监听 `value`, 同步值至 `value2`
   watch(value, val => value2.value = val);
 });
-```
-
-### 类型
-
-```ts
-/**
- * @param source 侦听器的源, 和 watch 一致
- * @param run 当 source 为 truthy 时执行的 effect 作用域
- * @param options 选项, immediate 和 deep 为 true, 其他和 watch 一致
- */
-function wheneverEffectScopeImmediateDeep<T>(source: WatchSource<T | false | null | undefined>, run: WatchCallback<T>, options?: Omit<WatchOptions, 'immediate' | 'deep'>): WatchStopHandle;
 ```

@@ -4,8 +4,11 @@
 
 ### 示例
 
-```ts
+```ts twoslash
 import { whenever } from '@mixte/use';
+// ---cut-start---
+import { nextTick, ref } from 'vue';
+// ---cut-end---
 
 const obj = ref(1);
 
@@ -19,7 +22,12 @@ nextTick(() => {
 });
 ```
 
-```ts
+```ts twoslash
+// ---cut-start---
+import { ref, watch } from 'vue';
+import { whenever } from '@mixte/use';
+const obj = ref(1);
+// ---cut-end---
 // 当前写法
 whenever(obj, (val) => {
   console.log(val);
@@ -32,20 +40,17 @@ watch(obj, (val) => {
 });
 ```
 
-### 类型
-
-```ts
-function whenever<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: WatchOptions): WatchStopHandle;
-```
-
 ## `wheneverImmediate` {#wheneverImmediate}
 
 immediate 默认为 true 的 whenever 方法
 
 ### 示例
 
-```ts
+```ts twoslash
 import { wheneverImmediate } from '@mixte/use';
+// ---cut-start---
+import { ref } from 'vue';
+// ---cut-end---
 
 const obj = ref(1);
 
@@ -56,20 +61,17 @@ wheneverImmediate(obj, (val) => {
 obj.value = 2;
 ```
 
-### 类型
-
-```ts
-function wheneverImmediate<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: Omit<WatchOptions, 'immediate'>): WatchStopHandle;
-```
-
 ## `wheneverDeep` {#wheneverDeep}
 
 deep 默认为 true 的 whenever 方法
 
 ### 示例
 
-```ts
+```ts twoslash
 import { wheneverDeep } from '@mixte/use';
+// ---cut-start---
+import { ref } from 'vue';
+// ---cut-end---
 
 const obj = ref({ a: 1 });
 
@@ -80,20 +82,17 @@ wheneverDeep(obj, (val) => {
 obj.value.a = 2;
 ```
 
-### 类型
-
-```ts
-function wheneverDeep<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: Omit<WatchOptions, 'deep'>): WatchStopHandle;
-```
-
 ## `wheneverImmediateDeep` {#wheneverImmediateDeep}
 
 immediate 和 deep 默认为 true 的 whenever 方法
 
 ### 示例
 
-```ts
+```ts twoslash
 import { wheneverImmediateDeep } from '@mixte/use';
+// ---cut-start---
+import { ref } from 'vue';
+// ---cut-end---
 
 const obj = ref({ a: 1 });
 
@@ -102,10 +101,4 @@ wheneverImmediateDeep(obj, (val) => {
 });
 
 obj.value.a = 2;
-```
-
-### 类型
-
-```ts
-function wheneverImmediateDeep<T>(source: WatchSource<T | false | null | undefined>, cb: WatchCallback<T>, options?: Omit<WatchOptions, 'immediate' | 'deep'>): WatchStopHandle;
 ```
