@@ -16,8 +16,11 @@ outline: [1,4]
 
 #### 基础示例
 
-```ts
+```ts twoslash
 import { createNamedSharedComposable } from '@mixte/use';
+// ---cut-start---
+import axios from 'axios';
+// ---cut-end---
 
 function getUserInfo(tenantId: string, id: string) {
   return axios.get(`/api/${tenantId}/user/${id}`);
@@ -41,8 +44,11 @@ console.log(getSharedUserInfo('xxx/2', 'xxx', '2'));
 
 #### 手动清除缓存
 
-```ts
+```ts twoslash
 import { createNamedSharedComposable } from '@mixte/use';
+// ---cut-start---
+import axios from 'axios';
+// ---cut-end---
 
 function getUserInfo(tenantId: string, id: string) {
   return axios.get(`/api/${tenantId}/user/${id}`);
@@ -57,14 +63,4 @@ getSharedUserInfo('xxx/2', 'xxx', '2');
 getSharedUserInfo.clear('xxx/1');
 // 手动清除所有缓存
 getSharedUserInfo.clear();
-```
-
-### 类型
-
-```ts
-/**
- * @param composable 要共享的函数/组合式函数
- * @returns 包装后的新函数
- */
-function createNamedSharedComposable<Fn extends (...args: any[]) => any>(composable: Fn): (name: string, ...args: Parameters<Fn>) => AsyncReturnType<Fn>;
 ```

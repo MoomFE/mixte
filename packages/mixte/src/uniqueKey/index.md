@@ -5,7 +5,7 @@
 
 ### 示例
 
-```ts
+```ts twoslash
 import { uniqueKey } from 'mixte';
 
 const arr = [{ id: '1' }, { id: '2' }];
@@ -15,17 +15,6 @@ arr.push({
 });
 ```
 
-### 类型
-
-```ts
-/**
- * @param arr 需要生成唯一 key 的数组
- * @param key 字段名 ( default: 'id' )
- * @param customizer key 生成器 ( default: uniqueKeyCustomizer )
- */
-function uniqueKey<T = string>(arr: any[], key?: PropertyKey, customizer?: (() => T)): T;
-```
-
 ## `uniqueKeyCustomizer` {#uniqueKeyCustomizer}
 
 uniqueKey 方法默认的 key 生成器
@@ -33,17 +22,11 @@ uniqueKey 方法默认的 key 生成器
 
 ### 示例
 
-```ts
+```ts twoslash
 import { uniqueKeyCustomizer } from 'mixte';
 
 uniqueKeyCustomizer(); // -> 'b3Ll5Kw6gQF5ens0H3'
 uniqueKeyCustomizer(); // -> 'L1U1NsxTIEEKG098pB'
 uniqueKeyCustomizer(); // -> 'Y8j5JqmvnICB24GUou'
 uniqueKeyCustomizer(); // -> 'H6TK7p1M9zJ32HOfzE'
-```
-
-### 类型
-
-```ts
-function uniqueKeyCustomizer(): string;
 ```

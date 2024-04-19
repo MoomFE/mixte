@@ -7,8 +7,11 @@ outline: [1,3]
 
 ### 示例
 
-```ts
+```ts twoslash
 import { deepUnref } from '@mixte/use';
+// ---cut-start---
+import { computed, ref } from 'vue';
+// ---cut-end---
 
 const source = {
   a: ref(1),
@@ -20,10 +23,4 @@ const source = {
 };
 
 console.log(deepUnref(source)); // -> { a: 1, b: [ 2, 3 ], c: 4 }
-```
-
-### 类型
-
-```ts
-function deepUnref<T>(maybeRef: MaybeRef<T>): UnwrapNestedRefs<T>;
 ```

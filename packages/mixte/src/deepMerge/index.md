@@ -14,7 +14,7 @@ outline: [1,4]
 
 #### 深拷贝合并对象
 
-```ts
+```ts twoslash
 import { deepMerge } from 'mixte';
 
 const target = { a: { b: 1, c: 2 } };
@@ -27,7 +27,7 @@ console.log(target); // -> { a: { b: 1, c: 3 }, d: 4 }
 
 #### 深拷贝合并数组
 
-```ts
+```ts twoslash
 import { deepMerge } from 'mixte';
 
 const target = [{ a: 1, b: 2 }];
@@ -40,7 +40,7 @@ console.log(target); // -> [{ a: 1, b: 3 }, { c: 4 }]
 
 #### 支持防御循环引用 ( 第一种方式 )
 
-```ts
+```ts twoslash
 import { deepMerge } from 'mixte';
 
 const target = {};
@@ -51,7 +51,7 @@ console.log(deepMerge(target, source)); // -> { target: { target: [Circular] } }
 
 #### 支持防御循环引用 ( 第二种方式 )
 
-```ts
+```js twoslash
 import { deepMerge } from 'mixte';
 
 const target = {};
@@ -61,16 +61,4 @@ target.source = source;
 source.target = target;
 
 console.log(deepMerge(target, source)); // -> { source: { target: [Circular] }, target: { source: [Circular], target: [Circular] } }
-```
-
-### 类型
-
-```ts
-function deepMerge<T>(target: T): T;
-function deepMerge<T, S1>(target: T, source: S1): Merge<T, S1>;
-function deepMerge<T, S1, S2>(target: T, source: S1, source2: S2): Merge<Merge<T, S1>, S2>;
-function deepMerge<T, S1, S2, S3>(target: T, source: S1, source2: S2, source3: S3): Merge<Merge<Merge<T, S1>, S2>, S3>;
-function deepMerge<T, S1, S2, S3, S4>(target: T, source: S1, source2: S2, source3: S3, source4: S4): Merge<Merge<Merge<Merge<T, S1>, S2>, S3>, S4>;
-function deepMerge<T, S1, S2, S3, S4, S5>(target: T, source: S1, source2: S2, source3: S3, source4: S4, source5: S5): Merge<Merge<Merge<Merge<Merge<T, S1>, S2>, S3>, S4>, S5>;
-function deepMerge<T, S1, S2, S3, S4, S5, S6>(target: T, source: S1, source2: S2, source3: S3, source4: S4, source5: S5, source6: S6): Merge<Merge<Merge<Merge<Merge<Merge<T, S1>, S2>, S3>, S4>, S5>, S6>;
 ```

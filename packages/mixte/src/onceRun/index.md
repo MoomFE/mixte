@@ -6,7 +6,7 @@ outline: [1,3]
 
 ### 示例
 
-```ts
+```ts twoslash
 import { delay, onceRun } from 'mixte';
 
 let isRun = false;
@@ -29,18 +29,4 @@ console.log(res === res2); // -> true
 // 该 Promise 会解析为同一时间第一次运行的结果
 console.log(await res); // -> 1
 console.log(await res2); // -> 1
-```
-
-### 类型
-
-```ts
-/**
- * @param fn 要运行的函数
- * @returns 一个函数, 包装原始函数并确保它只运行一次
- */
-function onceRun<
-  F extends ((...args: any[]) => any) | ((...args: any[]) => Promise<any>),
-  A extends Parameters<F>,
-  R extends AsyncReturnType<F>
->(fn: F): (...args: A) => Promise<R>;
 ```

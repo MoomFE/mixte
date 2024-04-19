@@ -4,19 +4,10 @@
 
 ### 示例
 
-```ts
+```ts twoslash
 import { delay } from 'mixte';
 
 await delay(1000); // 延迟 1 秒
-```
-
-### 类型
-
-```ts
-/**
- * @param ms 延迟时间 ( default: 1000 )
- */
-function delay(ms?: number): Promise<unknown>;
 ```
 
 ## `wait`
@@ -25,17 +16,8 @@ function delay(ms?: number): Promise<unknown>;
 
 ### 示例
 
-```ts
+```ts twoslash
 import { wait } from 'mixte';
 
 await wait(1000); // 延迟 1 秒
-```
-
-### 类型
-
-```ts
-/**
- * @param ms 延迟时间 ( default: 1000 )
- */
-function wait(ms?: number): Promise<unknown>;
 ```

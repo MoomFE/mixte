@@ -6,20 +6,10 @@
 
 ### 示例
 
-```ts
+```ts twoslash
 import { randomNatural } from 'mixte';
 
 randomNatural(0, 10); // -> 0 ~ 10
-```
-
-### 类型
-
-```ts
-/**
- * @param from 最小的自然数
- * @param to 最大的自然数
- */
-function randomNatural(from: number, to: number): number;
 ```
 
 ## `random` {#random}
@@ -28,7 +18,7 @@ function randomNatural(from: number, to: number): number;
 
 ### 示例
 
-```ts
+```ts twoslash
 import { random } from 'mixte';
 
 random(0, 10); // -> 0 ~ 10
@@ -41,42 +31,16 @@ random(-10); // -> -10 ~ 0
 random(); // -> 0 ~ 10
 ```
 
-### 类型
-
-```ts
-/**
- * 在传入的两个数字之间随机生成一个数字
- * @param from 第一个数字
- * @param to 第二个数字
- */
-function random(from: number, to: number): number;
-/**
- * 在 0 和传入数字之间随机生成一个数字
- * @param to 传入的数字
- */
-function random(to: number): number;
-/**
- * 在 0 和 10 之间随机生成一个数字
- */
-function random(): number;
-```
-
 ## `randomLowercaseLetter` {#randomLowercaseLetter}
 
 随机一个小写英文字母
 
 ### 示例
 
-```ts
+```ts twoslash
 import { randomLowercaseLetter } from 'mixte';
 
 randomLowercaseLetter(); // -> a ~ z
-```
-
-### 类型
-
-```ts
-function randomLowercaseLetter(): string;
 ```
 
 ## `randomUppercaseLetter` {#randomUppercaseLetter}
@@ -85,16 +49,10 @@ function randomLowercaseLetter(): string;
 
 ### 示例
 
-```ts
+```ts twoslash
 import { randomUppercaseLetter } from 'mixte';
 
 randomUppercaseLetter(); // -> A ~ Z
-```
-
-### 类型
-
-```ts
-function randomUppercaseLetter(): string;
 ```
 
 ## `randomLetter` {#randomLetter}
@@ -103,21 +61,12 @@ function randomUppercaseLetter(): string;
 
 ### 示例
 
-```ts
+```ts twoslash
 import { randomLetter } from 'mixte';
 
 randomLetter(); // -> a ~ z, A ~ Z
 randomLetter(true); // -> A ~ Z
 randomLetter(false); // -> a ~ z
-```
-
-### 类型
-
-```ts
-/**
- * @param uppercase 是否大写
- */
-function randomLetter(uppercase?: boolean): string;
 ```
 
 ## `randomString` {#randomString}
@@ -126,7 +75,7 @@ function randomLetter(uppercase?: boolean): string;
 
 ### 示例
 
-```ts
+```ts twoslash
 import { randomString } from 'mixte';
 
 // -> 默认生成 12 位的仅有小写字母的字符串
@@ -139,39 +88,14 @@ randomString(18, { uppercase: true, number: true });
 randomString(18, { uppercase: true, number: true, lowercase: false });
 ```
 
-### 类型
-
-```ts
-/**
- * @param length 字符串的长度 ( default: 12 )
- * @param options 生成字符串的选项
- */
-function randomString(length?: number, options?: RandomStringOptions): string;
-
-interface RandomStringOptions {
-  /** 是否包含小写字母 ( default: true ) */
-  lowercase?: boolean;
-  /** 是否包含大写字母 ( default: false ) */
-  uppercase?: boolean;
-  /** 是否包含数字 ( default: false ) */
-  number?: boolean;
-}
-```
-
 ## `randomBoolean` {#randomBoolean}
 
 生成一个随机的 boolean 值
 
 ### 示例
 
-```ts
+```ts twoslash
 import { randomBoolean } from 'mixte';
 
 randomBoolean(); // -> true or false
-```
-
-### 类型
-
-```ts
-function randomBoolean(): boolean;
 ```

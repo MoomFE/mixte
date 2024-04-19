@@ -11,7 +11,7 @@ outline: [1,4]
 
 #### 深拷贝对象
 
-```ts
+```ts twoslash
 import { deepClone } from 'mixte';
 
 const obj = {
@@ -26,7 +26,7 @@ console.log(obj.a === cloneObj.a); // -> false
 
 #### 深拷贝数组
 
-```ts
+```ts twoslash
 import { deepClone } from 'mixte';
 
 const arr = [{ a: 1 }, { b: 2 }];
@@ -40,7 +40,9 @@ console.log(arr[1] === cloneArr[1]); // -> false
 
 #### 支持防御循环引用
 
-```js
+```js twoslash
+import { deepClone } from 'mixte';
+
 const obj = {};
 obj.obj = obj;
 
@@ -51,10 +53,4 @@ console.log(cloneObj.obj === cloneObj); // -> true
 
 console.log(obj === cloneObj); // -> false
 console.log(obj.obj === cloneObj.obj); // -> false
-```
-
-### 类型
-
-```ts
-function deepClone<T>(value: T): T;
 ```

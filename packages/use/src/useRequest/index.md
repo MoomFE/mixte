@@ -14,8 +14,11 @@ outline: [2,4]
 
 #### 基础示例
 
-```ts
+```ts twoslash
 import { useRequest } from '@mixte/use';
+// ---cut-start---
+import axios from 'axios';
+// ---cut-end---
 
 const {
   response,
@@ -40,7 +43,12 @@ const {
 :::info 修改步骤
 1. 把现有定义接口的方式, 改为使用 `useRequest` 的方式:
 
-```ts
+```js twoslash
+import { useRequest } from '@mixte/use'; // [!code ++]
+// ---cut-start---
+import axios from 'axios';
+// ---cut-end---
+
 function login(info) { // [!code --]
   return axios.post('/api/user/login', info); // [!code --]
 } // [!code --]
@@ -54,7 +62,12 @@ function login() { // [!code ++]
 
 2. 在调用端, 从:
 
-```ts
+```js twoslash
+// ---cut-start---
+import { reactive, ref } from 'vue';
+import axios from 'axios';
+const login = info => axios.post('/api/user/login', info);
+// ---cut-end---
 const form = reactive({ username: '', password: '' });
 const data = ref();
 const loading = ref(false);
@@ -74,7 +87,13 @@ async function submit() {
 
 改为:
 
-```ts
+```js twoslash
+// ---cut-start---
+import { useRequest } from '@mixte/use';
+import { reactive } from 'vue';
+import axios from 'axios';
+const login = () => useRequest(info => axios.post('/api/user/login', info));
+// ---cut-end---
 const form = reactive({ username: '', password: '' });
 const { data, isLoading, execute } = login();
 
@@ -92,8 +111,14 @@ async function submit() {
 :::info
 通常, 在页面或组件中都会发起多次请求, 这时候, 可以使用一个变量接受所有的返回值:
 
-```ts {3,4,10,11}
-import { getUserInfo, login } from '@/api/auth';
+```ts twoslash {3,4,10,11}
+// ---cut-start---
+import { useRequest } from '@mixte/use';
+import axios from 'axios';
+const login = () => useRequest(() => axios.post('/api/user/login'));
+const getUserInfo = () => useRequest(() => axios.post('/api/user/info'));
+// ---cut-end---
+// import { getUserInfo, login } from '@/api/auth';
 
 const loginInfo = login();
 const userInfo = getUserInfo();
@@ -118,8 +143,14 @@ async function submit() {
 :::info
 当使用变量接受所有的返回值时, 会导致调用链很长, 这时候, 可以使用响应式代理式的返回值:
 
-```ts {3,4,10,11}
-import { getUserInfo, login } from '@/api/auth';
+```ts twoslash {3,4,10,11}
+// ---cut-start---
+import { useRequest } from '@mixte/use';
+import axios from 'axios';
+const login = () => useRequest(() => axios.post('/api/user/login'));
+const getUserInfo = () => useRequest(() => axios.post('/api/user/info'));
+// ---cut-end---
+// import { getUserInfo, login } from '@/api/auth';
 
 const loginInfo = login().reactive;
 const userInfo = getUserInfo().reactive;
@@ -136,8 +167,14 @@ async function submit() {
 
 #### 统一在请求完成后数据处理
 
-```ts {6,7,8,14,20}
-import { getUserInfo, login } from '@/api/auth';
+```ts twoslash {6,7,8,14,20}
+// ---cut-start---
+import { useRequest } from '@mixte/use';
+import axios from 'axios';
+const login = () => useRequest(() => axios.post('/api/user/login'));
+const getUserInfo = () => useRequest(() => axios.post('/api/user/info'));
+// ---cut-end---
+// import { getUserInfo, login } from '@/api/auth';
 
 const loginInfo = login().reactive;
 const userInfo = getUserInfo().reactive;
@@ -165,7 +202,11 @@ async function otherLogic() {
 :::info
 在定义接口处配置:
 
-```ts {4}
+```ts twoslash {4}
+// ---cut-start---
+import { useRequest } from '@mixte/use';
+import axios from 'axios';
+// ---cut-end---
 function login() {
   return useRequest(
     info => axios.post('/api/user/login', info),
@@ -178,7 +219,11 @@ const loginInfo = login();
 
 也可以在定义接口处接收相关配置选项, 在调用端根据需求自行配置:
 
-```ts {3,6,10,11,12,13}
+```ts twoslash {3,6,10,11,12,13}
+// ---cut-start---
+import { useRequest } from '@mixte/use';
+import axios from 'axios';
+// ---cut-end---
 import type { UseRequestOptions } from '@mixte/use';
 
 function login(options?: UseRequestOptions) {
@@ -195,100 +240,6 @@ const loginInfo = login({
 ```
 :::
 
-### 类型
-
-```ts
-interface UseRequestOptions {
-  /**
-   * 初始数据
-   *  - 传递的数据会使用 `toValue` 进行转换
-   * @default undefined
-   */
-  initialData?: MaybeRefOrGetter<any>;
-  /**
-   * 是否立即发起请求
-   * @default false
-   */
-  immediate?: boolean;
-  /**
-   * 是否在发起请求时重置数据
-   * @default true
-   */
-  resetOnExecute?: MaybeRefOrGetter<boolean>;
-  /**
-   * 是否使用 shallowRef 代替 ref 包裹 data 数据
-   * @default false
-   */
-  shallow?: boolean;
-}
-
-/**
- * 用户传入的发起请求的函数
- */
-type UseRequestUserExecute<Response, Args extends any[]> = (...args: Args) => Promisable<Response>;
-
-/**
- * @param userExecute 用户传入的发起请求的函数
- * @param options 配置项
- */
-function useRequest<
-  Response,
-  Data extends Response extends { data: infer D } ? D : never = Response extends { data: infer D } ? D : never,
-  Args extends any[] = any[],
->(
-  userExecute: UseRequestUserExecute<Response, Args>,
-  options?: UseRequestOptions
-): {
-  /** 服务器响应 */
-  response: ShallowRef<Response | undefined>;
-  /** 服务器响应数据 */
-  data: Ref<Data | undefined>;
-  /** 服务器返回的错误 */
-  error: ShallowRef<any>;
-
-  /** 是否发起过请求 */
-  isExecuted: Ref<boolean>;
-  /** 是否在请求中 */
-  isLoading: Ref<boolean>;
-  /** 是否已请求完成 */
-  isFinished: Ref<boolean>;
-  /** 是否已请求成功 */
-  isSuccess: Ref<boolean>;
-
-  /** 请求成功次数 */
-  successCount: Ref<number>;
-  /** 清除请求成功次数 */
-  clearSuccessCount: () => void;
-
-  /** 发起请求 */
-  execute: (...args: Args) => Promise<Response>;
-
-  /** 请求成功事件钩子 */
-  onSuccess: EventHookOn<Response>;
-  /** 请求失败事件钩子 */
-  onError: EventHookOn<any>;
-  /** 请求完成事件钩子 */
-  onFinally: EventHookOn<null>;
-
-  /** 方法的响应式代理返回值 ( 里面的注释就不写了, 和上面的一样 ) */
-  reactive: {
-    response: Response | undefined;
-    data: Data | undefined;
-    error: any;
-    isExecuted: boolean;
-    isLoading: boolean;
-    isFinished: boolean;
-    isSuccess: boolean;
-    successCount: number;
-    clearSuccessCount: () => void;
-    execute: (...args: Args) => Promise<Response>;
-    onSuccess: EventHookOn<Response>;
-    onError: EventHookOn<any>;
-    onFinally: EventHookOn<null>;
-  };
-};
-```
-
 ## `useRequestReactive` {#useRequestReactive}
 
 发起请求的组合式方法
@@ -303,7 +254,11 @@ function useRequest<
 :::info 修改步骤
 1. 原有使用 `useRequest` 时:
 
-```ts {1,5,6,7}
+```ts twoslash {1,5,6,7}
+// ---cut-start---
+import { useRequest } from '@mixte/use';
+import axios from 'axios';
+// ---cut-end---
 const uuid = useRequest(() => {
   return axios.get('https://httpbin.org/uuid');
 });
@@ -315,7 +270,11 @@ console.log(uuid.error.value); // 需要使用 `.value` 获取值
 
 2. 修改方法为 `useRequestReactive` 后:
 
-```ts {1,5,6,7}
+```ts twoslash {1,5,6,7}
+// ---cut-start---
+import { useRequestReactive } from '@mixte/use';
+import axios from 'axios';
+// ---cut-end---
 const uuid = useRequestReactive(() => {
   return axios.get('https://httpbin.org/uuid');
 });
