@@ -6,12 +6,13 @@ outline: [1,3]
 
 ### 示例
 
-```vue
+```vue twoslash
 <template>
   {{ output }}
 </template>
 
 <script lang="ts" setup>
+  import { onMounted } from 'vue';
   import { useCountdown } from '@mixte/use';
 
   const { output, isStart, start, stop } = useCountdown(60, {
