@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [mixte] 新增 `camelCase`, `pascalCase`, `kebabCase`, `snakeCase`, `upperFirst`, `lowerFirst` 方法
 
 ## [v1.10.0], [v1.10.0-beta.1], [v1.10.0-beta.0]
   - 📅 2024-02-28

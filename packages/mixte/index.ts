@@ -11,3 +11,4 @@ export * from './src/onceRun/index';
 export * from './src/leastRun/index';
 export * from './src/defineArgs/index';
 export * from './src/env/index';
+export * from './src/changeCase/index';

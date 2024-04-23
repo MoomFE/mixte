@@ -6,6 +6,11 @@
       "hiddenH1": true
     },
     {
+      "fn": "changeCase",
+      "name": "",
+      "hiddenH1": false
+    },
+    {
       "fn": "deepClone",
       "name": "深拷贝",
       "hiddenH1": false
