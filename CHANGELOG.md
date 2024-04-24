@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.11.0-beta.1]
+  - 📅 2024-04-24
   - 🌟 [mixte] 新增 `camelCase`, `pascalCase`, `kebabCase`, `snakeCase`, `upperFirst`, `lowerFirst` 方法
 
 ## [v1.10.0], [v1.10.0-beta.1], [v1.10.0-beta.0]
@@ -217,7 +220,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.10.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.11.0-beta.1...HEAD
+[v1.11.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v1.11.0-beta.1
 [v1.10.0]: https://github.com/MoomFE/mixte/releases/tag/v1.10.0
 [v1.10.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v1.10.0-beta.1
 [v1.10.0-beta.0]: https://github.com/MoomFE/mixte/releases/tag/v1.10.0-beta.0
