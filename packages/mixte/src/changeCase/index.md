@@ -39,7 +39,7 @@ kebabCase('fooBarBaz'); // -> 'foo-bar-baz'
 kebabCase('FooBarBaz'); // -> 'foo-bar-baz'
 ```
 
-## snakeCase {#snakeCase}
+## `snakeCase` {#snakeCase}
 
 将字符串转换为下划线命名
 
@@ -52,7 +52,7 @@ snakeCase('fooBarBaz'); // -> 'foo_bar_baz'
 snakeCase('FooBarBaz'); // -> 'foo_bar_baz'
 ```
 
-## lowerFirst {#lowerFirst}
+## `lowerFirst` {#lowerFirst}
 
 将字符串的首字母转换为小写
 
@@ -65,7 +65,7 @@ lowerFirst('FooBarBaz'); // -> 'fooBarBaz'
 lowerFirst('fooBarBaz'); // -> 'fooBarBaz'
 ```
 
-## upperFirst {#upperFirst}
+## `upperFirst` {#upperFirst}
 
 将字符串的首字母转换为大写
 
