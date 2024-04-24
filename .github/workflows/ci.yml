@@ -10,7 +10,7 @@ on:
       - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,3 +26,6 @@ jobs:
 
       - name: lint
         run: pnpm lint
+
+      - name: build-dts
+        run: pnpm build-dts

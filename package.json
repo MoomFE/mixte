@@ -1,7 +1,7 @@
 {
   "name": "@mixte/monorepo",
   "type": "module",
-  "version": "1.11.0-beta.1",
+  "version": "1.11.0",
   "private": true,
   "packageManager": "pnpm@8.15.7",
   "description": "",
@@ -21,7 +21,7 @@
     "test:ui": "pnpm test -- --ui",
     "test-build": "pnpm build && vitest --mode test-build",
     "test-build:ui": "pnpm test-build --ui",
-    "test-release": "pnpm install && vitest --run && vue-tsc --project tsconfig.tsc.json --noEmit && pnpm test-build --run",
+    "test-release": "pnpm install && vitest --run && vue-tsc --project tsconfig.tsc.json --noEmit && pnpm test-build --run && pnpm build-dts",
     "test-coverage": "pnpm install && vitest --run",
     "dev": "pnpm docs:dev",
     "docs:dev": "pnpm udd && vitepress dev packages --host",
@@ -80,7 +80,7 @@
     "shiki": "^1.3.0",
     "simple-git-hooks": "^2.11.1",
     "tsx": "^4.7.2",
-    "type-fest": "^4.16.0",
+    "type-fest": "^4.15.0",
     "typescript": "^5.4.5",
     "unocss": "^0.59.4",
     "unocss-preset-extra": "^0.5.3",
@@ -94,6 +94,11 @@
     "vue": "^3.4.21",
     "vue-demi": "^0.14.7",
     "vue-tsc": "^2.0.14"
+  },
+  "pnpm": {
+    "overrides": {
+      "type-fest": "4.15.0"
+    }
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"

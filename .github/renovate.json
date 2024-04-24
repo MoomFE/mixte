@@ -4,6 +4,7 @@
     "github>moomfe/renovate-config"
   ],
   "ignoreDeps": [
-    "vue"
+    "vue",
+    "type-fest"
   ]
 }
