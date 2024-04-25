@@ -6,7 +6,7 @@
 
 ### 示例
 
-```ts
+```ts twoslash
 import { camelCase } from 'mixte';
 
 camelCase('foo-bar-baz'); // -> 'fooBarBaz'
@@ -19,7 +19,7 @@ camelCase('Foo_Bar_Baz'); // -> 'fooBarBaz'
 
 ### 示例
 
-```ts
+```ts twoslash
 import { pascalCase } from 'mixte';
 
 pascalCase('foo-bar-baz'); // -> 'FooBarBaz'
@@ -32,7 +32,7 @@ pascalCase('Foo_Bar_Baz'); // -> 'FooBarBaz'
 
 ### 示例
 
-```ts
+```ts twoslash
 import { kebabCase } from 'mixte';
 
 kebabCase('fooBarBaz'); // -> 'foo-bar-baz'
@@ -45,7 +45,7 @@ kebabCase('FooBarBaz'); // -> 'foo-bar-baz'
 
 ### 示例
 
-```ts
+```ts twoslash
 import { snakeCase } from 'mixte';
 
 snakeCase('fooBarBaz'); // -> 'foo_bar_baz'
@@ -58,7 +58,7 @@ snakeCase('FooBarBaz'); // -> 'foo_bar_baz'
 
 ### 示例
 
-```ts
+```ts twoslash
 import { lowerFirst } from 'mixte';
 
 lowerFirst('FooBarBaz'); // -> 'fooBarBaz'
@@ -71,7 +71,7 @@ lowerFirst('fooBarBaz'); // -> 'fooBarBaz'
 
 ### 示例
 
-```ts
+```ts twoslash
 import { upperFirst } from 'mixte';
 
 upperFirst('fooBarBaz'); // -> 'FooBarBaz'
