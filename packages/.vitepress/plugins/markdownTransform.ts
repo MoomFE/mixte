@@ -9,8 +9,10 @@ import fs from 'fs-extra';
 import { pascalCase } from 'change-case';
 import { find } from 'lodash-es';
 import { encode } from 'js-base64';
-import { randomString } from 'mixte';
+import { customRandom, random } from 'nanoid';
 import docs from '../../../meta/docs.json';
+
+const nanoid = customRandom('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', 18, random);
 
 export function MarkdownTransform(): Plugin {
   return {
@@ -79,7 +81,7 @@ export function MarkdownTransform(): Plugin {
           const matchEndIndex = match.index! + match[0].length;
 
           if (await fs.pathExists(resolve(dir, `demo/${name}.vue`))) {
-            const demoComponentName = `Second${randomString(18, { uppercase: true, number: true })}Demo`;
+            const demoComponentName = `Second${nanoid()}Demo`;
             let index;
 
             // 查找下一个二级以上的标题
