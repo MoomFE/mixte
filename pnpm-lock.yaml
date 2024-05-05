@@ -12,7 +12,7 @@ importers:
         specifier: ^1.0.6
         version: 1.0.6(vue@3.4.26(typescript@5.4.5))
       '@iconify/json':
-        specifier: ^2.2.203
+        specifier: ^2.2.206
         version: 2.2.206
       '@mixte/components':
         specifier: workspace:*
@@ -33,7 +33,7 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0(rollup@4.17.2)
       '@shikijs/vitepress-twoslash':
-        specifier: ^1.3.0
+        specifier: ^1.4.0
         version: 1.4.0(typescript@5.4.5)
       '@types/fs-extra':
         specifier: ^11.0.4
@@ -72,7 +72,7 @@ importers:
         specifier: ^5.4.4
         version: 5.4.4
       element-plus:
-        specifier: ^2.7.1
+        specifier: ^2.7.2
         version: 2.7.2(vue@3.4.26(typescript@5.4.5))
       eslint:
         specifier: ^9.1.1
@@ -108,7 +108,7 @@ importers:
         specifier: workspace:*
         version: link:packages/mixte
       naive-ui:
-        specifier: ^2.38.1
+        specifier: ^2.38.2
         version: 2.38.2(vue@3.4.26(typescript@5.4.5))
       nanoid:
         specifier: ^5.0.7
@@ -123,28 +123,28 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1(postcss@8.4.38)
       rollup:
-        specifier: ^4.16.1
+        specifier: ^4.17.2
         version: 4.17.2
       rollup-plugin-dts:
         specifier: ^6.1.0
         version: 6.1.0(rollup@4.17.2)(typescript@5.4.5)
       sass:
-        specifier: ^1.75.0
+        specifier: ^1.76.0
         version: 1.76.0
       scule:
         specifier: ^1.3.0
         version: 1.3.0
       shiki:
-        specifier: ^1.3.0
+        specifier: ^1.4.0
         version: 1.4.0
       simple-git-hooks:
         specifier: ^2.11.1
         version: 2.11.1
       tsx:
-        specifier: ^4.7.2
+        specifier: ^4.9.1
         version: 4.9.1
       type-fest:
-        specifier: ^4.17.0
+        specifier: ^4.18.1
         version: 4.18.1
       typescript:
         specifier: ^5.4.5
@@ -162,16 +162,16 @@ importers:
         specifier: ^0.17.5
         version: 0.17.5(@vueuse/core@10.9.0(vue@3.4.26(typescript@5.4.5)))(rollup@4.17.2)
       unplugin-icons:
-        specifier: ^0.18.5
-        version: 0.18.5(@vue/compiler-sfc@3.4.26)(vue-template-compiler@2.7.16)
+        specifier: ^0.19.0
+        version: 0.19.0(@vue/compiler-sfc@3.4.26)(vue-template-compiler@2.7.16)
       unplugin-vue-components:
-        specifier: ^0.26.0
-        version: 0.26.0(@babel/parser@7.24.5)(rollup@4.17.2)(vue@3.4.26(typescript@5.4.5))
+        specifier: ^0.27.0
+        version: 0.27.0(@babel/parser@7.24.5)(rollup@4.17.2)(vue@3.4.26(typescript@5.4.5))
       vite:
-        specifier: ^5.2.10
+        specifier: ^5.2.11
         version: 5.2.11(@types/node@20.12.8)(sass@1.76.0)
       vitepress:
-        specifier: ^1.1.3
+        specifier: ^1.1.4
         version: 1.1.4(@algolia/client-search@4.23.3)(@types/node@20.12.8)(async-validator@4.2.5)(axios@1.6.8)(change-case@5.4.4)(postcss@8.4.38)(sass@1.76.0)(search-insights@2.13.0)(typescript@5.4.5)
       vitest:
         specifier: ^1.5.2
@@ -183,7 +183,7 @@ importers:
         specifier: ^0.14.7
         version: 0.14.7(vue@3.4.26(typescript@5.4.5))
       vue-tsc:
-        specifier: ^2.0.14
+        specifier: ^2.0.16
         version: 2.0.16(typescript@5.4.5)
 
   packages/components:
@@ -1689,7 +1689,7 @@ packages:
     resolution: {integrity: sha512-7CEBgcMjVmitjYo5q8JTJVra6X5mQ20uTThdK+0kR7UEaDrAWEQcRiBtWJzga4eRpP6afNwwLsX2SET2JhVB1Q==}
 
   concat-map@0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
   confbox@0.1.7:
     resolution: {integrity: sha512-uJcB/FKZtBMCJpK8MQji6bJHgu1tixKPxRLeGkNzBoOZzpnZUJm0jm2/sBDWcuBx1dYgxV4JU+g5hmNxCyAmdA==}
@@ -2599,7 +2599,7 @@ packages:
     engines: {node: '>=10'}
 
   mark.js@8.11.1:
-    resolution: {integrity: sha1-GA8fnr74sOY45BZq1S24eb6y/8U=}
+    resolution: {integrity: sha512-1I+1qpDt4idfgLQG+BNWmrqku+7/2bi5nLf4YwF8y8zXvmfiTBY3PV3ZibfrjBueCByROpuBjLLFCajqkgYoLQ==}
 
   markdown-table@3.0.3:
     resolution: {integrity: sha512-Z1NL3Tb1M9wH4XESsCDEksWoKTdlUafKc4pt0GRwjUyXaCFZ+dc3g2erqB6zm3szA2IUSi7VnPI+o/9jnxh9hw==}
@@ -3213,7 +3213,7 @@ packages:
     engines: {node: '>=0.10.0'}
 
   stackback@0.0.2:
-    resolution: {integrity: sha1-Gsig2Ug4SNFpXkGLbQMaPDzmjjs=}
+    resolution: {integrity: sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==}
 
   std-env@3.7.0:
     resolution: {integrity: sha512-JPbdCEQLj1w5GilpiHAx3qJvFndqybBysA3qUOnznweH4QbNYUsW/ea8QzSrnh0vNsezMMw5bcVool8lM0gwzg==}
@@ -3477,8 +3477,8 @@ packages:
       '@vueuse/core':
         optional: true
 
-  unplugin-icons@0.18.5:
-    resolution: {integrity: sha512-KVNAohXbZ7tVcG1C3p6QaC7wU9Qrj7etv4XvsMMJAxr5LccQZ+Iuv5LOIv/7GtqXaGN1BuFCqRO1ErsHEgEXdQ==}
+  unplugin-icons@0.19.0:
+    resolution: {integrity: sha512-u5g/gIZPZEj1wUGEQxe9nzftOSqmblhusc+sL3cawIRoIt/xWpE6XYcPOfAeFTYNjSbRrX/3QiX89PFiazgU1w==}
     peerDependencies:
       '@svgr/core': '>=7.0.0'
       '@svgx/core': ^1.0.1
@@ -3497,8 +3497,8 @@ packages:
       vue-template-es2015-compiler:
         optional: true
 
-  unplugin-vue-components@0.26.0:
-    resolution: {integrity: sha512-s7IdPDlnOvPamjunVxw8kNgKNK8A5KM1YpK5j/p97jEKTjlPNrA0nZBiSfAKKlK1gWZuyWXlKL5dk3EDw874LQ==}
+  unplugin-vue-components@0.27.0:
+    resolution: {integrity: sha512-77eTEy23sQ0UpzGWnZ9I2mY3cnmXwklz4ITcn3JfxjCoX643ghImkiZ4nFm58sxbdVcc4Fo/o4LIoFnlqEqsSg==}
     engines: {node: '>=14'}
     peerDependencies:
       '@babel/parser': ^7.15.8
@@ -7561,7 +7561,7 @@ snapshots:
     transitivePeerDependencies:
       - rollup
 
-  unplugin-icons@0.18.5(@vue/compiler-sfc@3.4.26)(vue-template-compiler@2.7.16):
+  unplugin-icons@0.19.0(@vue/compiler-sfc@3.4.26)(vue-template-compiler@2.7.16):
     dependencies:
       '@antfu/install-pkg': 0.3.3
       '@antfu/utils': 0.7.7
@@ -7576,14 +7576,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  unplugin-vue-components@0.26.0(@babel/parser@7.24.5)(rollup@4.17.2)(vue@3.4.26(typescript@5.4.5)):
+  unplugin-vue-components@0.27.0(@babel/parser@7.24.5)(rollup@4.17.2)(vue@3.4.26(typescript@5.4.5)):
     dependencies:
       '@antfu/utils': 0.7.7
       '@rollup/pluginutils': 5.1.0(rollup@4.17.2)
       chokidar: 3.6.0
       debug: 4.3.4
       fast-glob: 3.3.2
-      local-pkg: 0.4.3
+      local-pkg: 0.5.0
       magic-string: 0.30.10
       minimatch: 9.0.4
       resolve: 1.22.8
