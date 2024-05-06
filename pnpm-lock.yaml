@@ -75,7 +75,7 @@ importers:
         specifier: ^2.7.2
         version: 2.7.2(vue@3.4.26(typescript@5.4.5))
       eslint:
-        specifier: ^9.1.1
+        specifier: ^9.2.0
         version: 9.2.0
       fast-glob:
         specifier: ^3.3.2
