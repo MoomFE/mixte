@@ -1,5 +1,5 @@
 # @mixte/validator
-常用校验方法
+常用校验函数
 
 [![npm][npm-badges-src]][npm-href]
 [![Downloads][downloads-badges-src]][npm-href]

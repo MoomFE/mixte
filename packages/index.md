@@ -24,6 +24,9 @@ features:
   - icon: 📦
     title: '@mixte/components'
     details: 工具向 Vue 组件库
+  - icon: 📝
+    title: '@mixte/validator'
+    details: 常用校验函数
   - icon: 🔬
     title: '@mixte/snippets'
     details: 一些有趣的小玩意, 实验性质方法或组件, 或面向特定环境或场景的一些代码片段

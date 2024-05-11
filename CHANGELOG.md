@@ -2,7 +2,7 @@
 
 ## [v1.12.0]
   - 📅 2024-05-11
-  - 🌟 新增 `@mixte/validator` 校验方法包
+  - 🌟 新增 `@mixte/validator` 校验函数包
   - 🌟 [@mixte/validator] 新增 `isEmail` 方法, 新增 `isEmailReg` 正则导出
   - 🌟 [@mixte/validator] 新增 `isMobile` 方法, 新增 `isMobileReg` 正则导出
   - 🌟 [@mixte/validator] 新增 `isCitizenID` 方法, 新增 `isCitizenIDReg` 正则导出
