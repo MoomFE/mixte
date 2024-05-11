@@ -17,6 +17,10 @@
       "name": "Components"
     },
     {
+      "path": "packages/validator",
+      "name": "Validator"
+    },
+    {
       "path": "packages/snippets",
       "name": "Snippets"
     }
@@ -62,7 +66,8 @@
       "packages/components": true,
       "packages/mixte": true,
       "packages/snippets": true,
-      "packages/use": true
+      "packages/use": true,
+      "packages/validator": true
     },
     "unocss.autocomplete.matchType": "fuzzy",
     "unocss.remToPxPreview": true,

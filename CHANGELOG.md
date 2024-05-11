@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [validator] 新增 `@mixte/validator` 包
 
 ## [v1.11.0], [v1.11.0-beta.1]
   - 📅 2024-04-24

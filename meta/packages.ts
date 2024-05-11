@@ -33,6 +33,12 @@ export const packages = [
     external: ['mixte'],
   },
 
+  // @mixte/validator
+  {
+    input: 'packages/validator/index.ts',
+    outputDir: 'packages/validator/dist',
+  },
+
   // @mixte/snippets/getFastestCDN
   {
     input: 'packages/snippets/src/getFastestCDN/index.ts',

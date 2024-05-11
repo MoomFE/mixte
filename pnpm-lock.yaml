@@ -23,6 +23,9 @@ importers:
       '@mixte/use':
         specifier: workspace:*
         version: link:packages/use
+      '@mixte/validator':
+        specifier: workspace:*
+        version: link:packages/validator
       '@moomfe/eslint-config':
         specifier: ^3.0.0
         version: 3.0.0(@vue/compiler-sfc@3.4.26)(vitest@1.6.0(@types/node@20.12.8)(@vitest/ui@1.6.0)(jsdom@24.0.0)(sass@1.76.0))
@@ -216,6 +219,8 @@ importers:
       vue-demi:
         specifier: '*'
         version: 0.14.7(vue@3.4.26(typescript@5.4.5))
+
+  packages/validator: {}
 
 packages:
 

@@ -10,6 +10,7 @@ export const alias: Alias[] = [
   { find: '@mixte/use', replacement: resolve(__dirname, '../packages/use/index') },
   { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/src/$1/index') },
   { find: '@mixte/components', replacement: resolve(__dirname, '../packages/components/index') },
+  { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/index') },
   { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/src/$1/index') },
 ];
 
@@ -19,5 +20,6 @@ export const testAlias: Alias[] = [
   { find: '@mixte/use', replacement: resolve(__dirname, '../packages/use/dist/index') },
   { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/dist/$1') },
   { find: '@mixte/components', replacement: resolve(__dirname, '../packages/components/dist/index') },
+  { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/dist/index') },
   { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/dist/$1') },
 ];
