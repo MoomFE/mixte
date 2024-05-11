@@ -1,7 +1,7 @@
 {
   "name": "@mixte/validator",
   "type": "module",
-  "version": "1.11.0",
+  "version": "1.12.0-beta.1",
   "author": "Wei Zhang <https://github.com/Zhang-Wei-666>",
   "license": "MIT",
   "homepage": "https://github.com/MoomFE/mixte#readme",

@@ -1,8 +1,11 @@
 ## [Unreleased]
-  - 🌟 [validator] 新增 `@mixte/validator` 包
-  - 🌟 [validator] 新增 `isEmail` 方法, 新增 `isEmailReg` 正则导出
-  - 🌟 [validator] 新增 `isMobile` 方法, 新增 `isMobileReg` 正则导出
-  - 🌟 [validator] 新增 `isCitizenID` 方法, 新增 `isCitizenIDReg` 正则导出
+
+## [v1.12.0]
+  - 📅 2024-05-11
+  - 🌟 新增 `@mixte/validator` 校验方法包
+  - 🌟 [@mixte/validator] 新增 `isEmail` 方法, 新增 `isEmailReg` 正则导出
+  - 🌟 [@mixte/validator] 新增 `isMobile` 方法, 新增 `isMobileReg` 正则导出
+  - 🌟 [@mixte/validator] 新增 `isCitizenID` 方法, 新增 `isCitizenIDReg` 正则导出
 
 ## [v1.11.0], [v1.11.0-beta.1]
   - 📅 2024-04-24
@@ -37,6 +40,7 @@
 
 ## [v1.7.0], [v1.7.0-beta.1], [v1.7.0-beta.0]
   - 📅 2023-12-12
+  - 🌟 新增 `@mixte/snippets` 代码片段包
   - 🌟 [@mixte/snippets] 新增 `getFastestCDN` 方法
   - 💄 [@mixte/use] 方法 `useRequest` 的配置项 `resetOnExecute` 支持传入 ref 值
   - 🐞 [@mixte/snippets] 修复无法使用 `@mixte/snippets/getFastestCDN` 导入的问题
@@ -83,7 +87,7 @@
 
 ## [v1.4.0]
   - 📅 2023-09-23
-  - 🌟 [@mixte/components] 新的组件库包
+  - 🌟 新增 `@mixte/components` 组件库包
   - 🌟 [@mixte/components] 新增 `AutoGrid` 组件
 
 ## [v1.3.0]
@@ -224,7 +228,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.11.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.12.0...HEAD
+[v1.12.0]: https://github.com/MoomFE/mixte/releases/tag/v1.12.0
 [v1.11.0]: https://github.com/MoomFE/mixte/releases/tag/v1.11.0
 [v1.11.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v1.11.0-beta.1
 [v1.10.0]: https://github.com/MoomFE/mixte/releases/tag/v1.10.0
