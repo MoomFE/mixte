@@ -54,7 +54,7 @@
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vitest/coverage-v8": "^1.6.0",
     "@vitest/ui": "^1.6.0",
-    "@vue/test-utils": "^2.4.5",
+    "@vue/test-utils": "^2.4.6",
     "@vueuse/core": "^10.9.0",
     "axios": "^1.6.8",
     "change-case": "^5.4.4",
@@ -95,7 +95,7 @@
     "vitest": "^1.6.0",
     "vue": "^3.4.21",
     "vue-demi": "^0.14.7",
-    "vue-tsc": "^2.0.16"
+    "vue-tsc": "^2.0.17"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
