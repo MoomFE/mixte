@@ -31,16 +31,16 @@ export function MarkdownTransform(): Plugin {
 
         const startIndex = code.match(/^---\n.+?\n---/m)?.[0]?.length ?? -1;
 
-        /** 标题 ( 组件包显示大驼峰 ) */
-        const fnTitle = `${
-          info.title || (pkg === 'components' ? pascalCase(fn) : fn)
-        }${
-          info.name && pkg === 'components' ? ` <small><small>( ${info.name} )</small></small>` : ''
+        /** 标题 */
+        const fnTitle = info.title || (pkg === 'components' ? pascalCase(fn) : fn);
+        /** 标题 + 副标题 */
+        const fnFullTitle = `${fnTitle}${
+          info.name && fnTitle === pascalCase(fnTitle) ? ` <small><small>( ${info.name} )</small></small>` : ''
         }`;
 
         // 添加标题
         if (!info.hiddenTitle) {
-          const h1 = `# ${fnTitle} {#${fn}-header}\n\n`;
+          const h1 = `# ${fnFullTitle} {#${fn}-header}\n\n`;
 
           if (startIndex > 0) s.prependRight(startIndex, `\n\n${h1}`);
           else s.prepend(h1);

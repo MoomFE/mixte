@@ -70,23 +70,23 @@ export default defineConfig({
       '/mixte/': [
         {
           text: 'mixte',
-          items: mixte.map(info => ({ text: `${info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/${info.fn}` })),
+          items: mixte.map(info => ({ text: `${info.sidebarTitle || info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/${info.fn}` })),
         },
         {
           text: '@mixte/use',
-          items: use.map(info => ({ text: `${info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/use/${info.fn}` })),
+          items: use.map(info => ({ text: `${info.sidebarTitle || info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/use/${info.fn}` })),
         },
         {
           text: '@mixte/components',
-          items: components.map(info => ({ text: `${pascalCase(info.fn)}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/components/${info.fn}` })),
+          items: components.map(info => ({ text: `${info.sidebarTitle || pascalCase(info.fn)}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/components/${info.fn}` })),
         },
         {
           text: '@mixte/validator',
-          items: validator.map(info => ({ text: `${info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/validator/${info.fn}` })),
+          items: validator.map(info => ({ text: `${info.sidebarTitle || info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/validator/${info.fn}` })),
         },
         {
           text: '@mixte/snippets',
-          items: snippets.map(info => ({ text: `${info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/snippets/${info.fn}` })),
+          items: snippets.map(info => ({ text: `${info.sidebarTitle || info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/snippets/${info.fn}` })),
         },
       ],
     },

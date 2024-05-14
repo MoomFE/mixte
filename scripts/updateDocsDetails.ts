@@ -24,6 +24,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
     let title = '';
     let name = '';
     let hiddenTitle = false;
+    let sidebarTitle = '';
 
     // 获取显示名称
     try {
@@ -31,6 +32,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
       title = info.title ?? title;
       name = info.name ?? name;
       hiddenTitle = info.hiddenTitle ?? hiddenTitle;
+      sidebarTitle = info.sidebarTitle ?? sidebarTitle;
     }
     catch (error) {}
 
@@ -39,6 +41,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
       title,
       name,
       hiddenTitle,
+      sidebarTitle,
     });
   }
 
