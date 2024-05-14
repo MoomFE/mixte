@@ -2,156 +2,185 @@
   "mixte": [
     {
       "fn": "asyncArrayFn",
+      "title": "",
       "name": "异步数组方法",
-      "hiddenH1": true
+      "hiddenTitle": true
     },
     {
       "fn": "changeCase",
+      "title": "",
       "name": "命名法转换",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "deepClone",
+      "title": "",
       "name": "深拷贝",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "deepMerge",
+      "title": "",
       "name": "深拷贝继承",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "defineArgs",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "delay",
+      "title": "",
       "name": "异步延迟",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "env",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "is",
+      "title": "",
       "name": "类型判断",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "leastRun",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "move",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "onceRun",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "random",
+      "title": "",
       "name": "随机",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "toArray",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "uniqueKey",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     }
   ],
   "use": [
     {
       "fn": "createNamedSharedComposable",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "deepUnref",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "useCountdown",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "useDraggableDistance",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "useFileReader",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "useRequest",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "watch",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "whenever",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "wheneverEffectScope",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     }
   ],
   "components": [
     {
       "fn": "auto-grid",
+      "title": "",
       "name": "自适应栅格",
-      "hiddenH1": false
+      "hiddenTitle": false
     }
   ],
   "validator": [
     {
       "fn": "citizenID",
+      "title": "isCitizenID",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "email",
+      "title": "isEmail",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "mobile",
+      "title": "isMobile",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     }
   ],
   "snippets": [
     {
       "fn": "getFastestCDN",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     },
     {
       "fn": "useNaiveForm",
+      "title": "",
       "name": "",
-      "hiddenH1": false
+      "hiddenTitle": false
     }
   ]
 }

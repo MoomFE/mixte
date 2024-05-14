@@ -21,21 +21,24 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
   for (const path of docsFile) {
     const [, pkg,, fn] = path.split('/');
+    let title = '';
     let name = '';
-    let hiddenH1 = false;
+    let hiddenTitle = false;
 
     // 获取显示名称
     try {
       const info = await import(`../packages/${pkg}/src/${fn}/info`);
+      title = info.title ?? title;
       name = info.name ?? name;
-      hiddenH1 = info.hiddenH1 ?? hiddenH1;
+      hiddenTitle = info.hiddenTitle ?? hiddenTitle;
     }
     catch (error) {}
 
     docsDetails[pkg as keyof typeof docsDetails].push({
       fn,
+      title,
       name,
-      hiddenH1,
+      hiddenTitle,
     });
   }
 

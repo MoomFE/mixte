@@ -2,7 +2,6 @@
 
 import { dirname, resolve } from 'node:path';
 import type { Plugin } from 'vite';
-import type { ValueOf } from 'type-fest';
 import type { BundledLanguage } from 'shiki';
 import MagicString from 'magic-string';
 import fs from 'fs-extra';
@@ -11,6 +10,7 @@ import { find } from 'lodash-es';
 import { encode } from 'js-base64';
 import { customRandom, random } from 'nanoid';
 import docs from '../../../meta/docs.json';
+import type { Info } from '../types/info';
 
 const nanoid = customRandom('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', 18, random);
 
@@ -23,7 +23,7 @@ export function MarkdownTransform(): Plugin {
 
       const [, fn,, pkg] = id.split('/').reverse();
       const dir = dirname(id);
-      let info: ValueOf<ValueOf<typeof docs>> | undefined;
+      let info: Info | undefined;
 
       if (Reflect.has(docs, pkg) && (info = find(docs[pkg as keyof typeof docs], { fn }))) {
         const s = new MagicString(code = code.replace(/\r\n/g, '\n'));
@@ -33,13 +33,13 @@ export function MarkdownTransform(): Plugin {
 
         /** 标题 ( 组件包显示大驼峰 ) */
         const fnTitle = `${
-          pkg === 'components' ? pascalCase(fn) : fn
+          info.title || (pkg === 'components' ? pascalCase(fn) : fn)
         }${
           info.name && pkg === 'components' ? ` <small><small>( ${info.name} )</small></small>` : ''
         }`;
 
         // 添加标题
-        if (!info.hiddenH1) {
+        if (!info.hiddenTitle) {
           const h1 = `# ${fnTitle} {#${fn}-header}\n\n`;
 
           if (startIndex > 0) s.prependRight(startIndex, `\n\n${h1}`);
