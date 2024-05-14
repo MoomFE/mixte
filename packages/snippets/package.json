@@ -23,6 +23,11 @@
       "import": "./dist/useNaiveForm.mjs",
       "require": "./dist/useNaiveForm.cjs"
     },
+    "./acro-dynamic-form": {
+      "types": "./dist/acro-dynamic-form.d.ts",
+      "import": "./dist/acro-dynamic-form.mjs",
+      "require": "./dist/acro-dynamic-form.cjs"
+    },
     "./*": "./*"
   },
   "files": [

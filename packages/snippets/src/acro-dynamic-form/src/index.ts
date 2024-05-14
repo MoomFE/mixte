@@ -1,3 +1,5 @@
+import { defineComponent } from 'vue-demi';
+
 export const acroDynamicFormProps = {
 
 } as const;
