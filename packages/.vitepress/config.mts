@@ -9,7 +9,7 @@ import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { pascalCase } from 'change-case';
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash';
-import { components, mixte, snippets, use } from '../../meta/docs.json';
+import { components, mixte, snippets, use, validator } from '../../meta/docs.json';
 import { alias } from '../../meta/alias';
 import { version } from '../../package.json';
 import { MarkdownTransform } from './plugins/markdownTransform';
@@ -28,6 +28,7 @@ export default defineConfig({
     'mixte/src/:fn/index.md': 'mixte/:fn.md',
     'use/src/:fn/index.md': 'mixte/use/:fn.md',
     'components/src/:fn/index.md': 'mixte/components/:fn.md',
+    'validator/src/:fn/index.md': 'mixte/validator/:fn.md',
     'snippets/src/:fn/index.md': 'mixte/snippets/:fn.md',
   },
 
@@ -52,6 +53,7 @@ export default defineConfig({
           { text: 'mixte', link: `/mixte/${mixte[0].fn}`, activeMatch: '^/mixte/(?!use)' },
           { text: '@mixte/use', link: `/mixte/use/${use[0].fn}`, activeMatch: '^/mixte/use/' },
           { text: '@mixte/components', link: `/mixte/components/${components[0].fn}`, activeMatch: '^/mixte/components/' },
+          { text: '@mixte/validator', link: `/mixte/validator/${validator[0].fn}`, activeMatch: '^/mixte/validator/' },
           { text: '@mixte/snippets', link: `/mixte/snippets/${snippets[0].fn}`, activeMatch: '^/mixte/snippets/' },
         ],
       },
@@ -77,6 +79,10 @@ export default defineConfig({
         {
           text: '@mixte/components',
           items: components.map(info => ({ text: `${pascalCase(info.fn)}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/components/${info.fn}` })),
+        },
+        {
+          text: '@mixte/validator',
+          items: validator.map(info => ({ text: `${info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/validator/${info.fn}` })),
         },
         {
           text: '@mixte/snippets',

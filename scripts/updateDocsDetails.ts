@@ -11,6 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
     mixte: [] as ({ fn: string } & Info)[],
     use: [] as ({ fn: string } & Info)[],
     components: [] as ({ fn: string } & Info)[],
+    validator: [] as ({ fn: string } & Info)[],
     snippets: [] as ({ fn: string } & Info)[],
   };
 

@@ -1,6 +1,6 @@
 ## [Unreleased]
 
-## [v1.12.0]
+## [v1.12.0-beta.1]
   - 📅 2024-05-11
   - 🌟 新增 `@mixte/validator` 校验函数包
   - 🌟 [@mixte/validator] 新增 `isEmail` 方法, 新增 `isEmailReg` 正则导出
@@ -228,8 +228,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.12.0...HEAD
-[v1.12.0]: https://github.com/MoomFE/mixte/releases/tag/v1.12.0
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.12.0-beta.1...HEAD
+[v1.12.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v1.12.0-beta.1
 [v1.11.0]: https://github.com/MoomFE/mixte/releases/tag/v1.11.0
 [v1.11.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v1.11.0-beta.1
 [v1.10.0]: https://github.com/MoomFE/mixte/releases/tag/v1.10.0

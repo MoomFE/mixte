@@ -125,6 +125,23 @@
       "hiddenH1": false
     }
   ],
+  "validator": [
+    {
+      "fn": "citizenID",
+      "name": "",
+      "hiddenH1": false
+    },
+    {
+      "fn": "email",
+      "name": "",
+      "hiddenH1": false
+    },
+    {
+      "fn": "mobile",
+      "name": "",
+      "hiddenH1": false
+    }
+  ],
   "snippets": [
     {
       "fn": "getFastestCDN",
