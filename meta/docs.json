@@ -198,6 +198,13 @@
   ],
   "snippets": [
     {
+      "fn": "acro-dynamic-form",
+      "title": "AcroDynamicForm",
+      "name": "Acro 动态表单",
+      "hiddenTitle": false,
+      "sidebarTitle": "AcroDynamicForm"
+    },
+    {
       "fn": "getFastestCDN",
       "title": "",
       "name": "",

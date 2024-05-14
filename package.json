@@ -36,6 +36,7 @@
     "release": "pnpm test-release && npx bumpp -r --no-tag --no-push"
   },
   "devDependencies": {
+    "@arco-design/web-vue": "^2.55.2",
     "@floating-ui/vue": "^1.0.6",
     "@iconify/json": "^2.2.209",
     "@mixte/components": "workspace:*",
