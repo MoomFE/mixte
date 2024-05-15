@@ -1,6 +1,7 @@
+import isInCi from 'is-in-ci';
 import { getFastestCDN } from '@mixte/snippets/getFastestCDN';
 
-describe.concurrent('getFastestCDN', () => {
+describe.skipIf(isInCi).concurrent('getFastestCDN', () => {
   it('获取在当前网络环境, 最快的 CDN 服务下的指定类库的根目录地址', { timeout: Number.POSITIVE_INFINITY }, async ({ expect }) => {
     const url = await getFastestCDN('mixte');
 
