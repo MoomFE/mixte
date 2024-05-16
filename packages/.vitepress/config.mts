@@ -139,7 +139,7 @@ export default defineConfig({
         resolvers: [
           IconsResolver({ prefix: 'i' }),
           ElementPlusResolver(),
-          ArcoResolver({ sideEffect: true }),
+          ArcoResolver({ importStyle: false }),
         ],
       }),
       ...VitePlugins,
