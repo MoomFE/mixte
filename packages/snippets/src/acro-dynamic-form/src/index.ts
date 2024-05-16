@@ -1,5 +1,5 @@
 import type { PropType } from 'vue-demi';
-import { pascalCase } from 'mixte';
+import { deepClone, isFunction, pascalCase } from 'mixte';
 import { defineComponent, h } from 'vue-demi';
 import { Form, FormItem } from '@arco-design/web-vue';
 import * as ArcoDesign from '@arco-design/web-vue';
@@ -11,6 +11,10 @@ export interface DynamicFormField {
   field: string;
   /** 标签 */
   label?: string;
+  /** 默认值 */
+  defaultValue?: any;
+  /** 传递给组件的参数 */
+  componentProps?: Record<string, any>;
 };
 
 export const acroDynamicFormProps = {
@@ -21,10 +25,19 @@ export const acroDynamicFormProps = {
 export default defineComponent({
   props: acroDynamicFormProps,
   setup(props) {
+    const form = reactive<Record<string, any>>({});
+
+    props.fields?.forEach((field) => {
+      const defaultValue = field.defaultValue;
+      form[field.field] = deepClone(isFunction(defaultValue) ? defaultValue() : defaultValue);
+    });
+
     return () => {
       return h(
         Form,
-        null,
+        {
+          model: form,
+        },
         props.fields?.map((field) => {
           return h(
             FormItem,
@@ -32,7 +45,17 @@ export default defineComponent({
               field: field.field,
               label: field.label,
             },
-            h(ArcoDesign[pascalCase(field.type)]),
+            h(
+              // @ts-expect-error
+              ArcoDesign[pascalCase(field.type)],
+              {
+                ...field.componentProps,
+                'modelValue': form[field.field],
+                'onUpdate:modelValue': (value: any) => {
+                  form[field.field] = value;
+                },
+              },
+            ),
           );
         }),
       );
