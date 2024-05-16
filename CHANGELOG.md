@@ -1,6 +1,6 @@
 ## [Unreleased]
 
-## [v1.12.0-beta.1], ## [v1.12.0]
+## [v1.12.0], [v1.12.0-beta.1]
   - 📅 2024-05-16
   - 🌟 新增 `@mixte/validator` 校验函数包
   - 🌟 [@mixte/validator] 新增 `isEmail` 方法, 新增 `isEmailReg` 正则导出
