@@ -1,5 +1,6 @@
 import type { PropType } from 'vue';
 import { deepClone, isFunction, pascalCase } from 'mixte';
+import { toReactive } from '@vueuse/core';
 import { defineComponent, reactive, ref } from 'vue';
 import { Button, Form, FormItem, Space } from '@arco-design/web-vue';
 import * as ArcoDesign from '@arco-design/web-vue';
@@ -8,6 +9,8 @@ import type { DynamicFormField } from './types';
 export const acroDynamicFormProps = {
   /** 字段配置列表 */
   fields: Array as PropType<DynamicFormField[]>,
+  /** 表单数据 */
+  model: Object as PropType<Record<string, any>>,
   /** 是否显示操作按钮区域 (提交/重置) */
   showActionButtonArea: {
     type: Boolean as PropType<boolean>,
@@ -40,11 +43,11 @@ export default defineComponent({
   setup(props) {
     const formRef = ref<InstanceType<typeof Form>>();
 
-    const form = reactive<Record<string, any>>({});
+    const model = (props.model ? toReactive(toRef(props, 'model')) : reactive({})) as Record<string, any>;
 
     props.fields?.forEach((field) => {
       const defaultValue = field.defaultValue;
-      form[field.field] = deepClone(isFunction(defaultValue) ? defaultValue() : defaultValue);
+      model[field.field] = deepClone(isFunction(defaultValue) ? defaultValue() : defaultValue);
     });
 
     function reset() {
@@ -57,7 +60,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <Form ref={formRef} model={form}>
+        <Form ref={formRef} model={model}>
           {props.fields?.map((field) => {
             const Component = ArcoDesign[pascalCase(field.type)] as ReturnType<typeof defineComponent>;
 
@@ -68,7 +71,7 @@ export default defineComponent({
                 rules={field.rules}
                 validateTrigger={field.validateTrigger ?? ['change', 'blur']}
               >
-                <Component v-model={form[field.field]} {...field.componentProps} />
+                <Component v-model={model[field.field]} {...field.componentProps} />
               </FormItem>
             );
           })}

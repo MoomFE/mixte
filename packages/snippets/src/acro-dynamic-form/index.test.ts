@@ -1,5 +1,5 @@
-import type { MixteDynamicFormField } from '@mixte/snippets/acro-dynamic-form';
 import { MixteAcroDynamicForm } from '@mixte/snippets/acro-dynamic-form';
+import type { DOMWrapper } from '@vue/test-utils';
 import { mount } from '@vue/test-utils';
 
 // 来源: arco-design/arco-design-vue/packages/web-vue/scripts/demo-test.ts
@@ -32,15 +32,13 @@ describe('<acro-dynamic-form /> 基础测试', () => {
 });
 
 describe('<acro-dynamic-form /> 字段渲染', () => {
-  const fields: MixteDynamicFormField[] = [
-    { field: 'name', label: '姓名', type: 'input' },
-    { field: 'age', label: '年龄', type: 'input-number' },
-  ];
-
   it('传入字段配置, 会根据配置渲染表单项', () => {
     const wrapper = mount(MixteAcroDynamicForm, {
       props: {
-        fields,
+        fields: [
+          { field: 'name', label: '姓名', type: 'input' },
+          { field: 'age', label: '年龄', type: 'input-number' },
+        ],
         showActionButtonArea: false,
       },
     });
@@ -54,6 +52,46 @@ describe('<acro-dynamic-form /> 字段渲染', () => {
 
     expect(formItems.map(item => item.find('.arco-form-item-label').text())).toEqual(['姓名', '年龄']);
   });
+
+  it('可传入 model, 用于收集及控制表单数据', async () => {
+    const model = ref<Record<string, any>>({});
+    const wrapper = mount(MixteAcroDynamicForm, {
+      props: {
+        fields: [
+          { field: 'name', label: '姓名', type: 'input', defaultValue: '张三' },
+          { field: 'age', label: '年龄', type: 'input', defaultValue: '18' },
+        ],
+        model,
+        showActionButtonArea: false,
+      },
+    });
+
+    const [nameInput, ageInput] = wrapper.findAll('.arco-input') as [DOMWrapper<HTMLInputElement>, DOMWrapper<HTMLInputElement>];
+
+    expect(model.value).toStrictEqual({ name: '张三', age: '18' });
+    expect(nameInput.element.value).toBe('张三');
+    expect(ageInput.element.value).toBe('18');
+
+    await nameInput.setValue('李四');
+    await ageInput.setValue('20');
+
+    expect(model.value).toStrictEqual({ name: '李四', age: '20' });
+    expect(nameInput.element.value).toBe('李四');
+    expect(ageInput.element.value).toBe('20');
+
+    model.value.name = '王五';
+    model.value.age = '22';
+    await wrapper.vm.$nextTick();
+
+    expect(nameInput.element.value).toBe('王五');
+    expect(ageInput.element.value).toBe('22');
+
+    model.value = { name: '赵六', age: '24' };
+    await wrapper.vm.$nextTick();
+
+    expect(nameInput.element.value).toBe('赵六');
+    expect(ageInput.element.value).toBe('24');
+  });
 });
 
 describe('<acro-dynamic-form /> 操作按钮', () => {
@@ -65,6 +103,56 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
     expect(btns.length).toBe(2);
     expect(btns[0].text()).toBe('提交');
     expect(btns[1].text()).toBe('重置');
+  });
+
+  it('点击提交按钮, 会对表单进行校验', async () => {
+    const wrapper = mount(MixteAcroDynamicForm, {
+      props: {
+        fields: [
+          { field: 'name', label: '姓名', type: 'input', rules: { required: true, message: '请输入姓名' } },
+          { field: 'age', label: '年龄', type: 'input-number' },
+        ],
+      },
+    });
+
+    const submitBtn = wrapper.findAll('.arco-btn').find(btn => btn.text() === '提交')!;
+
+    expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
+
+    submitBtn.trigger('click');
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.find('.arco-form-item-message').exists()).toBe(true);
+    expect(wrapper.find('.arco-form-item-message').text()).toBe('请输入姓名');
+  });
+
+  it('点击重置按钮, 会重置表单', async () => {
+    const wrapper = mount(MixteAcroDynamicForm, {
+      props: {
+        fields: [
+          { field: 'name', label: '姓名', type: 'input', defaultValue: '张三' },
+          { field: 'age', label: '年龄', type: 'input', defaultValue: '18' },
+        ],
+      },
+    });
+
+    const resetBtn = wrapper.findAll('.arco-btn').find(btn => btn.text() === '重置')!;
+    const [nameInput, ageInput] = wrapper.findAll('.arco-input') as [DOMWrapper<HTMLInputElement>, DOMWrapper<HTMLInputElement>];
+
+    expect(nameInput.element.value).toBe('张三');
+    expect(ageInput.element.value).toBe('18');
+
+    await nameInput.setValue('李四');
+    await ageInput.setValue('20');
+
+    expect(nameInput.element.value).toBe('李四');
+    expect(ageInput.element.value).toBe('20');
+
+    resetBtn.trigger('click');
+    await wrapper.vm.$nextTick();
+
+    expect(nameInput.element.value).toBe('张三');
+    expect(ageInput.element.value).toBe('18');
   });
 
   it('配置不显示操作按钮区域, form-item 及提交按钮、重置按钮不会渲染', () => {
