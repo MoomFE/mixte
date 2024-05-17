@@ -1,5 +1,5 @@
 import type { PropType } from 'vue';
-import { deepClone, isFunction, pascalCase } from 'mixte';
+import { pascalCase } from 'mixte';
 import { toReactive } from '@vueuse/core';
 import { defineComponent, reactive, ref } from 'vue';
 import { Button, Form, FormItem, Space } from '@arco-design/web-vue';
@@ -40,14 +40,13 @@ export const acroDynamicFormProps = {
 
 export default defineComponent({
   props: acroDynamicFormProps,
-  setup(props) {
+  setup(props, { attrs }) {
     const formRef = ref<InstanceType<typeof Form>>();
 
     const model = (props.model ? toReactive(toRef(props, 'model')) : reactive({})) as Record<string, any>;
 
     props.fields?.forEach((field) => {
-      const defaultValue = field.defaultValue;
-      model[field.field] = deepClone(isFunction(defaultValue) ? defaultValue() : defaultValue);
+      model[field.field] = field.defaultValue;
     });
 
     function reset() {
@@ -60,7 +59,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <Form ref={formRef} model={model}>
+        <Form ref={formRef} model={model} {...attrs}>
           {props.fields?.map((field) => {
             const Component = ArcoDesign[pascalCase(field.type)] as ReturnType<typeof defineComponent>;
 

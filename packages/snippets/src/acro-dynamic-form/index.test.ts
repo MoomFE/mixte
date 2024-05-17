@@ -29,31 +29,8 @@ describe('<acro-dynamic-form /> 基础测试', () => {
     expect(formItems.length).toBe(1);
     expect(btns.length).toBe(2);
   });
-});
 
-describe('<acro-dynamic-form /> 字段渲染', () => {
-  it('传入字段配置, 会根据配置渲染表单项', () => {
-    const wrapper = mount(MixteAcroDynamicForm, {
-      props: {
-        fields: [
-          { field: 'name', label: '姓名', type: 'input' },
-          { field: 'age', label: '年龄', type: 'input-number' },
-        ],
-        showActionButtonArea: false,
-      },
-    });
-
-    const formItems = wrapper.findAll('.arco-form-item');
-
-    expect(formItems.length).toBe(2);
-
-    expect(formItems[0].find('.arco-input').exists()).toBe(true);
-    expect(formItems[1].find('.arco-input-number').exists()).toBe(true);
-
-    expect(formItems.map(item => item.find('.arco-form-item-label').text())).toEqual(['姓名', '年龄']);
-  });
-
-  it('可传入 model, 用于收集及控制表单数据', async () => {
+  it('组件可传入 model 参数以收集及控制表单数据', async () => {
     const model = ref<Record<string, any>>({});
     const wrapper = mount(MixteAcroDynamicForm, {
       props: {
@@ -91,6 +68,49 @@ describe('<acro-dynamic-form /> 字段渲染', () => {
 
     expect(nameInput.element.value).toBe('赵六');
     expect(ageInput.element.value).toBe('24');
+  });
+
+  it('非组件本身的参数, 会继承至 a-form 上', async () => {
+    const wrapper = mount(MixteAcroDynamicForm, {
+      props: {
+        fields: [
+          { field: 'name', label: '姓名', type: 'input', defaultValue: '张三' },
+          { field: 'age', label: '年龄', type: 'input', defaultValue: '18' },
+        ],
+        disabled: false,
+      },
+    });
+
+    expect(wrapper.findAll('.arco-input-disabled').length).toBe(0);
+
+    // @ts-expect-error
+    wrapper.setProps({ disabled: true });
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.findAll('.arco-input-disabled').length).toBe(2);
+  });
+});
+
+describe('<acro-dynamic-form /> 字段配置', () => {
+  it('传入字段配置, 会根据配置渲染表单项', () => {
+    const wrapper = mount(MixteAcroDynamicForm, {
+      props: {
+        fields: [
+          { field: 'name', label: '姓名', type: 'input' },
+          { field: 'age', label: '年龄', type: 'input-number' },
+        ],
+        showActionButtonArea: false,
+      },
+    });
+
+    const formItems = wrapper.findAll('.arco-form-item');
+
+    expect(formItems.length).toBe(2);
+
+    expect(formItems[0].find('.arco-input').exists()).toBe(true);
+    expect(formItems[1].find('.arco-input-number').exists()).toBe(true);
+
+    expect(formItems.map(item => item.find('.arco-form-item-label').text())).toEqual(['姓名', '年龄']);
   });
 });
 
@@ -155,7 +175,7 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
     expect(ageInput.element.value).toBe('18');
   });
 
-  it('配置不显示操作按钮区域, form-item 及提交按钮、重置按钮不会渲染', () => {
+  it('配置不显示操作按钮区域, a-form-item 及提交按钮、重置按钮不会渲染', () => {
     const wrapper = mount(MixteAcroDynamicForm, {
       props: {
         showActionButtonArea: false,
@@ -195,7 +215,7 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
     expect(btns[0].text()).toBe('提交');
   });
 
-  it('配置提交按钮和重置按钮都不显示时, form-item 也不会渲染', () => {
+  it('配置提交按钮和重置按钮都不显示时, a-form-item 也不会渲染', () => {
     const wrapper = mount(MixteAcroDynamicForm, {
       props: {
         showSubmitButton: false,
