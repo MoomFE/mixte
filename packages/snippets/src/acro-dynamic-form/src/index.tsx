@@ -1,4 +1,5 @@
 import type { PropType } from 'vue';
+import type { FieldRule } from '@arco-design/web-vue';
 import { deepClone, isFunction, pascalCase } from 'mixte';
 import { defineComponent, reactive } from 'vue';
 import { Form, FormItem } from '@arco-design/web-vue';
@@ -15,6 +16,13 @@ export interface DynamicFormField {
   defaultValue?: any;
   /** 传递给组件的参数 */
   componentProps?: Record<string, any>;
+  /** 校验规则 */
+  rules?: FieldRule | FieldRule[];
+  /**
+   * 触发校验的事件
+   * @default ['change', 'blur']
+   */
+  validateTrigger?: 'change' | 'input' | 'focus' | 'blur' | ('change' | 'input' | 'focus' | 'blur')[];
 };
 
 export const acroDynamicFormProps = {
@@ -39,7 +47,12 @@ export default defineComponent({
             const Component = ArcoDesign[pascalCase(field.type)] as ReturnType<typeof defineComponent>;
 
             return (
-              <FormItem field={field.field} label={field.label}>
+              <FormItem
+                field={field.field}
+                label={field.label}
+                rules={field.rules}
+                validateTrigger={field.validateTrigger ?? ['change', 'blur']}
+              >
                 <Component v-model={form[field.field]} {...field.componentProps} />
               </FormItem>
             );

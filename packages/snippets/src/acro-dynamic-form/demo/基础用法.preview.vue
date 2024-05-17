@@ -14,6 +14,7 @@
       label: '姓名',
       type: 'input',
       componentProps: { placeholder: '请输入姓名', allowClear: true },
+      rules: { required: true, message: '请输入姓名' },
     },
     {
       field: 'age',
@@ -21,6 +22,10 @@
       type: 'input-number',
       defaultValue: 18,
       componentProps: { placeholder: '请输入年龄', min: 0 },
+      rules: [
+        { required: true, message: '请输入年龄' },
+        { validator: (value, cb) => value < 18 ? cb('年龄不能小于 18') : cb() },
+      ],
     },
     {
       field: 'desc',
