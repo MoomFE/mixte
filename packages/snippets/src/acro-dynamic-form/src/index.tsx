@@ -1,6 +1,6 @@
-import type { PropType } from 'vue-demi';
+import type { PropType } from 'vue';
 import { deepClone, isFunction, pascalCase } from 'mixte';
-import { defineComponent, h } from 'vue-demi';
+import { defineComponent, reactive } from 'vue';
 import { Form, FormItem } from '@arco-design/web-vue';
 import * as ArcoDesign from '@arco-design/web-vue';
 
@@ -33,31 +33,18 @@ export default defineComponent({
     });
 
     return () => {
-      return h(
-        Form,
-        {
-          model: form,
-        },
-        props.fields?.map((field) => {
-          return h(
-            FormItem,
-            {
-              field: field.field,
-              label: field.label,
-            },
-            h(
-              // @ts-expect-error
-              ArcoDesign[pascalCase(field.type)],
-              {
-                ...field.componentProps,
-                'modelValue': form[field.field],
-                'onUpdate:modelValue': (value: any) => {
-                  form[field.field] = value;
-                },
-              },
-            ),
-          );
-        }),
+      return (
+        <Form model={form}>
+          {props.fields?.map((field) => {
+            const Component = ArcoDesign[pascalCase(field.type)] as ReturnType<typeof defineComponent>;
+
+            return (
+              <FormItem field={field.field} label={field.label}>
+                <Component v-model={form[field.field]} {...field.componentProps} />
+              </FormItem>
+            );
+          })}
+        </Form>
       );
     };
   },
