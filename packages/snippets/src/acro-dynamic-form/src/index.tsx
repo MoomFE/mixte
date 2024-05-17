@@ -8,6 +8,11 @@ import type { DynamicFormField } from './types';
 export const acroDynamicFormProps = {
   /** 字段配置列表 */
   fields: Array as PropType<DynamicFormField[]>,
+  /** 是否显示操作按钮区域 (提交/重置) */
+  showActionButtonArea: {
+    type: Boolean as PropType<boolean>,
+    default: true,
+  },
   /** 是否显示提交按钮 */
   showSubmitButton: {
     type: Boolean as PropType<boolean>,
@@ -68,7 +73,7 @@ export default defineComponent({
             );
           })}
 
-          {(props.showSubmitButton || props.showResetButton) && (
+          {props.showActionButtonArea && (props.showSubmitButton || props.showResetButton) && (
             <FormItem>
               <Space>
                 {props.showSubmitButton && (

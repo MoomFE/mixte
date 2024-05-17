@@ -10,7 +10,8 @@ outline: [1,2]
 
 | 参数名 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| fields | 字段配置列表 | [`DynamicFormField[]`](#类型定义) | - |
+| fields | 字段配置列表 | [DynamicFormField[]](#类型定义) | - |
+| showActionButtonArea | 是否显示操作按钮区域 (提交/重置) | `boolean` | `true` |
 | showSubmitButton | 是否显示提交按钮 | `boolean` | `true` |
 | submitButtonText | 提交按钮文本 | `string` | `'提交'` |
 | showResetButton | 是否显示重置按钮 | `boolean` | `true` |
