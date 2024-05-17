@@ -1,6 +1,6 @@
 判断字符串是否是电子邮件地址
 
-## 示例
+### 示例
 
 ```ts twoslash
 import { isEmail } from '@mixte/validator';
