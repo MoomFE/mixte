@@ -1,6 +1,7 @@
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
+import VueJsx from '@vitejs/plugin-vue-jsx';
 import { alias, testAlias } from './meta/alias';
 import VitePlugins from './packages/.vitepress/vite.common.plugins';
 
@@ -17,6 +18,7 @@ export default defineConfig(({ mode }) => {
       ],
     },
     plugins: [
+      VueJsx(),
       ...VitePlugins,
     ],
     test: {

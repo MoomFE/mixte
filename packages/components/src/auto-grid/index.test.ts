@@ -1,16 +1,16 @@
 import { MixteAutoGrid } from '@mixte/components';
 import { mount } from '@vue/test-utils';
-import { h } from 'vue-demi';
+import { defineComponent, h } from 'vue';
 import postcss from 'postcss';
 import postcssJs from 'postcss-js';
 
-describe('autoGrid', () => {
-  const emptyOptions = {
+describe('auto-grid', () => {
+  const emptyOptions = defineComponent({
     template: '<MixteAutoGrid />',
     components: {
       MixteAutoGrid,
     },
-  };
+  });
 
   const defaultStyle = {
     width: '100%',
