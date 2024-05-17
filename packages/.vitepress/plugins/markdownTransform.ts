@@ -76,7 +76,7 @@ export function MarkdownTransform(): Plugin {
         }
 
         // 添加二级标题 Demo
-        for (const match of code.matchAll(/\n##\s`?([^`]+)`?.*?\n/g)) {
+        for (const match of code.matchAll(/\n##\s`?([^\n`]+)`?.*?\n/g)) {
           const name = match[1];
           const matchEndIndex = match.index! + match[0].length;
 
@@ -90,6 +90,34 @@ export function MarkdownTransform(): Plugin {
             else s.appendRight(matchEndIndex, createDemoMd(demoComponentName));
 
             imports.push(createImportScript(demoComponentName, `demo/${name}`));
+          }
+        }
+
+        // 添加三级标题 Demo
+        for (const match of code.matchAll(/\n###\s`?([^\n`]+)`?.*?\n/g)) {
+          const name = match[1];
+          const matchEndIndex = match.index! + match[0].length;
+          let demoName = name;
+
+          if (
+            await fs.pathExists(resolve(dir, `demo/${name}.vue`))
+            || await fs.pathExists(resolve(dir, `demo/${demoName = `${name}.preview`}.vue`))
+          ) {
+            const demoComponentName = `Third${nanoid()}Demo`;
+            let index;
+
+            function getDemoMd() {
+              if (demoName.endsWith('.preview'))
+                return createNoTitleDemoMd(demoComponentName, fs.readFileSync(resolve(dir, `demo/${demoName}.vue`), 'utf-8'), 'vue');
+              return createNoTitleDemoMd(demoComponentName);
+            }
+
+            // 查找下一个三级以上的标题
+            if ((index = code.indexOf('\n###', matchEndIndex)) > -1) s.appendLeft(index, getDemoMd());
+            // 没有三级以上的标题, 直接插入到当前标题的后面
+            else s.appendRight(matchEndIndex, getDemoMd());
+
+            imports.push(createImportScript(demoComponentName, `demo/${demoName}`));
           }
         }
 
@@ -112,15 +140,21 @@ const emptyMd = `
 :::
 `;
 
-function createDemoMd(component = 'Demo', code?: string, codeLang?: BundledLanguage) {
+function createNoTitleDemoMd(component = 'Demo', code?: string, codeLang?: BundledLanguage) {
   return `
-### 演示
-
 <DemoCard ${code ? `code="${encodeURIComponent(encode(code))}"` : ''} ${codeLang ? `codeLang="${codeLang}"` : ''}>
   <ClientOnly>
     <${component} />
   </ClientOnly>
 </DemoCard>
+`;
+}
+
+function createDemoMd(component = 'Demo', code?: string, codeLang?: BundledLanguage) {
+  return `
+### 演示
+
+${createNoTitleDemoMd(component, code, codeLang)}
 `;
 }
 
