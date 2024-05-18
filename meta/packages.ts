@@ -60,6 +60,6 @@ export const packages = [
     outputFileName: 'acro-dynamic-form',
     external: ['@arco-design/web-vue', 'mixte', 'vue'],
     dtsExternal: ['@arco-design/web-vue'],
-    jsx: true,
+    vueComponent: true,
   },
 ];

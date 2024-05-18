@@ -1,6 +1,8 @@
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { exec } from 'node:child_process';
 import { rollup } from 'rollup';
+import fg from 'fast-glob';
 import fs from 'fs-extra';
 import dts from 'rollup-plugin-dts';
 import { packages } from '../meta/packages';
@@ -20,6 +22,17 @@ const externals = [
 (async () => {
   for (const info of packages) {
     console.log(`Building ${info.input}...`);
+
+    if (info.vueComponent) {
+      const vueFiles = (await fg(['**/*.vue'], {
+        absolute: true,
+        ignore: ['**/demo/**'],
+        cwd: resolve(__dirname, '../', dirname(info.input)),
+      }));
+
+      for (const vueFile of vueFiles)
+        await exec(`vue-tsc --declaration --emitDeclarationOnly ${vueFile}`);
+    }
 
     const bundle = await rollup({
       input: info.input,

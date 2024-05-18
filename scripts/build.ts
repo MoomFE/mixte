@@ -1,6 +1,7 @@
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from 'vite';
+import Vue from '@vitejs/plugin-vue';
 import VueJsx from '@vitejs/plugin-vue-jsx';
 import fs from 'fs-extra';
 import { alias } from '../meta/alias';
@@ -23,7 +24,7 @@ const externals = [
         alias,
       },
       plugins: [
-        info.jsx && VueJsx(),
+        info.vueComponent && [Vue(), VueJsx()],
       ],
       build: {
         outDir: info.outputDir,

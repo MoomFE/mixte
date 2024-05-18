@@ -1,5 +1,37 @@
 import type { FieldRule, FormItemInstance } from '@arco-design/web-vue';
 
+interface AcroDynamicFormProps {
+  /** 字段配置列表 */
+  fields?: AcroDynamicFormField[];
+  /** 表单数据 */
+  model?: Record<string, any>;
+  /**
+   * 是否显示操作按钮区域 (提交/重置)
+   * @default true
+   */
+  showActionButtonArea?: boolean;
+  /**
+   * 是否显示提交按钮
+   * @default true
+   */
+  showSubmitButton?: boolean;
+  /**
+   * 提交按钮文字
+   * @default '提交'
+   */
+  submitButtonText?: string;
+  /**
+   * 是否显示重置按钮
+   * @default true
+   */
+  showResetButton?: boolean;
+  /**
+   * 重置按钮文字
+   * @default '重置'
+   */
+  resetButtonText?: string;
+}
+
 // #region AcroDynamicFormField
 /** 字段类型 */
 type AcroDynamicFormFieldType = 'input' | 'input-number' | 'textarea';
@@ -28,4 +60,5 @@ interface AcroDynamicFormField<T extends AcroDynamicFormFieldType = AcroDynamicF
 
 export {
   AcroDynamicFormField,
+  AcroDynamicFormProps,
 };
