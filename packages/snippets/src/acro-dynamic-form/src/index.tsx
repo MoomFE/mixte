@@ -1,14 +1,15 @@
 import type { PropType } from 'vue';
+import type { FormInstance } from '@arco-design/web-vue';
 import { pascalCase } from 'mixte';
 import { toReactive } from '@vueuse/core';
-import { defineComponent, reactive, ref } from 'vue';
+import { defineComponent, reactive, ref, toRef } from 'vue';
 import { Button, Form, FormItem, Space } from '@arco-design/web-vue';
 import * as ArcoDesign from '@arco-design/web-vue';
-import type { DynamicFormField } from './types';
+import type { AcroDynamicFormField } from './types';
 
 export const acroDynamicFormProps = {
   /** 字段配置列表 */
-  fields: Array as PropType<DynamicFormField[]>,
+  fields: Array as PropType<AcroDynamicFormField[]>,
   /** 表单数据 */
   model: Object as PropType<Record<string, any>>,
   /** 是否显示操作按钮区域 (提交/重置) */
@@ -40,8 +41,8 @@ export const acroDynamicFormProps = {
 
 export default defineComponent({
   props: acroDynamicFormProps,
-  setup(props, { attrs }) {
-    const formRef = ref<InstanceType<typeof Form>>();
+  setup(props, { attrs, expose }) {
+    const formRef = ref<FormInstance>();
 
     const model = (props.model ? toReactive(toRef(props, 'model')) : reactive({})) as Record<string, any>;
 
@@ -50,12 +51,35 @@ export default defineComponent({
     });
 
     function reset() {
-      formRef.value?.resetFields();
+      formRef.value!.resetFields();
+    }
+    function onSubmit() {
+      formRef.value!.validate();
     }
 
-    function onSubmit() {
-      formRef.value?.validate();
-    }
+    const validate: FormInstance['validate'] = (...args) => {
+      return formRef.value!.validate(...args);
+    };
+    const validateField: FormInstance['validateField'] = (...args) => {
+      return formRef.value!.validateField(...args);
+    };
+    const resetFields: FormInstance['resetFields'] = (...args) => {
+      return formRef.value!.resetFields(...args);
+    };
+    const clearValidate: FormInstance['clearValidate'] = (...args) => {
+      return formRef.value!.clearValidate(...args);
+    };
+    const setFields: FormInstance['setFields'] = (...args) => {
+      return formRef.value!.setFields(...args);
+    };
+
+    expose({
+      validate,
+      validateField,
+      resetFields,
+      clearValidate,
+      setFields,
+    });
 
     return () => {
       return (

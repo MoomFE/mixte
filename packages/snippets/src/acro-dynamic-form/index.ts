@@ -1,12 +1,12 @@
-import type { ExtractPropTypes } from 'vue-demi';
+import type { ExtractPropTypes } from 'vue';
 import AcroDynamicForm, { acroDynamicFormProps } from './src/index';
-import type { DynamicFormField } from './src/types';
+import type { AcroDynamicFormField } from './src/types';
 
 export {
   AcroDynamicForm as MixteAcroDynamicForm,
   acroDynamicFormProps as mixteAcroDynamicFormProps,
 };
 
-export type MixteDynamicFormField = DynamicFormField;
+export type MixteAcroDynamicFormField = AcroDynamicFormField;
 
 export type MixteAcroDynamicFormProps = ExtractPropTypes<typeof acroDynamicFormProps>;

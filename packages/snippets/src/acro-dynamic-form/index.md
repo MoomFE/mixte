@@ -20,4 +20,4 @@ outline: [1,2]
 
 ## 类型定义 {#类型定义}
 
-<<< ./src/types.ts#DynamicFormField
+<<< ./src/types.ts#AcroDynamicFormField

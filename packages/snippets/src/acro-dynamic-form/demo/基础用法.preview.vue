@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts" setup>
-  import type { MixteDynamicFormField } from '@mixte/snippets/acro-dynamic-form';
+  import type { MixteAcroDynamicFormField } from '@mixte/snippets/acro-dynamic-form';
   import { MixteAcroDynamicForm } from '@mixte/snippets/acro-dynamic-form';
 
-  const fields: MixteDynamicFormField[] = [
+  const fields: MixteAcroDynamicFormField[] = [
     {
       field: 'name',
       label: '姓名',
