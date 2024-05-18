@@ -28,7 +28,7 @@
   import type { FormInstance } from '@arco-design/web-vue';
   import * as ArcoDesign from '@arco-design/web-vue';
   import { Button, Form, FormItem, Space } from '@arco-design/web-vue';
-  import { reactive, ref } from 'vue';
+  import { reactive, ref, toRef, useAttrs } from 'vue';
   import { toReactive } from '@vueuse/core';
   import { pascalCase } from 'mixte';
   import type { AcroDynamicFormProps } from './types';

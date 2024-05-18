@@ -5,6 +5,7 @@ import { rollup } from 'rollup';
 import fg from 'fast-glob';
 import fs from 'fs-extra';
 import dts from 'rollup-plugin-dts';
+import { delay } from 'mixte';
 import { packages } from '../meta/packages';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -30,8 +31,12 @@ const externals = [
         cwd: resolve(__dirname, '../', dirname(info.input)),
       }));
 
-      for (const vueFile of vueFiles)
+      for (const vueFile of vueFiles) {
         await exec(`vue-tsc --declaration --emitDeclarationOnly ${vueFile}`);
+
+        while (!fs.existsSync(`${vueFile}.d.ts`))
+          await delay(100);
+      }
     }
 
     const bundle = await rollup({
