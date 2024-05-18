@@ -1,5 +1,6 @@
-import { AcroDynamicForm } from '@mixte/snippets/acro-dynamic-form';
+import type { AcroDynamicFormField } from '@mixte/snippets/acro-dynamic-form';
 import type { DOMWrapper } from '@vue/test-utils';
+import { AcroDynamicForm } from '@mixte/snippets/acro-dynamic-form';
 import { mount } from '@vue/test-utils';
 
 // 来源: arco-design/arco-design-vue/packages/web-vue/scripts/demo-test.ts
@@ -92,24 +93,39 @@ describe('<acro-dynamic-form /> 基础测试', () => {
 });
 
 describe('<acro-dynamic-form /> 导出方法', () => {
-  it('提供 validate 方法, 可以对表单进行校验', async () => {
-    const wrapper = mount(AcroDynamicForm, {
-      props: {
-        fields: [
-          { field: 'name', label: '姓名', type: 'input', rules: { required: true, message: '请输入姓名' } },
-          { field: 'age', label: '年龄', type: 'input' },
-        ],
-      },
-    });
+  const fields: AcroDynamicFormField[] = [
+    { field: 'name', label: '姓名', type: 'input', rules: { required: true, message: '请输入姓名' } },
+    { field: 'age', label: '年龄', type: 'input', rules: { required: true, message: '请输入年龄' } },
+  ];
 
-    const validate = wrapper.vm.validate as Function;
+  it('校验所有方法', () => {
+    const wrapper = mount(AcroDynamicForm);
+
+    expect(wrapper.vm.validate).toBeInstanceOf(Function);
+    expect(wrapper.vm.validateField).toBeInstanceOf(Function);
+    expect(wrapper.vm.reset).toBeInstanceOf(Function);
+    expect(wrapper.vm.resetFields).toBeInstanceOf(Function);
+    expect(wrapper.vm.clearValidate).toBeInstanceOf(Function);
+    expect(wrapper.vm.setFields).toBeInstanceOf(Function);
+  });
+
+  it('提供的 validate 方法, 可以对表单进行校验', async () => {
+    const wrapper = mount(AcroDynamicForm, {
+      props: { fields },
+    });
 
     expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
 
-    await validate();
+    const res = await wrapper.vm.validate();
 
-    expect(wrapper.find('.arco-form-item-message').exists()).toBe(true);
-    expect(wrapper.find('.arco-form-item-message').text()).toBe('请输入姓名');
+    expect(Object.keys(res!).length).toBe(2);
+    expect(res).toMatchObject({
+      name: { value: undefined, message: '请输入姓名' },
+      age: { value: undefined, message: '请输入年龄' },
+    });
+
+    expect(wrapper.findAll('.arco-form-item-message').length).toBe(2);
+    expect(wrapper.findAll('.arco-form-item-message').map(msg => msg.text())).toStrictEqual(['请输入姓名', '请输入年龄']);
   });
 });
 

@@ -18,7 +18,7 @@
     <FormItem v-if="showActionButtonArea && (showSubmitButton || showResetButton)">
       <Space>
         <Button v-if="showSubmitButton" type="primary" @click="onSubmit">{{ submitButtonText }}</Button>
-        <Button v-if="showResetButton" @click="reset">{{ resetButtonText }}</Button>
+        <Button v-if="showResetButton" @click="resetFields()">{{ resetButtonText }}</Button>
       </Space>
     </FormItem>
   </Form>
@@ -51,32 +51,20 @@
     model[field.field] = field.defaultValue;
   });
 
-  function reset() {
-    formRef.value!.resetFields();
-  }
   function onSubmit() {
     formRef.value!.validate();
   }
 
-  const validate: FormInstance['validate'] = (...args) => {
-    return formRef.value!.validate(...args);
-  };
-  const validateField: FormInstance['validateField'] = (...args) => {
-    return formRef.value!.validateField(...args);
-  };
-  const resetFields: FormInstance['resetFields'] = (...args) => {
-    return formRef.value!.resetFields(...args);
-  };
-  const clearValidate: FormInstance['clearValidate'] = (...args) => {
-    return formRef.value!.clearValidate(...args);
-  };
-  const setFields: FormInstance['setFields'] = (...args) => {
-    return formRef.value!.setFields(...args);
-  };
+  const validate: FormInstance['validate'] = (...args) => formRef.value!.validate(...args);
+  const validateField: FormInstance['validateField'] = (...args) => formRef.value!.validateField(...args);
+  const resetFields: FormInstance['resetFields'] = (...args) => formRef.value!.resetFields(...args);
+  const clearValidate: FormInstance['clearValidate'] = (...args) => formRef.value!.clearValidate(...args);
+  const setFields: FormInstance['setFields'] = (...args) => formRef.value!.setFields(...args);
 
   defineExpose({
     validate,
     validateField,
+    reset: resetFields,
     resetFields,
     clearValidate,
     setFields,
