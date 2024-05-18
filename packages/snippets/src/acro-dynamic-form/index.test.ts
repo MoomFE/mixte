@@ -1,4 +1,4 @@
-import { MixteAcroDynamicForm } from '@mixte/snippets/acro-dynamic-form';
+import { AcroDynamicForm } from '@mixte/snippets/acro-dynamic-form';
 import type { DOMWrapper } from '@vue/test-utils';
 import { mount } from '@vue/test-utils';
 
@@ -19,7 +19,7 @@ Object.defineProperty(window, 'matchMedia', {
 
 describe('<acro-dynamic-form /> 基础测试', () => {
   it('未传入任何参数, 只会渲染一个含有操作按钮的空表单', () => {
-    const wrapper = mount(MixteAcroDynamicForm);
+    const wrapper = mount(AcroDynamicForm);
 
     const form = wrapper.findAll('.arco-form');
     const formItems = wrapper.findAll('.arco-form-item');
@@ -32,7 +32,7 @@ describe('<acro-dynamic-form /> 基础测试', () => {
 
   it('组件可传入 model 参数以收集及控制表单数据', async () => {
     const model = ref<Record<string, any>>({});
-    const wrapper = mount(MixteAcroDynamicForm, {
+    const wrapper = mount(AcroDynamicForm, {
       props: {
         fields: [
           { field: 'name', label: '姓名', type: 'input', defaultValue: '张三' },
@@ -71,7 +71,7 @@ describe('<acro-dynamic-form /> 基础测试', () => {
   });
 
   it('非组件本身的参数, 会继承至 a-form 上', async () => {
-    const wrapper = mount(MixteAcroDynamicForm, {
+    const wrapper = mount(AcroDynamicForm, {
       props: {
         fields: [
           { field: 'name', label: '姓名', type: 'input', defaultValue: '张三' },
@@ -91,9 +91,31 @@ describe('<acro-dynamic-form /> 基础测试', () => {
   });
 });
 
+describe('<acro-dynamic-form /> 导出方法', () => {
+  it('提供 validate 方法, 可以对表单进行校验', async () => {
+    const wrapper = mount(AcroDynamicForm, {
+      props: {
+        fields: [
+          { field: 'name', label: '姓名', type: 'input', rules: { required: true, message: '请输入姓名' } },
+          { field: 'age', label: '年龄', type: 'input' },
+        ],
+      },
+    });
+
+    const validate = wrapper.vm.validate as Function;
+
+    expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
+
+    await validate();
+
+    expect(wrapper.find('.arco-form-item-message').exists()).toBe(true);
+    expect(wrapper.find('.arco-form-item-message').text()).toBe('请输入姓名');
+  });
+});
+
 describe('<acro-dynamic-form /> 字段配置', () => {
   it('传入字段配置, 会根据配置渲染表单项', () => {
-    const wrapper = mount(MixteAcroDynamicForm, {
+    const wrapper = mount(AcroDynamicForm, {
       props: {
         fields: [
           { field: 'name', label: '姓名', type: 'input' },
@@ -116,7 +138,7 @@ describe('<acro-dynamic-form /> 字段配置', () => {
 
 describe('<acro-dynamic-form /> 操作按钮', () => {
   it('默认情况下, 提交按钮和重置按钮都会显示', () => {
-    const wrapper = mount(MixteAcroDynamicForm);
+    const wrapper = mount(AcroDynamicForm);
 
     const btns = wrapper.findAll('.arco-form-item .arco-btn');
 
@@ -126,7 +148,7 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
   });
 
   it('点击提交按钮, 会对表单进行校验', async () => {
-    const wrapper = mount(MixteAcroDynamicForm, {
+    const wrapper = mount(AcroDynamicForm, {
       props: {
         fields: [
           { field: 'name', label: '姓名', type: 'input', rules: { required: true, message: '请输入姓名' } },
@@ -147,7 +169,7 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
   });
 
   it('点击重置按钮, 会重置表单', async () => {
-    const wrapper = mount(MixteAcroDynamicForm, {
+    const wrapper = mount(AcroDynamicForm, {
       props: {
         fields: [
           { field: 'name', label: '姓名', type: 'input', defaultValue: '张三' },
@@ -176,7 +198,7 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
   });
 
   it('配置不显示操作按钮区域, a-form-item 及提交按钮、重置按钮不会渲染', () => {
-    const wrapper = mount(MixteAcroDynamicForm, {
+    const wrapper = mount(AcroDynamicForm, {
       props: {
         showActionButtonArea: false,
       },
@@ -190,7 +212,7 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
   });
 
   it('配置不显示提交按钮', () => {
-    const wrapper = mount(MixteAcroDynamicForm, {
+    const wrapper = mount(AcroDynamicForm, {
       props: {
         showSubmitButton: false,
       },
@@ -203,7 +225,7 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
   });
 
   it('配置不显示重置按钮', () => {
-    const wrapper = mount(MixteAcroDynamicForm, {
+    const wrapper = mount(AcroDynamicForm, {
       props: {
         showResetButton: false,
       },
@@ -216,7 +238,7 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
   });
 
   it('配置提交按钮和重置按钮都不显示时, a-form-item 也不会渲染', () => {
-    const wrapper = mount(MixteAcroDynamicForm, {
+    const wrapper = mount(AcroDynamicForm, {
       props: {
         showSubmitButton: false,
         showResetButton: false,
@@ -227,7 +249,7 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
   });
 
   it('配置提交按钮和重置按钮的文字', () => {
-    const wrapper = mount(MixteAcroDynamicForm, {
+    const wrapper = mount(AcroDynamicForm, {
       props: {
         submitButtonText: '自定义提交',
         resetButtonText: '自定义重置',

@@ -1,14 +1,14 @@
 <template>
   <div>
-    <MixteAcroDynamicForm :fields="fields" />
+    <AcroDynamicForm :fields="fields" />
   </div>
 </template>
 
 <script lang="ts" setup>
-  import type { MixteAcroDynamicFormField } from '@mixte/snippets/acro-dynamic-form';
-  import { MixteAcroDynamicForm } from '@mixte/snippets/acro-dynamic-form';
+  import type { AcroDynamicFormField } from '@mixte/snippets/acro-dynamic-form';
+  import { AcroDynamicForm } from '@mixte/snippets/acro-dynamic-form';
 
-  const fields: MixteAcroDynamicFormField[] = [
+  const fields: AcroDynamicFormField[] = [
     {
       field: 'name',
       label: '姓名',
