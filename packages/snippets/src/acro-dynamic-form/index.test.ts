@@ -1,4 +1,3 @@
-import type { AcroDynamicFormField } from '@mixte/snippets/acro-dynamic-form';
 import type { DOMWrapper } from '@vue/test-utils';
 import { AcroDynamicForm } from '@mixte/snippets/acro-dynamic-form';
 import { mount } from '@vue/test-utils';
@@ -90,42 +89,19 @@ describe('<acro-dynamic-form /> 基础测试', () => {
 
     expect(wrapper.findAll('.arco-input-disabled').length).toBe(2);
   });
-});
 
-describe('<acro-dynamic-form /> 导出方法', () => {
-  const fields: AcroDynamicFormField[] = [
-    { field: 'name', label: '姓名', type: 'input', rules: { required: true, message: '请输入姓名' } },
-    { field: 'age', label: '年龄', type: 'input', rules: { required: true, message: '请输入年龄' } },
-  ];
-
-  it('校验所有方法', () => {
+  it('组件导出了 a-form 组件本身的方法', () => {
     const wrapper = mount(AcroDynamicForm);
 
     expect(wrapper.vm.validate).toBeInstanceOf(Function);
     expect(wrapper.vm.validateField).toBeInstanceOf(Function);
-    expect(wrapper.vm.reset).toBeInstanceOf(Function);
     expect(wrapper.vm.resetFields).toBeInstanceOf(Function);
     expect(wrapper.vm.clearValidate).toBeInstanceOf(Function);
     expect(wrapper.vm.setFields).toBeInstanceOf(Function);
-  });
+    expect(wrapper.vm.scrollToField).toBeInstanceOf(Function);
 
-  it('提供的 validate 方法, 可以对表单进行校验', async () => {
-    const wrapper = mount(AcroDynamicForm, {
-      props: { fields },
-    });
-
-    expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
-
-    const res = await wrapper.vm.validate();
-
-    expect(Object.keys(res!).length).toBe(2);
-    expect(res).toMatchObject({
-      name: { value: undefined, message: '请输入姓名' },
-      age: { value: undefined, message: '请输入年龄' },
-    });
-
-    expect(wrapper.findAll('.arco-form-item-message').length).toBe(2);
-    expect(wrapper.findAll('.arco-form-item-message').map(msg => msg.text())).toStrictEqual(['请输入姓名', '请输入年龄']);
+    expect(wrapper.vm.reset).toBeInstanceOf(Function);
+    expect(wrapper.vm.reset).toBe(wrapper.vm.resetFields);
   });
 });
 

@@ -17,7 +17,7 @@
     <!-- 操作按钮区域 -->
     <FormItem v-if="showActionButtonArea && (showSubmitButton || showResetButton)">
       <Space>
-        <Button v-if="showSubmitButton" type="primary" @click="onSubmit">{{ submitButtonText }}</Button>
+        <Button v-if="showSubmitButton" type="primary" @click="submit">{{ submitButtonText }}</Button>
         <Button v-if="showResetButton" @click="resetFields()">{{ resetButtonText }}</Button>
       </Space>
     </FormItem>
@@ -51,7 +51,7 @@
     model[field.field] = field.defaultValue;
   });
 
-  function onSubmit() {
+  function submit() {
     formRef.value!.validate();
   }
 
@@ -60,13 +60,15 @@
   const resetFields: FormInstance['resetFields'] = (...args) => formRef.value!.resetFields(...args);
   const clearValidate: FormInstance['clearValidate'] = (...args) => formRef.value!.clearValidate(...args);
   const setFields: FormInstance['setFields'] = (...args) => formRef.value!.setFields(...args);
+  const scrollToField: FormInstance['scrollToField'] = (...args) => formRef.value!.scrollToField(...args);
 
   defineExpose({
     validate,
     validateField,
-    reset: resetFields,
     resetFields,
+    reset: resetFields,
     clearValidate,
     setFields,
+    scrollToField,
   });
 </script>
