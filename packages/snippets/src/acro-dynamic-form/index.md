@@ -20,17 +20,21 @@ outline: [1,2]
 
 ### `<acro-dynamic-form />` Methods
 
-<!-- <InfoTooltip content="field: string" /> -->
-
-| 方法名 | 描述 | 参数 | 返回值 |
-| --- | --- | --- | --- |
-| validate | 校验全部表单数据 | <InfoTooltip content="callback?: ((errors: undefined \| Record<string, ValidatedError>) => void)" /> | <InfoTooltip content="Promise<undefined \| Record<string, ValidatedError>>" /> |
-| validateField | 校验部分表单数据 | <InfoTooltip content="field: string \| string[], callback?: ((errors: undefined \| Record<string, ValidatedError>) => void) \| undefined" /> | <InfoTooltip content="Promise<undefined \| Record<string, ValidatedError>>" /> |
-| resetFields | 重置表单数据 | <InfoTooltip content="field?: string \| string[] \| undefined" /> | - |
-| reset | `resetFields` 方法的别名 | <InfoTooltip content="field?: string \| string[] \| undefined" /> | - |
-| clearValidate | 清除校验状态 | <InfoTooltip content="field?: string \| string[] \| undefined" /> | - |
-| setFields | 设置表单项的值和状态 | <InfoTooltip content="data: Record<string, FieldData>" /> | - |
-| scrollToField | 滚动到指定表单项 | <InfoTooltip content="field: string" /> | - |
+::: tip <div flex="~ items-center gap-2" pl-6><i-material-symbols-arrow-cool-down-rounded class="size-4" /> 鼠标悬停查看方法类型定义</div>
+```ts twoslash
+// ---cut-start---
+import type { AcroDynamicFormInstance } from '@mixte/snippets/acro-dynamic-form';
+const { validate, validateField, resetFields, reset, clearValidate, setFields, scrollToField } = {} as AcroDynamicFormInstance;
+// ---cut-end---
+validate; // 校验全部表单数据
+validateField; // 校验部分表单数据
+resetFields; // 重置表单数据
+reset; // 重置表单数据, 是 `resetFields` 方法的别名
+clearValidate; // 清除校验状态
+setFields; // 设置表单项的值和状态
+scrollToField; // 滚动到指定表单项
+```
+:::
 
 ## 类型定义 {#类型定义}
 

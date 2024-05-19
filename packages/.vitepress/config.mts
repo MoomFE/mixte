@@ -34,7 +34,15 @@ export default defineConfig({
 
   markdown: {
     codeTransformers: [
-      transformerTwoslash(),
+      transformerTwoslash({
+        twoslashOptions: {
+          compilerOptions: {
+            paths: {
+              '@mixte/snippets/*': ['./packages/snippets/src/*/index.ts'],
+            },
+          },
+        },
+      }),
     ],
   },
 
