@@ -8,4 +8,11 @@ export default moomfe(
       'unused-imports/no-unused-imports': 'error',
     },
   },
+  {
+    name: 'mixte/demo/rules',
+    files: ['**/demo/**/*'],
+    rules: {
+      'no-console': 'off',
+    },
+  },
 );
