@@ -8,10 +8,9 @@
       :rules="field.rules"
       :validate-trigger="field.validateTrigger ?? ['change', 'blur']"
     >
-      <component
-        :is="ArcoDesign[pascalCase(field.type)]"
-        v-model="model[field.field]"
-        v-bind="field.componentProps"
+      <RenderComponent
+        :field="field"
+        :model="model"
       />
     </FormItem>
     <!-- 操作按钮区域 -->
@@ -24,13 +23,12 @@
   </Form>
 </template>
 
-<script lang="ts" setup>
+<script lang="tsx" setup>
   import type { FormInstance } from '@arco-design/web-vue';
-  import * as ArcoDesign from '@arco-design/web-vue';
   import { Button, Form, FormItem, Space } from '@arco-design/web-vue';
   import { reactive, ref, toRef, useAttrs } from 'vue';
   import { toReactive } from '@vueuse/core';
-  import { pascalCase } from 'mixte';
+  import RenderComponent from './components/RenderComponent.vue';
   import type { AcroDynamicFormProps } from './types';
 
   const props = withDefaults(defineProps<AcroDynamicFormProps>(), {

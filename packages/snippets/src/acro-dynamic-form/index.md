@@ -2,7 +2,11 @@
 outline: [1,2]
 ---
 
+基于 [Arco Design Vue](https://arco.design/vue) 封装的动态表单组件
+
 ## 基础用法
+
+## 组件插槽
 
 ## API
 

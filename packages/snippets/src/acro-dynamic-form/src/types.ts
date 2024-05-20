@@ -1,3 +1,4 @@
+import type { Slots } from 'vue';
 import type { FieldRule, FormItemInstance } from '@arco-design/web-vue';
 
 interface AcroDynamicFormProps {
@@ -34,7 +35,11 @@ interface AcroDynamicFormProps {
 
 // #region AcroDynamicFormField
 /** 字段类型 */
-type AcroDynamicFormFieldType = 'input' | 'input-number' | 'textarea';
+type AcroDynamicFormFieldType = 'input' | 'input-number' | 'textarea'
+  | 'select' | 'cascader' | 'tree-select' | 'date-picker' | 'time-picker'
+  | 'checkbox' | 'checkbox-group' | 'radio' | 'radio-group' | 'switch'
+  | 'upload' | 'transfer' | 'slider' | 'rate' | 'auto-complete' | 'mention' | 'input-tag'
+  | 'verification-code' | 'color-picker';
 
 /** 字段配置  */
 interface AcroDynamicFormField<T extends AcroDynamicFormFieldType = AcroDynamicFormFieldType> {
@@ -48,6 +53,8 @@ interface AcroDynamicFormField<T extends AcroDynamicFormFieldType = AcroDynamicF
   defaultValue?: any;
   /** 传递给组件的参数 */
   componentProps?: Record<string, any>;
+  /** 传递给组件的插槽 */
+  componentSlots?: Slots;
   /** 校验规则 */
   rules?: FieldRule | FieldRule[];
   /**

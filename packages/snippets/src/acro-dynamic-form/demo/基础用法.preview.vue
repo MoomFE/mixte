@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <AcroDynamicForm
-      ref="acroDynamicFormRef"
-      :fields="fields"
-      @submit="handleSubmit"
-      @reset="handleReset"
-    />
-  </div>
+  <AcroDynamicForm
+    ref="acroDynamicFormRef"
+    :fields="fields"
+    @submit="handleSubmit"
+    @reset="handleReset"
+  />
 </template>
 
 <script lang="ts" setup>
