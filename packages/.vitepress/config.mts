@@ -17,8 +17,6 @@ import VitePlugins from './vite.common.plugins';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const rootDirname = resolve(__dirname, '../../');
-
 export default defineConfig({
   title: 'Mixte',
   description: '',
@@ -36,15 +34,7 @@ export default defineConfig({
 
   markdown: {
     codeTransformers: [
-      transformerTwoslash({
-        twoslashOptions: {
-          compilerOptions: {
-            paths: {
-              '@mixte/snippets/*': [`${rootDirname}/packages/snippets/src/*/index.ts`],
-            },
-          },
-        },
-      }),
+      transformerTwoslash(),
     ],
   },
 
