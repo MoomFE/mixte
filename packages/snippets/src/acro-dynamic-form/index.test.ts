@@ -93,13 +93,24 @@ describe('<acro-dynamic-form /> 基础测试', () => {
   it('组件导出了 a-form 组件本身的方法', () => {
     const wrapper = mount(AcroDynamicForm);
 
+    // 校验全部表单数据
     expect(wrapper.vm.validate).toBeInstanceOf(Function);
+    // 校验部分表单数据
     expect(wrapper.vm.validateField).toBeInstanceOf(Function);
+    // 重置表单数据
     expect(wrapper.vm.resetFields).toBeInstanceOf(Function);
+    // 清除校验状态
     expect(wrapper.vm.clearValidate).toBeInstanceOf(Function);
+    // 设置表单项的值和状态
     expect(wrapper.vm.setFields).toBeInstanceOf(Function);
+    // 滚动到指定表单项
     expect(wrapper.vm.scrollToField).toBeInstanceOf(Function);
+  });
 
+  it('组件导出的额外扩展方法', () => {
+    const wrapper = mount(AcroDynamicForm);
+
+    // 重置表单数据, 是 `resetFields` 方法的别名
     expect(wrapper.vm.reset).toBeInstanceOf(Function);
     expect(wrapper.vm.reset).toBe(wrapper.vm.resetFields);
   });
@@ -128,6 +139,71 @@ describe('<acro-dynamic-form /> 字段配置', () => {
   });
 });
 
+describe('<acro-dynamic-form /> 事件', () => {
+  it('点击提交按钮, 会触发 submit 事件', async () => {
+    let submitData: Record<string, any> = {};
+    let submitCount = 0;
+
+    function handleSubmit(model: Record<string, any>) {
+      submitData = model;
+      submitCount++;
+    }
+
+    const wrapper = mount(AcroDynamicForm, {
+      props: {
+        fields: [
+          { field: 'name', label: '姓名', type: 'input' },
+          { field: 'age', label: '年龄', type: 'input' },
+        ],
+        onSubmit: handleSubmit,
+      },
+    });
+
+    const [nameInput, ageInput] = wrapper.findAll('.arco-input') as [DOMWrapper<HTMLInputElement>, DOMWrapper<HTMLInputElement>];
+    const submitBtn = wrapper.findAll('.arco-btn').find(btn => btn.text() === '提交')!;
+
+    expect(submitCount).toBe(0);
+    expect(submitData).toStrictEqual({});
+
+    submitBtn.trigger('click');
+    expect(submitCount).toBe(1);
+    expect(submitData).toStrictEqual({ name: undefined, age: undefined });
+
+    nameInput.setValue('张三');
+    ageInput.setValue('18');
+
+    submitBtn.trigger('click');
+    expect(submitCount).toBe(2);
+    expect(submitData).toStrictEqual({ name: '张三', age: '18' });
+  });
+
+  it('点击重置按钮, 会触发 reset 事件', async () => {
+    let resetCount = 0;
+
+    function handleReset() {
+      resetCount++;
+    }
+
+    const wrapper = mount(AcroDynamicForm, {
+      props: {
+        onReset: handleReset,
+      },
+    });
+
+    const resetBtn = wrapper.findAll('.arco-btn').find(btn => btn.text() === '重置')!;
+
+    expect(resetCount).toBe(0);
+
+    resetBtn.trigger('click');
+
+    expect(resetCount).toBe(1);
+
+    resetBtn.trigger('click');
+
+    expect(resetCount).toBe(2);
+  });
+});
+
 describe('<acro-dynamic-form /> 操作按钮', () => {
   it('默认情况下, 提交按钮和重置按钮都会显示', () => {
     const wrapper = mount(AcroDynamicForm);
@@ -137,56 +213,6 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
     expect(btns.length).toBe(2);
     expect(btns[0].text()).toBe('提交');
     expect(btns[1].text()).toBe('重置');
-  });
-
-  it('点击提交按钮, 会对表单进行校验', async () => {
-    const wrapper = mount(AcroDynamicForm, {
-      props: {
-        fields: [
-          { field: 'name', label: '姓名', type: 'input', rules: { required: true, message: '请输入姓名' } },
-          { field: 'age', label: '年龄', type: 'input-number' },
-        ],
-      },
-    });
-
-    const submitBtn = wrapper.findAll('.arco-btn').find(btn => btn.text() === '提交')!;
-
-    expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
-
-    submitBtn.trigger('click');
-    await wrapper.vm.$nextTick();
-
-    expect(wrapper.find('.arco-form-item-message').exists()).toBe(true);
-    expect(wrapper.find('.arco-form-item-message').text()).toBe('请输入姓名');
-  });
-
-  it('点击重置按钮, 会重置表单', async () => {
-    const wrapper = mount(AcroDynamicForm, {
-      props: {
-        fields: [
-          { field: 'name', label: '姓名', type: 'input', defaultValue: '张三' },
-          { field: 'age', label: '年龄', type: 'input', defaultValue: '18' },
-        ],
-      },
-    });
-
-    const resetBtn = wrapper.findAll('.arco-btn').find(btn => btn.text() === '重置')!;
-    const [nameInput, ageInput] = wrapper.findAll('.arco-input') as [DOMWrapper<HTMLInputElement>, DOMWrapper<HTMLInputElement>];
-
-    expect(nameInput.element.value).toBe('张三');
-    expect(ageInput.element.value).toBe('18');
-
-    await nameInput.setValue('李四');
-    await ageInput.setValue('20');
-
-    expect(nameInput.element.value).toBe('李四');
-    expect(ageInput.element.value).toBe('20');
-
-    resetBtn.trigger('click');
-    await wrapper.vm.$nextTick();
-
-    expect(nameInput.element.value).toBe('张三');
-    expect(ageInput.element.value).toBe('18');
   });
 
   it('配置不显示操作按钮区域, a-form-item 及提交按钮、重置按钮不会渲染', () => {

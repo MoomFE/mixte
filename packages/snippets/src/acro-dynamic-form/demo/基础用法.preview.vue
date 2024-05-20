@@ -1,11 +1,16 @@
 <template>
   <div>
-    <AcroDynamicForm :fields="fields" />
+    <AcroDynamicForm
+      ref="acroDynamicFormRef"
+      :fields="fields"
+      @submit="handleSubmit"
+      @reset="handleReset"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-  import type { AcroDynamicFormField } from '@mixte/snippets/acro-dynamic-form';
+  import type { AcroDynamicFormField, AcroDynamicFormInstance } from '@mixte/snippets/acro-dynamic-form';
   import { AcroDynamicForm } from '@mixte/snippets/acro-dynamic-form';
 
   const fields: AcroDynamicFormField[] = [
@@ -34,4 +39,20 @@
       componentProps: { placeholder: '请输入备注', allowClear: true },
     },
   ];
+
+  const acroDynamicFormRef = ref<AcroDynamicFormInstance>();
+
+  async function handleSubmit(model: Record<string, any>) {
+    const errors = await acroDynamicFormRef.value!.validate();
+
+    if (errors)
+      return console.error(errors);
+
+    // 执行提交逻辑
+    console.log(model);
+  }
+
+  function handleReset() {
+    acroDynamicFormRef.value!.reset();
+  }
 </script>

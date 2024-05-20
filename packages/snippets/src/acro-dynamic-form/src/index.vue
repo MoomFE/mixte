@@ -17,8 +17,8 @@
     <!-- 操作按钮区域 -->
     <FormItem v-if="showActionButtonArea && (showSubmitButton || showResetButton)">
       <Space>
-        <Button v-if="showSubmitButton" type="primary" @click="submit">{{ submitButtonText }}</Button>
-        <Button v-if="showResetButton" @click="resetFields()">{{ resetButtonText }}</Button>
+        <Button v-if="showSubmitButton" type="primary" @click="emit('submit', model)">{{ submitButtonText }}</Button>
+        <Button v-if="showResetButton" @click="emit('reset')">{{ resetButtonText }}</Button>
       </Space>
     </FormItem>
   </Form>
@@ -40,6 +40,12 @@
     showResetButton: true,
     resetButtonText: '重置',
   });
+  const emit = defineEmits<{
+    /** 点击了提交按钮的事件 */
+    submit: [model: Record<string, any>];
+    /** 点击了重置按钮的事件 */
+    reset: [];
+  }>();
 
   const attrs = useAttrs();
 
@@ -51,10 +57,6 @@
     model[field.field] = field.defaultValue;
   });
 
-  function submit() {
-    formRef.value!.validate();
-  }
-
   const validate: FormInstance['validate'] = (...args) => formRef.value!.validate(...args);
   const validateField: FormInstance['validateField'] = (...args) => formRef.value!.validateField(...args);
   const resetFields: FormInstance['resetFields'] = (...args) => formRef.value!.resetFields(...args);
@@ -63,12 +65,23 @@
   const scrollToField: FormInstance['scrollToField'] = (...args) => formRef.value!.scrollToField(...args);
 
   defineExpose({
-    validate,
-    validateField,
-    resetFields,
+    validate, validateField, resetFields, clearValidate, setFields, scrollToField, // eslint-disable-line antfu/consistent-list-newline
     reset: resetFields,
-    clearValidate,
-    setFields,
-    scrollToField,
+  } as {
+    /** 校验全部表单数据 */
+    validate: typeof validate;
+    /** 校验部分表单数据 */
+    validateField: typeof validateField;
+    /** 重置表单数据 */
+    resetFields: typeof resetFields;
+    /** 清除校验状态 */
+    clearValidate: typeof clearValidate;
+    /** 设置表单项的值和状态 */
+    setFields: typeof setFields;
+    /** 滚动到指定表单项 */
+    scrollToField: typeof scrollToField;
+
+    /** 重置表单数据, 是 `resetFields` 方法的别名 */
+    reset: typeof resetFields;
   });
 </script>
