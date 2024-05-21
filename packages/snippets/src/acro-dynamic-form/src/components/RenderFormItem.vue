@@ -12,11 +12,11 @@
 
       return (
         <FormItem
+          {...field.formItemProps}
           field={field.field}
           label={field.label}
           rules={field.rules}
           validate-trigger={field.validateTrigger ?? ['change', 'blur']}
-          {...field.formItemProps}
         >
           {{
             ...field.formItemSlots,

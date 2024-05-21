@@ -18,8 +18,8 @@
       label: '输入框 - 前后缀插槽',
       componentProps: { placeholder: '请输入' },
       componentSlots: {
-        prefix: (): any => <i-ant-design-user-outlined class="size-4" />,
-        suffix: (): any => {
+        prefix: () => <i-ant-design-user-outlined class="size-4" />,
+        suffix: () => {
           return (
             <Tooltip content="hello ~">
               <i-ant-design-exclamation-circle-outlined class="size-4 cursor-pointer" />
@@ -49,9 +49,9 @@
       type: 'input',
       componentProps: { placeholder: '请输入' },
       formItemSlots: {
-        label: (): any => <Button>这是 label 插槽的内容</Button>,
-        help: (): any => <span>这是 help 插槽的内容</span>,
-        extra: (): any => <span>这是 extra 插槽的内容</span>,
+        label: () => <Button>这是 label 插槽的内容</Button>,
+        help: () => <span>这是 help 插槽的内容</span>,
+        extra: () => <span>这是 extra 插槽的内容</span>,
       },
     },
   ]);

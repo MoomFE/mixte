@@ -1,4 +1,4 @@
-import type { Slots } from 'vue';
+import type { VNodeChild } from 'vue';
 import type { AutoCompleteInstance, CascaderInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormItemInstance, InputInstance, InputNumberInstance, InputTagInstance, MentionInstance, RadioGroupInstance, RadioInstance, RateInstance, SelectInstance, SliderInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance } from '@arco-design/web-vue';
 
 interface AcroDynamicFormProps {
@@ -35,7 +35,7 @@ interface AcroDynamicFormProps {
 
 // #region AcroDynamicFormField
 /** 字段配置 */
-type AcroDynamicFormField = AcroDynamicFormFieldBase | AcroDynamicFormComponentField;
+type AcroDynamicFormField = AcroDynamicFormComponentField | AcroDynamicFormFieldBase;
 
 /** 字段通用配置 */
 interface AcroDynamicFormFieldBase {
@@ -53,9 +53,9 @@ interface AcroDynamicFormFieldBase {
    */
   validateTrigger?: FormItemInstance['validateTrigger'];
   /** 传递给 FormItem 组件的参数 */
-  formItemProps?: FormItemInstance['$props'];
+  formItemProps?: Omit<FormItemInstance['$props'], 'field' | 'label' | 'rules' | 'validateTrigger'>;
   /** 传递给 FormItem 组件的插槽 */
-  formItemSlots?: Slots;
+  formItemSlots?: Record<string, () => VNodeChild>;
 }
 
 /** 组件字段配置 */
@@ -66,7 +66,7 @@ type AcroDynamicFormComponentField = {
     /** 传递给组件的参数 */
     componentProps?: AcroDynamicFormFieldComponentPropsMap[T];
     /** 传递给组件的插槽 */
-    componentSlots?: Slots;
+    componentSlots?: Record<string, () => VNodeChild>;
   };
 }[AcroDynamicFormFieldType];
 
@@ -98,7 +98,6 @@ interface AcroDynamicFormFieldComponentPropsMap {
   'verification-code': VerificationCodeInstance['$props'];
   'color-picker': ColorPickerInstance['$props'];
 }
-
 // #endregion AcroDynamicFormField
 
 export {

@@ -1,6 +1,6 @@
 import type { DOMWrapper } from '@vue/test-utils';
 import { AcroDynamicForm } from '@mixte/snippets/acro-dynamic-form';
-import { mount } from '@vue/test-utils';
+import { config, mount } from '@vue/test-utils';
 
 // 来源: arco-design/arco-design-vue/packages/web-vue/scripts/demo-test.ts
 Object.defineProperty(window, 'matchMedia', {
@@ -16,6 +16,9 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: vi.fn(),
   })),
 });
+
+config.global.config.warnHandler = () => {};
+config.global.config.errorHandler = () => {};
 
 describe('<acro-dynamic-form /> 基础测试', () => {
   it('未传入任何参数, 只会渲染一个含有操作按钮的空表单', () => {
@@ -136,6 +139,65 @@ describe('<acro-dynamic-form /> 字段配置', () => {
     expect(formItems[1].find('.arco-input-number').exists()).toBe(true);
 
     expect(formItems.map(item => item.find('.arco-form-item-label').text())).toEqual(['姓名', '年龄']);
+  });
+
+  describe('<acro-dynamic-form /> 表单项配置', () => {
+    it('使用 formItemProps 可传递参数给 a-form-item 组件', async () => {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          fields: [{ field: 'name', label: '姓名', type: 'input' }],
+          showActionButtonArea: false,
+        },
+      });
+
+      expect(wrapper.findAll('.arco-form-item-label-tooltip').length).toBe(0);
+
+      await wrapper.setProps({
+        fields: [{
+          field: 'name',
+          label: '姓名',
+          type: 'input',
+          formItemProps: {
+            tooltip: '这是一个提示',
+          },
+        }],
+      });
+
+      expect(wrapper.findAll('.arco-form-item-label-tooltip').length).toBe(1);
+    });
+
+    it('使用 formItemSlots 可传递插槽给 a-form-item 组件', async () => {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          fields: [{ field: 'name', label: '姓名', type: 'input' }],
+          showActionButtonArea: false,
+        },
+      });
+
+      expect(wrapper.findAll('.arco-form-item-label > .slot-666').length).toBe(0);
+      expect(wrapper.findAll('.arco-form-item-message-help > .slot-777').length).toBe(0);
+      expect(wrapper.findAll('.arco-form-item-extra > .slot-888').length).toBe(0);
+      expect(wrapper.findAll('.slot-999').length).toBe(0); // 默认插槽不生效
+
+      await wrapper.setProps({
+        fields: [{
+          field: 'name',
+          label: '姓名',
+          type: 'input',
+          formItemSlots: {
+            label: () => h('div', { class: 'slot-666' }),
+            help: () => h('div', { class: 'slot-777' }),
+            extra: () => h('div', { class: 'slot-888' }),
+            default: () => h('div', { class: 'slot-999' }),
+          },
+        }],
+      });
+
+      expect(wrapper.findAll('.arco-form-item-label > .slot-666').length).toBe(1);
+      expect(wrapper.findAll('.arco-form-item-message-help > .slot-777').length).toBe(1);
+      expect(wrapper.findAll('.arco-form-item-extra > .slot-888').length).toBe(1);
+      expect(wrapper.findAll('.slot-999').length).toBe(0); // 默认插槽不生效
+    });
   });
 });
 

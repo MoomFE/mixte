@@ -21,8 +21,8 @@
 
         return ( // @ts-expect-error
           <Component
-            v-model={this.model[field.field]}
             {...field.componentProps}
+            v-model={this.model[field.field]}
           >
             {{
             ...field.componentSlots,

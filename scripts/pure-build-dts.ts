@@ -52,5 +52,7 @@ export async function pureBuildDts(pkg: LastArrayElement<typeof packages>[]) {
       file: `${info.outputDir}/${info.outputFileName ?? 'index'}.d.ts`,
       format: 'es',
     });
+
+    console.log(`Built ${info.input}.`);
   }
 }
