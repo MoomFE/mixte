@@ -54,7 +54,7 @@ describe('auto-grid', () => {
       `,
     });
 
-    const element = wrapper.element;
+    const element = wrapper.element as HTMLDivElement;
     const children = Array.from(element.children);
 
     // 渲染节点数量
@@ -99,7 +99,7 @@ describe('auto-grid', () => {
       },
     });
 
-    const element = wrapper.element;
+    const element = wrapper.element as HTMLDivElement;
     const children = Array.from(element.children);
 
     // 渲染节点数量
@@ -519,7 +519,7 @@ describe('auto-grid', () => {
     wrapper.setProps({ width: '2000', collapsedRows: '1', renderCount: 10 });
     await nextTick();
     expect(wrapper.element.children.length).toBe(10);
-    Array.from(wrapper.element.children).forEach((child, i) => {
+    Array.from((wrapper.element as HTMLDivElement).children).forEach((child, i) => {
       expect(child.innerHTML.trim()).toBe(`<div>item-${i + 1}</div>`);
     });
 
@@ -527,7 +527,7 @@ describe('auto-grid', () => {
     wrapper.setProps({ width: '2000', collapsedRows: '1', renderCount: 11 });
     await nextTick();
     expect(wrapper.element.children.length).toBe(10);
-    Array.from(wrapper.element.children).forEach((child, i) => {
+    Array.from((wrapper.element as HTMLDivElement).children).forEach((child, i) => {
       if (i < 9) expect(child.innerHTML.trim()).toBe(`<div>item-${i + 1}</div>`);
       else expect(child.innerHTML.trim()).toBe('item-overflowSuffix');
     });
@@ -536,7 +536,7 @@ describe('auto-grid', () => {
     wrapper.setProps({ width: '2000', collapsedRows: '2', renderCount: 20 });
     await nextTick();
     expect(wrapper.element.children.length).toBe(20);
-    Array.from(wrapper.element.children).forEach((child, i) => {
+    Array.from((wrapper.element as HTMLDivElement).children).forEach((child, i) => {
       expect(child.innerHTML.trim()).toBe(`<div>item-${i + 1}</div>`);
     });
 
@@ -544,7 +544,7 @@ describe('auto-grid', () => {
     wrapper.setProps({ width: '2000', collapsedRows: '2', renderCount: 21 });
     await nextTick();
     expect(wrapper.element.children.length).toBe(20);
-    Array.from(wrapper.element.children).forEach((child, i) => {
+    Array.from((wrapper.element as HTMLDivElement).children).forEach((child, i) => {
       if (i < 19) expect(child.innerHTML.trim()).toBe(`<div>item-${i + 1}</div>`);
       else expect(child.innerHTML.trim()).toBe('item-overflowSuffix');
     });
