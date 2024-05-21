@@ -1,14 +1,8 @@
 <template>
   <Form ref="formRef" :model="model" v-bind="attrs">
     <!-- 动态组件渲染 -->
-    <RenderFormItem
-      v-for="(field, index) in fields" :key="index"
-      :field="field"
-    >
-      <RenderComponent
-        :field="field"
-        :model="model"
-      />
+    <RenderFormItem v-for="(field, index) in fields" :key="index" :field="field">
+      <RenderComponent :field="field" :model="model" />
     </RenderFormItem>
     <!-- 操作按钮区域 -->
     <FormItem v-if="showActionButtonArea && (showSubmitButton || showResetButton)">

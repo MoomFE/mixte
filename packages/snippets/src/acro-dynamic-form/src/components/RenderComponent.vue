@@ -14,15 +14,16 @@
 <script lang="tsx">
   export default {
     render() {
-      const Component = ArcoDesign[pascalCase(this.field.type)];
+      const field = this.field;
+      const Component = ArcoDesign[pascalCase(field.type)];
 
       return (
         <Component
-          v-model={this.model[this.field.field]}
-          {...this.field.componentProps}
+          v-model={this.model[field.field]}
+          {...field.componentProps}
         >
           {{
-            ...this.field.componentSlots,
+            ...field.componentSlots,
           }}
         </Component>
       );

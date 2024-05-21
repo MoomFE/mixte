@@ -8,14 +8,20 @@
 <script lang="tsx">
   export default {
     render() {
+      const field = this.field;
+
       return (
         <FormItem
-          field={this.field.field}
-          label={this.field.label}
-          rules={this.field.rules}
-          validate-trigger={this.field.validateTrigger ?? ['change', 'blur']}
+          field={field.field}
+          label={field.label}
+          rules={field.rules}
+          validate-trigger={field.validateTrigger ?? ['change', 'blur']}
+          {...field.formItemProps}
         >
-          {this.$slots.default?.()}
+          {{
+            ...field.formItemSlots,
+            default: this.$slots.default,
+          }}
         </FormItem>
       );
     },

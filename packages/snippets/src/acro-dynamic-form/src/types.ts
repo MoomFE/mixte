@@ -62,6 +62,10 @@ interface AcroDynamicFormField<T extends AcroDynamicFormFieldType = AcroDynamicF
   componentProps?: Record<string, any>;
   /** 传递给组件的插槽 */
   componentSlots?: Slots;
+  /** 传递给 FormItem 组件的参数 */
+  formItemProps?: Record<string, any>;
+  /** 传递给 FormItem 组件的插槽 */
+  formItemSlots?: Slots;
 };
 // #endregion AcroDynamicFormField
 
