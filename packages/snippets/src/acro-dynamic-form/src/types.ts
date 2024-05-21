@@ -51,10 +51,6 @@ interface AcroDynamicFormField<T extends AcroDynamicFormFieldType = AcroDynamicF
   label?: string;
   /** 默认值 */
   defaultValue?: any;
-  /** 传递给组件的参数 */
-  componentProps?: Record<string, any>;
-  /** 传递给组件的插槽 */
-  componentSlots?: Slots;
   /** 校验规则 */
   rules?: FieldRule | FieldRule[];
   /**
@@ -62,6 +58,10 @@ interface AcroDynamicFormField<T extends AcroDynamicFormFieldType = AcroDynamicF
    * @default ['change', 'blur']
    */
   validateTrigger?: FormItemInstance['validateTrigger'];
+  /** 传递给组件的参数 */
+  componentProps?: Record<string, any>;
+  /** 传递给组件的插槽 */
+  componentSlots?: Slots;
 };
 // #endregion AcroDynamicFormField
 

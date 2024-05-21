@@ -8,10 +8,10 @@
 </template>
 
 <script lang="ts" setup>
-  import type { AcroDynamicFormField, AcroDynamicFormInstance } from '@mixte/snippets/acro-dynamic-form';
-  import { AcroDynamicForm } from '@mixte/snippets/acro-dynamic-form';
+  import type { AcroDynamicFormInstance } from '@mixte/snippets/acro-dynamic-form';
+  import { AcroDynamicForm, defineAcroDynamicFormFields } from '@mixte/snippets/acro-dynamic-form';
 
-  const fields: AcroDynamicFormField[] = [
+  const fields = defineAcroDynamicFormFields([
     {
       field: 'name',
       label: '姓名',
@@ -36,7 +36,7 @@
       type: 'textarea',
       componentProps: { placeholder: '请输入备注', allowClear: true },
     },
-  ];
+  ]);
 
   const acroDynamicFormRef = ref<AcroDynamicFormInstance>();
 

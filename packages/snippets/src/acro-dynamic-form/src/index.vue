@@ -1,18 +1,15 @@
 <template>
   <Form ref="formRef" :model="model" v-bind="attrs">
     <!-- 动态组件渲染 -->
-    <FormItem
+    <RenderFormItem
       v-for="(field, index) in fields" :key="index"
-      :field="field.field"
-      :label="field.label"
-      :rules="field.rules"
-      :validate-trigger="field.validateTrigger ?? ['change', 'blur']"
+      :field="field"
     >
       <RenderComponent
         :field="field"
         :model="model"
       />
-    </FormItem>
+    </RenderFormItem>
     <!-- 操作按钮区域 -->
     <FormItem v-if="showActionButtonArea && (showSubmitButton || showResetButton)">
       <Space>
@@ -28,6 +25,7 @@
   import { Button, Form, FormItem, Space } from '@arco-design/web-vue';
   import { reactive, ref, toRef, useAttrs } from 'vue';
   import { toReactive } from '@vueuse/core';
+  import RenderFormItem from './components/RenderFormItem.vue';
   import RenderComponent from './components/RenderComponent.vue';
   import type { AcroDynamicFormProps } from './types';
 

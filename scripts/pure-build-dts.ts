@@ -26,7 +26,7 @@ export async function pureBuildDts(pkg: LastArrayElement<typeof packages>[]) {
     console.log(`Building ${info.input}...`);
 
     if (info.vueComponent) {
-      const vueFiles = (await fg(['**/*.vue'], {
+      const vueFiles = (await fg(['src/*.vue'], {
         absolute: true,
         ignore: ['**/demo/**'],
         cwd: resolve(__dirname, '../', dirname(info.input)),
