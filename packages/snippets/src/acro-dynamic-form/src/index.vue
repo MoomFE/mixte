@@ -2,7 +2,7 @@
   <Form ref="formRef" :model="model" v-bind="attrs">
     <!-- 动态组件渲染 -->
     <RenderFormItem v-for="(field, index) in fields" :key="index" :field="field">
-      <RenderComponent :field="field" :model="model" />
+      <RenderComponent v-if="(field as AcroDynamicFormComponentField).type" :field="(field as AcroDynamicFormComponentField)" :model="model" />
     </RenderFormItem>
     <!-- 操作按钮区域 -->
     <FormItem v-if="showActionButtonArea && (showSubmitButton || showResetButton)">
@@ -21,7 +21,7 @@
   import { toReactive } from '@vueuse/core';
   import RenderFormItem from './components/RenderFormItem.vue';
   import RenderComponent from './components/RenderComponent.vue';
-  import type { AcroDynamicFormProps } from './types';
+  import type { AcroDynamicFormComponentField, AcroDynamicFormProps } from './types';
 
   const props = withDefaults(defineProps<AcroDynamicFormProps>(), {
     showActionButtonArea: true,

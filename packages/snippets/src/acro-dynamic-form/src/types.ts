@@ -1,5 +1,5 @@
 import type { Slots } from 'vue';
-import type { FieldRule, FormItemInstance } from '@arco-design/web-vue';
+import type { AutoCompleteInstance, CascaderInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormItemInstance, InputInstance, InputNumberInstance, InputTagInstance, MentionInstance, RadioGroupInstance, RadioInstance, RateInstance, SelectInstance, SliderInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance } from '@arco-design/web-vue';
 
 interface AcroDynamicFormProps {
   /** 字段配置列表 */
@@ -34,17 +34,11 @@ interface AcroDynamicFormProps {
 }
 
 // #region AcroDynamicFormField
-/** 字段类型 */
-type AcroDynamicFormFieldType = 'input' | 'input-number' | 'textarea'
-  | 'select' | 'cascader' | 'tree-select' | 'date-picker' | 'time-picker'
-  | 'checkbox' | 'checkbox-group' | 'radio' | 'radio-group' | 'switch'
-  | 'upload' | 'transfer' | 'slider' | 'rate' | 'auto-complete' | 'mention' | 'input-tag'
-  | 'verification-code' | 'color-picker';
+/** 字段配置 */
+type AcroDynamicFormField = AcroDynamicFormFieldBase | AcroDynamicFormComponentField;
 
-/** 字段配置  */
-interface AcroDynamicFormField<T extends AcroDynamicFormFieldType = AcroDynamicFormFieldType> {
-  /** 字段类型 */
-  type: T;
+/** 字段通用配置 */
+interface AcroDynamicFormFieldBase {
   /** 字段名 */
   field: string;
   /** 标签 */
@@ -58,18 +52,61 @@ interface AcroDynamicFormField<T extends AcroDynamicFormFieldType = AcroDynamicF
    * @default ['change', 'blur']
    */
   validateTrigger?: FormItemInstance['validateTrigger'];
-  /** 传递给组件的参数 */
-  componentProps?: Record<string, any>;
-  /** 传递给组件的插槽 */
-  componentSlots?: Slots;
   /** 传递给 FormItem 组件的参数 */
-  formItemProps?: Record<string, any>;
+  formItemProps?: FormItemInstance['$props'];
   /** 传递给 FormItem 组件的插槽 */
   formItemSlots?: Slots;
-};
+}
+
+/** 组件字段配置 */
+type AcroDynamicFormComponentField = {
+  [T in AcroDynamicFormFieldType]: AcroDynamicFormFieldBase & {
+    /** 字段类型 */
+    type: T;
+    /** 传递给组件的参数 */
+    componentProps?: AcroDynamicFormFieldComponentPropsMap[T];
+    /** 传递给组件的插槽 */
+    componentSlots?: Slots;
+  };
+}[AcroDynamicFormFieldType];
+
+/** 字段类型 */
+type AcroDynamicFormFieldType = keyof AcroDynamicFormFieldComponentPropsMap;
+
+/** 字段配置组件参数映射 */
+interface AcroDynamicFormFieldComponentPropsMap {
+  'input': InputInstance['$props'];
+  'input-number': InputNumberInstance['$props'];
+  'textarea': TextareaInstance['$props'];
+  'select': SelectInstance['$props'];
+  'cascader': CascaderInstance['$props'];
+  'tree-select': TreeSelectInstance['$props'];
+  'date-picker': DatePickerInstance['$props'];
+  'time-picker': TimePickerInstance['$props'];
+  'checkbox': CheckboxInstance['$props'];
+  'checkbox-group': CheckboxGroupInstance['$props'];
+  'radio': RadioInstance['$props'];
+  'radio-group': RadioGroupInstance['$props'];
+  'switch': SwitchInstance['$props'];
+  'upload': UploadInstance['$props'];
+  'transfer': TransferInstance['$props'];
+  'slider': SliderInstance['$props'];
+  'rate': RateInstance['$props'];
+  'auto-complete': AutoCompleteInstance['$props'];
+  'mention': MentionInstance['$props'];
+  'input-tag': InputTagInstance['$props'];
+  'verification-code': VerificationCodeInstance['$props'];
+  'color-picker': ColorPickerInstance['$props'];
+}
+
 // #endregion AcroDynamicFormField
 
 export {
-  AcroDynamicFormField,
   AcroDynamicFormProps,
+
+  AcroDynamicFormField,
+  AcroDynamicFormFieldBase,
+  AcroDynamicFormComponentField,
+  AcroDynamicFormFieldType,
+  AcroDynamicFormFieldComponentPropsMap,
 };
