@@ -1,7 +1,7 @@
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import AutoImport from 'unplugin-auto-import/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import { ArcoResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { MixteUseAutoImport } from '../use/src/register';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -17,6 +17,7 @@ export default [
     ],
     resolvers: [
       ElementPlusResolver(),
+      ArcoResolver(),
     ],
     eslintrc: {
       enabled: true,

@@ -1,6 +1,6 @@
 判断字符串是否是 18 位身份证号码
 
-## 示例
+### 示例
 
 ```ts twoslash
 import { isCitizenID } from '@mixte/validator';

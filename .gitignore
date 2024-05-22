@@ -15,3 +15,5 @@ dist
 
 packages/.vitepress/cache
 packages/.vitepress/dist
+
+packages/snippets/src/acro-dynamic-form/**/*.d.ts

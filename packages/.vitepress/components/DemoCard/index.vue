@@ -48,7 +48,7 @@
   });
 
   const hasCode = computed(() => !!code.value);
-  const [showCodeState, toggleShowCodeState] = useToggle(import.meta.env.DEV);
+  const [showCodeState, toggleShowCodeState] = useToggle();
 
   const showCode = computed(() => hasCode.value && showCodeState.value);
   const showExtra = computed(() => hasCode.value);

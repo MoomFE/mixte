@@ -67,7 +67,8 @@
       "packages/mixte": true,
       "packages/snippets": true,
       "packages/use": true,
-      "packages/validator": true
+      "packages/validator": true,
+      "src/acro-dynamic-form/**/*.d.ts": true
     },
     "unocss.autocomplete.matchType": "fuzzy",
     "unocss.remToPxPreview": true,

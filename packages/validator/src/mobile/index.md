@@ -1,6 +1,6 @@
 判断字符串是否是移动电话号码
 
-## 示例
+### 示例
 
 ```ts twoslash
 import { isMobile } from '@mixte/validator';
