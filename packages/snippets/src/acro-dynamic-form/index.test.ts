@@ -508,3 +508,14 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
     expect(btns[1].text()).toBe('自定义重置');
   });
 });
+
+describe('导出的工具方法', () => {
+  it('defineAcroDynamicFormFields 方法, 原样返回', () => {
+    const fields = [
+      { field: 'name', label: '姓名', type: 'input' },
+      { field: 'age', label: '年龄', type: 'input-number' },
+    ];
+
+    expect(defineAcroDynamicFormFields(fields)).toBe(fields);
+  });
+});
