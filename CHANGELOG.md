@@ -110,7 +110,7 @@
   - 💄 [@mixte/use] 设置依赖类库 `@vueuse/core` 最低版本号
   - 🐞 [mixte] 修改 `leastRun` 工具方法注释及文档错误
 
-## [v1.1.0-beta.0], [v1.1.0-beta.1] ~ [v1.1.0]
+## [v1.1.0], [v1.1.0-beta.1], [v1.1.0-beta.0]
   - 📅 2023-08-23
   - 🐞 [@mixte/use] 修复引入 `@mixte/use/register` 时类型错误的问题
 
@@ -232,7 +232,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.12.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.13.0-beta.1...HEAD
+[v1.13.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v1.13.0-beta.1
 [v1.12.0]: https://github.com/MoomFE/mixte/releases/tag/v1.12.0
 [v1.12.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v1.12.0-beta.1
 [v1.11.0]: https://github.com/MoomFE/mixte/releases/tag/v1.11.0
