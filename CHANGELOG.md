@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [v1.13.0-beta.1]
+  - 📅 2024-05-22
+  - 🌟 [@mixte/snippets] 新增 `AcroDynamicForm` 组件
+
 ## [v1.12.0], [v1.12.0-beta.1]
   - 📅 2024-05-16
   - 🌟 新增 `@mixte/validator` 校验函数包
