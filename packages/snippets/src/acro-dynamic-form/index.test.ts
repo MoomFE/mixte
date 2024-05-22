@@ -230,25 +230,25 @@ describe('<acro-dynamic-form /> 字段配置', () => {
     it('使用 formItemProps 可传递参数给 a-form-item 组件', async () => {
       const wrapper = mount(AcroDynamicForm, {
         props: {
-          fields: [{ field: 'name', label: '姓名', type: 'input' }],
+          fields: defineAcroDynamicFormFields([{ field: 'name', label: '姓名', type: 'input' }]),
           showActionButtonArea: false,
         },
       });
 
-      expect(wrapper.findAll('.arco-form-item-label-tooltip').length).toBe(0);
+      expect(wrapper.find('.test-666').exists()).toBe(false);
 
       await wrapper.setProps({
-        fields: [{
+        fields: defineAcroDynamicFormFields([{
           field: 'name',
           label: '姓名',
           type: 'input',
           formItemProps: {
-            tooltip: '这是一个提示',
+            class: 'test-666',
           },
-        }],
+        }]),
       });
 
-      expect(wrapper.findAll('.arco-form-item-label-tooltip').length).toBe(1);
+      expect(wrapper.find('.test-666').exists()).toBe(true);
     });
 
     it('使用 formItemProps 传递的 field,label,rules,validateTrigger 不会覆盖表单项配置中的对应字段', async () => {
@@ -339,10 +339,10 @@ describe('<acro-dynamic-form /> 字段配置', () => {
         },
       });
 
-      expect(wrapper.findAll('.arco-form-item-label > .slot-666').length).toBe(0);
-      expect(wrapper.findAll('.arco-form-item-message-help > .slot-777').length).toBe(0);
-      expect(wrapper.findAll('.arco-form-item-extra > .slot-888').length).toBe(0);
-      expect(wrapper.findAll('.slot-999').length).toBe(0); // 默认插槽不生效
+      expect(wrapper.find('.arco-form-item-label > .slot-666').exists()).toBe(false);
+      expect(wrapper.find('.arco-form-item-message-help > .slot-777').exists()).toBe(false);
+      expect(wrapper.find('.arco-form-item-extra > .slot-888').exists()).toBe(false);
+      expect(wrapper.find('.slot-999').exists()).toBe(false); // 默认插槽不生效
 
       await wrapper.setProps({
         fields: [{
@@ -358,10 +358,10 @@ describe('<acro-dynamic-form /> 字段配置', () => {
         }],
       });
 
-      expect(wrapper.findAll('.arco-form-item-label > .slot-666').length).toBe(1);
-      expect(wrapper.findAll('.arco-form-item-message-help > .slot-777').length).toBe(1);
-      expect(wrapper.findAll('.arco-form-item-extra > .slot-888').length).toBe(1);
-      expect(wrapper.findAll('.slot-999').length).toBe(0); // 默认插槽不生效
+      expect(wrapper.find('.arco-form-item-label > .slot-666').exists()).toBe(true);
+      expect(wrapper.find('.arco-form-item-message-help > .slot-777').exists()).toBe(true);
+      expect(wrapper.find('.arco-form-item-extra > .slot-888').exists()).toBe(true);
+      expect(wrapper.find('.slot-999').exists()).toBe(false); // 默认插槽不生效
     });
   });
 });
