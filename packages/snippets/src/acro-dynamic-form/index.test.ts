@@ -1,6 +1,9 @@
 import type { DOMWrapper } from '@vue/test-utils';
-import { AcroDynamicForm } from '@mixte/snippets/acro-dynamic-form';
+import { AcroDynamicForm, defineAcroDynamicFormFields } from '@mixte/snippets/acro-dynamic-form';
 import { config, mount } from '@vue/test-utils';
+import type { FormItemInstance, InputInstance } from '@arco-design/web-vue';
+import type { StringKeyOf } from 'type-fest';
+import type { AcroDynamicFormComponentField, AcroDynamicFormFieldBase } from './src/types';
 
 // 来源: arco-design/arco-design-vue/packages/web-vue/scripts/demo-test.ts
 Object.defineProperty(window, 'matchMedia', {
@@ -17,8 +20,11 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-config.global.config.warnHandler = () => {};
-config.global.config.errorHandler = () => {};
+config.global.config.warnHandler = (msg) => {
+  if (msg.includes(`' was accessed via 'this'.`)) return;
+
+  console.error(msg);
+};
 
 describe('<acro-dynamic-form /> 基础测试', () => {
   it('未传入任何参数, 只会渲染一个含有操作按钮的空表单', () => {
@@ -123,10 +129,10 @@ describe('<acro-dynamic-form /> 字段配置', () => {
   it('传入字段配置, 会根据配置渲染表单项', () => {
     const wrapper = mount(AcroDynamicForm, {
       props: {
-        fields: [
+        fields: defineAcroDynamicFormFields([
           { field: 'name', label: '姓名', type: 'input' },
           { field: 'age', label: '年龄', type: 'input-number' },
-        ],
+        ]),
         showActionButtonArea: false,
       },
     });
@@ -139,6 +145,85 @@ describe('<acro-dynamic-form /> 字段配置', () => {
     expect(formItems[1].find('.arco-input-number').exists()).toBe(true);
 
     expect(formItems.map(item => item.find('.arco-form-item-label').text())).toEqual(['姓名', '年龄']);
+  });
+
+  it('使用 componentProps 传递的 modelValue 不会覆盖 v-model 的值', async () => {
+    const model = reactive<Record<string, any>>({});
+    const componentProps = reactive<Record<string, any>>({});
+
+    const wrapper = mount(AcroDynamicForm, {
+      props: {
+        fields: defineAcroDynamicFormFields([{ field: 'name', label: '姓名', type: 'input', defaultValue: '', componentProps }]),
+        model,
+        showActionButtonArea: false,
+      },
+    });
+
+    expect(model.name).toBe('');
+    expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('');
+
+    // 组件修改值 √
+    await wrapper.find('.arco-input').setValue('张三');
+    expect(model.name).toBe('张三');
+    expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('张三');
+
+    // model 修改值 √
+    model.name = '李四';
+    await wrapper.vm.$nextTick();
+    expect(model.name).toBe('李四');
+    expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('李四');
+
+    // 通过 componentProps 修改值 ×
+    componentProps.modelValue = '王五';
+    await wrapper.vm.$nextTick();
+    expect(model.name).toBe('李四');
+    expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('李四');
+  });
+
+  it('使用 componentProps 传递的 onUpdate:modelValue 事件依旧可以触发', async () => {
+    const model = reactive<Record<string, any>>({});
+    let value = '';
+
+    const wrapper = mount(AcroDynamicForm, {
+      props: {
+        fields: defineAcroDynamicFormFields([{
+          field: 'name',
+          label: '姓名',
+          type: 'input',
+          defaultValue: '',
+          componentProps: {
+            'onUpdate:modelValue': (val) => {
+              value = val;
+            },
+          },
+        }]),
+        model,
+        showActionButtonArea: false,
+      },
+    });
+
+    expect(value).toBe('');
+    expect(model.name).toBe('');
+    expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('');
+
+    await wrapper.find('.arco-input').setValue('张三');
+
+    expect(value).toBe('张三');
+    expect(model.name).toBe('张三');
+    expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('张三');
+  });
+
+  it('类型测试: 已从 componentProps 中排除 modelValue 字段', () => {
+    const fields: AcroDynamicFormComponentField = { field: 'name', type: 'input', componentProps: {} };
+
+    type ComponentProps = NonNullable<(typeof fields)['componentProps']>;
+
+    expectTypeOf<StringKeyOf<ComponentProps>>().not.toEqualTypeOf<StringKeyOf<InputInstance['$props']>>();
+    expectTypeOf<
+      StringKeyOf<ComponentProps> | 'modelValue'
+    >().toEqualTypeOf<
+      StringKeyOf<InputInstance['$props']>
+    >();
   });
 
   describe('<acro-dynamic-form /> 表单项配置', () => {
@@ -164,6 +249,86 @@ describe('<acro-dynamic-form /> 字段配置', () => {
       });
 
       expect(wrapper.findAll('.arco-form-item-label-tooltip').length).toBe(1);
+    });
+
+    it('使用 formItemProps 传递的 field,label,rules,validateTrigger 不会覆盖表单项配置中的对应字段', async () => {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          fields: [{
+            field: 'name',
+            label: '姓名',
+            type: 'input',
+            rules: [{ required: true }],
+            validateTrigger: 'blur',
+          }],
+          showActionButtonArea: false,
+        },
+      });
+
+      expect(wrapper.find('.arco-form-item-wrapper-col').attributes('id')).toBe('name');
+      expect(wrapper.find('.arco-form-item-label').text()).toBe('姓名');
+      expect(wrapper.find('.arco-form-item-label-required-symbol').exists()).toBe(true);
+
+      expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
+      await wrapper.find('.arco-input').trigger('blur');
+      expect(wrapper.find('.arco-form-item-message').exists()).toBe(true);
+
+      wrapper.vm.reset();
+      await wrapper.vm.$nextTick();
+      expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
+
+      // 同时存在时, 以表单项配置为准
+
+      await wrapper.setProps({
+        fields: [{
+          field: 'name',
+          label: '姓名',
+          type: 'input',
+          rules: [{ required: true }],
+          validateTrigger: 'blur',
+          // @ts-expect-error
+          formItemProps: { field: 'name-666', label: '姓名-666', rules: [{ required: true }], validateTrigger: 'change' },
+        }],
+      });
+
+      expect(wrapper.find('.arco-form-item-wrapper-col').attributes('id')).toBe('name');
+      expect(wrapper.find('.arco-form-item-label').text()).toBe('姓名');
+      expect(wrapper.find('.arco-form-item-label-required-symbol').exists()).toBe(true);
+
+      expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
+      await wrapper.find('.arco-input').trigger('blur');
+      expect(wrapper.find('.arco-form-item-message').exists()).toBe(true);
+
+      wrapper.vm.reset();
+      await wrapper.vm.$nextTick();
+      expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
+
+      // 单独在 formItemProps 中配置, 不会生效
+
+      await wrapper.setProps({
+        fields: [{
+          type: 'input',
+          // @ts-expect-error
+          formItemProps: { field: 'name-666', label: '姓名-666', rules: [{ required: true }], validateTrigger: 'change' },
+        }],
+      });
+
+      expect(wrapper.find('.arco-form-item-wrapper-col').attributes('id')).toBe(undefined);
+      expect(wrapper.find('.arco-form-item-label').text()).toBe('');
+      expect(wrapper.find('.arco-form-item-label-required-symbol').exists()).toBe(false);
+
+      expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
+      await wrapper.find('.arco-input').trigger('blur');
+      expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
+    });
+
+    it('类型测试: 已从 formItemProps 中排除 field,label,rules,validateTrigger 字段', () => {
+      expectTypeOf<StringKeyOf<NonNullable<AcroDynamicFormFieldBase['formItemProps']>>>().not.toEqualTypeOf<StringKeyOf<FormItemInstance['$props']>>();
+      expectTypeOf<
+        StringKeyOf<NonNullable<AcroDynamicFormFieldBase['formItemProps']>> | 'field' | 'label' | 'rules' | 'validateTrigger'
+      >().toEqualTypeOf<
+        StringKeyOf<FormItemInstance['$props']>
+      >();
     });
 
     it('使用 formItemSlots 可传递插槽给 a-form-item 组件', async () => {
@@ -231,8 +396,8 @@ describe('<acro-dynamic-form /> 事件', () => {
     expect(submitCount).toBe(1);
     expect(submitData).toStrictEqual({ name: undefined, age: undefined });
 
-    nameInput.setValue('张三');
-    ageInput.setValue('18');
+    await nameInput.setValue('张三');
+    await ageInput.setValue('18');
 
     submitBtn.trigger('click');
     expect(submitCount).toBe(2);

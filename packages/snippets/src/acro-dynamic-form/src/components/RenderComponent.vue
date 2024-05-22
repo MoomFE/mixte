@@ -25,8 +25,8 @@
             v-model={this.model[field.field]}
           >
             {{
-            ...field.componentSlots,
-          }}
+              ...field.componentSlots,
+            }}
           </Component>
         );
       }

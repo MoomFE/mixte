@@ -64,7 +64,7 @@ type AcroDynamicFormComponentField = {
     /** 字段类型 */
     type: T;
     /** 传递给组件的参数 */
-    componentProps?: AcroDynamicFormFieldComponentPropsMap[T];
+    componentProps?: Omit<AcroDynamicFormFieldComponentPropsMap[T], 'modelValue'>;
     /** 传递给组件的插槽 */
     componentSlots?: Record<string, () => VNodeChild>;
   };
