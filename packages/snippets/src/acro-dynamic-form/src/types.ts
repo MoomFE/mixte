@@ -56,11 +56,15 @@ interface AcroDynamicFormFieldBase {
   formItemProps?: Omit<FormItemInstance['$props'], 'field' | 'label' | 'rules' | 'validateTrigger'>;
   /** 传递给 FormItem 组件的插槽 */
   formItemSlots?: Record<string, () => VNodeChild>;
+  /** 字段类型 */
+  type?: string;
+  /** 传递给组件的参数 */
+  componentProps?: Record<string, any>;
 }
 
 /** 组件字段配置 */
 type AcroDynamicFormComponentField = {
-  [T in AcroDynamicFormFieldType]: AcroDynamicFormFieldBase & {
+  [T in AcroDynamicFormFieldType]: Omit<AcroDynamicFormFieldBase, 'type' | 'componentProps'> & {
     /** 字段类型 */
     type: T;
     /** 传递给组件的参数 */
@@ -104,8 +108,6 @@ export {
   AcroDynamicFormProps,
 
   AcroDynamicFormField,
-  AcroDynamicFormFieldBase,
-  AcroDynamicFormComponentField,
   AcroDynamicFormFieldType,
   AcroDynamicFormFieldComponentPropsMap,
 };

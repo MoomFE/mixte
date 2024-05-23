@@ -1,9 +1,9 @@
 import type { DOMWrapper } from '@vue/test-utils';
 import { AcroDynamicForm, defineAcroDynamicFormFields } from '@mixte/snippets/acro-dynamic-form';
 import { config, mount } from '@vue/test-utils';
-import type { FormItemInstance, InputInstance } from '@arco-design/web-vue';
+import type { CheckboxInstance, FormItemInstance, InputInstance } from '@arco-design/web-vue';
 import type { StringKeyOf } from 'type-fest';
-import type { AcroDynamicFormComponentField, AcroDynamicFormFieldBase } from './src/types';
+import type { AcroDynamicFormField } from './src/types';
 
 // 来源: arco-design/arco-design-vue/packages/web-vue/scripts/demo-test.ts
 Object.defineProperty(window, 'matchMedia', {
@@ -98,31 +98,6 @@ describe('<acro-dynamic-form /> 基础测试', () => {
 
     expect(wrapper.findAll('.arco-input-disabled').length).toBe(2);
   });
-
-  it('组件导出了 a-form 组件本身的方法', () => {
-    const wrapper = mount(AcroDynamicForm);
-
-    // 校验全部表单数据
-    expect(wrapper.vm.validate).toBeInstanceOf(Function);
-    // 校验部分表单数据
-    expect(wrapper.vm.validateField).toBeInstanceOf(Function);
-    // 重置表单数据
-    expect(wrapper.vm.resetFields).toBeInstanceOf(Function);
-    // 清除校验状态
-    expect(wrapper.vm.clearValidate).toBeInstanceOf(Function);
-    // 设置表单项的值和状态
-    expect(wrapper.vm.setFields).toBeInstanceOf(Function);
-    // 滚动到指定表单项
-    expect(wrapper.vm.scrollToField).toBeInstanceOf(Function);
-  });
-
-  it('组件导出的额外扩展方法', () => {
-    const wrapper = mount(AcroDynamicForm);
-
-    // 重置表单数据, 是 `resetFields` 方法的别名
-    expect(wrapper.vm.reset).toBeInstanceOf(Function);
-    expect(wrapper.vm.reset).toBe(wrapper.vm.resetFields);
-  });
 });
 
 describe('<acro-dynamic-form /> 字段配置', () => {
@@ -147,86 +122,140 @@ describe('<acro-dynamic-form /> 字段配置', () => {
     expect(formItems.map(item => item.find('.arco-form-item-label').text())).toEqual(['姓名', '年龄']);
   });
 
-  it('使用 componentProps 传递的 modelValue 不会覆盖 v-model 的值', async () => {
-    const model = reactive<Record<string, any>>({});
-    const componentProps = reactive<Record<string, any>>({});
+  describe('type & componentProps', () => {
+    it('类型测试: 当 type 为支持的表单类组件时, componentProps 会切换为对应组件的类型', () => {
+      // Input
+      {
+        const field: AcroDynamicFormField = { field: 'name', type: 'input' };
 
-    const wrapper = mount(AcroDynamicForm, {
-      props: {
-        fields: defineAcroDynamicFormFields([{ field: 'name', label: '姓名', type: 'input', defaultValue: '', componentProps }]),
-        model,
-        showActionButtonArea: false,
-      },
+        type ComponentProps = NonNullable<(typeof field)['componentProps']>;
+
+        expectTypeOf<StringKeyOf<ComponentProps>>().not.toEqualTypeOf<StringKeyOf<InputInstance['$props']>>();
+        expectTypeOf<
+          StringKeyOf<ComponentProps> | 'modelValue'
+        >().toEqualTypeOf<
+          StringKeyOf<InputInstance['$props']>
+        >();
+      }
+
+      // Checkbox
+      {
+        const field: AcroDynamicFormField = { field: 'name', type: 'checkbox' };
+
+        type ComponentProps = NonNullable<(typeof field)['componentProps']>;
+
+        expectTypeOf<StringKeyOf<ComponentProps>>().not.toEqualTypeOf<StringKeyOf<CheckboxInstance['$props']>>();
+        expectTypeOf<
+          StringKeyOf<ComponentProps> | 'modelValue'
+        >().toEqualTypeOf<
+          StringKeyOf<CheckboxInstance['$props']>
+        >();
+      }
     });
 
-    expect(model.name).toBe('');
-    expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('');
+    it('类型测试: 当 type 为空, 此时 componentProps 为随意输入内容的对象', () => {
+      expectTypeOf<AcroDynamicFormField>().toMatchTypeOf<{ type?: string }>();
 
-    // 组件修改值 √
-    await wrapper.find('.arco-input').setValue('张三');
-    expect(model.name).toBe('张三');
-    expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('张三');
+      const field: AcroDynamicFormField = { field: 'name' };
 
-    // model 修改值 √
-    model.name = '李四';
-    await wrapper.vm.$nextTick();
-    expect(model.name).toBe('李四');
-    expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('李四');
+      type ComponentProps = NonNullable<(typeof field)['componentProps']>;
 
-    // 通过 componentProps 修改值 ×
-    componentProps.modelValue = '王五';
-    await wrapper.vm.$nextTick();
-    expect(model.name).toBe('李四');
-    expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('李四');
+      expectTypeOf<ComponentProps>().toEqualTypeOf<Record<string, any>>();
+    });
+
+    it('类型测试: 当 type 为非支持的表单类组件时, 此时 componentProps 为随意输入内容的对象', () => {
+      const field: AcroDynamicFormField = { field: 'name', type: 'button' };
+
+      type ComponentProps = NonNullable<(typeof field)['componentProps']>;
+
+      expectTypeOf<ComponentProps>().toEqualTypeOf<Record<string, any>>();
+    });
   });
 
-  it('使用 componentProps 传递的 onUpdate:modelValue 事件依旧可以触发', async () => {
-    const model = reactive<Record<string, any>>({});
-    let value = '';
+  describe('componentProps', () => {
+    describe('modelValue', () => {
+      it('使用 componentProps 传递的 modelValue 不会覆盖 v-model 的值', async () => {
+        const model = reactive<Record<string, any>>({});
+        const componentProps = reactive<Record<string, any>>({});
 
-    const wrapper = mount(AcroDynamicForm, {
-      props: {
-        fields: defineAcroDynamicFormFields([{
-          field: 'name',
-          label: '姓名',
-          type: 'input',
-          defaultValue: '',
-          componentProps: {
-            'onUpdate:modelValue': (val) => {
-              value = val;
-            },
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([{ field: 'name', label: '姓名', type: 'input', defaultValue: '', componentProps }]),
+            model,
+            showActionButtonArea: false,
           },
-        }]),
-        model,
-        showActionButtonArea: false,
-      },
+        });
+
+        expect(model.name).toBe('');
+        expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('');
+
+        // 组件修改值 √
+        await wrapper.find('.arco-input').setValue('张三');
+        expect(model.name).toBe('张三');
+        expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('张三');
+
+        // model 修改值 √
+        model.name = '李四';
+        await wrapper.vm.$nextTick();
+        expect(model.name).toBe('李四');
+        expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('李四');
+
+        // 通过 componentProps 修改值 ×
+        componentProps.modelValue = '王五';
+        await wrapper.vm.$nextTick();
+        expect(model.name).toBe('李四');
+        expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('李四');
+      });
+
+      it('使用 componentProps 传递的 onUpdate:modelValue 事件依旧可以触发', async () => {
+        const model = reactive<Record<string, any>>({});
+        let value = '';
+
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([{
+              field: 'name',
+              label: '姓名',
+              type: 'input',
+              defaultValue: '',
+              componentProps: {
+                'onUpdate:modelValue': (val) => {
+                  value = val;
+                },
+              },
+            }]),
+            model,
+            showActionButtonArea: false,
+          },
+        });
+
+        expect(value).toBe('');
+        expect(model.name).toBe('');
+        expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('');
+
+        await wrapper.find('.arco-input').setValue('张三');
+
+        expect(value).toBe('张三');
+        expect(model.name).toBe('张三');
+        expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('张三');
+      });
+
+      it('类型测试: 已从 componentProps 中排除 modelValue 字段', () => {
+        const field: AcroDynamicFormField = { field: 'name', type: 'input' };
+
+        type ComponentProps = NonNullable<(typeof field)['componentProps']>;
+
+        expectTypeOf<StringKeyOf<ComponentProps>>().not.toEqualTypeOf<StringKeyOf<InputInstance['$props']>>();
+        expectTypeOf<
+          StringKeyOf<ComponentProps> | 'modelValue'
+        >().toEqualTypeOf<
+          StringKeyOf<InputInstance['$props']>
+        >();
+      });
     });
-
-    expect(value).toBe('');
-    expect(model.name).toBe('');
-    expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('');
-
-    await wrapper.find('.arco-input').setValue('张三');
-
-    expect(value).toBe('张三');
-    expect(model.name).toBe('张三');
-    expect((wrapper.find('.arco-input').element as HTMLInputElement).value).toBe('张三');
   });
 
-  it('类型测试: 已从 componentProps 中排除 modelValue 字段', () => {
-    const fields: AcroDynamicFormComponentField = { field: 'name', type: 'input', componentProps: {} };
-
-    type ComponentProps = NonNullable<(typeof fields)['componentProps']>;
-
-    expectTypeOf<StringKeyOf<ComponentProps>>().not.toEqualTypeOf<StringKeyOf<InputInstance['$props']>>();
-    expectTypeOf<
-      StringKeyOf<ComponentProps> | 'modelValue'
-    >().toEqualTypeOf<
-      StringKeyOf<InputInstance['$props']>
-    >();
-  });
-
-  describe('<acro-dynamic-form /> 表单项配置', () => {
+  describe('formItemProps', () => {
     it('使用 formItemProps 可传递参数给 a-form-item 组件', async () => {
       const wrapper = mount(AcroDynamicForm, {
         props: {
@@ -251,86 +280,90 @@ describe('<acro-dynamic-form /> 字段配置', () => {
       expect(wrapper.find('.test-666').exists()).toBe(true);
     });
 
-    it('使用 formItemProps 传递的 field,label,rules,validateTrigger 不会覆盖表单项配置中的对应字段', async () => {
-      const wrapper = mount(AcroDynamicForm, {
-        props: {
+    describe('已排除的字段', () => {
+      it('传递的 field,label,rules,validateTrigger 不会覆盖表单项配置中的对应字段', async () => {
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: [{
+              field: 'name',
+              label: '姓名',
+              type: 'input',
+              rules: [{ required: true }],
+              validateTrigger: 'blur',
+            }],
+            showActionButtonArea: false,
+          },
+        });
+
+        expect(wrapper.find('.arco-form-item-wrapper-col').attributes('id')).toBe('name');
+        expect(wrapper.find('.arco-form-item-label').text()).toBe('姓名');
+        expect(wrapper.find('.arco-form-item-label-required-symbol').exists()).toBe(true);
+
+        expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
+        await wrapper.find('.arco-input').trigger('blur');
+        expect(wrapper.find('.arco-form-item-message').exists()).toBe(true);
+
+        wrapper.vm.reset();
+        await wrapper.vm.$nextTick();
+        expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
+
+        // 同时存在时, 以表单项配置为准
+
+        await wrapper.setProps({
           fields: [{
             field: 'name',
             label: '姓名',
             type: 'input',
             rules: [{ required: true }],
             validateTrigger: 'blur',
+            // @ts-expect-error
+            formItemProps: { field: 'name-666', label: '姓名-666', rules: [{ required: true }], validateTrigger: 'change' },
           }],
-          showActionButtonArea: false,
-        },
+        });
+
+        expect(wrapper.find('.arco-form-item-wrapper-col').attributes('id')).toBe('name');
+        expect(wrapper.find('.arco-form-item-label').text()).toBe('姓名');
+        expect(wrapper.find('.arco-form-item-label-required-symbol').exists()).toBe(true);
+
+        expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
+        await wrapper.find('.arco-input').trigger('blur');
+        expect(wrapper.find('.arco-form-item-message').exists()).toBe(true);
+
+        wrapper.vm.reset();
+        await wrapper.vm.$nextTick();
+        expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
+
+        // 单独在 formItemProps 中配置, 不会生效
+
+        await wrapper.setProps({
+          fields: [{
+            type: 'input',
+            // @ts-expect-error
+            formItemProps: { field: 'name-666', label: '姓名-666', rules: [{ required: true }], validateTrigger: 'change' },
+          }],
+        });
+
+        expect(wrapper.find('.arco-form-item-wrapper-col').attributes('id')).toBe(undefined);
+        expect(wrapper.find('.arco-form-item-label').text()).toBe('');
+        expect(wrapper.find('.arco-form-item-label-required-symbol').exists()).toBe(false);
+
+        expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
+        await wrapper.find('.arco-input').trigger('blur');
+        expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
       });
 
-      expect(wrapper.find('.arco-form-item-wrapper-col').attributes('id')).toBe('name');
-      expect(wrapper.find('.arco-form-item-label').text()).toBe('姓名');
-      expect(wrapper.find('.arco-form-item-label-required-symbol').exists()).toBe(true);
-
-      expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
-      await wrapper.find('.arco-input').trigger('blur');
-      expect(wrapper.find('.arco-form-item-message').exists()).toBe(true);
-
-      wrapper.vm.reset();
-      await wrapper.vm.$nextTick();
-      expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
-
-      // 同时存在时, 以表单项配置为准
-
-      await wrapper.setProps({
-        fields: [{
-          field: 'name',
-          label: '姓名',
-          type: 'input',
-          rules: [{ required: true }],
-          validateTrigger: 'blur',
-          // @ts-expect-error
-          formItemProps: { field: 'name-666', label: '姓名-666', rules: [{ required: true }], validateTrigger: 'change' },
-        }],
+      it('类型测试: 已排除 field,label,rules,validateTrigger 字段', () => {
+        expectTypeOf<StringKeyOf<NonNullable<AcroDynamicFormField['formItemProps']>>>().not.toEqualTypeOf<StringKeyOf<FormItemInstance['$props']>>();
+        expectTypeOf<
+          StringKeyOf<NonNullable<AcroDynamicFormField['formItemProps']>> | 'field' | 'label' | 'rules' | 'validateTrigger'
+        >().toEqualTypeOf<
+          StringKeyOf<FormItemInstance['$props']>
+        >();
       });
-
-      expect(wrapper.find('.arco-form-item-wrapper-col').attributes('id')).toBe('name');
-      expect(wrapper.find('.arco-form-item-label').text()).toBe('姓名');
-      expect(wrapper.find('.arco-form-item-label-required-symbol').exists()).toBe(true);
-
-      expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
-      await wrapper.find('.arco-input').trigger('blur');
-      expect(wrapper.find('.arco-form-item-message').exists()).toBe(true);
-
-      wrapper.vm.reset();
-      await wrapper.vm.$nextTick();
-      expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
-
-      // 单独在 formItemProps 中配置, 不会生效
-
-      await wrapper.setProps({
-        fields: [{
-          type: 'input',
-          // @ts-expect-error
-          formItemProps: { field: 'name-666', label: '姓名-666', rules: [{ required: true }], validateTrigger: 'change' },
-        }],
-      });
-
-      expect(wrapper.find('.arco-form-item-wrapper-col').attributes('id')).toBe(undefined);
-      expect(wrapper.find('.arco-form-item-label').text()).toBe('');
-      expect(wrapper.find('.arco-form-item-label-required-symbol').exists()).toBe(false);
-
-      expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
-      await wrapper.find('.arco-input').trigger('blur');
-      expect(wrapper.find('.arco-form-item-message').exists()).toBe(false);
     });
+  });
 
-    it('类型测试: 已从 formItemProps 中排除 field,label,rules,validateTrigger 字段', () => {
-      expectTypeOf<StringKeyOf<NonNullable<AcroDynamicFormFieldBase['formItemProps']>>>().not.toEqualTypeOf<StringKeyOf<FormItemInstance['$props']>>();
-      expectTypeOf<
-        StringKeyOf<NonNullable<AcroDynamicFormFieldBase['formItemProps']>> | 'field' | 'label' | 'rules' | 'validateTrigger'
-      >().toEqualTypeOf<
-        StringKeyOf<FormItemInstance['$props']>
-      >();
-    });
-
+  describe('formItemSlots', () => {
     it('使用 formItemSlots 可传递插槽给 a-form-item 组件', async () => {
       const wrapper = mount(AcroDynamicForm, {
         props: {
@@ -363,6 +396,33 @@ describe('<acro-dynamic-form /> 字段配置', () => {
       expect(wrapper.find('.arco-form-item-extra > .slot-888').exists()).toBe(true);
       expect(wrapper.find('.slot-999').exists()).toBe(false); // 默认插槽不生效
     });
+  });
+});
+
+describe('<acro-dynamic-form /> 方法', () => {
+  it('组件导出了的 a-form 组件本身的方法', () => {
+    const wrapper = mount(AcroDynamicForm);
+
+    // 校验全部表单数据
+    expect(wrapper.vm.validate).toBeInstanceOf(Function);
+    // 校验部分表单数据
+    expect(wrapper.vm.validateField).toBeInstanceOf(Function);
+    // 重置表单数据
+    expect(wrapper.vm.resetFields).toBeInstanceOf(Function);
+    // 清除校验状态
+    expect(wrapper.vm.clearValidate).toBeInstanceOf(Function);
+    // 设置表单项的值和状态
+    expect(wrapper.vm.setFields).toBeInstanceOf(Function);
+    // 滚动到指定表单项
+    expect(wrapper.vm.scrollToField).toBeInstanceOf(Function);
+  });
+
+  it('组件导出的额外扩展方法', () => {
+    const wrapper = mount(AcroDynamicForm);
+
+    // 重置表单数据, 是 `resetFields` 方法的别名
+    expect(wrapper.vm.reset).toBeInstanceOf(Function);
+    expect(wrapper.vm.reset).toBe(wrapper.vm.resetFields);
   });
 });
 
@@ -510,7 +570,7 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
 });
 
 describe('导出的工具方法', () => {
-  it('defineAcroDynamicFormFields 方法, 原样返回', () => {
+  it('defineAcroDynamicFormFields 方法, 原样返回传入的字段配置', () => {
     const fields = [
       { field: 'name', label: '姓名', type: 'input' },
       { field: 'age', label: '年龄', type: 'input-number' },
