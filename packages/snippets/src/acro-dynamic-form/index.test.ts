@@ -190,8 +190,8 @@ describe('<acro-dynamic-form /> 字段配置', () => {
       expect(ageInput.element.value).toBe('');
     });
 
-    it('未设置时, 不会写入值', () => {
-      const model = reactive<Record<string, any>>({ name: '李四' });
+    it('若未设置该选项, 不会写入值', () => {
+      const model = reactive<Record<string, any>>({ name: '张三' });
 
       const wrapper = mount(AcroDynamicForm, {
         props: {
@@ -206,7 +206,27 @@ describe('<acro-dynamic-form /> 字段配置', () => {
 
       const [nameInput, ageInput] = wrapper.findAll('.arco-input') as [DOMWrapper<HTMLInputElement>, DOMWrapper<HTMLInputElement>];
 
-      expect(nameInput.element.value).toBe('李四');
+      expect(nameInput.element.value).toBe('张三');
+      expect(ageInput.element.value).toBe('');
+    });
+
+    it('当从外部传入 model 时, defaultValue 不会覆盖有值的数据', () => {
+      const model = reactive<Record<string, any>>({ name: '张三' });
+
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          fields: defineAcroDynamicFormFields([
+            { field: 'name', label: '姓名', type: 'input', defaultValue: '李四' },
+            { field: 'age', label: '年龄', type: 'input' },
+          ]),
+          model,
+          showActionButtonArea: false,
+        },
+      });
+
+      const [nameInput, ageInput] = wrapper.findAll('.arco-input') as [DOMWrapper<HTMLInputElement>, DOMWrapper<HTMLInputElement>];
+
+      expect(nameInput.element.value).toBe('张三');
       expect(ageInput.element.value).toBe('');
     });
   });
@@ -493,7 +513,7 @@ describe('<acro-dynamic-form /> 事件', () => {
 
     submitBtn.trigger('click');
     expect(submitCount).toBe(1);
-    expect(submitData).toStrictEqual({ name: undefined, age: undefined });
+    expect(submitData).toStrictEqual({});
 
     await nameInput.setValue('张三');
     await ageInput.setValue('18');

@@ -45,7 +45,7 @@
 
   props.fields?.forEach((field) => {
     if (field.defaultValue != null)
-      model[field.field] = field.defaultValue;
+      model[field.field] = model[field.field] ?? field.defaultValue;
   });
 
   const validate: FormInstance['validate'] = (...args) => formRef.value!.validate(...args);
