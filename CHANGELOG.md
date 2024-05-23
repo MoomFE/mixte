@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.13.0-beta.2]
+  - 📅 2024-05-23
   - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 新增 `model` 变量导出
   - 💄 [@mixte/snippets] 类型优化: 组件 `AcroDynamicForm` 字段的 `type` 支持配置为非预设中的字段
   - 💄 [@mixte/snippets] 类型优化: 组件 `AcroDynamicForm` 新增 `year-picker:年份选择器`、`month-picker:月份选择器`、`quarter-picker:季度选择器`、`week-picker:周选择器`、`range-picker:范围选择器`
@@ -237,7 +240,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.13.0-beta.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.13.0-beta.2...HEAD
+[v1.13.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v1.13.0-beta.2
 [v1.13.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v1.13.0-beta.1
 [v1.12.0]: https://github.com/MoomFE/mixte/releases/tag/v1.12.0
 [v1.12.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v1.12.0-beta.1
