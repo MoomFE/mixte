@@ -2,7 +2,7 @@
   <Form ref="formRef" :model="model" v-bind="attrs">
     <!-- 动态组件渲染 -->
     <RenderFormItem v-for="(field, index) in fields" :key="index" :field="field">
-      <RenderComponent v-if="(field as AcroDynamicFormComponentField).type" :field="(field as AcroDynamicFormComponentField)" :model="model" />
+      <RenderComponent v-if="field.type" :field="(field as AcroDynamicFormComponentField)" :model="model" />
     </RenderFormItem>
     <!-- 操作按钮区域 -->
     <FormItem v-if="showActionButtonArea && (showSubmitButton || showResetButton)">

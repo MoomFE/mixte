@@ -1,5 +1,5 @@
 import type { VNodeChild } from 'vue';
-import type { AutoCompleteInstance, CascaderInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormItemInstance, InputInstance, InputNumberInstance, InputTagInstance, MentionInstance, RadioGroupInstance, RadioInstance, RateInstance, SelectInstance, SliderInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance } from '@arco-design/web-vue';
+import type { AutoCompleteInstance, CascaderInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormItemInstance, InputInstance, InputNumberInstance, InputTagInstance, MentionInstance, MonthPickerInstance, QuarterPickerInstance, RadioGroupInstance, RadioInstance, RangePickerInstance, RateInstance, SelectInstance, SliderInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance, WeekPickerInstance, YearPickerInstance } from '@arco-design/web-vue';
 
 interface AcroDynamicFormProps {
   /** 字段配置列表 */
@@ -87,6 +87,11 @@ interface AcroDynamicFormFieldComponentPropsMap {
   'tree-select': TreeSelectInstance['$props'];
   'date-picker': DatePickerInstance['$props'];
   'time-picker': TimePickerInstance['$props'];
+  'year-picker': YearPickerInstance['$props'];
+  'month-picker': MonthPickerInstance['$props'];
+  'quarter-picker': QuarterPickerInstance['$props'];
+  'week-picker': WeekPickerInstance['$props'];
+  'range-picker': RangePickerInstance['$props'];
   'checkbox': CheckboxInstance['$props'];
   'checkbox-group': CheckboxGroupInstance['$props'];
   'radio': RadioInstance['$props'];
@@ -106,8 +111,6 @@ interface AcroDynamicFormFieldComponentPropsMap {
 
 export {
   AcroDynamicFormProps,
-
   AcroDynamicFormField,
-  AcroDynamicFormFieldType,
-  AcroDynamicFormFieldComponentPropsMap,
+  AcroDynamicFormComponentField,
 };
