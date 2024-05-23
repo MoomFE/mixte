@@ -41,6 +41,12 @@ reset; // 重置表单数据, 是 `resetFields` 方法的别名
 ```
 :::
 
+### `<acro-dynamic-form />` Data
+
+| 参数名 | 描述 | 类型 |
+| --- | --- | --- |
+| data | 表单数据 | `Record<string, any>` |
+
 ### `<acro-dynamic-form />` Events
 
 | 事件名 | 描述 | 回调参数 |

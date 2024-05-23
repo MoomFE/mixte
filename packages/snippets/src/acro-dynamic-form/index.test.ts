@@ -188,6 +188,8 @@ describe('<acro-dynamic-form /> 字段配置', () => {
 
       expect(nameInput.element.value).toBe('张三');
       expect(ageInput.element.value).toBe('');
+
+      expect(wrapper.vm.model).toStrictEqual({ name: '张三' });
     });
 
     it('若未设置该选项, 不会写入值', () => {
@@ -208,6 +210,8 @@ describe('<acro-dynamic-form /> 字段配置', () => {
 
       expect(nameInput.element.value).toBe('张三');
       expect(ageInput.element.value).toBe('');
+
+      expect(wrapper.vm.model).toStrictEqual({ name: '张三' });
     });
 
     it('当从外部传入 model 时, defaultValue 不会覆盖有值的数据', () => {
@@ -228,6 +232,8 @@ describe('<acro-dynamic-form /> 字段配置', () => {
 
       expect(nameInput.element.value).toBe('张三');
       expect(ageInput.element.value).toBe('');
+
+      expect(wrapper.vm.model).toStrictEqual({ name: '张三' });
     });
   });
 
@@ -458,30 +464,94 @@ describe('<acro-dynamic-form /> 字段配置', () => {
   });
 });
 
-describe('<acro-dynamic-form /> 方法', () => {
-  it('组件导出了的 a-form 组件本身的方法', () => {
-    const wrapper = mount(AcroDynamicForm);
+describe('<acro-dynamic-form /> 导出方法及对象', () => {
+  describe('methods', () => {
+    it('组件导出的 a-form 组件本身的方法', () => {
+      const wrapper = mount(AcroDynamicForm);
 
-    // 校验全部表单数据
-    expect(wrapper.vm.validate).toBeInstanceOf(Function);
-    // 校验部分表单数据
-    expect(wrapper.vm.validateField).toBeInstanceOf(Function);
-    // 重置表单数据
-    expect(wrapper.vm.resetFields).toBeInstanceOf(Function);
-    // 清除校验状态
-    expect(wrapper.vm.clearValidate).toBeInstanceOf(Function);
-    // 设置表单项的值和状态
-    expect(wrapper.vm.setFields).toBeInstanceOf(Function);
-    // 滚动到指定表单项
-    expect(wrapper.vm.scrollToField).toBeInstanceOf(Function);
+      // 校验全部表单数据
+      expect(wrapper.vm.validate).toBeInstanceOf(Function);
+      // 校验部分表单数据
+      expect(wrapper.vm.validateField).toBeInstanceOf(Function);
+      // 重置表单数据
+      expect(wrapper.vm.resetFields).toBeInstanceOf(Function);
+      // 清除校验状态
+      expect(wrapper.vm.clearValidate).toBeInstanceOf(Function);
+      // 设置表单项的值和状态
+      expect(wrapper.vm.setFields).toBeInstanceOf(Function);
+      // 滚动到指定表单项
+      expect(wrapper.vm.scrollToField).toBeInstanceOf(Function);
+    });
+
+    it('组件导出的额外扩展方法', () => {
+      const wrapper = mount(AcroDynamicForm);
+
+      // 重置表单数据, 是 `resetFields` 方法的别名
+      expect(wrapper.vm.reset).toBeInstanceOf(Function);
+      expect(wrapper.vm.reset).toBe(wrapper.vm.resetFields);
+    });
   });
 
-  it('组件导出的额外扩展方法', () => {
-    const wrapper = mount(AcroDynamicForm);
+  describe('data', () => {
+    it('组件导出的 model 为收集的表单数据, 也可对值进行修改', async () => {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          fields: defineAcroDynamicFormFields([
+            { field: 'name', label: '姓名', type: 'input' },
+            { field: 'age', label: '年龄', type: 'input' },
+          ]),
+        },
+      });
 
-    // 重置表单数据, 是 `resetFields` 方法的别名
-    expect(wrapper.vm.reset).toBeInstanceOf(Function);
-    expect(wrapper.vm.reset).toBe(wrapper.vm.resetFields);
+      expect(wrapper.vm.model).toStrictEqual({});
+
+      const [nameInput, ageInput] = wrapper.findAll('.arco-input') as [DOMWrapper<HTMLInputElement>, DOMWrapper<HTMLInputElement>];
+
+      await nameInput.setValue('张三');
+      await ageInput.setValue('18');
+
+      expect(wrapper.vm.model).toStrictEqual({ name: '张三', age: '18' });
+
+      wrapper.vm.model.name = '李四';
+      wrapper.vm.model.age = '20';
+
+      await wrapper.vm.$nextTick();
+
+      expect(nameInput.element.value).toBe('李四');
+      expect(ageInput.element.value).toBe('20');
+    });
+
+    it('若组件传入 model 参数, 那么组件内定义的 model 传入的参数, 但是会重新包装一下', () => {
+      const model = reactive<Record<string, any>>({ name: '张三' });
+
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          model,
+          fields: defineAcroDynamicFormFields([
+            { field: 'age', label: '年龄', type: 'input' },
+          ]),
+        },
+      });
+
+      expect(model).toStrictEqual(wrapper.vm.model);
+      expect(model).not.toBe(wrapper.vm.model);
+
+      // 修改已有的值
+
+      model.name = '李四';
+      expect(wrapper.vm.model.name).toBe('李四');
+
+      wrapper.vm.model.name = '王五';
+      expect(model.name).toBe('王五');
+
+      // 新增值
+
+      wrapper.vm.model.age = '20';
+      expect(model.age).toBe('20');
+
+      model.age = '22';
+      expect(wrapper.vm.model.age).toBe('22');
+    });
   });
 });
 

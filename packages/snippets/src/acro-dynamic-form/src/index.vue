@@ -58,6 +58,7 @@
   defineExpose({
     validate, validateField, resetFields, clearValidate, setFields, scrollToField, // eslint-disable-line antfu/consistent-list-newline
     reset: resetFields,
+    model,
   } as {
     /** 校验全部表单数据 */
     validate: typeof validate;
@@ -74,5 +75,8 @@
 
     /** 重置表单数据, 是 `resetFields` 方法的别名 */
     reset: typeof resetFields;
+
+    /** 表单数据 */
+    model: typeof model;
   });
 </script>

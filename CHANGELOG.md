@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 新增 `model` 变量导出
   - 💄 [@mixte/snippets] 类型优化: 组件 `AcroDynamicForm` 字段的 `type` 支持配置为非预设中的字段
   - 💄 [@mixte/snippets] 类型优化: 组件 `AcroDynamicForm` 新增 `year-picker:年份选择器`、`month-picker:月份选择器`、`quarter-picker:季度选择器`、`week-picker:周选择器`、`range-picker:范围选择器`
   - 💄 [@mixte/snippets] 当组件 `AcroDynamicForm` 从外部传入的 `model` 中某个字段有值时, 那么该字段的 `defaultValue` 不会覆盖原有值
