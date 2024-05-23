@@ -44,7 +44,8 @@
   const model = (props.model ? toReactive(toRef(props, 'model')) : reactive({})) as Record<string, any>;
 
   props.fields?.forEach((field) => {
-    model[field.field] = field.defaultValue;
+    if (field.defaultValue != null)
+      model[field.field] = field.defaultValue;
   });
 
   const validate: FormInstance['validate'] = (...args) => formRef.value!.validate(...args);

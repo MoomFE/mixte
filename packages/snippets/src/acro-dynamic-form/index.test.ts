@@ -172,6 +172,45 @@ describe('<acro-dynamic-form /> 字段配置', () => {
     });
   });
 
+  describe('defaultValue', () => {
+    it('组件初始化时, 会设置表单项的初始值', () => {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          fields: defineAcroDynamicFormFields([
+            { field: 'name', label: '姓名', type: 'input', defaultValue: '张三' },
+            { field: 'age', label: '年龄', type: 'input' },
+          ]),
+          showActionButtonArea: false,
+        },
+      });
+
+      const [nameInput, ageInput] = wrapper.findAll('.arco-input') as [DOMWrapper<HTMLInputElement>, DOMWrapper<HTMLInputElement>];
+
+      expect(nameInput.element.value).toBe('张三');
+      expect(ageInput.element.value).toBe('');
+    });
+
+    it('未设置时, 不会写入值', () => {
+      const model = reactive<Record<string, any>>({ name: '李四' });
+
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          fields: defineAcroDynamicFormFields([
+            { field: 'name', label: '姓名', type: 'input' },
+            { field: 'age', label: '年龄', type: 'input' },
+          ]),
+          model,
+          showActionButtonArea: false,
+        },
+      });
+
+      const [nameInput, ageInput] = wrapper.findAll('.arco-input') as [DOMWrapper<HTMLInputElement>, DOMWrapper<HTMLInputElement>];
+
+      expect(nameInput.element.value).toBe('李四');
+      expect(ageInput.element.value).toBe('');
+    });
+  });
+
   describe('componentProps', () => {
     describe('modelValue', () => {
       it('使用 componentProps 传递的 modelValue 不会覆盖 v-model 的值', async () => {
