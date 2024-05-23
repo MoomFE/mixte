@@ -27,5 +27,11 @@ jobs:
       - name: lint
         run: pnpm lint
 
+      - name: tsc
+        run: pnpm test-tsc
+
+      - name: build
+        run: pnpm build
+
       - name: build-dts
         run: pnpm build-dts
