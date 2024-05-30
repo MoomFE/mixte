@@ -1,5 +1,5 @@
 import type { VNodeChild } from 'vue';
-import type { AutoCompleteInstance, CascaderInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormItemInstance, InputInstance, InputNumberInstance, InputTagInstance, MentionInstance, MonthPickerInstance, QuarterPickerInstance, RadioGroupInstance, RadioInstance, RangePickerInstance, RateInstance, SelectInstance, SliderInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance, WeekPickerInstance, YearPickerInstance } from '@arco-design/web-vue';
+import type { AutoCompleteInstance, CascaderInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormItemInstance, InputInstance, InputNumberInstance, InputPasswordInstance, InputTagInstance, MentionInstance, MonthPickerInstance, QuarterPickerInstance, RadioGroupInstance, RadioInstance, RangePickerInstance, RateInstance, SelectInstance, SliderInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance, WeekPickerInstance, YearPickerInstance } from '@arco-design/web-vue';
 
 interface AcroDynamicFormProps {
   /** 字段配置列表 */
@@ -81,6 +81,7 @@ type AcroDynamicFormFieldType = keyof AcroDynamicFormFieldComponentPropsMap;
 interface AcroDynamicFormFieldComponentPropsMap {
   'input': InputInstance['$props'];
   'input-number': InputNumberInstance['$props'];
+  'input-password': InputPasswordInstance['$props'];
   'textarea': TextareaInstance['$props'];
   'select': SelectInstance['$props'];
   'cascader': CascaderInstance['$props'];
