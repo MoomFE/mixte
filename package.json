@@ -4,7 +4,7 @@
   "version": "1.13.0",
   "private": true,
   "packageManager": "pnpm@9.1.4",
-  "description": "",
+  "description": "实用工具函数/Vue 组合式函数/工具向 Vue 组件/常用校验函数/一些代码片段 - Utilities/Vue composable/Vue utility components/Validator/Code snippet",
   "author": "Wei Zhang <https://github.com/Zhang-Wei-666>",
   "license": "MIT",
   "homepage": "https://github.com/MoomFE/mixte#readme",
@@ -15,7 +15,16 @@
   "bugs": {
     "url": "https://github.com/MoomFE/mixte/issues"
   },
-  "keywords": [],
+  "keywords": [
+    "utilities",
+    "vue",
+    "composables",
+    "vue-composables",
+    "components",
+    "vue-components",
+    "validator",
+    "snippets"
+  ],
   "scripts": {
     "test": "pnpm install && vitest --coverage",
     "test:ui": "pnpm test -- --ui",
