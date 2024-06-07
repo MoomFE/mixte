@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v1.13.1]
+  - 📅 2024-06-07
   - 🌟 [@mixte/snippets] 新增 `AcroDynamicForm` 对外导出工具方法 `defineAcroDynamicFormField`
   - 💄 [@mixte/snippets] 类型优化: 组件 `AcroDynamicForm` 的 `componentSlots`、`formItemSlots` 传入渲染插槽的方法不限制传参类型
   - 💄 [@mixte/snippets] 类型优化: 组件 `AcroDynamicForm` 新增 `input-search:搜索框`、`input-group:输入框组合`、`cascader-panel:级联菜单` 组件支持

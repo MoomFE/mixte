@@ -1,7 +1,7 @@
 {
   "name": "@mixte/monorepo",
   "type": "module",
-  "version": "1.13.0",
+  "version": "1.13.1",
   "private": true,
   "packageManager": "pnpm@9.1.4",
   "description": "实用工具函数/Vue 组合式函数/工具向 Vue 组件/常用校验函数/一些代码片段 - Utilities/Vue composable/Vue utility components/Validator/Code snippet",
