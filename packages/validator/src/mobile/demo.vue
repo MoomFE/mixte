@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="form" label-suffix=":" status-icon>
+  <el-form ref="formRef" :model="form" label-suffix=":" status-icon>
     <el-form-item prop="value" :label="fnName" :rules="rules">
       <el-input v-model="form.value" class="w-66!" clearable placeholder="请输入" />
     </el-form-item>
@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
   import { isMobile } from '@mixte/validator';
-  import type { FormItemRule } from 'element-plus';
+  import type { FormInstance, FormItemRule } from 'element-plus';
   import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
 
   interface Props {
@@ -23,6 +23,8 @@
     defaultValue: '16666666666',
   });
 
+  const formRef = ref<FormInstance>();
+
   const form = reactive({
     value: props.defaultValue,
   });
@@ -32,6 +34,10 @@
     message: '验证失败',
     trigger: ['change', 'blur'],
   }];
+
+  onMounted(() => {
+    formRef.value!.validate();
+  });
 
   syncRef(
     inject<InjectCode>('code')!,
