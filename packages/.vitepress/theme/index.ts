@@ -33,5 +33,11 @@ export default {
     }
 
     app.use(TwoSlashFloatingVue);
+
+    app.config.warnHandler = (msg, instance, trace) => {
+      if (msg.includes(`' was accessed via 'this'.`)) return;
+
+      console.warn(`[Vue warn]: ${msg}`, instance, trace);
+    };
   },
 };
