@@ -1,5 +1,5 @@
 import type { VNodeChild } from 'vue';
-import type { AutoCompleteInstance, CascaderInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormItemInstance, InputInstance, InputNumberInstance, InputPasswordInstance, InputTagInstance, MentionInstance, MonthPickerInstance, QuarterPickerInstance, RadioGroupInstance, RadioInstance, RangePickerInstance, RateInstance, SelectInstance, SliderInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance, WeekPickerInstance, YearPickerInstance } from '@arco-design/web-vue';
+import type { AutoCompleteInstance, CascaderInstance, CascaderPanelInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormItemInstance, InputGroupInstance, InputInstance, InputNumberInstance, InputPasswordInstance, InputSearchInstance, InputTagInstance, MentionInstance, MonthPickerInstance, QuarterPickerInstance, RadioGroupInstance, RadioInstance, RangePickerInstance, RateInstance, SelectInstance, SliderInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance, WeekPickerInstance, YearPickerInstance } from '@arco-design/web-vue';
 
 interface AcroDynamicFormProps {
   /** 字段配置列表 */
@@ -80,11 +80,15 @@ type AcroDynamicFormFieldType = keyof AcroDynamicFormFieldComponentPropsMap;
 /** 字段配置组件参数映射 */
 interface AcroDynamicFormFieldComponentPropsMap {
   'input': InputInstance['$props'];
+  'input-group': InputGroupInstance['$props'];
   'input-number': InputNumberInstance['$props'];
   'input-password': InputPasswordInstance['$props'];
+  'input-search': InputSearchInstance['$props'];
+  'input-tag': InputTagInstance['$props'];
   'textarea': TextareaInstance['$props'];
   'select': SelectInstance['$props'];
   'cascader': CascaderInstance['$props'];
+  'cascader-panel': CascaderPanelInstance['$props'];
   'tree-select': TreeSelectInstance['$props'];
   'date-picker': DatePickerInstance['$props'];
   'time-picker': TimePickerInstance['$props'];
@@ -104,7 +108,6 @@ interface AcroDynamicFormFieldComponentPropsMap {
   'rate': RateInstance['$props'];
   'auto-complete': AutoCompleteInstance['$props'];
   'mention': MentionInstance['$props'];
-  'input-tag': InputTagInstance['$props'];
   'verification-code': VerificationCodeInstance['$props'];
   'color-picker': ColorPickerInstance['$props'];
 }
