@@ -43,6 +43,9 @@ export default defineConfig({
     transformerDirectives(),
     transformerVariantGroup(),
   ],
+  blocklist: [
+    'container',
+  ],
   extendTheme: (theme) => {
     // 始终生成一个 UnoCSS 主题样式配置文件, 方便在 JS 中引用
     outputFileSync(
