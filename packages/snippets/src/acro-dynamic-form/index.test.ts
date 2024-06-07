@@ -2,8 +2,9 @@ import type { DOMWrapper } from '@vue/test-utils';
 import { AcroDynamicForm, defineAcroDynamicFormField, defineAcroDynamicFormFields } from '@mixte/snippets/acro-dynamic-form';
 import { config, mount } from '@vue/test-utils';
 import type { CheckboxInstance, FormItemInstance, InputInstance } from '@arco-design/web-vue';
-import type { StringKeyOf } from 'type-fest';
+import type { StringKeyOf, ValueOf } from 'type-fest';
 import { deepClone } from 'mixte';
+import type { VNodeChild } from 'vue';
 import type { AcroDynamicFormField } from './src/types';
 
 // 来源: arco-design/arco-design-vue/packages/web-vue/scripts/demo-test.ts
@@ -321,6 +322,45 @@ describe('<acro-dynamic-form /> 字段配置', () => {
     });
   });
 
+  describe('componentSlots', () => {
+    it('使用 componentSlots 可传递插槽给组件', async () => {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          fields: [{ field: 'name', label: '姓名', type: 'input' }],
+          showActionButtonArea: false,
+        },
+      });
+
+      expect(wrapper.find('.slot-666').exists()).toBe(false);
+      expect(wrapper.find('.slot-777').exists()).toBe(false); // 默认插槽不生效
+
+      wrapper.setProps({
+        fields: [{
+          field: 'name',
+          label: '姓名',
+          type: 'input',
+          componentSlots: {
+            suffix: () => h('div', { class: 'slot-666' }),
+            default: () => h('div', { class: 'slot-777' }),
+          },
+        }],
+      });
+
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.find('.slot-666').exists()).toBe(true);
+      expect(wrapper.find('.slot-777').exists()).toBe(false); // 默认插槽不生效
+    });
+
+    it('类型测试: 不限制插槽方法传参类型, 插槽方法返回值为 VNodeChild', () => {
+      type ComponentSlots = NonNullable<AcroDynamicFormField['componentSlots']>;
+      type ComponentSlotValue = ValueOf<ComponentSlots>;
+
+      expectTypeOf<Parameters<ComponentSlotValue>>().toEqualTypeOf<any[]>();
+      expectTypeOf<ReturnType<ComponentSlotValue>>().toEqualTypeOf<VNodeChild>();
+    });
+  });
+
   describe('formItemProps', () => {
     it('使用 formItemProps 可传递参数给 a-form-item 组件', async () => {
       const wrapper = mount(AcroDynamicForm, {
@@ -461,6 +501,14 @@ describe('<acro-dynamic-form /> 字段配置', () => {
       expect(wrapper.find('.arco-form-item-message-help > .slot-777').exists()).toBe(true);
       expect(wrapper.find('.arco-form-item-extra > .slot-888').exists()).toBe(true);
       expect(wrapper.find('.slot-999').exists()).toBe(false); // 默认插槽不生效
+    });
+
+    it('类型测试: 不限制插槽方法传参类型, 插槽方法返回值为 VNodeChild', () => {
+      type FormItemSlots = NonNullable<AcroDynamicFormField['formItemSlots']>;
+      type FormItemSlotValue = ValueOf<FormItemSlots>;
+
+      expectTypeOf<Parameters<FormItemSlotValue>>().toEqualTypeOf<any[]>();
+      expectTypeOf<ReturnType<FormItemSlotValue>>().toEqualTypeOf<VNodeChild>();
     });
   });
 });
