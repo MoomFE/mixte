@@ -54,6 +54,13 @@ reset; // 重置表单数据, 是 `resetFields` 方法的别名
 | submit | 点击了提交按钮的事件 | `model: Record<string, any>` |
 | reset | 点击了重置按钮的事件 | - |
 
+### 对外导出工具方法
+
+| 方法名 | 描述 | 参数 | 返回值 |
+| --- | --- | --- | --- |
+| defineAcroDynamicFormField | 定义单个字段配置 | `field: DynamicFormField` | [DynamicFormField](#类型定义) |
+| defineAcroDynamicFormFields | 定义字段配置列表 | `fields: DynamicFormField[]` | [DynamicFormField[]](#类型定义) |
+
 ## 类型定义 {#类型定义}
 
 <<< ./src/types.ts#AcroDynamicFormField

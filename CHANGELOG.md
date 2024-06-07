@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/snippets] 新增 `AcroDynamicForm` 对外导出工具方法 `defineAcroDynamicFormField` 
   - 💄 [@mixte/snippets] 类型优化: 组件 `AcroDynamicForm` 新增 `input-search:搜索框`、`input-group:输入框组合`、`cascader-panel:级联菜单` 组件支持
 
 ## [v1.13.0], [v1.13.0-beta.2], [v1.13.0-beta.1]
