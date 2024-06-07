@@ -1,8 +1,9 @@
 import type { DOMWrapper } from '@vue/test-utils';
-import { AcroDynamicForm, defineAcroDynamicFormFields } from '@mixte/snippets/acro-dynamic-form';
+import { AcroDynamicForm, defineAcroDynamicFormField, defineAcroDynamicFormFields } from '@mixte/snippets/acro-dynamic-form';
 import { config, mount } from '@vue/test-utils';
 import type { CheckboxInstance, FormItemInstance, InputInstance } from '@arco-design/web-vue';
 import type { StringKeyOf } from 'type-fest';
+import { deepClone } from 'mixte';
 import type { AcroDynamicFormField } from './src/types';
 
 // 来源: arco-design/arco-design-vue/packages/web-vue/scripts/demo-test.ts
@@ -699,12 +700,32 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
 });
 
 describe('导出的工具方法', () => {
+  it('defineAcroDynamicFormField 方法, 原样返回传入的字段配置', () => {
+    const field = { field: 'name', label: '姓名', type: 'input' };
+    const fieldClone = deepClone(field);
+
+    expect(defineAcroDynamicFormField(field)).toBe(field);
+    expect(defineAcroDynamicFormField(field)).toStrictEqual(fieldClone);
+  });
+
+  it('类型测试: defineAcroDynamicFormField 用于定义单个字段配置', () => {
+    expectTypeOf<Parameters<typeof defineAcroDynamicFormField>>().toEqualTypeOf<[AcroDynamicFormField]>();
+    expectTypeOf<ReturnType<typeof defineAcroDynamicFormField>>().toEqualTypeOf<AcroDynamicFormField>();
+  });
+
   it('defineAcroDynamicFormFields 方法, 原样返回传入的字段配置', () => {
     const fields = [
       { field: 'name', label: '姓名', type: 'input' },
       { field: 'age', label: '年龄', type: 'input-number' },
     ];
+    const fieldsClone = deepClone(fields);
 
     expect(defineAcroDynamicFormFields(fields)).toBe(fields);
+    expect(defineAcroDynamicFormFields(fields)).toStrictEqual(fieldsClone);
+  });
+
+  it('类型测试: defineAcroDynamicFormFields 用于定义多个字段配置', () => {
+    expectTypeOf<Parameters<typeof defineAcroDynamicFormFields>>().toEqualTypeOf<[AcroDynamicFormField[]]>();
+    expectTypeOf<ReturnType<typeof defineAcroDynamicFormFields>>().toEqualTypeOf<AcroDynamicFormField[]>();
   });
 });

@@ -4,12 +4,14 @@ import type { AcroDynamicFormField, AcroDynamicFormProps } from './src/types';
 
 type AcroDynamicFormInstance = InstanceType<typeof AcroDynamicForm>;
 
-export {
-  AcroDynamicForm,
-
+export type {
   AcroDynamicFormInstance,
   AcroDynamicFormProps,
   AcroDynamicFormField,
+};
+
+export {
+  AcroDynamicForm,
 
   defineAcroDynamicFormField,
   defineAcroDynamicFormFields,
