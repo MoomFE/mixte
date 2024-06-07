@@ -1,7 +1,7 @@
 /**
  * 判断字符串是否是电子邮件地址的正则
  *
- * @see https://mixte.moomfe.com/mixte/validator/isEmail#isEmailReg
+ * @see https://mixte.moomfe.com/mixte/validator/email
  * @see https://emailregex.com
  * @example
  *
@@ -18,7 +18,7 @@ export const isEmailReg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)
 /**
  * 判断字符串是否是电子邮件地址
  *
- * @see https://mixte.moomfe.com/mixte/validator/isEmail#isEmail
+ * @see https://mixte.moomfe.com/mixte/validator/email
  * @param value 需要判断的参数
  * @example
  *

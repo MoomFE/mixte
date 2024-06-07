@@ -1,7 +1,7 @@
 /**
  * 判断字符串是否是移动电话号码的正则
  *
- * @see https://mixte.moomfe.com/mixte/validator/isMobile#isMobile
+ * @see https://mixte.moomfe.com/mixte/validator/mobile
  * @see https://github.com/any86/any-rule
  * @example
  *
@@ -13,7 +13,7 @@ export const isMobileReg = /^1[3-9]\d{9}$/;
 /**
  * 判断字符串是否是移动电话号码
  *
- * @see https://mixte.moomfe.com/mixte/validator/isMobile#isMobile
+ * @see https://mixte.moomfe.com/mixte/validator/mobile
  * @param value 需要判断的参数
  * @example
  *

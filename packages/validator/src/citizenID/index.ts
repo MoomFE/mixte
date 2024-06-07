@@ -1,7 +1,7 @@
 /**
  * 判断字符串是否是 18 位身份证号码的正则
  *
- * @see https://mixte.moomfe.com/mixte/validator/isCitizenID#isCitizenIDReg
+ * @see https://mixte.moomfe.com/mixte/validator/citizenID
  * @see https://github.com/any86/any-rule
  * @example
  *
@@ -15,7 +15,7 @@ export const isCitizenIDReg = /^[1-9]\d{5}(?:18|19|20)\d{2}(?:0[1-9]|10|11|12)(?
 /**
  * 判断字符串是否是 18 位身份证号码
  *
- * @see https://mixte.moomfe.com/mixte/validator/isCitizenID#isCitizenID
+ * @see https://mixte.moomfe.com/mixte/validator/citizenID
  * @param value 需要判断的参数
  * @example
  *
