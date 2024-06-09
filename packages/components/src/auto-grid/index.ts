@@ -1,4 +1,4 @@
-import type { ExtractPropTypes } from 'vue-demi';
+import type { ExtractPropTypes } from 'vue';
 import AutoGrid, { autoGridProps } from './src/index';
 
 export {

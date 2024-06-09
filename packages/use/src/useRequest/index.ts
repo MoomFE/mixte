@@ -33,7 +33,7 @@ export interface UseRequestOptions {
 export type UseRequestUserExecute<Response, Args extends any[]> = (...args: Args) => Promisable<Response>;
 
 /**
- * 发起请求的组合式方法
+ * 发起请求的组合式函数
  *
  * @see https://mixte.moomfe.com/mixte/use/useRequest#useRequest
  * @param userExecute 用户传入的发起请求的函数
@@ -192,7 +192,7 @@ export function useRequest<
 }
 
 /**
- * 发起请求的组合式方法
+ * 发起请求的组合式函数
  *  - 和 `useRequest` 方法一致, 只是返回响应式代理对象
  *
  * @see https://mixte.moomfe.com/mixte/use/useRequest#useRequestReactive

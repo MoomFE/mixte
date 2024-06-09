@@ -4,6 +4,10 @@ outline: [1,2]
 
 基于 [Arco Design Vue](https://arco.design/vue) 封装的动态表单组件
 
+::: warning 注意
+该组件仅支持 `Vue 3`
+:::
+
 ## 基础用法
 
 ## 组件插槽&表单项插槽

@@ -4,7 +4,7 @@ outline: [2,4]
 
 ## `useRequest` {#useRequest}
 
-发起请求的组合式方法
+发起请求的组合式函数
   - 旨在解决请求前中后的状态管理、响应数据存储及提供事件钩子
   - 可与任意请求库搭配使用
 
@@ -242,7 +242,7 @@ const loginInfo = login({
 
 ## `useRequestReactive` {#useRequestReactive}
 
-发起请求的组合式方法
+发起请求的组合式函数
   - 和 `useRequest` 方法一致, 只是返回响应式代理对象
 
 ### 示例

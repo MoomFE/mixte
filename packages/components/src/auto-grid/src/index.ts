@@ -1,5 +1,5 @@
-import type { PropType } from 'vue-demi';
-import { computed, defineComponent, h, ref } from 'vue-demi';
+import type { PropType } from 'vue';
+import { computed, defineComponent, h, ref } from 'vue';
 import { isNumeric } from 'mixte';
 import { useElementSize } from '@vueuse/core';
 import { flatVNode } from '../../utils/flatVNode';
