@@ -243,7 +243,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.13.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.13.1...HEAD
+[v1.13.1]: https://github.com/MoomFE/mixte/releases/tag/v1.13.1
 [v1.13.0]: https://github.com/MoomFE/mixte/releases/tag/v1.13.0
 [v1.13.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v1.13.0-beta.2
 [v1.13.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v1.13.0-beta.1
