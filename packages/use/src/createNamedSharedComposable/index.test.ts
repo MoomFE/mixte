@@ -135,4 +135,24 @@ describe('createNamedSharedComposable', () => {
     expect(newFn('name1', obj)).toBe(obj);
     expect(newFn('name2', obj2)).toBe(obj2);
   });
+
+  it('类型测试: 形函数返回值类型和原有函数一致', () => {
+    const fn = (a: number, b: number) => a + b;
+    const newFn = createNamedSharedComposable(fn);
+
+    const res = newFn('name', 1, 2);
+
+    expectTypeOf(res).toEqualTypeOf<ReturnType<typeof fn>>();
+
+    // 异步函数
+    const fn2 = async (a: number, b: number) => {
+      await delay(1000);
+      return a + b;
+    };
+    const newFn2 = createNamedSharedComposable(fn2);
+
+    const res2 = newFn2('name', 1, 2);
+
+    expectTypeOf(res2).toEqualTypeOf<ReturnType<typeof fn2>>();
+  });
 });

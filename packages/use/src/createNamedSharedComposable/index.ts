@@ -1,4 +1,3 @@
-import type { AsyncReturnType } from 'type-fest';
 import type { EffectScope } from 'vue-demi';
 import { effectScope } from 'vue-demi';
 import { tryOnScopeDispose } from '@vueuse/core';
@@ -53,7 +52,7 @@ export function createNamedSharedComposable<Fn extends (...args: any[]) => any>(
   }
 
   return Object.assign(
-    (name: string, ...args: Parameters<Fn>): AsyncReturnType<Fn> => {
+    (name: string, ...args: Parameters<Fn>): ReturnType<Fn> => {
       const result = cache[name] || (cache[name] = {
         subscribers: 0,
         state: undefined,
