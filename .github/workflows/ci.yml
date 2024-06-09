@@ -30,8 +30,8 @@ jobs:
       - name: test-tsc
         run: pnpm test-tsc
 
-      - name: build
-        run: pnpm build
+      - name: test-build
+        run: pnpm test-build
 
       - name: build-dts
         run: pnpm build-dts
