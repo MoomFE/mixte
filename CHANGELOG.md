@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [v1.13.2]
+  - 📅 2024-06-10
+  - 🐞 [@mixte/use] 修复 `createNamedSharedComposable` 方法返回值类型错误
+
 ## [v1.13.1]
   - 📅 2024-06-07
   - 🌟 [@mixte/snippets] 新增 `AcroDynamicForm` 对外导出工具方法 `defineAcroDynamicFormField`
@@ -243,7 +247,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.13.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.13.2...HEAD
+[v1.13.2]: https://github.com/MoomFE/mixte/releases/tag/v1.13.2
 [v1.13.1]: https://github.com/MoomFE/mixte/releases/tag/v1.13.1
 [v1.13.0]: https://github.com/MoomFE/mixte/releases/tag/v1.13.0
 [v1.13.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v1.13.0-beta.2
