@@ -58,7 +58,7 @@ export const packages = [
     input: 'packages/snippets/src/acro-dynamic-form/index.ts',
     outputDir: 'packages/snippets/dist',
     outputFileName: 'acro-dynamic-form',
-    external: ['@arco-design/web-vue', 'mixte', 'vue'],
+    external: ['@arco-design/web-vue', 'mixte'],
     dtsExternal: ['@arco-design/web-vue'],
     vueComponent: true,
   },

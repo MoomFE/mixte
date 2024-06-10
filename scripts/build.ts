@@ -13,6 +13,7 @@ fs.removeSync(resolve(__dirname, '../packages/auto-imports.d.ts'));
 fs.removeSync(resolve(__dirname, '../packages/.eslintrc-auto-import.json'));
 
 const externals = [
+  'vue',
   'vue-demi',
   '@vueuse/core',
 ];
