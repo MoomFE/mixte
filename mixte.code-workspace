@@ -72,7 +72,9 @@
     },
     "unocss.autocomplete.matchType": "fuzzy",
     "unocss.remToPxPreview": true,
-    "unocss.root": ["packages"],
+    "unocss.root": [
+      "packages"
+    ],
   },
   "extensions": {
     "recommendations": [

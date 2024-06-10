@@ -1,4 +1,4 @@
-import { MixteAutoGrid } from '@mixte/components';
+import { MixteAutoGrid } from '@mixte/components/auto-grid';
 import { mount } from '@vue/test-utils';
 import { defineComponent, h } from 'vue';
 import postcss from 'postcss';

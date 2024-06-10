@@ -19,12 +19,6 @@ export const packages = [
     external: ['mixte'],
   },
 
-  // @mixte/components
-  {
-    input: 'packages/components/index.ts',
-    outputDir: 'packages/components/dist',
-    external: ['mixte'],
-  },
   // @mixte/components/auto-grid
   {
     input: 'packages/components/src/auto-grid/index.ts',
