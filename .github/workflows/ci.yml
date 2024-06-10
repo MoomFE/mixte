@@ -27,11 +27,11 @@ jobs:
       - name: lint
         run: pnpm lint
 
-      - name: test-tsc
+      - name: test & test tsc
         run: pnpm test-tsc
 
-      - name: test-build
-        run: pnpm test-build
+      - name: build & test-build
+        run: pnpm test-build --run
 
       - name: build-dts
         run: pnpm build-dts
