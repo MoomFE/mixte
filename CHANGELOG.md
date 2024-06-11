@@ -1,6 +1,10 @@
 ## [Unreleased]
   - ⚠️ [@mixte/snippets] 修改 `AcroDynamicForm` 组件参数
     - 由 `showActionButtonArea` 改为 `actionButtonArea` 或 `actionButtonArea.show`
+    - 由 `showSubmitButton` 改为 `submitButton` 或 `submitButton.show`
+    - 由 `submitButtonText` 改为 `submitButton.text`
+    - 由 `showResetButton` 改为 `resetButton` 或 `resetButton.show`
+    - 由 `resetButtonText` 改为 `resetButton.text`
   - ⚠️ [@mixte/use] 移除 `useRequest` 方法的 `successCount` 参数及 `clearSuccessCount` 方法
   - ⚠️ [@mixte/components] 移除该组件包的默认导出, 请按需导入
 

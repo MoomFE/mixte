@@ -703,47 +703,96 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
   });
 
   it('配置不显示提交按钮', () => {
-    const wrapper = mount(AcroDynamicForm, {
-      props: {
-        showSubmitButton: false,
-      },
-    });
+    // boolean 传值
+    {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          submitButton: false,
+        },
+      });
 
-    const btns = wrapper.findAll('.arco-form-item .arco-btn');
+      const btns = wrapper.findAll('.arco-form-item .arco-btn');
 
-    expect(btns.length).toBe(1);
-    expect(btns[0].text()).toBe('重置');
+      expect(btns.length).toBe(1);
+      expect(btns[0].text()).toBe('重置');
+    }
+
+    // options 传值
+    {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          submitButton: { show: false },
+        },
+      });
+
+      const btns = wrapper.findAll('.arco-form-item .arco-btn');
+
+      expect(btns.length).toBe(1);
+      expect(btns[0].text()).toBe('重置');
+    }
   });
 
   it('配置不显示重置按钮', () => {
-    const wrapper = mount(AcroDynamicForm, {
-      props: {
-        showResetButton: false,
-      },
-    });
+    // boolean 传值
+    {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          resetButton: false,
+        },
+      });
 
-    const btns = wrapper.findAll('.arco-form-item .arco-btn');
+      const btns = wrapper.findAll('.arco-form-item .arco-btn');
 
-    expect(btns.length).toBe(1);
-    expect(btns[0].text()).toBe('提交');
+      expect(btns.length).toBe(1);
+      expect(btns[0].text()).toBe('提交');
+    }
+
+    // options 传值
+    {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          resetButton: { show: false },
+        },
+      });
+
+      const btns = wrapper.findAll('.arco-form-item .arco-btn');
+
+      expect(btns.length).toBe(1);
+      expect(btns[0].text()).toBe('提交');
+    }
   });
 
   it('配置提交按钮和重置按钮都不显示时, a-form-item 也不会渲染', () => {
-    const wrapper = mount(AcroDynamicForm, {
-      props: {
-        showSubmitButton: false,
-        showResetButton: false,
-      },
-    });
+    // boolean 传值
+    {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          submitButton: false,
+          resetButton: false,
+        },
+      });
 
-    expect(wrapper.findAll('.arco-form-item').length).toBe(0);
+      expect(wrapper.findAll('.arco-form-item').length).toBe(0);
+    }
+
+    // options 传值
+    {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          submitButton: { show: false },
+          resetButton: { show: false },
+        },
+      });
+
+      expect(wrapper.findAll('.arco-form-item').length).toBe(0);
+    }
   });
 
   it('配置提交按钮和重置按钮的文字', () => {
     const wrapper = mount(AcroDynamicForm, {
       props: {
-        submitButtonText: '自定义提交',
-        resetButtonText: '自定义重置',
+        submitButton: { text: '自定义提交' },
+        resetButton: { text: '自定义重置' },
       },
     });
 

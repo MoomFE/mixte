@@ -17,19 +17,17 @@
 <script lang="tsx" setup>
   import type { FormInstance } from '@arco-design/web-vue';
   import { Button, Form, FormItem, Space } from '@arco-design/web-vue';
-  import { computed, reactive, ref, toRef, useAttrs } from 'vue';
+  import { reactive, ref, toRef, useAttrs } from 'vue';
   import { toReactive } from '@vueuse/core';
-  import { isBoolean } from 'mixte';
   import RenderFormItem from './components/RenderFormItem.vue';
   import RenderComponent from './components/RenderComponent.vue';
+  import { useActionButtonArea } from './composables/useActionButtonArea';
   import type { AcroDynamicFormComponentField, AcroDynamicFormProps } from './types';
 
   const props = withDefaults(defineProps<AcroDynamicFormProps>(), {
     actionButtonArea: true,
-    showSubmitButton: true,
-    submitButtonText: '提交',
-    showResetButton: true,
-    resetButtonText: '重置',
+    submitButton: true,
+    resetButton: true,
   });
   const emit = defineEmits<{
     /** 点击了提交按钮的事件 */
@@ -49,12 +47,7 @@
       model[field.field] = model[field.field] ?? field.defaultValue;
   });
 
-  const showActionButtonArea = computed(() => {
-    const options = props.actionButtonArea;
-    const enable = isBoolean(options) ? options : (options?.show ?? true);
-
-    return enable && (props.showSubmitButton || props.showResetButton);
-  });
+  const { showActionButtonArea, showSubmitButton, showResetButton, submitButtonText, resetButtonText } = useActionButtonArea(props);
 
   const validate: FormInstance['validate'] = (...args) => formRef.value!.validate(...args);
   const validateField: FormInstance['validateField'] = (...args) => formRef.value!.validateField(...args);

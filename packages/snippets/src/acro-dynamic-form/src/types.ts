@@ -12,27 +12,16 @@ interface AcroDynamicFormProps {
    *  - 传入 boolean 值时, 表示是否显示操作按钮区域
    */
   actionButtonArea?: ActionButtonAreaOptions | boolean;
-
   /**
-   * 是否显示提交按钮
-   * @default true
+   * 提交按钮配置
+   *  - 传入 boolean 值时, 表示是否显示提交按钮
    */
-  showSubmitButton?: boolean;
+  submitButton?: SubmitButtonOptions | boolean;
   /**
-   * 提交按钮文字
-   * @default '提交'
+   * 重置按钮配置
+   * - 传入 boolean 值时, 表示是否显示重置按钮
    */
-  submitButtonText?: string;
-  /**
-   * 是否显示重置按钮
-   * @default true
-   */
-  showResetButton?: boolean;
-  /**
-   * 重置按钮文字
-   * @default '重置'
-   */
-  resetButtonText?: string;
+  resetButton?: ResetButtonOptions | boolean;
 }
 
 /** 操作按钮区域配置 */
@@ -42,6 +31,34 @@ interface ActionButtonAreaOptions {
    * @default true
    */
   show?: boolean;
+}
+
+/** 提交按钮配置 */
+interface SubmitButtonOptions {
+  /**
+   * 是否显示提交按钮
+   * @default true
+   */
+  show?: boolean;
+  /**
+   * 提交按钮文字
+   * @default '提交'
+   */
+  text?: string;
+}
+
+/** 重置按钮配置 */
+interface ResetButtonOptions {
+  /**
+   * 是否显示重置按钮
+   * @default true
+   */
+  show?: boolean;
+  /**
+   * 重置按钮文字
+   * @default '重置'
+   */
+  text?: string;
 }
 
 // #region AcroDynamicFormField
