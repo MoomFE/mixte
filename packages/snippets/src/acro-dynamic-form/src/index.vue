@@ -2,7 +2,7 @@
   <Form ref="formRef" :model="model" v-bind="attrs">
     <!-- 动态组件渲染 -->
     <RenderFormItem v-for="(field, index) in fields" :key="index" :field="field">
-      <RenderComponent v-if="field.type" :field="(field as AcroDynamicFormComponentField)" :model="model" />
+      <RenderComponent :field="field" :model="model" />
     </RenderFormItem>
     <!-- 操作按钮区域 -->
     <slot v-if="slots.actionButtonArea" name="actionButtonArea" />
@@ -25,7 +25,7 @@
   import RenderFormItem from './components/RenderFormItem.vue';
   import RenderComponent from './components/RenderComponent.vue';
   import { useActionButtonArea } from './composables/useActionButtonArea';
-  import type { AcroDynamicFormComponentField, AcroDynamicFormProps } from './types';
+  import type { AcroDynamicFormProps } from './types';
 
   const props = withDefaults(defineProps<AcroDynamicFormProps>(), {
     actionButtonArea: true,

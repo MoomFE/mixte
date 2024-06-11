@@ -96,6 +96,8 @@ interface AcroDynamicFormFieldBase {
   componentProps?: Record<string, any>;
   /** 传递给组件的插槽 */
   componentSlots?: Record<string, (...args: any[]) => VNodeChild>;
+  /** 组件渲染函数 */
+  render?: (model: Record<string, any>) => VNodeChild;
 }
 
 /** 组件字段配置 */

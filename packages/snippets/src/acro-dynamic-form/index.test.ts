@@ -174,6 +174,37 @@ describe('<acro-dynamic-form /> 字段配置', () => {
     });
   });
 
+  describe('render', () => {
+    it('使用 render 函数可自定义表单项的渲染', () => {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          model: { name: '张三', age: '18' },
+          fields: defineAcroDynamicFormFields([
+            { field: 'name', label: '姓名', render: model => h('div', { class: 'custom-render' }, model.name) },
+            { field: 'age', label: '年龄', render: model => h('div', { class: 'custom-render' }, model.age) },
+          ]),
+          actionButtonArea: false,
+        },
+      });
+
+      const formItems = wrapper.findAll('.arco-form-item .custom-render');
+
+      expect(formItems.length).toBe(2);
+
+      expect(formItems[0].text()).toBe('张三');
+      expect(formItems[1].text()).toBe('18');
+    });
+
+    it('类型测试: render 函数的参数为 model, 返回值为 VNodeChild', () => {
+      const field: AcroDynamicFormField = { field: 'name', render: model => h('div', model.name) };
+
+      type Render = NonNullable<(typeof field)['render']>;
+
+      expectTypeOf<Parameters<Render>>().toEqualTypeOf<[Record<string, any>]>();
+      expectTypeOf<ReturnType<Render>>().toEqualTypeOf<VNodeChild>();
+    });
+  });
+
   describe('defaultValue', () => {
     it('组件初始化时, 会设置表单项的初始值', () => {
       const wrapper = mount(AcroDynamicForm, {

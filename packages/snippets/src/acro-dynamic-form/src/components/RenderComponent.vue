@@ -1,10 +1,10 @@
 <script lang="tsx" setup>
   import * as ArcoDesign from '@arco-design/web-vue';
   import { pascalCase } from 'mixte';
-  import type { AcroDynamicFormComponentField, AcroDynamicFormProps } from '../types';
+  import type { AcroDynamicFormComponentField, AcroDynamicFormField, AcroDynamicFormProps } from '../types';
 
   interface Props {
-    field: AcroDynamicFormComponentField;
+    field: AcroDynamicFormField;
     model: NonNullable<AcroDynamicFormProps['model']>;
   }
 
@@ -13,11 +13,9 @@
 
 <script lang="tsx">
   export default {
-    render() {
-      const field = this.field;
-
-      if (field.type) {
-        const Component = ArcoDesign[pascalCase(field.type)];
+    methods: {
+      renderComponent(field: AcroDynamicFormField) {
+        const Component = ArcoDesign[pascalCase(field.type as AcroDynamicFormComponentField['type'])];
 
         return ( // @ts-expect-error
           <Component
@@ -29,7 +27,18 @@
             }}
           </Component>
         );
-      }
+      },
+    },
+    render() {
+      const field = this.field;
+
+      // 渲染指定组件
+      if (field.type)
+        return this.renderComponent(field);
+
+      // 使用渲染函数渲染自定义组件
+      if (field.render)
+        return field.render(this.model);
 
       return null;
     },
