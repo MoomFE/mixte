@@ -5,10 +5,13 @@
       <RenderComponent v-if="field.type" :field="(field as AcroDynamicFormComponentField)" :model="model" />
     </RenderFormItem>
     <!-- 操作按钮区域 -->
-    <FormItem v-if="showActionButtonArea">
+    <slot v-if="slots.actionButtonArea" name="actionButtonArea" />
+    <FormItem v-else-if="showActionButtonArea">
       <Space>
+        <slot v-if="slots.actionButtonPrepend" name="actionButtonPrepend" />
         <Button v-if="showSubmitButton" type="primary" @click="emit('submit', model)">{{ submitButtonText }}</Button>
         <Button v-if="showResetButton" @click="emit('reset')">{{ resetButtonText }}</Button>
+        <slot v-if="slots.actionButtonAppend" name="actionButtonAppend" />
       </Space>
     </FormItem>
   </Form>
@@ -34,6 +37,14 @@
     submit: [model: Record<string, any>];
     /** 点击了重置按钮的事件 */
     reset: [];
+  }>();
+  const slots = defineSlots<{
+    /** 操作按钮区域插槽, 可使用该插槽代替操作按钮区域的渲染 */
+    actionButtonArea?: () => void;
+    /** 操作按钮前置插槽, 可插入内容到提交按钮前面 */
+    actionButtonPrepend?: () => void;
+    /** 操作按钮后置插槽, 可插入内容到重置按钮后面 */
+    actionButtonAppend?: () => void;
   }>();
 
   const attrs = useAttrs();

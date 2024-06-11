@@ -1,4 +1,8 @@
 ## [Unreleased]
+  - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 新增 `actionButtonArea`、`actionButtonPrepend`、`actionButtonAppend` 插槽
+    - `actionButtonArea`: 可使用该插槽代替操作按钮区域的渲染
+    - `actionButtonPrepend`: 可插入内容到提交按钮前面
+    - `actionButtonAppend`: 可插入内容到重置按钮后面
   - ⚠️ [@mixte/snippets] 修改 `AcroDynamicForm` 组件参数
     - 由 `showActionButtonArea` 改为 `actionButtonArea` 或 `actionButtonArea.show`
     - 由 `showSubmitButton` 改为 `submitButton` 或 `submitButton.show`

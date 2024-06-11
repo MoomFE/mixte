@@ -3,6 +3,7 @@ import { AcroDynamicForm, defineAcroDynamicFormField, defineAcroDynamicFormField
 import { config, mount } from '@vue/test-utils';
 import type { CheckboxInstance, FormItemInstance, InputInstance } from '@arco-design/web-vue';
 import type { StringKeyOf, ValueOf } from 'type-fest';
+import { Button } from '@arco-design/web-vue';
 import { deepClone } from 'mixte';
 import type { VNodeChild } from 'vue';
 import type { AcroDynamicFormField } from './src/types';
@@ -801,6 +802,47 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
     expect(btns.length).toBe(2);
     expect(btns[0].text()).toBe('自定义提交');
     expect(btns[1].text()).toBe('自定义重置');
+  });
+
+  it('支持传入 actionButtonArea 插槽, 可使用该插槽代替操作按钮区域的渲染', () => {
+    const wrapper = mount(AcroDynamicForm, {
+      slots: {
+        actionButtonArea: () => h('div', { class: 'slot-666' }),
+      },
+    });
+
+    expect(wrapper.findAll('.arco-form-item').length).toBe(0);
+    expect(wrapper.find('.slot-666').exists()).toBe(true);
+  });
+
+  it('支持传入 actionButtonPrepend 插槽, 可插入内容到提交按钮前面', () => {
+    const wrapper = mount(AcroDynamicForm, {
+      slots: {
+        actionButtonPrepend: () => h(Button, {}, '前置按钮'),
+      },
+    });
+
+    const btns = wrapper.findAll('.arco-form-item .arco-btn');
+
+    expect(btns.length).toBe(3);
+    expect(btns[0].text()).toBe('前置按钮');
+    expect(btns[1].text()).toBe('提交');
+    expect(btns[2].text()).toBe('重置');
+  });
+
+  it('支持传入 actionButtonAppend 插槽, 可插入内容到重置按钮后面', () => {
+    const wrapper = mount(AcroDynamicForm, {
+      slots: {
+        actionButtonAppend: () => h(Button, {}, '后置按钮'),
+      },
+    });
+
+    const btns = wrapper.findAll('.arco-form-item .arco-btn');
+
+    expect(btns.length).toBe(3);
+    expect(btns[0].text()).toBe('提交');
+    expect(btns[1].text()).toBe('重置');
+    expect(btns[2].text()).toBe('后置按钮');
   });
 });
 
