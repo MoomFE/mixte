@@ -3,6 +3,10 @@
     - `actionButtonArea`: 可使用该插槽代替操作按钮区域的渲染
     - `actionButtonPrepend`: 可插入内容到提交按钮前面
     - `actionButtonAppend`: 可插入内容到重置按钮后面
+  - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 新增 `actionButtonArea.props`、`submitButton.props`、`resetButton.props`
+    - `actionButtonArea.props`: 传递给操作按钮区域 FormItem 组件的参数
+    - `submitButton.props`: 传递给提交按钮组件的参数
+    - `resetButton.props`: 传递给重置按钮组件的参数
   - ⚠️ [@mixte/snippets] 修改 `AcroDynamicForm` 组件参数
     - 由 `showActionButtonArea` 改为 `actionButtonArea` 或 `actionButtonArea.show`
     - 由 `showSubmitButton` 改为 `submitButton` 或 `submitButton.show`

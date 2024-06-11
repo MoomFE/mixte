@@ -1,5 +1,5 @@
 import type { VNodeChild } from 'vue';
-import type { AutoCompleteInstance, CascaderInstance, CascaderPanelInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormItemInstance, InputGroupInstance, InputInstance, InputNumberInstance, InputPasswordInstance, InputSearchInstance, InputTagInstance, MentionInstance, MonthPickerInstance, QuarterPickerInstance, RadioGroupInstance, RadioInstance, RangePickerInstance, RateInstance, SelectInstance, SliderInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance, WeekPickerInstance, YearPickerInstance } from '@arco-design/web-vue';
+import type { AutoCompleteInstance, ButtonInstance, CascaderInstance, CascaderPanelInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormItemInstance, InputGroupInstance, InputInstance, InputNumberInstance, InputPasswordInstance, InputSearchInstance, InputTagInstance, MentionInstance, MonthPickerInstance, QuarterPickerInstance, RadioGroupInstance, RadioInstance, RangePickerInstance, RateInstance, SelectInstance, SliderInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance, WeekPickerInstance, YearPickerInstance } from '@arco-design/web-vue';
 
 interface AcroDynamicFormProps {
   /** 字段配置列表 */
@@ -31,6 +31,8 @@ interface ActionButtonAreaOptions {
    * @default true
    */
   show?: boolean;
+  /** 传递给操作按钮区域 FormItem 组件的参数 */
+  props?: FormItemInstance['$props'];
 }
 
 /** 提交按钮配置 */
@@ -45,6 +47,8 @@ interface SubmitButtonOptions {
    * @default '提交'
    */
   text?: string;
+  /** 传递给提交按钮组件的参数 */
+  props?: ButtonInstance['$props'];
 }
 
 /** 重置按钮配置 */
@@ -59,6 +63,8 @@ interface ResetButtonOptions {
    * @default '重置'
    */
   text?: string;
+  /** 传递给重置按钮组件的参数 */
+  props?: ButtonInstance['$props'];
 }
 
 // #region AcroDynamicFormField

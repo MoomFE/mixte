@@ -6,11 +6,11 @@
     </RenderFormItem>
     <!-- 操作按钮区域 -->
     <slot v-if="slots.actionButtonArea" name="actionButtonArea" />
-    <FormItem v-else-if="showActionButtonArea">
+    <FormItem v-else-if="showActionButtonArea" v-bind="actionButtonAreaProps">
       <Space>
         <slot v-if="slots.actionButtonPrepend" name="actionButtonPrepend" />
-        <Button v-if="showSubmitButton" type="primary" @click="emit('submit', model)">{{ submitButtonText }}</Button>
-        <Button v-if="showResetButton" @click="emit('reset')">{{ resetButtonText }}</Button>
+        <Button v-if="showSubmitButton" type="primary" v-bind="submitButtonProps" @click="emit('submit', model)">{{ submitButtonText }}</Button>
+        <Button v-if="showResetButton" v-bind="resetButtonProps" @click="emit('reset')">{{ resetButtonText }}</Button>
         <slot v-if="slots.actionButtonAppend" name="actionButtonAppend" />
       </Space>
     </FormItem>
@@ -58,7 +58,11 @@
       model[field.field] = model[field.field] ?? field.defaultValue;
   });
 
-  const { showActionButtonArea, showSubmitButton, showResetButton, submitButtonText, resetButtonText } = useActionButtonArea(props);
+  const {
+    showActionButtonArea, showSubmitButton, showResetButton, // eslint-disable-line antfu/consistent-list-newline
+    submitButtonText, resetButtonText, // eslint-disable-line antfu/consistent-list-newline
+    actionButtonAreaProps, submitButtonProps, resetButtonProps, // eslint-disable-line antfu/consistent-list-newline
+  } = useActionButtonArea(props);
 
   const validate: FormInstance['validate'] = (...args) => formRef.value!.validate(...args);
   const validateField: FormInstance['validateField'] = (...args) => formRef.value!.validateField(...args);

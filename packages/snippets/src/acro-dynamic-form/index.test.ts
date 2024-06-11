@@ -804,6 +804,50 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
     expect(btns[1].text()).toBe('自定义重置');
   });
 
+  it('配置操作按钮区域 FormItem 组件的参数', () => {
+    const wrapper = mount(AcroDynamicForm, {
+      props: {
+        actionButtonArea: {
+          props: { validateStatus: 'success' },
+        },
+      },
+    });
+
+    const formItem = wrapper.find('.arco-form-item.arco-form-item-status-success');
+
+    expect(formItem.exists()).toBe(true);
+  });
+
+  it('配置提交按钮组件的参数', () => {
+    const wrapper = mount(AcroDynamicForm, {
+      props: {
+        submitButton: {
+          props: { size: 'mini' },
+        },
+      },
+    });
+
+    const submitBtn = wrapper.find('.arco-btn.arco-btn-size-mini');
+
+    expect(submitBtn.exists()).toBe(true);
+    expect(submitBtn.text()).toBe('提交');
+  });
+
+  it('配置重置按钮组件的参数', () => {
+    const wrapper = mount(AcroDynamicForm, {
+      props: {
+        resetButton: {
+          props: { size: 'mini' },
+        },
+      },
+    });
+
+    const resetBtn = wrapper.find('.arco-btn.arco-btn-size-mini');
+
+    expect(resetBtn.exists()).toBe(true);
+    expect(resetBtn.text()).toBe('重置');
+  });
+
   it('支持传入 actionButtonArea 插槽, 可使用该插槽代替操作按钮区域的渲染', () => {
     const wrapper = mount(AcroDynamicForm, {
       slots: {

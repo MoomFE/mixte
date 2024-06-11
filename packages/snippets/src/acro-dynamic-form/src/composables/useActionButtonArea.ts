@@ -8,13 +8,11 @@ export function useActionButtonArea(props: AcroDynamicFormProps) {
     const options = props.submitButton;
     return isBoolean(options) ? options : (options?.show ?? true);
   });
-
   /** 是否显示重置按钮 */
   const showResetButton = computed(() => {
     const options = props.resetButton;
     return isBoolean(options) ? options : (options?.show ?? true);
   });
-
   /** 是否显示操作按钮区域 */
   const showActionButtonArea = computed(() => {
     const options = props.actionButtonArea;
@@ -28,19 +26,38 @@ export function useActionButtonArea(props: AcroDynamicFormProps) {
     const options = props.submitButton;
     return (isBoolean(options) ? undefined : options?.text) ?? '提交';
   });
-
   /** 重置按钮文字 */
   const resetButtonText = computed(() => {
     const options = props.resetButton;
     return (isBoolean(options) ? undefined : options?.text) ?? '重置';
   });
 
+  /** 传递给操作按钮区域 FormItem 组件的参数 */
+  const actionButtonAreaProps = computed(() => {
+    const options = props.actionButtonArea;
+    return isBoolean(options) ? undefined : options?.props;
+  });
+  /** 传递给提交按钮组件的参数 */
+  const submitButtonProps = computed(() => {
+    const options = props.submitButton;
+    return isBoolean(options) ? undefined : options?.props;
+  });
+  /** 传递给重置按钮组件的参数 */
+  const resetButtonProps = computed(() => {
+    const options = props.resetButton;
+    return isBoolean(options) ? undefined : options?.props;
+  });
+
   return {
+    showActionButtonArea,
     showSubmitButton,
     showResetButton,
-    showActionButtonArea,
 
     submitButtonText,
     resetButtonText,
+
+    actionButtonAreaProps,
+    submitButtonProps,
+    resetButtonProps,
   };
 }
