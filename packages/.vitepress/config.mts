@@ -62,6 +62,10 @@ export default defineConfig({
         items: [
           { text: '更新日志', link: '/changelog.md' },
           { text: 'dev 分支文档地址', link: 'https://mixte-dev-branch.moomfe.com/' },
+          {
+            text: '历史版本文档地址',
+            items: [{ text: 'v1.31.2', link: 'https://mixte-v1.moomfe.com/' }],
+          },
         ],
       },
     ],
