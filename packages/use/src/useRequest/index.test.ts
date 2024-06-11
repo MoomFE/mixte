@@ -27,8 +27,6 @@ describe.concurrent('useRequest', () => {
       'isLoading',
       'isFinished',
       'isSuccess',
-      'successCount',
-      'clearSuccessCount',
       'execute',
       'onSuccess',
       'onError',
@@ -44,8 +42,6 @@ describe.concurrent('useRequest', () => {
       'isLoading',
       'isFinished',
       'isSuccess',
-      'successCount',
-      'clearSuccessCount',
       'execute',
       'onSuccess',
       'onError',
@@ -62,9 +58,6 @@ describe.concurrent('useRequest', () => {
       { key: 'isLoading', type: 'boolean' },
       { key: 'isFinished', type: 'boolean' },
       { key: 'isSuccess', type: 'boolean' },
-
-      { key: 'successCount', type: 'number' },
-      { key: 'clearSuccessCount', type: 'function' },
 
       { key: 'execute', type: 'function' },
       { key: 'onSuccess', type: 'function' },
@@ -84,7 +77,6 @@ describe.concurrent('useRequest', () => {
     expect(data.onSuccess).toBe(data.reactive.onSuccess);
     expect(data.onError).toBe(data.reactive.onError);
     expect(data.onFinally).toBe(data.reactive.onFinally);
-    expect(data.clearSuccessCount).toBe(data.reactive.clearSuccessCount);
 
     await data.execute();
 
@@ -151,7 +143,6 @@ describe.concurrent('useRequest', () => {
     expect(data.isLoading.value).toBe(false);
     expect(data.isFinished.value).toBe(false);
     expect(data.isSuccess.value).toBe(false);
-    expect(data.successCount.value).toBe(0);
     expect(successEventCountAndArgs).toStrictEqual([0]);
     expect(errorEventCountAndArgs).toStrictEqual([0]);
     expect(finallyEventCountAndArgs).toStrictEqual([0]);
@@ -167,7 +158,6 @@ describe.concurrent('useRequest', () => {
     expect(data.isLoading.value).toBe(true);
     expect(data.isFinished.value).toBe(false);
     expect(data.isSuccess.value).toBe(false);
-    expect(data.successCount.value).toBe(0);
     expect(successEventCountAndArgs).toStrictEqual([0]);
     expect(errorEventCountAndArgs).toStrictEqual([0]);
     expect(finallyEventCountAndArgs).toStrictEqual([0]);
@@ -181,7 +171,6 @@ describe.concurrent('useRequest', () => {
     expect(data.isLoading.value).toBe(false);
     expect(data.isFinished.value).toBe(true);
     expect(data.isSuccess.value).toBe(true);
-    expect(data.successCount.value).toBe(1);
     expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
     expect(errorEventCountAndArgs).toStrictEqual([0]);
     expect(finallyEventCountAndArgs).toStrictEqual([1]);
@@ -198,7 +187,6 @@ describe.concurrent('useRequest', () => {
     expect(data.isLoading.value).toBe(true);
     expect(data.isFinished.value).toBe(false);
     expect(data.isSuccess.value).toBe(false);
-    expect(data.successCount.value).toBe(1);
     expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
     expect(errorEventCountAndArgs).toStrictEqual([0]);
     expect(finallyEventCountAndArgs).toStrictEqual([1]);
@@ -217,7 +205,6 @@ describe.concurrent('useRequest', () => {
     expect(data.isLoading.value).toBe(false);
     expect(data.isFinished.value).toBe(true);
     expect(data.isSuccess.value).toBe(false);
-    expect(data.successCount.value).toBe(1);
     expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
     expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
     expect(finallyEventCountAndArgs).toStrictEqual([2]);
@@ -264,7 +251,6 @@ describe.concurrent('useRequest', () => {
     expect(data.isLoading.value).toBe(false);
     expect(data.isFinished.value).toBe(false);
     expect(data.isSuccess.value).toBe(false);
-    expect(data.successCount.value).toBe(0);
     expect(successEventCountAndArgs).toStrictEqual([0]);
     expect(errorEventCountAndArgs).toStrictEqual([0]);
     expect(finallyEventCountAndArgs).toStrictEqual([0]);
@@ -280,7 +266,6 @@ describe.concurrent('useRequest', () => {
     expect(data.isLoading.value).toBe(true);
     expect(data.isFinished.value).toBe(false);
     expect(data.isSuccess.value).toBe(false);
-    expect(data.successCount.value).toBe(0);
     expect(successEventCountAndArgs).toStrictEqual([0]);
     expect(errorEventCountAndArgs).toStrictEqual([0]);
     expect(finallyEventCountAndArgs).toStrictEqual([0]);
@@ -299,7 +284,6 @@ describe.concurrent('useRequest', () => {
     expect(data.isLoading.value).toBe(false);
     expect(data.isFinished.value).toBe(true);
     expect(data.isSuccess.value).toBe(false);
-    expect(data.successCount.value).toBe(0);
     expect(successEventCountAndArgs).toStrictEqual([0]);
     expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
     expect(finallyEventCountAndArgs).toStrictEqual([1]);
@@ -316,7 +300,6 @@ describe.concurrent('useRequest', () => {
     expect(data.isLoading.value).toBe(true);
     expect(data.isFinished.value).toBe(false);
     expect(data.isSuccess.value).toBe(false);
-    expect(data.successCount.value).toBe(0);
     expect(successEventCountAndArgs).toStrictEqual([0]);
     expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
     expect(finallyEventCountAndArgs).toStrictEqual([1]);
@@ -330,7 +313,6 @@ describe.concurrent('useRequest', () => {
     expect(data.isLoading.value).toBe(false);
     expect(data.isFinished.value).toBe(true);
     expect(data.isSuccess.value).toBe(true);
-    expect(data.successCount.value).toBe(1);
     expect(successEventCountAndArgs).toStrictEqual([1, { data: 1293 }]);
     expect(errorEventCountAndArgs).toStrictEqual([1, new Error('???')]);
     expect(finallyEventCountAndArgs).toStrictEqual([2]);
@@ -378,7 +360,6 @@ describe.concurrent('useRequest', () => {
     expect(successIndex).toBe(1);
     expect(finallyIndex).toBe(1);
     expect(errorIndex).toBe(0);
-    expect(data.successCount.value).toBe(1);
 
     throwError = true;
 
@@ -387,57 +368,6 @@ describe.concurrent('useRequest', () => {
     expect(successIndex).toBe(1);
     expect(finallyIndex).toBe(2);
     expect(errorIndex).toBe(1);
-    expect(data.successCount.value).toBe(1);
-  });
-
-  it('请求成功后, 请求成功次数会进行累计, 可以使用方法清除请求成功次数', async ({ expect }) => {
-    let throwError: boolean = false;
-
-    const data = useRequest(async () => {
-      if (throwError) throw new Error('???');
-      return 123;
-    });
-
-    expect(data.successCount.value).toBe(0);
-
-    await data.execute();
-
-    expect(data.successCount.value).toBe(1);
-
-    await data.execute();
-
-    expect(data.successCount.value).toBe(2);
-
-    throwError = true;
-    try {
-      await data.execute();
-    }
-    catch (error) {
-      expect(error).toStrictEqual(new Error('???'));
-    }
-
-    expect(data.successCount.value).toBe(2);
-
-    try {
-      await data.execute();
-    }
-    catch (error) {
-      expect(error).toStrictEqual(new Error('???'));
-    }
-
-    expect(data.successCount.value).toBe(2);
-
-    throwError = false;
-    await data.execute();
-
-    expect(data.successCount.value).toBe(3);
-
-    data.clearSuccessCount();
-    expect(data.successCount.value).toBe(0);
-
-    await data.execute();
-
-    expect(data.successCount.value).toBe(1);
   });
 
   it('支持传入 immediate: true 选项立即发起请求', async ({ expect }) => {
@@ -457,7 +387,6 @@ describe.concurrent('useRequest', () => {
     expect(data.isLoading.value).toBe(true);
     expect(data.isFinished.value).toBe(false);
     expect(data.isSuccess.value).toBe(false);
-    expect(data.successCount.value).toBe(0);
 
     await delay(100);
 
@@ -468,7 +397,6 @@ describe.concurrent('useRequest', () => {
     expect(data.isLoading.value).toBe(false);
     expect(data.isFinished.value).toBe(true);
     expect(data.isSuccess.value).toBe(true);
-    expect(data.successCount.value).toBe(1);
   });
 
   it('支持传入 initialData 选项定义初始数据, 发起请求时会重置 data 为传入的 initialData', async ({ expect }) => {
@@ -843,8 +771,6 @@ describe.concurrent('useRequest', () => {
         isLoading: boolean;
         isFinished: boolean;
         isSuccess: boolean;
-        successCount: number;
-        clearSuccessCount: () => void;
         execute: () => Promise<{ data: number }>;
         onSuccess: EventHookOn<{ data: number }>;
         onError: EventHookOn<any>;
@@ -875,8 +801,6 @@ describe.concurrent('useRequest', () => {
         isLoading: boolean;
         isFinished: boolean;
         isSuccess: boolean;
-        successCount: number;
-        clearSuccessCount: () => void;
         execute: (a: number) => Promise<{ data: number; code: number }>;
         onSuccess: EventHookOn<{ data: number; code: number }>;
         onError: EventHookOn<any>;
@@ -910,8 +834,6 @@ describe.concurrent('useRequest', () => {
         isLoading: boolean;
         isFinished: boolean;
         isSuccess: boolean;
-        successCount: number;
-        clearSuccessCount: () => void;
         execute: () => Promise<{ data: number }>;
         onSuccess: EventHookOn<{ data: number }>;
         onError: EventHookOn<any>;
@@ -945,8 +867,6 @@ describe.concurrent('useRequest', () => {
         isLoading: boolean;
         isFinished: boolean;
         isSuccess: boolean;
-        successCount: number;
-        clearSuccessCount: () => void;
         execute: (a: number) => Promise<{ data: number; code: number }>;
         onSuccess: EventHookOn<{ data: number; code: number }>;
         onError: EventHookOn<any>;
@@ -982,8 +902,6 @@ describe.concurrent('useRequest', () => {
         isLoading: boolean;
         isFinished: boolean;
         isSuccess: boolean;
-        successCount: number;
-        clearSuccessCount: () => void;
         execute: (...args: any[]) => Promise<{ data: UserInfo }>;
         onSuccess: EventHookOn<{ data: UserInfo }>;
         onError: EventHookOn<any>;
@@ -1014,8 +932,6 @@ describe.concurrent('useRequest', () => {
         isLoading: boolean;
         isFinished: boolean;
         isSuccess: boolean;
-        successCount: number;
-        clearSuccessCount: () => void;
         execute: (...args: any[]) => Promise<any>;
         onSuccess: EventHookOn<any>;
         onError: EventHookOn<any>;
@@ -1047,8 +963,6 @@ describe('useRequestReactive', () => {
       'isLoading',
       'isFinished',
       'isSuccess',
-      'successCount',
-      'clearSuccessCount',
       'execute',
       'onSuccess',
       'onError',
@@ -1065,9 +979,6 @@ describe('useRequestReactive', () => {
       { key: 'isLoading', type: 'boolean' },
       { key: 'isFinished', type: 'boolean' },
       { key: 'isSuccess', type: 'boolean' },
-
-      { key: 'successCount', type: 'number' },
-      { key: 'clearSuccessCount', type: 'function' },
 
       { key: 'execute', type: 'function' },
       { key: 'onSuccess', type: 'function' },

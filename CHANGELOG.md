@@ -1,5 +1,6 @@
 ## [Unreleased]
   - ⚠️ [@mixte/components] 移除该组件包的默认导出, 请按需导入
+  - ⚠️ [@mixte/use] 移除 `useRequest` 方法的 `successCount` 参数及 `clearSuccessCount` 方法
 
 ## [../v1](https://mixte-v1.moomfe.com)
   - [更新日志](https://mixte-v1.moomfe.com/changelog)

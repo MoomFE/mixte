@@ -52,7 +52,7 @@
     version.value = state.value.version ?? '';
     file.value = state.value.file ?? '';
 
-    if (CDN.successCount) CDN.execute();
+    if (CDN.isSuccess) CDN.execute();
   });
 
   inject<InjectCodeLang>('codeLang')!.value = 'vue';

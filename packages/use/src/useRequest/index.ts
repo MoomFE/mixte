@@ -75,13 +75,6 @@ export function useRequest<
   /** 是否已请求成功 */
   const isSuccess = ref(false);
 
-  /** 请求成功次数 */
-  const successCount = ref(0);
-  /** 清除请求成功次数 */
-  function clearSuccessCount() {
-    successCount.value = 0;
-  }
-
   let executeCount = 0;
 
   /** 发起请求 */
@@ -114,7 +107,6 @@ export function useRequest<
       isLoading.value = false;
       isFinished.value = true;
       isSuccess.value = true;
-      successCount.value++;
       successEvent.trigger(res);
       finallyEvent.trigger();
       return res;
@@ -155,11 +147,6 @@ export function useRequest<
     isFinished,
     /** 是否已请求成功 */
     isSuccess,
-
-    /** 请求成功次数 */
-    successCount,
-    /** 清除请求成功次数 */
-    clearSuccessCount,
 
     /** 发起请求 */
     execute,
