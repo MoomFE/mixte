@@ -5,7 +5,7 @@
       <RenderComponent v-if="field.type" :field="(field as AcroDynamicFormComponentField)" :model="model" />
     </RenderFormItem>
     <!-- 操作按钮区域 -->
-    <FormItem v-if="showActionButtonArea && (showSubmitButton || showResetButton)">
+    <FormItem v-if="showActionButtonArea">
       <Space>
         <Button v-if="showSubmitButton" type="primary" @click="emit('submit', model)">{{ submitButtonText }}</Button>
         <Button v-if="showResetButton" @click="emit('reset')">{{ resetButtonText }}</Button>
@@ -17,14 +17,15 @@
 <script lang="tsx" setup>
   import type { FormInstance } from '@arco-design/web-vue';
   import { Button, Form, FormItem, Space } from '@arco-design/web-vue';
-  import { reactive, ref, toRef, useAttrs } from 'vue';
+  import { computed, reactive, ref, toRef, useAttrs } from 'vue';
   import { toReactive } from '@vueuse/core';
+  import { isBoolean } from 'mixte';
   import RenderFormItem from './components/RenderFormItem.vue';
   import RenderComponent from './components/RenderComponent.vue';
   import type { AcroDynamicFormComponentField, AcroDynamicFormProps } from './types';
 
   const props = withDefaults(defineProps<AcroDynamicFormProps>(), {
-    showActionButtonArea: true,
+    actionButtonArea: true,
     showSubmitButton: true,
     submitButtonText: '提交',
     showResetButton: true,
@@ -46,6 +47,13 @@
   props.fields?.forEach((field) => {
     if (field.defaultValue != null)
       model[field.field] = model[field.field] ?? field.defaultValue;
+  });
+
+  const showActionButtonArea = computed(() => {
+    const options = props.actionButtonArea;
+    const enable = isBoolean(options) ? options : (options?.show ?? true);
+
+    return enable && (props.showSubmitButton || props.showResetButton);
   });
 
   const validate: FormInstance['validate'] = (...args) => formRef.value!.validate(...args);

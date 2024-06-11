@@ -50,7 +50,6 @@ describe('<acro-dynamic-form /> 基础测试', () => {
           { field: 'age', label: '年龄', type: 'input', defaultValue: '18' },
         ],
         model,
-        showActionButtonArea: false,
       },
     });
 
@@ -110,7 +109,7 @@ describe('<acro-dynamic-form /> 字段配置', () => {
           { field: 'name', label: '姓名', type: 'input' },
           { field: 'age', label: '年龄', type: 'input-number' },
         ]),
-        showActionButtonArea: false,
+        actionButtonArea: false,
       },
     });
 
@@ -182,7 +181,6 @@ describe('<acro-dynamic-form /> 字段配置', () => {
             { field: 'name', label: '姓名', type: 'input', defaultValue: '张三' },
             { field: 'age', label: '年龄', type: 'input' },
           ]),
-          showActionButtonArea: false,
         },
       });
 
@@ -204,7 +202,6 @@ describe('<acro-dynamic-form /> 字段配置', () => {
             { field: 'age', label: '年龄', type: 'input' },
           ]),
           model,
-          showActionButtonArea: false,
         },
       });
 
@@ -226,7 +223,6 @@ describe('<acro-dynamic-form /> 字段配置', () => {
             { field: 'age', label: '年龄', type: 'input' },
           ]),
           model,
-          showActionButtonArea: false,
         },
       });
 
@@ -249,7 +245,6 @@ describe('<acro-dynamic-form /> 字段配置', () => {
           props: {
             fields: defineAcroDynamicFormFields([{ field: 'name', label: '姓名', type: 'input', defaultValue: '', componentProps }]),
             model,
-            showActionButtonArea: false,
           },
         });
 
@@ -292,7 +287,6 @@ describe('<acro-dynamic-form /> 字段配置', () => {
               },
             }]),
             model,
-            showActionButtonArea: false,
           },
         });
 
@@ -327,7 +321,6 @@ describe('<acro-dynamic-form /> 字段配置', () => {
       const wrapper = mount(AcroDynamicForm, {
         props: {
           fields: [{ field: 'name', label: '姓名', type: 'input' }],
-          showActionButtonArea: false,
         },
       });
 
@@ -366,7 +359,6 @@ describe('<acro-dynamic-form /> 字段配置', () => {
       const wrapper = mount(AcroDynamicForm, {
         props: {
           fields: defineAcroDynamicFormFields([{ field: 'name', label: '姓名', type: 'input' }]),
-          showActionButtonArea: false,
         },
       });
 
@@ -397,7 +389,6 @@ describe('<acro-dynamic-form /> 字段配置', () => {
               rules: [{ required: true }],
               validateTrigger: 'blur',
             }],
-            showActionButtonArea: false,
           },
         });
 
@@ -474,7 +465,6 @@ describe('<acro-dynamic-form /> 字段配置', () => {
       const wrapper = mount(AcroDynamicForm, {
         props: {
           fields: [{ field: 'name', label: '姓名', type: 'input' }],
-          showActionButtonArea: false,
         },
       });
 
@@ -681,17 +671,35 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
   });
 
   it('配置不显示操作按钮区域, a-form-item 及提交按钮、重置按钮不会渲染', () => {
-    const wrapper = mount(AcroDynamicForm, {
-      props: {
-        showActionButtonArea: false,
-      },
-    });
+    // boolean 传值
+    {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          actionButtonArea: false,
+        },
+      });
 
-    const formItems = wrapper.findAll('.arco-form-item');
-    const btns = wrapper.findAll('.arco-btn');
+      const formItems = wrapper.findAll('.arco-form-item');
+      const btns = wrapper.findAll('.arco-btn');
 
-    expect(formItems.length).toBe(0);
-    expect(btns.length).toBe(0);
+      expect(formItems.length).toBe(0);
+      expect(btns.length).toBe(0);
+    }
+
+    // options 传值
+    {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          actionButtonArea: { show: false },
+        },
+      });
+
+      const formItems = wrapper.findAll('.arco-form-item');
+      const btns = wrapper.findAll('.arco-btn');
+
+      expect(formItems.length).toBe(0);
+      expect(btns.length).toBe(0);
+    }
   });
 
   it('配置不显示提交按钮', () => {

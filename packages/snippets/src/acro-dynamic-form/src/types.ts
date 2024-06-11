@@ -6,11 +6,13 @@ interface AcroDynamicFormProps {
   fields?: AcroDynamicFormField[];
   /** 表单数据 */
   model?: Record<string, any>;
+
   /**
-   * 是否显示操作按钮区域 (提交/重置)
-   * @default true
+   * 操作按钮区域配置
+   *  - 传入 boolean 值时, 表示是否显示操作按钮区域
    */
-  showActionButtonArea?: boolean;
+  actionButtonArea?: ActionButtonAreaOptions | boolean;
+
   /**
    * 是否显示提交按钮
    * @default true
@@ -31,6 +33,15 @@ interface AcroDynamicFormProps {
    * @default '重置'
    */
   resetButtonText?: string;
+}
+
+/** 操作按钮区域配置 */
+interface ActionButtonAreaOptions {
+  /**
+   * 是否显示操作按钮区域
+   * @default true
+   */
+  show?: boolean;
 }
 
 // #region AcroDynamicFormField
