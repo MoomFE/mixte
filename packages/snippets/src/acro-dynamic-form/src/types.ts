@@ -53,6 +53,7 @@ interface AcroDynamicFormSlots {
   [key: string]: ((options: RenderOptions) => void) | undefined;
 }
 
+// #region ActionButtonAreaOptions
 /** 操作按钮区域配置 */
 interface ActionButtonAreaOptions {
   /**
@@ -63,7 +64,9 @@ interface ActionButtonAreaOptions {
   /** 传递给操作按钮区域 FormItem 组件的参数 */
   props?: FormItemInstance['$props'];
 }
+// #endregion ActionButtonAreaOptions
 
+// #region SubmitButtonOptions
 /** 提交按钮配置 */
 interface SubmitButtonOptions {
   /**
@@ -79,7 +82,9 @@ interface SubmitButtonOptions {
   /** 传递给提交按钮组件的参数 */
   props?: ButtonInstance['$props'];
 }
+// #endregion SubmitButtonOptions
 
+// #region ResetButtonOptions
 /** 重置按钮配置 */
 interface ResetButtonOptions {
   /**
@@ -95,6 +100,7 @@ interface ResetButtonOptions {
   /** 传递给重置按钮组件的参数 */
   props?: ButtonInstance['$props'];
 }
+// #endregion ResetButtonOptions
 
 /** 组件渲染函数选项 */
 interface RenderOptions {
