@@ -34,6 +34,9 @@
     "*.ts",
     "dist"
   ],
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "@vueuse/core": "*",
+    "mixte": "workspace:*",
+    "vue-demi": "*"
+  }
 }
