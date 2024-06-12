@@ -24,6 +24,15 @@ interface AcroDynamicFormProps {
   resetButton?: ResetButtonOptions | boolean;
 }
 
+interface AcroDynamicFormSlots {
+  /** 操作按钮区域插槽, 可使用该插槽代替操作按钮区域的渲染 */
+  actionButtonArea?: () => void;
+  /** 操作按钮前置插槽, 可插入内容到提交按钮前面 */
+  actionButtonPrepend?: () => void;
+  /** 操作按钮后置插槽, 可插入内容到重置按钮后面 */
+  actionButtonAppend?: () => void;
+}
+
 /** 操作按钮区域配置 */
 interface ActionButtonAreaOptions {
   /**
@@ -159,6 +168,7 @@ interface AcroDynamicFormFieldComponentPropsMap {
 
 export {
   AcroDynamicFormProps,
+  AcroDynamicFormSlots,
   AcroDynamicFormField,
   AcroDynamicFormComponentField,
 };

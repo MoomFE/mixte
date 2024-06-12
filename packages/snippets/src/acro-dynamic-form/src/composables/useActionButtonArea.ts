@@ -1,8 +1,8 @@
 import { computed } from 'vue';
 import { isBoolean } from 'mixte';
-import type { AcroDynamicFormProps } from '../types';
+import type { AcroDynamicFormProps, AcroDynamicFormSlots } from '../types';
 
-export function useActionButtonArea(props: AcroDynamicFormProps) {
+export function useActionButtonArea(props: AcroDynamicFormProps, slots: AcroDynamicFormSlots) {
   /** 是否显示提交按钮 */
   const showSubmitButton = computed(() => {
     const options = props.submitButton;
@@ -18,7 +18,9 @@ export function useActionButtonArea(props: AcroDynamicFormProps) {
     const options = props.actionButtonArea;
     const show = isBoolean(options) ? options : (options?.show ?? true);
 
-    return show && (showSubmitButton.value || showResetButton.value);
+    return show && (
+      showSubmitButton.value || showResetButton.value || slots.actionButtonPrepend || slots.actionButtonAppend
+    );
   });
 
   /** 提交按钮文字 */

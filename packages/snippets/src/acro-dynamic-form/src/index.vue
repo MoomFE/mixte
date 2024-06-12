@@ -25,7 +25,7 @@
   import RenderFormItem from './components/RenderFormItem.vue';
   import RenderComponent from './components/RenderComponent.vue';
   import { useActionButtonArea } from './composables/useActionButtonArea';
-  import type { AcroDynamicFormProps } from './types';
+  import type { AcroDynamicFormProps, AcroDynamicFormSlots } from './types';
 
   const props = withDefaults(defineProps<AcroDynamicFormProps>(), {
     actionButtonArea: true,
@@ -38,14 +38,7 @@
     /** 点击了重置按钮的事件 */
     reset: [];
   }>();
-  const slots = defineSlots<{
-    /** 操作按钮区域插槽, 可使用该插槽代替操作按钮区域的渲染 */
-    actionButtonArea?: () => void;
-    /** 操作按钮前置插槽, 可插入内容到提交按钮前面 */
-    actionButtonPrepend?: () => void;
-    /** 操作按钮后置插槽, 可插入内容到重置按钮后面 */
-    actionButtonAppend?: () => void;
-  }>();
+  const slots = defineSlots<AcroDynamicFormSlots>();
 
   const attrs = useAttrs();
 
@@ -62,7 +55,7 @@
     showActionButtonArea, showSubmitButton, showResetButton, // eslint-disable-line antfu/consistent-list-newline
     submitButtonText, resetButtonText, // eslint-disable-line antfu/consistent-list-newline
     actionButtonAreaProps, submitButtonProps, resetButtonProps, // eslint-disable-line antfu/consistent-list-newline
-  } = useActionButtonArea(props);
+  } = useActionButtonArea(props, slots);
 
   const validate: FormInstance['validate'] = (...args) => formRef.value!.validate(...args);
   const validateField: FormInstance['validateField'] = (...args) => formRef.value!.validateField(...args);

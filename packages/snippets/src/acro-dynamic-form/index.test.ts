@@ -919,45 +919,124 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
     expect(resetBtn.text()).toBe('重置');
   });
 
-  it('支持传入 actionButtonArea 插槽, 可使用该插槽代替操作按钮区域的渲染', () => {
-    const wrapper = mount(AcroDynamicForm, {
-      slots: {
-        actionButtonArea: () => h('div', { class: 'slot-666' }),
-      },
+  describe('操作按钮区域插槽, 及按钮前后置插槽', () => {
+    it('支持传入 actionButtonArea 插槽, 可使用该插槽代替操作按钮区域的渲染', () => {
+      const wrapper = mount(AcroDynamicForm, {
+        slots: {
+          actionButtonArea: () => h('div', { class: 'slot-666' }),
+        },
+      });
+
+      expect(wrapper.findAll('.arco-form-item').length).toBe(0);
+      expect(wrapper.find('.slot-666').exists()).toBe(true);
     });
 
-    expect(wrapper.findAll('.arco-form-item').length).toBe(0);
-    expect(wrapper.find('.slot-666').exists()).toBe(true);
-  });
+    it('支持传入 actionButtonPrepend 插槽, 可插入内容到提交按钮前面', () => {
+      const wrapper = mount(AcroDynamicForm, {
+        slots: {
+          actionButtonPrepend: () => h(Button, {}, '前置按钮'),
+        },
+      });
 
-  it('支持传入 actionButtonPrepend 插槽, 可插入内容到提交按钮前面', () => {
-    const wrapper = mount(AcroDynamicForm, {
-      slots: {
-        actionButtonPrepend: () => h(Button, {}, '前置按钮'),
-      },
+      const btns = wrapper.findAll('.arco-form-item .arco-btn');
+
+      expect(btns.length).toBe(3);
+      expect(btns[0].text()).toBe('前置按钮');
+      expect(btns[1].text()).toBe('提交');
+      expect(btns[2].text()).toBe('重置');
     });
 
-    const btns = wrapper.findAll('.arco-form-item .arco-btn');
+    it('支持传入 actionButtonAppend 插槽, 可插入内容到重置按钮后面', () => {
+      const wrapper = mount(AcroDynamicForm, {
+        slots: {
+          actionButtonAppend: () => h(Button, {}, '后置按钮'),
+        },
+      });
 
-    expect(btns.length).toBe(3);
-    expect(btns[0].text()).toBe('前置按钮');
-    expect(btns[1].text()).toBe('提交');
-    expect(btns[2].text()).toBe('重置');
-  });
+      const btns = wrapper.findAll('.arco-form-item .arco-btn');
 
-  it('支持传入 actionButtonAppend 插槽, 可插入内容到重置按钮后面', () => {
-    const wrapper = mount(AcroDynamicForm, {
-      slots: {
-        actionButtonAppend: () => h(Button, {}, '后置按钮'),
-      },
+      expect(btns.length).toBe(3);
+      expect(btns[0].text()).toBe('提交');
+      expect(btns[1].text()).toBe('重置');
+      expect(btns[2].text()).toBe('后置按钮');
     });
 
-    const btns = wrapper.findAll('.arco-form-item .arco-btn');
+    it('配置提交按钮和重置按钮都不显示时, 只传入 actionButtonPrepend 和 actionButtonAppend 插槽, a-form-item 也会渲染', () => {
+      // actionButtonPrepend
+      {
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            submitButton: false,
+            resetButton: false,
+          },
+          slots: {
+            actionButtonPrepend: () => h(Button, {}, '前置按钮'),
+          },
+        });
 
-    expect(btns.length).toBe(3);
-    expect(btns[0].text()).toBe('提交');
-    expect(btns[1].text()).toBe('重置');
-    expect(btns[2].text()).toBe('后置按钮');
+        const formItems = wrapper.findAll('.arco-form-item');
+        const btns = wrapper.findAll('.arco-form-item .arco-btn');
+
+        expect(formItems.length).toBe(1);
+        expect(btns.length).toBe(1);
+        expect(btns[0].text()).toBe('前置按钮');
+      }
+
+      // actionButtonAppend
+      {
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            submitButton: false,
+            resetButton: false,
+          },
+          slots: {
+            actionButtonAppend: () => h(Button, {}, '后置按钮'),
+          },
+        });
+
+        const formItems = wrapper.findAll('.arco-form-item');
+        const btns = wrapper.findAll('.arco-form-item .arco-btn');
+
+        expect(formItems.length).toBe(1);
+        expect(btns.length).toBe(1);
+        expect(btns[0].text()).toBe('后置按钮');
+      }
+
+      // actionButtonPrepend & actionButtonAppend
+      {
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            submitButton: false,
+            resetButton: false,
+          },
+          slots: {
+            actionButtonPrepend: () => h(Button, {}, '前置按钮'),
+            actionButtonAppend: () => h(Button, {}, '后置按钮'),
+          },
+        });
+
+        const formItems = wrapper.findAll('.arco-form-item');
+        const btns = wrapper.findAll('.arco-form-item .arco-btn');
+
+        expect(formItems.length).toBe(1);
+        expect(btns.length).toBe(2);
+        expect(btns[0].text()).toBe('前置按钮');
+        expect(btns[1].text()).toBe('后置按钮');
+      }
+    });
+
+    it('当使用 actionButtonArea 插槽时, actionButtonPrepend 和 actionButtonAppend 插槽不生效', () => {
+      const wrapper = mount(AcroDynamicForm, {
+        slots: {
+          actionButtonArea: () => h('div', { class: 'slot-666' }),
+          actionButtonPrepend: () => h(Button, {}, '前置按钮'),
+          actionButtonAppend: () => h(Button, {}, '后置按钮'),
+        },
+      });
+
+      expect(wrapper.findAll('.arco-form-item').length).toBe(0);
+      expect(wrapper.find('.slot-666').exists()).toBe(true);
+    });
   });
 });
 
