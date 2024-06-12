@@ -1,5 +1,7 @@
 ## [Unreleased]
-  - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 字段配置新增 `render` 选项, 可传入渲染函数渲染自定义组件
+  - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 字段配置新增 `render` 选项
+    - 可传入渲染函数, 渲染自定义组件
+    - 可传入插槽名称, 将使用指定名称的插槽来渲染自定义组件
   - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 新增 `actionButtonArea`、`actionButtonPrepend`、`actionButtonAppend` 插槽
     - `actionButtonArea`: 可使用该插槽代替操作按钮区域的渲染
     - `actionButtonPrepend`: 可插入内容到提交按钮前面

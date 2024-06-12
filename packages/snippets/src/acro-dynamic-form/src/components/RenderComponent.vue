@@ -1,11 +1,12 @@
 <script lang="tsx" setup>
   import * as ArcoDesign from '@arco-design/web-vue';
-  import { pascalCase } from 'mixte';
-  import type { AcroDynamicFormComponentField, AcroDynamicFormField, AcroDynamicFormProps } from '../types';
+  import { isString, pascalCase } from 'mixte';
+  import type { AcroDynamicFormComponentField, AcroDynamicFormField, AcroDynamicFormProps, AcroDynamicFormSlots } from '../types';
 
   interface Props {
     field: AcroDynamicFormField;
     model: NonNullable<AcroDynamicFormProps['model']>;
+    slots: AcroDynamicFormSlots;
   }
 
   defineProps<Props>();
@@ -36,10 +37,18 @@
     },
     render() {
       const field = this.field;
+      const { render } = field;
 
-      // 使用渲染函数渲染自定义组件
-      if (field.render)
-        return field.render({ model: this.model, Component: this.renderComponent });
+      // 使用渲染函数或指定插槽渲染自定义组件
+      if (render) {
+        const props = { model: this.model, Component: this.renderComponent };
+
+        // 渲染插槽
+        if (isString(render))
+          return this.slots[render]?.(props);
+
+        return render(props);
+      }
 
       // 渲染指定组件
       if (field.type)

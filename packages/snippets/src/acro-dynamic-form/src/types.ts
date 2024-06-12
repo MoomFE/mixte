@@ -31,6 +31,8 @@ interface AcroDynamicFormSlots {
   actionButtonPrepend?: () => void;
   /** 操作按钮后置插槽, 可插入内容到重置按钮后面 */
   actionButtonAppend?: () => void;
+  /** 其他插槽 */
+  [key: string]: ((options: RenderOptions) => void) | undefined;
 }
 
 /** 操作按钮区域配置 */
@@ -113,8 +115,8 @@ interface AcroDynamicFormFieldBase {
   componentProps?: Record<string, any>;
   /** 传递给组件的插槽 */
   componentSlots?: Record<string, (...args: any[]) => VNodeChild>;
-  /** 组件渲染函数 */
-  render?: (options: RenderOptions) => VNodeChild;
+  /** 组件渲染函数或插槽名称 */
+  render?: ((options: RenderOptions) => VNodeChild) | string;
 }
 
 /** 组件字段配置 */

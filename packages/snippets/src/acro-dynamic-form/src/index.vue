@@ -2,7 +2,7 @@
   <Form ref="formRef" :model="model" v-bind="attrs">
     <!-- 动态组件渲染 -->
     <RenderFormItem v-for="(field, index) in fields" :key="index" :field="field">
-      <RenderComponent :field="field" :model="model" />
+      <RenderComponent :field="field" :model="model" :slots="slots" />
     </RenderFormItem>
     <!-- 操作按钮区域 -->
     <slot v-if="slots.actionButtonArea" name="actionButtonArea" />

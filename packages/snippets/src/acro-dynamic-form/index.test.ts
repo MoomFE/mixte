@@ -175,73 +175,134 @@ describe('<acro-dynamic-form /> 字段配置', () => {
   });
 
   describe('render', () => {
-    it('使用 render 函数可自定义表单项的渲染', () => {
-      const wrapper = mount(AcroDynamicForm, {
-        props: {
-          fields: defineAcroDynamicFormFields([
-            { field: 'name', label: '姓名', render: () => h('div', { class: 'custom-render' }, '张三') },
-            { field: 'age', label: '年龄', render: () => h('div', { class: 'custom-render' }, '18') },
-          ]),
-          actionButtonArea: false,
-        },
+    describe('render 传入函数', () => {
+      it('传入函数渲染自定义组件', () => {
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([
+              { field: 'name', label: '姓名', render: () => h('div', { class: 'custom-render' }, '张三') },
+              { field: 'age', label: '年龄', render: () => h('div', { class: 'custom-render' }, '18') },
+            ]),
+            actionButtonArea: false,
+          },
+        });
+
+        const formItems = wrapper.findAll('.arco-form-item .custom-render');
+
+        expect(formItems.length).toBe(2);
+
+        expect(formItems[0].text()).toBe('张三');
+        expect(formItems[1].text()).toBe('18');
       });
 
-      const formItems = wrapper.findAll('.arco-form-item .custom-render');
+      it('函数会传入 model 参数, 为当前表单的表单数据', () => {
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            model: { name: '张三', age: '18' },
+            fields: defineAcroDynamicFormFields([
+              { field: 'name', type: 'input', label: '姓名', render: ({ model }) => h('div', { class: 'custom-render' }, model.name) },
+              { field: 'age', type: 'input', label: '年龄', render: ({ model }) => h('div', { class: 'custom-render' }, model.age) },
+            ]),
+            actionButtonArea: false,
+          },
+        });
 
-      expect(formItems.length).toBe(2);
+        const formItems = wrapper.findAll('.arco-form-item .custom-render');
 
-      expect(formItems[0].text()).toBe('张三');
-      expect(formItems[1].text()).toBe('18');
-    });
+        expect(formItems.length).toBe(2);
 
-    it('render 函数会传入 model 参数, 为当前表单的表单数据', () => {
-      const wrapper = mount(AcroDynamicForm, {
-        props: {
-          model: { name: '张三', age: '18' },
-          fields: defineAcroDynamicFormFields([
-            { field: 'name', type: 'input', label: '姓名', render: ({ model }) => h('div', { class: 'custom-render' }, model.name) },
-            { field: 'age', type: 'input', label: '年龄', render: ({ model }) => h('div', { class: 'custom-render' }, model.age) },
-          ]),
-          actionButtonArea: false,
-        },
+        expect(formItems[0].text()).toBe('张三');
+        expect(formItems[1].text()).toBe('18');
       });
 
-      const formItems = wrapper.findAll('.arco-form-item .custom-render');
+      it('函数会传入 Component 参数, 为原组件渲染函数', () => {
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            model: { name: '张三', age: '18' },
+            fields: defineAcroDynamicFormFields([
+              { field: 'name', type: 'input', label: '姓名', render: ({ Component }) => h('div', { class: 'custom-render' }, [Component()]) },
+              { field: 'age', type: 'input', label: '年龄', render: ({ Component }) => h('div', { class: 'custom-render' }, [Component()]) },
+            ]),
+            actionButtonArea: false,
+          },
+        });
 
-      expect(formItems.length).toBe(2);
+        const [nameInput, ageInput] = wrapper.findAll('.arco-form-item .custom-render .arco-input') as [DOMWrapper<HTMLInputElement>, DOMWrapper<HTMLInputElement>];
 
-      expect(formItems[0].text()).toBe('张三');
-      expect(formItems[1].text()).toBe('18');
+        expect(nameInput.element.value).toBe('张三');
+        expect(ageInput.element.value).toBe('18');
+      });
     });
 
-    it('render 函数会传入 Component 参数, 为原组件渲染函数', () => {
-      const wrapper = mount(AcroDynamicForm, {
-        props: {
-          model: { name: '张三', age: '18' },
-          fields: defineAcroDynamicFormFields([
-            { field: 'name', type: 'input', label: '姓名', render: ({ Component }) => h('div', { class: 'custom-render' }, [Component()]) },
-            { field: 'age', type: 'input', label: '年龄', render: ({ Component }) => h('div', { class: 'custom-render' }, [Component()]) },
-          ]),
-          actionButtonArea: false,
-        },
+    describe('render 传入插槽名称', () => {
+      it('传入插槽名称时, 将使用指定名称的插槽来渲染自定义组件', () => {
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([
+              { field: 'name', label: '姓名', render: 'name' },
+              { field: 'age', label: '年龄', render: 'age' },
+            ]),
+            actionButtonArea: false,
+          },
+          slots: {
+            name: () => h('div', { class: 'custom-render' }, '张三'),
+            age: () => h('div', { class: 'custom-render' }, '18'),
+          },
+        });
+
+        const formItems = wrapper.findAll('.arco-form-item .custom-render');
+
+        expect(formItems.length).toBe(2);
+
+        expect(formItems[0].text()).toBe('张三');
+        expect(formItems[1].text()).toBe('18');
       });
 
-      const [nameInput, ageInput] = wrapper.findAll('.arco-form-item .custom-render .arco-input') as [DOMWrapper<HTMLInputElement>, DOMWrapper<HTMLInputElement>];
+      it('插槽会传入 model 参数, 为当前表单的表单数据', () => {
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            model: { name: '张三', age: '18' },
+            fields: defineAcroDynamicFormFields([
+              { field: 'name', label: '姓名', render: 'name' },
+              { field: 'age', label: '年龄', render: 'age' },
+            ]),
+            actionButtonArea: false,
+          },
+          slots: {
+            name: ({ model }) => h('div', { class: 'custom-render' }, model.name),
+            age: ({ model }) => h('div', { class: 'custom-render' }, model.age),
+          },
+        });
 
-      expect(nameInput.element.value).toBe('张三');
-      expect(ageInput.element.value).toBe('18');
-    });
+        const formItems = wrapper.findAll('.arco-form-item .custom-render');
 
-    it('类型测试: render 函数的参数为 model, 返回值为 VNodeChild', () => {
-      const field = defineAcroDynamicFormField({ field: 'name', render: ({ model }) => h('div', model.name) });
+        expect(formItems.length).toBe(2);
 
-      type Render = NonNullable<(typeof field)['render']>;
+        expect(formItems[0].text()).toBe('张三');
+        expect(formItems[1].text()).toBe('18');
+      });
 
-      expectTypeOf<Parameters<Render>>().toEqualTypeOf<[{
-        model: Record<string, any>;
-        Component: () => VNodeChild;
-      }]>();
-      expectTypeOf<ReturnType<Render>>().toEqualTypeOf<VNodeChild>();
+      it('插槽会传入 Component 参数, 为原组件渲染函数', () => {
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            model: { name: '张三', age: '18' },
+            fields: defineAcroDynamicFormFields([
+              { field: 'name', type: 'input', label: '姓名', render: 'name' },
+              { field: 'age', type: 'input', label: '年龄', render: 'age' },
+            ]),
+            actionButtonArea: false,
+          },
+          slots: {
+            name: ({ Component }) => h('div', { class: 'custom-render' }, [Component()]),
+            age: ({ Component }) => h('div', { class: 'custom-render' }, [Component()]),
+          },
+        });
+
+        const [nameInput, ageInput] = wrapper.findAll('.arco-form-item .custom-render .arco-input') as [DOMWrapper<HTMLInputElement>, DOMWrapper<HTMLInputElement>];
+
+        expect(nameInput.element.value).toBe('张三');
+        expect(ageInput.element.value).toBe('18');
+      });
     });
   });
 
