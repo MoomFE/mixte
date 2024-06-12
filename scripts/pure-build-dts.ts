@@ -25,13 +25,16 @@ export async function pureBuildDts(pkg: LastArrayElement<typeof packages>[]) {
   for (const info of pkg) {
     console.log(`Building ${info.input}...`);
 
+    let vueFiles: string[] = [];
+
     if (info.vueComponent) {
-      const vueFiles = (await fg(['src/*.vue'], {
+      vueFiles = (await fg(['src/*.vue'], {
         absolute: true,
         ignore: ['**/demo/**'],
         cwd: resolve(__dirname, '../', dirname(info.input)),
       }));
 
+      // 打包前先删除旧的为 vue 生成的 .d.ts 文件
       for (const vueFile of vueFiles)
         await fs.remove(`${vueFile}.d.ts`);
 
@@ -55,6 +58,10 @@ export async function pureBuildDts(pkg: LastArrayElement<typeof packages>[]) {
       file: `${info.outputDir}/${info.outputFileName ?? 'index'}.d.ts`,
       format: 'es',
     });
+
+    // 打包后删除为 vue 生成的 .d.ts 文件
+    for (const vueFile of vueFiles)
+      await fs.remove(`${vueFile}.d.ts`);
 
     console.log(`Built ${info.input}.`);
   }

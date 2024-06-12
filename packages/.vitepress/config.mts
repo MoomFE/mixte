@@ -122,6 +122,7 @@ export default defineConfig({
         ...alias,
         { find: '@', replacement: resolve(__dirname, '../') },
         { find: '@@', replacement: resolve(__dirname, '../../') },
+        { find: '@mixte/components/acro-dynamic-form', replacement: resolve(__dirname, '../snippets/dist/acro-dynamic-form') },
       ],
     },
     plugins: [
