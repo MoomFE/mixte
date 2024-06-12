@@ -13,6 +13,7 @@ export default moomfe(
     files: ['**/demo/**/*'],
     rules: {
       'no-console': 'off',
+      'style/jsx-one-expression-per-line': 'off',
     },
   },
 );
