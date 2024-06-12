@@ -1,28 +1,46 @@
-import type { VNodeChild } from 'vue';
+import type { ExtractPublicPropTypes, PropType, VNodeChild } from 'vue';
 import type { AutoCompleteInstance, ButtonInstance, CascaderInstance, CascaderPanelInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormItemInstance, InputGroupInstance, InputInstance, InputNumberInstance, InputPasswordInstance, InputSearchInstance, InputTagInstance, MentionInstance, MonthPickerInstance, QuarterPickerInstance, RadioGroupInstance, RadioInstance, RangePickerInstance, RateInstance, SelectInstance, SliderInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance, WeekPickerInstance, YearPickerInstance } from '@arco-design/web-vue';
 
-interface AcroDynamicFormProps {
+const acroDynamicFormProps = {
   /** 字段配置列表 */
-  fields?: AcroDynamicFormField[];
+  fields: {
+    type: Array as PropType<AcroDynamicFormField[]>,
+  },
   /** 表单数据 */
-  model?: Record<string, any>;
+  model: {
+    type: Object as PropType<Record<string, any>>,
+  },
 
   /**
    * 操作按钮区域配置
    *  - 传入 boolean 值时, 表示是否显示操作按钮区域
+   * @default true
    */
-  actionButtonArea?: ActionButtonAreaOptions | boolean;
+  actionButtonArea: {
+    type: [Object, Boolean] as PropType<ActionButtonAreaOptions | boolean>,
+    default: true,
+  },
   /**
    * 提交按钮配置
    *  - 传入 boolean 值时, 表示是否显示提交按钮
+   * @default true
    */
-  submitButton?: SubmitButtonOptions | boolean;
+  submitButton: {
+    type: [Object, Boolean] as PropType<SubmitButtonOptions | boolean>,
+    default: true,
+  },
   /**
    * 重置按钮配置
    * - 传入 boolean 值时, 表示是否显示重置按钮
+   * @default true
    */
-  resetButton?: ResetButtonOptions | boolean;
-}
+  resetButton: {
+    type: [Object, Boolean] as PropType<ResetButtonOptions | boolean>,
+    default: true,
+  },
+};
+
+type AcroDynamicFormProps = ExtractPublicPropTypes<typeof acroDynamicFormProps>;
 
 interface AcroDynamicFormSlots {
   /** 操作按钮区域插槽, 可使用该插槽代替操作按钮区域的渲染 */
@@ -169,8 +187,15 @@ interface AcroDynamicFormFieldComponentPropsMap {
 // #endregion AcroDynamicFormField
 
 export {
+  acroDynamicFormProps,
   AcroDynamicFormProps,
+
+  ActionButtonAreaOptions,
+  SubmitButtonOptions,
+  ResetButtonOptions,
+
   AcroDynamicFormSlots,
+
   AcroDynamicFormField,
   AcroDynamicFormComponentField,
 };

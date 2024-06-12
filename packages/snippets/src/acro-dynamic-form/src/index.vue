@@ -6,11 +6,11 @@
     </RenderFormItem>
     <!-- 操作按钮区域 -->
     <slot v-if="slots.actionButtonArea" name="actionButtonArea" />
-    <FormItem v-else-if="showActionButtonArea" v-bind="actionButtonAreaProps">
+    <FormItem v-else-if="showActionButtonArea" v-bind="actionButtonArea.props">
       <Space>
         <slot v-if="slots.actionButtonPrepend" name="actionButtonPrepend" />
-        <Button v-if="showSubmitButton" type="primary" v-bind="submitButtonProps" @click="emit('submit', model)">{{ submitButtonText }}</Button>
-        <Button v-if="showResetButton" v-bind="resetButtonProps" @click="emit('reset')">{{ resetButtonText }}</Button>
+        <Button v-if="submitButton.show" type="primary" v-bind="submitButton.props" @click="emit('submit', model)">{{ submitButton.text }}</Button>
+        <Button v-if="resetButton.show" v-bind="resetButton.props" @click="emit('reset')">{{ resetButton.text }}</Button>
         <slot v-if="slots.actionButtonAppend" name="actionButtonAppend" />
       </Space>
     </FormItem>
@@ -25,13 +25,10 @@
   import RenderFormItem from './components/RenderFormItem.vue';
   import RenderComponent from './components/RenderComponent.vue';
   import { useActionButtonArea } from './composables/useActionButtonArea';
-  import type { AcroDynamicFormProps, AcroDynamicFormSlots } from './types';
+  import { acroDynamicFormProps } from './types';
+  import type { AcroDynamicFormSlots } from './types';
 
-  const props = withDefaults(defineProps<AcroDynamicFormProps>(), {
-    actionButtonArea: true,
-    submitButton: true,
-    resetButton: true,
-  });
+  const props = defineProps(acroDynamicFormProps);
   const emit = defineEmits<{
     /** 点击了提交按钮的事件 */
     submit: [model: Record<string, any>];
@@ -52,9 +49,10 @@
   });
 
   const {
-    showActionButtonArea, showSubmitButton, showResetButton, // eslint-disable-line antfu/consistent-list-newline
-    submitButtonText, resetButtonText, // eslint-disable-line antfu/consistent-list-newline
-    actionButtonAreaProps, submitButtonProps, resetButtonProps, // eslint-disable-line antfu/consistent-list-newline
+    showActionButtonArea,
+    actionButtonArea,
+    submitButton,
+    resetButton,
   } = useActionButtonArea(props, slots);
 
   const validate: FormInstance['validate'] = (...args) => formRef.value!.validate(...args);
