@@ -178,10 +178,9 @@ describe('<acro-dynamic-form /> 字段配置', () => {
     it('使用 render 函数可自定义表单项的渲染', () => {
       const wrapper = mount(AcroDynamicForm, {
         props: {
-          model: { name: '张三', age: '18' },
           fields: defineAcroDynamicFormFields([
-            { field: 'name', label: '姓名', render: model => h('div', { class: 'custom-render' }, model.name) },
-            { field: 'age', label: '年龄', render: model => h('div', { class: 'custom-render' }, model.age) },
+            { field: 'name', label: '姓名', render: () => h('div', { class: 'custom-render' }, '张三') },
+            { field: 'age', label: '年龄', render: () => h('div', { class: 'custom-render' }, '18') },
           ]),
           actionButtonArea: false,
         },
@@ -195,13 +194,33 @@ describe('<acro-dynamic-form /> 字段配置', () => {
       expect(formItems[1].text()).toBe('18');
     });
 
-    it('第二个选项中会传入原组件渲染函数, 可以在自定义渲染中使用', () => {
+    it('render 函数会传入 model 参数, 为当前表单的表单数据', () => {
       const wrapper = mount(AcroDynamicForm, {
         props: {
           model: { name: '张三', age: '18' },
           fields: defineAcroDynamicFormFields([
-            { field: 'name', type: 'input', label: '姓名', render: (_, { Component }) => h('div', { class: 'custom-render' }, [Component()]) },
-            { field: 'age', type: 'input', label: '年龄', render: (_, { Component }) => h('div', { class: 'custom-render' }, [Component()]) },
+            { field: 'name', type: 'input', label: '姓名', render: ({ model }) => h('div', { class: 'custom-render' }, model.name) },
+            { field: 'age', type: 'input', label: '年龄', render: ({ model }) => h('div', { class: 'custom-render' }, model.age) },
+          ]),
+          actionButtonArea: false,
+        },
+      });
+
+      const formItems = wrapper.findAll('.arco-form-item .custom-render');
+
+      expect(formItems.length).toBe(2);
+
+      expect(formItems[0].text()).toBe('张三');
+      expect(formItems[1].text()).toBe('18');
+    });
+
+    it('render 函数会传入 Component 参数, 为原组件渲染函数', () => {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          model: { name: '张三', age: '18' },
+          fields: defineAcroDynamicFormFields([
+            { field: 'name', type: 'input', label: '姓名', render: ({ Component }) => h('div', { class: 'custom-render' }, [Component()]) },
+            { field: 'age', type: 'input', label: '年龄', render: ({ Component }) => h('div', { class: 'custom-render' }, [Component()]) },
           ]),
           actionButtonArea: false,
         },
@@ -214,11 +233,12 @@ describe('<acro-dynamic-form /> 字段配置', () => {
     });
 
     it('类型测试: render 函数的参数为 model, 返回值为 VNodeChild', () => {
-      const field: AcroDynamicFormField = { field: 'name', render: model => h('div', model.name) };
+      const field = defineAcroDynamicFormField({ field: 'name', render: ({ model }) => h('div', model.name) });
 
       type Render = NonNullable<(typeof field)['render']>;
 
-      expectTypeOf<Parameters<Render>>().toEqualTypeOf<[Record<string, any>, {
+      expectTypeOf<Parameters<Render>>().toEqualTypeOf<[{
+        model: Record<string, any>;
         Component: () => VNodeChild;
       }]>();
       expectTypeOf<ReturnType<Render>>().toEqualTypeOf<VNodeChild>();

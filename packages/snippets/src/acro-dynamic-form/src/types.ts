@@ -69,6 +69,8 @@ interface ResetButtonOptions {
 
 /** 组件渲染函数选项 */
 interface RenderOptions {
+  /** 表单数据 */
+  model: Record<string, any>;
   /** 原组件渲染函数 */
   Component: () => VNodeChild;
 }
@@ -102,12 +104,8 @@ interface AcroDynamicFormFieldBase {
   componentProps?: Record<string, any>;
   /** 传递给组件的插槽 */
   componentSlots?: Record<string, (...args: any[]) => VNodeChild>;
-  /**
-   * 组件渲染函数
-   * @param model 表单数据
-   * @param options 其他选项
-   */
-  render?: (model: Record<string, any>, options: RenderOptions) => VNodeChild;
+  /** 组件渲染函数 */
+  render?: (options: RenderOptions) => VNodeChild;
 }
 
 /** 组件字段配置 */

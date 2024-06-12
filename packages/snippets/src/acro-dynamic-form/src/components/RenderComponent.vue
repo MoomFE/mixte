@@ -39,7 +39,7 @@
 
       // 使用渲染函数渲染自定义组件
       if (field.render)
-        return field.render(this.model, { Component: this.renderComponent });
+        return field.render({ model: this.model, Component: this.renderComponent });
 
       // 渲染指定组件
       if (field.type)
