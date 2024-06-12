@@ -1,7 +1,7 @@
 <template>
   <AcroDynamicForm
     ref="acroDynamicFormRef"
-    :fields="fields"
+    :fields="fields" auto-label-width
     @submit="handleSubmit"
     @reset="handleReset"
   />

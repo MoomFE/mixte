@@ -14,6 +14,8 @@ outline: [1,3]
 
 ### 组件插槽&表单项插槽
 
+### 渲染自定义组件
+
 ## API
 
 ### Props
@@ -64,8 +66,8 @@ reset; // 重置表单数据, 是 `resetFields` 方法的别名
 
 | 方法名 | 描述 | 参数 | 返回值 |
 | --- | --- | --- | --- |
-| defineAcroDynamicFormField | 定义单个字段配置 | `field: DynamicFormField` | [DynamicFormField](#AcroDynamicFormField) |
-| defineAcroDynamicFormFields | 定义字段配置列表 | `fields: DynamicFormField[]` | [DynamicFormField[]](#AcroDynamicFormField) |
+| defineAcroDynamicFormField | 定义单个字段配置 | `field: DynamicFormField` | [`DynamicFormField`](#AcroDynamicFormField) |
+| defineAcroDynamicFormFields | 定义字段配置列表 | `fields: DynamicFormField[]` | [`DynamicFormField[]`](#AcroDynamicFormField) |
 
 ## 类型定义
 
