@@ -1,10 +1,13 @@
 <template>
-  <ACard title="组件插槽" :body-style="{ paddingBottom: 0 }" :bordered="false">
-    <AcroDynamicForm :fields="componentSlotFields" :show-action-button-area="false" auto-label-width />
-  </ACard>
-  <ACard title="表单项插槽" :body-style="{ paddingBottom: 0 }" :bordered="false">
-    <AcroDynamicForm :fields="formItemSlotFields" :show-action-button-area="false" auto-label-width />
-  </ACard>
+  <a-card title="组件插槽" :body-style="{ paddingBottom: 0 }">
+    <AcroDynamicForm :fields="componentSlotFields" :action-button-area="false" auto-label-width />
+  </a-card>
+
+  <br>
+
+  <a-card title="表单项插槽" :body-style="{ paddingBottom: 0 }">
+    <AcroDynamicForm :fields="formItemSlotFields" :action-button-area="false" auto-label-width />
+  </a-card>
 </template>
 
 <script lang="tsx" setup>

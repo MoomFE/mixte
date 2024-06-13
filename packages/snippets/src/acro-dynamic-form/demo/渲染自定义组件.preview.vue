@@ -1,5 +1,5 @@
 <template>
-  <AcroDynamicForm :fields="fields" auto-label-width>
+  <AcroDynamicForm :fields="fields" auto-label-width :action-button-area="false">
     <template #name-xxx="{ model }">
       <ElInput
         v-model="model.name"
