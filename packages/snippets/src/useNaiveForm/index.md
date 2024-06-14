@@ -1,7 +1,8 @@
 定义一个 [Naive UI 表单](https://www.naiveui.com/zh-CN/os-theme/components/form) 数据及数据验证规则
 
 ::: warning 注意
-该组合式函数仅支持 `Vue 3`
+  - 依赖于 [Naive UI](https://www.npmjs.com/package/naive-ui) 组件库
+  - 该组合式函数仅支持 `Vue 3`
 :::
 
 ### 类型

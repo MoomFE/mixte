@@ -94,7 +94,6 @@ describe('<acro-dynamic-form /> 基础测试', () => {
 
     expect(wrapper.findAll('.arco-input-disabled').length).toBe(0);
 
-    // @ts-expect-error
     wrapper.setProps({ disabled: true });
     await wrapper.vm.$nextTick();
 
@@ -545,8 +544,7 @@ describe('<acro-dynamic-form /> 字段配置', () => {
             label: '姓名',
             type: 'input',
             rules: [{ required: true }],
-            validateTrigger: 'blur',
-            // @ts-expect-error
+            validateTrigger: 'blur', // @ts-expect-error
             formItemProps: { field: 'name-666', label: '姓名-666', rules: [{ required: true }], validateTrigger: 'change' },
           }],
         });
@@ -567,8 +565,7 @@ describe('<acro-dynamic-form /> 字段配置', () => {
 
         await wrapper.setProps({
           fields: [{
-            type: 'input',
-            // @ts-expect-error
+            type: 'input', // @ts-expect-error
             formItemProps: { field: 'name-666', label: '姓名-666', rules: [{ required: true }], validateTrigger: 'change' },
           }],
         });
@@ -630,8 +627,8 @@ describe('<acro-dynamic-form /> 字段配置', () => {
       type FormItemSlots = NonNullable<AcroDynamicFormField['formItemSlots']>;
       type FormItemSlotValue = ValueOf<FormItemSlots>;
 
-      expectTypeOf<Parameters<FormItemSlotValue>>().toEqualTypeOf<any[]>();
-      expectTypeOf<ReturnType<FormItemSlotValue>>().toEqualTypeOf<VNodeChild>();
+      expectTypeOf<Parameters<NonNullable<FormItemSlotValue>>>().toEqualTypeOf<any[]>();
+      expectTypeOf<ReturnType<NonNullable<FormItemSlotValue>>>().toEqualTypeOf<VNodeChild>();
     });
   });
 });

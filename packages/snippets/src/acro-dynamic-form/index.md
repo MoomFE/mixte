@@ -5,7 +5,8 @@ outline: [1,3]
 基于 [Arco Design Vue](https://arco.design/vue) 封装的动态表单组件
 
 ::: warning 注意
-该组件仅支持 `Vue 3`
+  - 依赖于 [@arco-design/web-vue](https://www.npmjs.com/package/@arco-design/web-vue) 组件库
+  - 该组件仅支持 `Vue 3`
 :::
 
 ## 演示

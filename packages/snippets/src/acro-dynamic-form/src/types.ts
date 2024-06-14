@@ -1,5 +1,5 @@
 import type { ExtractPublicPropTypes, PropType, VNodeChild } from 'vue';
-import type { AutoCompleteInstance, ButtonInstance, CascaderInstance, CascaderPanelInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormItemInstance, InputGroupInstance, InputInstance, InputNumberInstance, InputPasswordInstance, InputSearchInstance, InputTagInstance, MentionInstance, MonthPickerInstance, QuarterPickerInstance, RadioGroupInstance, RadioInstance, RangePickerInstance, RateInstance, SelectInstance, SliderInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance, WeekPickerInstance, YearPickerInstance } from '@arco-design/web-vue';
+import type { AutoCompleteInstance, ButtonInstance, CascaderInstance, CascaderPanelInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormInstance, FormItemInstance, InputGroupInstance, InputInstance, InputNumberInstance, InputPasswordInstance, InputSearchInstance, InputTagInstance, MentionInstance, MonthPickerInstance, QuarterPickerInstance, RadioGroupInstance, RadioInstance, RangePickerInstance, RateInstance, SelectInstance, SliderInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance, WeekPickerInstance, YearPickerInstance } from '@arco-design/web-vue';
 
 const acroDynamicFormProps = {
   /** 字段配置列表 */
@@ -38,6 +38,19 @@ const acroDynamicFormProps = {
     type: [Object, Boolean] as PropType<ResetButtonOptions | boolean>,
     default: true,
   },
+
+  // Form props
+
+  layout: { type: String as PropType<FormInstance['$props']['layout']> },
+  size: { type: String as PropType<FormInstance['$props']['size']> },
+  labelColProps: { type: Object as PropType<FormInstance['$props']['labelColProps']> },
+  wrapperColProps: { type: Object as PropType<FormInstance['$props']['wrapperColProps']> },
+  labelAlign: { type: String as PropType<FormInstance['$props']['labelAlign']> },
+  disabled: { type: Boolean as PropType<FormInstance['$props']['disabled']> },
+  rules: { type: Object as PropType<FormInstance['$props']['rules']> },
+  autoLabelWidth: { type: Boolean as PropType<FormInstance['$props']['autoLabelWidth']> },
+  id: { type: String as PropType<FormInstance['$props']['id']> },
+  scrollToFirstError: { type: Boolean as PropType<FormInstance['$props']['scrollToFirstError']> },
 };
 
 type AcroDynamicFormProps = ExtractPublicPropTypes<typeof acroDynamicFormProps>;
@@ -132,7 +145,16 @@ interface AcroDynamicFormFieldBase {
   /** 传递给 FormItem 组件的参数 */
   formItemProps?: Omit<FormItemInstance['$props'], 'field' | 'label' | 'rules' | 'validateTrigger'>;
   /** 传递给 FormItem 组件的插槽 */
-  formItemSlots?: Record<string, (...args: any[]) => VNodeChild>;
+  formItemSlots?: {
+    /** 标签 */
+    label?: () => VNodeChild;
+    /** 帮助信息 */
+    help?: () => VNodeChild;
+    /** 额外内容 */
+    extra?: () => VNodeChild;
+    /** 其他插槽 ( 预留 ) */
+    [key: string]: ((...args: any[]) => VNodeChild) | undefined;
+  };
   /** 字段类型 */
   type?: string;
   /** 传递给组件的参数 */
