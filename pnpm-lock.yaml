@@ -222,13 +222,13 @@ importers:
     dependencies:
       '@vueuse/core':
         specifier: '*'
-        version: 10.10.0(vue@3.4.27(typescript@5.4.5))
+        version: 10.11.0(vue@3.4.29(typescript@5.4.5))
       mixte:
         specifier: workspace:*
         version: link:../mixte
       vue-demi:
         specifier: '*'
-        version: 0.14.8(vue@3.4.27(typescript@5.4.5))
+        version: 0.14.8(vue@3.4.29(typescript@5.4.5))
 
   packages/use:
     dependencies:
