@@ -11,6 +11,7 @@
     - `submitButton.props`: 传递给提交按钮组件的参数
     - `resetButton.props`: 传递给重置按钮组件的参数
   - 💄 [@mixte/snippets] 组件 `AcroDynamicForm` 优化传参类型, 整合 Acro 的 Form 表单组件传参
+  - 💄 [@mixte/use] 优化 `useRequest` 方法的 `reactive` 返回值实现
   - ⚠️ [@mixte/snippets] 修改 `AcroDynamicForm` 组件参数
     - 由 `showActionButtonArea` 改为 `actionButtonArea` 或 `actionButtonArea.show`
     - 由 `showSubmitButton` 改为 `submitButton` 或 `submitButton.show`
