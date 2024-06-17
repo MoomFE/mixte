@@ -72,7 +72,7 @@
     "axios": "^1.7.2",
     "change-case": "^5.4.4",
     "element-plus": "^2.7.5",
-    "eslint": "^9.4.0",
+    "eslint": "^9.5.0",
     "fast-glob": "^3.3.2",
     "fs-extra": "^11.2.0",
     "gsap": "^3.12.5",
