@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/use] 优化 `useRequest` 方法的 `reactive` 返回值实现
 
 ## [v1.13.2]
   - 📅 2024-06-10
