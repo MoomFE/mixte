@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v2.0.0-beta.1]
+  - 📅 2024-06-19
   - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 字段配置新增 `render` 选项
     - 可传入渲染函数, 渲染自定义组件
     - 可传入插槽名称, 将使用指定名称的插槽来渲染自定义组件
@@ -50,4 +53,5 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v1.13.2...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.0.0-beta.1...HEAD
+[v2.0.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v2.0.0-beta.1
