@@ -71,7 +71,10 @@
   provide('codeLang', codeLang);
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
   .highlighter > .shiki
     @apply scrollbar my-0 p-(x6 y3)
+
+  :deep(.arco-link)
+    @apply important:no-underline
 </style>
