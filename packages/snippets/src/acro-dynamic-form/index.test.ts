@@ -934,17 +934,58 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
   });
 
   it('配置操作按钮区域 FormItem 组件的参数', () => {
-    const wrapper = mount(AcroDynamicForm, {
-      props: {
-        actionButtonArea: {
-          props: { validateStatus: 'success' },
+    // 不传值情况下
+    {
+      const wrapper = mount(AcroDynamicForm);
+      const formItem = wrapper.find('.arco-form-item');
+
+      expect(formItem.exists()).toBe(true);
+      expect(formItem.classes()).not.includes('arco-form-item-status-success');
+    }
+
+    // 传值情况下
+    {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          actionButtonArea: {
+            props: { validateStatus: 'success' },
+          },
         },
-      },
-    });
+      });
+      const formItem = wrapper.find('.arco-form-item');
 
-    const formItem = wrapper.find('.arco-form-item.arco-form-item-status-success');
+      expect(formItem.exists()).toBe(true);
+      expect(formItem.classes()).includes('arco-form-item-status-success');
+    }
+  });
 
-    expect(formItem.exists()).toBe(true);
+  it('传递给操作按钮区域 Space 组件的参数', () => {
+    // 不传值情况下
+    {
+      const wrapper = mount(AcroDynamicForm);
+      const space = wrapper.find('.arco-space');
+
+      expect(space.exists()).toBe(true);
+      expect(space.classes()).includes('arco-space-horizontal');
+      expect(space.classes()).not.includes('arco-space-vertical');
+    }
+
+    // 传值情况下
+    {
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          actionButtonArea: {
+            spaceProps: { direction: 'vertical' },
+          },
+        },
+      });
+
+      const space = wrapper.find('.arco-space');
+
+      expect(space.exists()).toBe(true);
+      expect(space.classes()).not.includes('arco-space-horizontal');
+      expect(space.classes()).includes('arco-space-vertical');
+    }
   });
 
   it('配置提交按钮组件的参数', () => {

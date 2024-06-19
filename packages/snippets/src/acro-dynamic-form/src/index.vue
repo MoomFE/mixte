@@ -7,7 +7,7 @@
     <!-- 操作按钮区域 -->
     <slot v-if="slots.actionButtonArea" name="actionButtonArea" />
     <FormItem v-else-if="showActionButtonArea" v-bind="actionButtonArea.props">
-      <Space>
+      <Space v-bind="actionButtonArea.spaceProps">
         <slot v-if="slots.actionButtonPrepend" name="actionButtonPrepend" />
         <Button v-if="submitButton.show" type="primary" v-bind="submitButton.props" @click="emit('submit', model)">{{ submitButton.text }}</Button>
         <Button v-if="resetButton.show" v-bind="resetButton.props" @click="emit('reset')">{{ resetButton.text }}</Button>

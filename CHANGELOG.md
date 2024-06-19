@@ -1,4 +1,6 @@
 ## [Unreleased]
+  - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 新增 `actionButtonArea.spaceProps`
+    - 传递给操作按钮区域 Space 组件的参数
 
 ## [v2.0.0-beta.1]
   - 📅 2024-06-19
