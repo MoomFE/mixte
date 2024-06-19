@@ -18,7 +18,7 @@ const acroDynamicFormProps = {
    */
   actionButtonArea: {
     type: [Object, Boolean] as PropType<ActionButtonAreaOptions | boolean>,
-    default: true,
+    default: true as (ActionButtonAreaOptions | boolean), // 不加 as 时, 使用该参数时, 类型丢失, 只剩下 boolean 类型
   },
   /**
    * 提交按钮配置
@@ -27,7 +27,7 @@ const acroDynamicFormProps = {
    */
   submitButton: {
     type: [Object, Boolean] as PropType<SubmitButtonOptions | boolean>,
-    default: true,
+    default: true as (SubmitButtonOptions | boolean), // 不加 as 时, 使用该参数时, 类型丢失, 只剩下 boolean 类型
   },
   /**
    * 重置按钮配置
@@ -36,7 +36,7 @@ const acroDynamicFormProps = {
    */
   resetButton: {
     type: [Object, Boolean] as PropType<ResetButtonOptions | boolean>,
-    default: true,
+    default: true as (ResetButtonOptions | boolean), // 不加 as 时, 使用该参数时, 类型丢失, 只剩下 boolean 类型
   },
 
   // Form props
