@@ -39,6 +39,9 @@ const acroDynamicFormProps = {
     default: true as (ResetButtonOptions | boolean), // 不加 as 时, 使用该参数时, 类型丢失, 只剩下 boolean 类型
   },
 
+  /** 预设 */
+  preset: [Symbol, Array] as PropType<symbol | symbol[]>,
+
   // Form props
 
   layout: { type: String as PropType<FormInstance['$props']['layout']> },
@@ -165,6 +168,8 @@ interface AcroDynamicFormFieldBase {
   componentSlots?: Record<string, (...args: any[]) => VNodeChild>;
   /** 组件渲染函数或插槽名称 */
   render?: ((options: RenderOptions) => VNodeChild) | string;
+  /** 预设 */
+  preset?: symbol | symbol[];
 }
 
 /** 组件字段配置 */

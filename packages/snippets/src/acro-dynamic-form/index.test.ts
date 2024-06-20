@@ -1,12 +1,12 @@
 import type { DOMWrapper } from '@vue/test-utils';
-import { AcroDynamicForm, defineAcroDynamicFormField, defineAcroDynamicFormFields } from '@mixte/snippets/acro-dynamic-form';
+import { AcroDynamicForm, defineAcroDynamicFormField, defineAcroDynamicFormFields, defineAcroDynamicFormPreset } from '@mixte/snippets/acro-dynamic-form';
 import { config, mount } from '@vue/test-utils';
 import type { CheckboxInstance, FormItemInstance, InputInstance } from '@arco-design/web-vue';
 import type { StringKeyOf, ValueOf } from 'type-fest';
 import { Button } from '@arco-design/web-vue';
 import { deepClone } from 'mixte';
 import type { VNodeChild } from 'vue';
-import type { AcroDynamicFormField } from './src/types';
+import type { AcroDynamicFormField, AcroDynamicFormProps } from './src/types';
 
 // 来源: arco-design/arco-design-vue/packages/web-vue/scripts/demo-test.ts
 Object.defineProperty(window, 'matchMedia', {
@@ -1140,32 +1140,57 @@ describe('<acro-dynamic-form /> 操作按钮', () => {
 });
 
 describe('导出的工具方法', () => {
-  it('defineAcroDynamicFormField 方法, 原样返回传入的字段配置', () => {
-    const field = { field: 'name', label: '姓名', type: 'input' };
-    const fieldClone = deepClone(field);
+  describe('defineAcroDynamicFormField', () => {
+    it('方法原样返回传入的字段配置', () => {
+      const field = { field: 'name', label: '姓名', type: 'input' };
+      const fieldClone = deepClone(field);
 
-    expect(defineAcroDynamicFormField(field)).toBe(field);
-    expect(defineAcroDynamicFormField(field)).toStrictEqual(fieldClone);
+      expect(defineAcroDynamicFormField(field)).toBe(field);
+      expect(defineAcroDynamicFormField(field)).toStrictEqual(fieldClone);
+    });
+
+    it('类型测试: 用于定义单个字段配置', () => {
+      expectTypeOf<Parameters<typeof defineAcroDynamicFormField>>().toEqualTypeOf<[AcroDynamicFormField]>();
+      expectTypeOf<ReturnType<typeof defineAcroDynamicFormField>>().toEqualTypeOf<AcroDynamicFormField>();
+    });
   });
 
-  it('类型测试: defineAcroDynamicFormField 用于定义单个字段配置', () => {
-    expectTypeOf<Parameters<typeof defineAcroDynamicFormField>>().toEqualTypeOf<[AcroDynamicFormField]>();
-    expectTypeOf<ReturnType<typeof defineAcroDynamicFormField>>().toEqualTypeOf<AcroDynamicFormField>();
+  describe('defineAcroDynamicFormFields', () => {
+    it('方法原样返回传入的字段配置数组', () => {
+      const fields = [
+        { field: 'name', label: '姓名', type: 'input' },
+        { field: 'age', label: '年龄', type: 'input-number' },
+      ];
+      const fieldsClone = deepClone(fields);
+
+      expect(defineAcroDynamicFormFields(fields)).toBe(fields);
+      expect(defineAcroDynamicFormFields(fields)).toStrictEqual(fieldsClone);
+    });
+
+    it('类型测试: 用于定义多个字段配置', () => {
+      expectTypeOf<Parameters<typeof defineAcroDynamicFormFields>>().toEqualTypeOf<[AcroDynamicFormField[]]>();
+      expectTypeOf<ReturnType<typeof defineAcroDynamicFormFields>>().toEqualTypeOf<AcroDynamicFormField[]>();
+    });
   });
 
-  it('defineAcroDynamicFormFields 方法, 原样返回传入的字段配置', () => {
-    const fields = [
-      { field: 'name', label: '姓名', type: 'input' },
-      { field: 'age', label: '年龄', type: 'input-number' },
-    ];
-    const fieldsClone = deepClone(fields);
+  describe('defineAcroDynamicFormPreset', () => {
+    it('方法返回值为一个 Symbol, 并且多个方法不会返回一样的 Symbol', () => {
+      const preset1 = defineAcroDynamicFormPreset(() => {});
+      const preset2 = defineAcroDynamicFormPreset(() => {});
 
-    expect(defineAcroDynamicFormFields(fields)).toBe(fields);
-    expect(defineAcroDynamicFormFields(fields)).toStrictEqual(fieldsClone);
-  });
+      expect(typeof preset1).toBe('symbol');
+      expect(typeof preset2).toBe('symbol');
+      expect(preset1).not.toBe(preset2);
+    });
 
-  it('类型测试: defineAcroDynamicFormFields 用于定义多个字段配置', () => {
-    expectTypeOf<Parameters<typeof defineAcroDynamicFormFields>>().toEqualTypeOf<[AcroDynamicFormField[]]>();
-    expectTypeOf<ReturnType<typeof defineAcroDynamicFormFields>>().toEqualTypeOf<AcroDynamicFormField[]>();
+    it('类型测试: 方法传参为一个方法, 返回值为 Symbol', () => {
+      expectTypeOf<Parameters<typeof defineAcroDynamicFormPreset>>().toEqualTypeOf<[
+        (form: {
+          defineFormConfig: (config: AcroDynamicFormProps) => void;
+          defineFieldsConfig: (fields: AcroDynamicFormField[]) => void;
+        }) => void,
+      ]>();
+      expectTypeOf<ReturnType<typeof defineAcroDynamicFormPreset>>().toEqualTypeOf<symbol>();
+    });
   });
 });
