@@ -1,11 +1,12 @@
+import type { CheckboxInstance, FormItemInstance, InputInstance } from '@arco-design/web-vue';
+import type { StringKeyOf, ValueOf } from 'type-fest';
+import type { VNodeChild } from 'vue';
 import type { DOMWrapper } from '@vue/test-utils';
 import { AcroDynamicForm, defineAcroDynamicFormField, defineAcroDynamicFormFields, defineAcroDynamicFormPreset } from '@mixte/snippets/acro-dynamic-form';
 import { config, mount } from '@vue/test-utils';
-import type { CheckboxInstance, FormItemInstance, InputInstance } from '@arco-design/web-vue';
-import type { StringKeyOf, ValueOf } from 'type-fest';
 import { Button } from '@arco-design/web-vue';
 import { deepClone } from 'mixte';
-import type { VNodeChild } from 'vue';
+import { presetMap } from './src/utils/defineAcroDynamicFormPreset';
 import type { AcroDynamicFormField, AcroDynamicFormProps } from './src/types';
 
 // 来源: arco-design/arco-design-vue/packages/web-vue/scripts/demo-test.ts
@@ -1183,14 +1184,94 @@ describe('导出的工具方法', () => {
       expect(preset1).not.toBe(preset2);
     });
 
+    it('方法使用时需要传入一个方法, 该方法接收一个对象参数, 该对象包含两个方法, 用于定义表单配置和字段配置', () => {
+      let fn1;
+      let fn2;
+
+      defineAcroDynamicFormPreset(({ defineFormConfig, defineFieldsConfig }) => {
+        fn1 = defineFormConfig;
+        fn2 = defineFieldsConfig;
+      });
+
+      expect(typeof fn1).toBe('function');
+      expect(typeof fn2).toBe('function');
+    });
+
+    it('方法执行后, 会使用返回的 Symbol 作为 key, 将定义的组件配置和字段配置存储在预设映射缓存中', () => {
+      const key = defineAcroDynamicFormPreset(({ defineFormConfig, defineFieldsConfig }) => {
+        defineFormConfig({ actionButtonArea: false });
+        defineFieldsConfig([
+          { label: '姓名', type: 'input' },
+          { label: '年龄', type: 'input-number' },
+        ]);
+      });
+
+      const formConfig = presetMap.get(key);
+
+      expect(formConfig).not.toBeUndefined();
+      expect(formConfig?.form).toStrictEqual({ actionButtonArea: false });
+      expect(formConfig?.fields).toStrictEqual([
+        { label: '姓名', type: 'input' },
+        { label: '年龄', type: 'input-number' },
+      ]);
+    });
+
     it('类型测试: 方法传参为一个方法, 返回值为 Symbol', () => {
+      type PresetAcroDynamicFormField = Omit<AcroDynamicFormField, 'field'>;
+
       expectTypeOf<Parameters<typeof defineAcroDynamicFormPreset>>().toEqualTypeOf<[
         (form: {
           defineFormConfig: (config: AcroDynamicFormProps) => void;
-          defineFieldsConfig: (fields: AcroDynamicFormField[]) => void;
+          defineFieldsConfig: (fields: PresetAcroDynamicFormField[]) => void;
         }) => void,
       ]>();
       expectTypeOf<ReturnType<typeof defineAcroDynamicFormPreset>>().toEqualTypeOf<symbol>();
+    });
+
+    describe('在字段配置中使用预设', () => {
+      const preset1 = defineAcroDynamicFormPreset(({ defineFieldsConfig }) => {
+        defineFieldsConfig([
+          { label: '姓名', type: 'input', defaultValue: '张三' },
+        ]);
+      });
+
+      it('字段配置会继承预设中的配置', () => {
+        // 不使用预设
+        {
+          const wrapper = mount(AcroDynamicForm, {
+            props: {
+              fields: defineAcroDynamicFormFields([{ field: 'name', type: 'input' }]),
+              actionButtonArea: false,
+            },
+          });
+
+          const label = wrapper.find('.arco-form-item-label');
+          const input = wrapper.find('.arco-input') as DOMWrapper<HTMLInputElement>;
+
+          expect(label.text()).toBe('');
+          expect(input.element.value).toBe('');
+        }
+
+        // 使用预设
+        {
+          const wrapper = mount(AcroDynamicForm, {
+            props: {
+              fields: defineAcroDynamicFormFields([{
+                field: 'name',
+                type: 'input',
+                preset: preset1,
+              }]),
+              actionButtonArea: false,
+            },
+          });
+
+          const label = wrapper.find('.arco-form-item-label');
+          const input = wrapper.find('.arco-input') as DOMWrapper<HTMLInputElement>;
+
+          expect(label.text()).toBe('姓名');
+          expect(input.element.value).toBe('张三');
+        }
+      });
     });
   });
 });

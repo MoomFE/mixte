@@ -1,7 +1,7 @@
 <template>
   <Form ref="formRef" :model="model" v-bind="formProps">
     <!-- 动态组件渲染 -->
-    <RenderFormItem v-for="(field, index) in fields" :key="index" :field="field">
+    <RenderFormItem v-for="(field, index) in finalFields" :key="index" :field="field">
       <RenderComponent :field="field" :model="model" :slots="slots" />
     </RenderFormItem>
     <!-- 操作按钮区域 -->
@@ -29,6 +29,7 @@
   import { useActionButtonArea } from './composables/useActionButtonArea';
   import { acroDynamicFormProps } from './types';
   import type { AcroDynamicFormSlots } from './types';
+  import { resolveAcroDynamicFormFieldConfig } from './utils/defineAcroDynamicFormPreset';
 
   const props = defineProps(acroDynamicFormProps);
   const emit = defineEmits<{
@@ -45,7 +46,11 @@
 
   const model = (props.model ? toReactive(toRef(props, 'model')) : reactive({})) as Record<string, any>;
 
-  props.fields?.forEach((field) => {
+  const finalFields = computed(() => {
+    return props.fields?.map(resolveAcroDynamicFormFieldConfig);
+  });
+
+  finalFields.value?.forEach((field) => {
     if (field.defaultValue != null)
       model[field.field] = model[field.field] ?? field.defaultValue;
   });
