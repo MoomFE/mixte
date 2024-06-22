@@ -6,8 +6,8 @@ import { AcroDynamicForm, defineAcroDynamicFormField, defineAcroDynamicFormField
 import { config, mount } from '@vue/test-utils';
 import { Button } from '@arco-design/web-vue';
 import { deepClone } from 'mixte';
+import type { AcroDynamicFormField } from './src/types';
 import { presetMap } from './src/utils/defineAcroDynamicFormPreset';
-import type { AcroDynamicFormField, AcroDynamicFormProps } from './src/types';
 
 // 来源: arco-design/arco-design-vue/packages/web-vue/scripts/demo-test.ts
 Object.defineProperty(window, 'matchMedia', {
@@ -632,6 +632,49 @@ describe('<acro-dynamic-form /> 字段配置', () => {
       expectTypeOf<ReturnType<NonNullable<FormItemSlotValue>>>().toEqualTypeOf<VNodeChild>();
     });
   });
+
+  describe('preset', () => {
+    it('字段配置会继承预设中的配置', () => {
+      const preset = defineAcroDynamicFormPreset({
+        name: { label: '姓名', type: 'input', defaultValue: '张三' },
+      });
+
+      // 不使用预设
+      {
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([{ field: 'name' }]),
+            actionButtonArea: false,
+          },
+        });
+
+        const label = wrapper.find('.arco-form-item-label');
+        const input = wrapper.find('.arco-input') as DOMWrapper<HTMLInputElement>;
+
+        expect(label.text()).toBe('');
+        expect(input.exists()).toBe(false);
+      }
+
+      // 使用预设
+      {
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([{
+              field: 'name',
+              preset: preset.name,
+            }]),
+            actionButtonArea: false,
+          },
+        });
+
+        const label = wrapper.find('.arco-form-item-label');
+        const input = wrapper.find('.arco-input') as DOMWrapper<HTMLInputElement>;
+
+        expect(label.text()).toBe('姓名');
+        expect(input.element.value).toBe('张三');
+      }
+    });
+  });
 });
 
 describe('<acro-dynamic-form /> 导出方法及对象', () => {
@@ -1175,103 +1218,41 @@ describe('导出的工具方法', () => {
   });
 
   describe('defineAcroDynamicFormPreset', () => {
-    it('方法返回值为一个 Symbol, 并且多个方法不会返回一样的 Symbol', () => {
-      const preset1 = defineAcroDynamicFormPreset(() => {});
-      const preset2 = defineAcroDynamicFormPreset(() => {});
-
-      expect(typeof preset1).toBe('symbol');
-      expect(typeof preset2).toBe('symbol');
-      expect(preset1).not.toBe(preset2);
-    });
-
-    it('方法使用时需要传入一个方法, 该方法接收一个对象参数, 该对象包含两个方法, 用于定义表单配置和字段配置', () => {
-      let fn1;
-      let fn2;
-
-      defineAcroDynamicFormPreset(({ defineFormConfig, defineFieldsConfig }) => {
-        fn1 = defineFormConfig;
-        fn2 = defineFieldsConfig;
+    it('方法传入一个预设 Map, 返回原本预设名称和对应预设的 Symbol', () => {
+      const presetKeyMap = defineAcroDynamicFormPreset({
+        customInput: { type: 'input', defaultValue: '张三' },
+        customInputNumber: { type: 'input-number', defaultValue: 18 },
       });
 
-      expect(typeof fn1).toBe('function');
-      expect(typeof fn2).toBe('function');
-    });
+      expect(Object.keys(presetKeyMap)).toStrictEqual(['customInput', 'customInputNumber']);
 
-    it('方法执行后, 会使用返回的 Symbol 作为 key, 将定义的组件配置和字段配置存储在预设映射缓存中', () => {
-      const key = defineAcroDynamicFormPreset(({ defineFormConfig, defineFieldsConfig }) => {
-        defineFormConfig({ actionButtonArea: false });
-        defineFieldsConfig([
-          { label: '姓名', type: 'input' },
-          { label: '年龄', type: 'input-number' },
-        ]);
+      Object.values(presetKeyMap).forEach((key) => {
+        expect(typeof key).toBe('symbol');
       });
-
-      const formConfig = presetMap.get(key);
-
-      expect(formConfig).not.toBeUndefined();
-      expect(formConfig?.form).toStrictEqual({ actionButtonArea: false });
-      expect(formConfig?.fields).toStrictEqual([
-        { label: '姓名', type: 'input' },
-        { label: '年龄', type: 'input-number' },
-      ]);
     });
 
-    it('类型测试: 方法传参为一个方法, 返回值为 Symbol', () => {
+    it('通过方法定义的预设, 都会存在预设映射缓存中', () => {
+      const presets = {
+        customInput: { type: 'input', defaultValue: '张三' },
+        customInputNumber: { type: 'input-number', defaultValue: 18 },
+      };
+
+      const presetKeyMap = defineAcroDynamicFormPreset(presets);
+
+      expect(presetMap.get(presetKeyMap.customInput)).toBe(presets.customInput);
+      expect(presetMap.get(presetKeyMap.customInputNumber)).toBe(presets.customInputNumber);
+    });
+
+    it('类型测试: 传值和返回值', () => {
+      type DefineAcroDynamicFormPreset = typeof defineAcroDynamicFormPreset;
       type PresetAcroDynamicFormField = Omit<AcroDynamicFormField, 'field'>;
 
-      expectTypeOf<Parameters<typeof defineAcroDynamicFormPreset>>().toEqualTypeOf<[
-        (form: {
-          defineFormConfig: (config: AcroDynamicFormProps) => void;
-          defineFieldsConfig: (fields: PresetAcroDynamicFormField[]) => void;
-        }) => void,
+      expectTypeOf<Parameters<DefineAcroDynamicFormPreset>>().toEqualTypeOf<[
+        Record<string, PresetAcroDynamicFormField>,
       ]>();
-      expectTypeOf<ReturnType<typeof defineAcroDynamicFormPreset>>().toEqualTypeOf<symbol>();
-    });
-
-    describe('在字段配置中使用预设', () => {
-      const preset1 = defineAcroDynamicFormPreset(({ defineFieldsConfig }) => {
-        defineFieldsConfig([
-          { label: '姓名', type: 'input', defaultValue: '张三' },
-        ]);
-      });
-
-      it('字段配置会继承预设中的配置', () => {
-        // 不使用预设
-        {
-          const wrapper = mount(AcroDynamicForm, {
-            props: {
-              fields: defineAcroDynamicFormFields([{ field: 'name', type: 'input' }]),
-              actionButtonArea: false,
-            },
-          });
-
-          const label = wrapper.find('.arco-form-item-label');
-          const input = wrapper.find('.arco-input') as DOMWrapper<HTMLInputElement>;
-
-          expect(label.text()).toBe('');
-          expect(input.element.value).toBe('');
-        }
-
-        // 使用预设
-        {
-          const wrapper = mount(AcroDynamicForm, {
-            props: {
-              fields: defineAcroDynamicFormFields([{
-                field: 'name',
-                type: 'input',
-                preset: preset1,
-              }]),
-              actionButtonArea: false,
-            },
-          });
-
-          const label = wrapper.find('.arco-form-item-label');
-          const input = wrapper.find('.arco-input') as DOMWrapper<HTMLInputElement>;
-
-          expect(label.text()).toBe('姓名');
-          expect(input.element.value).toBe('张三');
-        }
-      });
+      expectTypeOf<ReturnType<DefineAcroDynamicFormPreset>>().toEqualTypeOf<
+        Record<string, symbol>
+      >();
     });
   });
 });

@@ -1,55 +1,27 @@
 import { deepClone, toArray } from 'mixte';
-import type { AcroDynamicFormField, AcroDynamicFormProps } from '../types';
+import type { AcroDynamicFormField } from '../types';
 
-type PresetAcroDynamicFormProps = AcroDynamicFormProps;
 type PresetAcroDynamicFormField = Omit<AcroDynamicFormField, 'field'>;
-
-interface Preset {
-  form: PresetAcroDynamicFormProps;
-  fields: PresetAcroDynamicFormField[];
-}
-
-interface PresetSetupOptions {
-  /** 定义该预设下的组件配置 */
-  defineFormConfig: (config: PresetAcroDynamicFormProps) => void;
-  /** 定义该预设下的字段配置 */
-  defineFieldsConfig: (fields: PresetAcroDynamicFormField[]) => void;
-}
 
 /**
  * 预设映射缓存
  * @private
  */
-export const presetMap = new WeakMap<symbol, Preset>();
+export const presetMap = new WeakMap<symbol, PresetAcroDynamicFormField>();
 
 /**
  * 定义 AcroDynamicForm 预设
  */
-export function defineAcroDynamicFormPreset(
-  setup: (options: PresetSetupOptions) => void,
-) {
-  const key = Symbol('AcroDynamicFormPreset');
-  const preset: Preset = {
-    form: {},
-    fields: [],
-  };
+export function defineAcroDynamicFormPreset<P extends Record<string, PresetAcroDynamicFormField>>(presets: P) {
+  const presetKeyMap = {} as Record<keyof P, symbol>;
 
-  function defineFormConfig(config: PresetAcroDynamicFormProps) {
-    preset.form = config;
-  }
-
-  function defineFieldsConfig(fields: PresetAcroDynamicFormField[]) {
-    preset.fields = fields;
-  }
-
-  setup({
-    defineFormConfig,
-    defineFieldsConfig,
+  Object.entries(presets).forEach(([name, preset]) => {
+    const key = Symbol(name);
+    presetMap.set(key, preset);
+    presetKeyMap[name as keyof P] = key;
   });
 
-  presetMap.set(key, preset);
-
-  return key;
+  return presetKeyMap;
 }
 
 /**
@@ -62,17 +34,13 @@ export function resolveAcroDynamicFormFieldConfig(field: AcroDynamicFormField) {
   if (!preset.length)
     return field;
 
-  const configs = preset.map(key => presetMap.get(key)!);
+  const configs = preset.map(key => presetMap.get(key)!) as AcroDynamicFormField[];
 
   return configs.reduce(
-    (finalField, { fields }) => {
-      const config = fields.find(({ type }) => field.type === type);
-
-      return {
-        ...finalField,
-        ...config,
-      };
-    },
+    (finalField, config) => ({
+      ...finalField,
+      ...config,
+    }),
     deepClone(field),
   );
 }
