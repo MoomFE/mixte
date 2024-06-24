@@ -1,4 +1,5 @@
-import { deepClone, toArray } from 'mixte';
+import { toArray } from 'mixte';
+import { mergeProps } from 'vue';
 import type { AcroDynamicFormField } from '../types';
 
 type PresetAcroDynamicFormField = Omit<AcroDynamicFormField, 'field'>;
@@ -36,11 +37,35 @@ export function resolveAcroDynamicFormFieldConfig(field: AcroDynamicFormField) {
 
   const configs = preset.map(key => presetMap.get(key)!) as AcroDynamicFormField[];
 
-  return configs.reduce(
-    (finalField, config) => ({
-      ...finalField,
-      ...config,
-    }),
-    deepClone(field),
+  return mergeAcroDynamicFormFieldConfig(
+    configs.reduce(
+      (presetFieldConfig, field) => mergeAcroDynamicFormFieldConfig(presetFieldConfig, field),
+      {} as AcroDynamicFormField,
+    ),
+    field,
   );
+}
+
+/**
+ * 合并字段配置
+ */
+export function mergeAcroDynamicFormFieldConfig(presetFieldConfig: AcroDynamicFormField, field: AcroDynamicFormField): AcroDynamicFormField {
+  return {
+    ...presetFieldConfig,
+    ...field,
+
+    field: field.field,
+
+    formItemProps: mergeProps(presetFieldConfig.formItemProps ?? {}, field.formItemProps ?? {}),
+    formItemSlots: {
+      ...presetFieldConfig.formItemSlots,
+      ...field.formItemSlots,
+    },
+
+    componentProps: mergeProps(presetFieldConfig.componentProps ?? {}, field.componentProps ?? {}),
+    componentSlots: {
+      ...presetFieldConfig.componentSlots,
+      ...field.componentSlots,
+    },
+  };
 }

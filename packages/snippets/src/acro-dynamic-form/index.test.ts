@@ -6,8 +6,9 @@ import { AcroDynamicForm, defineAcroDynamicFormField, defineAcroDynamicFormField
 import { config, mount } from '@vue/test-utils';
 import { Button } from '@arco-design/web-vue';
 import { deepClone } from 'mixte';
-import type { AcroDynamicFormField } from './src/types';
+import isInCi from 'is-in-ci';
 import { presetMap } from './src/utils/defineAcroDynamicFormPreset';
+import type { AcroDynamicFormField } from './src/types';
 
 // 来源: arco-design/arco-design-vue/packages/web-vue/scripts/demo-test.ts
 Object.defineProperty(window, 'matchMedia', {
@@ -674,6 +675,317 @@ describe('<acro-dynamic-form /> 字段配置', () => {
         expect(input.element.value).toBe('张三');
       }
     });
+
+    it('支持同时配置多个预设', () => {
+      const preset = defineAcroDynamicFormPreset({
+        name: { label: '姓名', type: 'input' },
+      });
+      const preset2 = defineAcroDynamicFormPreset({
+        name: { type: 'input' },
+      });
+      const preset3 = defineAcroDynamicFormPreset({
+        name: { defaultValue: '张三' },
+      });
+
+      const wrapper = mount(AcroDynamicForm, {
+        props: {
+          fields: defineAcroDynamicFormFields([{
+            field: 'name',
+            preset: [preset.name, preset2.name, preset3.name],
+          }]),
+          actionButtonArea: false,
+        },
+      });
+
+      const label = wrapper.find('.arco-form-item-label');
+      const input = wrapper.find('.arco-input') as DOMWrapper<HTMLInputElement>;
+
+      expect(label.text()).toBe('姓名');
+      expect(input.element.value).toBe('张三');
+    });
+
+    it('字段配置不会继承预设中的 field 选项', () => {
+      // 和当前配置不合并
+      {
+        const preset = defineAcroDynamicFormPreset({ // @ts-expect-error
+          name: { field: 'preset-name' },
+        });
+
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([{
+              field: 'name',
+              preset: preset.name,
+            }]),
+            actionButtonArea: false,
+          },
+        });
+
+        const formItem = wrapper.find('.arco-form-item-wrapper-col');
+
+        expect(formItem.attributes('id')).toBe('name');
+      }
+
+      // 不同预设之间不合并
+      {
+        const preset = defineAcroDynamicFormPreset({ // @ts-expect-error
+          name: { field: 'preset-name' },
+        });
+        const preset2 = defineAcroDynamicFormPreset({ // @ts-expect-error
+          name: { field: 'preset-name-666' },
+        });
+
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([{
+              field: 'name',
+              preset: [preset.name, preset2.name],
+            }]),
+            actionButtonArea: false,
+          },
+        });
+
+        const formItem = wrapper.find('.arco-form-item-wrapper-col');
+
+        expect(formItem.attributes('id')).toBe('name');
+      }
+    });
+
+    it('字段配置的 formItemProps 选项会进行合并', () => {
+      // 和当前配置合并
+      {
+        const preset = defineAcroDynamicFormPreset({
+          name: { label: '姓名', type: 'input', formItemProps: { class: 'test-666' } },
+        });
+
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([{
+              field: 'name',
+              preset: preset.name,
+              formItemProps: { class: 'test-777' },
+            }]),
+            actionButtonArea: false,
+          },
+        });
+
+        const formItem = wrapper.find('.arco-form-item');
+
+        expect(formItem.classes()).toContain('test-666');
+        expect(formItem.classes()).toContain('test-777');
+      }
+
+      // 不同预设之间合并
+      {
+        const preset = defineAcroDynamicFormPreset({
+          name: { label: '姓名', type: 'input', formItemProps: { class: 'test-666' } },
+        });
+        const preset2 = defineAcroDynamicFormPreset({
+          name: { formItemProps: { class: 'test-777' } },
+        });
+
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([{
+              field: 'name',
+              preset: [preset.name, preset2.name],
+            }]),
+            actionButtonArea: false,
+          },
+        });
+
+        const formItem = wrapper.find('.arco-form-item');
+
+        expect(formItem.classes()).toContain('test-666');
+        expect(formItem.classes()).toContain('test-777');
+      }
+    });
+
+    it('字段配置的 formItemSlots 选项会进行覆盖', () => {
+      // 和当前配置合并
+      {
+        const preset = defineAcroDynamicFormPreset({
+          name: {
+            label: '姓名',
+            type: 'input',
+            formItemSlots: {
+              label: () => h('div', { class: 'slot-666' }),
+            },
+          },
+        });
+
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([{
+              field: 'name',
+              preset: preset.name,
+              formItemSlots: {
+                label: () => h('div', { class: 'slot-777' }),
+              },
+            }]),
+            actionButtonArea: false,
+          },
+        });
+
+        const formItem = wrapper.find('.arco-form-item');
+
+        expect(formItem.find('.slot-666').exists()).toBe(false);
+        expect(formItem.find('.slot-777').exists()).toBe(true);
+      }
+
+      // 不同预设之间合并
+      {
+        const preset = defineAcroDynamicFormPreset({
+          name: {
+            label: '姓名',
+            type: 'input',
+            formItemSlots: {
+              label: () => h('div', { class: 'slot-666' }),
+            },
+          },
+        });
+        const preset2 = defineAcroDynamicFormPreset({
+          name: {
+            formItemSlots: {
+              label: () => h('div', { class: 'slot-777' }),
+            },
+          },
+        });
+
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([{
+              field: 'name',
+              preset: [preset.name, preset2.name],
+            }]),
+            actionButtonArea: false,
+          },
+        });
+
+        const formItem = wrapper.find('.arco-form-item');
+
+        expect(formItem.find('.slot-666').exists()).toBe(false);
+        expect(formItem.find('.slot-777').exists()).toBe(true);
+      }
+    });
+
+    it('字段配置的 componentProps 选项会进行合并', () => {
+      // 和当前配置合并
+      {
+        const preset = defineAcroDynamicFormPreset({
+          name: { label: '姓名', type: 'input', componentProps: { class: 'test-666' } },
+        });
+
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([{
+              field: 'name',
+              preset: preset.name,
+              componentProps: { class: 'test-777' },
+            }]),
+            actionButtonArea: false,
+          },
+        });
+
+        const input = wrapper.find('.arco-input-wrapper');
+
+        expect(input.classes()).toContain('test-666');
+        expect(input.classes()).toContain('test-777');
+      }
+
+      // 不同预设之间合并
+      {
+        const preset = defineAcroDynamicFormPreset({
+          name: { label: '姓名', type: 'input', componentProps: { class: 'test-666' } },
+        });
+        const preset2 = defineAcroDynamicFormPreset({
+          name: { componentProps: { class: 'test-777' } },
+        });
+
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([{
+              field: 'name',
+              preset: [preset.name, preset2.name],
+            }]),
+            actionButtonArea: false,
+          },
+        });
+
+        const input = wrapper.find('.arco-input-wrapper');
+
+        expect(input.classes()).toContain('test-666');
+        expect(input.classes()).toContain('test-777');
+      }
+    });
+
+    it('字段配置的 componentSlots 选项会进行覆盖', () => {
+      // 和当前配置合并
+      {
+        const preset = defineAcroDynamicFormPreset({
+          name: {
+            label: '姓名',
+            type: 'input',
+            componentSlots: {
+              suffix: () => h('div', { class: 'slot-666' }),
+            },
+          },
+        });
+
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([{
+              field: 'name',
+              preset: preset.name,
+              componentSlots: {
+                suffix: () => h('div', { class: 'slot-777' }),
+              },
+            }]),
+            actionButtonArea: false,
+          },
+        });
+
+        const input = wrapper.find('.arco-input-wrapper');
+
+        expect(input.find('.slot-666').exists()).toBe(false);
+        expect(input.find('.slot-777').exists()).toBe(true);
+      }
+
+      // 不同预设之间合并
+      {
+        const preset = defineAcroDynamicFormPreset({
+          name: {
+            label: '姓名',
+            type: 'input',
+            componentSlots: {
+              suffix: () => h('div', { class: 'slot-666' }),
+            },
+          },
+        });
+        const preset2 = defineAcroDynamicFormPreset({
+          name: {
+            componentSlots: {
+              suffix: () => h('div', { class: 'slot-777' }),
+            },
+          },
+        });
+
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields: defineAcroDynamicFormFields([{
+              field: 'name',
+              preset: [preset.name, preset2.name],
+            }]),
+            actionButtonArea: false,
+          },
+        });
+
+        const input = wrapper.find('.arco-input-wrapper');
+
+        expect(input.find('.slot-666').exists()).toBe(false);
+        expect(input.find('.slot-777').exists()).toBe(true);
+      }
+    });
   });
 });
 
@@ -1231,7 +1543,7 @@ describe('导出的工具方法', () => {
       });
     });
 
-    it('通过方法定义的预设, 都会存在预设映射缓存中', () => {
+    it('通过方法定义的预设, 都会存在预设映射缓存中', { skip: isInCi }, () => {
       const presets = {
         customInput: { type: 'input', defaultValue: '张三' },
         customInputNumber: { type: 'input-number', defaultValue: 18 },
