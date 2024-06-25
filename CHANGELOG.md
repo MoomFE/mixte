@@ -1,6 +1,9 @@
 ## [Unreleased]
   - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 新增 `actionButtonArea.spaceProps`
     - 传递给操作按钮区域 Space 组件的参数
+  - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 新增对外导出方法 `defineAcroDynamicFormPreset`, 用于定义预设选项
+  - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 字段配置新增 `preset` 选项
+    - 用于定义需要继承的已配置的预设, 支持继承多个预设
   - 🐞 [@mixte/snippets] 修复使用 `AcroDynamicForm` 组件时, `actionButtonArea`, `submitButton`, `resetButton` 类型丢失的问题 *
 
 ## [v2.0.0-beta.1]
@@ -39,6 +42,13 @@
 1. 主版本号: 破坏性更新和新特性
 2. 次版本号: 向下兼容的功能新增、功能更改、功能优化
 3. 修订版本号: 向下兼容的问题修正、一般功能优化
+
+beta 版本规范
+
+1. 修复当前版本的 beta 版中的 BUG, 使用 `*` 在结尾标注
+2. 发布正式版本时
+  - 整合所有 beta 版更新内容到正式版本中, 删除所有 beta 版的更新内容
+  - 删除结尾标注 `*` 的更新内容, Github 的 releases 有记录
 
 <br>
 <hr>
