@@ -27,11 +27,17 @@
   import RenderFormItem from './components/RenderFormItem.vue';
   import RenderComponent from './components/RenderComponent.vue';
   import { useActionButtonArea } from './composables/useActionButtonArea';
-  import { acroDynamicFormProps } from './types';
-  import type { AcroDynamicFormSlots } from './types';
+  import type { AcroDynamicFormProps, AcroDynamicFormSlots, ActionButtonAreaOptions, ResetButtonOptions, SubmitButtonOptions } from './types';
   import { resolveAcroDynamicFormFieldConfig } from './utils/defineAcroDynamicFormPreset';
 
-  const props = defineProps(acroDynamicFormProps);
+  const props = withDefaults(defineProps<AcroDynamicFormProps>(), {
+    // @ts-expect-error 不加 as 时, 使用该参数时, 类型丢失, 只剩下 boolean 类型
+    actionButtonArea: true as (ActionButtonAreaOptions | boolean),
+    // @ts-expect-error 不加 as 时, 使用该参数时, 类型丢失, 只剩下 boolean 类型
+    submitButton: true as (SubmitButtonOptions | boolean),
+    // @ts-expect-error 不加 as 时, 使用该参数时, 类型丢失, 只剩下 boolean 类型
+    resetButton: true as (ResetButtonOptions | boolean),
+  });
   const emit = defineEmits<{
     /** 点击了提交按钮的事件 */
     submit: [model: Record<string, any>];

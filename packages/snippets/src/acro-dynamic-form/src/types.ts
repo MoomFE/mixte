@@ -1,62 +1,47 @@
-import type { ExtractPublicPropTypes, PropType, VNodeChild } from 'vue';
+import type { VNodeChild } from 'vue';
 import type { AutoCompleteInstance, ButtonInstance, CascaderInstance, CascaderPanelInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormInstance, FormItemInstance, InputGroupInstance, InputInstance, InputNumberInstance, InputPasswordInstance, InputSearchInstance, InputTagInstance, MentionInstance, MonthPickerInstance, QuarterPickerInstance, RadioGroupInstance, RadioInstance, RangePickerInstance, RateInstance, SelectInstance, SliderInstance, SpaceInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance, WeekPickerInstance, YearPickerInstance } from '@arco-design/web-vue';
 
-const acroDynamicFormProps = {
+interface AcroDynamicFormProps {
   /** 字段配置列表 */
-  fields: {
-    type: Array as PropType<AcroDynamicFormField[]>,
-  },
+  fields?: AcroDynamicFormField[];
   /** 表单数据 */
-  model: {
-    type: Object as PropType<Record<string, any>>,
-  },
+  model?: Record<string, any>;
 
   /**
    * 操作按钮区域配置
    *  - 传入 boolean 值时, 表示是否显示操作按钮区域
    * @default true
    */
-  actionButtonArea: {
-    type: [Object, Boolean] as PropType<ActionButtonAreaOptions | boolean>,
-    default: true as (ActionButtonAreaOptions | boolean), // 不加 as 时, 使用该参数时, 类型丢失, 只剩下 boolean 类型
-  },
+  actionButtonArea?: ActionButtonAreaOptions | boolean;
   /**
    * 提交按钮配置
    *  - 传入 boolean 值时, 表示是否显示提交按钮
    * @default true
    */
-  submitButton: {
-    type: [Object, Boolean] as PropType<SubmitButtonOptions | boolean>,
-    default: true as (SubmitButtonOptions | boolean), // 不加 as 时, 使用该参数时, 类型丢失, 只剩下 boolean 类型
-  },
+  submitButton?: SubmitButtonOptions | boolean;
   /**
    * 重置按钮配置
    * - 传入 boolean 值时, 表示是否显示重置按钮
    * @default true
    */
-  resetButton: {
-    type: [Object, Boolean] as PropType<ResetButtonOptions | boolean>,
-    default: true as (ResetButtonOptions | boolean), // 不加 as 时, 使用该参数时, 类型丢失, 只剩下 boolean 类型
-  },
+  resetButton?: ResetButtonOptions | boolean;
 
   /** 预设 */
-  preset: [Symbol, Array] as PropType<symbol | symbol[]>,
+  preset?: symbol | symbol[];
 
   // Form props
 
-  layout: { type: String as PropType<FormInstance['$props']['layout']> },
-  size: { type: String as PropType<FormInstance['$props']['size']> },
-  labelColProps: { type: Object as PropType<FormInstance['$props']['labelColProps']> },
-  wrapperColProps: { type: Object as PropType<FormInstance['$props']['wrapperColProps']> },
-  labelAlign: { type: String as PropType<FormInstance['$props']['labelAlign']> },
-  disabled: { type: Boolean as PropType<FormInstance['$props']['disabled']> },
-  rules: { type: Object as PropType<FormInstance['$props']['rules']> },
-  autoLabelWidth: { type: Boolean as PropType<FormInstance['$props']['autoLabelWidth']> },
-  id: { type: String as PropType<FormInstance['$props']['id']> },
-  scrollToFirstError: { type: Boolean as PropType<FormInstance['$props']['scrollToFirstError']> },
-};
-
-type AcroDynamicFormProps = ExtractPublicPropTypes<typeof acroDynamicFormProps>;
+  layout?: FormInstance['$props']['layout'];
+  size?: FormInstance['$props']['size'];
+  labelColProps?: FormInstance['$props']['labelColProps'];
+  wrapperColProps?: FormInstance['$props']['wrapperColProps'];
+  labelAlign?: FormInstance['$props']['labelAlign'];
+  disabled?: FormInstance['$props']['disabled'];
+  rules?: FormInstance['$props']['rules'];
+  autoLabelWidth?: FormInstance['$props']['autoLabelWidth'];
+  id?: FormInstance['$props']['id'];
+  scrollToFirstError?: FormInstance['$props']['scrollToFirstError'];
+}
 
 interface AcroDynamicFormSlots {
   /** 操作按钮区域插槽, 可使用该插槽代替操作按钮区域的渲染 */
@@ -222,7 +207,6 @@ interface AcroDynamicFormFieldComponentPropsMap {
 // #endregion AcroDynamicFormField
 
 export {
-  acroDynamicFormProps,
   AcroDynamicFormProps,
 
   ActionButtonAreaOptions,
