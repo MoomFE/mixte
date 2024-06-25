@@ -46,14 +46,14 @@ describe.skipIf(isInCi).concurrent('getFastestCDN', () => {
   });
 
   it('传入错误的类库名称, 导致未获取到 CND 地址时, 会抛出异常', { timeout: Number.POSITIVE_INFINITY }, async ({ expect }) => {
-    await expect(getFastestCDN('zhang-wei-666')).rejects.toThrow();
+    await expect(() => getFastestCDN('zhang-wei-666')).rejects.toThrow();
   });
 
   it('传入错误的 version 参数, 导致未获取到 CND 地址时, 会抛出异常', { timeout: Number.POSITIVE_INFINITY }, async ({ expect }) => {
-    await expect(getFastestCDN('monaco-editor', { version: '0.14.5678' })).rejects.toThrow();
+    await expect(() => getFastestCDN('monaco-editor', { version: '0.14.5678' })).rejects.toThrow();
   });
 
   it('传入错误的 file 参数, 导致未获取到 CND 地址时, 会抛出异常', { timeout: Number.POSITIVE_INFINITY }, async ({ expect }) => {
-    await expect(getFastestCDN('monaco-editor', { file: '/zhang-wei-666.json' })).rejects.toThrow();
+    await expect(() => getFastestCDN('monaco-editor', { file: '/zhang-wei-666.json' })).rejects.toThrow();
   });
 });
