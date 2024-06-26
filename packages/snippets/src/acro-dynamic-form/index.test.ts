@@ -6,7 +6,6 @@ import { AcroDynamicForm, defineAcroDynamicFormField, defineAcroDynamicFormField
 import { config, mount } from '@vue/test-utils';
 import { Button } from '@arco-design/web-vue';
 import { deepClone } from 'mixte';
-import isInCi from 'is-in-ci';
 import { presetMap } from './src/utils/defineAcroDynamicFormPreset';
 import type { AcroDynamicFormField } from './src/types';
 
@@ -1543,7 +1542,7 @@ describe('导出的工具方法', () => {
       });
     });
 
-    it('通过方法定义的预设, 都会存在预设映射缓存中', { skip: isInCi }, () => {
+    it('通过方法定义的预设, 都会存在预设映射缓存中', { skip: __TEST_BUILD__ }, () => {
       const presets = {
         customInput: { type: 'input', defaultValue: '张三' },
         customInputNumber: { type: 'input-number', defaultValue: 18 },

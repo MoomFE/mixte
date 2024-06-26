@@ -19,6 +19,9 @@ export default defineConfig(({ mode }) => {
         { find: '@@', replacement: __dirname },
       ],
     },
+    define: {
+      __TEST_BUILD__: isTestBuild,
+    },
     plugins: [
       Vue(),
       VueJsx(),
