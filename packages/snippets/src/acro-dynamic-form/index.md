@@ -23,6 +23,8 @@ outline: [1,3]
 
 ### 账号登录
 
+### 验证码登录
+
 ## API
 
 ### Props
@@ -37,7 +39,6 @@ outline: [1,3]
 
 ### Methods
 
-::: tip <div flex="~ items-center gap-2" pl-6><i-material-symbols-arrow-cool-down-rounded class="size-4" /> 鼠标悬停查看方法类型定义</div>
 ```ts twoslash
 // ---cut-start---
 import type { AcroDynamicFormInstance } from '@mixte/snippets/acro-dynamic-form';
@@ -52,7 +53,6 @@ scrollToField; // 滚动到指定表单项
 
 reset; // 重置表单数据, 是 `resetFields` 方法的别名
 ```
-:::
 
 ### Events
 
@@ -71,10 +71,13 @@ reset; // 重置表单数据, 是 `resetFields` 方法的别名
 
 ### 对外导出工具方法
 
-| 方法名 | 描述 | 参数 | 返回值 |
-| --- | --- | --- | --- |
-| defineAcroDynamicFormField | 定义单个字段配置 | `field: DynamicFormField` | [`DynamicFormField`](#AcroDynamicFormField) |
-| defineAcroDynamicFormFields | 定义字段配置列表 | `fields: DynamicFormField[]` | [`DynamicFormField[]`](#AcroDynamicFormField) |
+```ts twoslash
+import { defineAcroDynamicFormField, defineAcroDynamicFormFields, defineAcroDynamicFormPreset } from '@mixte/snippets/acro-dynamic-form';
+
+defineAcroDynamicFormField; // 定义单个字段配置
+defineAcroDynamicFormFields; // 定义字段配置列表
+defineAcroDynamicFormPreset; // 定义预设
+```
 
 ## 类型定义
 
