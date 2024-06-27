@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v2.0.0-beta.2]
+  - 📅 2024-06-27
   - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 新增 `actionButtonArea.spaceProps`
     - 传递给操作按钮区域 Space 组件的参数
   - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 新增对外导出方法 `defineAcroDynamicFormPreset`, 用于定义预设选项
@@ -66,5 +69,6 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.0.0-beta.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.0.0-beta.2...HEAD
+[v2.0.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v2.0.0-beta.2
 [v2.0.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v2.0.0-beta.1
