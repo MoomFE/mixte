@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/snippets] 组件 `AcroDynamicForm` 优化传参类型 *
 
 ## [v2.0.0-beta.2]
   - 📅 2024-06-27

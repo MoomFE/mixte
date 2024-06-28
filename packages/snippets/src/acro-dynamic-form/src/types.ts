@@ -1,7 +1,7 @@
 import type { VNodeChild } from 'vue';
 import type { AutoCompleteInstance, ButtonInstance, CascaderInstance, CascaderPanelInstance, CheckboxGroupInstance, CheckboxInstance, ColorPickerInstance, DatePickerInstance, FieldRule, FormInstance, FormItemInstance, InputGroupInstance, InputInstance, InputNumberInstance, InputPasswordInstance, InputSearchInstance, InputTagInstance, MentionInstance, MonthPickerInstance, QuarterPickerInstance, RadioGroupInstance, RadioInstance, RangePickerInstance, RateInstance, SelectInstance, SliderInstance, SpaceInstance, SwitchInstance, TextareaInstance, TimePickerInstance, TransferInstance, TreeSelectInstance, UploadInstance, VerificationCodeInstance, WeekPickerInstance, YearPickerInstance } from '@arco-design/web-vue';
 
-interface AcroDynamicFormProps {
+interface AcroDynamicFormProps extends /* @vue-ignore */ Omit<FormInstance['$props'], 'model'> {
   /** 字段配置列表 */
   fields?: AcroDynamicFormField[];
   /** 表单数据 */
@@ -25,22 +25,6 @@ interface AcroDynamicFormProps {
    * @default true
    */
   resetButton?: ResetButtonOptions | boolean;
-
-  /** 预设 */
-  preset?: symbol | symbol[];
-
-  // Form props
-
-  layout?: FormInstance['$props']['layout'];
-  size?: FormInstance['$props']['size'];
-  labelColProps?: FormInstance['$props']['labelColProps'];
-  wrapperColProps?: FormInstance['$props']['wrapperColProps'];
-  labelAlign?: FormInstance['$props']['labelAlign'];
-  disabled?: FormInstance['$props']['disabled'];
-  rules?: FormInstance['$props']['rules'];
-  autoLabelWidth?: FormInstance['$props']['autoLabelWidth'];
-  id?: FormInstance['$props']['id'];
-  scrollToFirstError?: FormInstance['$props']['scrollToFirstError'];
 }
 
 interface AcroDynamicFormSlots {

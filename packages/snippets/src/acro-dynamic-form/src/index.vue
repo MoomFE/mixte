@@ -1,5 +1,5 @@
 <template>
-  <Form ref="formRef" :model="model" v-bind="formProps">
+  <Form ref="formRef" :model="model" v-bind="attrs">
     <!-- 动态组件渲染 -->
     <RenderFormItem v-for="(field, index) in finalFields" :key="index" :field="field">
       <RenderComponent :field="field" :model="model" :slots="slots" />
@@ -22,8 +22,6 @@
   import { Button, Form, FormItem, Space } from '@arco-design/web-vue';
   import { computed, reactive, ref, toRef, useAttrs } from 'vue';
   import { toReactive } from '@vueuse/core';
-  import { deepMerge } from 'mixte';
-  import { pick } from 'radash';
   import RenderFormItem from './components/RenderFormItem.vue';
   import RenderComponent from './components/RenderComponent.vue';
   import { useActionButtonArea } from './composables/useActionButtonArea';
@@ -59,16 +57,6 @@
   finalFields.value?.forEach((field) => {
     if (field.defaultValue != null)
       model[field.field] = model[field.field] ?? field.defaultValue;
-  });
-
-  const formProps = computed(() => {
-    return deepMerge(
-      pick(props, [
-        'layout', 'size', 'labelColProps', 'wrapperColProps', 'labelAlign', // eslint-disable-line antfu/consistent-list-newline
-        'disabled', 'rules', 'autoLabelWidth', 'id', 'scrollToFirstError', // eslint-disable-line antfu/consistent-list-newline
-      ]),
-      attrs,
-    );
   });
 
   const {
