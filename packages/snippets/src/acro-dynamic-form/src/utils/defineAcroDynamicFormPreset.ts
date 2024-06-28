@@ -11,7 +11,35 @@ type PresetAcroDynamicFormField = Omit<AcroDynamicFormField, 'field'>;
 export const presetMap = new WeakMap<symbol, PresetAcroDynamicFormField>();
 
 /**
- * 定义 AcroDynamicForm 预设
+ * 定义一组 AcroDynamicForm 预设
+ * @param presets 预设字段配置
+ * @example
+ * import { defineAcroDynamicFormPreset } from '@mixte/snippets/acro-dynamic-form';
+ *
+ * const base = defineAcroDynamicFormPreset({
+ *   input: {
+ *     type: 'input',
+ *     componentProps: {
+ *       placeholder: '预设的提示文字', allowClear: true, showWordLimit: true, maxLength: 25,
+ *       // ...
+ *     },
+ *     // ...
+ *   },
+ *   xxx: {
+ *     // ...
+ *   },
+ *   // ...
+ * });
+ *
+ * const field = defineAcroDynamicFormFields([
+ *   {
+ *    field: 'name',
+ *    label: '姓名',
+ *    preset: base.input,
+ *    // ...
+ *   },
+ *   // ...
+ * ]);
  */
 export function defineAcroDynamicFormPreset<P extends Record<string, PresetAcroDynamicFormField>>(presets: P) {
   const presetKeyMap = {} as Record<keyof P, symbol>;
