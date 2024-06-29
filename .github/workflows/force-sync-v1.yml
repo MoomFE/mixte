@@ -7,7 +7,9 @@ on:
 
 jobs:
   sync:
+    if: github.repository == 'MoomFE/mixte'
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,9 +24,9 @@ jobs:
       - name: Add Fork Repository
         run: git remote add fork https://github.com/Zhang-Wei-666/mixte-v1.git
 
-      - name: Delete v1 Branch on Fork
+      - name: Delete v1 Branch on Fork (if exists)
         run: |
-          git push fork --delete v1
+          git push fork --delete v1 || echo "Branch v1 not found, skipping deletion"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
