@@ -1,5 +1,5 @@
 <template>
-  <div grid="~ cols-[auto_auto_1fr] items-center gap-2" text-sm mb5>
+  <div ref="rootRef" grid="~ cols-[auto_auto_1fr] items-center gap-2" text-sm mb5>
     <span>子元素最小宽度 <small>( px )</small>:</span>
     <el-slider v-model="itemWidth" class="grid-col-span-2" :max="Math.max(100, rootWidth)" />
 
@@ -26,21 +26,29 @@
     </template>
   </div>
 
-  <MixteAutoGrid ref="rootRef" :item-width="itemWidth" :gap="gap" :gap-x="gapX" :gap-y="gapY" :collapsed="collapsed" :collapsed-rows="collapsedRows">
-    <div
-      v-for="i in count" :key="i"
-      h-8 text-sm flex="~ justify-center items-center"
-      :style="{ backgroundColor: randomColors[i - 1] }"
-    >
-      item-{{ i }}
-    </div>
+  <n-split v-model:size="splitSize" :max="`${rootWidth - 44}px`" pane1-class="pr-2" pane2-class="flex pl-1">
+    <template #1>
+      <MixteAutoGrid :item-width="itemWidth" :gap="gap" :gap-x="gapX" :gap-y="gapY" :collapsed="collapsed" :collapsed-rows="collapsedRows">
+        <div
+          v-for="i in count" :key="i"
+          h-8 text="sm black" flex="~ justify-center items-center"
+          :style="{ backgroundColor: randomColors[i - 1] }"
+        >
+          item-{{ i }}
+        </div>
 
-    <template v-if="overflowSuffix" #overflowSuffix>
-      <div size-full flex="~ justify-center items-center" text="sm white" bg-black>
-        溢出后缀插槽
-      </div>
+        <template v-if="overflowSuffix" #overflowSuffix>
+          <div size-full flex="~ justify-center items-center" text="sm white" bg-black>
+            溢出后缀插槽
+          </div>
+        </template>
+      </MixteAutoGrid>
     </template>
-  </MixteAutoGrid>
+    <template #2>
+      <i-material-symbols-arrow-left-alt class="size-5 flex-none" />
+      拖动一下看看
+    </template>
+  </n-split>
 </template>
 
 <script lang="ts" setup>
@@ -50,8 +58,14 @@
   import { colors as colorsMap } from '@/.vitepress/shared/unocss.theme';
   import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
 
-  const rootRef = ref<InstanceType<typeof MixteAutoGrid>>();
+  const rootRef = ref<HTMLDivElement>();
   const rootWidth = useElementSize(rootRef).width;
+
+  const splitSize = ref<number | `${number}px`>(1);
+
+  onMounted(() => {
+    splitSize.value = `${rootWidth.value - 44}px`;
+  });
 
   const colors = ([] as string[]).concat(
     ...Object.values(omit(colorsMap, ['dark']))
