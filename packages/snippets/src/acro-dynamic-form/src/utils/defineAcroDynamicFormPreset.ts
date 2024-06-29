@@ -12,6 +12,7 @@ export const presetMap = new WeakMap<symbol, PresetAcroDynamicFormField>();
 
 /**
  * 定义一组 AcroDynamicForm 预设
+ * @see https://mixte.moomfe.com/mixte/snippets/acro-dynamic-form
  * @param presets 预设字段配置
  * @example
  * import { defineAcroDynamicFormPreset } from '@mixte/snippets/acro-dynamic-form';

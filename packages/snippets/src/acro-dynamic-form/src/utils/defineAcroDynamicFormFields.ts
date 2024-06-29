@@ -2,6 +2,7 @@ import type { AcroDynamicFormField } from '../types';
 
 /**
  * 定义 AcroDynamicForm 单个字段配置
+ * @see https://mixte.moomfe.com/mixte/snippets/acro-dynamic-form
  * @param field 字段配置
  * @example
  * import { defineAcroDynamicFormField } from '@mixte/snippets/acro-dynamic-form';
@@ -19,6 +20,7 @@ export function defineAcroDynamicFormField(field: AcroDynamicFormField) {
 
 /**
  * 定义 AcroDynamicForm 字段配置列表
+ * @see https://mixte.moomfe.com/mixte/snippets/acro-dynamic-form
  * @param fields 字段配置列表
  * @example
  * import { defineAcroDynamicFormFields } from '@mixte/snippets/acro-dynamic-form';

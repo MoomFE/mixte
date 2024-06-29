@@ -29,11 +29,11 @@
   import { resolveAcroDynamicFormFieldConfig } from './utils/defineAcroDynamicFormPreset';
 
   const props = withDefaults(defineProps<AcroDynamicFormProps>(), {
-    // @ts-expect-error 不加 as 时, 使用该参数时, 类型丢失, 只剩下 boolean 类型
+    // @ts-expect-error 不加 as 时, 打包后类型丢失, 只剩下 boolean 类型
     actionButtonArea: true as (ActionButtonAreaOptions | boolean),
-    // @ts-expect-error 不加 as 时, 使用该参数时, 类型丢失, 只剩下 boolean 类型
+    // @ts-expect-error 不加 as 时, 打包后类型丢失, 只剩下 boolean 类型
     submitButton: true as (SubmitButtonOptions | boolean),
-    // @ts-expect-error 不加 as 时, 使用该参数时, 类型丢失, 只剩下 boolean 类型
+    // @ts-expect-error 不加 as 时, 打包后类型丢失, 只剩下 boolean 类型
     resetButton: true as (ResetButtonOptions | boolean),
   });
   const emit = defineEmits<{

@@ -16,7 +16,7 @@
       type: 'input',
       componentProps: { placeholder: '预设的提示文字', allowClear: true, showWordLimit: true, maxLength: 25 },
     },
-    // 一个包含了逻辑的预设示例
+    // 一个包含了更多配置的预设
     phoneInput: {
       type: 'input',
       componentProps: { placeholder: '请输入手机号' },
