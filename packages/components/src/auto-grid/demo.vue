@@ -63,9 +63,9 @@
 
   const splitSize = ref<number | `${number}px`>(1);
 
-  onMounted(() => {
+  onMounted(() => watchImmediate(rootWidth, () => {
     splitSize.value = `${rootWidth.value - 44}px`;
-  });
+  }));
 
   const colors = ([] as string[]).concat(
     ...Object.values(omit(colorsMap, ['dark']))
