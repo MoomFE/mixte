@@ -1,17 +1,11 @@
-import { MixteAutoGrid } from '@mixte/components';
+import type { VNodeChild } from 'vue';
+import { MixteAutoGrid } from '@mixte/components/auto-grid';
 import { mount } from '@vue/test-utils';
-import { defineComponent, h } from 'vue';
+import { h } from 'vue';
 import postcss from 'postcss';
 import postcssJs from 'postcss-js';
 
 describe('auto-grid', () => {
-  const emptyOptions = defineComponent({
-    template: '<MixteAutoGrid />',
-    components: {
-      MixteAutoGrid,
-    },
-  });
-
   const defaultStyle = {
     width: '100%',
     display: 'grid',
@@ -21,7 +15,7 @@ describe('auto-grid', () => {
   };
 
   it('未给组件传入子节点', () => {
-    const wrapper = mount(emptyOptions);
+    const wrapper = mount(MixteAutoGrid);
 
     // 渲染节点数量
     expect(wrapper.element.children.length).toBe(0);
@@ -32,7 +26,7 @@ describe('auto-grid', () => {
 
   it('给组件传入各个类型的子节点', () => {
     const wrapper = mount({
-      ...emptyOptions,
+      components: { MixteAutoGrid },
       template: `
         <MixteAutoGrid>
 
@@ -71,7 +65,7 @@ describe('auto-grid', () => {
     // 子节点内容
     expect(children[0].innerHTML.trim()).toBe('123');
     expect(children[1].innerHTML.trim()).toBe('<div>456</div>');
-    expect(children[2].innerHTML.trim()).toBe(mount(emptyOptions).element.outerHTML);
+    expect(children[2].innerHTML.trim()).toBe(mount(MixteAutoGrid).element.outerHTML);
     expect(children[3].innerHTML.trim()).toBe('<div>item-1</div>');
     expect(children[4].innerHTML.trim()).toBe('<div>item-2</div>');
     expect(children[5].innerHTML.trim()).toBe('<div>item-3</div>');
@@ -117,7 +111,7 @@ describe('auto-grid', () => {
     expect(children[0].innerHTML.trim()).toBe('123');
     expect(children[1].innerHTML.trim()).toBe('&lt;!-- fake comment --&gt;');
     expect(children[2].innerHTML.trim()).toBe('<div>456</div>');
-    expect(children[3].innerHTML.trim()).toBe(mount(emptyOptions).element.outerHTML);
+    expect(children[3].innerHTML.trim()).toBe(mount(MixteAutoGrid).element.outerHTML);
     expect(children[4].innerHTML.trim()).toBe('<div>item-1</div>');
     expect(children[5].innerHTML.trim()).toBe('<div>item-2</div>');
     expect(children[6].innerHTML.trim()).toBe('<div>item-3</div>');
@@ -130,13 +124,11 @@ describe('auto-grid', () => {
   });
 
   it('支持手动传入组件宽度, 会使用传入宽度进行宽度计算每列子元素个数 ( 样式测试 )', () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      template: '<MixteAutoGrid width="400" item-width="200" />',
+    const wrapper = mount(MixteAutoGrid, {
+      props: { width: '400', itemWidth: '200' },
     });
-    const wrapper2 = mount({
-      ...emptyOptions,
-      template: '<MixteAutoGrid :width="400" :item-width="200" />',
+    const wrapper2 = mount(MixteAutoGrid, {
+      props: { width: 400, itemWidth: 200 },
     });
 
     const element = wrapper.element;
@@ -156,13 +148,11 @@ describe('auto-grid', () => {
   });
 
   it('设置横纵间距 ( 样式测试 )', () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      template: '<MixteAutoGrid gap="2" />',
+    const wrapper = mount(MixteAutoGrid, {
+      props: { gap: '2' },
     });
-    const wrapper2 = mount({
-      ...emptyOptions,
-      template: '<MixteAutoGrid :gap="2" />',
+    const wrapper2 = mount(MixteAutoGrid, {
+      props: { gap: 2 },
     });
 
     // 不同传参方式的渲染结果一致
@@ -180,13 +170,11 @@ describe('auto-grid', () => {
   });
 
   it('同时设置横纵间距和 "横向间距/纵向间距" 时, 以 "横向间距/纵向间距" 为准 ( 样式测试 )', () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      template: '<MixteAutoGrid gap="6" gapX="2" gapY="4" />',
+    const wrapper = mount(MixteAutoGrid, {
+      props: { gap: '6', gapX: '2', gapY: '4' },
     });
-    const wrapper2 = mount({
-      ...emptyOptions,
-      template: '<MixteAutoGrid :gap="6" :gapX="2" :gapY="4" />',
+    const wrapper2 = mount(MixteAutoGrid, {
+      props: { gap: 6, gapX: 2, gapY: 4 },
     });
 
     // 不同传参方式的渲染结果一致
@@ -204,13 +192,11 @@ describe('auto-grid', () => {
   });
 
   it('设置横向间距 ( 样式测试 )', () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      template: '<MixteAutoGrid gapX="2" />',
+    const wrapper = mount(MixteAutoGrid, {
+      props: { gapX: '2' },
     });
-    const wrapper2 = mount({
-      ...emptyOptions,
-      template: '<MixteAutoGrid :gapX="2" />',
+    const wrapper2 = mount(MixteAutoGrid, {
+      props: { gapX: 2 },
     });
 
     // 不同传参方式的渲染结果一致
@@ -227,13 +213,11 @@ describe('auto-grid', () => {
   });
 
   it('同时设置横纵间距和横向间距时, 以横向间距为准 ( 样式测试 )', () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      template: '<MixteAutoGrid gap="6" gapX="2" />',
+    const wrapper = mount(MixteAutoGrid, {
+      props: { gap: '6', gapX: '2' },
     });
-    const wrapper2 = mount({
-      ...emptyOptions,
-      template: '<MixteAutoGrid :gap="6" :gapX="2" />',
+    const wrapper2 = mount(MixteAutoGrid, {
+      props: { gap: 6, gapX: 2 },
     });
 
     // 不同传参方式的渲染结果一致
@@ -251,13 +235,11 @@ describe('auto-grid', () => {
   });
 
   it('设置纵向间距 ( 样式测试 )', () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      template: '<MixteAutoGrid gapY="2" />',
+    const wrapper = mount(MixteAutoGrid, {
+      props: { gapY: '2' },
     });
-    const wrapper2 = mount({
-      ...emptyOptions,
-      template: '<MixteAutoGrid :gapY="2" />',
+    const wrapper2 = mount(MixteAutoGrid, {
+      props: { gapY: 2 },
     });
 
     // 不同传参方式的渲染结果一致
@@ -274,13 +256,11 @@ describe('auto-grid', () => {
   });
 
   it('同时设置横纵间距和纵向间距时, 以纵向间距为准 ( 样式测试 )', () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      template: '<MixteAutoGrid gap="6" gapY="2" />',
+    const wrapper = mount(MixteAutoGrid, {
+      props: { gap: '6', gapY: '2' },
     });
-    const wrapper2 = mount({
-      ...emptyOptions,
-      template: '<MixteAutoGrid :gap="6" :gapY="2" />',
+    const wrapper2 = mount(MixteAutoGrid, {
+      props: { gap: 6, gapY: 2 },
     });
 
     // 不同传参方式的渲染结果一致
@@ -298,12 +278,8 @@ describe('auto-grid', () => {
   });
 
   it('调整组件宽度时, 会重新计算每列子元素个数', async () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      props: {
-        width: String,
-      },
-      template: '<MixteAutoGrid :width="width" item-width="200" />',
+    const wrapper = mount(MixteAutoGrid, {
+      props: { itemWidth: '200' },
     });
 
     wrapper.setProps({ width: '199' });
@@ -364,17 +340,11 @@ describe('auto-grid', () => {
   });
 
   it('横向间距会影响每列子元素个数', async () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      props: {
-        width: String,
-        gapX: String,
+    const wrapper = mount(MixteAutoGrid, {
+      props: { itemWidth: '200' },
+      slots: {
+        default: Array.from({ length: 6 }).map((_, i) => h('div', `item-${i + 1}`)),
       },
-      template: `
-        <MixteAutoGrid item-width="200" :width="width" :gap-x="gapX">
-          <div v-for="i in 6" :key="i">item-{{ i }}</div>
-        </MixteAutoGrid>
-      `,
     });
 
     wrapper.setProps({ width: '400', gapX: '100' });
@@ -406,17 +376,11 @@ describe('auto-grid', () => {
   });
 
   it('横向间距会影响每列子元素个数 ( 单子组件测试 )', async () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      props: {
-        width: String,
-        gapX: String,
+    const wrapper = mount(MixteAutoGrid, {
+      props: { itemWidth: '200' },
+      slots: {
+        default: h('div', 'item'),
       },
-      template: `
-        <MixteAutoGrid item-width="200" :width="width" :gap-x="gapX">
-          <div>item</div>
-        </MixteAutoGrid>
-      `,
     });
 
     wrapper.setProps({ width: '1400', gapX: '1000' });
@@ -457,17 +421,11 @@ describe('auto-grid', () => {
   });
 
   it('启用折叠时, 超出指定显示行数的子元素不会渲染', async () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      props: {
-        width: String,
-        collapsedRows: String,
+    const wrapper = mount(MixteAutoGrid, {
+      props: { itemWidth: 200, collapsed: true },
+      slots: {
+        default: Array.from({ length: 10 }).map((_, i) => h('div', `item-${i + 1}`)),
       },
-      template: `
-        <MixteAutoGrid :width="width" item-width="200" collapsed :collapsed-rows="collapsedRows">
-          <div v-for="i in 10" :key="i">item-{{ i }}</div>
-        </MixteAutoGrid>
-      `,
     });
 
     // 未设置显示行数时, 默认只显示一行
@@ -497,26 +455,18 @@ describe('auto-grid', () => {
   });
 
   it('启用折叠时并且有子元素溢出时, 可以使用 overflowSuffix 插槽替代最后一个子节点显示', async () => {
-    const wrapper = mount({
-      ...emptyOptions,
-      props: {
-        width: String,
-        collapsedRows: String,
-        renderCount: Number,
+    const renderCount = ref(0);
+    const wrapper = mount(MixteAutoGrid, {
+      props: { itemWidth: 200, collapsed: true },
+      slots: {
+        default: () => Array.from({ length: renderCount.value }).map((_, i) => h('div', `item-${i + 1}`)),
+        overflowSuffix: 'item-overflowSuffix',
       },
-      template: `
-        <MixteAutoGrid :width="width" item-width="200" collapsed :collapsed-rows="collapsedRows">
-          <div v-for="i in renderCount" :key="i">item-{{ i }}</div>
-
-          <template #overflowSuffix>
-            item-overflowSuffix
-          </template>
-        </MixteAutoGrid>
-      `,
     });
 
     // 单行无节点溢出, 不显示 overflowSuffix 插槽
-    wrapper.setProps({ width: '2000', collapsedRows: '1', renderCount: 10 });
+    renderCount.value = 10;
+    wrapper.setProps({ width: '2000', collapsedRows: '1' });
     await nextTick();
     expect(wrapper.element.children.length).toBe(10);
     Array.from((wrapper.element as HTMLDivElement).children).forEach((child, i) => {
@@ -524,7 +474,8 @@ describe('auto-grid', () => {
     });
 
     // 单行有节点溢出, 显示 overflowSuffix 插槽
-    wrapper.setProps({ width: '2000', collapsedRows: '1', renderCount: 11 });
+    renderCount.value = 11;
+    wrapper.setProps({ width: '2000', collapsedRows: '1' });
     await nextTick();
     expect(wrapper.element.children.length).toBe(10);
     Array.from((wrapper.element as HTMLDivElement).children).forEach((child, i) => {
@@ -533,7 +484,8 @@ describe('auto-grid', () => {
     });
 
     // 多行无节点溢出, 不显示 overflowSuffix 插槽
-    wrapper.setProps({ width: '2000', collapsedRows: '2', renderCount: 20 });
+    renderCount.value = 20;
+    wrapper.setProps({ width: '2000', collapsedRows: '2' });
     await nextTick();
     expect(wrapper.element.children.length).toBe(20);
     Array.from((wrapper.element as HTMLDivElement).children).forEach((child, i) => {
@@ -541,12 +493,60 @@ describe('auto-grid', () => {
     });
 
     // 多行有节点溢出, 显示 overflowSuffix 插槽
-    wrapper.setProps({ width: '2000', collapsedRows: '2', renderCount: 21 });
+    renderCount.value = 21;
+    wrapper.setProps({ width: '2000', collapsedRows: '2' });
     await nextTick();
     expect(wrapper.element.children.length).toBe(20);
     Array.from((wrapper.element as HTMLDivElement).children).forEach((child, i) => {
       if (i < 19) expect(child.innerHTML.trim()).toBe(`<div>item-${i + 1}</div>`);
       else expect(child.innerHTML.trim()).toBe('item-overflowSuffix');
     });
+  });
+
+  it('启用折叠时并且有子元素溢出时, 切换 overflowSuffix 插槽', async () => {
+    const wrapper = mount(
+      defineComponent({
+        props: {
+          renderOverflowSuffix: {
+            type: Boolean,
+            default: true,
+          },
+        },
+        render() {
+          const other: Record<string, () => VNodeChild> = {};
+
+          if (this.renderOverflowSuffix)
+            other.overflowSuffix = () => 'item-overflowSuffix';
+
+          return h(MixteAutoGrid, { width: 400, itemWidth: 200, collapsed: true }, {
+            default: () => Array.from({ length: 3 }).map((_, i) => h('div', `item-${i + 1}`)),
+            ...other,
+          });
+        },
+      }),
+    );
+
+    // 默认显示 overflowSuffix 插槽
+    expect(wrapper.element.children.length).toBe(2);
+    expect(wrapper.element.children[0].innerHTML.trim()).toBe('<div>item-1</div>');
+    expect(wrapper.element.children[1].innerHTML.trim()).toBe('item-overflowSuffix');
+
+    // 切换 overflowSuffix 插槽
+    await wrapper.setProps({ renderOverflowSuffix: false });
+    expect(wrapper.element.children.length).toBe(2);
+    expect(wrapper.element.children[0].innerHTML.trim()).toBe('<div>item-1</div>');
+    expect(wrapper.element.children[1].innerHTML.trim()).toBe('<div>item-2</div>');
+
+    // 切换 overflowSuffix 插槽
+    await wrapper.setProps({ renderOverflowSuffix: true });
+    expect(wrapper.element.children.length).toBe(2);
+    expect(wrapper.element.children[0].innerHTML.trim()).toBe('<div>item-1</div>');
+    expect(wrapper.element.children[1].innerHTML.trim()).toBe('item-overflowSuffix');
+
+    // 切换 overflowSuffix 插槽
+    await wrapper.setProps({ renderOverflowSuffix: false });
+    expect(wrapper.element.children.length).toBe(2);
+    expect(wrapper.element.children[0].innerHTML.trim()).toBe('<div>item-1</div>');
+    expect(wrapper.element.children[1].innerHTML.trim()).toBe('<div>item-2</div>');
   });
 });
