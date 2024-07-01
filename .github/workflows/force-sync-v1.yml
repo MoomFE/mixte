@@ -24,14 +24,13 @@ jobs:
       - name: Add Fork Repository
         run: git remote add fork https://github.com/Zhang-Wei-666/mixte-v1.git
 
-      - name: Delete v1 Branch on Fork (if exists)
-        run: |
-          git push fork --delete v1 || echo "Branch v1 not found, skipping deletion"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Fetch Fork Repository
+        run: git fetch fork
 
-      - name: Force Push v1 Branch to Fork
+      - name: Reset Fork Branch to Source
         run: |
+          git checkout v1
+          git reset --hard origin/v1
           git push fork v1 --force
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
