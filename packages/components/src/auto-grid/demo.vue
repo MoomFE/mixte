@@ -26,7 +26,7 @@
     </template>
   </div>
 
-  <n-split v-model:size="splitSize" :max="`${rootWidth - 44}px`" pane1-class="pr-2" pane2-class="flex pl-1">
+  <n-split v-model:size="splitSize" :max="`${rootWidth - 44}px`" min="100px" pane1-class="pr-2" pane2-class="flex pl-1">
     <template #1>
       <MixteAutoGrid :item-width="itemWidth" :gap="gap" :gap-x="gapX" :gap-y="gapY" :collapsed="collapsed" :collapsed-rows="collapsedRows">
         <div
