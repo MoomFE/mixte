@@ -21,11 +21,10 @@ jobs:
           git config --global user.name 'Zhang-Wei-666'
           git config --global user.email '994039348@qq.com'
 
-      - name: Add Fork Repository
-        run: git remote add fork https://github.com/Zhang-Wei-666/mixte-v1.git
-
       - name: Fetch Fork Repository
-        run: git fetch fork
+        run: |
+          git remote add fork https://github.com/Zhang-Wei-666/mixte-v1.git
+          git fetch fork
 
       - name: Reset Fork Branch to Source
         run: |
