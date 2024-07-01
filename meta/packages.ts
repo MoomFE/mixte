@@ -25,6 +25,7 @@ export const packages = [
     outputDir: 'packages/components/dist',
     outputFileName: 'auto-grid',
     external: ['mixte'],
+    vueComponent: true,
   },
 
   // @mixte/validator

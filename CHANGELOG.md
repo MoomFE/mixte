@@ -1,5 +1,8 @@
 ## [Unreleased]
   - 💄 [@mixte/snippets] 组件 `AcroDynamicForm` 优化传参类型 *
+  - 💄 [@mixte/components] 组件 `AutoGrid` 使用 Vue SFC 重构, 提供更好的类型提示
+  - 💄 [@mixte/components] 新增组件 `AutoGrid` 的 `MixteAutoGridInstance` 导出项
+  - ⚠️ [@mixte/components] 移除组件 `AutoGrid` 的 `mixteAutoGridProps` 导出项, 保留 `MixteAutoGridProps` 导出项
 
 ## [v2.0.0-beta.2]
   - 📅 2024-06-27

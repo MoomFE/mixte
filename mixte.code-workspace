@@ -68,6 +68,7 @@
       "packages/snippets": true,
       "packages/use": true,
       "packages/validator": true,
+      "src/auto-grid/**/*.d.ts": true,
       "src/acro-dynamic-form/**/*.d.ts": true
     },
     "unocss.autocomplete.matchType": "fuzzy",

@@ -41,7 +41,7 @@
     "lint": "pnpm install && eslint .",
     "lint:fix": "pnpm install && eslint . --fix",
     "udd": "pnpm install && tsx scripts/updateDocsDetails.ts",
-    "bdd": "pnpm install && tsx scripts/buildDocsDts.ts",
+    "bdd": "pnpm install && tsx --max-old-space-size=6144 scripts/buildDocsDts.ts",
     "build": "pnpm install && tsx scripts/build.ts",
     "build-dts": "pnpm install && tsx --max-old-space-size=6144 scripts/build-dts.ts",
     "release": "pnpm test-release && npx bumpp -r --no-tag --no-push"
