@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 新增 `init` 导出方法
   - 💄 [@mixte/snippets] 组件 `AcroDynamicForm` 优化传参类型 *
   - 💄 [@mixte/components] 组件 `AutoGrid` 使用 Vue SFC 重构, 提供更好的类型提示
   - 💄 [@mixte/components] 新增组件 `AutoGrid` 的 `MixteAutoGridInstance` 导出项

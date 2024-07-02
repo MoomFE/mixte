@@ -54,10 +54,7 @@
     return props.fields?.map(resolveAcroDynamicFormFieldConfig);
   });
 
-  finalFields.value?.forEach((field) => {
-    if (field.defaultValue != null)
-      model[field.field] = model[field.field] ?? field.defaultValue;
-  });
+  init();
 
   const {
     showActionButtonArea,
@@ -73,9 +70,16 @@
   const setFields: FormInstance['setFields'] = (...args) => formRef.value!.setFields(...args);
   const scrollToField: FormInstance['scrollToField'] = (...args) => formRef.value!.scrollToField(...args);
 
+  function init() {
+    finalFields.value?.forEach((field) => {
+      if (field.defaultValue != null)
+        model[field.field] = model[field.field] ?? field.defaultValue;
+    });
+  }
+
   defineExpose({
     validate, validateField, resetFields, clearValidate, setFields, scrollToField, // eslint-disable-line antfu/consistent-list-newline
-    reset: resetFields,
+    reset: resetFields, init, // eslint-disable-line antfu/consistent-list-newline
     model,
   } as {
     /** 校验全部表单数据 */
@@ -93,6 +97,8 @@
 
     /** 重置表单数据, 是 `resetFields` 方法的别名 */
     reset: typeof resetFields;
+    /** 初始化表单数据 */
+    init: typeof init;
 
     /** 表单数据 */
     model: typeof model;

@@ -1,5 +1,3 @@
-import type { VNodeChild } from 'vue';
-
 export interface AutoGridProps {
   /**
    * 组件宽度 (单位: px)
@@ -21,6 +19,6 @@ export interface AutoGridProps {
 }
 
 export interface AutoGridSlots {
-  overflowSuffix?: () => VNodeChild;
-  default?: () => VNodeChild[];
+  overflowSuffix?: () => void;
+  default?: () => void;
 }

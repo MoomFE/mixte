@@ -1007,12 +1007,37 @@ describe('<acro-dynamic-form /> 导出方法及对象', () => {
       expect(wrapper.vm.scrollToField).toBeInstanceOf(Function);
     });
 
-    it('组件导出的额外扩展方法', () => {
-      const wrapper = mount(AcroDynamicForm);
+    describe('组件导出的额外扩展方法', () => {
+      it('reset: 是 `resetFields` 方法的别名', () => {
+        const wrapper = mount(AcroDynamicForm);
 
-      // 重置表单数据, 是 `resetFields` 方法的别名
-      expect(wrapper.vm.reset).toBeInstanceOf(Function);
-      expect(wrapper.vm.reset).toBe(wrapper.vm.resetFields);
+        expect(wrapper.vm.reset).toBeInstanceOf(Function);
+        expect(wrapper.vm.reset).toBe(wrapper.vm.resetFields);
+      });
+
+      it('init', async () => {
+        const fields = defineAcroDynamicFormFields([
+          { field: 'name', label: '姓名', type: 'input', defaultValue: '张三' },
+        ]);
+        const fields2 = defineAcroDynamicFormFields([
+          { field: 'age', label: '年龄', type: 'input', defaultValue: '18' },
+        ]);
+
+        const wrapper = mount(AcroDynamicForm, {
+          props: {
+            fields,
+          },
+        });
+
+        expect(wrapper.vm.model).toStrictEqual({ name: '张三' });
+
+        await wrapper.setProps({ fields: fields2 });
+
+        expect(wrapper.vm.model).toStrictEqual({ name: '张三' });
+
+        wrapper.vm.init();
+        expect(wrapper.vm.model).toStrictEqual({ name: '张三', age: '18' });
+      });
     });
   });
 

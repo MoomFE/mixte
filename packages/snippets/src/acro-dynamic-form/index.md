@@ -44,7 +44,7 @@ outline: [1,3]
 ```ts twoslash
 // ---cut-start---
 import type { AcroDynamicFormInstance } from '@mixte/snippets/acro-dynamic-form';
-const { validate, validateField, resetFields, reset, clearValidate, setFields, scrollToField } = {} as AcroDynamicFormInstance;
+const { validate, validateField, resetFields, reset, clearValidate, setFields, scrollToField, init } = {} as AcroDynamicFormInstance;
 // ---cut-end---
 validate; // 校验全部表单数据
 validateField; // 校验部分表单数据
@@ -54,6 +54,7 @@ setFields; // 设置表单项的值和状态
 scrollToField; // 滚动到指定表单项
 
 reset; // 重置表单数据, 是 `resetFields` 方法的别名
+init; // 初始化表单数据
 ```
 
 ### Events
