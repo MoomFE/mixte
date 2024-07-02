@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v2.0.0-beta.3]
+  - 📅 2024-07-02
   - 🌟 [@mixte/snippets] 组件 `AcroDynamicForm` 新增 `init` 导出方法
   - 💄 [@mixte/snippets] 组件 `AcroDynamicForm` 优化传参类型 *
   - 💄 [@mixte/components] 组件 `AutoGrid` 使用 Vue SFC 重构, 提供更好的类型提示
@@ -74,6 +77,7 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.0.0-beta.2...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.0.0-beta.3...HEAD
+[v2.0.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v2.0.0-beta.3
 [v2.0.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v2.0.0-beta.2
 [v2.0.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v2.0.0-beta.1
