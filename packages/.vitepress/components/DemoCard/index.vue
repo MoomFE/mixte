@@ -14,8 +14,15 @@
     </div>
 
     <!-- 代码区 -->
-    <div v-if="showCode" class="text-sm b-t m-theme-border rounded-b overflow-hidden m-(t6 x--6)">
-      <div v-if="highlighter" v-html="codeHighlight" class="highlighter" />
+    <div v-if="showCode" class="text-sm b-t m-theme-border rounded-b m-(t6 x--6)">
+      <ShikiMagicMove
+        v-if="highlighter"
+        class="my-0 px-3 py-2"
+        theme="material-theme-darker"
+        :lang="codeLang"
+        :highlighter="highlighter"
+        :code="code.trim()"
+      />
       <div v-else flex="~ justify-center" py-2>
         <i-svg-spinners-ring-resize />
       </div>
@@ -24,9 +31,12 @@
 </template>
 
 <script lang="ts" setup>
+  import type { Highlighter } from 'shiki';
+  import { ShikiMagicMove } from 'shiki-magic-move/vue';
   import { NConfigProvider, dateZhCN, zhCN } from 'naive-ui';
-  import * as shiki from 'shiki';
+  import { getSingletonHighlighter } from 'shiki';
   import { decode } from 'js-base64';
+  import 'shiki-magic-move/dist/style.css';
 
   interface Props {
     code?: string;
@@ -35,17 +45,10 @@
 
   const props = defineProps<Props>();
 
-  const highlighter = shallowRef<shiki.Highlighter>();
+  const highlighter = shallowRef<Highlighter>();
 
   const code = ref('');
   const codeLang = ref('ts');
-
-  const codeHighlight = computed(() => {
-    return highlighter.value?.codeToHtml(code.value.trim(), {
-      lang: codeLang.value,
-      theme: 'material-theme-darker',
-    }) ?? '';
-  });
 
   const hasCode = computed(() => !!code.value);
   const [showCodeState, toggleShowCodeState] = useToggle();
@@ -54,13 +57,13 @@
   const showExtra = computed(() => hasCode.value);
 
   onMounted(() => {
-    const unWatch = wheneverImmediate(showCode as any, async () => {
-      nextTick(() => unWatch());
-
-      highlighter.value = await shiki.getHighlighter({
+    wheneverImmediate(showCode, async () => {
+      highlighter.value = await getSingletonHighlighter({
         langs: ['ts', 'vue'],
         themes: ['material-theme-darker'],
       });
+    }, {
+      once: true,
     });
 
     props.code && (code.value = decode(decodeURIComponent(props.code)));
