@@ -1,5 +1,6 @@
 import type { Promisable } from 'type-fest';
-import type { MaybeRefOrGetter } from 'vue-demi';
+import type { MaybeRefOrGetter } from '@vueuse/core';
+import { wheneverImmediate } from '@mixte/use';
 import { createEventHook, toValue } from '@vueuse/core';
 import { reactive, ref, shallowRef } from 'vue-demi';
 
@@ -12,9 +13,10 @@ export interface UseRequestOptions {
   initialData?: any;
   /**
    * 是否立即发起请求
+   *  - 如果传入的是 Ref or Getter, 则值变为 true 时会发起请求
    * @default false
    */
-  immediate?: boolean;
+  immediate?: MaybeRefOrGetter<boolean>;
   /**
    * 是否在发起请求时重置数据
    * @default true
@@ -127,9 +129,11 @@ export function useRequest<
 
   // 初始化数据
   data.value = toValue(initialData);
+
   // 立即发起请求
+  // 如果传入的是 Ref, 则等到值为 true 时再发起请求
   // @ts-expect-error
-  immediate && execute();
+  wheneverImmediate(() => toValue(immediate), () => execute());
 
   const common = {
     /** 服务器响应 */

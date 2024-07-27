@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/use] 方法 `useRequest` 的 `immediate` 支持传入 Ref 值, 值变为 true 时会发起请求
 
 ## [v2.0.0], [v2.0.0-beta.3], [v2.0.0-beta.2], [v2.0.0-beta.1]
   - 📅 2024-07-06

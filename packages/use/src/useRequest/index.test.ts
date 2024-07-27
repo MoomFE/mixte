@@ -387,6 +387,152 @@ describe.concurrent('useRequest', () => {
         expect(data.isFinished.value).toBe(true);
         expect(data.isSuccess.value).toBe(true);
       });
+
+      it('选项支持传入 MaybeRefOrGetter 类型对象, 值变为 true 时会发起请求', async ({ expect }) => {
+        // Ref ( 默认 true )
+        {
+          const data = useRequest(async () => {
+            await delay(100);
+            return {
+              data: 1,
+            };
+          }, {
+            immediate: ref(true),
+          });
+
+          expect(data.response.value).toBeUndefined();
+          expect(data.data.value).toBeUndefined();
+          expect(data.error.value).toBeUndefined();
+          expect(data.isExecuted.value).toBe(true);
+          expect(data.isLoading.value).toBe(true);
+          expect(data.isFinished.value).toBe(false);
+          expect(data.isSuccess.value).toBe(false);
+
+          await delay(100);
+
+          expect(data.response.value).toStrictEqual({ data: 1 });
+          expect(data.data.value).toBe(1);
+          expect(data.error.value).toBeUndefined();
+          expect(data.isExecuted.value).toBe(true);
+          expect(data.isLoading.value).toBe(false);
+          expect(data.isFinished.value).toBe(true);
+          expect(data.isSuccess.value).toBe(true);
+        }
+
+        // Ref ( 默认 false )
+        {
+          const immediate = ref(false);
+          const data = useRequest(async () => {
+            await delay(100);
+            return {
+              data: 1,
+            };
+          }, {
+            immediate,
+          });
+
+          expect(data.response.value).toBeUndefined();
+          expect(data.data.value).toBeUndefined();
+          expect(data.error.value).toBeUndefined();
+          expect(data.isExecuted.value).toBe(false);
+          expect(data.isLoading.value).toBe(false);
+          expect(data.isFinished.value).toBe(false);
+          expect(data.isSuccess.value).toBe(false);
+
+          immediate.value = true;
+          await nextTick();
+
+          expect(data.response.value).toBeUndefined();
+          expect(data.data.value).toBeUndefined();
+          expect(data.error.value).toBeUndefined();
+          expect(data.isExecuted.value).toBe(true);
+          expect(data.isLoading.value).toBe(true);
+          expect(data.isFinished.value).toBe(false);
+          expect(data.isSuccess.value).toBe(false);
+
+          await delay(100);
+
+          expect(data.response.value).toStrictEqual({ data: 1 });
+          expect(data.data.value).toBe(1);
+          expect(data.error.value).toBeUndefined();
+          expect(data.isExecuted.value).toBe(true);
+          expect(data.isLoading.value).toBe(false);
+          expect(data.isFinished.value).toBe(true);
+          expect(data.isSuccess.value).toBe(true);
+        }
+
+        // Getter ( 默认 true )
+        {
+          const data = useRequest(async () => {
+            await delay(100);
+            return {
+              data: 1,
+            };
+          }, {
+            immediate: () => true,
+          });
+
+          expect(data.response.value).toBeUndefined();
+          expect(data.data.value).toBeUndefined();
+          expect(data.error.value).toBeUndefined();
+          expect(data.isExecuted.value).toBe(true);
+          expect(data.isLoading.value).toBe(true);
+          expect(data.isFinished.value).toBe(false);
+          expect(data.isSuccess.value).toBe(false);
+
+          await delay(100);
+
+          expect(data.response.value).toStrictEqual({ data: 1 });
+          expect(data.data.value).toBe(1);
+          expect(data.error.value).toBeUndefined();
+          expect(data.isExecuted.value).toBe(true);
+          expect(data.isLoading.value).toBe(false);
+          expect(data.isFinished.value).toBe(true);
+          expect(data.isSuccess.value).toBe(true);
+        }
+
+        // Getter ( 默认 false )
+        {
+          const value = ref(false);
+          const data = useRequest(async () => {
+            await delay(100);
+            return {
+              data: 1,
+            };
+          }, {
+            immediate: () => value.value,
+          });
+
+          expect(data.response.value).toBeUndefined();
+          expect(data.data.value).toBeUndefined();
+          expect(data.error.value).toBeUndefined();
+          expect(data.isExecuted.value).toBe(false);
+          expect(data.isLoading.value).toBe(false);
+          expect(data.isFinished.value).toBe(false);
+          expect(data.isSuccess.value).toBe(false);
+
+          value.value = true;
+          await nextTick();
+
+          expect(data.response.value).toBeUndefined();
+          expect(data.data.value).toBeUndefined();
+          expect(data.error.value).toBeUndefined();
+          expect(data.isExecuted.value).toBe(true);
+          expect(data.isLoading.value).toBe(true);
+          expect(data.isFinished.value).toBe(false);
+          expect(data.isSuccess.value).toBe(false);
+
+          await delay(100);
+
+          expect(data.response.value).toStrictEqual({ data: 1 });
+          expect(data.data.value).toBe(1);
+          expect(data.error.value).toBeUndefined();
+          expect(data.isExecuted.value).toBe(true);
+          expect(data.isLoading.value).toBe(false);
+          expect(data.isFinished.value).toBe(true);
+          expect(data.isSuccess.value).toBe(true);
+        }
+      });
     });
 
     describe('initialData: 初始数据', () => {
