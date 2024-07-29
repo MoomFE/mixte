@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v2.0.1]
+  - 📅 2024-07-29
   - 💄 [@mixte/use] 内置 `whenever` 方法, 防止项目中 `@vueuse/core` 版本过低不支持 `once` 选项
 
 ## [v2.0.0], [v2.0.0-beta.3], [v2.0.0-beta.2], [v2.0.0-beta.1]
@@ -70,7 +73,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.0.1...HEAD
+[v2.0.1]: https://github.com/MoomFE/mixte/releases/tag/v2.0.1
 [v2.0.0]: https://github.com/MoomFE/mixte/releases/tag/v2.0.0
 [v2.0.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v2.0.0-beta.3
 [v2.0.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v2.0.0-beta.2
