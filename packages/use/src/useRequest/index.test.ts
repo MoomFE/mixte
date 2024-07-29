@@ -421,11 +421,12 @@ describe.concurrent('useRequest', () => {
 
         // Ref ( 默认 false )
         {
+          let index = 1;
           const immediate = ref(false);
           const data = useRequest(async () => {
             await delay(100);
             return {
-              data: 1,
+              data: index++,
             };
           }, {
             immediate,
@@ -451,6 +452,20 @@ describe.concurrent('useRequest', () => {
           expect(data.isSuccess.value).toBe(false);
 
           await delay(100);
+
+          expect(data.response.value).toStrictEqual({ data: 1 });
+          expect(data.data.value).toBe(1);
+          expect(data.error.value).toBeUndefined();
+          expect(data.isExecuted.value).toBe(true);
+          expect(data.isLoading.value).toBe(false);
+          expect(data.isFinished.value).toBe(true);
+          expect(data.isSuccess.value).toBe(true);
+
+          // 再次修改 immediate 的值, 不再发起请求
+          immediate.value = false;
+          await nextTick();
+          immediate.value = true;
+          await nextTick();
 
           expect(data.response.value).toStrictEqual({ data: 1 });
           expect(data.data.value).toBe(1);
@@ -493,11 +508,12 @@ describe.concurrent('useRequest', () => {
 
         // Getter ( 默认 false )
         {
+          let index = 1;
           const value = ref(false);
           const data = useRequest(async () => {
             await delay(100);
             return {
-              data: 1,
+              data: index++,
             };
           }, {
             immediate: () => value.value,
@@ -523,6 +539,20 @@ describe.concurrent('useRequest', () => {
           expect(data.isSuccess.value).toBe(false);
 
           await delay(100);
+
+          expect(data.response.value).toStrictEqual({ data: 1 });
+          expect(data.data.value).toBe(1);
+          expect(data.error.value).toBeUndefined();
+          expect(data.isExecuted.value).toBe(true);
+          expect(data.isLoading.value).toBe(false);
+          expect(data.isFinished.value).toBe(true);
+          expect(data.isSuccess.value).toBe(true);
+
+          // 再次修改 immediate 的值, 不再发起请求
+          value.value = false;
+          await nextTick();
+          value.value = true;
+          await nextTick();
 
           expect(data.response.value).toStrictEqual({ data: 1 });
           expect(data.data.value).toBe(1);

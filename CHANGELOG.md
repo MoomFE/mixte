@@ -1,5 +1,5 @@
 ## [Unreleased]
-  - 💄 [@mixte/use] 方法 `useRequest` 的 `immediate` 支持传入 Ref 值, 值变为 true 时会发起请求
+  - 💄 [@mixte/use] 方法 `useRequest` 的 `immediate` 支持传入 [Ref or Getter](https://cn.vuejs.org/api/utility-types.html#maybereforgetter) 值, 则值变为 `truthy` 时会发起请求 ( 只会发起一次 )
   - 💄 [@mixte/use] 内置 `whenever` 方法, 防止项目中 `@vueuse/core` 版本过低不支持 `once` 选项
 
 ## [v2.0.0], [v2.0.0-beta.3], [v2.0.0-beta.2], [v2.0.0-beta.1]

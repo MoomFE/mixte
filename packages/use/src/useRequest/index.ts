@@ -13,7 +13,7 @@ export interface UseRequestOptions {
   initialData?: any;
   /**
    * 是否立即发起请求
-   *  - 如果传入的是 Ref or Getter, 则值变为 true 时会发起请求
+   *  - [2.1.0] 如果传入的是 [Ref or Getter](https://cn.vuejs.org/api/utility-types.html#maybereforgetter), 则值变为 `truthy` 时会立即发起请求 ( 只会发起一次 )
    * @default false
    */
   immediate?: MaybeRefOrGetter<boolean>;
@@ -133,7 +133,7 @@ export function useRequest<
   // 立即发起请求
   // 如果传入的是 Ref, 则等到值为 true 时再发起请求
   // @ts-expect-error
-  wheneverImmediate(() => toValue(immediate), () => execute());
+  wheneverImmediate(() => toValue(immediate), () => execute(), { once: true });
 
   const common = {
     /** 服务器响应 */
