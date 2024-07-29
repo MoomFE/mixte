@@ -1,6 +1,6 @@
 ## `whenever` {#whenever}
 
-监听值是 `truthy` 时执行回调函数, 是直接导出 `@vueuse/core` 的 [whenever](https://vueuse.org/shared/whenever)
+监听值是 `truthy` 时执行回调函数
 
 ### 示例
 
