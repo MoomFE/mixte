@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v2.0.2]
+  - 📅 2024-07-30
   - 🌟 [@mixte/use] 新增供 Nuxt 使用的模块, 提供自动导入功能
 
 ## [v2.0.1]
@@ -74,7 +77,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.0.2...HEAD
+[v2.0.2]: https://github.com/MoomFE/mixte/releases/tag/v2.0.2
 [v2.0.1]: https://github.com/MoomFE/mixte/releases/tag/v2.0.1
 [v2.0.0]: https://github.com/MoomFE/mixte/releases/tag/v2.0.0
 [v2.0.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v2.0.0-beta.3
