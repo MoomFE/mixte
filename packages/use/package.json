@@ -24,6 +24,11 @@
       "import": "./dist/register.mjs",
       "require": "./dist/register.cjs"
     },
+    "./nuxt": {
+      "types": "./dist/nuxt.d.ts",
+      "import": "./dist/nuxt.mjs",
+      "require": "./dist/nuxt.cjs"
+    },
     "./*": "./*"
   },
   "main": "./dist/index.cjs",

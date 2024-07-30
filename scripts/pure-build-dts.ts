@@ -49,6 +49,10 @@ export async function pureBuildDts(pkg: LastArrayElement<typeof packages>[]) {
     const bundle = await rollup({
       input: info.input,
       external: externals.concat(info.dtsExternal ?? []),
+      // external: (source: string) => {
+      //   console.log(source);
+      //   return true;
+      // },
       plugins: [
         dts({ respectExternal: true }),
       ],

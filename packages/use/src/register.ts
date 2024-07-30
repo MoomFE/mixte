@@ -1,4 +1,5 @@
 import type { ImportsMap } from 'unplugin-auto-import/types';
+import { functions, vueuseFunctions } from './metadata';
 
 interface MixteUseAutoImportOptions {
   /**
@@ -42,30 +43,8 @@ export function MixteUseAutoImport(options?: MixteUseAutoImportOptions): Imports
 
   return {
     '@mixte/use': [
-      ...(
-        useWithVueUseCore
-          ? []
-          : [
-              'watchDeep',
-              'watchImmediate',
-              'whenever',
-            ]
-      ),
-      'watchImmediateDeep',
-      'wheneverDeep',
-      'wheneverEffectScope',
-      'wheneverEffectScopeImmediate',
-      'wheneverEffectScopeDeep',
-      'wheneverEffectScopeImmediateDeep',
-      'wheneverImmediate',
-      'wheneverImmediateDeep',
-      'useCountdown',
-      'deepUnref',
-      'useRequest',
-      'useRequestReactive',
-      'createNamedSharedComposable',
-      'useDraggableDistance',
-      'useFileReader',
+      ...(useWithVueUseCore ? [] : vueuseFunctions),
+      ...functions,
     ],
   };
 }

@@ -12,6 +12,14 @@ export const packages = [
     outputFileName: 'register',
     dtsExternal: ['unplugin-auto-import/types'],
   },
+  // @mixte/use/nuxt
+  {
+    input: 'packages/use/src/nuxt.ts',
+    outputDir: 'packages/use/dist',
+    outputFileName: 'nuxt',
+    external: ['@nuxt/kit'],
+    dtsExternal: ['@nuxt/kit', '@nuxt/schema'],
+  },
   // @mixte/use
   {
     input: 'packages/use/index.ts',

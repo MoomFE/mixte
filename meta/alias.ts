@@ -7,6 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export const alias: Alias[] = [
   { find: 'mixte', replacement: resolve(__dirname, '../packages/mixte/index') },
   { find: '@mixte/use/register', replacement: resolve(__dirname, '../packages/use/src/register') },
+  { find: '@mixte/use/nuxt', replacement: resolve(__dirname, '../packages/use/src/nuxt') },
   { find: '@mixte/use', replacement: resolve(__dirname, '../packages/use/index') },
   { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/src/$1/index') },
   { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/index') },
@@ -16,6 +17,7 @@ export const alias: Alias[] = [
 export const testAlias: Alias[] = [
   { find: 'mixte', replacement: resolve(__dirname, '../packages/mixte/dist/index') },
   { find: '@mixte/use/register', replacement: resolve(__dirname, '../packages/use/dist/register') },
+  { find: '@mixte/use/nuxt', replacement: resolve(__dirname, '../packages/use/dist/nuxt') },
   { find: '@mixte/use', replacement: resolve(__dirname, '../packages/use/dist/index') },
   { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/dist/$1') },
   { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/dist/index') },
