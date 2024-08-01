@@ -111,9 +111,9 @@
     "vite": "^5.3.2",
     "vitepress": "^1.2.3",
     "vitest": "^2.0.5",
-    "vue": "^3.4.34",
-    "vue-demi": "^0.14.8",
-    "vue-tsc": "^2.0.24"
+    "vue": "^3.4.35",
+    "vue-demi": "^0.14.10",
+    "vue-tsc": "^2.0.29"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
