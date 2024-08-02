@@ -14,7 +14,6 @@ export default defineNuxtModule({
       nuxt.hook('imports:sources', (presets) => {
         presets.push({
           from: '@mixte/use',
-          type: true,
           imports: [
             ...vueuseFunctions,
             ...functions,
