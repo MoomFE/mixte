@@ -374,8 +374,8 @@ describe('randomString', () => {
 
       expect(str.length).toStrictEqual(i);
       expect(str2.length).toStrictEqual(i);
-      expect(/^[0-9]+$/.test(str)).toStrictEqual(true);
-      expect(/^[0-9]+$/.test(str2)).toStrictEqual(true);
+      expect(/^\d+$/.test(str)).toStrictEqual(true);
+      expect(/^\d+$/.test(str2)).toStrictEqual(true);
     }
   });
 
@@ -391,8 +391,8 @@ describe('randomString', () => {
 
       expect(str.length).toStrictEqual(i);
       expect(str2.length).toStrictEqual(i);
-      expect(/^[a-zA-Z]+$/.test(str)).toStrictEqual(true);
-      expect(/^[a-zA-Z]+$/.test(str2)).toStrictEqual(true);
+      expect(/^[a-z]+$/i.test(str)).toStrictEqual(true);
+      expect(/^[a-z]+$/i.test(str2)).toStrictEqual(true);
       expect(/^[a-z]+$/.test(str)).toStrictEqual(false);
       expect(/^[a-z]+$/.test(str2)).toStrictEqual(false);
       expect(/^[A-Z]+$/.test(str)).toStrictEqual(false);
@@ -416,8 +416,8 @@ describe('randomString', () => {
       expect(/^[a-z0-9]+$/.test(str2)).toStrictEqual(true);
       expect(/^[a-z]+$/.test(str)).toStrictEqual(false);
       expect(/^[a-z]+$/.test(str2)).toStrictEqual(false);
-      expect(/^[0-9]+$/.test(str)).toStrictEqual(false);
-      expect(/^[0-9]+$/.test(str2)).toStrictEqual(false);
+      expect(/^\d+$/.test(str)).toStrictEqual(false);
+      expect(/^\d+$/.test(str2)).toStrictEqual(false);
     }
   });
 
@@ -432,7 +432,7 @@ describe('randomString', () => {
       expect(str.length).toStrictEqual(i);
       expect(/^[A-Z0-9]+$/.test(str)).toStrictEqual(true);
       expect(/^[A-Z]+$/.test(str)).toStrictEqual(false);
-      expect(/^[0-9]+$/.test(str)).toStrictEqual(false);
+      expect(/^\d+$/.test(str)).toStrictEqual(false);
     }
   });
 
@@ -450,14 +450,14 @@ describe('randomString', () => {
 
       expect(str.length).toStrictEqual(i);
       expect(str2.length).toStrictEqual(i);
-      expect(/^[a-zA-Z0-9]+$/.test(str)).toStrictEqual(true);
-      expect(/^[a-zA-Z0-9]+$/.test(str2)).toStrictEqual(true);
+      expect(/^[a-z0-9]+$/i.test(str)).toStrictEqual(true);
+      expect(/^[a-z0-9]+$/i.test(str2)).toStrictEqual(true);
       expect(/^[a-z]+$/.test(str)).toStrictEqual(false);
       expect(/^[a-z]+$/.test(str2)).toStrictEqual(false);
       expect(/^[A-Z]+$/.test(str)).toStrictEqual(false);
       expect(/^[A-Z]+$/.test(str2)).toStrictEqual(false);
-      expect(/^[0-9]+$/.test(str)).toStrictEqual(false);
-      expect(/^[0-9]+$/.test(str2)).toStrictEqual(false);
+      expect(/^\d+$/.test(str)).toStrictEqual(false);
+      expect(/^\d+$/.test(str2)).toStrictEqual(false);
     }
   });
 

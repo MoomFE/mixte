@@ -77,12 +77,14 @@ export function testTypes(
     const values = types[key];
 
     if (checkTypes.includes(key)) {
-      for (const value of values)
+      for (const value of values) {
         if (!fn(value)) return false;
+      }
     }
     else {
-      for (const value of values)
+      for (const value of values) {
         if (fn(value)) return false;
+      }
     }
   }
 

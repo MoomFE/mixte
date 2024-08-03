@@ -120,7 +120,7 @@ export function isPlainObject<Value = unknown>(value: unknown): value is Record<
  * isFunction([]); // -> false
  * isFunction(666); // -> false
  */
-export function isFunction(value: unknown): value is Function {
+export function isFunction(value: unknown): value is Function { // eslint-disable-line ts/no-unsafe-function-type
   return typeof value === 'function';
 }
 
@@ -177,7 +177,7 @@ export function isPromise<T = unknown>(value: unknown): value is Promise<T> {
  * isReference(Symbol('666')); // -> false
  * isReference(666n); // -> false
  */
-export function isReference(value: unknown): value is object | Function {
+export function isReference(value: unknown): value is object | Function { // eslint-disable-line ts/no-unsafe-function-type
   return isObject(value) || isFunction(value);
 }
 

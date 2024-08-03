@@ -5,8 +5,8 @@ describe.concurrent('onceRun', () => {
     const fn = () => {};
     const wrapFn = onceRun(fn);
 
-    expect(typeof wrapFn === 'function').is.true;
-    expect(wrapFn !== fn).is.true;
+    expect(typeof wrapFn === 'function').toBe(true);
+    expect(wrapFn !== fn).toBe(true);
   });
 
   it('运行函数返回一个 Promise', () => {

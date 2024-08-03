@@ -41,23 +41,27 @@ const {
 #### 在现有项目中使用
 
 :::info 修改步骤
-1. 把现有定义接口的方式, 改为使用 `useRequest` 的方式:
+1. 把现有定义接口的方式从:
 
 ```js twoslash
-import { useRequest } from '@mixte/use'; // [!code ++]
 // ---cut-start---
 import axios from 'axios';
 // ---cut-end---
+function login(info) {
+  return axios.post('/api/user/login', info);
+}
+```
 
-function login(info) { // [!code --]
-  return axios.post('/api/user/login', info); // [!code --]
-} // [!code --]
+改为使用 `useRequest` 的方式:
 
-function login() { // [!code ++]
-  return useRequest((info) => { // [!code ++]
-    return axios.post('/api/user/login', info); // [!code ++]
-  }); // [!code ++]
-} // [!code ++]
+```js twoslash
+import { useRequest } from '@mixte/use';
+
+function login() {
+  return useRequest((info) => {
+    return axios.post('/api/user/login', info);
+  });
+}
 ```
 
 2. 在调用端, 从:

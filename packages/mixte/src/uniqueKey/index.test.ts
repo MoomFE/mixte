@@ -25,7 +25,7 @@ describe('uniqueKey', () => {
     for (let i = 0; i < 3600; i++) {
       const key = uniqueKey(arr, 'key');
 
-      expect(key).match(/^[a-zA-Z][a-zA-Z0-9]{17}$/);
+      expect(key).match(/^[a-z][a-z0-9]{17}$/i);
       expect(arr.some(item => item.key === key)).toBeFalsy();
 
       arr.push({ key });
@@ -38,7 +38,7 @@ describe('uniqueKey', () => {
     for (let i = 0; i < 3600; i++) {
       const id = uniqueKey(arr);
 
-      expect(id).match(/^[a-zA-Z][a-zA-Z0-9]{17}$/);
+      expect(id).match(/^[a-z][a-z0-9]{17}$/i);
       expect(arr.some(item => item.id === id)).toBeFalsy();
 
       arr.push({ id });
@@ -65,6 +65,6 @@ describe('uniqueKey', () => {
 describe('uniqueKeyCustomizer', () => {
   it('返回长度为 18 且首字母不为数字的字符串', () => {
     for (let i = 0; i < 3600; i++)
-      expect(uniqueKeyCustomizer()).match(/^[a-zA-Z][a-zA-Z0-9]{17}$/);
+      expect(uniqueKeyCustomizer()).match(/^[a-z][a-z0-9]{17}$/i);
   });
 });

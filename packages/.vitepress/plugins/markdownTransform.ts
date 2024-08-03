@@ -29,7 +29,7 @@ export function MarkdownTransform(): Plugin {
         const s = new MagicString(code = code.replace(/\r\n/g, '\n'));
         const imports = [];
 
-        const startIndex = code.match(/^---\n.+?\n---/m)?.[0]?.length ?? -1;
+        const startIndex = code.match(/^---\n.+\n---/m)?.[0]?.length ?? -1;
 
         /** 标题 */
         const fnTitle = info.title || (pkg === 'components' ? pascalCase(fn) : fn);
@@ -76,7 +76,7 @@ export function MarkdownTransform(): Plugin {
         }
 
         // 添加二级标题 Demo
-        for (const match of code.matchAll(/\n##\s`?([^\n`]+)`?.*?\n/g)) {
+        for (const match of code.matchAll(/\n##\s`?([^\n\r`\u2028\u2029]+)\n/g)) {
           const name = match[1];
           const matchEndIndex = match.index! + match[0].length;
           let demoName = name;
@@ -104,7 +104,7 @@ export function MarkdownTransform(): Plugin {
         }
 
         // 添加三级标题 Demo
-        for (const match of code.matchAll(/\n###\s`?([^\n`]+)`?.*?\n/g)) {
+        for (const match of code.matchAll(/\n###\s`?([^\n\r`\u2028\u2029]+)\n/g)) {
           const name = match[1];
           const matchEndIndex = match.index! + match[0].length;
           let demoName = name;
