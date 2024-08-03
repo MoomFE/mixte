@@ -1,4 +1,8 @@
 ## [Unreleased]
+
+## [v2.0.3]
+  - 📅 2024-08-03
+  - 💄 [@mixte/validator] 优化 `citizenID` 和 `email` 的正则
   - 🐞 [@mixte/use] 修复 `@mixte/use/nuxt` 仅导入了类型的问题
 
 ## [v2.0.2]
@@ -78,7 +82,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.0.2...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.0.3...HEAD
+[v2.0.3]: https://github.com/MoomFE/mixte/releases/tag/v2.0.3
 [v2.0.2]: https://github.com/MoomFE/mixte/releases/tag/v2.0.2
 [v2.0.1]: https://github.com/MoomFE/mixte/releases/tag/v2.0.1
 [v2.0.0]: https://github.com/MoomFE/mixte/releases/tag/v2.0.0
