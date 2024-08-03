@@ -34,7 +34,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
       hiddenTitle = info.hiddenTitle ?? hiddenTitle;
       sidebarTitle = info.sidebarTitle ?? sidebarTitle;
     }
-    catch (error) {}
+    catch {}
 
     docsDetails[pkg as keyof typeof docsDetails].push({
       fn,

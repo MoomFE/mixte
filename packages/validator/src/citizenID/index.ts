@@ -10,7 +10,7 @@
  * isCitizenIDReg.test('36060219990123999X'); // -> true
  * isCitizenIDReg.test('360609999999999999'); // -> false
  */
-export const isCitizenIDReg = /^[1-9]\d{5}(?:18|19|20)\d{2}(?:0[1-9]|10|11|12)(?:0[1-9]|[1-2]\d|30|31)\d{3}[\dXx]$/;
+export const isCitizenIDReg = /^[1-9]\d{5}(?:18|19|20)\d{2}(?:0[1-9]|10|11|12)(?:0[1-9]|[12]\d|30|31)\d{3}[\dX]$/i;
 
 /**
  * 判断字符串是否是 18 位身份证号码

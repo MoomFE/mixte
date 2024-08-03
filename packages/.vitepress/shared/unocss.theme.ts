@@ -1197,6 +1197,15 @@ export const easing = {
   out: "cubic-bezier(0, 0, 0.2, 1)",
   "in-out": "cubic-bezier(0.4, 0, 0.2, 1)"
 };
+export const transitionProperty = {
+  none: "none",
+  all: "all",
+  colors: "color,background-color,border-color,outline-color,text-decoration-color,fill,stroke",
+  opacity: "opacity",
+  shadow: "box-shadow",
+  transform: "transform",
+  DEFAULT: "color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter"
+};
 export const lineWidth = {
   DEFAULT: "1px",
   none: "0"
@@ -1569,6 +1578,7 @@ export default {
   blur,
   dropShadow,
   easing,
+  transitionProperty,
   lineWidth,
   spacing,
   duration,

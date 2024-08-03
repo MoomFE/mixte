@@ -43,6 +43,7 @@ outline: [1,3]
 
 ```ts twoslash
 // ---cut-start---
+/* eslint-disable */
 import type { AcroDynamicFormInstance } from '@mixte/snippets/acro-dynamic-form';
 const { validate, validateField, resetFields, reset, clearValidate, setFields, scrollToField, init } = {} as AcroDynamicFormInstance;
 // ---cut-end---
@@ -75,6 +76,9 @@ init; // 初始化表单数据
 ### 对外导出工具方法
 
 ```ts twoslash
+// ---cut-start---
+/* eslint-disable */
+// ---cut-end---
 import { defineAcroDynamicFormField, defineAcroDynamicFormFields, defineAcroDynamicFormPreset } from '@mixte/snippets/acro-dynamic-form';
 
 defineAcroDynamicFormField; // 定义单个字段配置

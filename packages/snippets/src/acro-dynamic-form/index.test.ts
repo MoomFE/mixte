@@ -128,7 +128,7 @@ describe('<acro-dynamic-form /> 字段配置', () => {
     it('类型测试: 当 type 为支持的表单类组件时, componentProps 会切换为对应组件的类型', () => {
       // Input
       {
-        const field: AcroDynamicFormField = { field: 'name', type: 'input' };
+        const field: AcroDynamicFormField = { field: 'name', type: 'input' }; // eslint-disable-line unused-imports/no-unused-vars
 
         type ComponentProps = NonNullable<(typeof field)['componentProps']>;
 
@@ -142,7 +142,7 @@ describe('<acro-dynamic-form /> 字段配置', () => {
 
       // Checkbox
       {
-        const field: AcroDynamicFormField = { field: 'name', type: 'checkbox' };
+        const field: AcroDynamicFormField = { field: 'name', type: 'checkbox' }; // eslint-disable-line unused-imports/no-unused-vars
 
         type ComponentProps = NonNullable<(typeof field)['componentProps']>;
 
@@ -158,7 +158,7 @@ describe('<acro-dynamic-form /> 字段配置', () => {
     it('类型测试: 当 type 为空, 此时 componentProps 为随意输入内容的对象', () => {
       expectTypeOf<AcroDynamicFormField>().toMatchTypeOf<{ type?: string }>();
 
-      const field: AcroDynamicFormField = { field: 'name' };
+      const field: AcroDynamicFormField = { field: 'name' }; // eslint-disable-line unused-imports/no-unused-vars
 
       type ComponentProps = NonNullable<(typeof field)['componentProps']>;
 
@@ -166,7 +166,7 @@ describe('<acro-dynamic-form /> 字段配置', () => {
     });
 
     it('类型测试: 当 type 为非支持的表单类组件时, 此时 componentProps 为随意输入内容的对象', () => {
-      const field: AcroDynamicFormField = { field: 'name', type: 'button' };
+      const field: AcroDynamicFormField = { field: 'name', type: 'button' }; // eslint-disable-line unused-imports/no-unused-vars
 
       type ComponentProps = NonNullable<(typeof field)['componentProps']>;
 
@@ -435,7 +435,7 @@ describe('<acro-dynamic-form /> 字段配置', () => {
       });
 
       it('类型测试: 已从 componentProps 中排除 modelValue 字段', () => {
-        const field: AcroDynamicFormField = { field: 'name', type: 'input' };
+        const field: AcroDynamicFormField = { field: 'name', type: 'input' }; // eslint-disable-line unused-imports/no-unused-vars
 
         type ComponentProps = NonNullable<(typeof field)['componentProps']>;
 

@@ -54,7 +54,7 @@
       renderChildren = renderChildren.slice(0, rowsChildrenLength);
 
       if (children.value.length > rowsChildrenLength) {
-        hasOverflowSuffixSlot.value; // eslint-disable-line no-unused-expressions
+        hasOverflowSuffixSlot.value; // eslint-disable-line ts/no-unused-expressions
         if (slots.overflowSuffix)
           renderChildren.splice(-1, 1, slots.overflowSuffix!() as any);
       }
