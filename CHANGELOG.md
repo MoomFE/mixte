@@ -1,5 +1,8 @@
 ## [Unreleased]
-  - 🌟 [@mixte/snippets] 新增 `toggleThemeViewTransition` 方法, 提供主题切换
+
+## [v2.1.0]
+  - 📅 2024-08-05
+  - 🌟 [@mixte/snippets] 新增 `toggleThemeViewTransition` 方法, 提供切换主题时的视图过渡动画
 
 ## [v2.0.3]
   - 📅 2024-08-03
@@ -83,7 +86,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.0.3...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.1.0...HEAD
+[v2.1.0]: https://github.com/MoomFE/mixte/releases/tag/v2.1.0
 [v2.0.3]: https://github.com/MoomFE/mixte/releases/tag/v2.0.3
 [v2.0.2]: https://github.com/MoomFE/mixte/releases/tag/v2.0.2
 [v2.0.1]: https://github.com/MoomFE/mixte/releases/tag/v2.0.1
