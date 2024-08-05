@@ -1,11 +1,11 @@
 // https://vitepress.dev/guide/custom-theme
 import type { App } from 'vue';
-import { h } from 'vue';
 import { ID_INJECTION_KEY } from 'element-plus';
 import { inject } from '@vercel/analytics';
 import Theme from 'vitepress/theme';
 import TwoSlashFloatingVue from '@shikijs/vitepress-twoslash/client';
 import * as Mixte from 'mixte';
+import Layout from './Layout.vue';
 
 import './style.css';
 import 'uno.css';
@@ -16,11 +16,7 @@ import '@shikijs/vitepress-twoslash/style.css';
 
 export default {
   extends: Theme,
-  Layout: () => {
-    return h(Theme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
-    });
-  },
+  Layout,
   enhanceApp({ app }: { app: App }) {
     app.provide(ID_INJECTION_KEY, {
       prefix: 1024,
