@@ -65,4 +65,11 @@ export const packages = [
     dtsExternal: ['@arco-design/web-vue'],
     vueComponent: true,
   },
+  // @mixte/snippets/toggleThemeViewTransition
+  {
+    input: 'packages/snippets/src/toggleThemeViewTransition/index.ts',
+    outputDir: 'packages/snippets/dist',
+    outputFileName: 'toggleThemeViewTransition',
+    external: ['mixte'],
+  },
 ];

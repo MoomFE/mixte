@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/snippets] 新增 `toggleThemeViewTransition` 方法, 提供主题切换
 
 ## [v2.0.3]
   - 📅 2024-08-03

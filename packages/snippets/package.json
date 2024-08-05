@@ -28,6 +28,11 @@
       "import": "./dist/acro-dynamic-form.mjs",
       "require": "./dist/acro-dynamic-form.cjs"
     },
+    "./toggleThemeViewTransition": {
+      "types": "./dist/toggleThemeViewTransition.d.ts",
+      "import": "./dist/toggleThemeViewTransition.mjs",
+      "require": "./dist/toggleThemeViewTransition.cjs"
+    },
     "./*": "./*"
   },
   "files": [
