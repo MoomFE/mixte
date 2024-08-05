@@ -43,18 +43,21 @@ export async function toggleThemeViewTransition(
     await nextTick();
   }).ready;
 
-  const isReverse = toValue(reverse);
-  const animation = document.documentElement.animate(
-    { clipPath: isReverse ? clipPath.reverse() : clipPath },
-    {
-      duration: 300,
-      easing: 'ease-in',
-      pseudoElement: `::view-transition-${isReverse ? 'old' : 'new'}(root)`,
-    },
-  );
+  return new Promise<void>((resolve) => {
+    const isReverse = toValue(reverse);
+    const animation = document.documentElement.animate(
+      { clipPath: isReverse ? clipPath.reverse() : clipPath },
+      {
+        duration: 300,
+        easing: 'ease-in',
+        pseudoElement: `::view-transition-${isReverse ? 'old' : 'new'}(root)`,
+      },
+    );
 
-  animation.finished.then(async () => {
-    await delay(1);
-    document.head.removeChild(style);
+    animation.finished.then(async () => {
+      await delay(1);
+      document.head.removeChild(style);
+      resolve();
+    });
   });
 }
