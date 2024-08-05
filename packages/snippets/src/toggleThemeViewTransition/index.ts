@@ -4,11 +4,21 @@ import { nextTick, toValue } from 'vue-demi';
 import styleText from './index.scss?inline';
 
 interface ToggleThemeViewTransitionOptions {
+  /** X 轴坐标 ( 传递鼠标事件的 clientX ) */
   x?: number;
+  /** Y 轴坐标 ( 传递鼠标事件的 clientY ) */
   y?: number;
+  /** 是否反转动画 */
   reverse?: Ref<boolean> | (() => boolean);
 }
 
+/**
+ * 切换主题时的视图过渡动画
+ *
+ * @see https://vitepress.dev/guide/extending-default-theme#using-view-transitions-api
+ * @param toggle 切换主题的方法
+ * @param options 可选项
+ */
 export async function toggleThemeViewTransition(
   toggle: () => void,
   options: ToggleThemeViewTransitionOptions = {},
