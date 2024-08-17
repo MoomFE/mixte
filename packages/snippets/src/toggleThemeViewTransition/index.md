@@ -61,6 +61,7 @@ outline: [1,4]
       x,
       y,
       reverse: () => color.preference === 'dark',
+      reverseSelector: '.dark-mode' // color-mode 默认深色模式的 class 选择器有 `-mode` 后缀
     });
   }
 </script>

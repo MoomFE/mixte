@@ -10,6 +10,11 @@ interface ToggleThemeViewTransitionOptions {
   y?: number;
   /** 是否反转动画 */
   reverse?: Ref<boolean> | (() => boolean);
+  /**
+   * 反转动画时匹配的选择器
+   * @default '.dark'
+   */
+  reverseSelector?: string;
 }
 
 /**
@@ -33,6 +38,7 @@ export async function toggleThemeViewTransition(
     x = 0,
     y = 0,
     reverse = () => false,
+    reverseSelector = '.dark',
   } = options;
 
   const clipPath = [
@@ -41,7 +47,7 @@ export async function toggleThemeViewTransition(
   ];
 
   const style = document.createElement('style');
-  style.appendChild(document.createTextNode(styleText));
+  style.appendChild(document.createTextNode(styleText.replaceAll('._', reverseSelector)));
   document.head.appendChild(style);
 
   // eslint-disable-next-line ts/no-unused-expressions

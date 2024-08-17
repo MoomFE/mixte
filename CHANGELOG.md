@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/snippets] 方法 `toggleThemeViewTransition` 新增 `reverseSelector` 选项, 用于自定义选择器
 
 ## [v2.1.0]
   - 📅 2024-08-05
