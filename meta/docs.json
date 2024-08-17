@@ -212,6 +212,13 @@
       "sidebarTitle": ""
     },
     {
+      "fn": "toggleThemeViewTransition",
+      "title": "",
+      "name": "",
+      "hiddenTitle": false,
+      "sidebarTitle": ""
+    },
+    {
       "fn": "useNaiveForm",
       "title": "",
       "name": "",
