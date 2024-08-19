@@ -11,10 +11,10 @@
 
   const { isDark } = useData();
 
-  function toggle(event: MouseEvent) {
+  function toggle({ clientX: x, clientY: y }: MouseEvent) {
     toggleThemeViewTransition(() => isDark.value = !isDark.value, {
-      x: event.clientX,
-      y: event.clientY,
+      x,
+      y,
       reverse: isDark,
     });
   }
@@ -33,10 +33,7 @@
 
   const isDark = useDark()
 
-  function toggle(event: MouseEvent) {
-    const x = event.clientX;
-    const y = event.clientY;
-
+  function toggle({ clientX: x, clientY: y }: MouseEvent) {
     toggleThemeViewTransition(() => isDark.value = !isDark.value, {
       x,
       y,

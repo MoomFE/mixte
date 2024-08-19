@@ -21,10 +21,7 @@ outline: [1,4]
 
   const isDark = useDark();
 
-  function toggle(event: MouseEvent) {
-    const x = event.clientX;
-    const y = event.clientY;
-
+  function toggle({ clientX: x, clientY: y }: MouseEvent) {
     toggleThemeViewTransition(() => isDark.value = !isDark.value, {
       x,
       y,
@@ -53,10 +50,7 @@ outline: [1,4]
 <script lang="ts" setup>
   const color = useColorMode();
 
-  function toggle(event: MouseEvent, theme: string) {
-    const x = event.clientX;
-    const y = event.clientY;
-
+  function toggle({ clientX: x, clientY: y }: MouseEvent, theme: string) {
     toggleThemeViewTransition(() => color.preference = theme, {
       x,
       y,
@@ -65,4 +59,36 @@ outline: [1,4]
     });
   }
 </script>
+```
+
+### 类型
+
+```ts
+interface ToggleThemeViewTransitionOptions {
+  /** X 轴坐标 ( 传递鼠标事件的 clientX ) */
+  x?: number;
+  /** Y 轴坐标 ( 传递鼠标事件的 clientY ) */
+  y?: number;
+  /**
+   * 是否反转动画
+   * @default () => false
+   */
+  reverse?: Ref<boolean> | (() => boolean);
+  /**
+   * 反转动画时匹配的选择器
+   * @default '.dark'
+   */
+  reverseSelector?: string;
+  /**
+   * 是否检测用户偏好是否是减少动画
+   * @default true
+   */
+  prefersReducedMotion?: boolean;
+}
+
+/**
+ * @param toggle 切换主题的方法
+ * @param options 可选项
+ */
+function toggleThemeViewTransition(toggle: () => void, options?: ToggleThemeViewTransitionOptions): Promise<void>;
 ```
