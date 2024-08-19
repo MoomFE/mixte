@@ -28,6 +28,7 @@ interface ToggleThemeViewTransitionOptions {
 /**
  * 切换主题时的视图过渡动画
  *
+ * @see https://mixte.moomfe.com/mixte/snippets/toggleThemeViewTransition
  * @see https://vitepress.dev/guide/extending-default-theme#using-view-transitions-api
  * @param toggle 切换主题的方法
  * @param options 可选项
