@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v2.2.0]
+  - 📅 2024-08-19
   - 🌟 [@mixte/snippets] 方法 `toggleThemeViewTransition` 新增 `reverseSelector` 选项, 用于自定义选择器, 默认 `.dark`
   - 🌟 [@mixte/snippets] 方法 `toggleThemeViewTransition` 新增 `prefersReducedMotion` 选项, 用于自定义是否检测用户偏好是否是减少动画, 默认检测
 
@@ -96,7 +99,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.2.0...HEAD
+[v2.2.0]: https://github.com/MoomFE/mixte/releases/tag/v2.2.0
 [v2.1.0]: https://github.com/MoomFE/mixte/releases/tag/v2.1.0
 [v2.0.3]: https://github.com/MoomFE/mixte/releases/tag/v2.0.3
 [v2.0.2]: https://github.com/MoomFE/mixte/releases/tag/v2.0.2
