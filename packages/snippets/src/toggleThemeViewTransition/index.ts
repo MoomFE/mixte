@@ -8,13 +8,21 @@ interface ToggleThemeViewTransitionOptions {
   x?: number;
   /** Y 轴坐标 ( 传递鼠标事件的 clientY ) */
   y?: number;
-  /** 是否反转动画 */
+  /**
+   * 是否反转动画
+   * @default () => false
+   */
   reverse?: Ref<boolean> | (() => boolean);
   /**
    * 反转动画时匹配的选择器
    * @default '.dark'
    */
   reverseSelector?: string;
+  /**
+   * 是否检测用户偏好是否是减少动画
+   * @default true
+   */
+  prefersReducedMotion?: boolean;
 }
 
 /**
@@ -28,8 +36,13 @@ export async function toggleThemeViewTransition(
   toggle: () => void,
   options: ToggleThemeViewTransitionOptions = {},
 ) {
-  // @ts-expect-error
-  if (!document.startViewTransition) {
+  const { prefersReducedMotion = true } = options;
+
+  if (
+    // @ts-expect-error
+    !document.startViewTransition
+    || (prefersReducedMotion ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false)
+  ) {
     toggle();
     return;
   }

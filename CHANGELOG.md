@@ -1,5 +1,6 @@
 ## [Unreleased]
-  - 🌟 [@mixte/snippets] 方法 `toggleThemeViewTransition` 新增 `reverseSelector` 选项, 用于自定义选择器
+  - 🌟 [@mixte/snippets] 方法 `toggleThemeViewTransition` 新增 `reverseSelector` 选项, 用于自定义选择器, 默认 `.dark`
+  - 🌟 [@mixte/snippets] 方法 `toggleThemeViewTransition` 新增 `prefersReducedMotion` 选项, 用于自定义是否检测用户偏好是否是减少动画, 默认检测
 
 ## [v2.1.0]
   - 📅 2024-08-05
