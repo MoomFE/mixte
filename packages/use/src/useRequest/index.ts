@@ -125,6 +125,18 @@ export function useRequest<
     }
   }
 
+  /** 重置请求到初始状态 */
+  function reset() {
+    executeCount++;
+    response.value = undefined;
+    data.value = toValue(initialData);
+    error.value = undefined;
+    isExecuted.value = false;
+    isLoading.value = false;
+    isFinished.value = false;
+    isSuccess.value = false;
+  }
+
   // 初始化数据
   data.value = toValue(initialData);
   // 立即发起请求
@@ -150,6 +162,8 @@ export function useRequest<
 
     /** 发起请求 */
     execute,
+    /** 重置请求到初始状态 */
+    reset,
 
     /** 请求成功事件钩子 */
     onSuccess: successEvent.on,

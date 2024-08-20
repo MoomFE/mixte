@@ -28,6 +28,7 @@ describe.concurrent('useRequest', () => {
       'isFinished',
       'isSuccess',
       'execute',
+      'reset',
       'onSuccess',
       'onError',
       'onFinally',
@@ -43,6 +44,7 @@ describe.concurrent('useRequest', () => {
       'isFinished',
       'isSuccess',
       'execute',
+      'reset',
       'onSuccess',
       'onError',
       'onFinally',
@@ -60,6 +62,8 @@ describe.concurrent('useRequest', () => {
       { key: 'isSuccess', type: 'boolean' },
 
       { key: 'execute', type: 'function' },
+      { key: 'reset', type: 'function' },
+
       { key: 'onSuccess', type: 'function' },
       { key: 'onError', type: 'function' },
       { key: 'onFinally', type: 'function' },
@@ -74,6 +78,7 @@ describe.concurrent('useRequest', () => {
 
     // 方法相等测试 ( 后续就不用分开测了 )
     expect(data.execute).toBe(data.reactive.execute);
+    expect(data.reset).toBe(data.reactive.reset);
     expect(data.onSuccess).toBe(data.reactive.onSuccess);
     expect(data.onError).toBe(data.reactive.onError);
     expect(data.onFinally).toBe(data.reactive.onFinally);
@@ -355,6 +360,125 @@ describe.concurrent('useRequest', () => {
     expect(successIndex).toBe(1);
     expect(finallyIndex).toBe(2);
     expect(errorIndex).toBe(1);
+  });
+
+  describe('辅助方法', () => {
+    describe('reset: 重置请求到初始状态', () => {
+      it('请求成功后重置', async () => {
+        const data = useRequest(async () => {
+          await delay(100);
+          return {
+            data: {
+              a: { b: 2 },
+            },
+          };
+        });
+
+        expect(data.response.value).toBeUndefined();
+        expect(data.data.value).toBeUndefined();
+        expect(data.error.value).toBeUndefined();
+        expect(data.isExecuted.value).toBe(false);
+        expect(data.isLoading.value).toBe(false);
+        expect(data.isFinished.value).toBe(false);
+        expect(data.isSuccess.value).toBe(false);
+
+        await data.execute();
+
+        expect(data.response.value).toStrictEqual({ data: { a: { b: 2 } } });
+        expect(data.data.value).toStrictEqual({ a: { b: 2 } });
+        expect(data.error.value).toBeUndefined();
+        expect(data.isExecuted.value).toBe(true);
+        expect(data.isLoading.value).toBe(false);
+        expect(data.isFinished.value).toBe(true);
+        expect(data.isSuccess.value).toBe(true);
+
+        data.reset();
+
+        expect(data.response.value).toBeUndefined();
+        expect(data.data.value).toBeUndefined();
+        expect(data.error.value).toBeUndefined();
+        expect(data.isExecuted.value).toBe(false);
+        expect(data.isLoading.value).toBe(false);
+        expect(data.isFinished.value).toBe(false);
+        expect(data.isSuccess.value).toBe(false);
+      });
+
+      it('请求错误后重置', async () => {
+        const data = useRequest(async () => {
+          await delay(100);
+          throw new Error('???');
+        });
+
+        expect(data.response.value).toBeUndefined();
+        expect(data.data.value).toBeUndefined();
+        expect(data.error.value).toBeUndefined();
+        expect(data.isExecuted.value).toBe(false);
+        expect(data.isLoading.value).toBe(false);
+        expect(data.isFinished.value).toBe(false);
+        expect(data.isSuccess.value).toBe(false);
+
+        await expect(() => data.execute()).rejects.toThrow('???');
+
+        expect(data.response.value).toBeUndefined();
+        expect(data.data.value).toBeUndefined();
+        expect(data.error.value).toStrictEqual(new Error('???'));
+        expect(data.isExecuted.value).toBe(true);
+        expect(data.isLoading.value).toBe(false);
+        expect(data.isFinished.value).toBe(true);
+        expect(data.isSuccess.value).toBe(false);
+
+        data.reset();
+
+        expect(data.response.value).toBeUndefined();
+        expect(data.data.value).toBeUndefined();
+        expect(data.error.value).toBeUndefined();
+        expect(data.isExecuted.value).toBe(false);
+        expect(data.isLoading.value).toBe(false);
+        expect(data.isFinished.value).toBe(false);
+        expect(data.isSuccess.value).toBe(false);
+      });
+
+      it('请求中重置', async () => {
+        const data = useRequest(async () => {
+          await delay(100);
+          return {
+            data: {
+              a: { b: 2 },
+            },
+          };
+        });
+
+        expect(data.response.value).toBeUndefined();
+        expect(data.data.value).toBeUndefined();
+        expect(data.error.value).toBeUndefined();
+        expect(data.isExecuted.value).toBe(false);
+        expect(data.isLoading.value).toBe(false);
+        expect(data.isFinished.value).toBe(false);
+        expect(data.isSuccess.value).toBe(false);
+
+        const result = data.execute();
+
+        expect(data.response.value).toBeUndefined();
+        expect(data.data.value).toBeUndefined();
+        expect(data.error.value).toBeUndefined();
+        expect(data.isExecuted.value).toBe(true);
+        expect(data.isLoading.value).toBe(true);
+        expect(data.isFinished.value).toBe(false);
+        expect(data.isSuccess.value).toBe(false);
+
+        let isSuccess = false;
+
+        data.onSuccess(() => {
+          isSuccess = true;
+        });
+
+        data.reset();
+
+        await result;
+
+        expect(isSuccess).toBe(false);
+      });
+    });
   });
 
   describe('配置项', () => {
@@ -909,6 +1033,7 @@ describe.concurrent('useRequest', () => {
       expectTypeOf(res.isFinished).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.isSuccess).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.execute).toEqualTypeOf<() => Promise<{ data: number }>>();
+      expectTypeOf(res.reset).toEqualTypeOf<() => void>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
@@ -921,6 +1046,7 @@ describe.concurrent('useRequest', () => {
         isFinished: boolean;
         isSuccess: boolean;
         execute: () => Promise<{ data: number }>;
+        reset: () => void;
         onSuccess: EventHookOn<{ data: number }>;
         onError: EventHookOn<any>;
         onFinally: EventHookOn;
@@ -939,6 +1065,7 @@ describe.concurrent('useRequest', () => {
       expectTypeOf(res.isFinished).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.isSuccess).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.execute).toEqualTypeOf<(a: number) => Promise<{ data: number; code: number }>>();
+      expectTypeOf(res.reset).toEqualTypeOf<() => void>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
@@ -951,6 +1078,7 @@ describe.concurrent('useRequest', () => {
         isFinished: boolean;
         isSuccess: boolean;
         execute: (a: number) => Promise<{ data: number; code: number }>;
+        reset: () => void;
         onSuccess: EventHookOn<{ data: number; code: number }>;
         onError: EventHookOn<any>;
         onFinally: EventHookOn;
@@ -972,6 +1100,7 @@ describe.concurrent('useRequest', () => {
       expectTypeOf(res.isFinished).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.isSuccess).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.execute).toEqualTypeOf<() => Promise<{ data: number }>>();
+      expectTypeOf(res.reset).toEqualTypeOf<() => void>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
@@ -984,6 +1113,7 @@ describe.concurrent('useRequest', () => {
         isFinished: boolean;
         isSuccess: boolean;
         execute: () => Promise<{ data: number }>;
+        reset: () => void;
         onSuccess: EventHookOn<{ data: number }>;
         onError: EventHookOn<any>;
         onFinally: EventHookOn;
@@ -1005,6 +1135,7 @@ describe.concurrent('useRequest', () => {
       expectTypeOf(res.isFinished).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.isSuccess).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.execute).toEqualTypeOf<(a: number) => Promise<{ data: number; code: number }>>();
+      expectTypeOf(res.reset).toEqualTypeOf<() => void>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
@@ -1017,6 +1148,7 @@ describe.concurrent('useRequest', () => {
         isFinished: boolean;
         isSuccess: boolean;
         execute: (a: number) => Promise<{ data: number; code: number }>;
+        reset: () => void;
         onSuccess: EventHookOn<{ data: number; code: number }>;
         onError: EventHookOn<any>;
         onFinally: EventHookOn;
@@ -1040,6 +1172,7 @@ describe.concurrent('useRequest', () => {
       expectTypeOf(res.isFinished).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.isSuccess).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.execute).toEqualTypeOf<(...args: any[]) => Promise<{ data: UserInfo }>>();
+      expectTypeOf(res.reset).toEqualTypeOf<() => void>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: UserInfo }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
@@ -1052,6 +1185,7 @@ describe.concurrent('useRequest', () => {
         isFinished: boolean;
         isSuccess: boolean;
         execute: (...args: any[]) => Promise<{ data: UserInfo }>;
+        reset: () => void;
         onSuccess: EventHookOn<{ data: UserInfo }>;
         onError: EventHookOn<any>;
         onFinally: EventHookOn;
@@ -1070,6 +1204,7 @@ describe.concurrent('useRequest', () => {
       expectTypeOf(res.isFinished).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.isSuccess).toEqualTypeOf<Ref<boolean>>();
       expectTypeOf(res.execute).toEqualTypeOf<(...args: any[]) => Promise<any>>();
+      expectTypeOf(res.reset).toEqualTypeOf<() => void>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
@@ -1082,6 +1217,7 @@ describe.concurrent('useRequest', () => {
         isFinished: boolean;
         isSuccess: boolean;
         execute: (...args: any[]) => Promise<any>;
+        reset: () => void;
         onSuccess: EventHookOn<any>;
         onError: EventHookOn<any>;
         onFinally: EventHookOn;
@@ -1113,6 +1249,7 @@ describe('useRequestReactive', () => {
       'isFinished',
       'isSuccess',
       'execute',
+      'reset',
       'onSuccess',
       'onError',
       'onFinally',
@@ -1130,6 +1267,8 @@ describe('useRequestReactive', () => {
       { key: 'isSuccess', type: 'boolean' },
 
       { key: 'execute', type: 'function' },
+      { key: 'reset', type: 'function' },
+
       { key: 'onSuccess', type: 'function' },
       { key: 'onError', type: 'function' },
       { key: 'onFinally', type: 'function' },
@@ -1166,6 +1305,7 @@ describe('useRequestReactive', () => {
       expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
       expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
       expectTypeOf(res.execute).toEqualTypeOf<() => Promise<{ data: number }>>();
+      expectTypeOf(res.reset).toEqualTypeOf<() => void>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
@@ -1183,6 +1323,7 @@ describe('useRequestReactive', () => {
       expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
       expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
       expectTypeOf(res.execute).toEqualTypeOf<(a: number) => Promise<{ data: number; code: number }>>();
+      expectTypeOf(res.reset).toEqualTypeOf<() => void>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
@@ -1203,6 +1344,7 @@ describe('useRequestReactive', () => {
       expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
       expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
       expectTypeOf(res.execute).toEqualTypeOf<() => Promise<{ data: number }>>();
+      expectTypeOf(res.reset).toEqualTypeOf<() => void>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
@@ -1223,6 +1365,7 @@ describe('useRequestReactive', () => {
       expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
       expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
       expectTypeOf(res.execute).toEqualTypeOf<(a: number) => Promise<{ data: number; code: number }>>();
+      expectTypeOf(res.reset).toEqualTypeOf<() => void>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: number; code: number }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
@@ -1245,6 +1388,7 @@ describe('useRequestReactive', () => {
       expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
       expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
       expectTypeOf(res.execute).toEqualTypeOf<(...args: any[]) => Promise<{ data: UserInfo }>>();
+      expectTypeOf(res.reset).toEqualTypeOf<() => void>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<{ data: UserInfo }>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
@@ -1262,6 +1406,7 @@ describe('useRequestReactive', () => {
       expectTypeOf(res.isFinished).toEqualTypeOf<boolean>();
       expectTypeOf(res.isSuccess).toEqualTypeOf<boolean>();
       expectTypeOf(res.execute).toEqualTypeOf<(...args: any[]) => Promise<any>>();
+      expectTypeOf(res.reset).toEqualTypeOf<() => void>();
       expectTypeOf(res.onSuccess).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onError).toEqualTypeOf<EventHookOn<any>>();
       expectTypeOf(res.onFinally).toEqualTypeOf<EventHookOn>();
