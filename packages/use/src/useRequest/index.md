@@ -29,6 +29,7 @@ const {
   isFinished,
   isSuccess,
   execute,
+  reset,
   onSuccess,
   onError,
   onFinally,
