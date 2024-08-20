@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v2.3.0]
+  - 📅 2024-08-20
   - 🌟 [@mixte/use] 方法 `useRequest` 新增 `reset` 方法, 用于重置请求到初始状态
 
 ## [v2.2.0]
@@ -100,7 +103,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.3.0...HEAD
+[v2.3.0]: https://github.com/MoomFE/mixte/releases/tag/v2.3.0
 [v2.2.0]: https://github.com/MoomFE/mixte/releases/tag/v2.2.0
 [v2.1.0]: https://github.com/MoomFE/mixte/releases/tag/v2.1.0
 [v2.0.3]: https://github.com/MoomFE/mixte/releases/tag/v2.0.3
