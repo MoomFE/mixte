@@ -76,7 +76,7 @@ export function MarkdownTransform(): Plugin {
         }
 
         // 添加二级标题 Demo
-        for (const match of code.matchAll(/\n##\s`?([^\n\r`\u2028\u2029]+)\n/g)) {
+        for (const match of code.matchAll(/\n##\s`?([^\n`]+)/g)) {
           const name = match[1];
           const matchEndIndex = match.index! + match[0].length;
           let demoName = name;
@@ -104,7 +104,7 @@ export function MarkdownTransform(): Plugin {
         }
 
         // 添加三级标题 Demo
-        for (const match of code.matchAll(/\n###\s`?([^\n\r`\u2028\u2029]+)\n/g)) {
+        for (const match of code.matchAll(/\n###\s`?([^\n`]+)/g)) {
           const name = match[1];
           const matchEndIndex = match.index! + match[0].length;
           let demoName = name;
