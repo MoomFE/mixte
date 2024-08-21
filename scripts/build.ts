@@ -1,5 +1,5 @@
-import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'pathe';
 import { build } from 'vite';
 import Vue from '@vitejs/plugin-vue';
 import VueJsx from '@vitejs/plugin-vue-jsx';

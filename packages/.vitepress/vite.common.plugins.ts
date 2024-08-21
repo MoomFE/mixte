@@ -1,5 +1,5 @@
-import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'pathe';
 import AutoImport from 'unplugin-auto-import/vite';
 import { ArcoResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { MixteUseAutoImport } from '../use/src/register';

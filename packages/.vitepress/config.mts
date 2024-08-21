@@ -1,5 +1,5 @@
-import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'pathe';
 import { defineConfig } from 'vitepress';
 import VueJsx from '@vitejs/plugin-vue-jsx';
 import Unocss from 'unocss/vite';

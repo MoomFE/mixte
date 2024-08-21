@@ -1,6 +1,6 @@
 /* eslint-disable ts/no-use-before-define */
 
-import { dirname, resolve } from 'node:path';
+import { dirname, resolve } from 'pathe';
 import type { Plugin } from 'vite';
 import type { BundledLanguage } from 'shiki';
 import MagicString from 'magic-string';

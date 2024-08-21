@@ -1,5 +1,5 @@
-import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { dirname } from 'pathe';
 import { defineConfig } from 'vitest/config';
 import Vue from '@vitejs/plugin-vue';
 import VueJsx from '@vitejs/plugin-vue-jsx';

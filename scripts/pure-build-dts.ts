@@ -1,6 +1,6 @@
-import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { exec } from 'node:child_process';
+import { dirname, resolve } from 'pathe';
 import { rollup } from 'rollup';
 import fg from 'fast-glob';
 import fs from 'fs-extra';

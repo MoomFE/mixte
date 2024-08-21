@@ -88,6 +88,7 @@
     "mixte": "workspace:*",
     "naive-ui": "^2.39.0",
     "nanoid": "^5.0.7",
+    "pathe": "^1.1.2",
     "pnpm": "^9.6.0",
     "postcss": "^8.4.40",
     "postcss-js": "^4.0.1",

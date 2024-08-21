@@ -1,5 +1,5 @@
-import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'pathe';
 import { outputFileSync } from 'fs-extra';
 import { defineConfig, presetAttributify, presetIcons, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss';
 import { presetExtra } from 'unocss-preset-extra';
