@@ -8,6 +8,7 @@ import dts from 'rollup-plugin-dts';
 import { delay } from 'mixte';
 import type { LastArrayElement } from 'type-fest';
 import type { packages } from '../meta/packages';
+import { transformVscInput } from './plugins/transform-vsc-input';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -48,13 +49,12 @@ export async function pureBuildDts(pkg: LastArrayElement<typeof packages>[]) {
 
     const bundle = await rollup({
       input: info.input,
-      external: externals.concat(info.dtsExternal ?? []),
-      // external: (source: string) => {
-      //   console.log(source);
-      //   return true;
-      // },
+      external: info.vueSfcComponent
+        ? () => true
+        : externals.concat(info.dtsExternal ?? []),
       plugins: [
         dts({ respectExternal: true }),
+        info.vueSfcComponent && transformVscInput(info),
       ],
     });
 
