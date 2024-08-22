@@ -4,35 +4,18 @@
 
 <script lang="tsx" setup>
   import { computed, onBeforeUpdate, ref } from 'vue';
-  import { useElementSize } from '@vueuse/core';
-  import { isNumeric } from 'mixte';
   import { flatten } from 'naive-ui/es/_utils/vue/flatten';
+  import { useAutoGrid } from '../../list-auto-grid/src/composables/useAutoGrid';
   import type { AutoGridProps, AutoGridSlots } from './types';
 
   const props = defineProps<AutoGridProps>();
   const slots = defineSlots<AutoGridSlots>();
 
-  const rootRef = ref<HTMLElement>();
-  const rootWidth = useElementSize(rootRef).width;
-
-  const isCustomWidth = computed(() => isNumeric(props.width));
-  const width = computed(() => isCustomWidth.value ? +props.width! : rootWidth.value);
-
-  const itemWidth = computed(() => isNumeric(props.itemWidth) ? +props.itemWidth : width.value);
-  const gap = computed(() => isNumeric(props.gap) ? +props.gap : 0);
-  const gapX = computed(() => isNumeric(props.gapX) ? +props.gapX : gap.value);
-  const gapY = computed(() => isNumeric(props.gapY) ? +props.gapY : gap.value);
-
-  const collapsedRows = computed(() => isNumeric(props.collapsedRows) ? Math.max(1, +props.collapsedRows) : 1);
+  const { rootRef, collapsedRows, length, rootStyle } = useAutoGrid(props);
 
   /** 所有子元素 */
   const children = computed(() => {
     return flatten(slots.default?.() ?? []);
-  });
-
-  /** 每行渲染的子元素数量 */
-  const length = computed(() => {
-    return Math.floor((width.value + gapX.value) / (itemWidth.value + gapX.value)) || 1;
   });
 
   /**
@@ -61,16 +44,7 @@
     }
 
     return (
-      <div
-        ref={rootRef}
-        style={{
-          width: isCustomWidth.value ? `${props.width}px` : '100%',
-          display: 'grid',
-          gridTemplateColumns: `repeat(${length.value}, 1fr)`,
-          columnGap: `${gapX.value}px`,
-          rowGap: `${gapY.value}px`,
-        }}
-      >
+      <div ref={rootRef} style={rootStyle.value}>
         {renderChildren.map(Node => <div style="overflow: hidden">{Node}</div>)}
       </div>
     );

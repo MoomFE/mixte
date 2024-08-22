@@ -35,6 +35,13 @@ export const packages = [
     external: ['mixte'],
     vueComponent: true,
   },
+  // @mixte/components/list-auto-grid
+  {
+    input: 'packages/components/src/list-auto-grid/index.ts',
+    outputDir: 'packages/components/dist',
+    outputFileName: 'list-auto-grid',
+    vueSfcComponent: true,
+  },
 
   // @mixte/validator
   {

@@ -19,10 +19,10 @@
       "import": "./dist/auto-grid.mjs",
       "require": "./dist/auto-grid.cjs"
     },
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+    "./list-auto-grid": {
+      "types": "./dist/list-auto-grid.d.ts",
+      "import": "./dist/list-auto-grid.mjs",
+      "require": "./dist/list-auto-grid.cjs"
     },
     "./*": "./*"
   },

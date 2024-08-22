@@ -23,28 +23,30 @@ const externals = [
 ];
 
 export async function pureBuildDts(pkg: LastArrayElement<typeof packages>[]) {
+  const vueFiles: string[] = [];
+
   for (const info of pkg) {
     console.log(`Building ${info.input}...`);
 
-    let vueFiles: string[] = [];
-
     if (info.vueComponent) {
-      vueFiles = (await fg(['src/*.vue'], {
+      const currentVueFiles = (await fg(['src/*.vue'], {
         absolute: true,
         ignore: ['**/demo/**'],
         cwd: resolve(__dirname, '../', dirname(info.input)),
       }));
 
       // 打包前先删除旧的为 vue 生成的 .d.ts 文件
-      for (const vueFile of vueFiles)
+      for (const vueFile of currentVueFiles)
         await fs.remove(`${vueFile}.d.ts`);
 
-      for (const vueFile of vueFiles) {
+      for (const vueFile of currentVueFiles) {
         await exec(`vue-tsc --declaration --emitDeclarationOnly ${vueFile}`);
 
         while (!fs.existsSync(`${vueFile}.d.ts`))
           await delay(1000);
       }
+
+      vueFiles.push(...currentVueFiles);
     }
 
     const bundle = await rollup({
@@ -63,10 +65,10 @@ export async function pureBuildDts(pkg: LastArrayElement<typeof packages>[]) {
       format: 'es',
     });
 
-    // 打包后删除为 vue 生成的 .d.ts 文件
-    for (const vueFile of vueFiles)
-      await fs.remove(`${vueFile}.d.ts`);
-
     console.log(`Built ${info.input}.`);
   }
+
+  // 打包后删除为 vue 生成的 .d.ts 文件
+  for (const vueFile of vueFiles)
+    await fs.remove(`${vueFile}.d.ts`);
 }

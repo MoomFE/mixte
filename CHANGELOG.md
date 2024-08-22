@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/components] 新增 `ListAutoGrid` 组件, 支持 Vue2.7、Vue3
 
 ## [v2.3.0]
   - 📅 2024-08-20
