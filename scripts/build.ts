@@ -96,6 +96,11 @@ const externals = [
 
       for (const vueFile of vueFiles) {
         const code = await fs.readFile(vueFile, 'utf-8');
+
+        if (code.includes('@unocss-ignore')) {
+          continue;
+        }
+
         const { css } = await generator!.generate(code, {
           preflights: false,
         });

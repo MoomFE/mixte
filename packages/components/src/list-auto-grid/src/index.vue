@@ -9,6 +9,8 @@
 <script lang="ts" setup>
   import { useAutoGrid } from './composables/useAutoGrid';
 
+  // @unocss-ignore
+
   interface ListAutoGridProps {
     /** 列表数据 */
     list: any[];
