@@ -1,5 +1,5 @@
 <template>
-  <div ref="rootRef" :style="rootStyle">
+  <div ref="rootRef" class="mixte-list-auto-grid" :style="rootStyle">
     <div v-for="(item, index) in list" :key="index" style="overflow: hidden">
       <slot :item="item" :index="index" />
     </div>

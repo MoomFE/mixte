@@ -1,4 +1,6 @@
 ## [Unreleased]
+  - 💄 [@mixte/components] 组件 `AutoGrid` 根节点添加 `mixte-auto-grid` 样式类
+  - 💄 [@mixte/components] 组件 `ListAutoGrid` 根节点添加 `mixte-list-auto-grid` 样式类
 
 ## [v2.4.0-beta.2]
   - 📅 2024-08-26

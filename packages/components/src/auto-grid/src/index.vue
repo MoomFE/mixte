@@ -44,7 +44,7 @@
     }
 
     return (
-      <div ref={rootRef} style={rootStyle.value}>
+      <div ref={rootRef} class="mixte-auto-grid" style={rootStyle.value}>
         {renderChildren.map(Node => <div style="overflow: hidden">{Node}</div>)}
       </div>
     );
