@@ -1,7 +1,7 @@
 <template>
   <div ref="rootRef" :style="rootStyle">
     <div v-for="(item, index) in list" :key="index" style="overflow: hidden">
-      <slot :item="item" />
+      <slot :item="item" :index="index" />
     </div>
   </div>
 </template>
@@ -13,7 +13,7 @@
 
   interface ListAutoGridProps {
     /** 列表数据 */
-    list: any[];
+    list?: Record<PropertyKey, any>[] | number;
     /**
      * 组件宽度 (单位: px)
      *  - 正常情况无需使用, 会自动获取组件宽度
