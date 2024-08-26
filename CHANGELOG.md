@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [v2.4.0-beta.2]
+  - 📅 2024-08-26
+  - 💄 [@mixte/components] 组件 `ListAutoGrid` 的 `list` 传参支持传入数值
+
 ## [v2.4.0-beta.1]
   - 📅 2024-08-22
   - 🌟 [@mixte/components] 新增 `ListAutoGrid` 组件, 支持 Vue2.7、Vue3
@@ -107,7 +111,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.4.0-beta.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.4.0-beta.2...HEAD
+[v2.4.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v2.4.0-beta.2
 [v2.4.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v2.4.0-beta.1
 [v2.3.0]: https://github.com/MoomFE/mixte/releases/tag/v2.3.0
 [v2.2.0]: https://github.com/MoomFE/mixte/releases/tag/v2.2.0
