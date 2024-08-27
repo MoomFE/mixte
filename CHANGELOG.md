@@ -1,6 +1,7 @@
 ## [Unreleased]
   - 💄 [@mixte/components] 组件 `AutoGrid` 根节点添加 `mixte-auto-grid` 样式类
   - 💄 [@mixte/components] 组件 `ListAutoGrid` 根节点添加 `mixte-list-auto-grid` 样式类
+  - 💄 [@mixte/components] 使 `ListAutoGrid` 组件拥有更好的类型推导
 
 ## [v2.4.0-beta.2]
   - 📅 2024-08-26
@@ -8,7 +9,7 @@
 
 ## [v2.4.0-beta.1]
   - 📅 2024-08-22
-  - 🌟 [@mixte/components] 新增 `ListAutoGrid` 组件, 支持 Vue2.7、Vue3
+  - 🌟 [@mixte/components] 新增 `ListAutoGrid` 组件, 支持 `Vue2.7`、`Vue3`
 
 ## [v2.3.0]
   - 📅 2024-08-20

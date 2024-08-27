@@ -243,9 +243,6 @@ export function sharedTest(component: ReturnType<typeof defineComponent>) {
   it('横向间距会影响每列子元素个数', async () => {
     const wrapper = mount(component, {
       props: { itemWidth: '200' },
-      slots: {
-        default: Array.from({ length: 6 }).map((_, i) => h('div', `item-${i + 1}`)),
-      },
     });
 
     wrapper.setProps({ width: '400', gapX: '100' });

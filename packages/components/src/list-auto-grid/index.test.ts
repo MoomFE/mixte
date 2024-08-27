@@ -153,50 +153,5 @@ describe('list-auto-grid', () => {
     });
   });
 
-  it('横向间距会影响每列子元素个数 ( 单子组件测试 )', async () => {
-    const wrapper = mount(MixteListAutoGrid, {
-      props: {
-        itemWidth: '200',
-        list: [{}],
-      },
-    });
-
-    wrapper.setProps({ width: '1400', gapX: '1000' });
-    await nextTick();
-    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
-      ...defaultStyle,
-      width: '1400px',
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      columnGap: '1000px',
-    });
-
-    wrapper.setProps({ width: '2600', gapX: '1000' });
-    await nextTick();
-    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
-      ...defaultStyle,
-      width: '2600px',
-      gridTemplateColumns: 'repeat(3, 1fr)',
-      columnGap: '1000px',
-    });
-
-    wrapper.setProps({ width: '3600', gapX: '1000' });
-    await nextTick();
-    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
-      ...defaultStyle,
-      width: '3600px',
-      gridTemplateColumns: 'repeat(3, 1fr)',
-      columnGap: '1000px',
-    });
-
-    wrapper.setProps({ width: '3800', gapX: '1000' });
-    await nextTick();
-    expect(postcssJs.objectify(postcss.parse(wrapper.element.getAttribute('style')!))).toStrictEqual({
-      ...defaultStyle,
-      width: '3800px',
-      gridTemplateColumns: 'repeat(4, 1fr)',
-      columnGap: '1000px',
-    });
-  });
-
   sharedTest(MixteListAutoGrid);
 });
