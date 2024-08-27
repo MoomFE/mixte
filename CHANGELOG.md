@@ -1,18 +1,9 @@
 ## [Unreleased]
 
-## [v2.4.0-beta.3]
+## [v2.4.0], [v2.4.0-beta.3], [v2.4.0-beta.2], [v2.4.0-beta.1]
   - 📅 2024-08-27
+  - 🌟 [@mixte/components] 新增 `ListAutoGrid` 组件, 支持 `Vue3`、`Vue2.7`
   - 💄 [@mixte/components] 组件 `AutoGrid` 根节点添加 `mixte-auto-grid` 样式类
-  - 💄 [@mixte/components] 组件 `ListAutoGrid` 根节点添加 `mixte-list-auto-grid` 样式类
-  - 💄 [@mixte/components] 使 `ListAutoGrid` 组件拥有更好的类型推导
-
-## [v2.4.0-beta.2]
-  - 📅 2024-08-26
-  - 💄 [@mixte/components] 组件 `ListAutoGrid` 的 `list` 传参支持传入数值
-
-## [v2.4.0-beta.1]
-  - 📅 2024-08-22
-  - 🌟 [@mixte/components] 新增 `ListAutoGrid` 组件, 支持 `Vue2.7`、`Vue3`
 
 ## [v2.3.0]
   - 📅 2024-08-20
@@ -117,7 +108,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.4.0-beta.3...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.4.0...HEAD
+[v2.4.0]: https://github.com/MoomFE/mixte/releases/tag/v2.4.0
 [v2.4.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v2.4.0-beta.3
 [v2.4.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v2.4.0-beta.2
 [v2.4.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v2.4.0-beta.1
