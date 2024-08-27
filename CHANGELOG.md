@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v2.4.0-beta.3]
+  - 📅 2024-08-27
   - 💄 [@mixte/components] 组件 `AutoGrid` 根节点添加 `mixte-auto-grid` 样式类
   - 💄 [@mixte/components] 组件 `ListAutoGrid` 根节点添加 `mixte-list-auto-grid` 样式类
   - 💄 [@mixte/components] 使 `ListAutoGrid` 组件拥有更好的类型推导
@@ -114,7 +117,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.4.0-beta.2...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.4.0-beta.3...HEAD
+[v2.4.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v2.4.0-beta.3
 [v2.4.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v2.4.0-beta.2
 [v2.4.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v2.4.0-beta.1
 [v2.3.0]: https://github.com/MoomFE/mixte/releases/tag/v2.3.0
