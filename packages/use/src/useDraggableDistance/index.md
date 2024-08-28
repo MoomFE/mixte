@@ -22,3 +22,7 @@ outline: [1,3]
   const { x, y, isDragging } = useDraggableDistance(targetRef);
 </script>
 ```
+
+## 完整示例
+
+### 模拟拖拽移动滚动条

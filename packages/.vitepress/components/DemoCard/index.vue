@@ -17,7 +17,7 @@
     <div v-if="showCode" class="text-sm b-t m-theme-border rounded-b m-(t6 x--6)">
       <ShikiMagicMove
         v-if="highlighter"
-        class="my-0 px-3 py-2"
+        class="my-0 px-3 py-2 overflow-auto"
         theme="material-theme-darker"
         :lang="codeLang"
         :highlighter="highlighter"
