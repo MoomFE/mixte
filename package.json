@@ -76,7 +76,7 @@
     "change-case": "^5.4.4",
     "defu": "^6.1.4",
     "element-plus": "^2.8.1",
-    "eslint": "^9.9.1",
+    "eslint": "^9.11.1",
     "fast-glob": "^3.3.2",
     "fs-extra": "^11.2.0",
     "gsap": "^3.12.5",
