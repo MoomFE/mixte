@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - [@mixte/components] 组件 `AutoGrid` 新增 `fluid` 参数
 
 ## [v2.4.0], [v2.4.0-beta.3], [v2.4.0-beta.2], [v2.4.0-beta.1]
   - 📅 2024-08-27

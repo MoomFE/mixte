@@ -1,4 +1,4 @@
-import type { StyleValue } from 'vue-demi';
+import type { CSSProperties } from 'vue-demi';
 import { computed, ref } from 'vue-demi';
 import { useElementSize } from '@vueuse/core';
 import { isNumeric } from 'mixte';
@@ -21,6 +21,8 @@ export interface CommomAutoGridProps {
   collapsed?: boolean;
   /** 显示行数 */
   collapsedRows?: number | `${number}`;
+  /** 只有一行时, 平铺所有子元素 */
+  fluid?: boolean;
 }
 
 export function useAutoGrid(props: CommomAutoGridProps) {
@@ -37,12 +39,12 @@ export function useAutoGrid(props: CommomAutoGridProps) {
 
   const collapsedRows = computed(() => isNumeric(props.collapsedRows) ? Math.max(1, +props.collapsedRows) : 1);
 
-  /** 每行渲染的子元素数量 */
+  /** 每行可以渲染的子元素数量 */
   const length = computed(() => {
     return Math.floor((width.value + gapX.value) / (itemWidth.value + gapX.value)) || 1;
   });
 
-  const rootStyle = computed<StyleValue>(() => ({
+  const rootStyle = computed<CSSProperties>(() => ({
     width: isCustomWidth.value ? `${props.width}px` : '100%',
     display: 'grid',
     gridTemplateColumns: `repeat(${length.value}, 1fr)`,

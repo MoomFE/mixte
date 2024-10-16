@@ -3,6 +3,7 @@
 </template>
 
 <script lang="tsx" setup>
+  import type { CSSProperties } from 'vue';
   import { computed, onBeforeUpdate, ref } from 'vue';
   import { flatten } from 'naive-ui/es/_utils/vue/flatten';
   import { useAutoGrid } from '../../list-auto-grid/src/composables/useAutoGrid';
@@ -28,7 +29,8 @@
     hasOverflowSuffixSlot.value = !!slots.overflowSuffix;
   });
 
-  function Render() {
+  /** 真实需要渲染的子元素 */
+  const renderChildren = computed(() => {
     let renderChildren = children.value;
 
     if (props.collapsed) {
@@ -43,9 +45,24 @@
       }
     }
 
+    return renderChildren;
+  });
+
+  const finalRootStyle = computed<CSSProperties>(() => {
+    if (props.fluid && (children.value.length < length.value)) {
+      return {
+        ...rootStyle.value,
+        gridTemplateColumns: `repeat(${children.value.length}, 1fr)`,
+      };
+    }
+
+    return rootStyle.value;
+  });
+
+  function Render() {
     return (
-      <div ref={rootRef} class="mixte-auto-grid" style={rootStyle.value}>
-        {renderChildren.map(Node => <div style="overflow: hidden">{Node}</div>)}
+      <div ref={rootRef} class="mixte-auto-grid" style={finalRootStyle.value}>
+        {renderChildren.value.map(Node => <div style="overflow: hidden">{Node}</div>)}
       </div>
     );
   }
