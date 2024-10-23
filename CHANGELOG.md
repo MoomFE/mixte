@@ -1,5 +1,7 @@
 ## [Unreleased]
-  - [@mixte/components] 组件 `AutoGrid` 新增 `fluid` 参数
+  - 🌟 [@mixte/components] 组件 `AutoGrid` 新增 `fluid` 参数
+  - 🌟 [@mixte/components] 组件 `AutoGrid` 新增 `columnCount` 变量导出, 标识每行可以渲染的子元素数量
+  - 🌟 [@mixte/components] 组件 `AutoGrid` 新增 `isCollapsed` 变量导出, 标识子元素是否折叠
 
 ## [v2.4.0], [v2.4.0-beta.3], [v2.4.0-beta.2], [v2.4.0-beta.1]
   - 📅 2024-08-27

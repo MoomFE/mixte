@@ -66,4 +66,13 @@
       </div>
     );
   }
+
+  defineExpose({
+    /** 每行可以渲染的子元素数量 */
+    columnCount: length,
+    /** 子元素是否折叠 */
+    isCollapsed: computed(() => {
+      return props.collapsed && children.value.length > collapsedRows.value * length.value;
+    }),
+  });
 </script>
