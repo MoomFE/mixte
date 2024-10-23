@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v2.5.0-beta.1]
+  - 📅 2024-08-19
   - 🌟 [@mixte/components] 组件 `AutoGrid` 新增 `fluid` 参数
   - 🌟 [@mixte/components] 组件 `AutoGrid` 新增 `columnCount` 变量导出, 标识每行可以渲染的子元素数量
   - 🌟 [@mixte/components] 组件 `AutoGrid` 新增 `isCollapsed` 变量导出, 标识子元素是否折叠
@@ -111,7 +114,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.4.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.5.0-beta.1...HEAD
+[v2.5.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v2.5.0-beta.1
 [v2.4.0]: https://github.com/MoomFE/mixte/releases/tag/v2.4.0
 [v2.4.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v2.4.0-beta.3
 [v2.4.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v2.4.0-beta.2
