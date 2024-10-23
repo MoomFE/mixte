@@ -115,10 +115,13 @@ export function useRequest<
       if (currentExecuteCount !== executeCount)
         throw e;
 
+      response.value = undefined;
+      data.value = undefined;
+      error.value = e;
+
       isLoading.value = false;
       isFinished.value = true;
       isSuccess.value = false;
-      error.value = e;
       errorEvent.trigger(e);
       finallyEvent.trigger();
       throw e;

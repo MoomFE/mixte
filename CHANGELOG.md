@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🐞 [@mixte/use] 修复 `useRequest` 使用了 `resetOnExecute: false` 并请求失败后, `response` 和 `data` 未重置的问题
 
 ## [v2.5.0-beta.1]
   - 📅 2024-08-19

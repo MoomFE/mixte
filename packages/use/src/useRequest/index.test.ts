@@ -716,14 +716,14 @@ describe.concurrent('useRequest', () => {
 
         await expect(() => result).rejects.toThrow('???');
 
-        expect(data.response.value).toStrictEqual({ data: 1294 });
-        expect(data.data.value).toBe(1294);
+        expect(data.response.value).toBeUndefined();
+        expect(data.data.value).toBeUndefined();
         expect(data.error.value).toStrictEqual(new Error('???'));
 
         result = data.execute();
 
-        expect(data.response.value).toStrictEqual({ data: 1294 });
-        expect(data.data.value).toBe(1294);
+        expect(data.response.value).toBeUndefined();
+        expect(data.data.value).toBeUndefined();
         expect(data.error.value).toStrictEqual(new Error('???'));
 
         await expect(() => result).rejects.toThrow('???');
@@ -787,14 +787,14 @@ describe.concurrent('useRequest', () => {
 
             await expect(() => result).rejects.toThrow('???');
 
-            expect(data.response.value).toStrictEqual({ data: 1294 });
-            expect(data.data.value).toBe(1294);
+            expect(data.response.value).toBeUndefined();
+            expect(data.data.value).toBeUndefined();
             expect(data.error.value).toStrictEqual(new Error('???'));
 
             result = data.execute();
 
-            expect(data.response.value).toStrictEqual({ data: 1294 });
-            expect(data.data.value).toBe(1294);
+            expect(data.response.value).toBeUndefined();
+            expect(data.data.value).toBeUndefined();
             expect(data.error.value).toStrictEqual(new Error('???'));
 
             await expect(() => result).rejects.toThrow('???');
@@ -910,14 +910,14 @@ describe.concurrent('useRequest', () => {
 
             await expect(() => result).rejects.toThrow('???');
 
-            expect(data.response.value).toStrictEqual({ data: 1294 });
-            expect(data.data.value).toBe(1294);
+            expect(data.response.value).toBeUndefined();
+            expect(data.data.value).toBeUndefined();
             expect(data.error.value).toStrictEqual(new Error('???'));
 
             result = data.execute();
 
-            expect(data.response.value).toStrictEqual({ data: 1294 });
-            expect(data.data.value).toBe(1294);
+            expect(data.response.value).toBeUndefined();
+            expect(data.data.value).toBeUndefined();
             expect(data.error.value).toStrictEqual(new Error('???'));
 
             await expect(() => result).rejects.toThrow('???');
