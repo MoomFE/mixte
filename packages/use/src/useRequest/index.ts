@@ -103,6 +103,7 @@ export function useRequest<
 
       response.value = res;
       data.value = (res as { data: Data } | undefined)?.data;
+      error.value = undefined;
 
       isLoading.value = false;
       isFinished.value = true;
@@ -116,7 +117,7 @@ export function useRequest<
         throw e;
 
       response.value = undefined;
-      data.value = undefined;
+      data.value = toValue(initialData);
       error.value = e;
 
       isLoading.value = false;

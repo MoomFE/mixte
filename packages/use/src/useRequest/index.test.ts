@@ -704,6 +704,10 @@ describe.concurrent('useRequest', () => {
 
         await result;
 
+        expect(data.response.value).toStrictEqual({ data: 1294 });
+        expect(data.data.value).toBe(1294);
+        expect(data.error.value).toBeUndefined();
+
         // 进行请求失败情况的测试
 
         await delay(100);
@@ -727,6 +731,26 @@ describe.concurrent('useRequest', () => {
         expect(data.error.value).toStrictEqual(new Error('???'));
 
         await expect(() => result).rejects.toThrow('???');
+
+        expect(data.response.value).toBeUndefined();
+        expect(data.data.value).toBeUndefined();
+        expect(data.error.value).toStrictEqual(new Error('???'));
+
+        // 再走一遍请求成功情况下的测试
+
+        await delay(100);
+        throwError = false;
+        result = data.execute();
+
+        expect(data.response.value).toBeUndefined();
+        expect(data.data.value).toBeUndefined();
+        expect(data.error.value).toStrictEqual(new Error('???'));
+
+        await result;
+
+        expect(data.response.value).toStrictEqual({ data: 1295 });
+        expect(data.data.value).toBe(1295);
+        expect(data.error.value).toBeUndefined();
       });
 
       it('选项支持传入 MaybeRefOrGetter 类型对象', async ({ expect }) => {
@@ -775,6 +799,10 @@ describe.concurrent('useRequest', () => {
 
             await result;
 
+            expect(data.response.value).toStrictEqual({ data: 1294 });
+            expect(data.data.value).toBe(1294);
+            expect(data.error.value).toBeUndefined();
+
             // 进行请求失败情况的测试
 
             await delay(100);
@@ -798,6 +826,26 @@ describe.concurrent('useRequest', () => {
             expect(data.error.value).toStrictEqual(new Error('???'));
 
             await expect(() => result).rejects.toThrow('???');
+
+            expect(data.response.value).toBeUndefined();
+            expect(data.data.value).toBeUndefined();
+            expect(data.error.value).toStrictEqual(new Error('???'));
+
+            // 再走一遍请求成功情况下的测试
+
+            await delay(100);
+            throwError = false;
+            result = data.execute();
+
+            expect(data.response.value).toBeUndefined();
+            expect(data.data.value).toBeUndefined();
+            expect(data.error.value).toStrictEqual(new Error('???'));
+
+            await result;
+
+            expect(data.response.value).toStrictEqual({ data: 1295 });
+            expect(data.data.value).toBe(1295);
+            expect(data.error.value).toBeUndefined();
           }
 
           // 修改 resetOnExecute 的值, 再走一遍流程
@@ -815,8 +863,8 @@ describe.concurrent('useRequest', () => {
 
             await result;
 
-            expect(data.response.value).toStrictEqual({ data: 1295 });
-            expect(data.data.value).toBe(1295);
+            expect(data.response.value).toStrictEqual({ data: 1296 });
+            expect(data.data.value).toBe(1296);
             expect(data.error.value).toBeUndefined();
 
             result = data.execute();
@@ -826,6 +874,10 @@ describe.concurrent('useRequest', () => {
             expect(data.error.value).toBeUndefined();
 
             await result;
+
+            expect(data.response.value).toStrictEqual({ data: 1297 });
+            expect(data.data.value).toBe(1297);
+            expect(data.error.value).toBeUndefined();
 
             // 进行请求失败情况的测试
 
@@ -850,6 +902,26 @@ describe.concurrent('useRequest', () => {
             expect(data.error.value).toBeUndefined();
 
             await expect(() => result).rejects.toThrow('???');
+
+            expect(data.response.value).toBeUndefined();
+            expect(data.data.value).toBeUndefined();
+            expect(data.error.value).toStrictEqual(new Error('???'));
+
+            // 再走一遍请求成功情况下的测试
+
+            await delay(100);
+            throwError = false;
+            result = data.execute();
+
+            expect(data.response.value).toBeUndefined();
+            expect(data.data.value).toBeUndefined();
+            expect(data.error.value).toBeUndefined();
+
+            await result;
+
+            expect(data.response.value).toStrictEqual({ data: 1298 });
+            expect(data.data.value).toBe(1298);
+            expect(data.error.value).toBeUndefined();
           }
         }
 
@@ -898,6 +970,10 @@ describe.concurrent('useRequest', () => {
 
             await result;
 
+            expect(data.response.value).toStrictEqual({ data: 1294 });
+            expect(data.data.value).toBe(1294);
+            expect(data.error.value).toBeUndefined();
+
             // 进行请求失败情况的测试
 
             await delay(100);
@@ -921,6 +997,26 @@ describe.concurrent('useRequest', () => {
             expect(data.error.value).toStrictEqual(new Error('???'));
 
             await expect(() => result).rejects.toThrow('???');
+
+            expect(data.response.value).toBeUndefined();
+            expect(data.data.value).toBeUndefined();
+            expect(data.error.value).toStrictEqual(new Error('???'));
+
+            // 再走一遍请求成功情况下的测试
+
+            await delay(100);
+            throwError = false;
+            result = data.execute();
+
+            expect(data.response.value).toBeUndefined();
+            expect(data.data.value).toBeUndefined();
+            expect(data.error.value).toStrictEqual(new Error('???'));
+
+            await result;
+
+            expect(data.response.value).toStrictEqual({ data: 1295 });
+            expect(data.data.value).toBe(1295);
+            expect(data.error.value).toBeUndefined();
           }
 
           // 修改 value 的值, 再走一遍流程
@@ -938,8 +1034,8 @@ describe.concurrent('useRequest', () => {
 
             await result;
 
-            expect(data.response.value).toStrictEqual({ data: 1295 });
-            expect(data.data.value).toBe(1295);
+            expect(data.response.value).toStrictEqual({ data: 1296 });
+            expect(data.data.value).toBe(1296);
             expect(data.error.value).toBeUndefined();
 
             result = data.execute();
@@ -949,6 +1045,10 @@ describe.concurrent('useRequest', () => {
             expect(data.error.value).toBeUndefined();
 
             await result;
+
+            expect(data.response.value).toStrictEqual({ data: 1297 });
+            expect(data.data.value).toBe(1297);
+            expect(data.error.value).toBeUndefined();
 
             // 进行请求失败情况的测试
 
@@ -973,6 +1073,26 @@ describe.concurrent('useRequest', () => {
             expect(data.error.value).toBeUndefined();
 
             await expect(() => result).rejects.toThrow('???');
+
+            expect(data.response.value).toBeUndefined();
+            expect(data.data.value).toBeUndefined();
+            expect(data.error.value).toStrictEqual(new Error('???'));
+
+            // 再走一遍请求成功情况下的测试
+
+            await delay(100);
+            throwError = false;
+            result = data.execute();
+
+            expect(data.response.value).toBeUndefined();
+            expect(data.data.value).toBeUndefined();
+            expect(data.error.value).toBeUndefined();
+
+            await result;
+
+            expect(data.response.value).toStrictEqual({ data: 1298 });
+            expect(data.data.value).toBe(1298);
+            expect(data.error.value).toBeUndefined();
           }
         }
       });
