@@ -1,9 +1,12 @@
 ## [Unreleased]
+
+## [v2.5.0-beta.2]
+  - 📅 2024-11-05
   - 🐞 [@mixte/use] 修复 `useRequest` 使用了 `resetOnExecute: false` 并请求失败后, `response` 和 `data` 未重置的问题
   - 🐞 [@mixte/use] 修复 `useRequest` 使用了 `resetOnExecute: false` 并请求成功后, `error` 未重置的问题
 
 ## [v2.5.0-beta.1]
-  - 📅 2024-08-19
+  - 📅 2024-10-23
   - 🌟 [@mixte/components] 组件 `AutoGrid` 新增 `fluid` 参数
   - 🌟 [@mixte/components] 组件 `AutoGrid` 新增 `columnCount` 变量导出, 标识每行可以渲染的子元素数量
   - 🌟 [@mixte/components] 组件 `AutoGrid` 新增 `isCollapsed` 变量导出, 标识子元素是否折叠
@@ -116,7 +119,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.5.0-beta.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.5.0-beta.2...HEAD
+[v2.5.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v2.5.0-beta.2
 [v2.5.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v2.5.0-beta.1
 [v2.4.0]: https://github.com/MoomFE/mixte/releases/tag/v2.4.0
 [v2.4.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v2.4.0-beta.3
