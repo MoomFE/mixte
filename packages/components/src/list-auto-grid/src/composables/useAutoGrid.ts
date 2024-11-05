@@ -40,14 +40,14 @@ export function useAutoGrid(props: CommomAutoGridProps) {
   const collapsedRows = computed(() => isNumeric(props.collapsedRows) ? Math.max(1, +props.collapsedRows) : 1);
 
   /** 每行可以渲染的子元素数量 */
-  const length = computed(() => {
+  const columnCount = computed(() => {
     return Math.floor((width.value + gapX.value) / (itemWidth.value + gapX.value)) || 1;
   });
 
   const rootStyle = computed<CSSProperties>(() => ({
     width: isCustomWidth.value ? `${props.width}px` : '100%',
     display: 'grid',
-    gridTemplateColumns: `repeat(${length.value}, 1fr)`,
+    gridTemplateColumns: `repeat(${columnCount.value}, 1fr)`,
     columnGap: `${gapX.value}px`,
     rowGap: `${gapY.value}px`,
   }));
@@ -56,7 +56,7 @@ export function useAutoGrid(props: CommomAutoGridProps) {
     rootRef,
 
     collapsedRows,
-    length,
+    columnCount,
 
     rootStyle,
   };

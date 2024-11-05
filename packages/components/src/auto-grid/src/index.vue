@@ -12,7 +12,7 @@
   const props = defineProps<AutoGridProps>();
   const slots = defineSlots<AutoGridSlots>();
 
-  const { rootRef, collapsedRows, length, rootStyle } = useAutoGrid(props);
+  const { rootRef, collapsedRows, columnCount, rootStyle } = useAutoGrid(props);
 
   /** 所有子元素 */
   const children = computed(() => {
@@ -34,7 +34,7 @@
     let renderChildren = children.value;
 
     if (props.collapsed) {
-      const rowsChildrenLength = collapsedRows.value * length.value;
+      const rowsChildrenLength = collapsedRows.value * columnCount.value;
 
       renderChildren = renderChildren.slice(0, rowsChildrenLength);
 
@@ -49,7 +49,7 @@
   });
 
   const finalRootStyle = computed<CSSProperties>(() => {
-    if (props.fluid && (children.value.length < length.value)) {
+    if (props.fluid && (children.value.length < columnCount.value)) {
       return {
         ...rootStyle.value,
         gridTemplateColumns: `repeat(${children.value.length}, 1fr)`,
@@ -69,10 +69,10 @@
 
   defineExpose({
     /** 每行可以渲染的子元素数量 */
-    columnCount: length,
+    columnCount,
     /** 子元素是否折叠 */
     isCollapsed: computed(() => {
-      return props.collapsed && children.value.length > collapsedRows.value * length.value;
+      return props.collapsed && children.value.length > collapsedRows.value * columnCount.value;
     }),
   });
 </script>
