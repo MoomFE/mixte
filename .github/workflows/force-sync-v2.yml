@@ -1,0 +1,35 @@
+name: Force Sync v2 Branch to Fork
+
+on:
+  push:
+    branches:
+      - v2
+
+jobs:
+  sync:
+    if: github.repository == 'MoomFE/mixte'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: v2
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'Zhang-Wei-666'
+          git config --global user.email '994039348@qq.com'
+
+      - name: Fetch Fork Repository
+        run: |
+          git remote add fork https://github.com/Zhang-Wei-666/mixte-v2.git
+          git fetch fork
+
+      - name: Reset Fork Branch to Source
+        run: |
+          git checkout v2
+          git reset --hard origin/v2
+          git push fork v2 --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
