@@ -3,7 +3,7 @@
 </template>
 
 <script lang="tsx" setup>
-  import type { CSSProperties } from 'vue';
+  import type { CSSProperties, VNodeChild } from 'vue';
   import { computed, onBeforeUpdate, ref } from 'vue';
   import { flatten } from 'naive-ui/es/_utils/vue/flatten';
   import { useAutoGrid } from '../../list-auto-grid/src/composables/useAutoGrid';
@@ -16,7 +16,7 @@
 
   /** 所有子元素 */
   const children = computed(() => {
-    return flatten(slots.default?.() ?? []);
+    return flatten((slots.default?.() as unknown as VNodeChild[]) ?? []);
   });
 
   /**
