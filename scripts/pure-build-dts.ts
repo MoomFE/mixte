@@ -40,7 +40,12 @@ export async function pureBuildDts(pkg: LastArrayElement<typeof packages>[]) {
         await fs.remove(`${vueFile}.d.ts`);
 
       for (const vueFile of currentVueFiles) {
-        await exec(`vue-tsc --declaration --emitDeclarationOnly ${vueFile}`);
+        await new Promise<void>((resolve, reject) => {
+          exec(`vue-tsc --declaration --emitDeclarationOnly ${vueFile} --jsx preserve`, (error, stdout) => {
+            if (error) reject(new Error(stdout));
+            else resolve();
+          });
+        });
 
         while (!fs.existsSync(`${vueFile}.d.ts`))
           await delay(1000);
