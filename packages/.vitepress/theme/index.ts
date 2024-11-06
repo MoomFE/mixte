@@ -11,7 +11,6 @@ import './style.css';
 import 'uno.css';
 import 'element-plus/theme-chalk/dark/css-vars.css';
 import 'element-plus/theme-chalk/el-message.css';
-import '@arco-design/web-vue/dist/arco.css';
 import '@shikijs/vitepress-twoslash/style.css';
 
 export default {

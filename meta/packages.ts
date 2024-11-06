@@ -63,15 +63,6 @@ export const packages = [
     external: ['mixte'],
     dtsExternal: ['naive-ui'],
   },
-  // @mixte/snippets/acro-dynamic-form
-  {
-    input: 'packages/snippets/src/acro-dynamic-form/index.ts',
-    outputDir: 'packages/snippets/dist',
-    outputFileName: 'acro-dynamic-form',
-    external: ['@arco-design/web-vue', 'mixte'],
-    dtsExternal: ['@arco-design/web-vue'],
-    vueComponent: true,
-  },
   // @mixte/snippets/toggleThemeViewTransition
   {
     input: 'packages/snippets/src/toggleThemeViewTransition/index.ts',
