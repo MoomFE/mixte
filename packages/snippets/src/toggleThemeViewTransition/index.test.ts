@@ -25,7 +25,7 @@ describe('toggleThemeViewTransition', () => {
   let documentElementAnimate: any;
   let matchMedia: any;
 
-  beforeEach(() => { // @ts-expect-error
+  beforeEach(() => {
     startViewTransition = document.startViewTransition;// @ts-expect-error
     document.startViewTransition = mockStartViewTransition;
     mockStartViewTransition.mockClear();
@@ -40,7 +40,7 @@ describe('toggleThemeViewTransition', () => {
     mockMatchMedia.mockClear();
   });
 
-  afterEach(async () => { // @ts-expect-error
+  afterEach(async () => {
     document.startViewTransition = startViewTransition;
     document.documentElement.animate = documentElementAnimate;
     window.matchMedia = matchMedia;
