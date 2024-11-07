@@ -1295,18 +1295,18 @@ export const preflightBase = {
   "--un-backdrop-sepia": " "
 };
 export const containers = {
-  xs: "(min-width: 20rem)",
-  sm: "(min-width: 24rem)",
-  md: "(min-width: 28rem)",
-  lg: "(min-width: 32rem)",
-  xl: "(min-width: 36rem)",
-  "2xl": "(min-width: 42rem)",
-  "3xl": "(min-width: 48rem)",
-  "4xl": "(min-width: 56rem)",
-  "5xl": "(min-width: 64rem)",
-  "6xl": "(min-width: 72rem)",
-  "7xl": "(min-width: 80rem)",
-  prose: "(min-width: 65ch)"
+  xs: "20rem",
+  sm: "24rem",
+  md: "28rem",
+  lg: "32rem",
+  xl: "36rem",
+  "2xl": "42rem",
+  "3xl": "48rem",
+  "4xl": "56rem",
+  "5xl": "64rem",
+  "6xl": "72rem",
+  "7xl": "80rem",
+  prose: "65ch"
 };
 export const zIndex = {
   auto: "auto"

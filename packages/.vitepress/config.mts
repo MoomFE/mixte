@@ -64,7 +64,10 @@ export default defineConfig({
           { text: 'dev 分支文档地址', link: 'https://mixte-dev-branch.moomfe.com/' },
           {
             text: '历史版本文档地址',
-            items: [{ text: 'v1.31.2', link: 'https://mixte-v1.moomfe.com/' }],
+            items: [
+              { text: 'v2.5.0', link: 'https://mixte-v2.moomfe.com/' },
+              { text: 'v1.31.2', link: 'https://mixte-v1.moomfe.com/' },
+            ],
           },
         ],
       },
