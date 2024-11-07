@@ -1,6 +1,6 @@
 import { deepUnref } from '@mixte/use';
-import { computed, ref, unref } from 'vue-demi';
 import { isPlainObject } from 'mixte';
+import { computed, ref, unref } from 'vue-demi';
 import { types } from '../../../mixte/src/is/testTypes';
 
 describe('deepUnref', () => {

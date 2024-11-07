@@ -1,10 +1,10 @@
 // https://vitepress.dev/guide/custom-theme
 import type { App } from 'vue';
-import { ID_INJECTION_KEY } from 'element-plus';
-import { inject } from '@vercel/analytics';
-import Theme from 'vitepress/theme';
 import TwoSlashFloatingVue from '@shikijs/vitepress-twoslash/client';
+import { inject } from '@vercel/analytics';
+import { ID_INJECTION_KEY } from 'element-plus';
 import * as Mixte from 'mixte';
+import Theme from 'vitepress/theme';
 import Layout from './Layout.vue';
 
 import './style.css';

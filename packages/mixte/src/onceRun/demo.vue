@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { delay, onceRun } from 'mixte';
   import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
+  import { delay, onceRun } from 'mixte';
 
   const isRun = ref(false);
   const runCount = ref(0);

@@ -14,8 +14,8 @@ outline: [1,3]
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
   import { useDraggableDistance } from '@mixte/use';
+  import { ref } from 'vue';
 
   const targetRef = ref();
 

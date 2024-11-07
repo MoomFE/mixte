@@ -1,10 +1,10 @@
 import { fileURLToPath } from 'node:url';
-import { dirname, resolve } from 'pathe';
+import { dataToEsm } from '@rollup/pluginutils';
 import { outputFileSync } from 'fs-extra';
+import { dirname, resolve } from 'pathe';
 import { defineConfig, presetAttributify, presetIcons, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss';
 import { presetExtra } from 'unocss-preset-extra';
 import { presetScrollbar } from 'unocss-preset-scrollbar';
-import { dataToEsm } from '@rollup/pluginutils';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

@@ -17,8 +17,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { NButton, NForm, NFormItem, NInput, NInputNumber, NSpace } from 'naive-ui';
   import { useNaiveForm } from '@mixte/snippets/useNaiveForm';
+  import { NButton, NForm, NFormItem, NInput, NInputNumber, NSpace } from 'naive-ui';
 
   const formRef = ref<InstanceType<typeof NForm>>();
 

@@ -1,5 +1,5 @@
-import { nextTick, ref } from 'vue-demi';
 import { whenever, wheneverDeep, wheneverImmediate, wheneverImmediateDeep } from '@mixte/use';
+import { nextTick, ref } from 'vue-demi';
 
 describe('whenever', () => {
   it('监听值是 `truthy` 时执行回调函数', async () => {

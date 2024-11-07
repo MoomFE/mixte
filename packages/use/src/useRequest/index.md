@@ -69,8 +69,8 @@ function login() {
 
 ```js twoslash
 // ---cut-start---
-import { reactive, ref } from 'vue';
 import axios from 'axios';
+import { reactive, ref } from 'vue';
 const login = info => axios.post('/api/user/login', info);
 // ---cut-end---
 const form = reactive({ username: '', password: '' });
@@ -95,8 +95,8 @@ async function submit() {
 ```js twoslash
 // ---cut-start---
 import { useRequest } from '@mixte/use';
-import { reactive } from 'vue';
 import axios from 'axios';
+import { reactive } from 'vue';
 const login = () => useRequest(info => axios.post('/api/user/login', info));
 // ---cut-end---
 const form = reactive({ username: '', password: '' });

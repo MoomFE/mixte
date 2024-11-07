@@ -1,9 +1,9 @@
 import type { VNodeChild } from 'vue';
 import { MixteAutoGrid } from '@mixte/components/auto-grid';
 import { mount } from '@vue/test-utils';
-import { h } from 'vue';
 import postcss from 'postcss';
 import postcssJs from 'postcss-js';
+import { h } from 'vue';
 import { defaultStyle, sharedTest } from './shared-test';
 
 describe('auto-grid', () => {

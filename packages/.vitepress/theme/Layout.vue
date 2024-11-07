@@ -5,9 +5,9 @@
 </template>
 
 <script lang="ts" setup>
-  import DefaultTheme from 'vitepress/theme';
-  import { useData } from 'vitepress';
   import { toggleThemeViewTransition } from '@mixte/snippets/toggleThemeViewTransition';
+  import { useData } from 'vitepress';
+  import DefaultTheme from 'vitepress/theme';
 
   const { isDark } = useData();
 

@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { camelCase } from 'mixte';
   import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
+  import { camelCase } from 'mixte';
 
   interface Props {
     fn?: (str: string) => string;

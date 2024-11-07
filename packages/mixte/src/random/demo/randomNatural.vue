@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { randomNatural } from 'mixte';
   import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
+  import { randomNatural } from 'mixte';
 
   const min = ref(0);
   const max = ref(100);

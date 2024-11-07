@@ -41,8 +41,8 @@ outline: [1,4]
 #### 和 [`@monaco-editor/loader`](https://github.com/suren-atoyan/monaco-loader) 一起使用
 
 ```ts {4,5,6,7,,11}
-import loader from '@monaco-editor/loader';
 import { getFastestCDN } from '@mixte/snippets/getFastestCDN';
+import loader from '@monaco-editor/loader';
 
 const fastestCDN = await getFastestCDN('monaco-editor', {
   version: '0.43.0',
@@ -67,8 +67,8 @@ loader.init().then((monaco) => {
 :::
 
 ```ts {4,5,6,7,9}
-import * as shiki from 'shiki';
 import { getFastestCDN } from '@mixte/snippets/getFastestCDN';
+import * as shiki from 'shiki';
 
 const fastestCDN = await getFastestCDN('shiki', {
   version: '0.14.5',

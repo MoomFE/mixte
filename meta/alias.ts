@@ -1,6 +1,6 @@
+import type { Alias } from 'vite';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'pathe';
-import type { Alias } from 'vite';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

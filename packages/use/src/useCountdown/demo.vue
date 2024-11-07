@@ -23,8 +23,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { useCountdown } from '@mixte/use';
   import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
+  import { useCountdown } from '@mixte/use';
 
   const source = ref(60);
   const duration = ref(60 * 1000);

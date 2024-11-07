@@ -14,8 +14,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { leastRun } from 'mixte';
   import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
+  import { leastRun } from 'mixte';
 
   const isRun = ref(false);
   const ms = ref(1000);

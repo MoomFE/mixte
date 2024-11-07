@@ -24,8 +24,8 @@ nextTick(() => {
 
 ```ts twoslash
 // ---cut-start---
-import { ref, watch } from 'vue';
 import { whenever } from '@mixte/use';
+import { ref, watch } from 'vue';
 const obj = ref(1);
 // ---cut-end---
 // 当前写法

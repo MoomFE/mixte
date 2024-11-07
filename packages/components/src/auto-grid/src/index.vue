@@ -4,10 +4,10 @@
 
 <script lang="tsx" setup>
   import type { CSSProperties, VNodeChild } from 'vue';
-  import { computed, onBeforeUpdate, ref } from 'vue';
-  import { flatten } from 'naive-ui/es/_utils/vue/flatten';
-  import { useAutoGrid } from '../../list-auto-grid/src/composables/useAutoGrid';
   import type { AutoGridProps, AutoGridSlots } from './types';
+  import { flatten } from 'naive-ui/es/_utils/vue/flatten';
+  import { computed, onBeforeUpdate, ref } from 'vue';
+  import { useAutoGrid } from '../../list-auto-grid/src/composables/useAutoGrid';
 
   const props = defineProps<AutoGridProps>();
   const slots = defineSlots<AutoGridSlots>();

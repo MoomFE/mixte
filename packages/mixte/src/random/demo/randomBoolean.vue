@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { randomBoolean } from 'mixte';
   import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
+  import { randomBoolean } from 'mixte';
 
   const value = ref(
     randomBoolean(),

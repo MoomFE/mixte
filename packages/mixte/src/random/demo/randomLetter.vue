@@ -11,8 +11,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { randomLetter } from 'mixte';
   import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
+  import { randomLetter } from 'mixte';
 
   const uppercase = ref<boolean>();
   const value = ref(

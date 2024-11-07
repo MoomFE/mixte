@@ -24,9 +24,9 @@
 </template>
 
 <script lang="ts" setup>
+  import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
   import { wheneverEffectScope } from '@mixte/use';
   import { randomNatural, randomString } from 'mixte';
-  import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
 
   const [source, toggleSource] = useToggle();
   const value = ref('test');

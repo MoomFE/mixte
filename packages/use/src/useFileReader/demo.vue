@@ -29,8 +29,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { useFileReader } from '@mixte/use';
   import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
+  import { useFileReader } from '@mixte/use';
 
   const inputRef = ref<HTMLInputElement>();
 
