@@ -102,7 +102,7 @@ describe('random', () => {
   });
 
   it('类型测试', () => {
-    expectTypeOf(random).parameters.toEqualTypeOf<[]>();
+    expectTypeOf(random).parameters.toEqualTypeOf<[number, number] | [number] | []>();
     expectTypeOf(random(0, 10)).toBeNumber();
     expectTypeOf(random(10)).toBeNumber();
     expectTypeOf(random()).toBeNumber();
