@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url';
-import { dirname, resolve } from 'pathe';
 import fg from 'fast-glob';
 import fs from 'fs-extra';
+import { dirname, resolve } from 'pathe';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const rootDir = resolve(__dirname, '../');

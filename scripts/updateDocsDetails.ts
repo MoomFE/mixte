@@ -1,8 +1,8 @@
+import type { Info } from '@/.vitepress/types/info';
 import { fileURLToPath } from 'node:url';
-import { dirname, resolve } from 'pathe';
 import fg from 'fast-glob';
 import fs from 'fs-extra';
-import type { Info } from '@/.vitepress/types/info';
+import { dirname, resolve } from 'pathe';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

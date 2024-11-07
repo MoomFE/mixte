@@ -32,10 +32,10 @@
 
 <script lang="ts" setup>
   import type { Highlighter } from 'shiki';
-  import { ShikiMagicMove } from 'shiki-magic-move/vue';
-  import { NConfigProvider, dateZhCN, zhCN } from 'naive-ui';
-  import { getSingletonHighlighter } from 'shiki';
   import { decode } from 'js-base64';
+  import { dateZhCN, NConfigProvider, zhCN } from 'naive-ui';
+  import { getSingletonHighlighter } from 'shiki';
+  import { ShikiMagicMove } from 'shiki-magic-move/vue';
   import 'shiki-magic-move/dist/style.css';
 
   interface Props {

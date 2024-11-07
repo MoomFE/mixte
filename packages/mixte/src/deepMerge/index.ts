@@ -1,5 +1,5 @@
-import { isPlainObject } from 'mixte';
 import type { Merge } from 'type-fest';
+import { isPlainObject } from 'mixte';
 
 function merge<T extends object, S extends object>(target: T, source: S, cache: WeakMap<object, object>) {
   cache.set(source, target);

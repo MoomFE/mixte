@@ -1,5 +1,5 @@
-import { isPlainObject } from 'mixte';
 import type { MaybeRef, UnwrapNestedRefs } from 'vue-demi';
+import { isPlainObject } from 'mixte';
 import { unref } from 'vue-demi';
 
 /**

@@ -1,6 +1,6 @@
 import type { EffectScope } from 'vue-demi';
-import { effectScope } from 'vue-demi';
 import { tryOnScopeDispose } from '@vueuse/core';
+import { effectScope } from 'vue-demi';
 
 /**
  * 可命名的共享函数/组合式函数

@@ -12,8 +12,8 @@ outline: [1,3]
 </template>
 
 <script lang="ts" setup>
-  import { onMounted } from 'vue';
   import { useCountdown } from '@mixte/use';
+  import { onMounted } from 'vue';
 
   const { output, isStart, start, stop } = useCountdown(60, {
     duration: 60 * 1000,

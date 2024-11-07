@@ -23,10 +23,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { useRequestReactive } from '@mixte/use';
-  import { getFastestCDN } from '@mixte/snippets/getFastestCDN';
-  import { randomNatural } from 'mixte';
   import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
+  import { getFastestCDN } from '@mixte/snippets/getFastestCDN';
+  import { useRequestReactive } from '@mixte/use';
+  import { randomNatural } from 'mixte';
 
   const pkg = ref('');
   const version = ref('');

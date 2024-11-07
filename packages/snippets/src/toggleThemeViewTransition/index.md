@@ -16,8 +16,8 @@ outline: [1,4]
 </template>
 
 <script lang="ts" setup>
-  import { useDark } from '@vueuse/core';
   import { toggleThemeViewTransition } from '@mixte/snippets/toggleThemeViewTransition';
+  import { useDark } from '@vueuse/core';
 
   const isDark = useDark();
 
@@ -39,12 +39,10 @@ outline: [1,4]
 
 ```vue
 <template>
-  <template>
-    <ul>
-      <li @click="toggle($event, 'light')">light</li>
-      <li @click="toggle($event, 'dark')">dark</li>
-    </ul>
-  </template>
+  <ul>
+    <li @click="toggle($event, 'light')">light</li>
+    <li @click="toggle($event, 'dark')">dark</li>
+  </ul>
 </template>
 
 <script lang="ts" setup>

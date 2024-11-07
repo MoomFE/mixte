@@ -5,9 +5,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { useData } from 'vitepress';
-  import { toggleThemeViewTransition } from '@mixte/snippets/toggleThemeViewTransition';
   import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
+  import { toggleThemeViewTransition } from '@mixte/snippets/toggleThemeViewTransition';
+  import { useData } from 'vitepress';
 
   const { isDark } = useData();
 

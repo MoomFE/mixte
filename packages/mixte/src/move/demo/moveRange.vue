@@ -31,10 +31,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { delay, moveRange } from 'mixte';
-  import { gsap } from 'gsap';
-  import { offset, useFloating } from '@floating-ui/vue';
   import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
+  import { offset, useFloating } from '@floating-ui/vue';
+  import { gsap } from 'gsap';
+  import { delay, moveRange } from 'mixte';
 
   const containerRef = ref<HTMLElement>();
   const startFloatingRef = ref<HTMLElement>();

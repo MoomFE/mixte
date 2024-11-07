@@ -1,5 +1,5 @@
-import type { ShallowRef } from 'vue';
 import type { MaybeRefOrGetter } from '@vueuse/core';
+import type { ShallowRef } from 'vue';
 import { useFileReader } from '@mixte/use';
 
 describe('useFileReader', () => {

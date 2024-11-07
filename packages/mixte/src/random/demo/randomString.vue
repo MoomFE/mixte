@@ -12,9 +12,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { randomString } from 'mixte';
-  import { ElMessage } from 'element-plus';
   import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
+  import { ElMessage } from 'element-plus';
+  import { randomString } from 'mixte';
 
   const length = ref<number>(12);
   const lowercase = ref<boolean>(true);

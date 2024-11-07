@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { uniqueKeyCustomizer } from 'mixte';
   import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
+  import { uniqueKeyCustomizer } from 'mixte';
 
   const value = ref(
     uniqueKeyCustomizer(),

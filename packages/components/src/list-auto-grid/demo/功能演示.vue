@@ -38,11 +38,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { MixteListAutoGrid } from '@mixte/components/list-auto-grid';
-  import { isNumeric, isPlainObject, random } from 'mixte';
-  import { omit } from 'lodash-es';
-  import { colors as colorsMap } from '@/.vitepress/shared/unocss.theme';
   import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
+  import { colors as colorsMap } from '@/.vitepress/shared/unocss.theme';
+  import { MixteListAutoGrid } from '@mixte/components/list-auto-grid';
+  import { omit } from 'lodash-es';
+  import { isNumeric, isPlainObject, random } from 'mixte';
 
   const rootRef = ref<HTMLDivElement>();
   const rootWidth = useElementSize(rootRef).width;

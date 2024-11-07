@@ -20,12 +20,12 @@
 </template>
 
 <script lang="tsx" setup>
-  import { useData } from 'vitepress';
-  import { omit } from 'lodash-es';
+  import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
   import axios from 'axios';
   import yaml from 'js-yaml';
+  import { omit } from 'lodash-es';
   import { isPlainObject } from 'mixte';
-  import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
+  import { useData } from 'vitepress';
 
   const { isDark } = useData();
 

@@ -1,4 +1,4 @@
-import { isBoolean, isESModule, isEmptyObject, isFunction, isNativePromise, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isPromise, isReference, isString } from 'mixte';
+import { isBoolean, isEmptyObject, isESModule, isFunction, isNativePromise, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isPromise, isReference, isString } from 'mixte';
 import { testTypes, types } from './testTypes';
 
 describe('testTypes', () => {

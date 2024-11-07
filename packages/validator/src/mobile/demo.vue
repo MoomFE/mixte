@@ -7,9 +7,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { isMobile } from '@mixte/validator';
-  import type { FormInstance, FormItemRule } from 'element-plus';
   import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
+  import type { FormInstance, FormItemRule } from 'element-plus';
+  import { isMobile } from '@mixte/validator';
 
   interface Props {
     fn?: (str: string) => boolean;

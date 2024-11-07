@@ -21,8 +21,8 @@ obj.value = 2;
 
 ```ts twoslash
 // ---cut-start---
-import { ref, watch } from 'vue';
 import { watchImmediate } from '@mixte/use';
+import { ref, watch } from 'vue';
 const obj = ref(1);
 // ---cut-end---
 // 当前写法
@@ -61,8 +61,8 @@ obj.value.a = 2;
 
 ```ts twoslash
 // ---cut-start---
-import { ref, watch } from 'vue';
 import { watchDeep } from '@mixte/use';
+import { ref, watch } from 'vue';
 const obj = ref(1);
 // ---cut-end---
 // 当前写法
@@ -101,8 +101,8 @@ obj.value.a = 2;
 
 ```ts twoslash
 // ---cut-start---
-import { ref, watch } from 'vue';
 import { watchImmediateDeep } from '@mixte/use';
+import { ref, watch } from 'vue';
 const obj = ref(1);
 // ---cut-end---
 // 当前写法

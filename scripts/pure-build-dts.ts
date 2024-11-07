@@ -1,13 +1,13 @@
-import { fileURLToPath } from 'node:url';
-import { exec } from 'node:child_process';
-import { dirname, resolve } from 'pathe';
-import { rollup } from 'rollup';
-import fg from 'fast-glob';
-import fs from 'fs-extra';
-import dts from 'rollup-plugin-dts';
-import { delay } from 'mixte';
 import type { LastArrayElement } from 'type-fest';
 import type { packages } from '../meta/packages';
+import { exec } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import fg from 'fast-glob';
+import fs from 'fs-extra';
+import { delay } from 'mixte';
+import { dirname, resolve } from 'pathe';
+import { rollup } from 'rollup';
+import dts from 'rollup-plugin-dts';
 import { transformVscInput } from './plugins/transform-vsc-input';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

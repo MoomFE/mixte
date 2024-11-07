@@ -1,5 +1,5 @@
-import AutoGrid from './src/index.vue';
 import type { AutoGridProps } from './src/types';
+import AutoGrid from './src/index.vue';
 
 type AutoGridInstance = InstanceType<typeof AutoGrid>;
 

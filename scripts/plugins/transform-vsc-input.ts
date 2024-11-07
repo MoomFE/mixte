@@ -1,10 +1,10 @@
-import { fileURLToPath } from 'node:url';
 import type { LastArrayElement } from 'type-fest';
 import type { PluginOption } from 'vite';
-import { normalizePath } from 'vite';
+import type { packages } from '../../meta/packages';
+import { fileURLToPath } from 'node:url';
 import { generateCode, parseModule } from 'magicast';
 import { dirname, resolve } from 'pathe';
-import type { packages } from '../../meta/packages';
+import { normalizePath } from 'vite';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

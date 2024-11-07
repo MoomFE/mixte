@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { randomUppercaseLetter } from 'mixte';
   import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
+  import { randomUppercaseLetter } from 'mixte';
 
   const value = ref(
     randomUppercaseLetter(),

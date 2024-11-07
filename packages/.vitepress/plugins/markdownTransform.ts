@@ -1,16 +1,16 @@
 /* eslint-disable ts/no-use-before-define */
 
-import { dirname, resolve } from 'pathe';
-import type { Plugin } from 'vite';
 import type { BundledLanguage } from 'shiki';
-import MagicString from 'magic-string';
-import fs from 'fs-extra';
-import { pascalCase } from 'change-case';
-import { find } from 'lodash-es';
-import { encode } from 'js-base64';
-import { customRandom, random } from 'nanoid';
-import docs from '../../../meta/docs.json';
+import type { Plugin } from 'vite';
 import type { Info } from '../types/info';
+import { pascalCase } from 'change-case';
+import fs from 'fs-extra';
+import { encode } from 'js-base64';
+import { find } from 'lodash-es';
+import MagicString from 'magic-string';
+import { customRandom, random } from 'nanoid';
+import { dirname, resolve } from 'pathe';
+import docs from '../../../meta/docs.json';
 
 const nanoid = customRandom('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', 18, random);
 
