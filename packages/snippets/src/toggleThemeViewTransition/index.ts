@@ -40,7 +40,6 @@ export async function toggleThemeViewTransition(
   const { prefersReducedMotion = true } = options;
 
   if (
-    // @ts-expect-error
     !document.startViewTransition
     || (prefersReducedMotion ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false)
   ) {
@@ -67,7 +66,6 @@ export async function toggleThemeViewTransition(
   // eslint-disable-next-line ts/no-unused-expressions
   window.getComputedStyle(style).opacity;
 
-  // @ts-expect-error
   await document.startViewTransition(async () => {
     toggle();
     await nextTick();
