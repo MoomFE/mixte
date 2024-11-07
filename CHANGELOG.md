@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.0.0-beta.1]
+  - 📅 2024-11-07
   - ⚠️ [@mixte/snippets] 删除 `AcroDynamicForm` 组件
 
 ## [../v2](https://mixte-v2.moomfe.com)
@@ -40,4 +43,5 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v2.5.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.0.0-beta.1...HEAD
+[v3.0.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0-beta.1
