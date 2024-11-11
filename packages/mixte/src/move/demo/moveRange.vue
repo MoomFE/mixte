@@ -11,7 +11,7 @@
         'array-end': index === array.length - 1,
       }"
       :data-index="index"
-      size-8 flex="~ items-center justify-center" bg-teal-3 el-2
+      size-8 flex="~ items-center justify-center" bg="#098E59" c-white el-2
     >
       {{ num }}
     </div>
@@ -23,7 +23,7 @@
       moveCount: <el-input-number v-model="moveCount" class="w-32!" controls-position="right" :min="0" :max="array.length - 1" :disabled="isMove" />
       to: <el-input-number v-model="to" class="w-32!" controls-position="right" :min="0" :max="array.length - 1" :disabled="isMove" />
     </div>
-    <el-button class="c-white!" color="#14b8a6" :disabled="isMove" @click="toMoveRange">移动</el-button>
+    <el-button class="c-white!" type="primary" :disabled="isMove" @click="toMoveRange">移动</el-button>
   </div>
 
   <div ref="startFloatingRef" m-popover :style="rangeFloatingStyles">start</div>

@@ -2,7 +2,7 @@
   <div text-sm grid="~ cols-[auto_1fr] items-center gap-(x2 y1)">
     source:
     <div flex="~ items-center">
-      <button m-btn="~ link" pl0 @click="toggleSource()">{{ source }}</button>
+      <el-button class="underline decoration-dotted" type="primary" link @click="toggleSource()">{{ source }}</el-button>
       <span c-gray>
         ←
         <i text-xs>点击切换, 当 `source` 为 true 时, `value` he `value2` 是同步的</i>
@@ -13,7 +13,7 @@
       <template #append>
         <el-tooltip :content="`已${isAutoPlay ? '启用' : '关闭'}值自动改变, 点击${isAutoPlay ? '关闭' : '启用'}`">
           <el-button class="important-(flex items-center py-0 px-2)" @click="isAutoPlay = !isAutoPlay">
-            <i-material-symbols-time-auto-outline class="size-5" :class="{ 'c-teal-5': isAutoPlay }" />
+            <i-material-symbols-time-auto-outline class="size-5" :class="{ 'c-#098E59': isAutoPlay }" />
           </el-button>
         </el-tooltip>
       </template>

@@ -1,7 +1,7 @@
 <template>
-  <button m-btn="~ primary" @click="fn">
+  <el-button type="primary" @click="fn">
     运行函数
-  </button>
+  </el-button>
 
   <div grid="~ gap-2" mt-6>
     <div>方法运行中: <b>{{ isRun }}</b></div>

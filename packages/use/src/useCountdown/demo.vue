@@ -1,11 +1,11 @@
 <template>
-  <div class="flex gap-2">
-    <button class="w-60" m-btn="~ primary" :disabled="isStart" @click="start">
+  <div class="flex">
+    <el-button class="w-60" type="primary" :disabled="isStart" @click="start">
       {{ isStart ? output.toFixed(0) : '点击开始倒计时' }}
-    </button>
-    <button v-if="isStart" m-btn="~ primary" @click="stop">
+    </el-button>
+    <el-button v-if="isStart" type="primary" @click="stop">
       停止
-    </button>
+    </el-button>
   </div>
 
   <div grid="~ gap-2" mt-6>

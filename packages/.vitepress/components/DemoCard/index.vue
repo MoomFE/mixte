@@ -2,15 +2,15 @@
 
 <template>
   <div class="relative b m-theme-border rounded p-6 my-4" :class="{ pt8: showExtra, pb0: showCode }">
-    <NConfigProvider :locale="zhCN" :date-locale="dateZhCN" abstract>
+    <NConfigProvider :locale="zhCN" :date-locale="dateZhCN" :theme="isDark ? darkTheme : undefined" abstract>
       <slot />
     </NConfigProvider>
 
     <!-- 功能区 -->
     <div v-if="showExtra" class="h-8 mr-2" flex="~ items-center" text="xs lh-none" pos="absolute top-0 right-0">
-      <button m-btn text-lg p0 @click="toggleShowCodeState()">
-        <i-material-symbols-code-rounded />
-      </button>
+      <el-button link @click="toggleShowCodeState()">
+        <i-material-symbols-code-rounded class="size-4.5" />
+      </el-button>
     </div>
 
     <!-- 代码区 -->
@@ -33,9 +33,10 @@
 <script lang="ts" setup>
   import type { Highlighter } from 'shiki';
   import { decode } from 'js-base64';
-  import { dateZhCN, NConfigProvider, zhCN } from 'naive-ui';
+  import { darkTheme, dateZhCN, NConfigProvider, zhCN } from 'naive-ui';
   import { getSingletonHighlighter } from 'shiki';
   import { ShikiMagicMove } from 'shiki-magic-move/vue';
+  import { useData } from 'vitepress';
   import 'shiki-magic-move/dist/style.css';
 
   interface Props {
@@ -44,6 +45,8 @@
   }
 
   const props = defineProps<Props>();
+
+  const { isDark } = useData();
 
   const highlighter = shallowRef<Highlighter>();
 

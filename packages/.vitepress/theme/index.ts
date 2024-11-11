@@ -9,8 +9,8 @@ import Layout from './Layout.vue';
 
 import './style.css';
 import 'uno.css';
-import 'element-plus/theme-chalk/dark/css-vars.css';
-import 'element-plus/theme-chalk/el-message.css';
+import 'element-plus/theme-chalk/src/dark/css-vars.scss';
+import 'element-plus/theme-chalk/src/message.scss';
 import '@shikijs/vitepress-twoslash/style.css';
 
 export default {

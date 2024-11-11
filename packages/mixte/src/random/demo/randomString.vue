@@ -6,7 +6,7 @@
       包含大写字母: <el-checkbox v-model="uppercase" />
       包含数字: <el-checkbox v-model="number" />
     </div>
-    <button m-btn="~ primary" @click="setValue">点击随机</button>
+    <el-button type="primary" @click="setValue">点击随机</el-button>
     <el-input :value="value" class="w-46! [&_input]-text-center" readonly />
   </div>
 </template>
@@ -33,7 +33,7 @@
       });
     }
     catch (error: unknown) {
-      ElMessage.error((error as Error).message);
+      ElMessage.error({ message: (error as Error).message, plain: true });
       lowercase.value = true;
       setValue();
     }

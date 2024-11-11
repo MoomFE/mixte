@@ -4,7 +4,7 @@
       min: <el-input-number v-model="min" class="w-32!" controls-position="right" :min="0" />
       max: <el-input-number v-model="max" class="w-32!" controls-position="right" :min="min" />
     </div>
-    <button m-btn="~ primary" @click="value = randomNatural(min, max)">点击随机</button>
+    <el-button type="primary" @click="value = randomNatural(min, max)">点击随机</el-button>
     <el-input :value="value" class="w-36!" readonly />
   </div>
 </template>

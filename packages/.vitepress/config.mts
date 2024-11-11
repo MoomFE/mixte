@@ -145,13 +145,21 @@ export default defineConfig({
         ],
         resolvers: [
           IconsResolver({ prefix: 'i' }),
-          ElementPlusResolver(),
+          ElementPlusResolver({ importStyle: 'sass' }),
           NaiveUiResolver(),
           ArcoResolver({ importStyle: false }),
         ],
       }),
       ...VitePlugins,
     ],
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+          additionalData: `@use "${resolve(__dirname, 'theme/element-plus/index.scss')}" as element;`,
+        },
+      },
+    },
     ssr: {
       noExternal: ['element-plus', 'naive-ui', 'vueuc', 'date-fns'],
     },

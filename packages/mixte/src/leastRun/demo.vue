@@ -1,8 +1,7 @@
 <template>
-  <button m-btn="~ primary" :disabled="isRun" @click="fn">
-    <i-svg-spinners-ring-resize v-if="isRun" class="mr-2" />
+  <el-button type="primary" :loading="isRun" @click="fn">
     运行函数
-  </button>
+  </el-button>
 
   <div grid="~ gap-2" mt-6>
     <div>

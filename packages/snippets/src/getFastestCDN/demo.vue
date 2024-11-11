@@ -10,7 +10,7 @@
     version: <el-input v-model="version" class="w-48!" clearable />
     file: <el-input v-model="file" class="w-66!" clearable />
     <div grid-col-span-2 flex="~ wrap items-center gap-2">
-      <el-button class="c-white!" color="#14b8a6" :disabled="!pkg" :loading="CDN.isLoading" @click="CDN.execute()">获取</el-button>
+      <el-button type="primary" :disabled="!pkg" :loading="CDN.isLoading" @click="CDN.execute()">获取</el-button>
       <span c-gray>
         ← <i text-xs>点击获取</i>
       </span>

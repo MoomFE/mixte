@@ -4,7 +4,7 @@
       v-for="(num, index) in array" :key="index"
       ref="itemsRef"
       :class="{ 'will-move': [from, to].includes(index) }" :data-index="index"
-      size-8 flex="~ items-center justify-center" bg-teal-3 el-2
+      size-8 flex="~ items-center justify-center" bg="#098E59" c-white el-2
     >
       {{ num }}
     </div>
@@ -15,7 +15,7 @@
       from: <el-input-number v-model="from" class="w-32!" controls-position="right" :min="0" :max="array.length - 1" :disabled="isMove" />
       to: <el-input-number v-model="to" class="w-32!" controls-position="right" :min="0" :max="array.length - 1" :disabled="isMove" />
     </div>
-    <el-button class="c-white!" color="#14b8a6" :disabled="isMove" @click="toMove">移动</el-button>
+    <el-button class="c-white!" type="primary" :disabled="isMove" @click="toMove">移动</el-button>
   </div>
 
   <div ref="fromFloatingRef" m-popover :style="fromFloatingStyles">from</div>

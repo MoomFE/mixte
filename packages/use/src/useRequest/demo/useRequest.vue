@@ -2,7 +2,7 @@
   <div flex="~ col gap-2">
     <input v-model="url" w-66 m-input>
     <div flex="~ wrap items-center gap-2">
-      <el-button class="c-white!" color="#14b8a6" :loading="isLoading" @click="execute">请求</el-button>
+      <el-button type="primary" :loading="isLoading" @click="execute">请求</el-button>
       <span c-gray>
         ← <i text-xs>点击发起请求</i>
       </span>
