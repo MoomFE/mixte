@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.0.0-beta.2]
+  - 📅 2024-11-14
   - ⚠️ [@mixte/use] 调整 `wheneverEffectScope` 的 `watch` 触发时机为同步触发
 
 ## [v3.0.0-beta.1]
@@ -44,5 +47,6 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.0.0-beta.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.0.0-beta.2...HEAD
+[v3.0.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0-beta.2
 [v3.0.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0-beta.1
