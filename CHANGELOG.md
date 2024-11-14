@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - ⚠️ [@mixte/use] 调整 `wheneverEffectScope` 的 `watch` 触发时机为同步触发
 
 ## [v3.0.0-beta.1]
   - 📅 2024-11-07

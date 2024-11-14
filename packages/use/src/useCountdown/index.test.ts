@@ -83,7 +83,7 @@ describe('useCountdown', () => {
 
     await nextTick();
     expect(isStart.value).toBe(false);
-    expect(output.value).toBe(0);
+    expect(output.value).toBe(120);
   });
 
   it('停止倒计时过一会又重新开始, 会重新读取最新的倒计时初始数字进行倒计时', async () => {
@@ -122,7 +122,7 @@ describe('useCountdown', () => {
 
     await nextTick();
     expect(isStart.value).toBe(false);
-    expect(output.value).toBe(0);
+    expect(output.value).toBe(60);
   });
 
   it('默认倒计时所使用的时间为 60 秒', async () => {
@@ -146,7 +146,7 @@ describe('useCountdown', () => {
 
     await nextTick();
     expect(isStart.value).toBe(false);
-    expect(output.value).toBe(0);
+    expect(output.value).toBe(60);
   });
 
   it('第二个参数可传入 duration 选项控制倒计时所使用的时间', async () => {
@@ -174,7 +174,7 @@ describe('useCountdown', () => {
 
     await nextTick();
     expect(isStart.value).toBe(false);
-    expect(output.value).toBe(0);
+    expect(output.value).toBe(60);
   });
 
   it('使用返回的 start 和 stop 方法控制倒计时开始及结束', async () => {

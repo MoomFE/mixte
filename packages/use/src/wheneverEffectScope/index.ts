@@ -46,7 +46,10 @@ export function wheneverEffectScope<T>(source: WatchSource<T | false | null | un
         dispose();
       }
     },
-    options,
+    {
+      ...options,
+      flush: 'sync',
+    },
   );
 
   return () => {

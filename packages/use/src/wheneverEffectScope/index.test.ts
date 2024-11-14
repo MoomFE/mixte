@@ -27,9 +27,6 @@ describe('wheneverEffectScope', () => {
 
     // 当值变为 truthy 时, 创建 effect 作用域
     source.value = true;
-    expect(isScopeRun.value).toBe(false);
-    expect(value2.value).toBeUndefined();
-    await nextTick();
     expect(isScopeRun.value).toBe(true);
     expect(value2.value).toBe(1);
 
@@ -41,9 +38,6 @@ describe('wheneverEffectScope', () => {
 
     // 当值变为 falsy 时, 停止之前创建的 effect 作用域
     source.value = false;
-    expect(isScopeRun.value).toBe(true);
-    expect(value2.value).toBe(2);
-    await nextTick();
     expect(isScopeRun.value).toBe(false);
     expect(value2.value).toBe(2);
 
@@ -79,10 +73,6 @@ describe('wheneverEffectScope', () => {
 
     // 当值变为 truthy 时, 创建 effect 作用域
     source.value = 1;
-    expect(isScopeRun.value).toBe(false);
-    expect(scopeRunCount.value).toBe(0);
-    expect(scopeDisposeCount.value).toBe(0);
-    await nextTick();
     expect(isScopeRun.value).toBe(true);
     expect(scopeRunCount.value).toBe(1);
     expect(scopeDisposeCount.value).toBe(0);
@@ -90,29 +80,17 @@ describe('wheneverEffectScope', () => {
     // 当传入值改变但依旧为 truthy 时, 会停止之前创建的 effect 作用域并创建一个新的 effect 作用域
     source.value = 2;
     expect(isScopeRun.value).toBe(true);
-    expect(scopeRunCount.value).toBe(1);
-    expect(scopeDisposeCount.value).toBe(0);
-    await nextTick();
-    expect(isScopeRun.value).toBe(true);
     expect(scopeRunCount.value).toBe(2);
     expect(scopeDisposeCount.value).toBe(1);
 
     // 当传入值改变但依旧为 truthy 时, 会停止之前创建的 effect 作用域并创建一个新的 effect 作用域
     source.value = 3;
     expect(isScopeRun.value).toBe(true);
-    expect(scopeRunCount.value).toBe(2);
-    expect(scopeDisposeCount.value).toBe(1);
-    await nextTick();
-    expect(isScopeRun.value).toBe(true);
     expect(scopeRunCount.value).toBe(3);
     expect(scopeDisposeCount.value).toBe(2);
 
     // 当值变为 falsy 时, 停止之前创建的 effect 作用域
     source.value = false;
-    expect(isScopeRun.value).toBe(true);
-    expect(scopeRunCount.value).toBe(3);
-    expect(scopeDisposeCount.value).toBe(2);
-    await nextTick();
     expect(isScopeRun.value).toBe(false);
     expect(scopeRunCount.value).toBe(3);
     expect(scopeDisposeCount.value).toBe(3);
@@ -164,20 +142,14 @@ describe('wheneverEffectScope', () => {
     expect(value.value).toBeUndefined();
 
     source.value = 2;
-    expect(value.value).toBeUndefined();
-    await nextTick();
     expect(value.value).toBe(2);
 
     source.value = 3;
-    expect(value.value).toBe(2);
-    await nextTick();
     expect(value.value).toBe(3);
 
     unWatch();
 
     source.value = 4;
-    expect(value.value).toBe(3);
-    await nextTick();
     expect(value.value).toBe(3);
   });
 
@@ -191,20 +163,14 @@ describe('wheneverEffectScope', () => {
     expect(value.value).toBeUndefined();
 
     source.value = 2;
-    expect(value.value).toBeUndefined();
-    await nextTick();
     expect(value.value).toBe(2);
 
     source.value = 3;
-    expect(value.value).toBe(2);
-    await nextTick();
     expect(value.value).toBe(3);
 
     unWatch();
 
     source.value = 4;
-    expect(value.value).toBe(3);
-    await nextTick();
     expect(value.value).toBe(3);
   });
 
