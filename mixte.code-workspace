@@ -26,9 +26,6 @@
     }
   ],
   "settings": {
-    // 启用 ESlint 的扁平配置支持
-    "eslint.experimental.useFlatConfig": true,
-
     // 禁用默认格式化程序, 使用 ESlint 代替
     "prettier.enable": false,
     "editor.formatOnSave": false,
@@ -68,8 +65,7 @@
       "packages/snippets": true,
       "packages/use": true,
       "packages/validator": true,
-      "src/auto-grid/**/*.d.ts": true,
-      "src/acro-dynamic-form/**/*.d.ts": true
+      "src/auto-grid/**/*.d.ts": true
     },
     "unocss.autocomplete.matchType": "fuzzy",
     "unocss.remToPxPreview": true,
