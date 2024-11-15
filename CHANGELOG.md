@@ -1,4 +1,6 @@
 ## [Unreleased]
+  - 🌟 [@mixte/mel-components] 新增 `mel-select` 组件
+  - 🌟 新增 `@mixte/mel-components` 组件包
 
 ## [v3.0.0-beta.2]
   - 📅 2024-11-14

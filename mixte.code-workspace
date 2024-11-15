@@ -23,6 +23,10 @@
     {
       "path": "packages/snippets",
       "name": "Snippets"
+    },
+    {
+      "path": "packages/mel-components",
+      "name": "Mel Components"
     }
   ],
   "settings": {
@@ -61,6 +65,7 @@
       "node_modules": true,
       "packages/.vitepress/cache": true,
       "packages/components": true,
+      "packages/mel-components": true,
       "packages/mixte": true,
       "packages/snippets": true,
       "packages/use": true,

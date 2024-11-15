@@ -70,4 +70,14 @@ export const packages = [
     outputFileName: 'toggleThemeViewTransition',
     external: ['mixte'],
   },
+
+  // @mixte/mel-components/mel-select
+  {
+    input: 'packages/mel-components/src/mel-select/index.ts',
+    outputDir: 'packages/mel-components/dist',
+    outputFileName: 'mel-select',
+    external: ['element-plus'],
+    dtsExternal: ['element-plus'],
+    vueSfcComponent: true,
+  },
 ];

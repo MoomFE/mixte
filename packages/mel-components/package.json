@@ -1,0 +1,34 @@
+{
+  "name": "@mixte/mel-components",
+  "type": "module",
+  "version": "3.0.0-beta.2",
+  "author": "Wei Zhang <https://github.com/Zhang-Wei-666>",
+  "license": "MIT",
+  "homepage": "https://github.com/MoomFE/mixte#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MoomFE/mixte.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MoomFE/mixte/issues"
+  },
+  "sideEffects": false,
+  "exports": {
+    "./mel-select": {
+      "types": "./dist/mel-select.d.ts",
+      "import": "./dist/mel-select.mjs",
+      "require": "./dist/mel-select.cjs"
+    },
+    "./*": "./*"
+  },
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "dependencies": {
+    "@mixte/use": "workspace:*",
+    "@vueuse/core": "*",
+    "element-plus": "*",
+    "mixte": "workspace:*"
+  }
+}

@@ -13,6 +13,7 @@
       "@mixte/components/*": ["./packages/components/src/*/index.ts"],
       "@mixte/validator/*": ["./packages/validator/src/*/index.ts"],
       "@mixte/snippets/*": ["./packages/snippets/src/*/index.ts"],
+      "@mixte/mel-components/*": ["./packages/mel-components/src/*/index.ts"],
       "@mixte/*": ["./packages/*/index.ts"],
       "@/*": ["./packages/*"],
       "@@/*": ["./*"]

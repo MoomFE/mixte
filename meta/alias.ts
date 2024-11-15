@@ -12,6 +12,7 @@ export const alias: Alias[] = [
   { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/src/$1/index') },
   { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/index') },
   { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/src/$1/index') },
+  { find: /^@mixte\/mel-components\/(.*)$/, replacement: resolve(__dirname, '../packages/mel-components/src/$1/index') },
 ];
 
 export const testAlias: Alias[] = [
@@ -22,4 +23,5 @@ export const testAlias: Alias[] = [
   { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/dist/$1') },
   { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/dist/index') },
   { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/dist/$1') },
+  { find: /^@mixte\/mel-components\/(.*)$/, replacement: resolve(__dirname, '../packages/mel-components/dist/$1') },
 ];
