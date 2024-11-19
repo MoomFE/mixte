@@ -1,8 +1,12 @@
 import type { ElSelect, ISelectProps, SelectOptionProxy } from 'element-plus';
+import type { SetOptional } from 'type-fest';
 
 export type SelectInstance = InstanceType<typeof ElSelect>;
 
-export type MelOptionProps = Pick<SelectOptionProxy, 'value' | 'label' | 'disabled'>;
+export type MelOptionProps = SetOptional<
+  Pick<SelectOptionProxy, 'value' | 'label' | 'disabled'>,
+  'disabled'
+>;
 
 export interface MelSelectProps extends /* @vue-ignore */ Partial<Omit<ISelectProps, 'modelValue'>> {
   /** 选项数据源 */
