@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.0.0-beta.3]
+  - 📅 2024-11-19
   - 🌟 [@mixte/mel-components] 新增 `mel-select` 组件
   - 🌟 新增 `@mixte/mel-components` 组件包
 
@@ -49,6 +52,7 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.0.0-beta.2...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.0.0-beta.3...HEAD
+[v3.0.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0-beta.3
 [v3.0.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0-beta.2
 [v3.0.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0-beta.1
