@@ -14,9 +14,7 @@
   import { isVue2, toRef, unref, useSlots } from 'vue-demi';
   import { useAutoGrid } from './composables/useAutoGrid';
 
-  // @unocss-ignore
-
-  interface ListAutoGridProps {
+  const props = defineProps<{
     /** 列表数据 */
     list?: T;
     /**
@@ -32,9 +30,7 @@
     gapX?: number | `${number}`;
     /** 纵向间距 (单位: px) */
     gapY?: number | `${number}`;
-  }
-
-  const props = defineProps<ListAutoGridProps>();
+  }>();
 
   // 为了在 Vue3 中拥有更好的类型推导, 但是 Vue2 并不支持这个 API, 先这样兼容一下
   let oldDefineSlots: any;

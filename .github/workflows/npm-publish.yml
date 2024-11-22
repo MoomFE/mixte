@@ -24,11 +24,6 @@ jobs:
         env:
           NODE_OPTIONS: --max-old-space-size=6144
 
-      - name: Build dts
-        run: pnpm build-dts
-        env:
-          NODE_OPTIONS: --max-old-space-size=6144
-
       - name: Publish Beta
         if: contains(github.event.release.name, 'beta') == true
         run: pnpm publish -r --access public --no-git-checks --tag beta

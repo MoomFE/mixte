@@ -2,6 +2,11 @@
   "extends": "./tsconfig.json",
   "exclude": [
     "packages/.vitepress/**/*.ts",
-    "packages/.vitepress/**/*.vue"
+    "packages/.vitepress/**/*.vue",
+    "packages/**/*.test.ts",
+    "packages/**/demo/*",
+    "packages/*/src/*/info.ts",
+    "packages/mixte/src/is/testTypes.ts",
+    "packages/components/src/auto-grid/shared-test.ts"
   ]
 }

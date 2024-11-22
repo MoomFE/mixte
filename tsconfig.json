@@ -7,14 +7,13 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
-      "mixte": ["./packages/mixte/index.ts"],
+      "mixte": ["./packages/mixte/src/index.ts"],
       "@mixte/use/register": ["./packages/use/src/register.ts"],
       "@mixte/use/nuxt": ["./packages/use/src/nuxt.ts"],
       "@mixte/components/*": ["./packages/components/src/*/index.ts"],
-      "@mixte/validator/*": ["./packages/validator/src/*/index.ts"],
       "@mixte/snippets/*": ["./packages/snippets/src/*/index.ts"],
       "@mixte/mel-components/*": ["./packages/mel-components/src/*/index.ts"],
-      "@mixte/*": ["./packages/*/index.ts"],
+      "@mixte/*": ["./packages/*/src/index.ts"],
       "@/*": ["./packages/*"],
       "@@/*": ["./*"]
     },

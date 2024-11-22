@@ -15,7 +15,3 @@ dist
 
 packages/.vitepress/cache
 packages/.vitepress/dist
-
-packages/components/src/**/*.d.ts
-packages/snippets/src/**/*.d.ts
-packages/mel-components/src/**/*.d.ts

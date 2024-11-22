@@ -5,12 +5,12 @@ import { dirname, resolve } from 'pathe';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const alias: Alias[] = [
-  { find: 'mixte', replacement: resolve(__dirname, '../packages/mixte/index') },
+  { find: 'mixte', replacement: resolve(__dirname, '../packages/mixte/src/index') },
   { find: '@mixte/use/register', replacement: resolve(__dirname, '../packages/use/src/register') },
   { find: '@mixte/use/nuxt', replacement: resolve(__dirname, '../packages/use/src/nuxt') },
-  { find: '@mixte/use', replacement: resolve(__dirname, '../packages/use/index') },
+  { find: '@mixte/use', replacement: resolve(__dirname, '../packages/use/src/index') },
   { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/src/$1/index') },
-  { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/index') },
+  { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/src/index') },
   { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/src/$1/index') },
   { find: /^@mixte\/mel-components\/(.*)$/, replacement: resolve(__dirname, '../packages/mel-components/src/$1/index') },
 ];

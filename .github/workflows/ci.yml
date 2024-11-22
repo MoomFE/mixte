@@ -30,6 +30,3 @@ jobs:
 
       - name: build & test-build
         run: pnpm test-build --run
-
-      - name: build-dts
-        run: pnpm build-dts

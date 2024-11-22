@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.tsc.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "src",
+    "paths": {
+      "@mixte/use": ["./src/index.ts"]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

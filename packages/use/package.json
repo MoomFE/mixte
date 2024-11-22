@@ -38,9 +38,13 @@
     "*.d.ts",
     "dist"
   ],
+  "scripts": {
+    "build": "tsx build.ts"
+  },
   "dependencies": {
     "@vueuse/core": "*",
     "mixte": "workspace:*",
+    "vue": "*",
     "vue-demi": "*"
   }
 }

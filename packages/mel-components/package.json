@@ -25,10 +25,14 @@
     "*.d.ts",
     "dist"
   ],
+  "scripts": {
+    "build": "tsx build.ts"
+  },
   "dependencies": {
     "@mixte/use": "workspace:*",
     "@vueuse/core": "*",
     "element-plus": "*",
-    "mixte": "workspace:*"
+    "mixte": "workspace:*",
+    "vue": "*"
   }
 }

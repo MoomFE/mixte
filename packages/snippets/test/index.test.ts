@@ -29,20 +29,4 @@ describe('@mixte/snippets', async () => {
       expect(item.value).toBe(true);
     }
   });
-
-  it('所有模块均在 `meta/packages.ts` 有定义', async () => {
-    const packages = await import('@@/meta/packages');
-
-    for (const name of modulesName) {
-      expect(packages.packages).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            input: `packages/snippets/src/${name}/index.ts`,
-            outputDir: 'packages/snippets/dist',
-            outputFileName: name,
-          }),
-        ]),
-      );
-    }
-  });
 });

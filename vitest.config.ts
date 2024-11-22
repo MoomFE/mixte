@@ -35,7 +35,6 @@ export default defineConfig(({ mode }) => {
         provider: 'v8',
         all: false,
         exclude: [
-          'meta/packages.ts',
           'packages/mixte/src/is/testTypes.ts',
           ...(isInCi ? ['packages/snippets/src/getFastestCDN/**/*'] : []),
         ],

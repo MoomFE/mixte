@@ -6,7 +6,7 @@
   import type { ISelectProps } from 'element-plus';
   import type { MelSelectProps, MelSelectSlots, SelectInstance } from './types';
   import { ElOption, ElSelect } from 'element-plus';
-  import { ref } from 'vue';
+  import { ref, type Ref, useAttrs } from 'vue';
 
   const props = defineProps<MelSelectProps>();
   const slots = defineSlots<MelSelectSlots>();
@@ -35,7 +35,9 @@
     );
   }
 
-  defineExpose({
+  defineExpose<{
+    selectRef: Ref<SelectInstance | undefined>;
+  }>({
     selectRef,
   });
 </script>
