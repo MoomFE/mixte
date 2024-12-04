@@ -1,4 +1,6 @@
 ## [Unreleased]
+  - 💄 [@mixte/components] 组件 `AutoGrid` 新增 `list` 参数
+  - ⚠️ [@mixte/components] 删除 `ListAutoGrid` 组件, 传递列表数据渲染的功能已合并至 `AutoGrid` 组件中
   - ⚠️ [@mixte/use], [@mixte/components], [@mixte/snippets] 取消对 Vue 2 的支持
 
 ## [v3.0.0-beta.3]

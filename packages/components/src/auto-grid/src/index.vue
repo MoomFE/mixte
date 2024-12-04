@@ -2,20 +2,31 @@
   <Render />
 </template>
 
-<script lang="tsx" setup>
+<script
+  setup
+  lang="tsx"
+  generic="T extends any[] | number | undefined = undefined"
+>
   import type { CSSProperties, VNodeChild } from 'vue';
   import type { AutoGridProps, AutoGridSlots } from './types';
+  import { isFunction, isNumber } from 'mixte';
   import { flatten } from 'naive-ui/es/_utils/vue/flatten';
   import { computed, onBeforeUpdate, ref } from 'vue';
-  import { useAutoGrid } from '../../list-auto-grid/src/composables/useAutoGrid';
+  import { useAutoGrid } from './composables/useAutoGrid';
 
-  const props = defineProps<AutoGridProps>();
-  const slots = defineSlots<AutoGridSlots>();
+  const props = defineProps<AutoGridProps<T>>();
+  const slots = defineSlots<AutoGridSlots<T>>();
 
   const { rootRef, collapsedRows, columnCount, rootStyle } = useAutoGrid(props);
 
   /** 所有子元素 */
   const children = computed(() => {
+    if (Array.isArray(props.list))
+      return props.list!.map((item, index) => () => slots.default?.({ item, index }) ?? item);
+    if (isNumber(props.list))
+      return Array.from({ length: props.list! }).map((_, index) => () => slots.default?.({ item: index + 1, index }) ?? index);
+
+    // @ts-expect-error
     return flatten((slots.default?.() as unknown as VNodeChild[]) ?? []);
   });
 
@@ -62,7 +73,11 @@
   function Render() {
     return (
       <div ref={rootRef} class="mixte-auto-grid" style={finalRootStyle.value}>
-        {renderChildren.value.map(Node => <div style="overflow: hidden">{Node}</div>)}
+        {
+          renderChildren.value.map((child, index) => (
+            <div style="overflow: hidden" key={index}>{isFunction(child) ? child() : child}</div>
+          ))
+        }
       </div>
     );
   }

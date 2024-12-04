@@ -1,16 +1,16 @@
 <template>
-  <MixteListAutoGrid :list="list" item-width="310" gap="10">
+  <MixteAutoGrid :list="list" item-width="310" gap="10">
     <template #default="{ item, index }">
       <div c-black bg-neutral-2 rounded p="x2 y1">
         item: {{ item }},
         index: {{ index }}
       </div>
     </template>
-  </MixteListAutoGrid>
+  </MixteAutoGrid>
 </template>
 
 <script lang="ts" setup>
-  import { MixteListAutoGrid } from '@mixte/components/list-auto-grid';
+  import { MixteAutoGrid } from '@mixte/components/auto-grid';
 
   const list = ref([
     { id: 1, title: 'item-1' },

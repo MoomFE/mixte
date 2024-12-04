@@ -171,13 +171,6 @@
       "name": "自适应栅格",
       "hiddenTitle": false,
       "sidebarTitle": ""
-    },
-    {
-      "fn": "list-auto-grid",
-      "title": "",
-      "name": "列表自适应栅格",
-      "hiddenTitle": false,
-      "sidebarTitle": ""
     }
   ],
   "validator": [

@@ -1,31 +1,10 @@
 import type { CSSProperties } from 'vue';
+import type { AutoGridProps } from '../types';
 import { useElementSize } from '@vueuse/core';
 import { isNumeric } from 'mixte';
 import { computed, ref } from 'vue';
 
-export interface CommomAutoGridProps {
-  /**
-   * 组件宽度 (单位: px)
-   *  - 正常情况无需使用, 会自动获取组件宽度
-   */
-  width?: number | `${number}`;
-  /** 子元素最小宽度 (单位: px) */
-  itemWidth?: number | `${number}`;
-  /** 横纵间距 (单位: px) */
-  gap?: number | `${number}`;
-  /** 横向间距 (单位: px) */
-  gapX?: number | `${number}`;
-  /** 纵向间距 (单位: px) */
-  gapY?: number | `${number}`;
-  /** 是否折叠 */
-  collapsed?: boolean;
-  /** 显示行数 */
-  collapsedRows?: number | `${number}`;
-  /** 只有一行时, 平铺所有子元素 */
-  fluid?: boolean;
-}
-
-export function useAutoGrid(props: CommomAutoGridProps) {
+export function useAutoGrid<T extends any[] | number | undefined>(props: AutoGridProps<T>) {
   const rootRef = ref<HTMLElement>();
   const rootWidth = useElementSize(rootRef).width;
 
