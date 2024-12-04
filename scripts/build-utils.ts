@@ -52,10 +52,10 @@ export async function defineBuild(libs: LibConfig[]) {
 
   if (hasVueComponent) {
     spinner.start('Building vue components types');
-    await new Promise<void>((resolve, reject) => {
-      exec('vue-tsc --declaration --emitDeclarationOnly', { cwd: rootDir }, (error, stdout) => {
-        if (error) reject(new Error(stdout));
-        else resolve();
+    await new Promise<void>((_resolve, _reject) => {
+      exec(`vue-tsc --declaration --emitDeclarationOnly --project ${resolve(rootDir, 'tsconfig.build.json')}`, { cwd: rootDir }, (error, stdout) => {
+        if (error) _reject(new Error(stdout));
+        else _resolve();
       });
     });
     spinner.succeed('Build vue components types success');

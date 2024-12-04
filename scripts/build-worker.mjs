@@ -15,7 +15,7 @@ const api = {
     const rootDir = normalizePath(process.cwd());
     const outDir = resolve(rootDir, 'dist');
 
-    const tsconfigPath = resolve(rootDir, 'tsconfig.json');
+    const tsconfigPath = resolve(rootDir, 'tsconfig.build.json');
     const tsconfig = await fs.readJson(tsconfigPath, 'utf-8');
 
     const packages = await fs.readJson(resolve(rootDir, 'package.json'), 'utf-8');
