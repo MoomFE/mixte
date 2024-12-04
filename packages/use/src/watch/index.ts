@@ -1,5 +1,5 @@
-import type { WatchCallback, WatchOptions, WatchSource, WatchStopHandle } from 'vue-demi';
-import { watch } from 'vue-demi';
+import type { WatchCallback, WatchOptions, WatchSource, WatchStopHandle } from 'vue';
+import { watch } from 'vue';
 
 // @vue/runtime-core/dist/runtime-core.d.ts
 type MultiWatchSources = (WatchSource<unknown> | object)[];

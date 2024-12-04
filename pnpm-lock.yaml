@@ -228,9 +228,6 @@ importers:
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.6.3)
-      vue-demi:
-        specifier: ^0.14.10
-        version: 0.14.10(vue@3.5.13(typescript@5.6.3))
       vue-tsc:
         specifier: ^2.1.10
         version: 2.1.10(typescript@5.6.3)
@@ -249,9 +246,6 @@ importers:
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.7.2)
-      vue-demi:
-        specifier: '*'
-        version: 0.14.7(vue@3.5.13(typescript@5.7.2))
 
   packages/mel-components:
     dependencies:
@@ -284,9 +278,6 @@ importers:
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.7.2)
-      vue-demi:
-        specifier: '*'
-        version: 0.14.8(vue@3.5.13(typescript@5.7.2))
 
   packages/use:
     dependencies:
@@ -299,9 +290,6 @@ importers:
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.7.2)
-      vue-demi:
-        specifier: '*'
-        version: 0.14.7(vue@3.5.13(typescript@5.7.2))
 
   packages/validator: {}
 

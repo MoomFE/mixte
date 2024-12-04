@@ -1,9 +1,9 @@
 import type { UseRequestOptions, UseRequestUserExecute } from '@mixte/use';
 import type { EventHookOn } from '@vueuse/core';
-import type { ShallowRef } from 'vue-demi';
+import type { ShallowRef } from 'vue';
 import { useRequest, useRequestReactive, watchImmediateDeep } from '@mixte/use';
 import { delay } from 'mixte';
-import { isRef, isShallow, nextTick, ref } from 'vue-demi';
+import { isRef, isShallow, nextTick, ref } from 'vue';
 
 describe.concurrent('useRequest', () => {
   it('方法返回对象参数类型判断', async ({ expect }) => {

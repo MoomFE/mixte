@@ -1,6 +1,6 @@
-import type { MaybeRef, UnwrapNestedRefs } from 'vue-demi';
+import type { MaybeRef, UnwrapNestedRefs } from 'vue';
 import { isPlainObject } from 'mixte';
-import { unref } from 'vue-demi';
+import { unref } from 'vue';
 
 /**
  * 方法 `unref` 的加强版本

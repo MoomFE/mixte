@@ -1,4 +1,4 @@
-import { readonly } from 'vue-demi';
+import { readonly } from 'vue';
 
 /** 所有用于测试的类型 */
 export const types = readonly({

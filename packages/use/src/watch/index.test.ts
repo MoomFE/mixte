@@ -1,5 +1,5 @@
 import { watchDeep, watchImmediate, watchImmediateDeep } from '@mixte/use';
-import { nextTick, ref, watch } from 'vue-demi';
+import { nextTick, ref, watch } from 'vue';
 
 describe('watchImmediate', () => {
   it('immediate 默认为 true 的 watch 方法', async () => {

@@ -11,7 +11,7 @@
   lang="ts"
   generic="T extends object[] | number"
 >
-  import { isVue2, toRef, unref, useSlots } from 'vue-demi';
+  import { toRef, unref } from 'vue';
   import { useAutoGrid } from './composables/useAutoGrid';
 
   const props = defineProps<{
@@ -32,22 +32,9 @@
     gapY?: number | `${number}`;
   }>();
 
-  // 为了在 Vue3 中拥有更好的类型推导, 但是 Vue2 并不支持这个 API, 先这样兼容一下
-  let oldDefineSlots: any;
-
-  if (isVue2) { // @ts-expect-error
-    oldDefineSlots = globalThis.defineSlots; // @ts-expect-error
-    globalThis.defineSlots = useSlots;
-  }
-
-  // eslint-disable-next-line vue/define-macros-order
   defineSlots<{
     default: (props: { item: T extends object[] ? T[number] : number; index: number }) => any;
   }>();
-
-  if (isVue2) { // @ts-expect-error
-    globalThis.defineSlots = oldDefineSlots;
-  }
 
   const list = toRef(props, 'list');
 

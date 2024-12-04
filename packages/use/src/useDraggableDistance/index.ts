@@ -1,7 +1,7 @@
 import type { MaybeRefOrGetter } from '@vueuse/core';
 import { watchImmediate, wheneverEffectScopeImmediate } from '@mixte/use';
 import { unrefElement, useDraggable, useMouse } from '@vueuse/core';
-import { ref } from 'vue-demi';
+import { ref } from 'vue';
 
 /**
  * 获取拖拽距离

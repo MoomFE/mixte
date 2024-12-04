@@ -8,7 +8,7 @@ export type MelOptionProps = SetOptional<
   'disabled'
 >;
 
-export interface MelSelectProps extends /* @vue-ignore */ Partial<Omit<ISelectProps, 'modelValue'>> {
+export interface MelSelectProps extends /* @vue-ignore */ Partial<ISelectProps> {
   /** 选项数据源 */
   options?: MelOptionProps[];
 }

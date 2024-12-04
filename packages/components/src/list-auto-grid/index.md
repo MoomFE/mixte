@@ -5,10 +5,6 @@ outline: [1,3]
 - 为组件渲染的列表子元素统一设定一个最小宽度
 - 当一行的剩余宽度不够容纳一个子元素时, 会将剩余宽度平均到每个子元素上
 
-::: warning 注意
-该组件支持 `Vue 2.7`、`Vue 3`, 若要在 `<= Vue 2.6` 中使用, 需要先安装 [`@vue/composition-api`](https://github.com/vuejs/composition-api) 插件
-:::
-
 ## 演示
 
 ### 功能演示

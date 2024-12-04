@@ -1,8 +1,8 @@
 import type { MaybeRefOrGetter, TransitionOptions } from '@vueuse/core';
-import type { Ref } from 'vue-demi';
+import type { Ref } from 'vue';
 import { whenever, wheneverEffectScopeImmediate } from '@mixte/use';
 import { executeTransition, syncRef, toValue, TransitionPresets, tryOnScopeDispose } from '@vueuse/core';
-import { computed, ref, watch } from 'vue-demi';
+import { computed, ref, watch } from 'vue';
 
 export interface UseCountdownOptions {
   /**

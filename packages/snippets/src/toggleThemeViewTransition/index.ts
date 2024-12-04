@@ -1,6 +1,6 @@
-import type { Ref } from 'vue-demi';
+import type { Ref } from 'vue';
 import { delay } from 'mixte';
-import { nextTick, toValue } from 'vue-demi';
+import { nextTick, toValue } from 'vue';
 import styleText from './index.scss?inline';
 
 interface ToggleThemeViewTransitionOptions {

@@ -37,7 +37,6 @@
     "@mixte/use": "workspace:*",
     "@vueuse/core": "*",
     "mixte": "workspace:*",
-    "vue": "*",
-    "vue-demi": "*"
+    "vue": "*"
   }
 }

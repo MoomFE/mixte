@@ -1,5 +1,5 @@
-import type { EffectScope, WatchCallback, WatchOptions, WatchSource, WatchStopHandle } from 'vue-demi';
-import { effectScope, watch } from 'vue-demi';
+import type { EffectScope, WatchCallback, WatchOptions, WatchSource, WatchStopHandle } from 'vue';
+import { effectScope, watch } from 'vue';
 
 /**
  * 监听传入值为 truthy 时, 创建一个 effect 作用域

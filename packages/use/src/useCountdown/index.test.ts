@@ -1,5 +1,5 @@
 import { useCountdown } from '@mixte/use';
-import { nextTick, ref } from 'vue-demi';
+import { nextTick, ref } from 'vue';
 
 describe('useCountdown', () => {
   beforeEach(() => {

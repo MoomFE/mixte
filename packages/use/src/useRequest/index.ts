@@ -1,7 +1,7 @@
 import type { Promisable } from 'type-fest';
-import type { MaybeRefOrGetter } from 'vue-demi';
+import type { MaybeRefOrGetter } from 'vue';
 import { createEventHook, toValue } from '@vueuse/core';
-import { reactive, ref, shallowRef } from 'vue-demi';
+import { reactive, ref, shallowRef } from 'vue';
 
 export interface UseRequestOptions {
   /**

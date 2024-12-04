@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - ⚠️ [@mixte/use], [@mixte/components], [@mixte/snippets] 取消对 Vue 2 的支持
 
 ## [v3.0.0-beta.3]
   - 📅 2024-11-19

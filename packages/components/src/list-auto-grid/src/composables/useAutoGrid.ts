@@ -1,7 +1,7 @@
-import type { CSSProperties } from 'vue-demi';
+import type { CSSProperties } from 'vue';
 import { useElementSize } from '@vueuse/core';
 import { isNumeric } from 'mixte';
-import { computed, ref } from 'vue-demi';
+import { computed, ref } from 'vue';
 
 export interface CommomAutoGridProps {
   /**

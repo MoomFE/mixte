@@ -1,6 +1,6 @@
 import type { WheneverOptions } from '@vueuse/core';
-import type { WatchCallback, WatchOptions, WatchSource } from 'vue-demi';
-import { nextTick, watch } from 'vue-demi';
+import type { WatchCallback, WatchOptions, WatchSource } from 'vue';
+import { nextTick, watch } from 'vue';
 
 /**
  * 监听值是 `truthy` 时执行回调函数
