@@ -1,8 +1,8 @@
 import { fileURLToPath } from 'node:url';
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash';
 import VueJsx from '@vitejs/plugin-vue-jsx';
-import { pascalCase } from 'change-case';
 import { dirname, resolve } from 'pathe';
+import { pascalCase } from 'scule';
 import Unocss from 'unocss/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Icons from 'unplugin-icons/vite';

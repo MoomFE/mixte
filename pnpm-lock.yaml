@@ -32,9 +32,6 @@ importers:
       '@moomfe/eslint-config':
         specifier: ^3.4.0
         version: 3.4.0(@typescript-eslint/utils@8.13.0(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3))(@vue/compiler-sfc@3.5.12)(jiti@2.4.0)(vitest@2.1.4)
-      '@moomfe/small-utils':
-        specifier: ^5.3.2
-        version: 5.3.2(@vueuse/core@11.2.0(vue@3.5.12(typescript@5.6.3)))(axios@1.7.7)(vue@3.5.12(typescript@5.6.3))
       '@nuxt/kit':
         specifier: ^3.14.159
         version: 3.14.159(magicast@0.3.5)(rollup@4.24.4)(webpack-sources@3.2.3)
@@ -89,9 +86,6 @@ importers:
       chalk:
         specifier: ^5.3.0
         version: 5.3.0
-      change-case:
-        specifier: ^5.4.4
-        version: 5.4.4
       cheerio:
         specifier: ^1.0.0
         version: 1.0.0
@@ -1350,19 +1344,6 @@ packages:
 
   '@moomfe/eslint-config@3.4.0':
     resolution: {integrity: sha512-qc0+36261FSxLsDxhF6v0l8AjGu+YQl+qdNIIXe2oLqFhurNllWRxv/6Z4+eiN3iOCHb9/qdxWXQiyO3zqEq+Q==}
-
-  '@moomfe/small-utils@5.3.2':
-    resolution: {integrity: sha512-DS6GC41N84OxnucVd+ijpIf4BZggLma2jbp26zv7aWf+f9f3hdv5SJq1y17CdwGmoXzmW2FN3p4uuwBA5B+txg==}
-    peerDependencies:
-      '@vue/composition-api': '>=1.1.0'
-      '@vueuse/core': '>5.3.0'
-      axios: '>=0.26.0'
-      vue: '>=2.6.0 || >=3.2.0'
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-      vue:
-        optional: true
 
   '@netlify/functions@2.8.2':
     resolution: {integrity: sha512-DeoAQh8LuNPvBE4qsKlezjKj0PyXDryOFJfJKo3Z1qZLKzQ21sT314KQKPVjfvw6knqijj+IO+0kHXy/TJiqNA==}
@@ -4042,10 +4023,6 @@ packages:
     resolution: {integrity: sha512-IXO6OCs9yg8tMKzfPZ1YmheJbZCiEsnBdcB03l0OcfK9prKnJb96siuHCr5Fl37/yo9DnKU+TLpxzTUspw9shg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  local-pkg@0.4.3:
-    resolution: {integrity: sha512-SFppqq5p42fe2qcZQqqEOiVRXl+WCP1MdT6k7BDEW1j++sp5fIY+/fdRQitvKgB5BrBcmrs5m/L0v2FrU5MY1g==}
-    engines: {node: '>=14'}
-
   local-pkg@0.5.0:
     resolution: {integrity: sha512-ok6z3qlYyCDS4ZEU27HaU6x/xZa9Whf8jD4ptH5UZTQYZVYeb9bnZ3ojVhiJNLiXK1Hfc0GNbLXcmZ5plLDDBg==}
     engines: {node: '>=14'}
@@ -4578,9 +4555,6 @@ packages:
   ora@8.1.1:
     resolution: {integrity: sha512-YWielGi1XzG1UTvOaCFaNgEnuhZVMSHYkW/FQ7UX8O26PtlpdM84c0f7wLPlkvx2RfiQmnzd61d/MGxmpQeJPw==}
     engines: {node: '>=18'}
-
-  overlayscrollbars@1.13.3:
-    resolution: {integrity: sha512-1nB/B5kaakJuHXaLXLRK0bUIilWhUGT6q5g+l2s5vqYdLle/sd0kscBHkQC1kuuDg9p9WR4MTdySDOPbeL/86g==}
 
   p-limit@2.3.0:
     resolution: {integrity: sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w==}
@@ -5700,10 +5674,6 @@ packages:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
 
-  type-fest@3.13.1:
-    resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
-    engines: {node: '>=14.16'}
-
   type-fest@4.28.1:
     resolution: {integrity: sha512-LO/+yb3mf46YqfUC7QkkoAlpa7CTYh//V1Xy9+NQ+pKqDqXIq0NTfPfQRwFfCt+if4Qkwb9gzZfsl6E5TkXZGw==}
     engines: {node: '>=16'}
@@ -6118,17 +6088,6 @@ packages:
 
   vue-component-type-helpers@2.0.16:
     resolution: {integrity: sha512-qisL/iAfdO++7w+SsfYQJVPj6QKvxp4i1MMxvsNO41z/8zu3KuAw9LkhKUfP/kcOWGDxESp+pQObWppXusejCA==}
-
-  vue-demi@0.13.11:
-    resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
-    engines: {node: '>=12'}
-    hasBin: true
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue: ^3.0.0-0 || ^2.6.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -7381,17 +7340,6 @@ snapshots:
       - svelte
       - svelte-eslint-parser
       - vitest
-
-  '@moomfe/small-utils@5.3.2(@vueuse/core@11.2.0(vue@3.5.12(typescript@5.6.3)))(axios@1.7.7)(vue@3.5.12(typescript@5.6.3))':
-    dependencies:
-      '@vueuse/core': 11.2.0(vue@3.5.12(typescript@5.6.3))
-      axios: 1.7.7
-      local-pkg: 0.4.3
-      overlayscrollbars: 1.13.3
-      type-fest: 3.13.1
-      vue-demi: 0.13.11(vue@3.5.12(typescript@5.6.3))
-    optionalDependencies:
-      vue: 3.5.12(typescript@5.6.3)
 
   '@netlify/functions@2.8.2':
     dependencies:
@@ -10632,8 +10580,6 @@ snapshots:
 
   load-tsconfig@0.2.5: {}
 
-  local-pkg@0.4.3: {}
-
   local-pkg@0.5.0:
     dependencies:
       mlly: 1.7.3
@@ -11536,8 +11482,6 @@ snapshots:
       stdin-discarder: 0.2.2
       string-width: 7.2.0
       strip-ansi: 7.1.0
-
-  overlayscrollbars@1.13.3: {}
 
   p-limit@2.3.0:
     dependencies:
@@ -12587,8 +12531,6 @@ snapshots:
 
   type-fest@0.8.1: {}
 
-  type-fest@3.13.1: {}
-
   type-fest@4.28.1: {}
 
   typescript@5.6.3: {}
@@ -13109,10 +13051,6 @@ snapshots:
       ufo: 1.5.4
 
   vue-component-type-helpers@2.0.16: {}
-
-  vue-demi@0.13.11(vue@3.5.12(typescript@5.6.3)):
-    dependencies:
-      vue: 3.5.12(typescript@5.6.3)
 
   vue-demi@0.14.10(vue@3.5.12(typescript@5.6.3)):
     dependencies:
