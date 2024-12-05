@@ -1,20 +1,15 @@
 ## [Unreleased]
+
+## [v3.0.0], [v3.0.0-beta.3], [v3.0.0-beta.2], [v3.0.0-beta.1]
+  - 📅 2024-12-05
+  - 🌟 新增 `@mixte/mel-components` 组件包
+  - 🌟 [@mixte/mel-components] 新增 `mel-select` 组件
   - 💄 [@mixte/components] 组件 `AutoGrid` 新增 `list` 参数
+  - ⚠️ [@mixte/use] 调整 `wheneverEffectScope` 的 `watch` 触发时机为同步触发
   - ⚠️ [@mixte/components] 删除 `ListAutoGrid` 组件, 传递列表数据渲染的功能已合并至 `AutoGrid` 组件中
+  - ⚠️ [@mixte/snippets] 删除 `AcroDynamicForm` 组件
   - ⚠️ [@mixte/use], [@mixte/components], [@mixte/snippets] 取消对 Vue 2 的支持
 
-## [v3.0.0-beta.3]
-  - 📅 2024-11-19
-  - 🌟 [@mixte/mel-components] 新增 `mel-select` 组件
-  - 🌟 新增 `@mixte/mel-components` 组件包
-
-## [v3.0.0-beta.2]
-  - 📅 2024-11-14
-  - ⚠️ [@mixte/use] 调整 `wheneverEffectScope` 的 `watch` 触发时机为同步触发
-
-## [v3.0.0-beta.1]
-  - 📅 2024-11-07
-  - ⚠️ [@mixte/snippets] 删除 `AcroDynamicForm` 组件
 
 ## [../v2](https://mixte-v2.moomfe.com)
   - [更新日志](https://mixte-v2.moomfe.com/changelog)
@@ -55,7 +50,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.0.0-beta.3...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.0.0...HEAD
+[v3.0.0]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0
 [v3.0.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0-beta.3
 [v3.0.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0-beta.2
 [v3.0.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0-beta.1
