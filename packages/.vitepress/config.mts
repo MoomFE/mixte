@@ -104,7 +104,7 @@ export default defineConfig({
         },
         {
           text: '@mixte/mel-components',
-          items: melComponents.map(info => ({ text: `${info.sidebarTitle || info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/mel-components/${info.fn}` })),
+          items: melComponents.map(info => ({ text: `${info.sidebarTitle || pascalCase(info.fn)}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/mel-components/${info.fn}` })),
         },
       ],
     },

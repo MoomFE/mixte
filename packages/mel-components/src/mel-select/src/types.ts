@@ -3,14 +3,14 @@ import type { SetOptional } from 'type-fest';
 
 export type SelectInstance = InstanceType<typeof ElSelect>;
 
-export type MelOptionProps = SetOptional<
+export type MelSelectOption = SetOptional<
   Pick<SelectOptionProxy, 'value' | 'label' | 'disabled'>,
   'disabled'
 >;
 
 export interface MelSelectProps extends /* @vue-ignore */ Partial<ISelectProps> {
   /** 选项数据源 */
-  options?: MelOptionProps[];
+  options?: MelSelectOption[];
 }
 
 export interface MelSelectSlots {
