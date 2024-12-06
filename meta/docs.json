@@ -218,5 +218,14 @@
       "hiddenTitle": false,
       "sidebarTitle": ""
     }
+  ],
+  "melComponents": [
+    {
+      "fn": "mel-select",
+      "title": "",
+      "name": "选择器",
+      "hiddenTitle": false,
+      "sidebarTitle": ""
+    }
   ]
 }

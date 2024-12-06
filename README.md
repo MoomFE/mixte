@@ -17,6 +17,7 @@ https://mixte.moomfe.com/
 | [@mixte/components](./packages/components) | [![Downloads][mixte-components-downloads-badges-src]][mixte-components-downloads-href] |
 | [@mixte/validator](./packages/validator) | [![Downloads][mixte-components-validator-badges-src]][mixte-components-validator-href] |
 | [@mixte/snippets](./packages/snippets) | [![Downloads][mixte-snippets-downloads-badges-src]][mixte-snippets-downloads-href] |
+| [@mixte/mel-components](./packages/mel-components) | [![Downloads][mixte-mel-components-downloads-badges-src]][mixte-mel-components-downloads-href] |
 
 ## License
 
@@ -38,3 +39,5 @@ https://mixte.moomfe.com/
 [mixte-components-validator-href]: https://www.npmjs.com/package/@mixte/validator
 [mixte-snippets-downloads-badges-src]: https://img.shields.io/npm/dm/@mixte/snippets.svg
 [mixte-snippets-downloads-href]: https://www.npmjs.com/package/@mixte/snippets
+[mixte-mel-components-downloads-badges-src]: https://img.shields.io/npm/dm/@mixte/mel-components.svg
+[mixte-mel-components-downloads-href]: https://www.npmjs.com/package/@mixte/mel-components

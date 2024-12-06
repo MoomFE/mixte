@@ -10,7 +10,7 @@ import { ArcoResolver, ElementPlusResolver, NaiveUiResolver } from 'unplugin-vue
 import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vitepress';
 import { alias } from '../../meta/alias';
-import { components, mixte, snippets, use, validator } from '../../meta/docs.json';
+import { components, melComponents, mixte, snippets, use, validator } from '../../meta/docs.json';
 import { version } from '../../package.json';
 import { MarkdownTransform } from './plugins/markdownTransform';
 import VitePlugins from './vite.common.plugins';
@@ -30,6 +30,7 @@ export default defineConfig({
     'components/src/:fn/index.md': 'mixte/components/:fn.md',
     'validator/src/:fn/index.md': 'mixte/validator/:fn.md',
     'snippets/src/:fn/index.md': 'mixte/snippets/:fn.md',
+    'mel-components/src/:fn/index.md': 'mixte/mel-components/:fn.md',
   },
 
   markdown: {
@@ -55,18 +56,24 @@ export default defineConfig({
           { text: '@mixte/components', link: `/mixte/components/${components[0].fn}`, activeMatch: '^/mixte/components/' },
           { text: '@mixte/validator', link: `/mixte/validator/${validator[0].fn}`, activeMatch: '^/mixte/validator/' },
           { text: '@mixte/snippets', link: `/mixte/snippets/${snippets[0].fn}`, activeMatch: '^/mixte/snippets/' },
+          { text: '@mixte/mel-components', link: `/mixte/mel-components/${melComponents[0].fn}`, activeMatch: '^/mixte/mel-components/' },
         ],
       },
       {
         text: `v${version}`,
         items: [
           { text: '更新日志', link: '/changelog.md' },
-          { text: 'dev 分支文档地址', link: 'https://mixte-dev-branch.moomfe.com/' },
           {
             text: '历史版本文档地址',
             items: [
               { text: 'v2.5.0', link: 'https://mixte-v2.moomfe.com/' },
               { text: 'v1.31.2', link: 'https://mixte-v1.moomfe.com/' },
+            ],
+          },
+          {
+            text: '分支文档地址',
+            items: [
+              { text: 'dev', link: 'https://mixte-dev-branch.moomfe.com/' },
             ],
           },
         ],
@@ -94,6 +101,10 @@ export default defineConfig({
         {
           text: '@mixte/snippets',
           items: snippets.map(info => ({ text: `${info.sidebarTitle || info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/snippets/${info.fn}` })),
+        },
+        {
+          text: '@mixte/mel-components',
+          items: melComponents.map(info => ({ text: `${info.sidebarTitle || info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/mel-components/${info.fn}` })),
         },
       ],
     },

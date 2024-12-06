@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import fg from 'fast-glob';
 import fs from 'fs-extra';
 import { dirname, resolve } from 'pathe';
+import { camelCase, kebabCase } from 'scule';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -13,9 +14,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
     components: [] as ({ fn: string } & Info)[],
     validator: [] as ({ fn: string } & Info)[],
     snippets: [] as ({ fn: string } & Info)[],
+    melComponents: [] as ({ fn: string } & Info)[],
   };
 
-  const docsFile = await fg([`packages/(${Object.keys(docsDetails).join('|')})/src/*/index.md`], {
+  const docsFile = await fg([`packages/(${Object.keys(docsDetails).map(name => kebabCase(name)).join('|')})/src/*/index.md`], {
     cwd: resolve(__dirname, '../'),
   });
 
@@ -36,7 +38,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
     }
     catch {}
 
-    docsDetails[pkg as keyof typeof docsDetails].push({
+    docsDetails[camelCase(pkg) as keyof typeof docsDetails].push({
       fn,
       title,
       name,

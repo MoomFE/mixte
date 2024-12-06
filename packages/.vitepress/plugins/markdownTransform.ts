@@ -9,7 +9,7 @@ import { find } from 'lodash-es';
 import MagicString from 'magic-string';
 import { customRandom, random } from 'nanoid';
 import { dirname, resolve } from 'pathe';
-import { pascalCase } from 'scule';
+import { camelCase, pascalCase } from 'scule';
 import docs from '../../../meta/docs.json';
 
 const nanoid = customRandom('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', 18, random);
@@ -25,14 +25,14 @@ export function MarkdownTransform(): Plugin {
       const dir = dirname(id);
       let info: Info | undefined;
 
-      if (Reflect.has(docs, pkg) && (info = find(docs[pkg as keyof typeof docs], { fn }))) {
+      if (Reflect.has(docs, camelCase(pkg)) && (info = find(docs[camelCase(pkg) as keyof typeof docs], { fn }))) {
         const s = new MagicString(code = code.replace(/\r\n/g, '\n'));
         const imports = [];
 
         const startIndex = code.match(/^---\n.+\n---/m)?.[0]?.length ?? -1;
 
         /** 标题 */
-        const fnTitle = info.title || (pkg === 'components' ? pascalCase(fn) : fn);
+        const fnTitle = info.title || (['components', 'mel-components'].includes(pkg) ? pascalCase(fn) : fn);
         /** 标题 + 副标题 */
         const fnFullTitle = `${fnTitle}${
           info.name && fnTitle === pascalCase(fnTitle) ? ` <small><small>( ${info.name} )</small></small>` : ''
