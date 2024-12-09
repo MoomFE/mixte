@@ -37,9 +37,9 @@
   "scripts": {
     "build": "tsx build.ts"
   },
-  "dependencies": {
-    "@vueuse/core": "*",
-    "mixte": "workspace:*",
-    "vue": "*"
+  "peerDependencies": {
+    "@vueuse/core": ">=8.0.0",
+    "mixte": ">=3.0.0",
+    "vue": ">=3.2.0"
   }
 }

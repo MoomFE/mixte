@@ -2,6 +2,7 @@ import { MelSelect } from '@mixte/mel-components/mel-select';
 import { mount } from '@vue/test-utils';
 import * as cheerio from 'cheerio';
 import { ElOption, ElSelect } from 'element-plus';
+import { delay } from 'mixte';
 
 function removeUnusedAttribute(html: string) {
   const $ = cheerio.load(html);
@@ -20,6 +21,14 @@ function removeUnusedAttribute(html: string) {
   });
 
   return $.html();
+}
+
+async function getOptions() {
+  await delay(100);
+  return [
+    { label: 'Option 1', value: '1' },
+    { label: 'Option 2', value: '2' },
+  ];
 }
 
 describe('mel-select', () => {
@@ -60,7 +69,7 @@ describe('mel-select', () => {
   });
 
   describe('新增参数: options', () => {
-    it('通过参数传入 options 以渲染选项', () => {
+    it('传入 options 以渲染选项', () => {
       const mel = mount(MelSelect, {
         props: {
           teleported: false,
@@ -85,7 +94,7 @@ describe('mel-select', () => {
       expect(removeUnusedAttribute(el.html())).toBe(removeUnusedAttribute(mel.html()));
     });
 
-    it('通过参数传入 options 以渲染选项, 支持禁用', () => {
+    it('传入 options 以渲染选项, 支持禁用', () => {
       const mel = mount(MelSelect, {
         props: {
           teleported: false,
@@ -109,6 +118,87 @@ describe('mel-select', () => {
       expect(options[0].classes()).toContain('is-disabled');
       expect(options[1].text()).toBe('2');
       expect(removeUnusedAttribute(el.html())).toBe(removeUnusedAttribute(mel.html()));
+    });
+  });
+
+  describe('新增参数: optionsApi', () => {
+    it('传入方法给 optionsApi 参数请求选项数据', async () => {
+      const mel = mount(MelSelect, {
+        props: {
+          teleported: false,
+          optionsApi: getOptions,
+        },
+      });
+
+      expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
+      expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
+      expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
+
+      await delay(100);
+
+      expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+
+      const options = mel.findAll('.el-select-dropdown__item');
+
+      expect(options.length).toBe(2);
+      expect(options[0].text()).toBe('Option 1');
+      expect(options[1].text()).toBe('Option 2');
+    });
+
+    it('对象形式传入方法给 optionsApi 参数请求选项数据', async () => {
+      const mel = mount(MelSelect, {
+        props: {
+          teleported: false,
+          optionsApi: {
+            api: getOptions,
+          },
+        },
+      });
+
+      expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
+      expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
+      expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
+
+      await delay(100);
+
+      expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+
+      const options = mel.findAll('.el-select-dropdown__item');
+
+      expect(options.length).toBe(2);
+      expect(options[0].text()).toBe('Option 1');
+      expect(options[1].text()).toBe('Option 2');
+    });
+
+    it('配置不立即请求', async () => {
+      const mel = mount(MelSelect, {
+        props: {
+          teleported: false,
+          optionsApi: {
+            api: getOptions,
+            immediate: false,
+          },
+        },
+      });
+
+      expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
+      expect(mel.find('.el-select-dropdown__empty').text()).toBe('No data');
+
+      mel.vm.api.execute();
+      await nextTick();
+
+      expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
+      expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
+
+      await delay(100);
+
+      expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+
+      const options = mel.findAll('.el-select-dropdown__item');
+
+      expect(options.length).toBe(2);
+      expect(options[0].text()).toBe('Option 1');
+      expect(options[1].text()).toBe('Option 2');
     });
   });
 });

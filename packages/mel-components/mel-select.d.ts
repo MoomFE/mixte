@@ -1,1 +1,1 @@
-export * from '../snippets/dist/mel-select';
+export * from './dist/mel-select';

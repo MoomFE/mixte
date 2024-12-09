@@ -2,9 +2,14 @@ import { defineBuild } from '../../scripts/build-utils';
 
 defineBuild([
   {
+    entry: './src/utils/index.ts',
+    outputFileName: 'utils',
+  },
+  {
     entry: './src/mel-select/index.ts',
     outputFileName: 'mel-select',
     vueComponent: true,
-    dtsExternal: ['lodash-unified'],
+    external: ['@mixte/mel-components/utils'],
+    dtsExternal: ['lodash-unified', '@mixte/mel-components/utils'],
   },
 ]);

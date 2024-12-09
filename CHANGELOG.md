@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - [@mixte/mel-components] 组件 `MelSelect` 新增 `optionsApi` 参数
 
 ## [v3.0.0], [v3.0.0-beta.3], [v3.0.0-beta.2], [v3.0.0-beta.1]
   - 📅 2024-12-05

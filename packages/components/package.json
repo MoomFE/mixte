@@ -28,10 +28,10 @@
   "scripts": {
     "build": "tsx build.ts"
   },
-  "dependencies": {
-    "@mixte/use": "workspace:*",
-    "@vueuse/core": "*",
-    "mixte": "workspace:*",
-    "vue": "*"
+  "peerDependencies": {
+    "@mixte/use": ">=3.0.0",
+    "@vueuse/core": ">=8.0.0",
+    "mixte": ">=3.0.0",
+    "vue": ">=3.2.0"
   }
 }

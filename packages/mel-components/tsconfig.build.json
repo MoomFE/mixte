@@ -3,6 +3,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "src",
+    "paths": {
+      "@mixte/mel-components/*": ["./src/*/index.ts"]
+    },
     "outDir": "dist"
   },
   "include": [

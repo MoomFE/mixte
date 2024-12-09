@@ -29,7 +29,12 @@ const api = {
       }),
     );
 
-    const external = Object.keys(packages.dependencies ?? {});
+    const external = [
+      ...new Set([
+        ...Object.keys(packages.dependencies ?? {}),
+        ...Object.keys(packages.peerDependencies ?? {}),
+      ]),
+    ];
 
     const entry = resolve(rootDir, lib.entry);
     const outputFileName = lib.outputFileName ?? basename(entry, extname(entry));
