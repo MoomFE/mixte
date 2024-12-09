@@ -1,5 +1,8 @@
 ## [Unreleased]
-  - [@mixte/mel-components] 组件 `MelSelect` 新增 `optionsApi` 参数
+
+## [v3.1.0-beta.1]
+  - 📅 2024-12-09
+  - 🌟 [@mixte/mel-components] 组件 `MelSelect` 新增 `optionsApi` 参数
 
 ## [v3.0.0], [v3.0.0-beta.3], [v3.0.0-beta.2], [v3.0.0-beta.1]
   - 📅 2024-12-05
@@ -51,7 +54,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.1.0-beta.1...HEAD
+[v3.1.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.1.0-beta.1
 [v3.0.0]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0
 [v3.0.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0-beta.3
 [v3.0.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0-beta.2
