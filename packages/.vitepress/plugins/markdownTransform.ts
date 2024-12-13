@@ -131,8 +131,18 @@ export function MarkdownTransform(): Plugin {
           }
         }
 
-        if (imports)
-          s.append(`\n<script setup>\n  ${imports.join('\n  ')}\n</script>`);
+        if (imports.length) {
+          const scriptTag = findScriptTag(s);
+
+          if (scriptTag) {
+            const start = scriptTag.start + scriptTag.content.indexOf('>') + 1;
+
+            s.appendRight(start, `\n  ${imports.join('\n  ')}\n`);
+          }
+          else {
+            s.append(`\n<script setup>\n  ${imports.join('\n  ')}\n</script>`);
+          }
+        }
 
         return {
           code: s.toString(),
@@ -169,4 +179,38 @@ ${createNoTitleDemoMd(component, code, codeLang)}
 
 function createImportScript(component: string, path: string) {
   return `import ${component} from "./${path}.vue";`;
+}
+
+function findScriptTag(s: MagicString) {
+  const markdownContent = s.original;
+  const codeBlockRanges: Array<{ start: number; end: number }> = [];
+  const codeBlockRegex = /```[\s\S]*?```/g;
+  let match: RegExpExecArray | null;
+
+  // 找到所有代码块的范围
+  while ((match = codeBlockRegex.exec(markdownContent)) !== null) {
+    codeBlockRanges.push({ start: match.index, end: match.index + match[0].length });
+  }
+
+  const scriptTagRegex = /<script[\s\S]*?<\/script>/g;
+
+  // 查找第一个不在代码块中的 <script> 标签
+  while ((match = scriptTagRegex.exec(markdownContent)) !== null) {
+    const tagStart = match.index;
+    const tagEnd = match.index + match[0].length;
+
+    // 检查是否在代码块范围内
+    let inCodeBlock = false;
+
+    for (const range of codeBlockRanges) {
+      if (tagStart >= range.start && tagStart <= range.end) {
+        inCodeBlock = true;
+        break;
+      }
+    }
+
+    if (!inCodeBlock) {
+      return { start: tagStart, end: tagEnd, content: match[0] };
+    }
+  }
 }
