@@ -41,7 +41,7 @@
     "lint": "pnpm install && eslint .",
     "lint:fix": "pnpm install && eslint . --fix",
     "udd": "pnpm install && tsx scripts/updateDocsDetails.ts",
-    "build": "pnpm install && pnpm -r --filter=./packages/* run build",
+    "build": "pnpm install && pnpm --workspace-concurrency=Infinity -r --filter=./packages/* run build",
     "release": "pnpm test-release && npx bumpp -r --no-tag --no-push"
   },
   "devDependencies": {
