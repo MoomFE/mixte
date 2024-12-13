@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'node:url';
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash';
+import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs';
 import VueJsx from '@vitejs/plugin-vue-jsx';
 import { dirname, resolve } from 'pathe';
 import { pascalCase } from 'scule';
@@ -35,7 +36,11 @@ export default defineConfig({
 
   markdown: {
     codeTransformers: [
-      transformerTwoslash(),
+      transformerTwoslash({
+        typesCache: createFileSystemTypesCache({
+          dir: resolve(__dirname, './cache/twoslash'),
+        }),
+      }),
     ],
   },
 
