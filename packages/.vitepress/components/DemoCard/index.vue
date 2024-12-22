@@ -2,9 +2,11 @@
 
 <template>
   <div class="relative b m-theme-border rounded p-6 my-4" :class="{ pt8: showExtra, pb0: showCode }">
-    <NConfigProvider :locale="zhCN" :date-locale="dateZhCN" :theme="isDark ? darkTheme : undefined" abstract>
-      <slot />
-    </NConfigProvider>
+    <el-config-provider :locale="elZhCN">
+      <NConfigProvider :locale="zhCN" :date-locale="dateZhCN" :theme="isDark ? darkTheme : undefined" abstract>
+        <slot />
+      </NConfigProvider>
+    </el-config-provider>
 
     <!-- 功能区 -->
     <div v-if="showExtra" class="h-8 mr-2" flex="~ items-center" text="xs lh-none" pos="absolute top-0 right-0">
@@ -32,6 +34,7 @@
 
 <script lang="ts" setup>
   import type { Highlighter } from 'shiki';
+  import elZhCN from 'element-plus/es/locale/lang/zh-cn';
   import { decode } from 'js-base64';
   import { darkTheme, dateZhCN, NConfigProvider, zhCN } from 'naive-ui';
   import { getSingletonHighlighter } from 'shiki';

@@ -9,7 +9,7 @@ export interface OptionsApiConfig<T> {
   /** 请求选项数据源的方法 */
   api?: OptionsApiRequest<T>;
   /**
-   * 是否立即请求
+   * 是否立即发起请求
    * @default true
    */
   immediate?: boolean;

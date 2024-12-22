@@ -12,7 +12,7 @@ export type MelSelectOption = SetOptional<
 export interface MelSelectProps extends /* @vue-ignore */ Partial<ISelectProps> {
   /** 数据源 */
   options?: MelSelectOption[];
-  /** 请求数据源的方法 */
+  /** 请求数据源的方法或参数 */
   optionsApi?: OptionsApi<MelSelectOption>;
   /** 是否正在从远程获取数据 */
   loading?: boolean;
