@@ -1,9 +1,9 @@
 ## [Unreleased]
-  - 🐞 [@mixte/components] 修复 v3 版本以来 组件 `AutoGrid` 丢失 `AutoGridInstance` 类型导出的问题
 
-## [v3.1.0-beta.1]
-  - 📅 2024-12-09
+## [v3.1.0], [v3.1.0-beta.1]
+  - 📅 2024-12-22
   - 🌟 [@mixte/mel-components] 组件 `MelSelect` 新增 `optionsApi` 参数
+  - 🐞 [@mixte/components] 修复 v3 版本以来 组件 `AutoGrid` 丢失 `AutoGridInstance` 类型导出的问题
 
 ## [v3.0.0], [v3.0.0-beta.3], [v3.0.0-beta.2], [v3.0.0-beta.1]
   - 📅 2024-12-05
@@ -55,7 +55,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.1.0-beta.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.1.0...HEAD
+[v3.1.0]: https://github.com/MoomFE/mixte/releases/tag/v3.1.0
 [v3.1.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.1.0-beta.1
 [v3.0.0]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0
 [v3.0.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0-beta.3
