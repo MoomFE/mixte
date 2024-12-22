@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🐞 [@mixte/components] 修复 v3 版本以来 组件 `AutoGrid` 丢失 `AutoGridInstance` 类型导出的问题
 
 ## [v3.1.0-beta.1]
   - 📅 2024-12-09

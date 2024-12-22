@@ -2,3 +2,5 @@ packages:
   - 'packages/*'
   - playground
   - docs
+catalog:
+  vue-component-type-helpers: ^2.1.10
