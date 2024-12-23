@@ -36,7 +36,7 @@
     "dev": "pnpm docs:dev",
     "docs:dev": "pnpm udd && pnpm build && vitepress dev packages --host",
     "docs:build": "pnpm udd && pnpm build && vitepress build packages",
-    "docs:preview": "pnpm build && vitepress preview packages --host",
+    "docs:preview": "pnpm docs:build && vitepress preview packages --host",
     "up": "npx taze latest -r -w -i -x",
     "lint": "pnpm install && eslint .",
     "lint:fix": "pnpm install && eslint . --fix",

@@ -5,6 +5,10 @@
       "name": "Mixte/Monorepo"
     },
     {
+      "path": "packages/.vitepress",
+      "name": "Vitepress"
+    },
+    {
       "path": "packages/mixte",
       "name": "Mixte"
     },
@@ -63,6 +67,7 @@
       "*.code-workspace": true,
       "coverage": true,
       "node_modules": true,
+      "packages/.vitepress": true,
       "packages/.vitepress/cache": true,
       "packages/components": true,
       "packages/mel-components": true,
