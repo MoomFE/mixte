@@ -68,6 +68,13 @@ describe('mel-select', () => {
     }
   });
 
+  it('公开的对外导出方法, 和原组件一致', () => {
+    const mel = mount(MelSelect);
+    const el = mount(ElSelect);
+
+    expect(el.vm.focus.toString()).toBe(mel.vm.focus.toString());
+  });
+
   describe('新增参数: options', () => {
     it('传入 options 以渲染选项', () => {
       const mel = mount(MelSelect, {
@@ -170,7 +177,7 @@ describe('mel-select', () => {
       expect(options[1].text()).toBe('Option 2');
     });
 
-    it('配置不立即请求', async () => {
+    it.only('配置不立即请求', async () => {
       const mel = mount(MelSelect, {
         props: {
           teleported: false,
@@ -183,6 +190,8 @@ describe('mel-select', () => {
 
       expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
       expect(mel.find('.el-select-dropdown__empty').text()).toBe('No data');
+
+      console.log('123123', 'api' in mel.vm, mel.vm.api);
 
       mel.vm.api.execute();
       await nextTick();

@@ -39,5 +39,8 @@
     "element-plus": ">=2.5.0",
     "mixte": ">=3.0.0",
     "vue": ">=3.2.0"
+  },
+  "dependencies": {
+    "vue-component-type-helpers": "catalog:"
   }
 }
