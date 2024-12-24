@@ -1,0 +1,40 @@
+@use "./reset.scss";
+@use "./vars.scss";
+
+.mixte-tiptap-editor-menu {
+  width: 100%;
+  display: flex; align-items: center; gap: 4px;
+  z-index: 100;
+  border-bottom: 1px solid var(--mixte-te-border);
+  padding: 4px;
+  user-select: none;
+  overflow-x: auto;
+
+  > button {
+    width: 28px; height: 28px;
+    display: flex; flex: none; justify-content: center; align-items: center;
+    color: var(--mixte-te-color);
+    border-radius: 4px;
+
+    &:hover {
+      color: var(--mixte-te-color-hover);
+      background: var(--mixte-te-bg);
+    }
+
+    &.active {
+      color: var(--mixte-te-color);
+      background: var(--mixte-te-bg);
+    }
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  > .mixte-tiptap-editor-menu-split{
+    width: 1px; height: 24px;
+    flex: none;
+    background: var(--mixte-te-border);
+    margin-left: 6px; margin-right: 6px;
+  }
+}

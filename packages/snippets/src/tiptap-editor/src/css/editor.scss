@@ -1,0 +1,10 @@
+@use "./reset.scss";
+@use "./vars.scss";
+
+.mixte-tiptap-editor-wrap:not(.mixte-tiptap-editor-config-provider *) {
+  @include vars.outer-border;
+}
+
+.mixte-tiptap-editor-wrap{
+  padding: 8px 16px;
+}

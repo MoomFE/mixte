@@ -1,0 +1,19 @@
+:root {
+  --mixte-te-color: #09090B;
+  --mixte-te-color-hover: #71717A;
+  --mixte-te-border: #E4E4E7;
+  --mixte-te-bg: #F4F4F5;
+  --mixte-te-bg-panel: #FFFFFF;
+  --mixte-te-radius: 6px;
+}
+
+@mixin outer-border {
+  border: 1px solid var(--mixte-te-border);
+  border-radius: var(--mixte-te-radius);
+}
+
+@mixin shadow-md {
+  --un-shadow: var(--un-shadow-inset) 0 4px 6px -1px var(--un-shadow-color, rgb(0 0 0 / 0.1)),
+               var(--un-shadow-inset) 0 2px 4px -2px var(--un-shadow-color, rgb(0 0 0 / 0.1));
+  box-shadow: var(--un-ring-offset-shadow), var(--un-ring-shadow), var(--un-shadow);
+}

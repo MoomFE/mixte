@@ -28,6 +28,16 @@
       "import": "./dist/toggleThemeViewTransition.mjs",
       "require": "./dist/toggleThemeViewTransition.cjs"
     },
+    "./tiptap-editor": {
+      "types": "./dist/tiptap-editor.d.ts",
+      "import": "./dist/tiptap-editor.mjs",
+      "require": "./dist/tiptap-editor.cjs"
+    },
+    "./tiptap-editor/*": {
+      "types": "./dist/tiptap-editor/*.d.ts",
+      "import": "./dist/tiptap-editor/*.mjs",
+      "require": "./dist/tiptap-editor/*.cjs"
+    },
     "./*": "./*"
   },
   "files": [
@@ -41,5 +51,12 @@
     "@vueuse/core": ">=8.0.0",
     "mixte": ">=3.1.0",
     "vue": ">=3.2.0"
+  },
+  "dependencies": {
+    "@tiptap/extension-bubble-menu": "catalog:",
+    "@tiptap/extension-underline": "catalog:",
+    "@tiptap/pm": "catalog:",
+    "@tiptap/starter-kit": "catalog:",
+    "@tiptap/vue-3": "catalog:"
   }
 }

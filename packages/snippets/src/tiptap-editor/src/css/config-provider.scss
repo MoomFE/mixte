@@ -1,0 +1,5 @@
+@use "./vars.scss";
+
+.mixte-tiptap-editor-config-provider{
+  @include vars.outer-border;
+}
