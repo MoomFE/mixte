@@ -2,7 +2,13 @@
   "extends": "../../tsconfig.tsc.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": "src"
+    "rootDir": "src",
+    "paths": {
+      "@mixte/snippets/tiptap-editor/config-provider-Injection-state": ["./src/tiptap-editor/src/config-provider-Injection-state"],
+      "@mixte/snippets/tiptap-editor/icons": ["./src/tiptap-editor/src/icons"],
+      "@mixte/snippets/tiptap-editor/menu": ["./src/tiptap-editor/menu"]
+    },
+    "outDir": "dist/dts"
   },
   "include": [
     "src/**/*"

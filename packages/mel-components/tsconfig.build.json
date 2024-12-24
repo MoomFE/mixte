@@ -6,7 +6,7 @@
     "paths": {
       "@mixte/mel-components/*": ["./src/*/index.ts"]
     },
-    "outDir": "dist"
+    "outDir": "dist/dts"
   },
   "include": [
     "src/**/*"

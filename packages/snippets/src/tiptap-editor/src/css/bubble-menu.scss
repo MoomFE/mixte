@@ -1,0 +1,7 @@
+@use "./reset.scss";
+@use "./vars.scss";
+@use "./menu.scss";
+
+.mixte-tiptap-editor-bubble-menu{
+  @apply b-(1 solid [var(--mixte-te-border)]) rounded-[var(--mixte-te-radius)] shadow-md bg-[var(--mixte-te-bg-panel)];
+}

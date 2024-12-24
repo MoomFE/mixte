@@ -1,0 +1,26 @@
+@use "./reset.scss";
+@use "./vars.scss";
+
+.mixte-tiptap-editor-menu {
+  @apply w-full flex items-center gap-1;
+  @apply sticky top-0 left-0 z-100;
+  @apply select-none overflow-x-auto;
+  @apply b-b-(1 solid [var(--mixte-te-border)]) p-1;
+
+  > button {
+    @apply size-7 flex flex-none justify-center items-center;
+    @apply c-[var(--mixte-te-color)] rounded;
+    @apply hover-(c-[var(--mixte-te-color-hover)] bg-[var(--mixte-te-bg)]);
+
+    &.active {
+      @apply c-[var(--mixte-te-color)]! bg-[var(--mixte-te-bg)]!;
+    }
+    &.disabled {
+      @apply op-50 pointer-events-none;
+    }
+  }
+
+  > .mixte-tiptap-editor-menu-split{
+    @apply h-6 w-1px flex-none bg-[var(--mixte-te-border)] mx-1.5;
+  }
+}

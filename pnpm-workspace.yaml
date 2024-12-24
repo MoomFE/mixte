@@ -4,3 +4,8 @@ packages:
   - docs
 catalog:
   vue-component-type-helpers: ^2.1.10
+  '@tiptap/extension-bubble-menu': ^2.10.4
+  '@tiptap/extension-underline': ^2.10.4
+  '@tiptap/pm': ^2.10.4
+  '@tiptap/starter-kit': ^2.10.4
+  '@tiptap/vue-3': ^2.10.4

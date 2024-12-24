@@ -8,6 +8,9 @@ import fs from 'fs-extra';
 import { basename, extname, resolve } from 'pathe';
 import { rollup } from 'rollup';
 import { dts } from 'rollup-plugin-dts';
+import IconsResolver from 'unplugin-icons/resolver';
+import Icons from 'unplugin-icons/vite';
+import Components from 'unplugin-vue-components/vite';
 import { build, normalizePath } from 'vite';
 
 const api = {
@@ -31,6 +34,7 @@ const api = {
 
     const external = [
       ...new Set([
+        /^@?mixte(\/|$)/,
         ...Object.keys(packages.dependencies ?? {}),
         ...Object.keys(packages.peerDependencies ?? {}),
       ]),
@@ -45,7 +49,21 @@ const api = {
         alias,
       },
       plugins: [
-        lib.vueComponent && [Vue(), VueJsx()],
+        Icons({
+          scale: 1,
+          compiler: 'vue3',
+        }),
+        lib.vueComponent && [
+          Vue(),
+          VueJsx(),
+          Components({
+            dts: false,
+            dirs: [],
+            resolvers: [
+              IconsResolver({ prefix: 'i' }),
+            ],
+          }),
+        ],
       ],
       build: {
         outDir,
@@ -67,9 +85,11 @@ const api = {
     });
 
     const dtsInput = lib.vueComponent
-      ? await fs.exists(`${outDir}/${outputFileName}/index.d.ts`)
-        ? `${outDir}/${outputFileName}/index.d.ts`
-        : `${outDir}/${outputFileName}.d.ts`
+      ? lib.vueDtsInput
+        ? resolve(outDir, 'dts', lib.vueDtsInput)
+        : await fs.exists(`${outDir}/dts/${outputFileName}/index.d.ts`)
+          ? `${outDir}/dts/${outputFileName}/index.d.ts`
+          : `${outDir}/dts/${outputFileName}.d.ts`
       : entry;
 
     // 打包 vue 组件的 .d.ts 文件

@@ -5,7 +5,8 @@
     "rootDir": "src",
     "paths": {
       "@mixte/use": ["./src/index.ts"]
-    }
+    },
+    "outDir": "dist/dts"
   },
   "include": [
     "src/**/*"
