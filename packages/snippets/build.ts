@@ -14,4 +14,9 @@ defineBuild([
     outputFileName: 'useNaiveForm',
     dtsExternal: ['naive-ui'],
   },
+  {
+    entry: './src/tiptap-editor/index.ts',
+    outputFileName: 'tiptap-editor',
+    vueComponent: true,
+  },
 ]);

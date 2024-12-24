@@ -205,6 +205,13 @@
       "sidebarTitle": ""
     },
     {
+      "fn": "tiptap-editor",
+      "title": "TiptapEditor",
+      "name": "富文本编辑器",
+      "hiddenTitle": false,
+      "sidebarTitle": "TiptapEditor"
+    },
+    {
       "fn": "toggleThemeViewTransition",
       "title": "",
       "name": "",
