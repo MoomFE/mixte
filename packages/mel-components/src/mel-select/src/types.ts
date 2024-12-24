@@ -1,8 +1,10 @@
-import type { OptionsApi } from '@mixte/mel-components/utils';
+import type { OptionsApi, useOptionsApi } from '@mixte/mel-components/utils';
 import type { ElSelect, ISelectProps, SelectOptionProxy } from 'element-plus';
 import type { SetOptional } from 'type-fest';
+import type { Ref } from 'vue';
+import type { ComponentExposed } from 'vue-component-type-helpers';
 
-export type SelectInstance = InstanceType<typeof ElSelect>;
+export type SelectInstance = ComponentExposed<typeof ElSelect>;
 
 export type MelSelectOption = SetOptional<
   Pick<SelectOptionProxy, 'value' | 'label' | 'disabled'>,
@@ -57,3 +59,15 @@ export interface MelSelectSlots {
    */
   label?: () => void;
 }
+
+export type MelSelectExpose = {
+  selectRef: Ref<SelectInstance | undefined>;
+  api: ReturnType<typeof useOptionsApi>['api'];
+} & {
+  /** 使选择器的输入框获取焦点 */
+  focus: SelectInstance['focus'];
+  /** 使选择器的输入框失去焦点，并隐藏下拉框 */
+  blur: SelectInstance['blur'];
+  /** 获取当前选中的标签 */
+  selectedLabel: SelectInstance['selectedLabel'];
+};

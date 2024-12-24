@@ -4,8 +4,7 @@
 
 <script lang="tsx" setup>
   import type { ISelectProps } from 'element-plus';
-  import type { Ref } from 'vue';
-  import type { MelSelectProps, MelSelectSlots, SelectInstance } from './types';
+  import type { MelSelectExpose, MelSelectProps, MelSelectSlots, SelectInstance } from './types';
   import { useOptionsApi } from '@mixte/mel-components/utils';
   import { ElOption, ElSelect } from 'element-plus';
   import { computed, ref, toRef, useAttrs } from 'vue';
@@ -44,8 +43,15 @@
     );
   }
 
-  defineExpose({
-    selectRef: selectRef as Ref<SelectInstance | undefined>,
-    api,
-  });
+  defineExpose<MelSelectExpose>(
+    // @ts-expect-error
+    new Proxy({ selectRef, api }, {
+      get(target, key) {
+        return Reflect.get(target, key) ?? Reflect.get(selectRef.value ?? {}, key);
+      },
+      has(target, key) {
+        return Reflect.has(target, key) || Reflect.has(selectRef.value ?? {}, key);
+      },
+    }),
+  );
 </script>

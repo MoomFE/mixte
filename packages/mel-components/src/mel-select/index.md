@@ -10,6 +10,8 @@ outline: [1,3]
 
 ### `使用 optionsApi 传递请求数据源的参数`
 
+### 组件上的方法
+
 ## API
 
 ### Props
