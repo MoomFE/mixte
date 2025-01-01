@@ -29,9 +29,9 @@
     "build": "tsx build.ts"
   },
   "peerDependencies": {
-    "@mixte/use": ">=3.0.0",
+    "@mixte/use": ">=3.1.0",
     "@vueuse/core": ">=8.0.0",
-    "mixte": ">=3.0.0",
+    "mixte": ">=3.1.0",
     "vue": ">=3.2.0"
   },
   "dependencies": {
