@@ -1,3 +1,4 @@
+import type { ExternalOption } from 'rollup';
 import { exec } from 'node:child_process';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
@@ -30,11 +31,11 @@ interface LibConfig {
   /**
    * 需要排除的依赖
    */
-  external?: string[];
+  external?: ExternalOption;
   /**
    * 打包 dts 时需要排除的依赖
    */
-  dtsExternal?: string[];
+  dtsExternal?: ExternalOption;
   /**
    * 是否是 vue 组件
    */

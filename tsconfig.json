@@ -17,6 +17,11 @@
         "./packages/snippets/src/tiptap-editor/src/*",
         "./packages/snippets/src/tiptap-editor/*"
       ],
+      "@mixte/snippets/dist/lottery/css/*": ["./packages/snippets/src/lottery/src/css/*"],
+      "@mixte/snippets/lottery/*": [
+        "./packages/snippets/src/lottery/src/*",
+        "./packages/snippets/src/lottery/*"
+      ],
       "@mixte/mel-components/*": ["./packages/mel-components/src/*/index.ts"],
       "@mixte/*": ["./packages/*/src/index.ts"],
       "@/*": ["./packages/*"],

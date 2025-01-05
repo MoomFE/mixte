@@ -11,14 +11,21 @@ export const alias: Alias[] = [
   { find: '@mixte/use', replacement: resolve(__dirname, '../packages/use/src/index') },
   { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/src/$1/index') },
   { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/src/index') },
-  { find: /^@mixte\/snippets\/dist\/tiptap-editor\/css\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/src/tiptap-editor/src/css/$1') },
+  {
+    find: /^@mixte\/snippets\/dist\/(tiptap-editor|lottery)\/css\/(.*)$/,
+    replacement: resolve(__dirname, '../packages/snippets/src/$1/src/css/$2'),
+  },
   {
     find: /^@mixte\/snippets\/tiptap-editor\/(config-provider-Injection-state|icons)$/,
     replacement: resolve(__dirname, '../packages/snippets/src/tiptap-editor/src/$1'),
   },
   {
-    find: /^@mixte\/snippets\/tiptap-editor\/(.*)$/,
-    replacement: resolve(__dirname, '../packages/snippets/src/tiptap-editor/$1'),
+    find: /^@mixte\/snippets\/lottery\/(config-provider-Injection-state|utils)$/,
+    replacement: resolve(__dirname, '../packages/snippets/src/lottery/src/$1'),
+  },
+  {
+    find: /^@mixte\/snippets\/(tiptap-editor|lottery)\/(.*)$/,
+    replacement: resolve(__dirname, '../packages/snippets/src/$1/$2'),
   },
   { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/src/$1/index') },
   { find: /^@mixte\/mel-components\/(.*)$/, replacement: resolve(__dirname, '../packages/mel-components/src/$1/index') },
@@ -31,10 +38,13 @@ export const testAlias: Alias[] = [
   { find: '@mixte/use', replacement: resolve(__dirname, '../packages/use/dist/index') },
   { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/dist/$1') },
   { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/dist/index') },
-  { find: /^@mixte\/snippets\/dist\/tiptap-editor\/css\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/dist/tiptap-editor/css/$1') },
   {
-    find: /^@mixte\/snippets\/tiptap-editor\/(.*)$/,
-    replacement: resolve(__dirname, '../packages/snippets/dist/tiptap-editor/$1'),
+    find: /^@mixte\/snippets\/dist\/(tiptap-editor|lottery)\/css\/(.*)$/,
+    replacement: resolve(__dirname, '../packages/snippets/dist/$1/css/$2'),
+  },
+  {
+    find: /^@mixte\/snippets\/(tiptap-editor|lottery)\/(.*)$/,
+    replacement: resolve(__dirname, '../packages/snippets/dist/$1/$2'),
   },
   { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/dist/$1') },
   { find: /^@mixte\/mel-components\/(.*)$/, replacement: resolve(__dirname, '../packages/mel-components/dist/$1') },
