@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.2.0-beta.1]
+  - 📅 2025-01-05
   - 🌟 [@mixte/snippets] 新增 Tiptap 编辑器组件 ( 开发中 )
 
 ## [v3.1.0], [v3.1.0-beta.1]
@@ -56,7 +59,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.1.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0-beta.1...HEAD
+[v3.2.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.1
 [v3.1.0]: https://github.com/MoomFE/mixte/releases/tag/v3.1.0
 [v3.1.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.1.0-beta.1
 [v3.0.0]: https://github.com/MoomFE/mixte/releases/tag/v3.0.0
