@@ -6,7 +6,9 @@
     "paths": {
       "@mixte/snippets/tiptap-editor/config-provider-Injection-state": ["./src/tiptap-editor/src/config-provider-Injection-state"],
       "@mixte/snippets/tiptap-editor/icons": ["./src/tiptap-editor/src/icons"],
-      "@mixte/snippets/tiptap-editor/menu": ["./src/tiptap-editor/menu"]
+      "@mixte/snippets/tiptap-editor/menu": ["./src/tiptap-editor/menu"],
+      "@mixte/snippets/lottery/config-provider-Injection-state": ["./src/lottery/src/config-provider-Injection-state"],
+      "@mixte/snippets/lottery/utils": ["./src/lottery/src/utils"]
     },
     "outDir": "dist/dts"
   },

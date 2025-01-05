@@ -1,41 +1,56 @@
 <!-- Demo 卡片 -->
 
 <template>
-  <div class="relative b m-theme-border rounded p-6 my-4" :class="{ pt8: showExtra, pb0: showCode }">
-    <el-config-provider :locale="elZhCN">
-      <NConfigProvider :locale="zhCN" :date-locale="dateZhCN" :theme="isDark ? darkTheme : undefined" abstract>
-        <slot />
-      </NConfigProvider>
-    </el-config-provider>
+  <Teleport :disabled="!fullscreen" to="body">
+    <div
+      class="relative b m-theme-border rounded p-6 my-4"
+      :class="{
+        'pt8': showExtra,
+        'pb0': showCode,
+        'size-full fixed! top-0 left-0 z-100 bg-white my-0!': fullscreen,
+      }"
+    >
+      <el-config-provider :locale="elZhCN">
+        <NConfigProvider :locale="zhCN" :date-locale="dateZhCN" :theme="isDark ? darkTheme : undefined" abstract>
+          <slot />
+        </NConfigProvider>
+      </el-config-provider>
 
-    <!-- 功能区 -->
-    <div v-if="showExtra" class="h-8 mr-2" flex="~ items-center" text="xs lh-none" pos="absolute top-0 right-0">
-      <el-button link @click="toggleShowCodeState()">
-        <i-material-symbols-code-rounded class="size-4.5" />
-      </el-button>
-    </div>
+      <!-- 功能区 -->
+      <div v-if="showExtra" class="h-8 mr-2" flex="~ items-center" text-xs lh-none pos="absolute top-0 right-0">
+        <el-button link @click="isLocked = fullscreen = !fullscreen">
+          <i-ant-design-fullscreen-exit-outlined v-if="fullscreen" class="size-4.5" />
+          <i-ant-design-fullscreen-outlined v-else class="size-4.5" />
+        </el-button>
 
-    <!-- 代码区 -->
-    <div v-if="showCode" class="text-sm b-t m-theme-border rounded-b m-(t6 x--6)">
-      <ShikiMagicMove
-        v-if="highlighter"
-        class="my-0 px-3 py-2 overflow-auto"
-        theme="material-theme-darker"
-        :lang="codeLang"
-        :highlighter="highlighter"
-        :code="code.trim()"
-      />
-      <div v-else flex="~ justify-center" py-2>
-        <i-svg-spinners-ring-resize />
+        <el-button v-if="!fullscreen" link @click="toggleShowCodeState()">
+          <i-material-symbols-code-rounded class="size-4.5" />
+        </el-button>
+      </div>
+
+      <!-- 代码区 -->
+      <div v-if="showCode && !fullscreen" class="text-sm b-t m-theme-border rounded-b m-(t6 x--6)">
+        <ShikiMagicMove
+          v-if="highlighter"
+          class="my-0 px-3 py-2 overflow-auto"
+          theme="material-theme-darker"
+          :lang="codeLang"
+          :highlighter="highlighter"
+          :code="code.trim()"
+        />
+        <div v-else flex="~ justify-center" py-2>
+          <i-svg-spinners-ring-resize />
+        </div>
       </div>
     </div>
-  </div>
+  </Teleport>
 </template>
 
 <script lang="ts" setup>
   import type { Highlighter } from 'shiki';
   import elZhCN from 'element-plus/es/locale/lang/zh-cn';
   import { decode } from 'js-base64';
+  import { isBrowser } from 'mixte';
   import { darkTheme, dateZhCN, NConfigProvider, zhCN } from 'naive-ui';
   import { getSingletonHighlighter } from 'shiki';
   import { ShikiMagicMove } from 'shiki-magic-move/vue';
@@ -50,6 +65,9 @@
   const props = defineProps<Props>();
 
   const { isDark } = useData();
+
+  const fullscreen = ref(false);
+  const isLocked = useScrollLock(isBrowser ? window : undefined);
 
   const highlighter = shallowRef<Highlighter>();
 

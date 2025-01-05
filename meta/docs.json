@@ -205,6 +205,13 @@
       "sidebarTitle": ""
     },
     {
+      "fn": "lottery",
+      "title": "Lottery",
+      "name": "年会抽奖",
+      "hiddenTitle": false,
+      "sidebarTitle": "Lottery"
+    },
+    {
       "fn": "tiptap-editor",
       "title": "TiptapEditor",
       "name": "富文本编辑器",

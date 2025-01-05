@@ -38,6 +38,16 @@
       "import": "./dist/tiptap-editor/*.mjs",
       "require": "./dist/tiptap-editor/*.cjs"
     },
+    "./lottery": {
+      "types": "./dist/lottery.d.ts",
+      "import": "./dist/lottery.mjs",
+      "require": "./dist/lottery.cjs"
+    },
+    "./lottery/*": {
+      "types": "./dist/lottery/*.d.ts",
+      "import": "./dist/lottery/*.mjs",
+      "require": "./dist/lottery/*.cjs"
+    },
     "./*": "./*"
   },
   "files": [
@@ -48,6 +58,7 @@
     "build": "tsx build.ts"
   },
   "peerDependencies": {
+    "@mixte/use": ">=3.1.0",
     "@vueuse/core": ">=8.0.0",
     "mixte": ">=3.1.0",
     "vue": ">=3.2.0"
@@ -57,6 +68,9 @@
     "@tiptap/extension-underline": "catalog:",
     "@tiptap/pm": "catalog:",
     "@tiptap/starter-kit": "catalog:",
-    "@tiptap/vue-3": "catalog:"
+    "@tiptap/vue-3": "catalog:",
+    "@types/three": "catalog:",
+    "gsap": "catalog:",
+    "three": "catalog:"
   }
 }
