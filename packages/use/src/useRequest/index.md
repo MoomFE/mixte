@@ -225,11 +225,11 @@ const loginInfo = login();
 也可以在定义接口处接收相关配置选项, 在调用端根据需求自行配置:
 
 ```ts twoslash {3,6,10,11,12,13}
+import type { UseRequestOptions } from '@mixte/use';
 // ---cut-start---
 import { useRequest } from '@mixte/use';
 import axios from 'axios';
 // ---cut-end---
-import type { UseRequestOptions } from '@mixte/use';
 
 function login(options?: UseRequestOptions) {
   return useRequest(
