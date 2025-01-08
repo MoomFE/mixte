@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
   import type { LotteryProps } from './types';
-  import { colCount, resolution, rowCount, useProvideStore, useStore } from '@mixte/snippets/lottery/config-provider-Injection-state';
+  import { colCount, rowCount, useProvideStore, useStore } from '@mixte/snippets/lottery/config-provider-Injection-state';
   import { createCard, createHighlight } from '@mixte/snippets/lottery/utils';
   import { random } from 'mixte';
   import * as THREE from 'three';
@@ -89,7 +89,7 @@
       const phi = Math.acos(-1 + (2 * i) / l);
       const theta = Math.sqrt(l * Math.PI) * phi;
       const object = new THREE.Object3D();
-      object.position.setFromSphericalCoords(800 * resolution, phi, theta);
+      object.position.setFromSphericalCoords(800, phi, theta);
       vector.copy(object.position).multiplyScalar(2);
       object.lookAt(vector);
       targets.sphere.push(object);

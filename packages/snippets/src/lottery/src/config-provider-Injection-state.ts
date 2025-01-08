@@ -12,7 +12,6 @@ import { computed, reactive, ref, watch } from 'vue';
 export const rowCount = 7;
 export const colCount = 17;
 export const total = rowCount * colCount;
-export const resolution = 1;
 
 export const [
   useProvideStore,
@@ -87,13 +86,6 @@ export const [
           ease: 'expo.inOut',
         }, 0);
       }
-
-      // 确保渲染更新
-      gsap.ticker.add(render);
-      // 动画结束后移除渲染器
-      tl.call(() => {
-        gsap.ticker.remove(render);
-      });
     });
   });
 
@@ -145,13 +137,6 @@ export const [
           duration: random(duration, duration * 2) / 1000,
           ease: 'expo.inOut',
         }, 0);
-      });
-
-      // 确保渲染更新
-      gsap.ticker.add(render);
-      // 动画结束后移除渲染器
-      tl.call(() => {
-        gsap.ticker.remove(render);
       });
     });
   });
@@ -206,19 +191,19 @@ export const [
 
         tag = -(mid - 1) / 2;
         for (let i = 0; i < mid; i++) {
-          locates.push({ x: tag * width * resolution, y: yPosition[0] * resolution });
+          locates.push({ x: tag * width, y: yPosition[0] });
           tag++;
         }
 
         tag = -(l - mid - 1) / 2;
         for (let i = mid; i < l; i++) {
-          locates.push({ x: tag * width * resolution, y: yPosition[1] * resolution });
+          locates.push({ x: tag * width, y: yPosition[1] });
           tag++;
         }
       }
       else {
         for (let i = selectedCardIndex.value.length; i > 0; i--) {
-          locates.push({ x: tag * width * resolution, y: 0 * resolution });
+          locates.push({ x: tag * width, y: 0 });
           tag++;
         }
       }
@@ -238,7 +223,7 @@ export const [
         // 添加到时间轴
         tl.to(card.position, {
           x: locates[index].x,
-          y: locates[index].y * resolution,
+          y: locates[index].y,
           z: 2200,
           duration: duration / 1000,
           ease: 'expo.inOut',
@@ -253,13 +238,6 @@ export const [
         }, 0);
 
         card.element.classList.add('prize');
-      });
-
-      // 每帧更新渲染
-      gsap.ticker.add(render);
-      // 动画结束后移除渲染器
-      tl.call(() => {
-        gsap.ticker.remove(render);
       });
     });
   });
