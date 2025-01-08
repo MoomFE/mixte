@@ -2,7 +2,7 @@ import type * as THREE from 'three';
 import type { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js';
 import type { CSS3DObject, CSS3DRenderer } from './CSS3DRenderer';
 import type { LotteryProps, User } from './types';
-import { createHighlight, updateCard, updateCardBg } from '@mixte/snippets/lottery/utils';
+import { addHighlight, createHighlight, removeHighlight, updateCard, updateCardBg } from '@mixte/snippets/lottery/utils';
 import { useRequest, watchImmediate, wheneverEffectScope, wheneverEffectScopeImmediate } from '@mixte/use';
 import { createInjectionState, useCssVar, useElementSize, useIntervalFn } from '@vueuse/core';
 import { gsap } from 'gsap';
@@ -92,10 +92,12 @@ export const [
 
   function transformToTable(duration = 2000) {
     if (isTable.value) return;
+    addHighlight(cards.value);
     return transform.execute(targets.current = targets.table, duration);
   }
   function transformToSphere(duration = 2000) {
     if (isSphere.value) return;
+    removeHighlight(cards.value);
     return transform.execute(targets.current = targets.sphere, duration);
   }
 

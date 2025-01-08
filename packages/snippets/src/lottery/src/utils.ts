@@ -63,16 +63,14 @@ export function createElement(className?: string, html?: string) {
 export function createCard(user: User, isBold: boolean, id: string | number, showTable: boolean) {
   const el = createElement();
   el.id = `card-${id}`;
+  el.className = 'mixte-lottery-card';
+  el.style.backgroundColor = `rgba(var(--mixte-lottery-primary-rgb), ${randomNatural(25, 95) / 100})`;
 
   if (isBold) {
-    el.className = 'mixte-lottery-card lightitem';
+    el.classList.add('lightitem');
     if (showTable) {
       el.classList.add('highlight');
     }
-  }
-  else {
-    el.className = 'mixte-lottery-card';
-    el.style.backgroundColor = `rgba(var(--mixte-lottery-primary-rgb), ${randomNatural(25, 95) / 100})`;
   }
 
   el.appendChild(
@@ -101,4 +99,26 @@ export function updateCard(card: CSS3DObject, user: User) {
  */
 export function updateCardBg(card: CSS3DObject) {
   card.element.style.backgroundColor = `rgba(var(--mixte-lottery-primary-rgb), ${randomNatural(25, 95) / 100})`;
+}
+
+/**
+ * 移除所有的高亮单元格
+ */
+export function removeHighlight(cards: CSS3DObject[]) {
+  cards.forEach((card) => {
+    card.element.classList.remove('highlight');
+  });
+}
+
+/**
+ * 添加高亮单元格
+ */
+export function addHighlight(cards: CSS3DObject[]) {
+  cards.forEach((card) => {
+    const el = card.element;
+
+    if (el.classList.contains('lightitem')) {
+      el.classList.add('highlight');
+    }
+  });
 }
