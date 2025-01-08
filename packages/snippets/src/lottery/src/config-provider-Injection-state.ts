@@ -175,20 +175,20 @@ export const [
       const width = (12 * vhValue.value) + (2 * vhValue.value);
       const height = (16 * vhValue.value) + (2 * vhValue.value);
       const locates: { x: number; y: number }[] = [];
-      const total = users.length;
+      const userTotal = users.length;
 
       // 计算每行显示数量
       let colNum = 5; // 默认每行5个
-      if (total > 15) {
-        colNum = Math.ceil(total / 3); // 大于15个时，将总数/3作为每行数量
+      if (userTotal > 15) {
+        colNum = Math.ceil(userTotal / 3); // 大于15个时，将总数/3作为每行数量
       }
 
       // 计算总行数
-      const rowNum = Math.ceil(total / colNum);
+      const rowNum = Math.ceil(userTotal / colNum);
       // 计算起始位置
       const startY = ((rowNum - 1) * height) / 2;
 
-      while (selectedCardIndex.value.length < total) {
+      while (selectedCardIndex.value.length < userTotal) {
         const index = randomNatural(0, total - 1);
         if (!selectedCardIndex.value.includes(index))
           selectedCardIndex.value.push(index);
@@ -196,7 +196,7 @@ export const [
 
       // 计算每个卡片的位置
       for (let row = 0; row < rowNum; row++) {
-        const itemsInThisRow = Math.min(colNum, total - row * colNum);
+        const itemsInThisRow = Math.min(colNum, userTotal - row * colNum);
         const startX = -((itemsInThisRow - 1) * width) / 2;
 
         for (let col = 0; col < itemsInThisRow; col++) {
@@ -214,9 +214,9 @@ export const [
       });
 
       // 10 个以下, z = 2100; 每多 3 个, z - 88
-      const z = total <= 10
+      const z = userTotal <= 10
         ? 2100
-        : 2100 - Math.floor((total - 10) / 3) * 88;
+        : 2100 - Math.floor((userTotal - 10) / 3) * 88;
 
       selectedCardIndex.value.forEach((cardIndex, index) => {
         const card = cards.value[cardIndex];

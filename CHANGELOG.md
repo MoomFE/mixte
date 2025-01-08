@@ -1,5 +1,6 @@
 ## [Unreleased]
   - 💄 [@mixte/snippets] 优化 `Lottery` 的 `selectCard` 展示卡片的 z 值计算逻辑
+  - 🐞 [@mixte/snippets] 修复 `Lottery` 的 `selectCard` 抽取卡片每次都是底部卡片的问题
 
 ## [v3.2.0-beta.3]
   - 📅 2025-01-08
