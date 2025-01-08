@@ -185,7 +185,6 @@ export const [
 
       // 计算总行数
       const rowNum = Math.ceil(total / colNum);
-
       // 计算起始位置
       const startY = ((rowNum - 1) * height) / 2;
 
@@ -214,6 +213,11 @@ export const [
         },
       });
 
+      // 10 个以下, z = 2100; 每多 3 个, z - 88
+      const z = total <= 10
+        ? 2100
+        : 2100 - Math.floor((total - 10) / 3) * 88;
+
       selectedCardIndex.value.forEach((cardIndex, index) => {
         const card = cards.value[cardIndex];
         const user = users[index];
@@ -224,7 +228,7 @@ export const [
         tl.to(card.position, {
           x: locates[index].x,
           y: locates[index].y,
-          z: 2200,
+          z,
           duration: duration / 1000,
           ease: 'expo.inOut',
         }, 0);
