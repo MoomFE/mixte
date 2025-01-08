@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.2.0-beta.3]
+  - 📅 2025-01-08
   - 💄 [@mixte/snippets] 优化 `Lottery` 的 `selectCard` 逻辑, 最大显示行数扩展为 3 行, 数量大于 15 个时, 将分为 3 行均匀排列
   - 💄 [@mixte/snippets] 移除 `Lottery` 组件无用代码
 
@@ -65,7 +68,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0-beta.2...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0-beta.3...HEAD
+[v3.2.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.3
 [v3.2.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.2
 [v3.2.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.1
 [v3.1.0]: https://github.com/MoomFE/mixte/releases/tag/v3.1.0
