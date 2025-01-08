@@ -4,15 +4,17 @@
 
 <script lang="ts" setup>
   import type { LotteryProps } from './types';
-  import { colCount, rowCount, useProvideStore, useStore } from '@mixte/snippets/lottery/config-provider-Injection-state';
-  import { createCard, createHighlight } from '@mixte/snippets/lottery/utils';
+  import { colCount, rowCount, useProvideStore, useShine, useStore } from '@mixte/snippets/lottery/config-provider-Injection-state';
+  import { createCard } from '@mixte/snippets/lottery/utils';
   import { random } from 'mixte';
   import * as THREE from 'three';
   import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js';
   import { onMounted } from 'vue';
   import { CSS3DObject, CSS3DRenderer } from './CSS3DRenderer';
 
-  const props = defineProps<LotteryProps>();
+  const props = withDefaults(defineProps<LotteryProps>(), {
+    shine: true,
+  });
 
   const {
     rootRef,
@@ -24,6 +26,7 @@
     renderer,
     controls,
 
+    highlightCells,
     cards,
     targets,
 
@@ -43,7 +46,7 @@
     animate,
   } = useStore() ?? useProvideStore();
 
-  const highlightCells = createHighlight();
+  useShine(props);
 
   function init() {
     const users = Array.from(props.users);

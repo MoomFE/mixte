@@ -1,10 +1,10 @@
 import type * as THREE from 'three';
 import type { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js';
 import type { CSS3DObject, CSS3DRenderer } from './CSS3DRenderer';
-import type { User } from './types';
-import { updateCard } from '@mixte/snippets/lottery/utils';
-import { useRequest, watchImmediate, wheneverEffectScope } from '@mixte/use';
-import { createInjectionState, useCssVar, useElementSize } from '@vueuse/core';
+import type { LotteryProps, User } from './types';
+import { createHighlight, updateCard, updateCardBg } from '@mixte/snippets/lottery/utils';
+import { useRequest, watchImmediate, wheneverEffectScope, wheneverEffectScopeImmediate } from '@mixte/use';
+import { createInjectionState, useCssVar, useElementSize, useIntervalFn } from '@vueuse/core';
 import { gsap } from 'gsap';
 import { onceRun, random, randomNatural } from 'mixte';
 import { computed, reactive, ref, watch } from 'vue';
@@ -100,24 +100,24 @@ export const [
   }
 
   const rotateGsap = ref<gsap.core.Tween>();
-  const selectedCardIndex = ref<number[]>([]);
+  const selectedCardsIndex = ref<number[]>([]);
 
   const resetCard = onceRun((duration = 500) => {
-    if (!selectedCardIndex.value.length) return Promise.resolve();
+    if (!selectedCardsIndex.value.length) return Promise.resolve();
 
     return new Promise<void>((resolve) => {
       const tl = gsap.timeline({
         onComplete: () => {
-          selectedCardIndex.value.forEach((index) => {
+          selectedCardsIndex.value.forEach((index) => {
             const card = cards.value[index];
             card.element.classList.remove('prize');
           });
-          selectedCardIndex.value = [];
+          selectedCardsIndex.value = [];
           resolve();
         },
       });
 
-      selectedCardIndex.value.forEach((index) => {
+      selectedCardsIndex.value.forEach((index) => {
         const card = cards.value[index];
         const target = targets.current[index];
 
@@ -188,10 +188,10 @@ export const [
       // 计算起始位置
       const startY = ((rowNum - 1) * height) / 2;
 
-      while (selectedCardIndex.value.length < userTotal) {
+      while (selectedCardsIndex.value.length < userTotal) {
         const index = randomNatural(0, total - 1);
-        if (!selectedCardIndex.value.includes(index))
-          selectedCardIndex.value.push(index);
+        if (!selectedCardsIndex.value.includes(index))
+          selectedCardsIndex.value.push(index);
       }
 
       // 计算每个卡片的位置
@@ -218,7 +218,7 @@ export const [
         ? 2100
         : 2100 - Math.floor((userTotal - 10) / 3) * 88;
 
-      selectedCardIndex.value.forEach((cardIndex, index) => {
+      selectedCardsIndex.value.forEach((cardIndex, index) => {
         const card = cards.value[cardIndex];
         const user = users[index];
 
@@ -252,6 +252,8 @@ export const [
     vh.value = `${vhValue.value}px`;
   });
 
+  const highlightCells = createHighlight();
+
   return {
     rootRef,
     rootWidth,
@@ -262,6 +264,7 @@ export const [
     renderer,
     controls,
 
+    highlightCells,
     cards,
     targets,
     isTable,
@@ -275,9 +278,47 @@ export const [
     stopRotate,
     isRotating: rotate.isLoading,
 
+    selectedCardsIndex,
     selectCard,
     resetCard,
 
     animate,
   };
 });
+
+/**
+ * 随机切换卡片内容和背景, 实现卡片闪烁效果
+ */
+export function useShine(props: LotteryProps) {
+  const { cards, isRotating, selectedCardsIndex } = useStore()!;
+
+  wheneverEffectScopeImmediate(() => props.shine && !!props.users.length && !!cards.value.length, () => {
+    useIntervalFn(
+      () => {
+        if (isRotating.value) return;
+
+        const shineCount = randomNatural(10, 20);
+
+        for (let i = 0; i < shineCount; i++) {
+          const index = randomNatural(0, total);
+
+          // 当前选中的卡片不进行切换
+          if (selectedCardsIndex.value.includes(index)) {
+            continue;
+          }
+
+          const user = props.users[randomNatural(0, props.users.length - 1)];
+          const card = cards.value[index];
+
+          updateCard(card, user);
+
+          // 非高亮单元格切换背景
+          if (!card.element.classList.contains('lightitem')) {
+            updateCardBg(card);
+          }
+        }
+      },
+      500,
+    );
+  });
+}

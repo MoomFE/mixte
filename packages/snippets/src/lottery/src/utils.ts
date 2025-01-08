@@ -58,7 +58,7 @@ export function createElement(className?: string, html?: string) {
 }
 
 /**
- * 创建名牌
+ * 创建卡片
  */
 export function createCard(user: User, isBold: boolean, id: string | number, showTable: boolean) {
   const el = createElement();
@@ -72,7 +72,7 @@ export function createCard(user: User, isBold: boolean, id: string | number, sho
   }
   else {
     el.className = 'mixte-lottery-card';
-    el.style.backgroundColor = `rgba(var(--mixte-lottery-primary-rgb), ${randomNatural(25, 100) / 100})`;
+    el.style.backgroundColor = `rgba(var(--mixte-lottery-primary-rgb), ${randomNatural(25, 95) / 100})`;
   }
 
   el.appendChild(
@@ -87,11 +87,18 @@ export function createCard(user: User, isBold: boolean, id: string | number, sho
 }
 
 /**
- * 修改指定名牌
+ * 修改指定卡片
  */
 export function updateCard(card: CSS3DObject, user: User) {
   const el = card.element;
   const newEl = createCard(user, true, 1, false);
 
   el.innerHTML = newEl.innerHTML;
+}
+
+/**
+ * 更新指定卡片背景
+ */
+export function updateCardBg(card: CSS3DObject) {
+  card.element.style.backgroundColor = `rgba(var(--mixte-lottery-primary-rgb), ${randomNatural(25, 95) / 100})`;
 }
