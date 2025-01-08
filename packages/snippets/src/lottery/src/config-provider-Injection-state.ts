@@ -19,6 +19,7 @@ export const [
 ] = createInjectionState(() => {
   const rootRef = ref<HTMLDivElement>();
   const { width: rootWidth, height: rootHeight } = useElementSize(rootRef);
+  const vhValue = computed(() => rootHeight.value / 100);
 
   const camera = ref<THREE.PerspectiveCamera>();
   const scene = ref<THREE.Scene>();
@@ -168,43 +169,42 @@ export const [
 
   const selectCard = onceRun(async (users: User[], duration = 600) => {
     await resetCard();
-
     stopRotate();
 
     return new Promise<void>((resolve) => {
-      const width = 140;
+      const width = (12 * vhValue.value) + (2 * vhValue.value);
+      const height = (16 * vhValue.value) + (2 * vhValue.value);
       const locates: { x: number; y: number }[] = [];
-      let tag = -(users.length - 1) / 2;
+      const total = users.length;
 
-      while (selectedCardIndex.value.length < users.length) {
+      // 计算每行显示数量
+      let colNum = 5; // 默认每行5个
+      if (total > 15) {
+        colNum = Math.ceil(total / 3); // 大于15个时，将总数/3作为每行数量
+      }
+
+      // 计算总行数
+      const rowNum = Math.ceil(total / colNum);
+
+      // 计算起始位置
+      const startY = ((rowNum - 1) * height) / 2;
+
+      while (selectedCardIndex.value.length < total) {
         const index = randomNatural(0, total - 1);
-
         if (!selectedCardIndex.value.includes(index))
           selectedCardIndex.value.push(index);
       }
 
-      // 计算位置信息, 大于5个分两排显示
-      if (users.length > 5) {
-        const yPosition = [-87, 87];
-        const l = selectedCardIndex.value.length;
-        const mid = Math.ceil(l / 2);
+      // 计算每个卡片的位置
+      for (let row = 0; row < rowNum; row++) {
+        const itemsInThisRow = Math.min(colNum, total - row * colNum);
+        const startX = -((itemsInThisRow - 1) * width) / 2;
 
-        tag = -(mid - 1) / 2;
-        for (let i = 0; i < mid; i++) {
-          locates.push({ x: tag * width, y: yPosition[0] });
-          tag++;
-        }
-
-        tag = -(l - mid - 1) / 2;
-        for (let i = mid; i < l; i++) {
-          locates.push({ x: tag * width, y: yPosition[1] });
-          tag++;
-        }
-      }
-      else {
-        for (let i = selectedCardIndex.value.length; i > 0; i--) {
-          locates.push({ x: tag * width, y: 0 });
-          tag++;
+        for (let col = 0; col < itemsInThisRow; col++) {
+          locates.push({
+            x: startX + col * width,
+            y: startY - row * height,
+          });
         }
       }
 
@@ -245,7 +245,7 @@ export const [
   const vh = useCssVar('--mixte-lottery-vh', rootRef);
 
   watchImmediate(rootHeight, () => {
-    vh.value = `${rootHeight.value / 100}px`;
+    vh.value = `${vhValue.value}px`;
   });
 
   return {

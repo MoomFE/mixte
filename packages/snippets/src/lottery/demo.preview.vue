@@ -13,7 +13,7 @@
   <div flex="~ items-center" text-sm bg="neutral-1" mt-2 p="x4 y1">
     <div flex="~ items-center gap-3" mr-4>
       抽取
-      <el-input-number v-model="num" :min="1" :max="10" />
+      <el-input-number v-model="num" :min="1" />
       个用户
     </div>
     <el-button type="primary" @click="lotteryRef?.selectCard(randomUsers())">开始</el-button>
