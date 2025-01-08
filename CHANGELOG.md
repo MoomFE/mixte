@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.2.0-beta.2]
+  - 📅 2025-01-08
   - 🌟 [@mixte/snippets] 新增 `Lottery` 年会抽奖组件 ( 开发中 )
 
 ## [v3.2.0-beta.1]
@@ -60,7 +63,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0-beta.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0-beta.2...HEAD
+[v3.2.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.2
 [v3.2.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.1
 [v3.1.0]: https://github.com/MoomFE/mixte/releases/tag/v3.1.0
 [v3.1.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.1.0-beta.1
