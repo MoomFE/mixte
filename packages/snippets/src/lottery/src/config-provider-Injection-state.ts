@@ -1,13 +1,15 @@
-import type * as THREE from 'three';
-import type { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js';
-import type { CSS3DObject, CSS3DRenderer } from './CSS3DRenderer';
+/* eslint-disable antfu/consistent-list-newline */
+
 import type { LotteryProps, User } from './types';
-import { addHighlight, createHighlight, removeHighlight, updateCard, updateCardBg } from '@mixte/snippets/lottery/utils';
+import { addHighlight, createCard, createHighlight, removeHighlight, updateCard, updateCardBg } from '@mixte/snippets/lottery/utils';
 import { useRequest, watchImmediate, wheneverEffectScope, wheneverEffectScopeImmediate } from '@mixte/use';
 import { createInjectionState, useCssVar, useElementSize, useIntervalFn } from '@vueuse/core';
 import { gsap } from 'gsap';
 import { onceRun, random, randomNatural } from 'mixte';
-import { computed, reactive, ref, watch } from 'vue';
+import * as THREE from 'three';
+import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js';
+import { computed, onMounted, ref, shallowReactive, watch } from 'vue';
+import { CSS3DObject, CSS3DRenderer } from './CSS3DRenderer';
 
 export const rowCount = 7;
 export const colCount = 17;
@@ -27,34 +29,11 @@ export const [
   const controls = ref<TrackballControls>();
 
   const cards = ref<CSS3DObject[]>([]);
-  const targets = reactive({
+  const targets = shallowReactive({
     table: [] as THREE.Object3D[],
     sphere: [] as THREE.Object3D[],
     current: [] as THREE.Object3D[],
   });
-
-  function render() {
-    renderer.value!.render(scene.value!, camera.value!);
-  }
-
-  wheneverEffectScope(() => rootRef.value && camera.value && scene.value && renderer.value, () => {
-    watch([rootWidth, rootHeight], () => {
-      camera.value!.aspect = rootWidth.value / rootHeight.value;
-      camera.value!.updateProjectionMatrix();
-      renderer.value!.setSize(rootWidth.value, rootHeight.value);
-      render();
-    });
-  });
-
-  wheneverEffectScope(controls, () => {
-    controls.value!.addEventListener('change', render);
-  });
-
-  function animate() {
-    controls.value?.update();
-    render();
-    requestAnimationFrame(animate);
-  }
 
   const isTable = computed(() => targets.current === targets.table);
   const isSphere = computed(() => targets.current === targets.sphere);
@@ -151,7 +130,6 @@ export const [
         rotateGsap.value = gsap.to(scene.value!.rotation, {
           y: Math.PI * 6 * 1000,
           duration: 3000,
-          onUpdate: render,
           onComplete: () => {
             scene.value!.rotation.y = 0;
             resolve();
@@ -257,20 +235,12 @@ export const [
   const highlightCells = createHighlight();
 
   return {
-    rootRef,
-    rootWidth,
-    rootHeight,
-
-    camera,
-    scene,
-    renderer,
-    controls,
+    rootRef, rootWidth, rootHeight,
+    camera, scene, renderer, controls,
 
     highlightCells,
     cards,
-    targets,
-    isTable,
-    isSphere,
+    targets, isTable, isSphere,
 
     transformToTable: onceRun(transformToTable),
     transformToSphere: onceRun(transformToSphere),
@@ -283,10 +253,125 @@ export const [
     selectedCardsIndex,
     selectCard,
     resetCard,
-
-    animate,
   };
 });
+
+/**
+ * 初始化
+ */
+export function useInit(props: LotteryProps) {
+  const {
+    rootRef, rootWidth, rootHeight,
+    camera, scene, renderer, controls,
+    highlightCells,
+    cards,
+    targets,
+    transformToTable,
+  } = useStore()!;
+
+  function initCamera() {
+    camera.value = new THREE.PerspectiveCamera(
+      40,
+      rootWidth.value / rootHeight.value,
+      1,
+      10000,
+    );
+    camera.value!.position.z = 3000;
+
+    scene.value = new THREE.Scene();
+  }
+
+  function initCard() {
+    const users = Array.from(props.users);
+    const usersLength = users.length;
+
+    let index = 0;
+
+    for (let i = 0; i < rowCount; i++) {
+      for (let j = 0; j < colCount; j++) {
+        const isBold = highlightCells.includes(`${j}-${i}`);
+        const el = createCard(
+          users[index % usersLength],
+          isBold,
+          index++,
+          true,
+        );
+
+        const cssObj = new CSS3DObject(el);
+        cssObj.position.x = random(-2000, 2000);
+        cssObj.position.y = random(-2000, 2000);
+        cssObj.position.z = random(-2000, 2000);
+        scene.value!.add(cssObj);
+        cards.value.push(cssObj);
+
+        const obj = new THREE.Object3D();
+        obj.position.x = j * 140 - (140 * colCount - 20) / 2;
+        obj.position.y = -(i * 180) + (180 * rowCount - 20) / 2;
+        targets.table.push(obj);
+        index++;
+      }
+    }
+
+    // sphere
+
+    const vector = new THREE.Vector3();
+
+    for (let i = 0, l = cards.value.length; i < l; i++) {
+      const phi = Math.acos(-1 + (2 * i) / l);
+      const theta = Math.sqrt(l * Math.PI) * phi;
+      const object = new THREE.Object3D();
+      object.position.setFromSphericalCoords(800, phi, theta);
+      vector.copy(object.position).multiplyScalar(2);
+      object.lookAt(vector);
+      targets.sphere.push(object);
+    }
+  }
+
+  function initRenderer() {
+    renderer.value = new CSS3DRenderer();
+    renderer.value.setSize(rootWidth.value, rootHeight.value);
+    rootRef.value!.appendChild(renderer.value.domElement);
+  }
+
+  function initControls() {
+    controls.value = new TrackballControls(camera.value!, renderer.value!.domElement);
+    controls.value.rotateSpeed = 0.5;
+    controls.value.minDistance = 500;
+    controls.value.maxDistance = 6000;
+  }
+
+  function render() {
+    renderer.value!.render(scene.value!, camera.value!);
+  }
+
+  function animate() {
+    controls.value?.update();
+    render();
+    requestAnimationFrame(animate);
+  }
+
+  wheneverEffectScope(() => rootRef.value && camera.value && scene.value && renderer.value, () => {
+    watch([rootWidth, rootHeight], () => {
+      camera.value!.aspect = rootWidth.value / rootHeight.value;
+      camera.value!.updateProjectionMatrix();
+      renderer.value!.setSize(rootWidth.value, rootHeight.value);
+      render();
+    });
+  });
+
+  wheneverEffectScope(controls, () => {
+    controls.value!.addEventListener('change', render);
+  });
+
+  onMounted(() => {
+    initCamera();
+    initCard();
+    initRenderer();
+    initControls();
+    transformToTable();
+    animate();
+  });
+}
 
 /**
  * 随机切换卡片内容和背景, 实现卡片闪烁效果

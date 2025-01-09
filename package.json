@@ -35,7 +35,7 @@
     "test-tsc": "pnpm install && vitest --run && vue-tsc --project tsconfig.tsc.json --noEmit",
     "dev": "pnpm docs:dev",
     "docs:dev": "pnpm udd && vitepress dev packages --host",
-    "docs:build": "pnpm udd && vitepress build packages",
+    "docs:build": "pnpm udd && pnpm build && vitepress build packages",
     "docs:preview": "pnpm docs:build && vitepress preview packages --host",
     "up": "npx taze latest -r -w -i -x",
     "lint": "pnpm install && eslint .",
