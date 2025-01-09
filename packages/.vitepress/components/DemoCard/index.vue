@@ -12,7 +12,7 @@
     >
       <el-config-provider :locale="elZhCN">
         <NConfigProvider :locale="zhCN" :date-locale="dateZhCN" :theme="isDark ? darkTheme : undefined" abstract>
-          <slot />
+          <slot v-if="show" />
         </NConfigProvider>
       </el-config-provider>
 
@@ -24,6 +24,16 @@
         <el-button link @click="isLocked = fullscreen = !fullscreen">
           <i-ant-design-fullscreen-exit-outlined v-if="fullscreen" class="size-4.5" />
           <i-ant-design-fullscreen-outlined v-else class="size-4.5" />
+        </el-button>
+
+        <el-button
+          link
+          @click="() => {
+            show = false;
+            nextTick(() => show = true)
+          }"
+        >
+          <i-ic-baseline-refresh class="size-4.5" />
         </el-button>
 
         <el-button v-if="!fullscreen" link @click="toggleShowCodeState()">
@@ -58,6 +68,7 @@
   import { getSingletonHighlighter } from 'shiki';
   import { ShikiMagicMove } from 'shiki-magic-move/vue';
   import { useData } from 'vitepress';
+  import { nextTick } from 'vue';
   import 'shiki-magic-move/dist/style.css';
 
   interface Props {
@@ -68,6 +79,8 @@
   const props = defineProps<Props>();
 
   const { isDark } = useData();
+
+  const show = ref(true);
 
   const fullscreen = ref(false);
   const isLocked = useScrollLock(isBrowser ? window : undefined);

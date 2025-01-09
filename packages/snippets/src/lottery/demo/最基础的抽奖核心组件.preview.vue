@@ -10,10 +10,10 @@
     <el-button :loading="lotteryRef?.isSphere && lotteryRef.isTransforming" @click="lotteryRef?.transformToSphere()">转换为球型</el-button>
     <el-button @click="lotteryRef?.isRotating ? lotteryRef.stopRotate() : lotteryRef?.rotate()">{{ lotteryRef?.isRotating ? '停止' : '' }}旋转</el-button>
   </div>
-  <div flex="~ items-center" text-sm bg="neutral-1" mt-2 p="x4 y1">
+  <div flex="~ items-center" text-sm bg="neutral-1 dark:neutral-8" mt-2 p="x4 y1">
     <div flex="~ items-center gap-3" mr-4>
       抽取
-      <el-input-number v-model="num" :min="1" />
+      <el-input-number v-model="num" :min="1" :max="users.length" />
       个用户
     </div>
     <el-button type="primary" @click="lotteryRef?.selectCard(randomUsers())">开始</el-button>
@@ -25,7 +25,7 @@
   import type { LotteryInstance, User } from '@mixte/snippets/lottery';
   import { Lottery } from '@mixte/snippets/lottery';
   import { random } from 'mixte';
-  import { users } from './demo/users';
+  import { users } from './users';
   import '@mixte/snippets/dist/lottery/css/index.scss';
 
   const lotteryRef = ref<LotteryInstance>();
