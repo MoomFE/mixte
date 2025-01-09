@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.2.0-beta.5]
+  - 📅 2025-01-09
   - 🌟 [@mixte/snippets] 组件 `Lottery` 添加卡片闪烁效果, 支持关闭
   - 💄 [@mixte/snippets] 组件 `Lottery` 转换为球型时, 移除高亮单元格背景色
   - 💄 [@mixte/snippets] 组件 `Lottery` 展示选择的卡片时, 统一单元格背景色
@@ -76,7 +79,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0-beta.4...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0-beta.5...HEAD
+[v3.2.0-beta.5]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.5
 [v3.2.0-beta.4]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.4
 [v3.2.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.3
 [v3.2.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.2
