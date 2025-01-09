@@ -1,5 +1,5 @@
 <template>
-  <div size-full min-h-50vmin relative>
+  <div w-full aspect-video min-h-50vh max-h-80vh relative>
     <div size-full absolute top-0 left-0>
       <Lottery ref="lotteryRef" :users="users" />
     </div>

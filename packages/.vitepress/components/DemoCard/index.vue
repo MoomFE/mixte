@@ -7,7 +7,7 @@
       :class="{
         'pt8': showExtra,
         'pb0': showCode,
-        'size-full fixed! top-0 left-0 z-100 bg-white my-0!': fullscreen,
+        'size-full fixed! top-0 left-0 z-100 bg-white my-0! scrollbar-(~ rounded)': fullscreen,
       }"
     >
       <el-config-provider :locale="elZhCN">
@@ -17,7 +17,10 @@
       </el-config-provider>
 
       <!-- 功能区 -->
-      <div v-if="showExtra" class="h-8 mr-2" flex="~ items-center" text-xs lh-none pos="absolute top-0 right-0">
+      <div
+        v-if="showExtra"
+        h-8 flex="~ items-center" text-xs lh-none pos="absolute top-0 right-2"
+      >
         <el-button link @click="isLocked = fullscreen = !fullscreen">
           <i-ant-design-fullscreen-exit-outlined v-if="fullscreen" class="size-4.5" />
           <i-ant-design-fullscreen-outlined v-else class="size-4.5" />

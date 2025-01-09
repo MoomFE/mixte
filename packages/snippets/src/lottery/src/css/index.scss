@@ -43,7 +43,8 @@
       border: 1px solid var(--mixte-lottery-card-hover-border-color);
     }
 
-    &.highlight {
+    // 高亮单元格 & 中奖单元格
+    &.highlight, &.prize {
       background-color: var(--mixte-lottery-highlight-card-bg-color) !important;
       box-shadow: 0 0 12px var(--mixte-lottery-highlight-card-shadow-color);
       border: 1px solid var(--mixte-lottery-highlight-card-border-color);
