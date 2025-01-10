@@ -71,6 +71,7 @@ export const [
 
   function transformToTable(duration = 2000) {
     if (isTable.value) return;
+    removeHighlight(cards.value);
     addHighlight(cards.value);
     return transform.execute(targets.current = targets.table, duration);
   }

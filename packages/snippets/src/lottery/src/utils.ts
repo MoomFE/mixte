@@ -106,7 +106,10 @@ export function updateCardBg(card: CSS3DObject) {
  */
 export function removeHighlight(cards: CSS3DObject[]) {
   cards.forEach((card) => {
-    card.element.classList.remove('highlight');
+    const classList = card.element.classList;
+
+    classList.remove('highlight');
+    classList.remove('prize');
   });
 }
 
