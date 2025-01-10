@@ -5,28 +5,34 @@ import { addHighlight, createCard, createHighlight, removeHighlight, updateCard,
 import { useRequest, watchImmediate, wheneverEffectScope, wheneverEffectScopeImmediate } from '@mixte/use';
 import { createInjectionState, useCssVar, useElementSize, useIntervalFn } from '@vueuse/core';
 import { gsap } from 'gsap';
-import { onceRun, random, randomNatural } from 'mixte';
+import { random, randomNatural } from 'mixte';
 import * as THREE from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js';
-import { computed, onMounted, ref, shallowReactive, watch } from 'vue';
+import { computed, markRaw, onMounted, ref, shallowReactive, shallowRef, watch } from 'vue';
 import { CSS3DObject, CSS3DRenderer } from './CSS3DRenderer';
 
 export const rowCount = 7;
 export const colCount = 17;
 export const total = rowCount * colCount;
 
-export const [
-  useProvideStore,
-  useStore,
+const [
+  useSharedStore,
+  useShared,
 ] = createInjectionState(() => {
   const rootRef = ref<HTMLDivElement>();
   const { width: rootWidth, height: rootHeight } = useElementSize(rootRef);
-  const vhValue = computed(() => rootHeight.value / 100);
 
-  const camera = ref<THREE.PerspectiveCamera>();
-  const scene = ref<THREE.Scene>();
-  const renderer = ref<CSS3DRenderer>();
-  const controls = ref<TrackballControls>();
+  const vh = computed(() => rootHeight.value / 100);
+  const vhCssVar = useCssVar('--mixte-lottery-vh', rootRef);
+
+  watchImmediate(rootHeight, () => {
+    vhCssVar.value = `${vh.value}px`;
+  });
+
+  const camera = shallowRef<THREE.PerspectiveCamera>();
+  const scene = shallowRef<THREE.Scene>();
+  const renderer = shallowRef<CSS3DRenderer>();
+  const controls = shallowRef<TrackballControls>();
 
   const cards = ref<CSS3DObject[]>([]);
   const targets = shallowReactive({
@@ -38,19 +44,82 @@ export const [
   const isTable = computed(() => targets.current === targets.table);
   const isSphere = computed(() => targets.current === targets.sphere);
 
-  const transform = useRequest((targets: THREE.Object3D[], duration: number) => {
+  const selectedCardsIndex = ref<number[]>([]);
+
+  const transformGsapTimeline = shallowRef<gsap.core.Timeline>();
+  const resetGsapTimeline = shallowRef<gsap.core.Timeline>();
+  const rotateGsapTween = shallowRef<gsap.core.Tween>();
+  const selectGsapTimeline = shallowRef<gsap.core.Timeline>();
+
+  return {
+    rootRef,
+    rootWidth, rootHeight, vh,
+    camera, scene, renderer, controls,
+    cards,
+    targets, isTable, isSphere,
+    highlightCells: createHighlight(),
+    selectedCardsIndex,
+    transformGsapTimeline, resetGsapTimeline, rotateGsapTween, selectGsapTimeline,
+  };
+});
+
+export {
+  useShared,
+};
+
+export const [
+  useProvideStore,
+  useProvide,
+] = createInjectionState(() => {
+  useSharedStore();
+
+  const { transformToTable, transformToSphere, isTransforming } = useTransform();
+  const { reset, isResetting } = useReset();
+  const { rotate, isRotating } = useRotate();
+  const { select, isSelecting } = useSelect();
+
+  return {
+    transformToTable,
+    transformToSphere,
+    isTransforming,
+
+    reset,
+    isResetting,
+
+    rotate,
+    isRotating,
+
+    select,
+    isSelecting,
+  };
+});
+
+function useTransform() {
+  const {
+    cards,
+    targets,
+    transformGsapTimeline, resetGsapTimeline, selectGsapTimeline,
+  } = useShared()!;
+
+  const transform = useRequest((
+    targets: THREE.Object3D[],
+    duration: number,
+  ) => {
+    transformGsapTimeline.value?.kill();
+    resetGsapTimeline.value?.kill();
+    selectGsapTimeline.value?.kill();
+
     return new Promise<void>((resolve) => {
-      const tl = gsap.timeline({
-        onComplete: () => {
-          resolve();
-        },
+      transformGsapTimeline.value = gsap.timeline({
+        onComplete: resolve,
+        onInterrupt: resolve,
       });
 
       for (let i = 0; i < cards.value.length; i++) {
         const card = cards.value[i];
         const target = targets[i];
 
-        tl.to(card.position, {
+        transformGsapTimeline.value.to(card.position, {
           x: target.position.x,
           y: target.position.y,
           z: target.position.z,
@@ -58,7 +127,7 @@ export const [
           ease: 'expo.inOut',
         }, 0);
 
-        tl.to(card.rotation, {
+        transformGsapTimeline.value.to(card.rotation, {
           x: target.rotation.x,
           y: target.rotation.y,
           z: target.rotation.z,
@@ -70,33 +139,50 @@ export const [
   });
 
   function transformToTable(duration = 2000) {
-    if (isTable.value) return;
     removeHighlight(cards.value);
     addHighlight(cards.value);
     return transform.execute(targets.current = targets.table, duration);
   }
   function transformToSphere(duration = 2000) {
-    if (isSphere.value) return;
     removeHighlight(cards.value);
     return transform.execute(targets.current = targets.sphere, duration);
   }
 
-  const rotateGsap = ref<gsap.core.Tween>();
-  const selectedCardsIndex = ref<number[]>([]);
+  return {
+    transformToTable, transformToSphere,
+    isTransforming: transform.isLoading,
+  };
+}
 
-  const resetCard = onceRun((duration = 500) => {
+function useReset() {
+  const {
+    cards,
+    targets,
+    selectedCardsIndex,
+    transformGsapTimeline, resetGsapTimeline, selectGsapTimeline,
+  } = useShared()!;
+
+  const reset = useRequest((duration = 500) => {
+    resetGsapTimeline.value?.kill();
+
     if (!selectedCardsIndex.value.length) return Promise.resolve();
 
+    transformGsapTimeline.value?.kill();
+    selectGsapTimeline.value?.kill();
+
     return new Promise<void>((resolve) => {
-      const tl = gsap.timeline({
-        onComplete: () => {
-          selectedCardsIndex.value.forEach((index) => {
-            const card = cards.value[index];
-            card.element.classList.remove('prize');
-          });
-          selectedCardsIndex.value = [];
-          resolve();
-        },
+      function gsapFinally() {
+        selectedCardsIndex.value.forEach((index) => {
+          const card = cards.value[index];
+          card.element.classList.remove('prize');
+        });
+        selectedCardsIndex.value = [];
+        resolve();
+      }
+
+      resetGsapTimeline.value = gsap.timeline({
+        onComplete: gsapFinally,
+        onInterrupt: gsapFinally,
       });
 
       selectedCardsIndex.value.forEach((index) => {
@@ -104,7 +190,7 @@ export const [
         const target = targets.current[index];
 
         // 位置动画
-        tl.to(card.position, {
+        resetGsapTimeline.value!.to(card.position, {
           x: target.position.x,
           y: target.position.y,
           z: target.position.z,
@@ -113,7 +199,7 @@ export const [
         }, 0);
 
         // 旋转动画
-        tl.to(card.rotation, {
+        resetGsapTimeline.value!.to(card.rotation, {
           x: target.rotation.x,
           y: target.rotation.y,
           z: target.rotation.z,
@@ -124,37 +210,61 @@ export const [
     });
   });
 
+  return {
+    reset: reset.execute,
+    isResetting: reset.isLoading,
+  };
+}
+
+function useRotate() {
+  const {
+    scene,
+    rotateGsapTween,
+  } = useShared()!;
+
   const rotate = useRequest(() => {
+    rotateGsapTween.value?.kill();
+
     return new Promise<void>((resolve) => {
-      resetCard().then(() => {
-        scene.value!.rotation.y = 0;
-        rotateGsap.value = gsap.to(scene.value!.rotation, {
-          y: Math.PI * 6 * 1000,
-          duration: 3000,
-          onComplete: () => {
-            scene.value!.rotation.y = 0;
-            resolve();
-          },
-          onInterrupt: () => {
-            scene.value!.rotation.y = 0;
-            resolve();
-          },
-        });
+      scene.value!.rotation.y = 0;
+      rotateGsapTween.value = gsap.to(scene.value!.rotation, {
+        y: Math.PI * 6 * 1000,
+        duration: 3000,
+        onComplete: () => {
+          scene.value!.rotation.y = 0;
+          resolve();
+        },
+        onInterrupt: () => {
+          scene.value!.rotation.y = 0;
+          resolve();
+        },
       });
     });
   });
 
-  function stopRotate() {
-    rotateGsap.value?.kill();
-  }
+  return {
+    rotate: rotate.execute,
+    isRotating: rotate.isLoading,
+  };
+}
 
-  const selectCard = onceRun(async (users: User[], duration = 600) => {
-    await resetCard();
-    stopRotate();
+function useSelect() {
+  const {
+    vh,
+    cards,
+    selectedCardsIndex,
+    transformGsapTimeline, resetGsapTimeline, rotateGsapTween, selectGsapTimeline,
+  } = useShared()!;
+
+  const select = useRequest((users: User[], duration = 600) => {
+    transformGsapTimeline.value?.kill();
+    resetGsapTimeline.value?.kill();
+    rotateGsapTween.value?.kill();
+    selectGsapTimeline.value?.kill();
 
     return new Promise<void>((resolve) => {
-      const width = (12 * vhValue.value) + (2 * vhValue.value);
-      const height = (16 * vhValue.value) + (2 * vhValue.value);
+      const width = (12 * vh.value) + (2 * vh.value);
+      const height = (16 * vh.value) + (2 * vh.value);
       const locates: { x: number; y: number }[] = [];
       const userTotal = users.length;
 
@@ -188,16 +298,18 @@ export const [
         }
       }
 
-      const tl = gsap.timeline({
-        onComplete: () => {
-          resolve();
-        },
+      selectGsapTimeline.value = gsap.timeline({
+        onComplete: resolve,
+        onInterrupt: resolve,
       });
 
       // 10 个以下, z = 2100; 每多 3 个, z - 88
-      const z = userTotal <= 10
-        ? 2100
-        : 2100 - Math.floor((userTotal - 10) / 3) * 88;
+      const z = Math.max(
+        1000,
+        userTotal <= 10
+          ? 2100
+          : 2100 - Math.floor((userTotal - 10) / 3) * 88,
+      );
 
       selectedCardsIndex.value.forEach((cardIndex, index) => {
         const card = cards.value[cardIndex];
@@ -206,7 +318,7 @@ export const [
         updateCard(card, user);
 
         // 添加到时间轴
-        tl.to(card.position, {
+        selectGsapTimeline.value!.to(card.position, {
           x: locates[index].x,
           y: locates[index].y,
           z,
@@ -214,7 +326,7 @@ export const [
           ease: 'expo.inOut',
         }, 0);
 
-        tl.to(card.rotation, {
+        selectGsapTimeline.value!.to(card.rotation, {
           x: 0,
           y: 0,
           z: 0,
@@ -227,35 +339,11 @@ export const [
     });
   });
 
-  const vh = useCssVar('--mixte-lottery-vh', rootRef);
-
-  watchImmediate(rootHeight, () => {
-    vh.value = `${vhValue.value}px`;
-  });
-
-  const highlightCells = createHighlight();
-
   return {
-    rootRef, rootWidth, rootHeight,
-    camera, scene, renderer, controls,
-
-    highlightCells,
-    cards,
-    targets, isTable, isSphere,
-
-    transformToTable: onceRun(transformToTable),
-    transformToSphere: onceRun(transformToSphere),
-    isTransforming: transform.isLoading,
-
-    rotate: onceRun(rotate.execute),
-    stopRotate,
-    isRotating: rotate.isLoading,
-
-    selectedCardsIndex,
-    selectCard,
-    resetCard,
+    select: select.execute,
+    isSelecting: select.isLoading,
   };
-});
+}
 
 /**
  * 初始化
@@ -265,10 +353,12 @@ export function useInit(props: LotteryProps) {
     rootRef, rootWidth, rootHeight,
     camera, scene, renderer, controls,
     highlightCells,
-    cards,
-    targets,
+    cards, targets,
+  } = useShared()!;
+
+  const {
     transformToTable,
-  } = useStore()!;
+  } = useProvide()!;
 
   function initCamera() {
     camera.value = new THREE.PerspectiveCamera(
@@ -298,7 +388,7 @@ export function useInit(props: LotteryProps) {
           true,
         );
 
-        const cssObj = new CSS3DObject(el);
+        const cssObj = markRaw(new CSS3DObject(el));
         cssObj.position.x = random(-2000, 2000);
         cssObj.position.y = random(-2000, 2000);
         cssObj.position.z = random(-2000, 2000);
@@ -378,7 +468,8 @@ export function useInit(props: LotteryProps) {
  * 随机切换卡片内容和背景, 实现卡片闪烁效果
  */
 export function useShine(props: LotteryProps) {
-  const { cards, isRotating, selectedCardsIndex } = useStore()!;
+  const { cards, selectedCardsIndex } = useShared()!;
+  const { isRotating } = useProvide()!;
 
   wheneverEffectScopeImmediate(() => props.shine && !!props.users.length && !!cards.value.length, () => {
     useIntervalFn(
@@ -388,7 +479,7 @@ export function useShine(props: LotteryProps) {
         const shineCount = randomNatural(10, 20);
 
         for (let i = 0; i < shineCount; i++) {
-          const index = randomNatural(0, total);
+          const index = randomNatural(0, total - 1);
 
           // 当前选中的卡片不进行切换
           if (selectedCardsIndex.value.includes(index)) {

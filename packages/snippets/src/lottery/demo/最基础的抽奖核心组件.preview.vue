@@ -14,10 +14,10 @@
   <el-divider content-position="left">功能</el-divider>
 
   <div>
-    <el-button :loading="lotteryRef?.isTable && lotteryRef.isTransforming" @click="lotteryRef?.transformToTable()">
+    <el-button @click="lotteryRef?.transformToTable()">
       转换为阵列
     </el-button>
-    <el-button :loading="lotteryRef?.isSphere && lotteryRef.isTransforming" @click="lotteryRef?.transformToSphere()">
+    <el-button @click="lotteryRef?.transformToSphere()">
       转换为球型
     </el-button>
     <el-button @click="lotteryRef?.isRotating ? lotteryRef.stopRotate() : lotteryRef?.rotate()">
@@ -31,8 +31,8 @@
       <el-input-number v-model="num" :min="1" :max="users.length" />
       个用户
     </div>
-    <el-button type="primary" @click="lotteryRef?.selectCard(randomUsers())">开始</el-button>
-    <el-button @click="lotteryRef?.resetCard()">重置</el-button>
+    <el-button type="primary" @click="lotteryRef?.select(randomUsers())">开始</el-button>
+    <el-button @click="lotteryRef?.reset()">重置</el-button>
   </div>
 </template>
 
