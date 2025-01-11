@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.2.0-beta.6]
+  - 📅 2025-01-11
   - 🐞 [@mixte/snippets] 修复 `Lottery` 组件开奖后重置为阵列时, 高亮的卡片未重置的问题
   - ⚠️ [@mixte/snippets] 重构 `Lottery` 组件, 对外导出函数变更
 
@@ -81,7 +84,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0-beta.5...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0-beta.6...HEAD
+[v3.2.0-beta.6]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.6
 [v3.2.0-beta.5]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.5
 [v3.2.0-beta.4]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.4
 [v3.2.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.3
