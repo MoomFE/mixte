@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.2.0-beta.7]
+  - 📅 2025-01-13
   - 🌟 [@mixte/snippets] 组件 `Lottery` 支持传入 `更新选中卡片样式` 的方法
   - 💄 [@mixte/snippets] 优化 `Lottery` 组件在显示选择卡片时, 容器大小变化时重新布局
   - 🐞 [@mixte/snippets] 修复 `Lottery` 的点击重置后动画还未执行完成, 再次选择卡片, 然后无法重置的问题
@@ -87,7 +90,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0-beta.6...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0-beta.7...HEAD
+[v3.2.0-beta.7]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.7
 [v3.2.0-beta.6]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.6
 [v3.2.0-beta.5]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.5
 [v3.2.0-beta.4]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.4
