@@ -47,6 +47,32 @@ const [
 
   const selectedCardsIndex = ref<number[]>([]);
 
+  function resetselectedCardsElement() {
+    if (!selectedCardsIndex.value.length) return;
+
+    selectedCardsIndex.value.forEach((index) => {
+      const card = cards.value[index];
+      const element = card.element as HTMLDivElement & { originalElement?: HTMLDivElement };
+      const originalElement = element.originalElement;
+
+      if (originalElement) {
+        element.innerHTML = originalElement.innerHTML;
+        element.className = originalElement.className;
+        delete element.originalElement;
+      }
+      else {
+        element.classList.remove('prize');
+      }
+    });
+
+    const selectedCards = selectedCardsIndex.value.map(index => cards.value[index]);
+
+    removeHighlight(selectedCards);
+    isTable.value && addHighlight(selectedCards);
+
+    selectedCardsIndex.value = [];
+  }
+
   const transformGsapTimeline = shallowRef<gsap.core.Timeline>();
   const resetGsapTimeline = shallowRef<gsap.core.Timeline>();
   const rotateGsapTween = shallowRef<gsap.core.Tween>();
@@ -61,7 +87,7 @@ const [
     cards,
     targets, isTable, isSphere,
     highlightCells: createHighlight(),
-    selectedCardsIndex,
+    selectedCardsIndex, resetselectedCardsElement,
     transformGsapTimeline, resetGsapTimeline, rotateGsapTween, selectGsapTimeline,
 
     updateSelectCard,
@@ -104,6 +130,7 @@ function useTransform() {
   const {
     cards,
     targets,
+    resetselectedCardsElement,
     transformGsapTimeline, resetGsapTimeline, selectGsapTimeline,
   } = useShared()!;
 
@@ -114,6 +141,8 @@ function useTransform() {
     transformGsapTimeline.value?.kill();
     resetGsapTimeline.value?.kill();
     selectGsapTimeline.value?.kill();
+
+    resetselectedCardsElement();
 
     return new Promise<void>((resolve) => {
       transformGsapTimeline.value = gsap.timeline({
@@ -164,7 +193,7 @@ function useReset() {
   const {
     cards,
     targets,
-    selectedCardsIndex,
+    selectedCardsIndex, resetselectedCardsElement,
     transformGsapTimeline, resetGsapTimeline, selectGsapTimeline,
   } = useShared()!;
 
@@ -178,20 +207,7 @@ function useReset() {
 
     return new Promise<void>((resolve) => {
       const gsapFinally = once(() => {
-        selectedCardsIndex.value.forEach((index) => {
-          const card = cards.value[index];
-          const element = card.element as HTMLDivElement & { originalElement?: HTMLDivElement };
-          const originalElement = element.originalElement;
-
-          if (originalElement) {
-            element.innerHTML = originalElement.innerHTML;
-            element.className = originalElement.className;
-          }
-          else {
-            element.classList.remove('prize');
-          }
-        });
-        selectedCardsIndex.value = [];
+        resetselectedCardsElement();
         resolve();
       });
 
