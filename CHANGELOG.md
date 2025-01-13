@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.2.0-beta.8]
+  - 📅 2025-01-13
   - 🐞 [@mixte/snippets] 修复 `Lottery` 组件丢失了 `stopRotate` 导出方法的问题
   - 🐞 [@mixte/snippets] 修复 `Lottery` 组件进入旋转后停止, 再次旋转后会被无故停止的问题
   - 🐞 [@mixte/snippets] 修复 `Lottery` 组件在不同情况下对 `更新选中卡片样式的方法` 的处理
@@ -93,7 +96,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0-beta.7...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0-beta.8...HEAD
+[v3.2.0-beta.8]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.8
 [v3.2.0-beta.7]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.7
 [v3.2.0-beta.6]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.6
 [v3.2.0-beta.5]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.5
