@@ -241,18 +241,17 @@ function useRotate() {
     rotateGsapTween.value?.kill();
 
     return new Promise<void>((resolve) => {
+      const gsapFinally = once(() => {
+        scene.value!.rotation.y = 0;
+        resolve();
+      });
+
       scene.value!.rotation.y = 0;
       rotateGsapTween.value = gsap.to(scene.value!.rotation, {
         y: Math.PI * 6 * 1000,
         duration: 3000,
-        onComplete: () => {
-          scene.value!.rotation.y = 0;
-          resolve();
-        },
-        onInterrupt: () => {
-          scene.value!.rotation.y = 0;
-          resolve();
-        },
+        onComplete: gsapFinally,
+        onInterrupt: gsapFinally,
       });
     });
   });
