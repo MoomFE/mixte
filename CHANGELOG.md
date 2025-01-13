@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🐞 [@mixte/snippets] 修复 `Lottery` 组件丢失了 `stopRotate` 导出方法的问题
 
 ## [v3.2.0-beta.7]
   - 📅 2025-01-13

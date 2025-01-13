@@ -21,6 +21,7 @@
     isResetting,
 
     rotate,
+    stopRotate,
     isRotating,
 
     select,
@@ -53,6 +54,7 @@
     isResetting,
 
     rotate,
+    stopRotate,
     isRotating,
 
     select,

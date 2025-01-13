@@ -80,7 +80,7 @@ export const [
 
   const { transformToTable, transformToSphere, isTransforming } = useTransform();
   const { reset, isResetting } = useReset();
-  const { rotate, isRotating } = useRotate();
+  const { rotate, stopRotate, isRotating } = useRotate();
   const { select, isSelecting } = useSelect();
 
   return {
@@ -92,6 +92,7 @@ export const [
     isResetting,
 
     rotate,
+    stopRotate,
     isRotating,
 
     select,
@@ -256,8 +257,13 @@ function useRotate() {
     });
   });
 
+  function stopRotate() {
+    rotateGsapTween.value?.kill();
+  }
+
   return {
     rotate: rotate.execute,
+    stopRotate,
     isRotating: rotate.isLoading,
   };
 }
