@@ -250,17 +250,30 @@ function useRotate() {
 
 function useSelect() {
   const {
-    vh,
+    rootWidth, rootHeight, vh,
     cards,
     selectedCardsIndex,
     transformGsapTimeline, resetGsapTimeline, rotateGsapTween, selectGsapTimeline,
   } = useShared()!;
 
-  const select = useRequest((users: User[], duration = 600) => {
+  let currentUsers: User[] = [];
+  let currentDuration = 0;
+  let currentStartTime = 0;
+
+  let ease = 'expo.inOut';
+
+  const {
+    execute: select,
+    isLoading: isSelecting,
+  } = useRequest((users: User[], duration = 600) => {
     transformGsapTimeline.value?.kill();
     resetGsapTimeline.value?.kill();
     rotateGsapTween.value?.kill();
     selectGsapTimeline.value?.kill();
+
+    currentUsers = Array.from(users);
+    currentDuration = duration;
+    currentStartTime = Date.now();
 
     return new Promise<void>((resolve) => {
       const width = (12 * vh.value) + (2 * vh.value);
@@ -323,7 +336,7 @@ function useSelect() {
           y: locates[index].y,
           z,
           duration: duration / 1000,
-          ease: 'expo.inOut',
+          ease,
         }, 0);
 
         selectGsapTimeline.value!.to(card.rotation, {
@@ -331,7 +344,7 @@ function useSelect() {
           y: 0,
           z: 0,
           duration: duration / 1000,
-          ease: 'expo.inOut',
+          ease,
         }, 0);
 
         card.element.classList.add('prize');
@@ -339,9 +352,24 @@ function useSelect() {
     });
   });
 
+  // 容器大小变化时重新布局
+  wheneverEffectScope(() => !!selectedCardsIndex.value.length, (_, __, onCleanup) => {
+    watch([rootWidth, rootHeight], async () => {
+      const duration = isSelecting.value ? currentDuration - (Date.now() - currentStartTime) : 0;
+
+      ease = 'expo.out';
+      select(currentUsers, duration);
+      ease = 'expo.inOut';
+    });
+
+    onCleanup(() => {
+      currentUsers = [];
+    });
+  });
+
   return {
-    select: select.execute,
-    isSelecting: select.isLoading,
+    select,
+    isSelecting,
   };
 }
 
