@@ -5,6 +5,7 @@ import { addHighlight, createCard, createHighlight, removeHighlight, updateCard,
 import { useRequest, watchImmediate, wheneverEffectScope, wheneverEffectScopeImmediate } from '@mixte/use';
 import { createInjectionState, useCssVar, useElementSize, useIntervalFn } from '@vueuse/core';
 import { gsap } from 'gsap';
+import { once } from 'lodash-es';
 import { random, randomNatural } from 'mixte';
 import * as THREE from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js';
@@ -51,6 +52,8 @@ const [
   const rotateGsapTween = shallowRef<gsap.core.Tween>();
   const selectGsapTimeline = shallowRef<gsap.core.Timeline>();
 
+  const updateSelectCard = ref<LotteryProps['updateSelectCard']>();
+
   return {
     rootRef,
     rootWidth, rootHeight, vh,
@@ -60,6 +63,8 @@ const [
     highlightCells: createHighlight(),
     selectedCardsIndex,
     transformGsapTimeline, resetGsapTimeline, rotateGsapTween, selectGsapTimeline,
+
+    updateSelectCard,
   };
 });
 
@@ -171,14 +176,23 @@ function useReset() {
     selectGsapTimeline.value?.kill();
 
     return new Promise<void>((resolve) => {
-      function gsapFinally() {
+      const gsapFinally = once(() => {
         selectedCardsIndex.value.forEach((index) => {
           const card = cards.value[index];
-          card.element.classList.remove('prize');
+          const element = card.element as HTMLDivElement & { originalElement?: HTMLDivElement };
+          const originalElement = element.originalElement;
+
+          if (originalElement) {
+            element.innerHTML = originalElement.innerHTML;
+            element.className = originalElement.className;
+          }
+          else {
+            element.classList.remove('prize');
+          }
         });
         selectedCardsIndex.value = [];
         resolve();
-      }
+      });
 
       resetGsapTimeline.value = gsap.timeline({
         onComplete: gsapFinally,
@@ -254,6 +268,8 @@ function useSelect() {
     cards,
     selectedCardsIndex,
     transformGsapTimeline, resetGsapTimeline, rotateGsapTween, selectGsapTimeline,
+
+    updateSelectCard,
   } = useShared()!;
 
   let currentUsers: User[] = [];
@@ -329,6 +345,13 @@ function useSelect() {
         const user = users[index];
 
         updateCard(card, user);
+
+        // 更新选中卡片样式的
+        if (updateSelectCard.value) {
+          const element = card.element as HTMLDivElement; // @ts-expect-error
+          element.originalElement = element.cloneNode(true);
+          updateSelectCard.value?.(element, user);
+        }
 
         // 添加到时间轴
         selectGsapTimeline.value!.to(card.position, {
