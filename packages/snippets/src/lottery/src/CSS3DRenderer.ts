@@ -53,7 +53,6 @@ export class CSS3DRenderer {
   private _heightHalf: number;
   private matrix: THREE.Matrix4;
   private cache: Cache;
-  private isIE: boolean;
 
   domElement: HTMLDivElement;
   cameraElement: HTMLDivElement;
@@ -79,8 +78,6 @@ export class CSS3DRenderer {
     this.cameraElement.style.transformStyle = 'preserve-3d';
 
     this.domElement.appendChild(this.cameraElement);
-
-    this.isIE = /Trident/i.test(navigator.userAgent);
   }
 
   getSize(): { width: number; height: number } {
@@ -129,7 +126,7 @@ export class CSS3DRenderer {
     })`;
   }
 
-  private getObjectCSSMatrix(matrix: THREE.Matrix4, cameraCSSMatrix: string): string {
+  private getObjectCSSMatrix(matrix: THREE.Matrix4): string {
     const elements = matrix.elements;
     const matrix3d = `matrix3d(${
       this.epsilon(elements[0])},${
@@ -149,13 +146,6 @@ export class CSS3DRenderer {
       this.epsilon(elements[14])},${
       this.epsilon(elements[15])
     })`;
-
-    if (this.isIE) {
-      return `translate(-50%,-50%)`
-        + `translate(${this._widthHalf}px,${this._heightHalf}px)${
-          cameraCSSMatrix
-        }${matrix3d}`;
-    }
 
     return `translate(-50%,-50%)${matrix3d}`;
   }
@@ -205,10 +195,6 @@ export class CSS3DRenderer {
 
         const objectData = { style };
 
-        if (this.isIE) {
-          objectData.distanceToCameraSquared = this.getDistanceToSquared(camera, object);
-        }
-
         this.cache.objects.set(object, objectData);
       }
 
@@ -228,20 +214,6 @@ export class CSS3DRenderer {
       if (object instanceof CSS3DObject) result.push(object);
     });
     return result;
-  }
-
-  private zOrder(scene: THREE.Scene): void {
-    const sorted = this.filterAndFlatten(scene).sort((a, b) => {
-      const distanceA = this.cache.objects.get(a).distanceToCameraSquared;
-      const distanceB = this.cache.objects.get(b).distanceToCameraSquared;
-      return distanceA - distanceB;
-    });
-
-    const zMax = sorted.length;
-
-    for (let i = 0; i < sorted.length; i++) {
-      sorted[i].element.style.zIndex = zMax - i;
-    }
   }
 
   render(
@@ -274,16 +246,12 @@ export class CSS3DRenderer {
     const style = `${cameraCSSMatrix
     }translate(${this._widthHalf}px,${this._heightHalf}px)`;
 
-    if (this.cache.camera.style !== style && !this.isIE) {
+    if (this.cache.camera.style !== style) {
       this.cameraElement.style.WebkitTransform = style;
       this.cameraElement.style.transform = style;
       this.cache.camera.style = style;
     }
 
     this.renderObject(scene, camera, cameraCSSMatrix);
-
-    if (this.isIE) {
-      this.zOrder(scene);
-    }
   }
 }

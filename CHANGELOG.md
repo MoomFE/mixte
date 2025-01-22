@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/snippets] 组件 `Lottery` 移除对 IE 的支持, 简化 CSS3DRenderer 组件的实现
 
 ## [v3.2.0-beta.8]
   - 📅 2025-01-13
