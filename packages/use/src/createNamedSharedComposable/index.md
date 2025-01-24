@@ -8,7 +8,7 @@ outline: [1,4]
     - 再次调用时, 如果是相同的命名, 则会直接返回上次的结果, 不会再次执行原函数
   - 在 Vue 实例 / effect 作用域中使用时
     - 当引用该函数的所有 Vue 实例 / effect 作用域销毁时, 会自动清除缓存
-  - 支持手动清除缓存 <el-tag effect="plain" size="small" round hit>1.8.0</el-tag>
+  - 支持手动清除缓存
 
 ### 示例
 

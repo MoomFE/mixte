@@ -28,6 +28,10 @@
 .mixte-lottery {
   width: 100%; height: 100%;
 
+  &, * {
+    box-sizing: border-box;
+  }
+
   &-card {
     width: calc(12 * var(--mixte-lottery-vh));
     height: calc(16 * var(--mixte-lottery-vh));

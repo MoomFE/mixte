@@ -2,7 +2,6 @@
 
 ::: warning 注意
   - 依赖于 [Naive UI](https://www.npmjs.com/package/naive-ui) 组件库
-  - 该组合式函数仅支持 `Vue 3`
 :::
 
 ### 类型
