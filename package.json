@@ -74,7 +74,7 @@
     "@vitest/ui": "^3.0.5",
     "@vue/compiler-core": "^3.5.13",
     "@vue/test-utils": "^2.4.6",
-    "@vueuse/core": "^12.0.0",
+    "@vueuse/core": "^12.5.0",
     "axios": "^1.7.9",
     "chalk": "^5.4.1",
     "cheerio": "^1.0.0",
