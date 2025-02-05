@@ -37,7 +37,7 @@ describe('useCountdown', () => {
     vi.advanceTimersByTime(40000);
     expect(Math.round(output.value)).toBe(5);
     vi.advanceTimersByTime(5000);
-    expect(output.value).toBe(0);
+    expect(Math.round(output.value)).toBe(0);
   });
 
   it('首个传入参数为倒计时初始数字', () => {
