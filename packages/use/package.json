@@ -44,6 +44,6 @@
   "peerDependencies": {
     "@vueuse/core": ">=8.0.0",
     "mixte": ">=3.1.0",
-    "vue": ">=3.2.0"
+    "vue": ">=3.5.13"
   }
 }
