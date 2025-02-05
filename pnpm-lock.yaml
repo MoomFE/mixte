@@ -130,7 +130,7 @@ importers:
         specifier: ^2.4.6
         version: 2.4.6
       '@vueuse/core':
-        specifier: ^12.0.0
+        specifier: ^12.5.0
         version: 12.5.0(typescript@5.7.3)
       axios:
         specifier: ^1.7.9
@@ -292,7 +292,7 @@ importers:
         specifier: '>=3.1.0'
         version: 3.2.0(@vueuse/core@12.5.0(typescript@5.7.3))(mixte@3.2.0)(vue@3.5.13(typescript@5.7.3))
       '@vueuse/core':
-        specifier: '>=8.0.0'
+        specifier: '>=8.9.4'
         version: 12.5.0(typescript@5.7.3)
       mixte:
         specifier: '>=3.1.0'
@@ -310,7 +310,7 @@ importers:
         specifier: '>=3.1.0'
         version: 3.2.0(@vueuse/core@12.5.0(typescript@5.7.3))(mixte@3.2.0)(vue@3.5.13(typescript@5.7.3))
       '@vueuse/core':
-        specifier: '>=8.0.0'
+        specifier: '>=8.9.4'
         version: 12.5.0(typescript@5.7.3)
       element-plus:
         specifier: '>=2.9.2'
@@ -348,7 +348,7 @@ importers:
         specifier: 'catalog:'
         version: 0.171.0
       '@vueuse/core':
-        specifier: '>=8.0.0'
+        specifier: '>=8.9.4'
         version: 12.5.0(typescript@5.7.3)
       gsap:
         specifier: 'catalog:'
@@ -366,7 +366,7 @@ importers:
   packages/use:
     dependencies:
       '@vueuse/core':
-        specifier: '>=8.0.0'
+        specifier: '>=8.9.4'
         version: 12.5.0(typescript@5.7.3)
       mixte:
         specifier: '>=3.1.0'
