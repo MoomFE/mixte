@@ -232,8 +232,8 @@ importers:
         specifier: ^1.24.0
         version: 1.29.2
       shiki-magic-move:
-        specifier: ^0.5.0
-        version: 0.5.2(shiki@1.29.2)(vue@3.5.13(typescript@5.7.3))
+        specifier: ^1.0.0
+        version: 1.0.0(shiki@1.29.2)(vue@3.5.13(typescript@5.7.3))
       simple-git-hooks:
         specifier: ^2.11.1
         version: 2.11.1
@@ -3072,8 +3072,8 @@ packages:
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
 
-  diff-match-patch-es@0.1.1:
-    resolution: {integrity: sha512-+wE0HYKRuRdfsnpEFh41kTd0GlYFSDQacz2bQ4dwMDvYGtofqtYdJ6Gl4ZOgUPqPi7v8LSqMY0+/OedmIPHBZw==}
+  diff-match-patch-es@1.0.1:
+    resolution: {integrity: sha512-KhSofrZDERg/NE6Nd+TK53knp2qz0o2Ix8rhkXd3Chfm7Wlo58Eq/juNmkyS6bS+3xS26L3Pstz3BdY/q+e9UQ==}
 
   diff@7.0.0:
     resolution: {integrity: sha512-PJWHUb1RFevKCwaFA9RlG5tCd+FO5iRh9A8HEtkmBH2Li03iJriB6m6JIN4rGz3K3JLawI7/veA1xzRKP6ISBw==}
@@ -5248,11 +5248,11 @@ packages:
     resolution: {integrity: sha512-AzqKpGKjrj7EM6rKVQEPpB288oCfnrEIuyoT9cyF4nmGa7V8Zk6f7RRqYisX8X9m+Q7bd632aZW4ky7EhbQztA==}
     engines: {node: '>= 0.4'}
 
-  shiki-magic-move@0.5.2:
-    resolution: {integrity: sha512-Y5EHPD+IPiUUFFMEKu6RE8wELsKp8CYgf420Z+EXVljOvyBakiR9rjt/1Cm0VcSr9rkyQANw6fTE1PqcNOnAGA==}
+  shiki-magic-move@1.0.0:
+    resolution: {integrity: sha512-CU1mSLc9H3AV9SuVon3AAhesdi5WZh4GC3SR+Q0I4ilg71q0/OKnOWu0bT8Kgt5w6cJKYkEcQKNEHKCaqSLTIQ==}
     peerDependencies:
       react: ^18.2.0 || ^19.0.0
-      shiki: ^1.1.6
+      shiki: ^2.0.0
       solid-js: ^1.9.1
       svelte: ^5.0.0-0
       vue: ^3.5.13
@@ -9274,7 +9274,7 @@ snapshots:
     dependencies:
       dequal: 2.0.3
 
-  diff-match-patch-es@0.1.1: {}
+  diff-match-patch-es@1.0.1: {}
 
   diff@7.0.0: {}
 
@@ -12041,9 +12041,9 @@ snapshots:
 
   shell-quote@1.8.2: {}
 
-  shiki-magic-move@0.5.2(shiki@1.29.2)(vue@3.5.13(typescript@5.7.3)):
+  shiki-magic-move@1.0.0(shiki@1.29.2)(vue@3.5.13(typescript@5.7.3)):
     dependencies:
-      diff-match-patch-es: 0.1.1
+      diff-match-patch-es: 1.0.1
       ohash: 1.1.4
     optionalDependencies:
       shiki: 1.29.2
