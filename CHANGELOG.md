@@ -1,46 +1,9 @@
 ## [Unreleased]
-  - 💄 [@mixte/snippets] 组件 `Lottery` 移除对 IE 的支持, 简化 CSS3DRenderer 组件的实现 *
 
-## [v3.2.0-beta.8]
-  - 📅 2025-01-13
-  - 🐞 [@mixte/snippets] 修复 `Lottery` 组件丢失了 `stopRotate` 导出方法的问题 *
-  - 🐞 [@mixte/snippets] 修复 `Lottery` 组件进入旋转后停止, 再次旋转后会被无故停止的问题 *
-  - 🐞 [@mixte/snippets] 修复 `Lottery` 组件在不同情况下对 `更新选中卡片样式的方法` 的处理 *
-
-## [v3.2.0-beta.7]
-  - 📅 2025-01-13
-  - 🌟 [@mixte/snippets] 组件 `Lottery` 支持传入 `更新选中卡片样式` 的方法 *
-  - 💄 [@mixte/snippets] 优化 `Lottery` 组件在显示选择卡片时, 容器大小变化时重新布局 *
-  - 🐞 [@mixte/snippets] 修复 `Lottery` 的点击重置后动画还未执行完成, 再次选择卡片, 然后无法重置的问题 *
-
-## [v3.2.0-beta.6]
-  - 📅 2025-01-11
-  - 🐞 [@mixte/snippets] 修复 `Lottery` 组件开奖后重置为阵列时, 高亮的卡片未重置的问题 *
-  - ⚠️ [@mixte/snippets] 重构 `Lottery` 组件, 对外导出函数变更 *
-
-## [v3.2.0-beta.5]
-  - 📅 2025-01-09
-  - 🌟 [@mixte/snippets] 组件 `Lottery` 添加卡片闪烁效果, 支持关闭 *
-  - 💄 [@mixte/snippets] 组件 `Lottery` 转换为球型时, 移除高亮单元格背景色 *
-  - 💄 [@mixte/snippets] 组件 `Lottery` 展示选择的卡片时, 统一单元格背景色 *
-
-## [v3.2.0-beta.4]
-  - 📅 2025-01-08
-  - 💄 [@mixte/snippets] 优化 `Lottery` 的 `selectCard` 展示卡片的 z 值计算逻辑 *
-  - 🐞 [@mixte/snippets] 修复 `Lottery` 的 `selectCard` 抽取卡片每次都是底部卡片的问题 *
-
-## [v3.2.0-beta.3]
-  - 📅 2025-01-08
-  - 💄 [@mixte/snippets] 优化 `Lottery` 的 `selectCard` 逻辑, 最大显示行数扩展为 3 行, 数量大于 15 个时, 将分为 3 行均匀排列 *
-  - 💄 [@mixte/snippets] 移除 `Lottery` 组件无用代码 *
-
-## [v3.2.0-beta.2]
-  - 📅 2025-01-08
-  - 🌟 [@mixte/snippets] 新增 `Lottery` 年会抽奖组件 ( 开发中 )
-
-## [v3.2.0-beta.1]
-  - 📅 2025-01-05
+## [v3.2.0], [v3.2.0-beta.8], [v3.2.0-beta.7], [v3.2.0-beta.6], [v3.2.0-beta.5], [v3.2.0-beta.4], [v3.2.0-beta.3], [v3.2.0-beta.2], [v3.2.0-beta.1]
+  - 📅 2025-02-05
   - 🌟 [@mixte/snippets] 新增 `Tiptap` 编辑器组件 ( 开发中 )
+  - 🌟 [@mixte/snippets] 新增 `Lottery` 年会抽奖组件 ( 开发中 )
 
 ## [v3.1.0], [v3.1.0-beta.1]
   - 📅 2024-12-22
@@ -97,7 +60,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0-beta.8...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0...HEAD
+[v3.2.0]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0
 [v3.2.0-beta.8]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.8
 [v3.2.0-beta.7]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.7
 [v3.2.0-beta.6]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.6
