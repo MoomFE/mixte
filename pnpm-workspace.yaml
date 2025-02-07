@@ -3,12 +3,12 @@ packages:
   - playground
   - docs
 catalog:
-  vue-component-type-helpers: ^2.1.10
-  '@tiptap/extension-bubble-menu': ^2.10.4
-  '@tiptap/extension-underline': ^2.10.4
-  '@tiptap/pm': ^2.10.4
-  '@tiptap/starter-kit': ^2.10.4
-  '@tiptap/vue-3': ^2.10.4
-  three: ^0.172.0
-  '@types/three': ^0.171.0
-  gsap: ^3.12.5
+  vue-component-type-helpers: ^2.2.0
+  '@tiptap/extension-bubble-menu': ^2.11.5
+  '@tiptap/extension-underline': ^2.11.5
+  '@tiptap/pm': ^2.11.5
+  '@tiptap/starter-kit': ^2.11.5
+  '@tiptap/vue-3': ^2.11.5
+  three: ^0.173.0
+  '@types/three': ^0.173.0
+  gsap: ^3.12.7
