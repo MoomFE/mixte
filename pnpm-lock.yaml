@@ -289,13 +289,13 @@ importers:
   packages/components:
     dependencies:
       '@mixte/use':
-        specifier: '>=3.1.0'
+        specifier: '>=3.2.0'
         version: 3.2.0(@vueuse/core@12.5.0(typescript@5.7.3))(mixte@3.2.0)(vue@3.5.13(typescript@5.7.3))
       '@vueuse/core':
         specifier: '>=8.0.0'
         version: 12.5.0(typescript@5.7.3)
       mixte:
-        specifier: '>=3.1.0'
+        specifier: '>=3.2.0'
         version: 3.2.0
       vue:
         specifier: ^3.5.13
@@ -307,7 +307,7 @@ importers:
   packages/mel-components:
     dependencies:
       '@mixte/use':
-        specifier: '>=3.1.0'
+        specifier: '>=3.2.0'
         version: 3.2.0(@vueuse/core@12.5.0(typescript@5.7.3))(mixte@3.2.0)(vue@3.5.13(typescript@5.7.3))
       '@vueuse/core':
         specifier: '>=8.0.0'
@@ -316,7 +316,7 @@ importers:
         specifier: '>=2.9.4'
         version: 2.9.4(vue@3.5.13(typescript@5.7.3))
       mixte:
-        specifier: '>=3.1.0'
+        specifier: '>=3.2.0'
         version: 3.2.0
       vue:
         specifier: ^3.5.13
@@ -327,7 +327,7 @@ importers:
   packages/snippets:
     dependencies:
       '@mixte/use':
-        specifier: '>=3.1.0'
+        specifier: '>=3.2.0'
         version: 3.2.0(@vueuse/core@12.5.0(typescript@5.7.3))(mixte@3.2.0)(vue@3.5.13(typescript@5.7.3))
       '@tiptap/extension-bubble-menu':
         specifier: 'catalog:'
@@ -354,7 +354,7 @@ importers:
         specifier: 'catalog:'
         version: 3.12.7
       mixte:
-        specifier: '>=3.1.0'
+        specifier: '>=3.2.0'
         version: 3.2.0
       three:
         specifier: 'catalog:'
@@ -369,7 +369,7 @@ importers:
         specifier: '>=8.0.0'
         version: 12.5.0(typescript@5.7.3)
       mixte:
-        specifier: '>=3.1.0'
+        specifier: '>=3.2.0'
         version: 3.2.0
       vue:
         specifier: ^3.5.13
