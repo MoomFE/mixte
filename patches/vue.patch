@@ -1,0 +1,13 @@
+diff --git a/jsx-runtime/index.d.ts b/jsx-runtime/index.d.ts
+index a52ac66a0dfb256c17de5160ac7eb41c003319f9..00fd917c293b5c357a1f2a67063ed0ef163d0649 100644
+--- a/jsx-runtime/index.d.ts
++++ b/jsx-runtime/index.d.ts
+@@ -9,7 +9,7 @@ import type { NativeElements, ReservedProps, VNode } from '@vue/runtime-dom'
+ export { h as jsx, h as jsxDEV, Fragment } from '@vue/runtime-dom'
+ 
+ export namespace JSX {
+-  export interface Element extends VNode {}
++  // export interface Element extends VNode {}
+   export interface ElementClass {
+     $props: {}
+   }
