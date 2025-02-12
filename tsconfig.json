@@ -22,6 +22,10 @@
         "./packages/snippets/src/lottery/src/*",
         "./packages/snippets/src/lottery/*"
       ],
+      "@mixte/snippets/ant-design-x/*": [
+        "./packages/snippets/src/ant-design-x/src/*",
+        "./packages/snippets/src/ant-design-x/*"
+      ],
       "@mixte/mel-components/*": ["./packages/mel-components/src/*/index.ts"],
       "@mixte/*": ["./packages/*/src/index.ts"],
       "@/*": ["./packages/*"],

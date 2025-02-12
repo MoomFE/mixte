@@ -205,6 +205,13 @@
   ],
   "snippets": [
     {
+      "fn": "ant-design-x",
+      "title": "Ant Design X",
+      "name": "",
+      "hiddenTitle": false,
+      "sidebarTitle": "Ant Design X"
+    },
+    {
       "fn": "getFastestCDN",
       "title": "",
       "name": "",

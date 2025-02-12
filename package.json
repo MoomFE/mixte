@@ -45,6 +45,7 @@
     "release": "pnpm test-release && npx bumpp -r --no-tag --no-push"
   },
   "devDependencies": {
+    "@ant-design/x": "catalog:",
     "@arco-design/web-vue": "^2.56.3",
     "@floating-ui/vue": "^1.1.6",
     "@iconify/json": "^2.2.312",
@@ -125,7 +126,7 @@
     "unplugin-auto-import": "^19.1.1",
     "unplugin-icons": "^22.1.0",
     "unplugin-vue-components": "^28.4.1",
-    "veaury": "^2.6.2",
+    "veaury": "catalog:",
     "vite": "^6.2.0",
     "vitepress": "^1.6.3",
     "vitest": "^3.0.7",

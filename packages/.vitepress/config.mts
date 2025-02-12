@@ -200,7 +200,7 @@ export default defineConfig({
       },
     },
     ssr: {
-      noExternal: ['element-plus', 'naive-ui', 'vueuc', 'date-fns', 'veaury'],
+      noExternal: ['element-plus', 'naive-ui', 'vueuc', 'date-fns', 'veaury', /^@ant-design\/.+/, 'antd', /^rc-.+/],
     },
   },
 });

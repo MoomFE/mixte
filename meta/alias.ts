@@ -11,10 +11,7 @@ export const alias: Alias[] = [
   { find: '@mixte/use', replacement: resolve(__dirname, '../packages/use/src/index') },
   { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/src/$1/index') },
   { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/src/index') },
-  {
-    find: /^@mixte\/snippets\/dist\/(tiptap-editor|lottery)\/css\/(.*)$/,
-    replacement: resolve(__dirname, '../packages/snippets/src/$1/src/css/$2'),
-  },
+
   {
     find: /^@mixte\/snippets\/tiptap-editor\/(config-provider-Injection-state|icons)$/,
     replacement: resolve(__dirname, '../packages/snippets/src/tiptap-editor/src/$1'),
@@ -24,9 +21,19 @@ export const alias: Alias[] = [
     replacement: resolve(__dirname, '../packages/snippets/src/lottery/src/$1'),
   },
   {
-    find: /^@mixte\/snippets\/(tiptap-editor|lottery)\/(.*)$/,
+    find: /^@mixte\/snippets\/ant-design-x\/(init-veaury|flag)$/,
+    replacement: resolve(__dirname, '../packages/snippets/src/ant-design-x/src/$1'),
+  },
+
+  {
+    find: /^@mixte\/snippets\/dist\/(tiptap-editor|lottery)\/css\/(.*)$/,
+    replacement: resolve(__dirname, '../packages/snippets/src/$1/src/css/$2'),
+  },
+  {
+    find: /^@mixte\/snippets\/(tiptap-editor|lottery|ant-design-x)\/(.*)$/,
     replacement: resolve(__dirname, '../packages/snippets/src/$1/$2'),
   },
+
   { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/src/$1/index') },
   { find: /^@mixte\/mel-components\/(.*)$/, replacement: resolve(__dirname, '../packages/mel-components/src/$1/index') },
 ];
@@ -43,7 +50,7 @@ export const testAlias: Alias[] = [
     replacement: resolve(__dirname, '../packages/snippets/dist/$1/css/$2'),
   },
   {
-    find: /^@mixte\/snippets\/(tiptap-editor|lottery)\/(.*)$/,
+    find: /^@mixte\/snippets\/(tiptap-editor|lottery|ant-design-x)\/(.*)$/,
     replacement: resolve(__dirname, '../packages/snippets/dist/$1/$2'),
   },
   { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/dist/$1') },

@@ -12,3 +12,5 @@ catalog:
   three: ^0.174.0
   '@types/three': ^0.174.0
   gsap: ^3.12.7
+  veaury: ^2.6.2
+  '@ant-design/x': ^1.0.5
