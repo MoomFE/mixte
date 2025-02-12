@@ -42,9 +42,6 @@ defineBuild([
     entry: './src/lottery/index.ts',
     outputFileName: 'lottery',
     vueComponent: true,
-    external: [
-      /^three\/.+/,
-    ],
   },
   ...['config-provider-Injection-state', 'utils'].map((name) => {
     return {
@@ -59,4 +56,26 @@ defineBuild([
       to: 'lottery/css',
     }],
   },
+
+  // ant-design-x
+  ...['sender'].map((name) => {
+    return {
+      entry: `./src/ant-design-x/${name}.ts`,
+      outputFileName: `ant-design-x/${name}`,
+      vueComponent: true,
+      external: [
+        /^react-dom\/.+/,
+      ],
+    };
+  }),
+  ...['init-veaury'].map((name) => {
+    return {
+      entry: `./src/ant-design-x/src/${name}.ts`,
+      outputFileName: `ant-design-x/${name}`,
+      vueDtsInput: `ant-design-x/src/${name}.d.ts`,
+      external: [
+        /^react-dom\/.+/,
+      ],
+    };
+  }),
 ]);
