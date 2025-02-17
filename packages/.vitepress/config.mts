@@ -1,6 +1,7 @@
 import { fileURLToPath } from 'node:url';
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash';
 import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs';
+import React from '@vitejs/plugin-react';
 import VueJsx from '@vitejs/plugin-vue-jsx';
 import { dirname, resolve } from 'pathe';
 import { pascalCase } from 'scule';
@@ -151,7 +152,22 @@ export default defineConfig({
       ],
     },
     plugins: [
-      VueJsx(),
+      {
+        ...VueJsx({
+          exclude: [/[/\\]components-react[\\/$]+/],
+        }),
+        enforce: 'pre',
+      },
+      React({
+        jsxImportSource: 'react',
+      }),
+      {
+        config: () => ({
+          esbuild: {
+            include: /\.[jt]sx?$/,
+          },
+        }),
+      },
       MarkdownTransform(),
       Unocss({
         configFile: resolve(__dirname, '../unocss.config.ts'),
@@ -184,7 +200,7 @@ export default defineConfig({
       },
     },
     ssr: {
-      noExternal: ['element-plus', 'naive-ui', 'vueuc', 'date-fns'],
+      noExternal: ['element-plus', 'naive-ui', 'vueuc', 'date-fns', 'veaury'],
     },
   },
 });
