@@ -1,0 +1,26 @@
+.mixte-lce-component-list{
+  width: 100%;
+
+  .mixte-lcecl-group-name{
+    margin-bottom: 8px;
+
+    &:not(:first-child) {
+      margin-top: 24px;
+    }
+  }
+
+  .mixte-lcecl-group{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 8px;
+  }
+}
+
+.mixte-lceclg-item{
+  width: 100%;
+  display: flex; align-items: center; gap: 4px;
+  border: 1px solid #d4d4d4; border-radius: 6px;
+  background-color: #FFF;
+  padding: 3.2px 8px;
+  user-select: none; cursor: pointer;
+}

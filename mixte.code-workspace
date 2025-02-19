@@ -31,6 +31,14 @@
     {
       "path": "packages/mel-components",
       "name": "Mel Components"
+    },
+    {
+      "path": "packages/------",
+      "name": "------------------------------------"
+    },
+    {
+      "path": "packages/snippets/src/low-code-editor",
+      "name": "Low Code Editor"
     }
   ],
   "settings": {
@@ -75,7 +83,7 @@
       "packages/snippets": true,
       "packages/use": true,
       "packages/validator": true,
-      "src/auto-grid/**/*.d.ts": true
+      "src/low-code-editor": true
     },
     "unocss.autocomplete.matchType": "fuzzy",
     "unocss.remToPxPreview": true,

@@ -1,0 +1,68 @@
+.mixte-lce-canvas {
+  width: 100%; height: 100%;
+  overflow-y: auto;
+
+  background-color: #FFF;
+  background-image: linear-gradient(45deg, #EFEFEF 25%, transparent 25%, transparent 75%, #EFEFEF 75%, #EFEFEF),
+                    linear-gradient(45deg, #EFEFEF 25%, transparent 25%, transparent 75%, #EFEFEF 75%, #EFEFEF);
+  background-size: 12px 12px;
+  background-position: 0 0, 6px 6px;
+
+  .mixte-lcec-content-wrap{
+    min-height: 100%;
+    border: 20px solid transparent;
+    position: relative;
+
+    .mixte-lcec-content{
+      width: 100%; height: 100%;
+      position: absolute; top: 0; left: 0;
+  
+      .mixte-lcecc-preview{
+        min-width: 100%; min-height: 100%;
+        background-color: #FFF;
+      }
+    }
+  }
+}
+
+.mixte-lce-component-wrap{
+  &.active {
+    outline: 1px solid #2b7fff;
+    outline-offset: -1px;
+  }
+  &.dragging, &.normal:hover {
+    outline: 1px dashed #2b7fff;
+    outline-offset: -1px;
+  }
+
+  & > *{
+    pointer-events: none;
+    user-select: none;
+  }
+}
+
+.mixte-lce-slot-placeholder{
+  min-height: 32px; width: 100%; height: 100%;
+  display: flex; justify-content: center; align-items: center;
+  font-size: 12px;
+  pointer-events: none; user-select: none;
+  opacity: 0.36;
+}
+
+.mixte-lce-border-view{
+  position: fixed;
+  pointer-events: none;
+
+  .mixte-lcebv-tools{
+    display: flex; align-items: center;
+    position: absolute; bottom: calc(100% + 2px); right: 0;
+    background-color: #2b7fff; color: white;
+    border-radius: 4px;
+    padding: 2px;
+    pointer-events: auto;
+
+    button {
+      background-color: transparent;
+    }
+  }
+}

@@ -53,6 +53,11 @@
       "import": "./dist/ant-design-x/*.mjs",
       "require": "./dist/ant-design-x/*.cjs"
     },
+    "./low-code-editor/*": {
+      "types": "./dist/low-code-editor/*.d.ts",
+      "import": "./dist/low-code-editor/*.mjs",
+      "require": "./dist/low-code-editor/*.cjs"
+    },
     "./*": "./*"
   },
   "files": [
@@ -77,7 +82,10 @@
     "@tiptap/vue-3": "catalog:",
     "@types/three": "catalog:",
     "gsap": "catalog:",
+    "nanoid": "catalog:",
     "three": "catalog:",
-    "veaury": "catalog:"
+    "veaury": "catalog:",
+    "vue-component-type-helpers": "catalog:",
+    "vue-draggable-plus": "catalog:"
   }
 }

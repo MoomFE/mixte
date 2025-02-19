@@ -24,13 +24,17 @@ export const alias: Alias[] = [
     find: /^@mixte\/snippets\/ant-design-x\/(init-veaury|flag)$/,
     replacement: resolve(__dirname, '../packages/snippets/src/ant-design-x/src/$1'),
   },
+  {
+    find: /^@mixte\/snippets\/low-code-editor\/(config-provider-Injection-state|types|utils)$/,
+    replacement: resolve(__dirname, '../packages/snippets/src/low-code-editor/src/$1'),
+  },
 
   {
-    find: /^@mixte\/snippets\/dist\/(tiptap-editor|lottery)\/css\/(.*)$/,
+    find: /^@mixte\/snippets\/dist\/(tiptap-editor|lottery|low-code-editor)\/css\/(.*)$/,
     replacement: resolve(__dirname, '../packages/snippets/src/$1/src/css/$2'),
   },
   {
-    find: /^@mixte\/snippets\/(tiptap-editor|lottery|ant-design-x)\/(.*)$/,
+    find: /^@mixte\/snippets\/(tiptap-editor|lottery|ant-design-x|low-code-editor)\/(.*)$/,
     replacement: resolve(__dirname, '../packages/snippets/src/$1/$2'),
   },
 
@@ -46,11 +50,11 @@ export const testAlias: Alias[] = [
   { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/dist/$1') },
   { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/dist/index') },
   {
-    find: /^@mixte\/snippets\/dist\/(tiptap-editor|lottery)\/css\/(.*)$/,
+    find: /^@mixte\/snippets\/dist\/(tiptap-editor|lottery|low-code-editor)\/css\/(.*)$/,
     replacement: resolve(__dirname, '../packages/snippets/dist/$1/css/$2'),
   },
   {
-    find: /^@mixte\/snippets\/(tiptap-editor|lottery|ant-design-x)\/(.*)$/,
+    find: /^@mixte\/snippets\/(tiptap-editor|lottery|ant-design-x|low-code-editor)\/(.*)$/,
     replacement: resolve(__dirname, '../packages/snippets/dist/$1/$2'),
   },
   { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/dist/$1') },
