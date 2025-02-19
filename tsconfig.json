@@ -12,6 +12,7 @@
       "@mixte/use/nuxt": ["./packages/use/src/nuxt.ts"],
       "@mixte/components/*": ["./packages/components/src/*/index.ts"],
       "@mixte/snippets/*": ["./packages/snippets/src/*/index.ts"],
+
       "@mixte/snippets/dist/tiptap-editor/css/*": ["./packages/snippets/src/tiptap-editor/src/css/*"],
       "@mixte/snippets/tiptap-editor/*": [
         "./packages/snippets/src/tiptap-editor/src/*",
@@ -26,6 +27,12 @@
         "./packages/snippets/src/ant-design-x/src/*",
         "./packages/snippets/src/ant-design-x/*"
       ],
+      "@mixte/snippets/dist/low-code-editor/css/*": ["./packages/snippets/src/low-code-editor/src/css/*"],
+      "@mixte/snippets/low-code-editor/*": [
+        "./packages/snippets/src/low-code-editor/src/*",
+        "./packages/snippets/src/low-code-editor/*"
+      ],
+
       "@mixte/mel-components/*": ["./packages/mel-components/src/*/index.ts"],
       "@mixte/*": ["./packages/*/src/index.ts"],
       "@/*": ["./packages/*"],

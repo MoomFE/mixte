@@ -14,3 +14,5 @@ catalog:
   gsap: ^3.12.7
   veaury: ^2.6.2
   '@ant-design/x': ^1.0.5
+  vue-draggable-plus: ^0.6.0
+  nanoid: ^5.1.2
