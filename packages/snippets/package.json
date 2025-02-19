@@ -77,7 +77,10 @@
     "@tiptap/vue-3": "catalog:",
     "@types/three": "catalog:",
     "gsap": "catalog:",
+    "nanoid": "catalog:",
     "three": "catalog:",
-    "veaury": "catalog:"
+    "veaury": "catalog:",
+    "vue-component-type-helpers": "catalog:",
+    "vue-draggable-plus": "catalog:"
   }
 }
