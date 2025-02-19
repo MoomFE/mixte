@@ -226,6 +226,13 @@
       "sidebarTitle": "Lottery"
     },
     {
+      "fn": "low-code-editor",
+      "title": "LowCodeEditor",
+      "name": "低代码编辑器",
+      "hiddenTitle": false,
+      "sidebarTitle": "LowCodeEditor"
+    },
+    {
       "fn": "tiptap-editor",
       "title": "TiptapEditor",
       "name": "富文本编辑器",

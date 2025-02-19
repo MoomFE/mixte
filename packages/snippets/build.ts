@@ -78,4 +78,20 @@ defineBuild([
       ],
     };
   }),
+
+  // low-code-editor
+  ...['config-provider', 'component-list'].map((name) => {
+    return {
+      entry: `./src/low-code-editor/${name}.ts`,
+      outputFileName: `low-code-editor/${name}`,
+      vueComponent: true,
+    };
+  }),
+  ...['config-provider-Injection-state', 'types', 'utils'].map((name) => {
+    return {
+      entry: `./src/low-code-editor/src/${name}.ts`,
+      outputFileName: `low-code-editor/${name}`,
+      vueDtsInput: `low-code-editor/src/${name}.d.ts`,
+    };
+  }),
 ]);

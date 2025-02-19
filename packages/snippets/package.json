@@ -78,6 +78,7 @@
     "@types/three": "catalog:",
     "gsap": "catalog:",
     "three": "catalog:",
-    "veaury": "catalog:"
+    "veaury": "catalog:",
+    "vue-component-type-helpers": "catalog:"
   }
 }
