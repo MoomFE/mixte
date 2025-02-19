@@ -30,6 +30,9 @@ catalogs:
     gsap:
       specifier: ^3.12.7
       version: 3.12.7
+    nanoid:
+      specifier: ^5.1.2
+      version: 5.1.2
     three:
       specifier: ^0.174.0
       version: 0.174.0
@@ -39,6 +42,9 @@ catalogs:
     vue-component-type-helpers:
       specifier: ^2.2.8
       version: 2.2.8
+    vue-draggable-plus:
+      specifier: ^0.6.0
+      version: 0.6.0
 
 overrides:
   '@vue/compiler-core': ^3.5.13
@@ -219,7 +225,7 @@ importers:
         specifier: ^2.41.0
         version: 2.41.0(vue@3.5.13(patch_hash=tcq7d2exeyaukycphitbkrjvga)(typescript@5.8.2))
       nanoid:
-        specifier: ^5.1.2
+        specifier: 'catalog:'
         version: 5.1.2
       nuxt:
         specifier: ^3.15.4
@@ -317,6 +323,9 @@ importers:
       vue-component-type-helpers:
         specifier: 'catalog:'
         version: 2.2.8
+      vue-draggable-plus:
+        specifier: 'catalog:'
+        version: 0.6.0(@types/sortablejs@1.15.8)
       vue-tsc:
         specifier: ^2.2.8
         version: 2.2.8(typescript@5.8.2)
@@ -394,6 +403,9 @@ importers:
       mixte:
         specifier: '>=3.0.0'
         version: 3.2.0
+      nanoid:
+        specifier: 'catalog:'
+        version: 5.1.2
       three:
         specifier: 'catalog:'
         version: 0.174.0
@@ -403,6 +415,12 @@ importers:
       vue:
         specifier: ^3.5.13
         version: 3.5.13(patch_hash=tcq7d2exeyaukycphitbkrjvga)(typescript@5.8.2)
+      vue-component-type-helpers:
+        specifier: 'catalog:'
+        version: 2.2.8
+      vue-draggable-plus:
+        specifier: 'catalog:'
+        version: 0.6.0(@types/sortablejs@1.15.8)
 
   packages/use:
     dependencies:
@@ -2202,6 +2220,9 @@ packages:
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
+
+  '@types/sortablejs@1.15.8':
+    resolution: {integrity: sha512-b79830lW+RZfwaztgs1aVPgbasJ8e7AXtZYHTELNXZPsERt4ymJdjV4OccDbHQAvHrCcFpbF78jkm0R6h/pZVg==}
 
   '@types/stats.js@0.17.3':
     resolution: {integrity: sha512-pXNfAD3KHOdif9EQXZ9deK82HVNaXP5ZIF5RP2QG6OQFNTaY2YIetfrE9t528vEreGQvEPRDDc8muaoYeK0SxQ==}
@@ -6655,6 +6676,15 @@ packages:
   vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
 
+  vue-draggable-plus@0.6.0:
+    resolution: {integrity: sha512-G5TSfHrt9tX9EjdG49InoFJbt2NYk0h3kgjgKxkFWr3ulIUays0oFObr5KZ8qzD4+QnhtALiRwIqY6qul4egqw==}
+    peerDependencies:
+      '@types/sortablejs': ^1.15.0
+      '@vue/composition-api': '*'
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+
   vue-eslint-parser@9.4.3:
     resolution: {integrity: sha512-2rYRLWlIpaiN8xbPiDyXZXRgLGOtWxERV7ND5fFAv5qo1D2N9Fu9MNajBNc6o13lZ+24DAWCkQCvj4klgmcITg==}
     engines: {node: ^14.17.0 || >=16.0.0}
@@ -8780,6 +8810,8 @@ snapshots:
       csstype: 3.1.3
 
   '@types/resolve@1.20.2': {}
+
+  '@types/sortablejs@1.15.8': {}
 
   '@types/stats.js@0.17.3': {}
 
@@ -14242,6 +14274,10 @@ snapshots:
       vue: 3.5.13(patch_hash=tcq7d2exeyaukycphitbkrjvga)(typescript@5.8.2)
 
   vue-devtools-stub@0.1.0: {}
+
+  vue-draggable-plus@0.6.0(@types/sortablejs@1.15.8):
+    dependencies:
+      '@types/sortablejs': 1.15.8
 
   vue-eslint-parser@9.4.3(eslint@9.21.0(jiti@2.4.2)):
     dependencies:

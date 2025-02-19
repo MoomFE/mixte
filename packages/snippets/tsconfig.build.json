@@ -8,7 +8,11 @@
       "@mixte/snippets/tiptap-editor/icons": ["./src/tiptap-editor/src/icons"],
       "@mixte/snippets/tiptap-editor/menu": ["./src/tiptap-editor/menu"],
       "@mixte/snippets/lottery/config-provider-Injection-state": ["./src/lottery/src/config-provider-Injection-state"],
-      "@mixte/snippets/lottery/utils": ["./src/lottery/src/utils"]
+      "@mixte/snippets/lottery/utils": ["./src/lottery/src/utils"],
+      "@mixte/snippets/low-code-editor/config-provider-Injection-state": ["./src/low-code-editor/src/config-provider-Injection-state"],
+      "@mixte/snippets/low-code-editor/types": ["./src/low-code-editor/src/types"],
+      "@mixte/snippets/low-code-editor/utils": ["./src/low-code-editor/src/utils"],
+      "@mixte/snippets/low-code-editor/preview": ["./src/low-code-editor/preview"]
     },
     "outDir": "dist/dts"
   },
