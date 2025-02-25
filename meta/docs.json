@@ -171,6 +171,13 @@
       "name": "自适应栅格",
       "hiddenTitle": false,
       "sidebarTitle": ""
+    },
+    {
+      "fn": "infinite-scroll",
+      "title": "",
+      "name": "无限滚动",
+      "hiddenTitle": false,
+      "sidebarTitle": ""
     }
   ],
   "validator": [

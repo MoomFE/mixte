@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/components] 新增 `InfiniteScroll` 组件
 
 ## [v3.2.0], [v3.2.0-beta.8], [v3.2.0-beta.7], [v3.2.0-beta.6], [v3.2.0-beta.5], [v3.2.0-beta.4], [v3.2.0-beta.3], [v3.2.0-beta.2], [v3.2.0-beta.1]
   - 📅 2025-02-05

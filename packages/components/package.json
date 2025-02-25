@@ -19,6 +19,11 @@
       "import": "./dist/auto-grid.mjs",
       "require": "./dist/auto-grid.cjs"
     },
+    "./infinite-scroll": {
+      "types": "./dist/infinite-scroll.d.ts",
+      "import": "./dist/infinite-scroll.mjs",
+      "require": "./dist/infinite-scroll.cjs"
+    },
     "./*": "./*"
   },
   "files": [
