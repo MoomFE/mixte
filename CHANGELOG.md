@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.3.0-beta.1]
+  - 📅 2025-02-26
   - 🌟 [@mixte/components] 新增 `InfiniteScroll` 组件
 
 ## [v3.2.0], [v3.2.0-beta.8], [v3.2.0-beta.7], [v3.2.0-beta.6], [v3.2.0-beta.5], [v3.2.0-beta.4], [v3.2.0-beta.3], [v3.2.0-beta.2], [v3.2.0-beta.1]
@@ -61,7 +64,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.2.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.3.0-beta.1...HEAD
+[v3.3.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.3.0-beta.1
 [v3.2.0]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0
 [v3.2.0-beta.8]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.8
 [v3.2.0-beta.7]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.7
