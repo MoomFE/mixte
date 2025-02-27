@@ -1,13 +1,16 @@
 import type { OptionsApi } from '@mixte/mel-components/utils';
 import type { ElSelect, ISelectProps, SelectOptionProxy } from 'element-plus';
 import type { SetOptional } from 'type-fest';
+import type { VNodeChild } from 'vue';
 
 export type SelectInstance = InstanceType<typeof ElSelect>;
 
 export type MelSelectOption = SetOptional<
   Pick<SelectOptionProxy, 'value' | 'label' | 'disabled'>,
   'disabled'
->;
+> & {
+  render?: (option: MelSelectOption) => VNodeChild;
+};
 
 export interface MelSelectProps extends /* @vue-ignore */ Partial<ISelectProps> {
   /** 数据源 */

@@ -1,3 +1,4 @@
+import type { MelSelectOption } from './src/types';
 import { MelSelect } from '@mixte/mel-components/mel-select';
 import { mount } from '@vue/test-utils';
 import * as cheerio from 'cheerio';
@@ -118,6 +119,62 @@ describe('mel-select', () => {
       expect(options[0].classes()).toContain('is-disabled');
       expect(options[1].text()).toBe('2');
       expect(removeUnusedAttribute(el.html())).toBe(removeUnusedAttribute(mel.html()));
+    });
+
+    it('支持通过 render 自定义渲染选项', () => {
+      const mel = mount(MelSelect, {
+        props: {
+          teleported: false,
+          options: [
+            {
+              label: '选项1',
+              value: '1',
+              render: (option: MelSelectOption) => (
+                h(ElOption, null, {
+                  default: () => (
+                    h('div', { class: 'custom-option' }, [
+                      h('span', { class: 'prefix' }, '前缀-'),
+                      h('span', { class: 'label' }, option.label),
+                      h('span', { class: 'value' }, `(${option.value})`),
+                    ])
+                  ),
+                })
+              ),
+            },
+            {
+              label: '选项2',
+              value: '2',
+              render: (option: MelSelectOption) => (
+                h(ElOption, null, {
+                  default: () => h('div', { class: 'custom-option highlight' }, option.label),
+                })
+              ),
+            },
+            {
+              label: '选项3',
+              value: '3',
+            },
+          ],
+        },
+      });
+
+      const options = mel.findAll('.el-select-dropdown__item');
+      expect(options.length).toBe(3);
+
+      const option1 = options[0];
+      expect(option1.find('.custom-option').exists()).toBe(true);
+      expect(option1.find('.prefix').text()).toBe('前缀-');
+      expect(option1.find('.label').text()).toBe('选项1');
+      expect(option1.find('.value').text()).toBe('(1)');
+
+      const option2 = options[1];
+      expect(option2.find('.custom-option').exists()).toBe(true);
+      expect(option2.find('.custom-option').classes()).toContain('highlight');
+      expect(option2.text()).toBe('选项2');
+
+      const option3 = options[2];
+      expect(option3.find('.custom-option').exists()).toBe(false);
+      expect(option3.text()).toBe('选项3');
     });
   });
 

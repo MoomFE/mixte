@@ -35,6 +35,8 @@
         {{
           default: () => {
             return options.value?.map((option) => {
+              if (option.render) return option.render(option);
+
               return <ElOption key={`${option.value}`} {...option} />;
             });
           },
