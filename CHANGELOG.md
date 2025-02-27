@@ -1,5 +1,9 @@
 ## [Unreleased]
+
+## [v3.3.0-beta.2]
+  - 📅 2025-02-27
   - 🌟 [@mixte/mel-components] 组件 `MelSelect` 的 `options` 支持传入 `render` 函数以实现自定义渲染
+  - 🌟 [@mixte/components] 组件 `InfiniteScroll` 新增 `isEmpty` 导出 *
 
 ## [v3.3.0-beta.1]
   - 📅 2025-02-26
@@ -66,7 +70,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.3.0-beta.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.3.0-beta.2...HEAD
+[v3.3.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.3.0-beta.2
 [v3.3.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.3.0-beta.1
 [v3.2.0]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0
 [v3.2.0-beta.8]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0-beta.8
