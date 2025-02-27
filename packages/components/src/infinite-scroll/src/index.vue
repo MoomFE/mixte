@@ -1,8 +1,8 @@
 <template>
   <div ref="rootRef" class="mixte-infinite-scroll">
-    <slot name="prepend" :is-loading :is-finished :error :is-empty />
+    <slot name="prepend" :is-loading :is-empty :is-finished :error />
     <slot />
-    <slot name="append" :is-loading :is-finished :error :is-empty />
+    <slot name="append" :is-loading :is-empty :is-finished :error />
   </div>
 </template>
 
@@ -64,6 +64,7 @@
 
   defineExpose({
     isLoading,
+    isEmpty,
     isFinished,
     error,
     reset() {
