@@ -40,7 +40,11 @@
               // 其次使用 option 插槽
               if (slots.option) return slots.option(option);
 
-              return <ElOption key={`${option.value}`} {...option} />;
+              return (
+                <ElOption key={`${option.value}`} {...option}>
+                  {slots['option-label'] && slots['option-label'](option)}
+                </ElOption>
+              );
             });
           },
           ...slots,

@@ -1,5 +1,6 @@
 ## [Unreleased]
   - 🌟 [@mixte/mel-components] 组件 `MelSelect` 支持传入 `options` 插槽以实现自定义渲染
+  - 🌟 [@mixte/mel-components] 组件 `MelSelect` 支持传入 `option-label` 插槽以实现仅替换选项内容部分
 
 ## [v3.3.0-beta.2]
   - 📅 2025-02-27
