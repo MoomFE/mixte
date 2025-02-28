@@ -176,6 +176,52 @@ describe('mel-select', () => {
       expect(option3.find('.custom-option').exists()).toBe(false);
       expect(option3.text()).toBe('选项3');
     });
+
+    it('支持通过 option 插槽自定义渲染选项, render 属性优先级高于 option 插槽', () => {
+      const mel = mount(MelSelect, {
+        props: {
+          teleported: false,
+          options: [
+            {
+              label: '选项1',
+              value: '1',
+              render: (option: MelSelectOption) => (
+                h(ElOption, { value: option.value }, {
+                  default: () => h('div', { class: 'render-option' }, `Render方式-${option.label}`),
+                })
+              ),
+            },
+            {
+              label: '选项2',
+              value: '2',
+              // 这个选项没有 render 方法，应该使用 option 插槽
+            },
+          ],
+        },
+        slots: {
+          option: (option: MelSelectOption) => (
+            h(ElOption, { value: option.value }, {
+              default: () => h('div', { class: 'slot-option' }, `Slot方式-${option.label}`),
+            })
+          ),
+        },
+      });
+
+      const options = mel.findAll('.el-select-dropdown__item');
+      expect(options.length).toBe(2);
+
+      // 第一个选项应该使用 render 方法
+      const option1 = options[0];
+      expect(option1.find('.render-option').exists()).toBe(true);
+      expect(option1.find('.slot-option').exists()).toBe(false);
+      expect(option1.text()).toBe('Render方式-选项1');
+
+      // 第二个选项应该使用 option 插槽
+      const option2 = options[1];
+      expect(option2.find('.render-option').exists()).toBe(false);
+      expect(option2.find('.slot-option').exists()).toBe(true);
+      expect(option2.text()).toBe('Slot方式-选项2');
+    });
   });
 
   describe('新增参数: optionsApi', () => {

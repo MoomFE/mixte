@@ -35,7 +35,10 @@
         {{
           default: () => {
             return options.value?.map((option) => {
+              // 优先使用选项的 render 函数
               if (option.render) return option.render(option);
+              // 其次使用 option 插槽
+              if (slots.option) return slots.option(option);
 
               return <ElOption key={`${option.value}`} {...option} />;
             });

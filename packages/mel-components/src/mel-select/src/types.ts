@@ -28,12 +28,12 @@ export interface MelSelectSlots {
   default?: () => void;
   /**
    * 下拉列表顶部的内容
-   * @version 2.4.3
+   * @version element-plus@2.4.3
    */
   header?: () => void;
   /**
    * 下拉列表底部的内容
-   * @version 2.4.3
+   * @version element-plus@2.4.3
    */
   footer?: () => void;
   /**
@@ -46,17 +46,23 @@ export interface MelSelectSlots {
   empty?: () => void;
   /**
    * select 组件自定义标签内容
-   * @version 2.5.0
+   * @version element-plus@2.5.0
    */
   tag?: () => void;
   /**
    * select 组件自定义 loading 内容
-   * @version 2.5.2
+   * @version element-plus@2.5.2
    */
   loading?: () => void;
   /**
    * select 组件自定义标签内容
-   * @version 2.7.4
+   * @version element-plus@2.7.4
    */
   label?: () => void;
+  /**
+   * 自定义渲染单个选项
+   * @param option 选项数据
+   * @version @mixte/mel-components@3.3.0
+   */
+  option?: (option: MelSelectOption) => void;
 }
