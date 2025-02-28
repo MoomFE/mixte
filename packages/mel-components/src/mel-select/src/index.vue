@@ -42,12 +42,13 @@
 
               return (
                 <ElOption key={`${option.value}`} {...option}>
-                  {slots['option-label'] && slots['option-label'](option)}
+                  {(slots['option-label'] ?? slots['all-label'])?.(option)}
                 </ElOption>
               );
             });
           },
           ...slots,
+          label: slots.label ?? slots['all-label'],
         }}
       </ElSelect>
     );

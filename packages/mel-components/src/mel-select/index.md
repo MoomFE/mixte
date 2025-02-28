@@ -16,6 +16,8 @@ outline: [2,3]
 
 ### `自定义渲染选项内容: 使用 option-label 插槽`
 
+### `自定义渲染选项内容和标签: 使用 all-label 插槽`
+
 ## API
 
 ### Props

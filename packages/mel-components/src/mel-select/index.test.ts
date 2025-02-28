@@ -334,4 +334,75 @@ describe('mel-select', () => {
       expect(options[1].text()).toBe('自定义内容-选项2');
     });
   });
+
+  describe('新增插槽: all-label', () => {
+    it('功能一: 通过 all-label 插槽自定义标签, 和 label 插槽作用一致', () => {
+      const mel = mount(MelSelect, {
+        props: {
+          teleported: false,
+          options: [{ label: '选项1', value: '1' }],
+          modelValue: '1',
+        },
+        slots: {
+          'all-label': () => '自定义标签 all-label',
+        },
+      });
+
+      const mel2 = mount(MelSelect, {
+        props: {
+          teleported: false,
+          options: [{ label: '选项1', value: '1' }],
+          modelValue: '1',
+        },
+        slots: {
+          label: () => '自定义标签 label',
+        },
+      });
+
+      expect(mel.find('.el-select__placeholder').text()).toBe('自定义标签 all-label');
+      expect(mel2.find('.el-select__placeholder').text()).toBe('自定义标签 label');
+    });
+
+    it('功能二: 通过 all-label 插槽自定义标签, 和 option-label 插槽作用一致', () => {
+      const mel = mount(MelSelect, {
+        props: {
+          teleported: false,
+          options: [
+            { label: '选项1', value: '1' },
+            { label: '选项2', value: '2' },
+          ],
+        },
+        slots: {
+          'all-label': (option: MelSelectOption) => (
+            h('div', { class: 'custom-label' }, `自定义内容-${option.label}`)
+          ),
+        },
+      });
+
+      const options = mel.findAll('.el-select-dropdown__item');
+      expect(options.length).toBe(2);
+
+      // 应该使用 all-label 插槽
+      expect(options[0].find('.custom-label').exists()).toBe(true);
+      expect(options[0].text()).toBe('自定义内容-选项1');
+      expect(options[1].find('.custom-label').exists()).toBe(true);
+      expect(options[1].text()).toBe('自定义内容-选项2');
+    });
+
+    it('all-label 插槽优先级低于 label 插槽', () => {
+      const mel = mount(MelSelect, {
+        props: {
+          teleported: false,
+          options: [{ label: '选项1', value: '1' }],
+          modelValue: '1',
+        },
+        slots: {
+          'all-label': () => '自定义标签 all-label',
+          'label': () => '自定义标签 label',
+        },
+      });
+
+      expect(mel.find('.el-select__placeholder').text()).toBe('自定义标签 label');
+    });
+  });
 });
