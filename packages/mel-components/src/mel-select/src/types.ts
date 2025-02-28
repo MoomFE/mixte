@@ -60,13 +60,13 @@ export interface MelSelectSlots {
    */
   'label'?: () => void;
   /**
-   * 自定义渲染单个选项
+   * 自定义渲染选项
    * @param option 选项数据
    * @version @mixte/mel-components@3.3.0
    */
   'option'?: (option: MelSelectOption) => void;
   /**
-   * 自定义渲染选项内容 ( 仅内容部分，而非整个选项 )
+   * 自定义渲染选项内容 ( 仅内容部分, 而非整个选项 )
    * @param option 选项数据
    * @version @mixte/mel-components@3.3.0
    */

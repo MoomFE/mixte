@@ -1,5 +1,5 @@
 ---
-outline: [1,3]
+outline: [2,3]
 ---
 
 由 [lottery](https://github.com/moshang-ax/lottery) 项目重构而来, 拥有以下改变

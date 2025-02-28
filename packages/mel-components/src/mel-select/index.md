@@ -1,5 +1,5 @@
 ---
-outline: [1,3]
+outline: [2,3]
 ---
 
 ## 演示
@@ -9,6 +9,12 @@ outline: [1,3]
 ### `使用 optionsApi 传递请求数据源的方法`
 
 ### `使用 optionsApi 传递请求数据源的参数`
+
+### `自定义渲染选项: 使用 options 传递 render`
+
+### `自定义渲染选项: 使用 option 插槽`
+
+### `自定义渲染选项内容: 使用 option-label 插槽`
 
 ## API
 
