@@ -51,7 +51,7 @@ interface SlotProps {
   /**
    * 是否数据源为空 ( 仅在组件传入 data 时有值 )
    */
-  isEmpty?: boolean;
+  isEmpty: boolean | undefined;
   /**
    * 是否已经加载完所有数据
    */

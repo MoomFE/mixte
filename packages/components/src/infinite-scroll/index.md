@@ -10,6 +10,8 @@ outline: [2,3]
 
 ### 基础
 
+### 横向
+
 ### 稍微复杂的例子
 
 ## API
@@ -40,7 +42,7 @@ interface SlotProps {
   /** 是否正在加载数据 */
   isLoading: boolean;
   /** 是否数据源为空 ( 仅在组件传入 data 时有值 ) */
-  isEmpty?: boolean;
+  isEmpty: boolean | undefined;
   /** 是否已经加载完所有数据 */
   isFinished: boolean;
   /** 加载失败时的错误信息 */
