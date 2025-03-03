@@ -1,17 +1,13 @@
 ## [Unreleased]
+
+## [v3.3.0], [v3.3.0-beta.2], [v3.3.0-beta.1]
+  - 📅 2025-03-03
+  - 🌟 [@mixte/components] 新增 `InfiniteScroll` 组件
+  - 🌟 [@mixte/mel-components] 组件 `MelSelect` 的 `options` 支持传入 `render` 函数以实现自定义渲染选项
   - 🌟 [@mixte/mel-components] 组件 `MelSelect` 支持传入 `options` 插槽以实现自定义渲染选项
   - 🌟 [@mixte/mel-components] 组件 `MelSelect` 支持传入 `option-label` 插槽以实现自定义渲染选项内容
   - 🌟 [@mixte/mel-components] 组件 `MelSelect` 支持传入 `all-label` 插槽以实现自定义渲染选项内容和标签
   - 💄 [@mixte/mel-components] 组件 `MelSelect` 支持更深层次的数据返回, 更新 `useOptionsApi` 以处理不同结构的响应
-
-## [v3.3.0-beta.2]
-  - 📅 2025-02-27
-  - 🌟 [@mixte/mel-components] 组件 `MelSelect` 的 `options` 支持传入 `render` 函数以实现自定义渲染选项
-  - 🌟 [@mixte/components] 组件 `InfiniteScroll` 新增 `isEmpty` 导出 *
-
-## [v3.3.0-beta.1]
-  - 📅 2025-02-26
-  - 🌟 [@mixte/components] 新增 `InfiniteScroll` 组件
 
 ## [v3.2.0], [v3.2.0-beta.8], [v3.2.0-beta.7], [v3.2.0-beta.6], [v3.2.0-beta.5], [v3.2.0-beta.4], [v3.2.0-beta.3], [v3.2.0-beta.2], [v3.2.0-beta.1]
   - 📅 2025-02-05
@@ -74,7 +70,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.3.0-beta.2...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.3.0...HEAD
+[v3.3.0]: https://github.com/MoomFE/mixte/releases/tag/v3.3.0
 [v3.3.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.3.0-beta.2
 [v3.3.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.3.0-beta.1
 [v3.2.0]: https://github.com/MoomFE/mixte/releases/tag/v3.2.0
