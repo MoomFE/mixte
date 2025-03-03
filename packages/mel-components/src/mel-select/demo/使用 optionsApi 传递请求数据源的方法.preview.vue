@@ -18,8 +18,7 @@
 
   function getGoods() {
     return axios
-      .get<ResponseData<SelectorItem[]>>('https://apifoxmock.com/m1/4781098-4434938-default/selector/foods')
-      .then(res => res.data.data);
+      .get<ResponseData<SelectorItem[]>>('https://apifoxmock.com/m1/4781098-4434938-default/selector/foods');
   }
 
   interface ResponseData<T = any> {

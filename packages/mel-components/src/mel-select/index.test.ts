@@ -26,11 +26,28 @@ function removeUnusedAttribute(html: string) {
 
 async function getOptions() {
   await delay(100);
-  return [
-    { label: 'Option 1', value: '1' },
-    { label: 'Option 2', value: '2' },
-  ];
+  return [{ label: 'Option 1', value: '1' }, { label: 'Option 2', value: '2' }];
 }
+async function getOptions2() {
+  await delay(100);
+  return {
+    data: [{ label: 'Option 3', value: '3' }, { label: 'Option 4', value: '4' }],
+  };
+}
+async function getOptions3() {
+  await delay(100);
+  return {
+    data: {
+      data: [{ label: 'Option 5', value: '5' }, { label: 'Option 6', value: '6' }],
+    },
+  };
+}
+
+const optionsLabels = new Map<() => Promise<any>, string[]>();
+
+optionsLabels.set(getOptions, ['Option 1', 'Option 2']);
+optionsLabels.set(getOptions2, ['Option 3', 'Option 4']);
+optionsLabels.set(getOptions3, ['Option 5', 'Option 6']);
 
 describe('mel-select', () => {
   it('正常使用, 和原组件 DOM 结构一致', async () => {
@@ -256,6 +273,38 @@ describe('mel-select', () => {
       expect(options.length).toBe(2);
       expect(options[0].text()).toBe('Option 1');
       expect(options[1].text()).toBe('Option 2');
+    });
+
+    it('支持更深层次的数据返回', async () => {
+      const mel = mount(MelSelect, {
+        props: {
+          teleported: false,
+        },
+      });
+
+      for (const [api, labels] of optionsLabels.entries()) {
+        await mel.setProps({
+          optionsApi: api,
+        });
+
+        mel.vm.api.reset();
+        mel.vm.api.execute();
+        await nextTick();
+
+        expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
+        expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
+        expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
+
+        await delay(100);
+
+        expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+
+        const options = mel.findAll('.el-select-dropdown__item');
+
+        expect(options.length).toBe(labels.length);
+        expect(options[0].text()).toBe(labels[0]);
+        expect(options[1].text()).toBe(labels[1]);
+      }
     });
   });
 
