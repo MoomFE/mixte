@@ -84,7 +84,7 @@
     "comlink": "^4.4.2",
     "defu": "^6.1.4",
     "element-plus": "^2.9.4",
-    "eslint": "^9.20.0",
+    "eslint": "^9.21.0",
     "fast-glob": "^3.3.3",
     "fs-extra": "^11.3.0",
     "gsap": "catalog:",
