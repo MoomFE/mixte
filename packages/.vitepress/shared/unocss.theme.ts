@@ -110,7 +110,7 @@ export const inlineSize = {
   "6xl": "72rem",
   "7xl": "80rem",
   prose: "65ch",
-  screen: "100vw"
+  screen: "100vi"
 };
 export const blockSize = {
   auto: "auto",
@@ -126,7 +126,7 @@ export const blockSize = {
   "6xl": "72rem",
   "7xl": "80rem",
   prose: "65ch",
-  screen: "100vh"
+  screen: "100vb"
 };
 export const maxInlineSize = {
   none: "none",
@@ -142,7 +142,7 @@ export const maxInlineSize = {
   "6xl": "72rem",
   "7xl": "80rem",
   prose: "65ch",
-  screen: "100vw"
+  screen: "100vi"
 };
 export const maxBlockSize = {
   none: "none",
@@ -158,7 +158,7 @@ export const maxBlockSize = {
   "6xl": "72rem",
   "7xl": "80rem",
   prose: "65ch",
-  screen: "100vh"
+  screen: "100vb"
 };
 export const minInlineSize = {
   none: "none",
@@ -174,7 +174,7 @@ export const minInlineSize = {
   "6xl": "72rem",
   "7xl": "80rem",
   prose: "65ch",
-  screen: "100vw"
+  screen: "100vi"
 };
 export const minBlockSize = {
   none: "none",
@@ -190,7 +190,7 @@ export const minBlockSize = {
   "6xl": "72rem",
   "7xl": "80rem",
   prose: "65ch",
-  screen: "100vh"
+  screen: "100vb"
 };
 export const colors = {
   inherit: "inherit",
