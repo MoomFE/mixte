@@ -131,7 +131,7 @@
     "vitest": "^3.0.5",
     "vue": "^3.5.13",
     "vue-component-type-helpers": "catalog:",
-    "vue-tsc": "^2.2.0"
+    "vue-tsc": "^2.2.8"
   },
   "pnpm": {
     "overrides": {
