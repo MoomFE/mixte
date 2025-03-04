@@ -2,7 +2,7 @@ import { fileURLToPath } from 'node:url';
 import { dataToEsm } from '@rollup/pluginutils';
 import { outputFileSync } from 'fs-extra';
 import { dirname, resolve } from 'pathe';
-import { defineConfig, presetAttributify, presetIcons, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss';
+import { defineConfig, presetAttributify, presetIcons, presetWind3, transformerDirectives, transformerVariantGroup } from 'unocss';
 import { presetExtra } from 'unocss-preset-extra';
 import { presetScrollbar } from 'unocss-preset-scrollbar';
 
@@ -26,7 +26,7 @@ export default defineConfig({
   },
 
   presets: [
-    presetUno(),
+    presetWind3(),
     presetAttributify({
       prefix: 'un:',
     }),
