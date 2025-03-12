@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## [v3.4.0-beta.1]
+  - 📅 2024-12-22
+  - 🌟 [@mixte/snippets] 新增 `LowCodeEditor` 相关组件
+  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 相关组件
+
 ## [v3.3.0], [v3.3.0-beta.2], [v3.3.0-beta.1]
   - 📅 2025-03-03
   - 🌟 [@mixte/components] 新增 `InfiniteScroll` 组件
@@ -70,7 +75,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.3.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.0-beta.1...HEAD
+[v3.4.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.1
 [v3.3.0]: https://github.com/MoomFE/mixte/releases/tag/v3.3.0
 [v3.3.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.3.0-beta.2
 [v3.3.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.3.0-beta.1
