@@ -22,6 +22,13 @@
       "sidebarTitle": ""
     },
     {
+      "fn": "deepFn",
+      "title": "",
+      "name": "嵌套数据结构处理",
+      "hiddenTitle": false,
+      "sidebarTitle": ""
+    },
+    {
       "fn": "deepMerge",
       "title": "",
       "name": "深拷贝继承",

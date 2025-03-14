@@ -1,6 +1,7 @@
 export * from './asyncArrayFn/index';
 export * from './changeCase/index';
 export * from './deepClone/index';
+export * from './deepFn/index';
 export * from './deepMerge/index';
 export * from './defineArgs/index';
 export * from './delay/index';
