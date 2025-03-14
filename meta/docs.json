@@ -78,6 +78,13 @@
       "sidebarTitle": ""
     },
     {
+      "fn": "pick",
+      "title": "",
+      "name": "",
+      "hiddenTitle": false,
+      "sidebarTitle": ""
+    },
+    {
       "fn": "random",
       "title": "",
       "name": "随机",

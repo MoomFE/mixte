@@ -1,5 +1,6 @@
 ## [Unreleased]
-  - 💄 [@mixte/snippets] 完善 `Ant Design X` 相关代码
+  - 🌟 [mixte] 新增 `pick` 和 `omit` 函数, 支持从对象中选择或排除指定属性
+  - 💄 [@mixte/snippets] 完善 `Ant Design X` 相关代码 *
   - ⚠️ [@mixte/snippets] 修改 `Ant Design X` 的 `init-veaury` 更名为 `patch-for-react-19` *
   - ⚠️ [@mixte/snippets] 不再为 `Ant Design X` 内置 `@ant-design/x` 类库, 需自行安装 *
 

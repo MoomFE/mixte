@@ -9,6 +9,7 @@ export * from './is/index';
 export * from './leastRun/index';
 export * from './move/index';
 export * from './onceRun/index';
+export * from './pick/index';
 export * from './random/index';
 export * from './toArray/index';
 export * from './uniqueKey/index';
