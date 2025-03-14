@@ -74,7 +74,7 @@
     "vue": ">=3.2.0"
   },
   "dependencies": {
-    "@ant-design/x": "catalog:",
+    "@ant-design/v5-patch-for-react-19": "catalog:",
     "@tiptap/extension-bubble-menu": "catalog:",
     "@tiptap/extension-underline": "catalog:",
     "@tiptap/pm": "catalog:",

@@ -1,5 +1,11 @@
 import { defineBuild } from '../../scripts/build-utils';
 
+const antDesignXExternal = [
+  'react',
+  /^react-dom\/.+/,
+  /^@ant-design\/.+/,
+];
+
 defineBuild([
   {
     entry: './src/getFastestCDN/index.ts',
@@ -57,28 +63,6 @@ defineBuild([
     }],
   },
 
-  // ant-design-x
-  ...['sender'].map((name) => {
-    return {
-      entry: `./src/ant-design-x/${name}.ts`,
-      outputFileName: `ant-design-x/${name}`,
-      vueComponent: true,
-      external: [
-        /^react-dom\/.+/,
-      ],
-    };
-  }),
-  ...['init-veaury'].map((name) => {
-    return {
-      entry: `./src/ant-design-x/src/${name}.ts`,
-      outputFileName: `ant-design-x/${name}`,
-      vueDtsInput: `ant-design-x/src/${name}.d.ts`,
-      external: [
-        /^react-dom\/.+/,
-      ],
-    };
-  }),
-
   // low-code-editor
   ...['config-provider', 'component-list', 'canvas', 'border-view', 'config', 'preview', 'editor'].map((name) => {
     return {
@@ -100,4 +84,24 @@ defineBuild([
       to: 'low-code-editor/css',
     }],
   },
+
+  // ant-design-x
+  ...['sender'].map((name) => {
+    return {
+      entry: `./src/ant-design-x/${name}.ts`,
+      outputFileName: `ant-design-x/${name}`,
+      vueComponent: true,
+      external: antDesignXExternal,
+      dtsExternal: antDesignXExternal,
+    };
+  }),
+  ...['patch-for-react-19'].map((name) => {
+    return {
+      entry: `./src/ant-design-x/src/${name}.ts`,
+      outputFileName: `ant-design-x/${name}`,
+      vueDtsInput: `ant-design-x/src/${name}.d.ts`,
+      external: antDesignXExternal,
+      dtsExternal: antDesignXExternal,
+    };
+  }),
 ]);

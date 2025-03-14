@@ -45,7 +45,8 @@
     "release": "pnpm test-release && npx bumpp -r --no-tag --no-push"
   },
   "devDependencies": {
-    "@ant-design/x": "catalog:",
+    "@ant-design/v5-patch-for-react-19": "catalog:",
+    "@ant-design/x": "^1.0.5",
     "@arco-design/web-vue": "^2.56.3",
     "@floating-ui/vue": "^1.1.6",
     "@iconify/json": "^2.2.312",

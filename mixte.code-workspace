@@ -39,6 +39,10 @@
     {
       "path": "packages/snippets/src/low-code-editor",
       "name": "Low Code Editor"
+    },
+    {
+      "path": "packages/snippets/src/ant-design-x",
+      "name": "Ant Design X"
     }
   ],
   "settings": {
@@ -83,7 +87,8 @@
       "packages/snippets": true,
       "packages/use": true,
       "packages/validator": true,
-      "src/low-code-editor": true
+      "src/low-code-editor": true,
+      "src/ant-design-x": true
     },
     "unocss.autocomplete.matchType": "fuzzy",
     "unocss.remToPxPreview": true,
