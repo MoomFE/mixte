@@ -41,7 +41,7 @@ export default defineConfig({
         typesCache: createFileSystemTypesCache({
           dir: resolve(__dirname, './cache/twoslash'),
         }),
-      }),
+      }) as any,
     ],
     container: {
       tipLabel: '提示',
@@ -64,7 +64,7 @@ export default defineConfig({
       {
         text: 'Api',
         items: [
-          { text: 'mixte', link: `/mixte/${mixte[0].fn}`, activeMatch: '^/mixte/(?!use)' },
+          { text: 'mixte', link: `/mixte/${mixte[0].fn}`, activeMatch: '^/mixte/(?!(use|components|validator|snippets|mel-components))/' },
           { text: '@mixte/use', link: `/mixte/use/${use[0].fn}`, activeMatch: '^/mixte/use/' },
           { text: '@mixte/components', link: `/mixte/components/${components[0].fn}`, activeMatch: '^/mixte/components/' },
           { text: '@mixte/validator', link: `/mixte/validator/${validator[0].fn}`, activeMatch: '^/mixte/validator/' },

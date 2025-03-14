@@ -1,6 +1,6 @@
 <template>
   <Sender
-    v-bind="omit(attrs, ['value', 'onChange'])"
+    v-bind="senderProps"
     :value
     @change="proxyOnChange"
   />
@@ -9,9 +9,9 @@
 <script lang="ts" setup>
   import type { SenderProps } from '@ant-design/x';
   import { Sender as XSender } from '@ant-design/x';
-  import { omit } from 'lodash-es';
+  import { omit } from 'mixte';
   import { applyPureReactInVue } from 'veaury';
-  import { useAttrs } from 'vue';
+  import { computed, useAttrs } from 'vue';
 
   interface Props extends /* @vue-ignore */ Partial<Omit<SenderProps, 'value'>> {
 
@@ -27,6 +27,10 @@
   });
 
   const Sender = applyPureReactInVue(XSender);
+
+  const senderProps = computed(() => {
+    return omit(attrs, ['value', 'onChange']);
+  });
 
   const proxyOnChange: SenderProps['onChange'] = (...args: Parameters<NonNullable<SenderProps['onChange']>>) => {
     value.value = args[0];

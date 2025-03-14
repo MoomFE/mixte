@@ -336,14 +336,14 @@ importers:
   packages/components:
     dependencies:
       '@mixte/use':
-        specifier: '>=3.0.0'
-        version: 3.2.0(@vueuse/core@12.5.0(typescript@5.8.2))(mixte@3.2.0)(vue@3.5.13(patch_hash=tcq7d2exeyaukycphitbkrjvga)(typescript@5.8.2))
+        specifier: workspace:*
+        version: link:../use
       '@vueuse/core':
         specifier: '>=8.0.0'
         version: 12.5.0(typescript@5.8.2)
       mixte:
-        specifier: '>=3.0.0'
-        version: 3.2.0
+        specifier: workspace:*
+        version: link:../mixte
       vue:
         specifier: ^3.5.13
         version: 3.5.13(patch_hash=tcq7d2exeyaukycphitbkrjvga)(typescript@5.8.2)
@@ -354,8 +354,8 @@ importers:
   packages/mel-components:
     dependencies:
       '@mixte/use':
-        specifier: '>=3.0.0'
-        version: 3.2.0(@vueuse/core@12.5.0(typescript@5.8.2))(mixte@3.2.0)(vue@3.5.13(patch_hash=tcq7d2exeyaukycphitbkrjvga)(typescript@5.8.2))
+        specifier: workspace:*
+        version: link:../use
       '@vueuse/core':
         specifier: '>=8.0.0'
         version: 12.5.0(typescript@5.8.2)
@@ -363,8 +363,8 @@ importers:
         specifier: '>=2.5.0'
         version: 2.9.4(vue@3.5.13(patch_hash=tcq7d2exeyaukycphitbkrjvga)(typescript@5.8.2))
       mixte:
-        specifier: '>=3.0.0'
-        version: 3.2.0
+        specifier: workspace:*
+        version: link:../mixte
       vue:
         specifier: ^3.5.13
         version: 3.5.13(patch_hash=tcq7d2exeyaukycphitbkrjvga)(typescript@5.8.2)
@@ -377,8 +377,8 @@ importers:
         specifier: 'catalog:'
         version: 1.0.3(antd@5.24.1(date-fns@3.6.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@mixte/use':
-        specifier: '>=3.0.0'
-        version: 3.2.0(@vueuse/core@12.5.0(typescript@5.8.2))(mixte@3.2.0)(vue@3.5.13(patch_hash=tcq7d2exeyaukycphitbkrjvga)(typescript@5.8.2))
+        specifier: workspace:*
+        version: link:../use
       '@tiptap/extension-bubble-menu':
         specifier: 'catalog:'
         version: 2.11.5(@tiptap/core@2.11.5(@tiptap/pm@2.11.5))(@tiptap/pm@2.11.5)
@@ -404,8 +404,8 @@ importers:
         specifier: 'catalog:'
         version: 3.12.7
       mixte:
-        specifier: '>=3.0.0'
-        version: 3.2.0
+        specifier: workspace:*
+        version: link:../mixte
       nanoid:
         specifier: 'catalog:'
         version: 5.1.2
@@ -431,8 +431,8 @@ importers:
         specifier: '>=8.0.0'
         version: 12.5.0(typescript@5.8.2)
       mixte:
-        specifier: '>=3.0.0'
-        version: 3.2.0
+        specifier: workspace:*
+        version: link:../mixte
       vue:
         specifier: ^3.5.13
         version: 3.5.13(patch_hash=tcq7d2exeyaukycphitbkrjvga)(typescript@5.8.2)
@@ -1481,13 +1481,6 @@ packages:
     resolution: {integrity: sha512-llMXd39jtP0HpQLVI37Bf1m2ADlEb35GYSh1SDSLsBhR+5iCxiNGlT31yqbNtVHygHAtMy6dWFERpU2JgufhPg==}
     engines: {node: '>=18'}
     hasBin: true
-
-  '@mixte/use@3.2.0':
-    resolution: {integrity: sha512-MbzsEdZQgvqBKCH/IWvPWnLR36MFeb+yG//MWJ8YTZsHo0jCct6l/rIP4Cg+sokuR200qno7cb1lcHG20niIGQ==}
-    peerDependencies:
-      '@vueuse/core': '>=8.0.0'
-      mixte: '>=3.1.0'
-      vue: ^3.5.13
 
   '@moomfe/eslint-config@3.4.0':
     resolution: {integrity: sha512-qc0+36261FSxLsDxhF6v0l8AjGu+YQl+qdNIIXe2oLqFhurNllWRxv/6Z4+eiN3iOCHb9/qdxWXQiyO3zqEq+Q==}
@@ -4713,9 +4706,6 @@ packages:
   mitt@3.0.1:
     resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
 
-  mixte@3.2.0:
-    resolution: {integrity: sha512-b/koNwJ3ctnBJAYGwraPtdG1FD/izAjG39goxzItwXf0Ixo49qxIWdMsfF11G+mO7aRpaDOCPRWd/lYs/CzR/g==}
-
   mkdirp@1.0.4:
     resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
     engines: {node: '>=10'}
@@ -7893,12 +7883,6 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
-
-  '@mixte/use@3.2.0(@vueuse/core@12.5.0(typescript@5.8.2))(mixte@3.2.0)(vue@3.5.13(patch_hash=tcq7d2exeyaukycphitbkrjvga)(typescript@5.8.2))':
-    dependencies:
-      '@vueuse/core': 12.5.0(typescript@5.8.2)
-      mixte: 3.2.0
-      vue: 3.5.13(patch_hash=tcq7d2exeyaukycphitbkrjvga)(typescript@5.8.2)
 
   '@moomfe/eslint-config@3.4.0(@typescript-eslint/utils@8.23.0(eslint@9.21.0(jiti@2.4.2))(typescript@5.8.2))(@vue/compiler-sfc@3.5.13)(jiti@2.4.2)(vitest@3.0.8)':
     dependencies:
@@ -11970,8 +11954,6 @@ snapshots:
       rimraf: 5.0.10
 
   mitt@3.0.1: {}
-
-  mixte@3.2.0: {}
 
   mkdirp@1.0.4: {}
 

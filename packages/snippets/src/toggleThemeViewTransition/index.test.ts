@@ -1,6 +1,5 @@
 import { toggleThemeViewTransition } from '@mixte/snippets/toggleThemeViewTransition';
-import { omit } from 'lodash-es';
-import { asyncForEach, deepClone, delay } from 'mixte';
+import { asyncForEach, deepClone, delay, omit } from 'mixte';
 
 describe('toggleThemeViewTransition', () => {
   const mockStartViewTransition = vi.fn(async (fn) => {

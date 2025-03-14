@@ -43,7 +43,7 @@
   },
   "peerDependencies": {
     "@vueuse/core": ">=8.0.0",
-    "mixte": ">=3.0.0",
+    "mixte": "workspace:*",
     "vue": ">=3.2.0"
   }
 }

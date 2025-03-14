@@ -37,8 +37,8 @@
 <script lang="ts" setup>
   import type { ComponentInfo } from '@mixte/snippets/low-code-editor/types';
   import { useEditor, useStore } from '@mixte/snippets/low-code-editor/config-provider-Injection-state';
-  import { groupBy, omit } from 'lodash-es';
-  import { deepClone } from 'mixte';
+  import { groupBy } from 'lodash-es';
+  import { deepClone, omit } from 'mixte';
   import { nanoid } from 'nanoid';
   import { computed } from 'vue';
   import { VueDraggable } from 'vue-draggable-plus';

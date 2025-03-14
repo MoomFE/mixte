@@ -6,8 +6,8 @@
 
 ## [v3.4.0-beta.1]
   - 📅 2024-12-22
-  - 🌟 [@mixte/snippets] 新增 `LowCodeEditor` 相关组件
-  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 相关组件
+  - 🌟 [@mixte/snippets] 新增 `LowCodeEditor` 相关组件 ( 开发中 )
+  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 相关组件 ( 开发中 )
 
 ## [v3.3.0], [v3.3.0-beta.2], [v3.3.0-beta.1]
   - 📅 2025-03-03

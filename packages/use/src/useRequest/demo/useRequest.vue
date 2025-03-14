@@ -23,8 +23,7 @@
   import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
   import axios from 'axios';
   import yaml from 'js-yaml';
-  import { omit } from 'lodash-es';
-  import { isPlainObject } from 'mixte';
+  import { isPlainObject, omit } from 'mixte';
   import { useData } from 'vitepress';
 
   const { isDark } = useData();
