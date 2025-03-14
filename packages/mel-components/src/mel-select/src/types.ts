@@ -10,6 +10,7 @@ export type MelSelectOption = SetOptional<
   'disabled'
 > & {
   render?: (option: MelSelectOption) => VNodeChild;
+  [key: string]: any;
 };
 
 export interface MelSelectProps extends /* @vue-ignore */ Partial<ISelectProps> {
