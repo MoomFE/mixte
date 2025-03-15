@@ -1,6 +1,7 @@
 ## [Unreleased]
   - 🌟 [mixte] 新增 `pick` 和 `omit` 函数, 支持从对象中选择或排除指定属性
   - 🌟 [mixte] 新增 `deepFind` 函数, 用于在嵌套数据结构中深度查找满足条件的第一个元素
+  - 🌟 [mixte] 新增 `deepSome` 函数, 用于在嵌套数据结构中深度检查是否存在满足条件的元素
   - 💄 [@mixte/mel-components] 优化组件 `MelSelect` 的 `MelSelectOption` 类型
   - 💄 [@mixte/snippets] 完善 `Ant Design X` 相关代码 *
   - ⚠️ [@mixte/snippets] 修改 `Ant Design X` 的 `init-veaury` 更名为 `patch-for-react-19` *

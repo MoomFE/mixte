@@ -1,4 +1,4 @@
-import { deepFind } from 'mixte';
+import { deepFind, deepSome } from 'mixte';
 
 describe('deepFind', () => {
   // 基本测试数据
@@ -102,5 +102,100 @@ describe('deepFind', () => {
     const complexCircularData = [complexNode1];
 
     expect(deepFind(complexCircularData, item => item.id === 3)).toEqual({ id: 3 });
+  });
+});
+
+describe('deepSome', () => {
+  // 基本测试数据
+  const data = [
+    { id: 1 },
+    {
+      id: 2,
+      children: [
+        { id: 3 },
+        { id: 4, children: [{ id: 5 }] },
+      ],
+      items: [
+        { id: 6 },
+        { id: 7, items: [{ id: 8 }] },
+      ],
+    },
+  ];
+
+  it('基本功能测试', () => {
+    // 检查顶层元素
+    expect(deepSome(data, item => item.id === 1)).toBe(true);
+    expect(deepSome(data, item => item.id === 2)).toBe(true);
+    expect(deepSome(data, 'children', item => item.id === 1)).toBe(true);
+    expect(deepSome(data, 'children', item => item.id === 2)).toBe(true);
+
+    // 检查二级元素
+    expect(deepSome(data, item => item.id === 3)).toBe(true);
+    expect(deepSome(data, item => item.id === 4)).toBe(true);
+    expect(deepSome(data, 'children', item => item.id === 3)).toBe(true);
+    expect(deepSome(data, 'children', item => item.id === 4)).toBe(true);
+
+    // 检查深层嵌套元素
+    expect(deepSome(data, item => item.id === 5)).toBe(true);
+    expect(deepSome(data, 'children', item => item.id === 5)).toBe(true);
+
+    // 使用自定义子项键名
+    expect(deepSome(data, 'items', item => item.id === 6)).toBe(true);
+    expect(deepSome(data, 'items', item => item.id === 8)).toBe(true);
+
+    // 不存在的元素
+    expect(deepSome(data, item => item.id === 10)).toBe(false);
+    expect(deepSome(data, 'children', item => item.id === 10)).toBe(false);
+    expect(deepSome(data, 'items', item => item.id === 10)).toBe(false);
+  });
+
+  it('边界情况测试', () => {
+    // undefined 输入返回 false
+    expect(deepSome(undefined, () => true)).toBe(false);
+    expect(deepSome(undefined, 'children', () => true)).toBe(false);
+
+    // 空数组返回 false
+    expect(deepSome([], () => true)).toBe(false);
+    expect(deepSome([], 'children', () => true)).toBe(false);
+
+    // 空数组子项将被忽略
+    expect(deepSome([{ id: 1, children: [] }, { id: 2 }], item => item.id === 2)).toBe(true);
+    expect(deepSome([{ id: 1, children: [] }, { id: 2 }], item => item.id === 3)).toBe(false);
+
+    // 非数组子项
+    expect(deepSome([{ id: 1, children: 'not an array' }, { id: 2 }], item => item.id === 2)).toBe(true);
+    expect(deepSome([{ id: 1, children: 'not an array' }, { id: 2 }], 'children', item => item.id === 2)).toBe(true);
+  });
+
+  it('防御循环引用', () => {
+    // 创建包含循环引用的数据结构
+    const node1 = { id: 1, children: [] };
+    const node2 = { id: 2, children: [] };
+    const node3 = { id: 3, children: [] };
+
+    // @ts-expect-error 创建循环引用: node1 -> node2 -> node3 -> node1
+    node1.children = [node2]; // @ts-expect-error
+    node2.children = [node3]; // @ts-expect-error
+    node3.children = [node1];
+
+    const circularData = [node1];
+
+    // 测试能否正常检测节点而不陷入无限递归
+    expect(deepSome(circularData, item => item.id === 2)).toBe(true);
+    expect(deepSome(circularData, item => item.id === 3)).toBe(true);
+    expect(deepSome(circularData, item => item.id === 4)).toBe(false);
+
+    // 测试复杂循环引用
+    const complexNode1 = { id: 1, children: [] };
+    const complexNode2 = { id: 2, children: [] };
+
+    // @ts-expect-error
+    complexNode1.children = [complexNode2, complexNode1]; // @ts-expect-error 自引用
+    complexNode2.children = [complexNode1, { id: 3 }];
+
+    const complexCircularData = [complexNode1];
+
+    expect(deepSome(complexCircularData, item => item.id === 3)).toBe(true);
+    expect(deepSome(complexCircularData, item => item.id === 4)).toBe(false);
   });
 });
