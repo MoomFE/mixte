@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.4.0-beta.2]
+  - 📅 2025-03-16
   - 🌟 [mixte] 新增 `pick` 和 `omit` 函数, 支持从对象中选择或排除指定属性
   - 🌟 [mixte] 新增 `deepFind` 函数, 用于在嵌套数据结构中深度查找满足条件的第一个元素
   - 🌟 [mixte] 新增 `deepSome` 函数, 用于在嵌套数据结构中深度检查是否存在满足条件的元素
@@ -9,7 +12,7 @@
   - ⚠️ [@mixte/snippets] 不再为 `Ant Design X` 内置 `@ant-design/x` 类库, 需自行安装 *
 
 ## [v3.4.0-beta.1]
-  - 📅 2024-12-22
+  - 📅 2025-03-12
   - 🌟 [@mixte/snippets] 新增 `LowCodeEditor` 相关组件 ( 开发中 )
   - 🌟 [@mixte/snippets] 新增 `Ant Design X` 相关组件 ( 开发中 )
 
@@ -83,7 +86,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.0-beta.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.0-beta.2...HEAD
+[v3.4.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.2
 [v3.4.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.1
 [v3.3.0]: https://github.com/MoomFE/mixte/releases/tag/v3.3.0
 [v3.3.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.3.0-beta.2

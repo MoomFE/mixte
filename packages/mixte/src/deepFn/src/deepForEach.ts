@@ -26,9 +26,9 @@ import type { FindOptions } from './deepFind';
  *   }
  * ];
  *
- * deepForEach(data, item => console.log(id)); // -> 1, 2, 3, 4, 5
- * deepForEach(data, 'children', item => console.log(id)); // -> 1, 2, 3, 4, 5
- * deepForEach(data, 'items', item => console.log(id)); // -> 6, 7, 8
+ * deepForEach(data, item => console.log(item.id)); // -> 1, 2, 3, 4, 5
+ * deepForEach(data, 'children', item => console.log(item.id)); // -> 1, 2, 3, 4, 5
+ * deepForEach(data, 'items', item => console.log(item.id)); // -> 6, 7, 8
  */
 export function deepForEach<
   Item extends {
@@ -67,9 +67,9 @@ export function deepForEach<
  *   }
  * ];
  *
- * deepForEach(data, item => console.log(id)); // -> 1, 2, 3, 4, 5
- * deepForEach(data, 'children', item => console.log(id)); // -> 1, 2, 3, 4, 5
- * deepForEach(data, 'items', item => console.log(id)); // -> 6, 7, 8
+ * deepForEach(data, item => console.log(item.id)); // -> 1, 2, 3, 4, 5
+ * deepForEach(data, 'children', item => console.log(item.id)); // -> 1, 2, 3, 4, 5
+ * deepForEach(data, 'items', item => console.log(item.id)); // -> 6, 7, 8
  */
 export function deepForEach<
   Item extends {
