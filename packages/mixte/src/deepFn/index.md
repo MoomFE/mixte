@@ -62,3 +62,34 @@ deepSome(data, 'children', item => item.id === 5); // -> true
 deepSome(data, 'items', item => item.id === 8); // -> true
 deepSome(data, item => item.id === 10); // -> false
 ```
+
+## deepForEach {#deepForEach}
+
+在嵌套结构数据中深度遍历所有元素，并为每个元素执行回调函数
+
+### 示例
+
+```ts twoslash
+import { deepForEach } from 'mixte';
+
+const data = [
+  {
+    id: 1
+  },
+  {
+    id: 2,
+    children: [
+      { id: 3 },
+      { id: 4, children: [{ id: 5 }] }
+    ],
+    items: [
+      { id: 6 },
+      { id: 7, items: [{ id: 8 }] }
+    ]
+  }
+];
+
+deepForEach(data, item => console.log(id)); // -> 1, 2, 3, 4, 5
+deepForEach(data, 'children', item => console.log(id)); // -> 1, 2, 3, 4, 5
+deepForEach(data, 'items', item => console.log(id)); // -> 6, 7, 8
+```
