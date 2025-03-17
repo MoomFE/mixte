@@ -5,16 +5,23 @@ import fs from 'fs-extra';
 import { dirname, resolve } from 'pathe';
 import { camelCase, kebabCase } from 'scule';
 
+interface DocsInfo extends Info {
+  /** 函数/组件的文件夹名称 */
+  fn: string;
+  /** 子级文档 */
+  children?: Record<string, string[]>;
+}
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 (async () => {
-  const docsDetails = {
-    mixte: [] as ({ fn: string } & Info)[],
-    use: [] as ({ fn: string } & Info)[],
-    components: [] as ({ fn: string } & Info)[],
-    validator: [] as ({ fn: string } & Info)[],
-    snippets: [] as ({ fn: string } & Info)[],
-    melComponents: [] as ({ fn: string } & Info)[],
+  const docsDetails: Record<'mixte' | 'use' | 'components' | 'validator' | 'snippets' | 'melComponents', DocsInfo[]> = {
+    mixte: [],
+    use: [],
+    components: [],
+    validator: [],
+    snippets: [],
+    melComponents: [],
   };
 
   const docsFile = await fg([`packages/(${Object.keys(docsDetails).map(name => kebabCase(name)).join('|')})/src/*/index.md`], {
@@ -27,6 +34,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
     let name = '';
     let hiddenTitle = false;
     let sidebarTitle = '';
+    const children: DocsInfo['children'] = {};
 
     // 获取显示名称
     try {
@@ -38,12 +46,28 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
     }
     catch {}
 
+    // 获取子级文档
+    if (pkg === 'snippets' && fn === 'ant-design-x') {
+      const childrenDocsFile = await fg([`packages/${pkg}/src/${fn}/docs/*.md`], {
+        cwd: resolve(__dirname, '../'),
+      });
+
+      for (const childPath of childrenDocsFile) {
+        const [,,,,, childName] = childPath.split('/');
+        const [fn, group] = childName.split('.').reverse().slice(1);
+
+        children[group] ??= [];
+        children[group].push(fn);
+      }
+    }
+
     docsDetails[camelCase(pkg) as keyof typeof docsDetails].push({
       fn,
       title,
       name,
       hiddenTitle,
       sidebarTitle,
+      children,
     });
   }
 

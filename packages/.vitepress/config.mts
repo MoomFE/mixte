@@ -1,3 +1,4 @@
+import type { DefaultTheme } from 'vitepress';
 import { fileURLToPath } from 'node:url';
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash';
 import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs';
@@ -28,11 +29,9 @@ export default defineConfig({
   cleanUrls: true,
   rewrites: {
     'mixte/src/:fn/index.md': 'mixte/:fn.md',
-    'use/src/:fn/index.md': 'mixte/use/:fn.md',
-    'components/src/:fn/index.md': 'mixte/components/:fn.md',
-    'validator/src/:fn/index.md': 'mixte/validator/:fn.md',
-    'snippets/src/:fn/index.md': 'mixte/snippets/:fn.md',
-    'mel-components/src/:fn/index.md': 'mixte/mel-components/:fn.md',
+    ':pkg/src/:fn/index.md': 'mixte/:pkg/:fn.md',
+    ':pkg/src/:fn/docs/:group.:name.md': 'mixte/:pkg/:fn/:name.md',
+    ':pkg/src/:fn/docs/:name.md': 'mixte/:pkg/:fn/:name.md',
   },
 
   markdown: {
@@ -95,31 +94,43 @@ export default defineConfig({
 
     sidebar: {
       '/mixte/': [
-        {
-          text: 'mixte',
-          items: mixte.map(info => ({ text: `${info.sidebarTitle || info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/${info.fn}` })),
-        },
-        {
-          text: '@mixte/use',
-          items: use.map(info => ({ text: `${info.sidebarTitle || info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/use/${info.fn}` })),
-        },
-        {
-          text: '@mixte/components',
-          items: components.map(info => ({ text: `${info.sidebarTitle || pascalCase(info.fn)}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/components/${info.fn}` })),
-        },
-        {
-          text: '@mixte/validator',
-          items: validator.map(info => ({ text: `${info.sidebarTitle || info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/validator/${info.fn}` })),
-        },
-        {
-          text: '@mixte/snippets',
-          items: snippets.map(info => ({ text: `${info.sidebarTitle || info.fn}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/snippets/${info.fn}` })),
-        },
-        {
-          text: '@mixte/mel-components',
-          items: melComponents.map(info => ({ text: `${info.sidebarTitle || pascalCase(info.fn)}${info.name ? ` ( ${info.name} )` : ''}`, link: `/mixte/mel-components/${info.fn}` })),
-        },
-      ],
+        { text: 'mixte', docs: mixte },
+        { text: '@mixte/use', docs: use },
+        { text: '@mixte/components', docs: components },
+        { text: '@mixte/validator', docs: validator },
+        { text: '@mixte/snippets', docs: snippets },
+        { text: '@mixte/mel-components', docs: melComponents },
+      ].map(({ text, docs }) => {
+        const pkg = text.replace('@mixte/', '');
+
+        return {
+          text,
+          items: docs.map((info) => {
+            const nameFirst = info.sidebarTitle || (pkg.includes('components') ? pascalCase(info.fn) : info.fn);
+            const nameLast = info.name ? ` ( ${info.name} )` : '';
+            const link = `/mixte/${pkg !== 'mixte' ? `${pkg}/` : ''}${info.fn}`;
+
+            const items: DefaultTheme.Config['sidebar'] = [];
+
+            info.children && Object.entries(info.children as Record<string, string[]>).forEach(([group, fns]) => {
+              if (!group) {
+                return items.push(...fns.map(fn => ({ text: fn, link: `/mixte/${pkg}/${info.fn}/${fn}` })));
+              }
+
+              items.push({
+                text: group,
+                items: fns.map(fn => ({ text: fn, link: `${link}/${fn}` })),
+              });
+            });
+
+            return {
+              text: `${nameFirst}${nameLast}`,
+              link,
+              items,
+            };
+          }),
+        };
+      }),
     },
 
     socialLinks: [
