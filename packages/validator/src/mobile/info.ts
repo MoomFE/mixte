@@ -1,3 +1,5 @@
-import type { Info } from '@/.vitepress/types/info';
+import { defineDocInfo } from '@/.vitepress/types/info';
 
-export const title: Info['title'] = 'isMobile';
+export default defineDocInfo({
+  title: 'isMobile',
+});

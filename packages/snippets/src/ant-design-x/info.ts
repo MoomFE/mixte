@@ -1,4 +1,6 @@
-import type { Info } from '@/.vitepress/types/info';
+import { defineDocInfo } from '@/.vitepress/types/info';
 
-export const title: Info['title'] = 'Ant Design X';
-export const sidebarTitle: Info['sidebarTitle'] = 'Ant Design X';
+export default defineDocInfo({
+  title: 'Ant Design X',
+  sidebarTitle: 'Ant Design X',
+});

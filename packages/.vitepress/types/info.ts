@@ -13,3 +13,7 @@ export interface Info {
   /** 侧边栏标题 */
   sidebarTitle?: string;
 }
+
+export function defineDocInfo(info: Omit<Info, 'fn'>): Info {
+  return info as Info;
+}

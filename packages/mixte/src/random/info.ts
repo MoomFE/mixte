@@ -1,3 +1,5 @@
-import type { Info } from '@/.vitepress/types/info';
+import { defineDocInfo } from '@/.vitepress/types/info';
 
-export const name: Info['name'] = '随机';
+export default defineDocInfo({
+  name: '随机',
+});

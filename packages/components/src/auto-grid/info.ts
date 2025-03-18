@@ -1,3 +1,5 @@
-import type { Info } from '@/.vitepress/types/info';
+import { defineDocInfo } from '@/.vitepress/types/info';
 
-export const name: Info['name'] = '自适应栅格';
+export default defineDocInfo({
+  name: '自适应栅格',
+});

@@ -1,5 +1,7 @@
-import type { Info } from '@/.vitepress/types/info';
+import { defineDocInfo } from '@/.vitepress/types/info';
 
-export const name: Info['name'] = '低代码编辑器';
-export const title: Info['title'] = 'LowCodeEditor';
-export const sidebarTitle: Info['sidebarTitle'] = 'LowCodeEditor';
+export default defineDocInfo({
+  name: '低代码编辑器',
+  title: 'LowCodeEditor',
+  sidebarTitle: 'LowCodeEditor',
+});

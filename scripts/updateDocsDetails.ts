@@ -38,7 +38,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
     // 获取显示名称
     try {
-      const info = await import(`../packages/${pkg}/src/${fn}/info`);
+      const info = (await import(`../packages/${pkg}/src/${fn}/info`)).default as Info;
+
       title = info.title ?? title;
       name = info.name ?? name;
       hiddenTitle = info.hiddenTitle ?? hiddenTitle;

@@ -1,3 +1,5 @@
-import type { Info } from '@/.vitepress/types/info';
+import { defineDocInfo } from '@/.vitepress/types/info';
 
-export const name: Info['name'] = '无限滚动';
+export default defineDocInfo({
+  name: '无限滚动',
+});

@@ -1,4 +1,6 @@
-import type { Info } from '@/.vitepress/types/info';
+import { defineDocInfo } from '@/.vitepress/types/info';
 
-export const name: Info['name'] = '异步数组方法';
-export const hiddenTitle: Info['hiddenTitle'] = true;
+export default defineDocInfo({
+  name: '异步数组方法',
+  hiddenTitle: true,
+});
