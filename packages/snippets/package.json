@@ -48,6 +48,11 @@
       "import": "./dist/lottery/*.mjs",
       "require": "./dist/lottery/*.cjs"
     },
+    "./ant-design-x": {
+      "types": "./dist/ant-design-x/index.d.ts",
+      "import": "./dist/ant-design-x/index.mjs",
+      "require": "./dist/ant-design-x/index.cjs"
+    },
     "./ant-design-x/*": {
       "types": "./dist/ant-design-x/*.d.ts",
       "import": "./dist/ant-design-x/*.mjs",

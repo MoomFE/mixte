@@ -11,10 +11,12 @@ defineBuild([
     entry: './src/getFastestCDN/index.ts',
     outputFileName: 'getFastestCDN',
   },
+
   {
     entry: './src/toggleThemeViewTransition/index.ts',
     outputFileName: 'toggleThemeViewTransition',
   },
+
   {
     entry: './src/useNaiveForm/index.ts',
     outputFileName: 'useNaiveForm',
@@ -86,7 +88,7 @@ defineBuild([
   },
 
   // ant-design-x
-  ...['sender'].map((name) => {
+  ...['sender', 'welcome', 'index'].map((name) => {
     return {
       entry: `./src/ant-design-x/${name}.ts`,
       outputFileName: `ant-design-x/${name}`,

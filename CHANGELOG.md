@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `Welcome` 组件
 
 ## [v3.4.0-beta.2]
   - 📅 2025-03-16
@@ -7,7 +8,7 @@
   - 🌟 [mixte] 新增 `deepSome` 函数, 用于在嵌套数据结构中深度检查是否存在满足条件的元素
   - 🌟 [mixte] 新增 `deepForEach` 函数, 用于在嵌套结构数据中深度遍历所有元素，并为每个元素执行回调函数
   - 💄 [@mixte/mel-components] 优化组件 `MelSelect` 的 `MelSelectOption` 类型
-  - 💄 [@mixte/snippets] 完善 `Ant Design X` 相关代码 *
+  - 💄 [@mixte/snippets] 完善 `Ant Design X` 的 `Sender` 组件 *
   - ⚠️ [@mixte/snippets] 修改 `Ant Design X` 的 `init-veaury` 更名为 `patch-for-react-19` *
   - ⚠️ [@mixte/snippets] 不再为 `Ant Design X` 内置 `@ant-design/x` 类库, 需自行安装 *
 

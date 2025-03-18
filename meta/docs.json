@@ -317,9 +317,15 @@
       "children": {
         "express": [
           "sender"
+        ],
+        "wake": [
+          "welcome"
         ]
       },
       "childrenGroupInfo": {
+        "wake": {
+          "sidebarTitle": "唤醒"
+        },
         "express": {
           "sidebarTitle": "表达"
         }
@@ -329,6 +335,11 @@
           "name": "输入框",
           "title": "Sender",
           "sidebarTitle": "Sender"
+        },
+        "welcome": {
+          "name": "欢迎",
+          "title": "Welcome",
+          "sidebarTitle": "Welcome"
         }
       }
     },

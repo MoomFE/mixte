@@ -31,7 +31,7 @@
   });
 
   /**
-   * 外部函数式组件无法监听到组件插槽变化, 需要强制函数式组件重新渲染
+   * 响应式无法监听到组件插槽变化, 需要强制使响应式重新计算
    * @see https://github.com/vuejs/core/issues/11227
    */
   const hasOverflowSuffixSlot = ref(!!slots.overflowSuffix);

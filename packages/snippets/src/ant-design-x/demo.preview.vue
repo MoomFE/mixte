@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { Sender } from '@mixte/snippets/ant-design-x/sender';
+  import { Sender } from '@mixte/snippets/ant-design-x';
   import '@mixte/snippets/ant-design-x/patch-for-react-19';
 
   const value = ref('');
