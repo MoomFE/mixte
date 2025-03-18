@@ -6,7 +6,9 @@
       "name": "异步数组方法",
       "hiddenTitle": true,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "changeCase",
@@ -14,7 +16,9 @@
       "name": "命名法转换",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "deepClone",
@@ -22,7 +26,9 @@
       "name": "深拷贝",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "deepFn",
@@ -30,7 +36,9 @@
       "name": "嵌套数据结构处理",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "deepMerge",
@@ -38,7 +46,9 @@
       "name": "深拷贝继承",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "defineArgs",
@@ -46,7 +56,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "delay",
@@ -54,7 +66,9 @@
       "name": "异步延迟",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "env",
@@ -62,7 +76,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "is",
@@ -70,7 +86,9 @@
       "name": "类型判断",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "leastRun",
@@ -78,7 +96,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "move",
@@ -86,7 +106,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "onceRun",
@@ -94,7 +116,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "pick",
@@ -102,7 +126,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "random",
@@ -110,7 +136,9 @@
       "name": "随机",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "toArray",
@@ -118,7 +146,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "uniqueKey",
@@ -126,7 +156,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     }
   ],
   "use": [
@@ -136,7 +168,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "deepUnref",
@@ -144,7 +178,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "useCountdown",
@@ -152,7 +188,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "useDraggableDistance",
@@ -160,7 +198,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "useFileReader",
@@ -168,7 +208,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "useRequest",
@@ -176,7 +218,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "watch",
@@ -184,7 +228,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "whenever",
@@ -192,7 +238,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "wheneverEffectScope",
@@ -200,7 +248,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     }
   ],
   "components": [
@@ -210,7 +260,9 @@
       "name": "自适应栅格",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "infinite-scroll",
@@ -218,7 +270,9 @@
       "name": "无限滚动",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     }
   ],
   "validator": [
@@ -228,7 +282,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "email",
@@ -236,7 +292,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "mobile",
@@ -244,7 +302,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     }
   ],
   "snippets": [
@@ -255,9 +315,21 @@
       "hiddenTitle": false,
       "sidebarTitle": "Ant Design X",
       "children": {
-        "表达": [
+        "express": [
           "sender"
         ]
+      },
+      "childrenGroupInfo": {
+        "express": {
+          "sidebarTitle": "表达"
+        }
+      },
+      "childrenInfo": {
+        "sender": {
+          "name": "输入框",
+          "title": "Sender",
+          "sidebarTitle": "Sender"
+        }
       }
     },
     {
@@ -266,7 +338,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "lottery",
@@ -274,7 +348,9 @@
       "name": "年会抽奖",
       "hiddenTitle": false,
       "sidebarTitle": "Lottery",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "low-code-editor",
@@ -282,7 +358,9 @@
       "name": "低代码编辑器",
       "hiddenTitle": false,
       "sidebarTitle": "LowCodeEditor",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "tiptap-editor",
@@ -290,7 +368,9 @@
       "name": "富文本编辑器",
       "hiddenTitle": false,
       "sidebarTitle": "TiptapEditor",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "toggleThemeViewTransition",
@@ -298,7 +378,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     },
     {
       "fn": "useNaiveForm",
@@ -306,7 +388,9 @@
       "name": "",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     }
   ],
   "melComponents": [
@@ -316,7 +400,9 @@
       "name": "选择器",
       "hiddenTitle": false,
       "sidebarTitle": "",
-      "children": {}
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     }
   ]
 }

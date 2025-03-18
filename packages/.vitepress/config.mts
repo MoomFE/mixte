@@ -1,4 +1,5 @@
 import type { DefaultTheme } from 'vitepress';
+import type { GroupInfo, Info } from './types/info';
 import { fileURLToPath } from 'node:url';
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash';
 import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs';
@@ -30,8 +31,7 @@ export default defineConfig({
   rewrites: {
     'mixte/src/:fn/index.md': 'mixte/:fn.md',
     ':pkg/src/:fn/index.md': 'mixte/:pkg/:fn.md',
-    ':pkg/src/:fn/docs/:group.:name.md': 'mixte/:pkg/:fn/:name.md',
-    ':pkg/src/:fn/docs/:name.md': 'mixte/:pkg/:fn/:name.md',
+    ':pkg/src/:fn/docs/:group/:name/index.md': 'mixte/:pkg/:fn/:name.md',
   },
 
   markdown: {
@@ -117,9 +117,20 @@ export default defineConfig({
                 return items.push(...fns.map(fn => ({ text: fn, link: `/mixte/${pkg}/${info.fn}/${fn}` })));
               }
 
+              const groupInfo = (info.childrenGroupInfo[group] ?? {}) as GroupInfo;
+
               items.push({
-                text: group,
-                items: fns.map(fn => ({ text: fn, link: `${link}/${fn}` })),
+                text: groupInfo.sidebarTitle ?? group,
+                items: fns.map((fn) => {
+                  const childInfo = (info.childrenInfo[fn] ?? {}) as Info;
+                  const nameFirst = childInfo.sidebarTitle || (pkg.includes('components') ? pascalCase(fn) : fn);
+                  const nameLast = childInfo.name ? ` ( ${childInfo.name} )` : '';
+
+                  return {
+                    text: `${nameFirst}${nameLast}`,
+                    link: `${link}/${fn}`,
+                  };
+                }),
               });
             });
 

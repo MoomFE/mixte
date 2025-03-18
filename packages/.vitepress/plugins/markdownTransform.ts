@@ -21,11 +21,17 @@ export function MarkdownTransform(): Plugin {
     async transform(code, id) {
       if (!id.endsWith('.md')) return;
 
-      const [, fn,, pkg] = id.split('/').reverse();
       const dir = dirname(id);
+      let [,fn,, pkg, _,, __] = id.split('/').reverse();
       let info: Info | undefined;
 
-      if (Reflect.has(docs, camelCase(pkg)) && (info = find(docs[camelCase(pkg) as keyof typeof docs], { fn }))) {
+      // 子级文档
+      if (pkg === 'docs') {
+        pkg = __;
+        info = (find(docs[camelCase(pkg) as keyof typeof docs], { fn: _ }) as Info | undefined)?.childrenInfo?.[fn] as Info;
+      }
+
+      if (Reflect.has(docs, camelCase(pkg)) && (info || (info = find(docs[camelCase(pkg) as keyof typeof docs], { fn })))) {
         const s = new MagicString(code = code.replace(/\r\n/g, '\n'));
         const imports = [];
 

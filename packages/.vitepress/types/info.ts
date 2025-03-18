@@ -12,6 +12,15 @@ export interface Info {
   hiddenTitle?: boolean;
   /** 侧边栏标题 */
   sidebarTitle?: string;
+  /** 子级文档的分组信息 */
+  childrenGroupInfo?: Record<string, GroupInfo>;
+  /** 子级文档的描述信息 */
+  childrenInfo?: Record<string, Omit<Info, 'fn' | 'childrenGroupInfo' | 'childrenInfo'>>;
+}
+
+export interface GroupInfo {
+  /** 侧边栏标题 */
+  sidebarTitle?: string;
 }
 
 export function defineDocInfo(info: Omit<Info, 'fn'>): Info {

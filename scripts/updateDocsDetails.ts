@@ -34,6 +34,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
     let name = '';
     let hiddenTitle = false;
     let sidebarTitle = '';
+    let childrenGroupInfo = {};
+    let childrenInfo = {};
     const children: DocsInfo['children'] = {};
 
     // 获取显示名称
@@ -44,21 +46,22 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
       name = info.name ?? name;
       hiddenTitle = info.hiddenTitle ?? hiddenTitle;
       sidebarTitle = info.sidebarTitle ?? sidebarTitle;
+      childrenGroupInfo = info.childrenGroupInfo ?? childrenGroupInfo;
+      childrenInfo = info.childrenInfo ?? childrenInfo;
     }
     catch {}
 
     // 获取子级文档
     if (pkg === 'snippets' && fn === 'ant-design-x') {
-      const childrenDocsFile = await fg([`packages/${pkg}/src/${fn}/docs/*.md`], {
+      const childrenDocsFile = await fg([`packages/${pkg}/src/${fn}/docs/*/*/index.md`], {
         cwd: resolve(__dirname, '../'),
       });
 
       for (const childPath of childrenDocsFile) {
-        const [,,,,, childName] = childPath.split('/');
-        const [fn, group] = childName.split('.').reverse().slice(1);
+        const [,,,,, group, name] = childPath.split('/');
 
         children[group] ??= [];
-        children[group].push(fn);
+        children[group].push(name);
       }
     }
 
@@ -69,6 +72,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
       hiddenTitle,
       sidebarTitle,
       children,
+      childrenGroupInfo,
+      childrenInfo,
     });
   }
 
