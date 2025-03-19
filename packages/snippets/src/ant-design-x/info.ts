@@ -4,6 +4,9 @@ export default defineDocInfo({
   title: 'Ant Design X',
   sidebarTitle: 'Ant Design X',
   childrenGroupInfo: {
+    common: {
+      sidebarTitle: '通用',
+    },
     wake: {
       sidebarTitle: '唤醒',
     },
@@ -29,6 +32,11 @@ export default defineDocInfo({
       name: '全局化配置',
       title: 'XProvider',
       sidebarTitle: 'XProvider',
+    },
+    'bubble': {
+      name: '对话气泡',
+      title: 'Bubble',
+      sidebarTitle: 'Bubble',
     },
   },
 });

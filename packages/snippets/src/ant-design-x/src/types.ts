@@ -20,3 +20,16 @@ export const xProviderSlots = ['default'] as const;
 export interface XProviderSlots {
   default?: () => any;
 }
+
+// bubble
+
+export const bubbleSlots = ['avatar', 'footer', 'header'] as const;
+
+export interface BubbleSlots {
+  /** 展示头像 */
+  avatar?: () => any;
+  /** 底部内容 */
+  footer?: () => any;
+  /** 头部内容 */
+  header?: () => any;
+}

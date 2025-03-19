@@ -13,10 +13,10 @@
 <script lang="ts" setup>
   import type { XProviderProps } from '@ant-design/x';
   import type { XProviderSlots } from './types';
-  import { applyPureReactInVue } from 'veaury';
-  import { useAttrs } from 'vue';
-  import WrappedXProvider from './components-react/x-provider';
   import { transformKeys } from 'mixte';
+  import { applyPureReactInVue } from 'veaury';
+  import { computed, useAttrs } from 'vue';
+  import WrappedXProvider from './components-react/x-provider';
 
   interface Props extends /* @vue-ignore */ Partial<XProviderProps> {
 
@@ -32,5 +32,5 @@
 
   const xProviderProps = computed(() => {
     return transformKeys(attrs);
-  })
+  });
 </script>

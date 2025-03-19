@@ -4,6 +4,7 @@ const antDesignXExternal = [
   'react',
   /^react-dom\/.+/,
   /^@ant-design\/.+/,
+  'antd',
 ];
 
 defineBuild([
@@ -88,7 +89,7 @@ defineBuild([
   },
 
   // ant-design-x
-  ...['sender', 'welcome', 'x-provider', 'index'].map((name) => {
+  ...['sender', 'welcome', 'x-provider', 'bubble', 'index'].map((name) => {
     return {
       entry: `./src/ant-design-x/${name}.ts`,
       outputFileName: `ant-design-x/${name}`,

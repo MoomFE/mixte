@@ -50,7 +50,7 @@
 
     const result = omit(attrs, [...welcomeSlots]);
 
-    welcomeSlots.forEach((key) => { // @ts-expect-error
+    welcomeSlots.forEach((key) => { // @ts-ignore
       if (!slots[key]) result[key] = attrs[key];
     });
 
