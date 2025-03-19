@@ -99,6 +99,34 @@ isPlainObject(Object.create(null)); // -> true
 isPlainObject([]); // -> false
 ```
 
+## `assertPlainObject` {#assertPlainObject}
+
+判断传入参数是否是纯粹的对象，并进行类型断言
+
+### 示例
+
+```ts twoslash
+import { assertPlainObject } from 'mixte';
+
+// 基本使用
+assertPlainObject({}); // -> true
+assertPlainObject(Object.create(null)); // -> true
+assertPlainObject([]); // -> false
+
+// 类型断言使用
+interface User {
+  name: string;
+  age: number;
+}
+
+const obj = { name: 'Jack', age: 18 };
+
+if (assertPlainObject<User>(obj)) {
+  // 此时 obj 被断言为 User 类型
+  console.log(obj.name); // -> 'Jack'
+}
+```
+
 ## `isFunction` {#isFunction}
 
 判断传入参数是否是 Function 类型

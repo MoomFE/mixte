@@ -108,6 +108,27 @@ export function isPlainObject<Value = unknown>(value: unknown): value is Record<
 }
 
 /**
+ * 判断传入参数是否是纯粹的对象, 并进行类型断言
+ * @param value 需要判断的参数
+ * @returns
+ *
+ * interface User {
+ *   name: string;
+ *   age: number;
+ * }
+ *
+ * const obj = { name: 'Jack', age: 18 };
+ *
+ * if (assertPlainObject<User>(obj)) {
+ *   // 此时 obj 被断言为 User 类型
+ *   console.log(obj.name);
+ * }
+ */
+export function assertPlainObject<T = unknown>(value: unknown): value is T {
+  return Object.prototype.toString.call(value) === '[object Object]';
+}
+
+/**
  * 判断传入参数是否是 Function 类型
  *
  * @see https://mixte.moomfe.com/mixte/is#isFunction

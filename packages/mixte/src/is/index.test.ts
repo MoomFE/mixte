@@ -1,4 +1,4 @@
-import { isBoolean, isEmptyObject, isESModule, isFunction, isNativePromise, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isPromise, isReference, isString } from 'mixte';
+import { assertPlainObject, isBoolean, isEmptyObject, isESModule, isFunction, isNativePromise, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isPromise, isReference, isString } from 'mixte';
 import { testTypes, types } from './testTypes';
 
 describe('testTypes', () => {
@@ -110,6 +110,25 @@ describe('is', () => {
     expect(isPlainObject(Object.create(null))).toBe(true);
     expect(isPlainObject([])).toBe(false);
     expect(testTypes(isPlainObject, ['object', 'promiseLike'])).toBe(true);
+  });
+
+  it('assertPlainObject', () => {
+    expect(assertPlainObject({})).toBe(true);
+    expect(assertPlainObject(Object.create(null))).toBe(true);
+    expect(assertPlainObject([])).toBe(false);
+    expect(testTypes(assertPlainObject, ['object', 'promiseLike'])).toBe(true);
+
+    // 测试类型断言功能
+    interface User {
+      name: string;
+      age: number;
+    }
+
+    const obj = { name: 'Jack', age: 18 };
+
+    if (assertPlainObject<User>(obj)) {
+      expectTypeOf(obj).toMatchTypeOf<User>();
+    }
   });
 
   it('isFunction', () => {
