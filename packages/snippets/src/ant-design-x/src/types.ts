@@ -1,4 +1,4 @@
-import type { WelcomeProps } from '@ant-design/x';
+// welcome
 
 export const welcomeSlots = ['description', 'extra', 'icon', 'title'] as const;
 
@@ -11,4 +11,12 @@ export interface WelcomeSlots {
   icon?: () => any;
   /** 显示在提示列表顶部的标题 */
   title?: () => any;
+}
+
+// x-provider
+
+export const xProviderSlots = ['default'] as const;
+
+export interface XProviderSlots {
+  default?: () => any;
 }

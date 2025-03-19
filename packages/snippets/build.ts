@@ -88,7 +88,7 @@ defineBuild([
   },
 
   // ant-design-x
-  ...['sender', 'welcome', 'index'].map((name) => {
+  ...['sender', 'welcome', 'x-provider', 'index'].map((name) => {
     return {
       entry: `./src/ant-design-x/${name}.ts`,
       outputFileName: `ant-design-x/${name}`,

@@ -10,17 +10,25 @@ export default defineDocInfo({
     express: {
       sidebarTitle: '表达',
     },
+    tools: {
+      sidebarTitle: '工具',
+    },
   },
   childrenInfo: {
-    sender: {
+    'sender': {
       name: '输入框',
       title: 'Sender',
       sidebarTitle: 'Sender',
     },
-    welcome: {
+    'welcome': {
       name: '欢迎',
       title: 'Welcome',
       sidebarTitle: 'Welcome',
+    },
+    'x-provider': {
+      name: '全局化配置',
+      title: 'XProvider',
+      sidebarTitle: 'XProvider',
     },
   },
 });

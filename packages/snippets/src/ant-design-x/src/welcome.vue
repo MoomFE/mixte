@@ -14,11 +14,12 @@
 
 <script lang="ts" setup>
   import type { WelcomeProps } from '@ant-design/x';
+  import type { WelcomeSlots } from './types';
   import { omit } from 'mixte';
   import { applyPureReactInVue } from 'veaury';
   import { computed, onBeforeUpdate, ref, useAttrs } from 'vue';
-  import WrappedWelcome from './components-react/Welcome';
-  import { type WelcomeSlots, welcomeSlots } from './types';
+  import WrappedWelcome from './components-react/welcome';
+  import { welcomeSlots } from './types';
 
   interface Props extends /* @vue-ignore */ Partial<WelcomeProps> {
 
@@ -47,7 +48,7 @@
   const welcomeProps = computed(() => {
     hasSlots.value; // eslint-disable-line ts/no-unused-expressions
 
-    const result = omit(attrs, welcomeSlots);
+    const result = omit(attrs, [...welcomeSlots]);
 
     welcomeSlots.forEach((key) => { // @ts-expect-error
       if (!slots[key]) result[key] = attrs[key];

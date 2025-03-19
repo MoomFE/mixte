@@ -1,5 +1,5 @@
 import type { WelcomeProps } from '@ant-design/x';
-import { Welcome as XWelcome } from '@ant-design/x';
+import { Welcome } from '@ant-design/x';
 import { isFunction } from 'mixte';
 import React from 'react';
 
@@ -39,7 +39,7 @@ export default function (props: Props) {
   }, [title]);
 
   return (
-    <XWelcome
+    <Welcome
       {...props}
       description={descriptionNode}
       extra={extraNode}
