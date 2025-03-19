@@ -1,13 +1,13 @@
 import type { WelcomeProps } from '@ant-design/x';
 import { Welcome } from '@ant-design/x';
-import { isFunction } from 'mixte';
+import { renderVueCompOrSlot, type VueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
 import React from 'react';
 
 interface Props extends Omit<WelcomeProps, 'description' | 'extra' | 'icon' | 'title'> {
-  description?: string | (() => React.ReactNode);
-  extra?: string | (() => React.ReactNode);
-  icon?: string | (() => React.ReactNode);
-  title?: string | (() => React.ReactNode);
+  description?: VueCompOrSlot<string>;
+  extra?: VueCompOrSlot<string>;
+  icon?: VueCompOrSlot<string>;
+  title?: VueCompOrSlot<string>;
 }
 
 export default function (props: Props) {
@@ -18,25 +18,10 @@ export default function (props: Props) {
     title,
   } = props;
 
-  const descriptionNode = React.useMemo(() => {
-    if (isFunction(description)) return description();
-    return description;
-  }, [description]);
-
-  const extraNode = React.useMemo(() => {
-    if (isFunction(extra)) return extra();
-    return extra;
-  }, [extra]);
-
-  const iconNode = React.useMemo(() => {
-    if (isFunction(icon)) return icon();
-    return icon;
-  }, [icon]);
-
-  const titleNode = React.useMemo(() => {
-    if (isFunction(title)) return title();
-    return title;
-  }, [title]);
+  const descriptionNode = React.useMemo(() => renderVueCompOrSlot(description), [description]);
+  const extraNode = React.useMemo(() => renderVueCompOrSlot(extra), [extra]);
+  const iconNode = React.useMemo(() => renderVueCompOrSlot(icon), [icon]);
+  const titleNode = React.useMemo(() => renderVueCompOrSlot(title), [title]);
 
   return (
     <Welcome

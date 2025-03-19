@@ -1,14 +1,14 @@
 import type { BubbleProps } from '@ant-design/x';
 import type { AvatarProps } from 'antd';
 import { Bubble } from '@ant-design/x';
-import { isFunction, isPlainObject } from 'mixte';
+import { renderVueCompOrSlot, type VueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
+import { assertPlainObject } from 'mixte';
 import React from 'react';
-import { applyPureVueInReact } from 'veaury';
 
 interface Props extends Omit<BubbleProps, 'avatar' | 'footer' | 'header'> {
-  avatar?: AvatarProps | (() => React.ReactNode);
-  footer?: string | (() => React.ReactNode);
-  header?: string | (() => React.ReactNode);
+  avatar?: VueCompOrSlot<AvatarProps>;
+  footer?: VueCompOrSlot<string>;
+  header?: VueCompOrSlot<string>;
 }
 
 export default function (props: Props) {
@@ -18,33 +18,19 @@ export default function (props: Props) {
     footer,
   } = props;
 
-  const finalAvatar = React.useMemo<BubbleProps['avatar']>(() => {
-    if (isFunction(avatar)) return avatar() as any;
-    if (isPlainObject(avatar)) {
-      const icon = (avatar as AvatarProps).icon;
-
-      if (icon) {
-        const Icon = applyPureVueInReact(icon);
-
-        return {
-          ...avatar,
-          icon: <Icon />,
-        };
-      }
+  const finalAvatar = React.useMemo(() => {
+    if (assertPlainObject<AvatarProps>(avatar) && avatar.icon) {
+      return {
+        ...avatar,
+        icon: renderVueCompOrSlot(avatar.icon),
+      };
     }
 
-    return avatar;
+    return renderVueCompOrSlot(avatar);
   }, [avatar]);
 
-  const finalHeader = React.useMemo(() => {
-    if (isFunction(header)) return header();
-    return header;
-  }, [header]);
-
-  const finalFooter = React.useMemo(() => {
-    if (isFunction(footer)) return footer();
-    return footer;
-  }, [footer]);
+  const finalHeader = React.useMemo(() => renderVueCompOrSlot(header), [header]);
+  const finalFooter = React.useMemo(() => renderVueCompOrSlot(footer), [footer]);
 
   return (
     <Bubble

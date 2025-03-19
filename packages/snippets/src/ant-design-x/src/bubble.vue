@@ -1,15 +1,5 @@
 <template>
-  <Bubble
-    v-bind="bubbleProps"
-  >
-    <template
-      v-for="(_, name) in slots"
-      :key="name"
-      #[name]="slotProps"
-    >
-      <slot v-bind="slotProps" :key="name" :name="name" />
-    </template>
-  </Bubble>
+  <Bubble v-bind="bubbleProps" />
 </template>
 
 <script lang="ts" setup>
@@ -17,7 +7,7 @@
   import type { AvatarProps } from 'antd';
   import type { defineComponent } from 'vue';
   import type { BubbleSlots } from './types';
-  import { omit, transformKeys } from 'mixte';
+  import { transformKeys } from 'mixte';
   import { applyPureReactInVue } from 'veaury';
   import { computed, onBeforeUpdate, ref, useAttrs } from 'vue';
   import WrappedBubble from './components-react/bubble';
@@ -55,15 +45,10 @@
   const bubbleProps = computed(() => {
     hasSlots.value; // eslint-disable-line ts/no-unused-expressions
 
-    const result = omit(attrs, [...bubbleSlots]);
-
-    bubbleSlots.forEach((key) => {
-      if (!slots[key]) result[key] = attrs[key] ?? props[key];
-    });
-
     return {
       ...props,
-      ...transformKeys(result),
+      ...transformKeys(attrs),
+      ...slots,
     };
   });
 </script>

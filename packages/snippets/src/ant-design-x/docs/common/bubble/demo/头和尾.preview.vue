@@ -8,7 +8,7 @@
       <el-button class="rounded!" size="small" text circle>
         <i-ant-design-sync-outlined class="size-4" />
       </el-button>
-      <el-button class="rounded!" size="small" text circle>
+      <el-button class="rounded! ml-1!" size="small" text circle>
         <i-ant-design-copy-outlined class="size-4" />
       </el-button>
     </template>

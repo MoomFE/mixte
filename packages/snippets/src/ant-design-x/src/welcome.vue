@@ -1,21 +1,11 @@
 <template>
-  <Welcome
-    v-bind="welcomeProps"
-  >
-    <template
-      v-for="(_, name) in slots"
-      :key="name"
-      #[name]="slotProps"
-    >
-      <slot v-bind="slotProps" :key="name" :name="name" />
-    </template>
-  </Welcome>
+  <Welcome v-bind="welcomeProps" />
 </template>
 
 <script lang="ts" setup>
   import type { WelcomeProps } from '@ant-design/x';
   import type { WelcomeSlots } from './types';
-  import { omit, transformKeys } from 'mixte';
+  import { transformKeys } from 'mixte';
   import { applyPureReactInVue } from 'veaury';
   import { computed, onBeforeUpdate, ref, useAttrs } from 'vue';
   import WrappedWelcome from './components-react/welcome';
@@ -48,12 +38,9 @@
   const welcomeProps = computed(() => {
     hasSlots.value; // eslint-disable-line ts/no-unused-expressions
 
-    const result = omit(attrs, [...welcomeSlots]);
-
-    welcomeSlots.forEach((key) => { // @ts-ignore
-      if (!slots[key]) result[key] = attrs[key];
-    });
-
-    return transformKeys(result);
+    return {
+      ...transformKeys(attrs),
+      ...slots,
+    };
   });
 </script>

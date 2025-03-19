@@ -13,7 +13,10 @@
       "@mixte/snippets/low-code-editor/types": ["./src/low-code-editor/src/types"],
       "@mixte/snippets/low-code-editor/utils": ["./src/low-code-editor/src/utils"],
       "@mixte/snippets/low-code-editor/preview": ["./src/low-code-editor/preview"],
-      "@mixte/snippets/ant-design-x/*": ["./src/ant-design-x/*"]
+      "@mixte/snippets/ant-design-x/*": [
+        "./src/ant-design-x/*",
+        "./src/ant-design-x/src/*"
+      ]
     },
     "outDir": "dist/dts"
   },
