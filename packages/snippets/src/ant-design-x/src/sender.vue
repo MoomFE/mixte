@@ -9,7 +9,7 @@
 <script lang="ts" setup>
   import type { SenderProps } from '@ant-design/x';
   import { Sender as XSender } from '@ant-design/x';
-  import { omit } from 'mixte';
+  import { omit, transformKeys } from 'mixte';
   import { applyPureReactInVue } from 'veaury';
   import { computed, useAttrs } from 'vue';
 
@@ -40,7 +40,7 @@
   const senderProps = computed(() => {
     return {
       ...props,
-      ...omit(attrs, ['value', 'onChange']),
+      ...transformKeys(omit(attrs, ['value', 'onChange'])),
     };
   });
 

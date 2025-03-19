@@ -15,7 +15,7 @@
 <script lang="ts" setup>
   import type { WelcomeProps } from '@ant-design/x';
   import type { WelcomeSlots } from './types';
-  import { omit } from 'mixte';
+  import { omit, transformKeys } from 'mixte';
   import { applyPureReactInVue } from 'veaury';
   import { computed, onBeforeUpdate, ref, useAttrs } from 'vue';
   import WrappedWelcome from './components-react/welcome';
@@ -54,6 +54,6 @@
       if (!slots[key]) result[key] = attrs[key];
     });
 
-    return result;
+    return transformKeys(result);
   });
 </script>

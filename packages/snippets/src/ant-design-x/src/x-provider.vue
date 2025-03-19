@@ -1,5 +1,5 @@
 <template>
-  <XProvider v-bind="attrs">
+  <XProvider v-bind="xProviderProps">
     <template
       v-for="(_, name) in slots"
       :key="name"
@@ -16,6 +16,7 @@
   import { applyPureReactInVue } from 'veaury';
   import { useAttrs } from 'vue';
   import WrappedXProvider from './components-react/x-provider';
+  import { transformKeys } from 'mixte';
 
   interface Props extends /* @vue-ignore */ Partial<XProviderProps> {
 
@@ -28,4 +29,8 @@
   const attrs = useAttrs() as XProviderProps;
 
   const XProvider = applyPureReactInVue(WrappedXProvider);
+
+  const xProviderProps = computed(() => {
+    return transformKeys(attrs);
+  })
 </script>
