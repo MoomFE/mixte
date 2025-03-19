@@ -13,13 +13,22 @@
   import { applyPureReactInVue } from 'veaury';
   import { computed, useAttrs } from 'vue';
 
-  interface Props extends /* @vue-ignore */ Partial<Omit<SenderProps, 'value'>> {
-
+  interface Props extends /* @vue-ignore */ Partial<
+    Omit<SenderProps, 'value' | 'allowSpeech' | 'disabled' | 'loading' | 'readOnly'>
+  > {
+    /** 是否允许语音输入 */
+    allowSpeech?: boolean | SenderProps['allowSpeech'];
+    /** 是否禁用 */
+    disabled?: boolean | SenderProps['disabled'];
+    /** 是否加载中 */
+    loading?: boolean | SenderProps['loading'];
+    /** 是否让输入框只读 */
+    readOnly?: boolean | SenderProps['readOnly'];
   }
 
   defineOptions({ inheritAttrs: false });
-  defineProps<Props>();
 
+  const props = defineProps<Props>();
   const attrs = useAttrs() as SenderProps;
 
   const value = defineModel<string>('modelValue', {
@@ -29,7 +38,10 @@
   const Sender = applyPureReactInVue(XSender);
 
   const senderProps = computed(() => {
-    return omit(attrs, ['value', 'onChange']);
+    return {
+      ...props,
+      ...omit(attrs, ['value', 'onChange']),
+    };
   });
 
   const proxyOnChange: SenderProps['onChange'] = (...args: Parameters<NonNullable<SenderProps['onChange']>>) => {

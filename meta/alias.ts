@@ -21,7 +21,7 @@ export const alias: Alias[] = [
     replacement: resolve(__dirname, '../packages/snippets/src/lottery/src/$1'),
   },
   {
-    find: /^@mixte\/snippets\/ant-design-x\/(patch-for-react-19|flag)$/,
+    find: /^@mixte\/snippets\/ant-design-x\/(patch-for-(react-19|veaury)|flag)$/,
     replacement: resolve(__dirname, '../packages/snippets/src/ant-design-x/src/$1'),
   },
   {

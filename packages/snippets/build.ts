@@ -97,7 +97,7 @@ defineBuild([
       dtsExternal: antDesignXExternal,
     };
   }),
-  ...['patch-for-react-19'].map((name) => {
+  ...['patch-for-react-19', 'patch-for-veaury'].map((name) => {
     return {
       entry: `./src/ant-design-x/src/${name}.ts`,
       outputFileName: `ant-design-x/${name}`,
