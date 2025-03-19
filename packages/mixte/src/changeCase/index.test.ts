@@ -1,4 +1,4 @@
-import { camelCase, kebabCase, lowerFirst, pascalCase, snakeCase, upperFirst } from 'mixte';
+import { camelCase, kebabCase, lowerFirst, pascalCase, snakeCase, transformKeys, upperFirst } from 'mixte';
 
 interface Result {
   camelCase: string;
@@ -39,4 +39,38 @@ describe('change-case', () => {
       expect(lowerFirst(source)).toBe(result.lowerFirst);
     });
   }
+
+  describe('transformKeys', () => {
+    it('使用默认的 camelCase 转换对象键名', () => {
+      expect(transformKeys({ 'foo-bar': 1, 'baz_qux': 2 })).toStrictEqual({ fooBar: 1, bazQux: 2 });
+    });
+
+    it('使用 kebabCase 转换对象键名', () => {
+      expect(transformKeys({ fooBar: 1, baz_qux: 2 }, kebabCase)).toStrictEqual({ 'foo-bar': 1, 'baz-qux': 2 });
+    });
+
+    it('使用 snakeCase 转换对象键名', () => {
+      expect(transformKeys({ 'fooBar': 1, 'baz-qux': 2 }, snakeCase)).toStrictEqual({ foo_bar: 1, baz_qux: 2 });
+    });
+
+    it('使用 pascalCase 转换对象键名', () => {
+      expect(transformKeys({ 'foo-bar': 1, 'baz_qux': 2 }, pascalCase)).toStrictEqual({ FooBar: 1, BazQux: 2 });
+    });
+
+    it('处理空对象', () => {
+      expect(transformKeys({}, camelCase)).toStrictEqual({});
+    });
+
+    it('保留原始值', () => {
+      const obj = {
+        'foo-bar': { 'nested-key': 42 },
+        'baz_qux': [1, 2, 3],
+      };
+
+      expect(transformKeys(obj)).toStrictEqual({
+        fooBar: { 'nested-key': 42 },
+        bazQux: [1, 2, 3],
+      });
+    });
+  });
 });

@@ -77,3 +77,16 @@ import { upperFirst } from 'mixte';
 upperFirst('fooBarBaz'); // -> 'FooBarBaz'
 upperFirst('FooBarBaz'); // -> 'FooBarBaz'
 ```
+
+## `transformKeys` {#transformKeys}
+
+转换对象的所有键名
+
+### 示例
+
+```ts twoslash
+import { kebabCase, transformKeys } from 'mixte';
+
+transformKeys({ 'foo-bar': 1, 'baz_qux': 2 }); // -> { fooBar: 1, bazQux: 2 }
+transformKeys({ 'foo-bar': 1, 'baz_qux': 2 }, kebabCase); // -> { 'foo-bar': 1, 'baz-qux': 2 }
+```

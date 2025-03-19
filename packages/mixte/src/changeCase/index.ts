@@ -110,3 +110,32 @@ export function lowerFirst<T extends string>(str: T): Uncapitalize<T> {
 export function upperFirst<T extends string>(str: T): Capitalize<T> {
   return (str ? str[0].toUpperCase() + str.slice(1) : '') as Capitalize<T>;
 }
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
+/**
+ * 转换对象的所有键名
+ *
+ * @see https://mixte.moomfe.com/mixte/changeCase#transformKeys
+ * @param obj 要转换的对象
+ * @param fn 用于转换键名的函数, 默认为 camelCase
+ * @example
+ *
+ * transformKeys({ 'foo-bar': 1, 'baz_qux': 2 }); // -> { fooBar: 1, bazQux: 2 }
+ * transformKeys({ 'foo-bar': 1, 'baz_qux': 2 }, kebabCase); // -> { 'foo-bar': 1, 'baz-qux': 2 }
+ * transformKeys({ 'foo-bar': 1, 'baz_qux': 2 }, snakeCase); // -> { foo_bar: 1, baz_qux: 2 }
+ */
+export function transformKeys<T extends Record<string, any>>(
+  obj: T,
+  fn: (str: string) => string = camelCase,
+): Record<string, any> {
+  const result: Record<string, any> = {};
+
+  for (const key in obj) {
+    if (hasOwnProperty.call(obj, key)) {
+      result[fn(key)] = obj[key];
+    }
+  }
+
+  return result;
+}
