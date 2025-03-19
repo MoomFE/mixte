@@ -1,3 +1,8 @@
+import type { BubbleProps } from '@ant-design/x';
+import type { BubbleListProps } from '@ant-design/x/es/bubble/BubbleList';
+import type { VueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
+import type { AvatarProps } from 'antd';
+
 // welcome
 
 export const welcomeSlots = ['description', 'extra', 'icon', 'title'] as const;
@@ -23,6 +28,14 @@ export interface XProviderSlots {
 
 // bubble
 
+export interface RewriteAvatarProps extends Omit<AvatarProps, 'icon'> {
+  icon?: VueCompOrSlot<AvatarProps['icon']>;
+}
+
+export interface RewriteBubbleProps extends /* @vue-ignore */ Omit<BubbleProps, 'avatar'> {
+  avatar?: RewriteAvatarProps;
+}
+
 export const bubbleSlots = ['avatar', 'footer', 'header'] as const;
 
 export interface BubbleSlots {
@@ -32,4 +45,17 @@ export interface BubbleSlots {
   footer?: () => any;
   /** 头部内容 */
   header?: () => any;
+}
+
+// bubble list
+
+export type RewriteBubbleDataType = RewriteBubbleProps & {
+  key?: string | number;
+  role?: string;
+};
+export type RewriteRoleType = Partial<Omit<RewriteBubbleProps, 'content'>>;
+export type RewriteRolesType = Record<string, RewriteRoleType> | ((bubbleDataP: RewriteBubbleDataType) => RewriteRoleType);
+
+export interface RewriteBubbleListProps extends /* @vue-ignore */ Omit<BubbleListProps, 'roles'> {
+  roles?: RewriteRolesType;
 }

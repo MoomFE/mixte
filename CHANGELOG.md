@@ -1,7 +1,7 @@
 ## [Unreleased]
   - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `Welcome` 组件 *
   - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `XProvider` 组件 *
-  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `Bubble` 组件 *
+  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `Bubble` 和 `BubbleList` 组件 *
   - 🌟 [mixte] 新增 `transformKeys` 函数, 用于转换传入对象的所有键名
   - 🌟 [mixte] 新增 `assertPlainObject` 函数, 用于判断传入参数是否是纯粹的对象，并进行类型断言
   - 💄 [mixte] 优化 `pick` 和 `omit` 函数类型 *

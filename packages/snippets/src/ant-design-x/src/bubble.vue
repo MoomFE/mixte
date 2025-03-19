@@ -3,27 +3,16 @@
 </template>
 
 <script lang="ts" setup>
-  import type { BubbleProps } from '@ant-design/x';
-  import type { AvatarProps } from 'antd';
-  import type { defineComponent } from 'vue';
-  import type { BubbleSlots } from './types';
+  import type { BubbleSlots, RewriteBubbleProps } from './types';
   import { transformKeys } from 'mixte';
   import { applyPureReactInVue } from 'veaury';
   import { computed, onBeforeUpdate, ref, useAttrs } from 'vue';
   import WrappedBubble from './components-react/bubble';
   import { bubbleSlots } from './types';
 
-  interface AntAvatarProps extends Omit<AvatarProps, 'icon'> {
-    icon?: ReturnType<typeof defineComponent>;
-  }
-
-  interface Props extends /* @vue-ignore */ Partial<Omit<BubbleProps, 'avatar'>> {
-    avatar?: AntAvatarProps;
-  }
-
   defineOptions({ inheritAttrs: false });
 
-  const props = defineProps<Props>();
+  const props = defineProps<RewriteBubbleProps>();
   const slots = defineSlots<BubbleSlots>();
 
   const attrs = useAttrs();
