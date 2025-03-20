@@ -1,3 +1,7 @@
+export {
+  useXAgent,
+  useXChat,
+} from '@ant-design/x';
 export * from '@mixte/snippets/ant-design-x/bubble';
 export * from '@mixte/snippets/ant-design-x/sender';
 export {
