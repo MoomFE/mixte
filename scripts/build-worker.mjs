@@ -1,5 +1,6 @@
 import process from 'node:process';
 import { parentPort } from 'node:worker_threads';
+import React from '@vitejs/plugin-react';
 import Vue from '@vitejs/plugin-vue';
 import VueJsx from '@vitejs/plugin-vue-jsx';
 import Comlink from 'comlink';
@@ -55,7 +56,22 @@ const api = {
         }),
         lib.vueComponent && [
           Vue(),
-          VueJsx(),
+          {
+            ...VueJsx({
+              exclude: [/[/\\]components-react[\\/$]+/],
+            }),
+            enforce: 'pre',
+          },
+          React({
+            jsxImportSource: 'react',
+          }),
+          {
+            config: () => ({
+              esbuild: {
+                include: /\.[jt]sx?$/,
+              },
+            }),
+          },
           Components({
             dts: false,
             dirs: [],

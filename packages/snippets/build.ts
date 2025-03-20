@@ -1,8 +1,7 @@
 import { defineBuild } from '../../scripts/build-utils';
 
 const antDesignXExternal = [
-  'react',
-  /^react-dom\/.+/,
+  /^(@types\/)?react((\/.+)|-dom|$)/,
   /^@ant-design\/.+/,
   'antd',
 ];
