@@ -2,13 +2,14 @@ import type { BubbleProps } from '@ant-design/x';
 import type { AvatarProps } from 'antd';
 import { Bubble } from '@ant-design/x';
 import { renderVueCompOrSlot, type VueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
-import { assertPlainObject } from 'mixte';
+import { assertPlainObject, isFunction } from 'mixte';
 import React from 'react';
 
-interface Props extends Omit<BubbleProps, 'avatar' | 'footer' | 'header'> {
+interface Props extends Omit<BubbleProps, 'avatar' | 'footer' | 'header' | 'messageRender'> {
   avatar?: VueCompOrSlot<AvatarProps>;
   footer?: VueCompOrSlot<string>;
   header?: VueCompOrSlot<string>;
+  messageRender?: (content: string) => VueCompOrSlot<string>;
 }
 
 export default function (props: Props) {
@@ -16,6 +17,7 @@ export default function (props: Props) {
     avatar,
     header,
     footer,
+    messageRender,
   } = props;
 
   const finalAvatar = React.useMemo(() => {
@@ -32,12 +34,19 @@ export default function (props: Props) {
   const finalHeader = React.useMemo(() => renderVueCompOrSlot(header), [header]);
   const finalFooter = React.useMemo(() => renderVueCompOrSlot(footer), [footer]);
 
+  const finalMessageRender = React.useMemo(() => {
+    if (isFunction(messageRender)) {
+      return (content: string) => renderVueCompOrSlot(messageRender(content));
+    }
+  }, [messageRender]);
+
   return (
     <Bubble
       {...props}
       avatar={finalAvatar}
       header={finalHeader}
       footer={finalFooter}
+      messageRender={finalMessageRender}
     />
   );
 }

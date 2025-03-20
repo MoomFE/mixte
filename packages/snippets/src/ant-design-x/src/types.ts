@@ -2,6 +2,7 @@ import type { BubbleProps } from '@ant-design/x';
 import type { BubbleListProps } from '@ant-design/x/es/bubble/BubbleList';
 import type { VueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
 import type { AvatarProps } from 'antd';
+import type { VNodeChild } from 'vue';
 
 // welcome
 
@@ -32,8 +33,9 @@ export interface RewriteAvatarProps extends Omit<AvatarProps, 'icon'> {
   icon?: VueCompOrSlot<AvatarProps['icon']>;
 }
 
-export interface RewriteBubbleProps extends /* @vue-ignore */ Omit<BubbleProps, 'avatar'> {
+export interface RewriteBubbleProps extends /* @vue-ignore */ Omit<BubbleProps, 'avatar' | 'messageRender'> {
   avatar?: RewriteAvatarProps;
+  messageRender?: (content: string) => VNodeChild;
 }
 
 export const bubbleSlots = ['avatar', 'footer', 'header'] as const;
@@ -53,7 +55,9 @@ export type RewriteBubbleDataType = RewriteBubbleProps & {
   key?: string | number;
   role?: string;
 };
-export type RewriteRoleType = Partial<Omit<RewriteBubbleProps, 'content'>>;
+export type RewriteRoleType = Partial<Omit<RewriteBubbleProps, 'content' | 'messageRender'>> & {
+  messageRender?: (content: string) => VNodeChild;
+};
 export type RewriteRolesType = Record<string, RewriteRoleType>;
 
 export interface RewriteBubbleListProps extends /* @vue-ignore */ Omit<BubbleListProps, 'roles'> {

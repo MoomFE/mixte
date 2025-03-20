@@ -3,8 +3,8 @@ import type { Component, VNodeChild } from 'vue';
 import type { RewriteRolesType } from './types';
 import { isFunction } from 'mixte';
 import React from 'react';
-import { applyPureReactInVue, applyPureVueInReact } from 'veaury';
-import { shallowRef } from 'vue';
+import { applyPureReactInVue, applyPureVueInReact, VueContainer } from 'veaury';
+import { isVNode, shallowRef } from 'vue';
 
 /**
  * Vue 组件或插槽参数类型
@@ -19,6 +19,10 @@ export function renderVueCompOrSlot(comp?: VueCompOrSlot<any>): ReactElement {
     return React.createElement(
       applyPureVueInReact(comp) as () => ReactElement,
     );
+  }
+
+  if (isVNode(comp)) {
+    return React.createElement(VueContainer as any, { node: comp });
   }
 
   return comp;
