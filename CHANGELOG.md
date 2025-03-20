@@ -1,5 +1,6 @@
 ## [Unreleased]
   - 🐞 [@mixte/snippets] 修复 `Ant Design X` 部分组件无法使用的问题 *
+  - 🐞 [@mixte/snippets] 修复 `Ant Design X` 的 `Sender` 组件无法输入中文的问题 *
 
 ## [v3.4.0-beta.3]
   - 📅 2025-03-20

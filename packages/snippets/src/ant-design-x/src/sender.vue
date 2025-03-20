@@ -10,7 +10,7 @@
   import type { SenderProps } from '@ant-design/x';
   import { Sender as XSender } from '@ant-design/x';
   import { omit, transformKeys } from 'mixte';
-  import { applyPureReactInVue } from 'veaury';
+  import { applyPureReactInVue, injectSyncUpdateForPureReactInVue } from 'veaury';
   import { computed, useAttrs } from 'vue';
 
   interface Props extends /* @vue-ignore */ Partial<
@@ -33,6 +33,10 @@
 
   const value = defineModel<string>('modelValue', {
     default: '',
+  });
+
+  injectSyncUpdateForPureReactInVue(XSender, {
+    onChange: (value: string) => ({ value }),
   });
 
   const Sender = applyPureReactInVue(XSender);

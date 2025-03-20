@@ -28,10 +28,10 @@
     }, 3000);
   });
 
-  function onSubmit() {
+  function onSubmit(val: string) {
     value.value = '';
     loading.value = true;
-    ElMessage.info('Send message!');
+    ElMessage.info(`Send message: ${val}`);
   }
 
   function onCancel() {
