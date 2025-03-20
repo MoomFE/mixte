@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/snippets] 为 `Ant Design X` 新增了一个 `useReactFunction` 工具方法, 用于在 Vue 环境中执行 React 函数并捕获其返回值 *
   - 🐞 [@mixte/snippets] 修复 `Ant Design X` 部分组件无法使用的问题 *
   - 🐞 [@mixte/snippets] 修复 `Ant Design X` 的 `Sender` 组件无法输入中文的问题 *
 
