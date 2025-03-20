@@ -54,8 +54,8 @@ export type RewriteBubbleDataType = RewriteBubbleProps & {
   role?: string;
 };
 export type RewriteRoleType = Partial<Omit<RewriteBubbleProps, 'content'>>;
-export type RewriteRolesType = Record<string, RewriteRoleType> | ((bubbleDataP: RewriteBubbleDataType) => RewriteRoleType);
+export type RewriteRolesType = Record<string, RewriteRoleType>;
 
 export interface RewriteBubbleListProps extends /* @vue-ignore */ Omit<BubbleListProps, 'roles'> {
-  roles?: RewriteRolesType;
+  roles?: RewriteRolesType | ((bubbleDataP: RewriteBubbleDataType) => RewriteRoleType);
 }

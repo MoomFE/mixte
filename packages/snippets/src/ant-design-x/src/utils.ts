@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
 import type { Component, VNodeChild } from 'vue';
+import type { RewriteRolesType } from './types';
 import { isFunction } from 'mixte';
 import React from 'react';
 import { applyPureReactInVue, applyPureVueInReact } from 'veaury';
@@ -44,4 +45,11 @@ export function useReactFunction<
     Comp,
     status,
   };
+}
+
+/**
+ * 定义 BubbleList 气泡默认属性
+ */
+export function defineBubbleListRoles<T extends RewriteRolesType>(roles: T): T {
+  return roles;
 }

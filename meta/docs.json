@@ -315,14 +315,14 @@
       "hiddenTitle": false,
       "sidebarTitle": "Ant Design X",
       "children": {
+        "express": [
+          "sender"
+        ],
         "common": [
           "bubble"
         ],
         "tools": [
           "x-provider"
-        ],
-        "express": [
-          "sender"
         ],
         "wake": [
           "welcome"

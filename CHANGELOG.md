@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/snippets] 为 `Ant Design X` 新增了一个 `defineBubbleListRoles` 工具方法, 用于定义 BubbleList 气泡默认属性 *
 
 ## [v3.4.0-beta.4]
   - 📅 2025-03-20

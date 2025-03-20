@@ -5,6 +5,7 @@ export {
 export * from '@mixte/snippets/ant-design-x/bubble';
 export * from '@mixte/snippets/ant-design-x/sender';
 export {
+  defineBubbleListRoles,
   useReactFunction,
 } from '@mixte/snippets/ant-design-x/utils';
 export * from '@mixte/snippets/ant-design-x/welcome';
