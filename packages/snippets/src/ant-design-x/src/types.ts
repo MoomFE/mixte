@@ -1,5 +1,6 @@
-import type { BubbleProps } from '@ant-design/x';
+import type { BubbleProps, ConversationsProps } from '@ant-design/x';
 import type { BubbleListProps } from '@ant-design/x/es/bubble/BubbleList';
+import type { Conversation } from '@ant-design/x/es/conversations';
 import type { SenderHeaderProps } from '@ant-design/x/es/sender/SenderHeader';
 import type { VueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
 import type { AvatarProps } from 'antd';
@@ -80,4 +81,15 @@ export type RewriteRolesType = Record<string, RewriteRoleType>;
 
 export interface RewriteBubbleListProps extends /* @vue-ignore */ Omit<BubbleListProps, 'roles'> {
   roles?: RewriteRolesType | ((bubbleDataP: RewriteBubbleDataType) => RewriteRoleType);
+}
+
+// Conversations
+
+export type RewriteConversation = Omit<Conversation, 'label' | 'icon'> & {
+  label?: VueCompOrSlot;
+  icon?: VueCompOrSlot;
+};
+
+export interface RewriteConversationsProps extends /* @vue-ignore */ Omit<ConversationsProps, 'items'> {
+  items?: RewriteConversation[];
 }

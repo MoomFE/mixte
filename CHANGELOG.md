@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `Conversations` 组件 *
 
 ## [v3.4.0-beta.5]
   - 📅 2025-03-21
