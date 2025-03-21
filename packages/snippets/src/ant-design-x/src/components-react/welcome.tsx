@@ -1,13 +1,12 @@
-import type { WelcomeProps } from '@ant-design/x';
-import { Welcome } from '@ant-design/x';
+import { Welcome, type WelcomeProps } from '@ant-design/x';
 import { renderVueCompOrSlot, type VueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
 import React from 'react';
 
 interface Props extends Omit<WelcomeProps, 'description' | 'extra' | 'icon' | 'title'> {
-  description?: VueCompOrSlot<string>;
-  extra?: VueCompOrSlot<string>;
-  icon?: VueCompOrSlot<string>;
-  title?: VueCompOrSlot<string>;
+  description?: VueCompOrSlot;
+  extra?: VueCompOrSlot;
+  icon?: VueCompOrSlot;
+  title?: VueCompOrSlot;
 }
 
 export default function (props: Props) {
@@ -18,18 +17,18 @@ export default function (props: Props) {
     title,
   } = props;
 
-  const descriptionNode = React.useMemo(() => renderVueCompOrSlot(description), [description]);
-  const extraNode = React.useMemo(() => renderVueCompOrSlot(extra), [extra]);
-  const iconNode = React.useMemo(() => renderVueCompOrSlot(icon), [icon]);
-  const titleNode = React.useMemo(() => renderVueCompOrSlot(title), [title]);
+  const finalDescription = React.useMemo(() => renderVueCompOrSlot(description), [description]);
+  const finalExtra = React.useMemo(() => renderVueCompOrSlot(extra), [extra]);
+  const finalIcon = React.useMemo(() => renderVueCompOrSlot(icon), [icon]);
+  const finalTitle = React.useMemo(() => renderVueCompOrSlot(title), [title]);
 
   return (
     <Welcome
       {...props}
-      description={descriptionNode}
-      extra={extraNode}
-      icon={iconNode}
-      title={titleNode}
+      description={finalDescription}
+      extra={finalExtra}
+      icon={finalIcon}
+      title={finalTitle}
     />
   );
 }

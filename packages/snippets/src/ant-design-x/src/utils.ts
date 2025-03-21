@@ -9,7 +9,7 @@ import { isVNode, shallowRef } from 'vue';
 /**
  * Vue 组件或插槽参数类型
  */
-export type VueCompOrSlot<T> = T | (() => VNodeChild) | Component;
+export type VueCompOrSlot<T = string> = T | (() => VNodeChild) | Component;
 
 /**
  * 在 React 中渲染 Vue 组件或插槽

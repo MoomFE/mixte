@@ -27,6 +27,16 @@ export interface XProviderSlots {
   default?: () => any;
 }
 
+// sender
+
+export const senderSlots = ['header', 'prefix'] as const;
+
+export interface SenderSlots {
+  /** 头部面板 */
+  header?: () => any;
+  /** 前缀内容 */
+  prefix?: () => any;
+}
 // bubble
 
 export interface RewriteAvatarProps extends Omit<AvatarProps, 'icon'> {
