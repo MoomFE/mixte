@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.4.0-beta.5]
+  - 📅 2025-03-21
   - 🌟 [@mixte/snippets] 为 `Ant Design X` 新增了一个 `defineBubbleListRoles` 工具方法, 用于定义 BubbleList 气泡默认属性 *
   - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `SenderHeader` 组件 *
   - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `XRequest` 和 `XStream` 导出 *
@@ -107,7 +110,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.0-beta.4...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.0-beta.5...HEAD
+[v3.4.0-beta.5]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.5
 [v3.4.0-beta.4]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.4
 [v3.4.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.3
 [v3.4.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.2
