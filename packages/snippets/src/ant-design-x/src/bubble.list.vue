@@ -13,9 +13,9 @@
 
   const props = defineProps<RewriteBubbleListProps>();
 
-  const BubbleList = applyPureReactInVue(WrappedBubbleList);
-
   const attrs = useAttrs();
+
+  const BubbleList = applyPureReactInVue(WrappedBubbleList);
 
   const bubbleListProps = computed(() => {
     return {

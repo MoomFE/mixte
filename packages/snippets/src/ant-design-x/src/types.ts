@@ -1,5 +1,6 @@
 import type { BubbleProps } from '@ant-design/x';
 import type { BubbleListProps } from '@ant-design/x/es/bubble/BubbleList';
+import type { SenderHeaderProps } from '@ant-design/x/es/sender/SenderHeader';
 import type { VueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
 import type { AvatarProps } from 'antd';
 import type { VNodeChild } from 'vue';
@@ -37,6 +38,13 @@ export interface SenderSlots {
   /** 前缀内容 */
   prefix?: () => any;
 }
+
+// sender header
+
+export interface RewriteSenderHeaderProps extends /* @vue-ignore */ SenderHeaderProps {
+
+}
+
 // bubble
 
 export interface RewriteAvatarProps extends Omit<AvatarProps, 'icon'> {
