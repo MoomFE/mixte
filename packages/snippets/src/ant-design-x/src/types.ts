@@ -90,6 +90,13 @@ export type RewriteConversation = Omit<Conversation, 'label' | 'icon'> & {
   icon?: VueCompOrSlot;
 };
 
-export interface RewriteConversationsProps extends /* @vue-ignore */ Omit<ConversationsProps, 'items'> {
+export type RewriteMenuProps = Omit<MenuProps, 'items'> & {
+  items?: Omit<ItemType, 'icon'> & {
+    icon?: VueCompOrSlot;
+  }[];
+};
+
+export interface RewriteConversationsProps extends /* @vue-ignore */ Omit<ConversationsProps, 'items' | 'menu'> {
   items?: RewriteConversation[];
+  menu?: RewriteMenuProps | ((value: RewriteConversation) => RewriteMenuProps);
 }
