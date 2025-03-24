@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 import type { Component, VNodeChild } from 'vue';
 import type { RewriteRolesType } from './types';
-import { isFunction } from 'mixte';
+import { isFunction, isPrimitive } from 'mixte';
 import React from 'react';
 import { applyPureReactInVue, applyPureVueInReact, VueContainer } from 'veaury';
 import { isVNode, shallowRef } from 'vue';
@@ -15,14 +15,18 @@ export type VueCompOrSlot<T = string> = T | (() => VNodeChild) | Component;
  * 在 React 中渲染 Vue 组件或插槽
  */
 export function renderVueCompOrSlot(comp?: VueCompOrSlot<any>): ReactElement {
-  if (isFunction(comp) || comp?.setup || comp?.render) {
-    return React.createElement(
-      applyPureVueInReact(comp) as () => ReactElement,
-    );
+  if (isPrimitive(comp)) {
+    return comp;
   }
 
   if (isVNode(comp)) {
     return React.createElement(VueContainer as any, { node: comp });
+  }
+
+  if (isFunction(comp) || comp?.setup || comp?.render) {
+    return React.createElement(
+      applyPureVueInReact(comp) as () => ReactElement,
+    );
   }
 
   return comp;
