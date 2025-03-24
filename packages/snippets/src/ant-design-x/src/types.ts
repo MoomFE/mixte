@@ -3,7 +3,8 @@ import type { BubbleListProps } from '@ant-design/x/es/bubble/BubbleList';
 import type { Conversation } from '@ant-design/x/es/conversations';
 import type { SenderHeaderProps } from '@ant-design/x/es/sender/SenderHeader';
 import type { VueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
-import type { AvatarProps } from 'antd';
+import type { AvatarProps, MenuProps } from 'antd';
+import type { ItemType } from 'antd/es/menu/interface';
 import type { VNodeChild } from 'vue';
 
 // welcome
@@ -52,8 +53,10 @@ export interface RewriteAvatarProps extends Omit<AvatarProps, 'icon'> {
   icon?: VueCompOrSlot<AvatarProps['icon']>;
 }
 
-export interface RewriteBubbleProps extends /* @vue-ignore */ Omit<BubbleProps, 'avatar' | 'messageRender'> {
-  avatar?: RewriteAvatarProps;
+export interface RewriteBubbleProps extends /* @vue-ignore */ Omit<BubbleProps, 'avatar' | 'footer' | 'header' | 'messageRender'> {
+  avatar?: RewriteAvatarProps | VueCompOrSlot<string>;
+  header?: VueCompOrSlot<string>;
+  footer?: VueCompOrSlot<string>;
   messageRender?: (content: string) => VNodeChild;
 }
 
@@ -74,13 +77,14 @@ export type RewriteBubbleDataType = RewriteBubbleProps & {
   key?: string | number;
   role?: string;
 };
-export type RewriteRoleType = Partial<Omit<RewriteBubbleProps, 'content' | 'messageRender'>> & {
+export type RewriteRoleType = Omit<RewriteBubbleProps, 'content' | 'messageRender'> & {
   messageRender?: (content: string) => VNodeChild;
 };
 export type RewriteRolesType = Record<string, RewriteRoleType>;
 
-export interface RewriteBubbleListProps extends /* @vue-ignore */ Omit<BubbleListProps, 'roles'> {
+export interface RewriteBubbleListProps extends /* @vue-ignore */ Omit<BubbleListProps, 'roles' | 'items'> {
   roles?: RewriteRolesType | ((bubbleDataP: RewriteBubbleDataType) => RewriteRoleType);
+  items?: RewriteBubbleDataType[];
 }
 
 // Conversations

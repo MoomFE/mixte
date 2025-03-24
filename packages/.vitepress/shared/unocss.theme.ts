@@ -1052,14 +1052,11 @@ export const fontWeight = {
   black: "900"
 };
 export const breakpoints = {
-  sm: "576px",
+  sm: "640px",
   md: "768px",
   lg: "1024px",
   xl: "1280px",
-  "2xl": "1536px",
-  xs: "480px",
-  "996px": "996px",
-  "1140px": "1140px"
+  "2xl": "1536px"
 };
 export const verticalBreakpoints = {
   sm: "640px",
@@ -1239,8 +1236,7 @@ export const duration = {
   "700": "700ms",
   "1000": "1000ms",
   DEFAULT: "150ms",
-  none: "0s",
-  colors: "300ms"
+  none: "0s"
 };
 export const ringWidth = {
   DEFAULT: "3px",

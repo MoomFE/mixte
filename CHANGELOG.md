@@ -1,7 +1,7 @@
 ## [Unreleased]
   - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `Conversations` 组件 *
-  - 💄 [@mixte/snippets] 使 `Ant Design X` 的 `Conversations` 支持通过 `menu.items.icon` 传递 Vue 组件实现自定义渲染内容 *
-
+  - 💄 [@mixte/snippets] 使 `Ant Design X` 的 `Conversations` 支持通过 `menu.items[].icon` 传递 Vue 组件实现自定义渲染内容 *
+  - 💄 [@mixte/snippets] 使 `Ant Design X` 的 `BubbleList` 支持通过 `items[].[avatar|header|footer|messageRender]` 传递 Vue 组件实现自定义渲染内容 *
 
 ## [v3.4.0-beta.5]
   - 📅 2025-03-21

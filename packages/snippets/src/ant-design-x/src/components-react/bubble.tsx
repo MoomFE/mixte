@@ -1,17 +1,11 @@
 import type { AvatarProps } from 'antd';
-import { Bubble, type BubbleProps } from '@ant-design/x';
-import { renderVueCompOrSlot, type VueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
+import type { RewriteBubbleProps } from '../types';
+import { Bubble } from '@ant-design/x';
+import { renderVueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
 import { assertPlainObject, isFunction } from 'mixte';
 import React from 'react';
 
-interface Props extends Omit<BubbleProps, 'avatar' | 'footer' | 'header' | 'messageRender'> {
-  avatar?: VueCompOrSlot<AvatarProps>;
-  footer?: VueCompOrSlot;
-  header?: VueCompOrSlot;
-  messageRender?: (content: string) => VueCompOrSlot;
-}
-
-export default function (props: Props) {
+export default function (props: RewriteBubbleProps) {
   const {
     avatar,
     header,
