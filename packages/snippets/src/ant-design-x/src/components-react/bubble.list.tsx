@@ -13,7 +13,7 @@ export default function (props: RewriteBubbleListProps) {
     items,
   } = props;
 
-  function transform(props: Pick<RewriteBubbleProps, 'avatar' | 'header' | 'footer' | 'messageRender'>) {
+  function transform(props: Pick<RewriteBubbleProps, 'avatar' | 'header' | 'footer' | 'content' | 'messageRender'>) {
     const avatar = assertPlainObject<AvatarProps>(props.avatar)
       ? {
           ...props.avatar,
@@ -22,6 +22,7 @@ export default function (props: RewriteBubbleListProps) {
       : renderVueCompOrSlot(props.avatar);
     const header = renderVueCompOrSlot(props.header);
     const footer = renderVueCompOrSlot(props.footer);
+    const content = renderVueCompOrSlot(props.content);
     const messageRender = isFunction(props.messageRender)
       ? (content: string) => renderVueCompOrSlot(props.messageRender!(content))
       : undefined;
@@ -30,6 +31,7 @@ export default function (props: RewriteBubbleListProps) {
       ...(avatar === undefined ? {} : { avatar }),
       ...(header === undefined ? {} : { header }),
       ...(footer === undefined ? {} : { footer }),
+      ...(content === undefined ? {} : { content }),
       ...(messageRender === undefined ? {} : { messageRender }),
     };
   }
@@ -38,12 +40,7 @@ export default function (props: RewriteBubbleListProps) {
     return items?.map((item) => {
       return {
         ...item as BubbleProps,
-        ...transform({
-          avatar: item.avatar,
-          header: item.header,
-          footer: item.footer,
-          messageRender: item.messageRender,
-        }),
+        ...transform(item),
       };
     });
   }, [items]);
@@ -56,12 +53,7 @@ export default function (props: RewriteBubbleListProps) {
             key,
             {
               ...role as BubbleProps,
-              ...transform({
-                avatar: role.avatar,
-                header: role.header,
-                footer: role.footer,
-                messageRender: role.messageRender,
-              }),
+              ...transform(role),
             },
           ];
         }),

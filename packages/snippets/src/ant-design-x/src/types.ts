@@ -53,10 +53,11 @@ export interface RewriteAvatarProps extends Omit<AvatarProps, 'icon'> {
   icon?: VueCompOrSlot<AvatarProps['icon']>;
 }
 
-export interface RewriteBubbleProps extends /* @vue-ignore */ Omit<BubbleProps, 'avatar' | 'footer' | 'header' | 'messageRender'> {
+export interface RewriteBubbleProps extends /* @vue-ignore */ Omit<BubbleProps, 'avatar' | 'footer' | 'header' | 'content' | 'messageRender'> {
   avatar?: RewriteAvatarProps | VueCompOrSlot<string>;
   header?: VueCompOrSlot<string>;
   footer?: VueCompOrSlot<string>;
+  content?: VueCompOrSlot<string>;
   messageRender?: (content: string) => VNodeChild;
 }
 

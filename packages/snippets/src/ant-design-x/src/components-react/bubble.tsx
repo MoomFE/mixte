@@ -10,6 +10,7 @@ export default function (props: RewriteBubbleProps) {
     avatar,
     header,
     footer,
+    content,
     messageRender,
   } = props;
 
@@ -26,6 +27,7 @@ export default function (props: RewriteBubbleProps) {
 
   const finalHeader = React.useMemo(() => renderVueCompOrSlot(header), [header]);
   const finalFooter = React.useMemo(() => renderVueCompOrSlot(footer), [footer]);
+  const finalContent = React.useMemo(() => renderVueCompOrSlot(content), [content]);
 
   const finalMessageRender = React.useMemo(() => {
     if (isFunction(messageRender)) {
@@ -39,6 +41,7 @@ export default function (props: RewriteBubbleProps) {
       avatar={finalAvatar}
       header={finalHeader}
       footer={finalFooter}
+      content={finalContent}
       messageRender={finalMessageRender}
     />
   );
