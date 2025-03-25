@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.4.0-beta.6]
+  - 📅 2025-03-25
   - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `Conversations` 组件 *
   - 💄 [@mixte/snippets] 使 `Ant Design X` 的 `Conversations` 支持通过 `menu.items[].icon` 传递 Vue 组件实现自定义渲染内容 *
   - 💄 [@mixte/snippets] 使 `Ant Design X` 的 `BubbleList` 支持通过 `items[].[avatar|header|footer|messageRender]` 传递 Vue 组件实现自定义渲染内容 *
@@ -113,7 +116,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.0-beta.5...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.0-beta.6...HEAD
+[v3.4.0-beta.6]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.6
 [v3.4.0-beta.5]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.5
 [v3.4.0-beta.4]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.4
 [v3.4.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.3
