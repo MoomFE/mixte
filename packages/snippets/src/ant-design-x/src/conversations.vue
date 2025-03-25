@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
   import type { RewriteConversationsProps } from './types';
-  import { transformKeys } from 'mixte';
+  import { omit, transformKeys } from 'mixte';
   import { applyPureReactInVue } from 'veaury';
   import { computed, useAttrs } from 'vue';
   import WrappedConversations from './components-react/conversations';
@@ -26,7 +26,7 @@
   const conversationsProps = computed(() => {
     return {
       ...props,
-      ...transformKeys(attrs),
+      ...transformKeys(omit(attrs, ['onActiveChange'])),
     };
   });
 

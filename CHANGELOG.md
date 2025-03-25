@@ -1,6 +1,7 @@
 ## [Unreleased]
   - 💄 [@mixte/snippets] 使 `Ant Design X` 的 `Bubble` 支持通过 `content` 传递 Vue 组件实现自定义渲染内容 *
   - 💄 [@mixte/snippets] 使 `Ant Design X` 的 `BubbleList` 支持通过 `items[].content` 传递 Vue 组件实现自定义渲染内容 *
+  - 🐞 [@mixte/snippets] 修复 `Ant Design X` 的 `Conversations` 组件监听 `active-change` 事件报错的问题 *
 
 ## [v3.4.0-beta.6]
   - 📅 2025-03-25
