@@ -16,3 +16,4 @@ catalog:
   vue-draggable-plus: ^0.6.0
   nanoid: ^5.1.2
   '@ant-design/v5-patch-for-react-19': ^1.0.3
+  '@ant-design/x': ^1.0.5

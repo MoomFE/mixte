@@ -80,6 +80,7 @@
   },
   "dependencies": {
     "@ant-design/v5-patch-for-react-19": "catalog:",
+    "@ant-design/x": "catalog:",
     "@tiptap/extension-bubble-menu": "catalog:",
     "@tiptap/extension-underline": "catalog:",
     "@tiptap/pm": "catalog:",

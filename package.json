@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@ant-design/v5-patch-for-react-19": "catalog:",
-    "@ant-design/x": "^1.0.5",
+    "@ant-design/x": "catalog:",
     "@arco-design/web-vue": "^2.56.3",
     "@floating-ui/vue": "^1.1.6",
     "@iconify/json": "^2.2.312",
