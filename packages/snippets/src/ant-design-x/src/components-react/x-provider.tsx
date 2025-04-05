@@ -1,4 +1,5 @@
-import { XProvider, type XProviderProps } from '@ant-design/x';
+import type { XProviderProps } from '@ant-design/x';
+import { XProvider } from '@ant-design/x';
 
 interface Props extends XProviderProps {
 

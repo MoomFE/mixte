@@ -3,17 +3,17 @@ packages:
   - playground
   - docs
 catalog:
-  vue-component-type-helpers: ^2.2.8
+  '@ant-design/v5-patch-for-react-19': ^1.0.3
+  '@ant-design/x': ^1.0.5
   '@tiptap/extension-bubble-menu': ^2.11.5
   '@tiptap/extension-underline': ^2.11.5
   '@tiptap/pm': ^2.11.5
   '@tiptap/starter-kit': ^2.11.5
   '@tiptap/vue-3': ^2.11.5
-  three: ^0.174.0
   '@types/three': ^0.174.0
   gsap: ^3.12.7
-  veaury: ^2.6.2
-  vue-draggable-plus: ^0.6.0
   nanoid: ^5.1.2
-  '@ant-design/v5-patch-for-react-19': ^1.0.3
-  '@ant-design/x': ^1.0.5
+  three: ^0.174.0
+  veaury: ^2.6.2
+  vue-component-type-helpers: ^2.2.8
+  vue-draggable-plus: ^0.6.0

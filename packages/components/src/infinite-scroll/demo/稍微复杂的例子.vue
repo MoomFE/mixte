@@ -39,7 +39,8 @@
 
 <script lang="ts" setup>
   import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
-  import { MixteInfiniteScroll, type MixteInfiniteScrollInstance } from '@mixte/components/infinite-scroll';
+  import type { MixteInfiniteScrollInstance } from '@mixte/components/infinite-scroll';
+  import { MixteInfiniteScroll } from '@mixte/components/infinite-scroll';
   import axios from 'axios';
 
   const infiniteScrollRef = ref<MixteInfiniteScrollInstance>();

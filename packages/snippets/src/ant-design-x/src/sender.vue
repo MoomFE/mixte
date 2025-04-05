@@ -8,11 +8,12 @@
 
 <script lang="ts" setup>
   import type { SenderProps } from '@ant-design/x';
+  import type { SenderSlots } from './types';
   import { omit, transformKeys } from 'mixte';
   import { applyPureReactInVue, injectSyncUpdateForPureReactInVue } from 'veaury';
   import { computed, onBeforeUpdate, ref, useAttrs } from 'vue';
   import WrappedSender from './components-react/sender';
-  import { senderSlots, type SenderSlots } from './types';
+  import { senderSlots } from './types';
 
   interface Props extends /* @vue-ignore */ Partial<
     Omit<SenderProps, 'value' | 'allowSpeech' | 'disabled' | 'loading' | 'readOnly'>
