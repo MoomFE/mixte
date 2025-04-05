@@ -1,5 +1,7 @@
-import { Welcome, type WelcomeProps } from '@ant-design/x';
-import { renderVueCompOrSlot, type VueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
+import type { WelcomeProps } from '@ant-design/x';
+import type { VueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
+import { Welcome } from '@ant-design/x';
+import { renderVueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
 import React from 'react';
 
 interface Props extends Omit<WelcomeProps, 'description' | 'extra' | 'icon' | 'title'> {

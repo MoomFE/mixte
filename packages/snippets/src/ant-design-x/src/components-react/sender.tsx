@@ -1,5 +1,7 @@
-import { Sender, type SenderProps } from '@ant-design/x';
-import { renderVueCompOrSlot, type VueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
+import type { SenderProps } from '@ant-design/x';
+import type { VueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
+import { Sender } from '@ant-design/x';
+import { renderVueCompOrSlot } from '@mixte/snippets/ant-design-x/utils';
 import React from 'react';
 
 interface Props extends Omit<SenderProps, 'header' | 'prefix'> {
