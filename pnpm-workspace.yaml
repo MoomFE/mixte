@@ -4,16 +4,16 @@ packages:
   - docs
 catalog:
   vue-component-type-helpers: ^2.2.8
-  '@tiptap/extension-bubble-menu': ^2.11.5
-  '@tiptap/extension-underline': ^2.11.5
-  '@tiptap/pm': ^2.11.5
-  '@tiptap/starter-kit': ^2.11.5
-  '@tiptap/vue-3': ^2.11.5
-  three: ^0.174.0
-  '@types/three': ^0.174.0
+  '@tiptap/extension-bubble-menu': ^2.11.7
+  '@tiptap/extension-underline': ^2.11.7
+  '@tiptap/pm': ^2.11.7
+  '@tiptap/starter-kit': ^2.11.7
+  '@tiptap/vue-3': ^2.11.7
+  three: ^0.175.0
+  '@types/three': ^0.175.0
   gsap: ^3.12.7
   veaury: ^2.6.2
   vue-draggable-plus: ^0.6.0
-  nanoid: ^5.1.2
+  nanoid: ^5.1.5
   '@ant-design/v5-patch-for-react-19': ^1.0.3
-  '@ant-design/x': ^1.0.5
+  '@ant-design/x': ^1.1.0
