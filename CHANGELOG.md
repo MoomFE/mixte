@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/snippets] 完善 `LowCodeEditor` 的 `preview` 组件
 
 ## [v3.4.0-beta.7]
   - 📅 2025-03-28
