@@ -5,7 +5,7 @@
 <template>
   <template v-for="config in list" :key="config.id">
     <component
-      :is="componentsInfo?.[config.name].component"
+      :is="componentsInfo?.[config.name]?.component ?? EmptyComponent"
       :config
     />
   </template>
@@ -20,4 +20,8 @@
   });
 
   const { componentsInfo } = useStore()!;
+
+  function EmptyComponent({ config }: { config: ComponentConfig<any> }) {
+    console.error(`${config.name} ( ${config.displayName} ) 组件未注册`);
+  }
 </script>
