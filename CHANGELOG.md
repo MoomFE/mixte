@@ -1,9 +1,12 @@
 ## [Unreleased]
-  - 🐞 [@mixte/snippets] 修复 `LowCodeEditor` 的 `preview` 组件渲染未注册的组件时崩溃的问题
+
+## [v3.4.0-beta.9]
+  - 📅 2025-04-24
+  - 🐞 [@mixte/snippets] 修复 `LowCodeEditor` 的 `preview` 组件渲染未注册的组件时崩溃的问题 *
 
 ## [v3.4.0-beta.8]
   - 📅 2025-04-13
-  - 💄 [@mixte/snippets] 完善 `LowCodeEditor` 的 `preview` 组件
+  - 💄 [@mixte/snippets] 完善 `LowCodeEditor` 的 `preview` 组件 *
 
 ## [v3.4.0-beta.7]
   - 📅 2025-03-28
@@ -127,7 +130,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.0-beta.8...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.0-beta.9...HEAD
+[v3.4.0-beta.9]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.9
 [v3.4.0-beta.8]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.8
 [v3.4.0-beta.7]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.7
 [v3.4.0-beta.6]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.6
