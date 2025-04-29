@@ -17,7 +17,7 @@
     <template v-for="config in list" :key="config.id">
       <ComponentWrap :config>
         <component
-          :is="componentsInfo?.[config.name].component"
+          :is="componentsInfo?.[config.name]?.component ?? EmptyComponent"
           :config
         />
       </ComponentWrap>
@@ -48,5 +48,9 @@
 
   function onDragStart(event: DraggableEvent<ComponentConfig<any>>) {
     dragComponentId.value = event.data.id;
+  }
+
+  function EmptyComponent({ config }: { config: ComponentConfig<any> }) {
+    console.error(`${config.name} ( ${config.displayName} ) 组件未注册`);
   }
 </script>
