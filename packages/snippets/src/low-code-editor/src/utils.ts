@@ -1,4 +1,10 @@
 import type { ComponentConfig } from '@mixte/snippets/low-code-editor/types';
+import { customAlphabet } from 'nanoid';
+
+/**
+ * 字符串 ID 生成器
+ */
+export const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_', 18);
 
 /**
  * 定义组件信息

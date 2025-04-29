@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/snippets] 新增 `LowCodeEditor` 使用的 `nanoid` 工具方法 *
   - 🐞 [@mixte/snippets] 修复 `LowCodeEditor` 的 `editor` 组件渲染未注册的组件时崩溃的问题 *
 
 ## [v3.4.0-beta.9]
