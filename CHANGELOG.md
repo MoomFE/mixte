@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.4.0-beta.10]
+  - 📅 2025-04-29
   - 🌟 [@mixte/snippets] 新增 `LowCodeEditor` 使用的 `nanoid` 工具方法 *
   - 🐞 [@mixte/snippets] 修复 `LowCodeEditor` 的 `editor` 组件渲染未注册的组件时崩溃的问题 *
 
@@ -132,7 +135,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.0-beta.9...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.0-beta.10...HEAD
+[v3.4.0-beta.10]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.10
 [v3.4.0-beta.9]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.9
 [v3.4.0-beta.8]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.8
 [v3.4.0-beta.7]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.7
