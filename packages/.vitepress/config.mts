@@ -1,12 +1,9 @@
-import type { DefaultTheme } from 'vitepress';
-import type { GroupInfo, Info } from './types/info';
 import { fileURLToPath } from 'node:url';
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash';
 import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs';
 import React from '@vitejs/plugin-react';
 import VueJsx from '@vitejs/plugin-vue-jsx';
 import { dirname, resolve } from 'pathe';
-import { pascalCase } from 'scule';
 import Unocss from 'unocss/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Icons from 'unplugin-icons/vite';
@@ -17,6 +14,7 @@ import { alias } from '../../meta/alias';
 import { components, melComponents, mixte, snippets, use, validator } from '../../meta/docs.json';
 import { version } from '../../package.json';
 import { MarkdownTransform } from './plugins/markdownTransform';
+import { createDetailSidebar, createSidebar } from './utils/createSidebar.mjs';
 import VitePlugins from './vite.common.plugins';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -93,55 +91,8 @@ export default defineConfig({
     ],
 
     sidebar: {
-      '/mixte/': [
-        { text: 'mixte', docs: mixte },
-        { text: '@mixte/use', docs: use },
-        { text: '@mixte/components', docs: components },
-        { text: '@mixte/validator', docs: validator },
-        { text: '@mixte/snippets', docs: snippets },
-        { text: '@mixte/mel-components', docs: melComponents },
-      ].map(({ text, docs }) => {
-        const pkg = text.replace('@mixte/', '');
-
-        return {
-          text,
-          items: docs.map((info) => {
-            const nameFirst = info.sidebarTitle || (pkg.includes('components') ? pascalCase(info.fn) : info.fn);
-            const nameLast = info.name ? ` ( ${info.name} )` : '';
-            const link = `/mixte/${pkg !== 'mixte' ? `${pkg}/` : ''}${info.fn}`;
-
-            const items: DefaultTheme.Config['sidebar'] = [];
-
-            info.children && Object.entries(info.children as Record<string, string[]>).forEach(([group, fns]) => {
-              if (!group) {
-                return items.push(...fns.map(fn => ({ text: fn, link: `/mixte/${pkg}/${info.fn}/${fn}` })));
-              }
-
-              const groupInfo = (info.childrenGroupInfo[group] ?? {}) as GroupInfo;
-
-              items.push({
-                text: groupInfo.sidebarTitle ?? group,
-                items: fns.map((fn) => {
-                  const childInfo = (info.childrenInfo[fn] ?? {}) as Info;
-                  const nameFirst = childInfo.sidebarTitle || (pkg.includes('components') ? pascalCase(fn) : fn);
-                  const nameLast = childInfo.name ? ` ( ${childInfo.name} )` : '';
-
-                  return {
-                    text: `${nameFirst}${nameLast}`,
-                    link: `${link}/${fn}`,
-                  };
-                }),
-              });
-            });
-
-            return {
-              text: `${nameFirst}${nameLast}`,
-              link,
-              items,
-            };
-          }),
-        };
-      }),
+      '/mixte/': createSidebar(),
+      ...createDetailSidebar(),
     },
 
     socialLinks: [

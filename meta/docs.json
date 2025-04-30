@@ -318,11 +318,11 @@
         "common": [
           "bubble"
         ],
-        "wake": [
-          "welcome"
-        ],
         "express": [
           "sender"
+        ],
+        "wake": [
+          "welcome"
         ],
         "tools": [
           "x-provider"
