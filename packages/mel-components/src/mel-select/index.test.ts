@@ -147,7 +147,7 @@ describe('mel-select', () => {
               label: '选项1',
               value: '1',
               render: (option: MelSelectOption) => (
-                h(ElOption, null, {
+                h(ElOption, { value: option.value }, {
                   default: () => (
                     h('div', { class: 'custom-option' }, [
                       h('span', { class: 'prefix' }, '前缀-'),
@@ -162,7 +162,7 @@ describe('mel-select', () => {
               label: '选项2',
               value: '2',
               render: (option: MelSelectOption) => (
-                h(ElOption, null, {
+                h(ElOption, { value: option.value }, {
                   default: () => h('div', { class: 'custom-option highlight' }, option.label),
                 })
               ),

@@ -43,7 +43,7 @@ export interface InfiniteScrollProps<T extends any[]> {
   canLoad?: () => boolean;
 }
 
-interface SlotProps {
+export interface SlotProps {
   /**
    * 是否正在加载数据
    */

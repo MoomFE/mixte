@@ -27,9 +27,9 @@
   ],
   "scripts": {
     "test": "pnpm install && vitest --coverage",
-    "test:ui": "pnpm test -- --ui",
+    "test:ui": "cross-env Browser_UI=true pnpm test",
     "test-build": "pnpm build && vitest --mode test-build",
-    "test-build:ui": "pnpm test-build --ui",
+    "test-build:ui": "cross-env Browser_UI=true pnpm test-build",
     "test-release": "pnpm test-tsc && pnpm test-build --run",
     "test-coverage": "pnpm install && vitest --run",
     "test-tsc": "pnpm install && vitest --run && vue-tsc --project tsconfig.tsc.json --noEmit",
@@ -42,7 +42,8 @@
     "lint:fix": "pnpm install && eslint . --fix",
     "udd": "pnpm install && tsx scripts/updateDocsDetails.ts",
     "build": "pnpm install && pnpm --workspace-concurrency=Infinity -r --filter=./packages/* run build",
-    "release": "pnpm test-release && npx bumpp -r --no-tag --no-push"
+    "release": "pnpm test-release && npx bumpp -r --no-tag --no-push",
+    "postinstall": "pnpm exec playwright install"
   },
   "devDependencies": {
     "@ant-design/v5-patch-for-react-19": "catalog:",
@@ -75,6 +76,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vitejs/plugin-vue-jsx": "^4.1.1",
+    "@vitest/browser": "^3.1.2",
     "@vitest/coverage-v8": "^3.1.2",
     "@vitest/ui": "^3.1.2",
     "@vue/compiler-core": "^3.5.13",
@@ -84,6 +86,7 @@
     "chalk": "^5.4.1",
     "cheerio": "^1.0.0",
     "comlink": "^4.4.2",
+    "cross-env": "^7.0.3",
     "defu": "^6.1.4",
     "element-plus": "^2.9.5",
     "eslint": "^9.24.0",
@@ -105,6 +108,7 @@
     "nuxt": "^3.16.2",
     "ora": "^8.2.0",
     "pathe": "^2.0.3",
+    "playwright": "^1.52.0",
     "pnpm": "^9.15.6",
     "postcss": "^8.5.3",
     "postcss-js": "^4.0.1",
@@ -132,6 +136,7 @@
     "vite": "^6.2.0",
     "vitepress": "^1.6.3",
     "vitest": "^3.1.2",
+    "vitest-browser-vue": "^0.2.0",
     "vue": "^3.5.13",
     "vue-component-type-helpers": "catalog:",
     "vue-draggable-plus": "catalog:",

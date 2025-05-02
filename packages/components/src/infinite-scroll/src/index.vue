@@ -30,8 +30,8 @@
   const pageNum = shallowRef(1);
   const pageSize = shallowRef(10);
 
-  const isEmpty = computed(() => {
-    if (typeof data.value === 'symbol') return;
+  const isEmpty = computed(() => { // @ts-expect-error
+    if (data.value === DefaultData) return;
     return !data.value?.length;
   });
   const isFinished = shallowRef(false);
@@ -47,7 +47,7 @@
       }
       catch (err) {
         error.value = err;
-        throw err;
+        console.error(err);
       }
     },
     {

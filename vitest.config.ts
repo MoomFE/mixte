@@ -39,6 +39,9 @@ export default defineConfig(({ mode }) => {
           ...(isInCi ? ['packages/snippets/src/getFastestCDN/**/*'] : []),
         ],
       },
+      exclude: [
+        '**/node_modules',
+      ],
     },
   };
 });
