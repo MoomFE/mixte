@@ -1,69 +1,17 @@
 ## [Unreleased]
 
-## [v3.4.0-beta.10]
-  - 📅 2025-04-29
-  - 🌟 [@mixte/snippets] 新增 `LowCodeEditor` 使用的 `nanoid` 工具方法 *
-  - 🐞 [@mixte/snippets] 修复 `LowCodeEditor` 的 `editor` 组件渲染未注册的组件时崩溃的问题 *
-
-## [v3.4.0-beta.9]
-  - 📅 2025-04-24
-  - 🐞 [@mixte/snippets] 修复 `LowCodeEditor` 的 `preview` 组件渲染未注册的组件时崩溃的问题 *
-
-## [v3.4.0-beta.8]
-  - 📅 2025-04-13
-  - 💄 [@mixte/snippets] 完善 `LowCodeEditor` 的 `preview` 组件 *
-
-## [v3.4.0-beta.7]
-  - 📅 2025-03-28
-  - 💄 [@mixte/snippets] 使 `Ant Design X` 的 `Bubble` 支持通过 `content` 传递 Vue 组件实现自定义渲染内容 *
-  - 💄 [@mixte/snippets] 使 `Ant Design X` 的 `BubbleList` 支持通过 `items[].content` 传递 Vue 组件实现自定义渲染内容 *
-  - 🐞 [@mixte/snippets] 修复 `Ant Design X` 的 `Conversations` 组件监听 `active-change` 事件报错的问题 *
-
-## [v3.4.0-beta.6]
-  - 📅 2025-03-25
-  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `Conversations` 组件 *
-  - 💄 [@mixte/snippets] 使 `Ant Design X` 的 `Conversations` 支持通过 `menu.items[].icon` 传递 Vue 组件实现自定义渲染内容 *
-  - 💄 [@mixte/snippets] 使 `Ant Design X` 的 `BubbleList` 支持通过 `items[].[avatar|header|footer|messageRender]` 传递 Vue 组件实现自定义渲染内容 *
-
-## [v3.4.0-beta.5]
-  - 📅 2025-03-21
-  - 🌟 [@mixte/snippets] 为 `Ant Design X` 新增了一个 `defineBubbleListRoles` 工具方法, 用于定义 `BubbleList` 气泡默认属性 *
-  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `SenderHeader` 组件 *
-  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `XRequest` 和 `XStream` 导出 *
-  - 💄 [@mixte/snippets] 使 `Ant Design X` 的 `Bubble` 支持通过 `messageRender` 传递 Vue 组件实现自定义渲染内容 *
-  - 💄 [@mixte/snippets] 使 `Ant Design X` 的 `Sender` 支持传递 `header` 和 `prefix` 插槽 *
-
-## [v3.4.0-beta.4]
-  - 📅 2025-03-20
-  - 🌟 [@mixte/snippets] 为 `Ant Design X` 新增了一个 `useReactFunction` 工具方法, 用于在 Vue 环境中执行 React 函数并捕获其返回值 *
-  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `useXAgent` 和 `useXChat` 导出 *
-  - 🐞 [@mixte/snippets] 修复 `Ant Design X` 部分组件无法使用的问题 *
-  - 🐞 [@mixte/snippets] 修复 `Ant Design X` 的 `Sender` 组件无法输入中文的问题 *
-
-## [v3.4.0-beta.3]
-  - 📅 2025-03-20
-  - 🌟 [mixte] 新增 `transformKeys` 函数, 用于转换传入对象的所有键名
-  - 🌟 [mixte] 新增 `assertPlainObject` 函数, 用于判断传入参数是否是纯粹的对象, 并进行类型断言
-  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `Welcome` 组件 *
-  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `XProvider` 组件 *
-  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 的 `Bubble` 和 `BubbleList` 组件 *
-  - 💄 [mixte] 优化 `pick` 和 `omit` 函数类型 *
-
-## [v3.4.0-beta.2]
-  - 📅 2025-03-16
+## [v3.4.0], [v3.4.0-beta.10], [v3.4.0-beta.9], [v3.4.0-beta.8], [v3.4.0-beta.7], [v3.4.0-beta.6], [v3.4.0-beta.5], [v3.4.0-beta.4], [v3.4.0-beta.3], [v3.4.0-beta.2], [v3.4.0-beta.1]
+  - 📅 2025-05-05
+  - 🌟 [@mixte/snippets] 新增 `LowCodeEditor` 相关组件 ( 开发中 )
+  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 相关组件 ( 开发中 )
   - 🌟 [mixte] 新增 `pick` 和 `omit` 函数, 支持从对象中选择或排除指定属性
   - 🌟 [mixte] 新增 `deepFind` 函数, 用于在嵌套数据结构中深度查找满足条件的第一个元素
   - 🌟 [mixte] 新增 `deepSome` 函数, 用于在嵌套数据结构中深度检查是否存在满足条件的元素
   - 🌟 [mixte] 新增 `deepForEach` 函数, 用于在嵌套结构数据中深度遍历所有元素, 并为每个元素执行回调函数
+  - 🌟 [mixte] 新增 `transformKeys` 函数, 用于转换传入对象的所有键名
+  - 🌟 [mixte] 新增 `assertPlainObject` 函数, 用于判断传入参数是否是纯粹的对象, 并进行类型断言
   - 💄 [@mixte/mel-components] 优化组件 `MelSelect` 的 `MelSelectOption` 类型
-  - 💄 [@mixte/snippets] 完善 `Ant Design X` 的 `Sender` 组件 *
-  - ⚠️ [@mixte/snippets] 修改 `Ant Design X` 的 `init-veaury` 更名为 `patch-for-react-19` *
-  - ⚠️ [@mixte/snippets] 不再为 `Ant Design X` 内置 `@ant-design/x` 类库, 需自行安装 *
 
-## [v3.4.0-beta.1]
-  - 📅 2025-03-12
-  - 🌟 [@mixte/snippets] 新增 `LowCodeEditor` 相关组件 ( 开发中 )
-  - 🌟 [@mixte/snippets] 新增 `Ant Design X` 相关组件 ( 开发中 )
 
 ## [v3.3.0], [v3.3.0-beta.2], [v3.3.0-beta.1]
   - 📅 2025-03-03
