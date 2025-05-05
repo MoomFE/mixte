@@ -83,7 +83,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.0-beta.10...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.0...HEAD
+[v3.4.0]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0
 [v3.4.0-beta.10]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.10
 [v3.4.0-beta.9]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.9
 [v3.4.0-beta.8]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.8
