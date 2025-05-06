@@ -6,7 +6,7 @@
 
 ### 示例
 
-```ts twoslash
+```ts
 import { deepFind } from 'mixte';
 
 const data = [
@@ -37,7 +37,7 @@ deepFind(data, 'items', item => item.id === 8); // -> { id: 8 }
 
 ### 示例
 
-```ts twoslash
+```ts
 import { deepSome } from 'mixte';
 
 const data = [
@@ -69,7 +69,7 @@ deepSome(data, item => item.id === 10); // -> false
 
 ### 示例
 
-```ts twoslash
+```ts
 import { deepForEach } from 'mixte';
 
 const data = [

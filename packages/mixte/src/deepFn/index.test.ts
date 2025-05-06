@@ -15,28 +15,127 @@ describe('deepFind', () => {
         { id: 7, items: [{ id: 8 }] },
       ],
     },
+    [
+      { id: 9 },
+      {
+        id: 10,
+        children: [
+          { id: 11 },
+          { id: 12, children: [{ id: 13 }] },
+        ],
+        items: [
+          { id: 14 },
+          { id: 15, items: [{ id: 16 }] },
+        ],
+      },
+      [
+        {
+          id: 18,
+          children: [{ id: 19 }],
+          items: [{ id: 20 }],
+        },
+      ],
+    ],
   ];
 
   it('基本功能测试', () => {
     // 查找顶层元素
     expect(deepFind(data, item => item.id === 1)).toStrictEqual({ id: 1 });
     expect(deepFind(data, item => item.id === 2)).toBe(data[1]);
+    // 查找顶层元素 ( 使用不符合的子项键名, 顶层元素, 用不到子项键名就可以匹配到 )
     expect(deepFind(data, 'children', item => item.id === 1)).toStrictEqual({ id: 1 });
     expect(deepFind(data, 'children', item => item.id === 2)).toBe(data[1]);
+    expect(deepFind(data, 'items', item => item.id === 1)).toStrictEqual({ id: 1 });
+    expect(deepFind(data, 'items', item => item.id === 2)).toBe(data[1]);
+    expect(deepFind(data, 'xxx', item => item.id === 1)).toStrictEqual({ id: 1 });
+    expect(deepFind(data, 'xxx', item => item.id === 2)).toBe(data[1]);
 
     // 查找二级元素
-    expect(deepFind(data, item => item.id === 3)).toStrictEqual({ id: 3 });
+    expect(deepFind(data, item => item.id === 3)).toStrictEqual({ id: 3 }); // @ts-expect-error
     expect(deepFind(data, item => item.id === 4)).toBe(data[1].children![1]);
-    expect(deepFind(data, 'children', item => item.id === 3)).toStrictEqual({ id: 3 });
+    expect(deepFind(data, 'children', item => item.id === 3)).toStrictEqual({ id: 3 }); // @ts-expect-error
     expect(deepFind(data, 'children', item => item.id === 4)).toBe(data[1].children![1]);
+    // 查找二级元素 ( 使用不符合的子项键名 )
+    expect(deepFind(data, 'items', item => item.id === 3)).toBeUndefined();
+    expect(deepFind(data, 'items', item => item.id === 4)).toBeUndefined();
+    expect(deepFind(data, 'xxx', item => item.id === 3)).toBeUndefined();
+    expect(deepFind(data, 'xxx', item => item.id === 4)).toBeUndefined();
 
     // 查找深层嵌套元素
     expect(deepFind(data, item => item.id === 5)).toStrictEqual({ id: 5 });
     expect(deepFind(data, 'children', item => item.id === 5)).toStrictEqual({ id: 5 });
+    // 查找深层嵌套元素 ( 使用不符合的子项键名 )
+    expect(deepFind(data, 'items', item => item.id === 5)).toBeUndefined();
+    expect(deepFind(data, 'xxx', item => item.id === 5)).toBeUndefined();
 
     // 使用自定义子项键名
-    expect(deepFind(data, 'items', item => item.id === 6)).toStrictEqual({ id: 6 });
+    expect(deepFind(data, 'items', item => item.id === 6)).toStrictEqual({ id: 6 }); // @ts-expect-error
     expect(deepFind(data, 'items', item => item.id === 7)).toBe(data[1].items![1]);
+    // 使用自定义子项键名 ( 使用不符合的子项键名 )
+    expect(deepFind(data, 'children', item => item.id === 6)).toBeUndefined();
+    expect(deepFind(data, 'children', item => item.id === 7)).toBeUndefined();
+    expect(deepFind(data, 'xxx', item => item.id === 6)).toBeUndefined();
+    expect(deepFind(data, 'xxx', item => item.id === 7)).toBeUndefined();
+  });
+
+  it('对于嵌套数组结构的支持', () => {
+    // 单层嵌套
+    expect(deepFind(data, item => item.id === 9)).toStrictEqual({ id: 9 });
+    expect(deepFind(data, item => item.id === 10)).toBe((data[2] as any[])[1]);
+    // 单层嵌套 ( 使用不符合的子项键名, 单层嵌套, 用不到子项键名就可以匹配到 )
+    expect(deepFind(data, 'children', item => item.id === 9)).toStrictEqual({ id: 9 });
+    expect(deepFind(data, 'children', item => item.id === 10)).toBe((data[2] as any[])[1]);
+    expect(deepFind(data, 'items', item => item.id === 9)).toStrictEqual({ id: 9 });
+    expect(deepFind(data, 'items', item => item.id === 10)).toBe((data[2] as any[])[1]);
+    expect(deepFind(data, 'xxx', item => item.id === 9)).toStrictEqual({ id: 9 });
+    expect(deepFind(data, 'xxx', item => item.id === 10)).toBe((data[2] as any[])[1]);
+
+    // 查找单层嵌套下的深层嵌套元素
+    expect(deepFind(data, item => item.id === 11)).toStrictEqual({ id: 11 });
+    expect(deepFind(data, item => item.id === 12)).toBe((data[2] as any[])[1].children![1]);
+    expect(deepFind(data, item => item.id === 13)).toBe((data[2] as any[])[1].children![1].children![0]);
+    expect(deepFind(data, 'children', item => item.id === 11)).toStrictEqual({ id: 11 });
+    expect(deepFind(data, 'children', item => item.id === 12)).toBe((data[2] as any[])[1].children![1]);
+    expect(deepFind(data, 'children', item => item.id === 13)).toBe((data[2] as any[])[1].children![1].children![0]);
+    // 查找单层嵌套下的深层嵌套元素 ( 使用不符合的子项键名 )
+    expect(deepFind(data, 'items', item => item.id === 11)).toBeUndefined();
+    expect(deepFind(data, 'items', item => item.id === 12)).toBeUndefined();
+    expect(deepFind(data, 'items', item => item.id === 13)).toBeUndefined();
+    expect(deepFind(data, 'xxx', item => item.id === 11)).toBeUndefined();
+    expect(deepFind(data, 'xxx', item => item.id === 12)).toBeUndefined();
+    expect(deepFind(data, 'xxx', item => item.id === 13)).toBeUndefined();
+
+    // 单层嵌套使用自定义子项键名
+    expect(deepFind(data, 'items', item => item.id === 14)).toStrictEqual({ id: 14 });
+    expect(deepFind(data, 'items', item => item.id === 15)).toBe((data[2] as any[])[1].items![1]);
+    expect(deepFind(data, 'items', item => item.id === 16)).toBe((data[2] as any[])[1].items![1].items![0]);
+    // 单层嵌套使用自定义子项键名 ( 使用不符合的子项键名 )
+    expect(deepFind(data, 'children', item => item.id === 14)).toBeUndefined();
+    expect(deepFind(data, 'children', item => item.id === 15)).toBeUndefined();
+    expect(deepFind(data, 'children', item => item.id === 16)).toBeUndefined();
+    expect(deepFind(data, 'xxx', item => item.id === 14)).toBeUndefined();
+    expect(deepFind(data, 'xxx', item => item.id === 15)).toBeUndefined();
+    expect(deepFind(data, 'xxx', item => item.id === 16)).toBeUndefined();
+
+    // 多层嵌套
+    expect(deepFind(data, item => item.id === 18)).toBe((data[2] as any[])[2][0]);
+    // 多层嵌套 ( 使用不符合的子项键名, 单层嵌套, 用不到子项键名就可以匹配到 )
+    expect(deepFind(data, 'children', item => item.id === 18)).toBe((data[2] as any[])[2][0]);
+    expect(deepFind(data, 'items', item => item.id === 18)).toBe((data[2] as any[])[2][0]);
+    expect(deepFind(data, 'xxx', item => item.id === 18)).toBe((data[2] as any[])[2][0]);
+
+    // 查找多层嵌套下的深层嵌套元素
+    expect(deepFind(data, item => item.id === 19)).toBe((data[2] as any[])[2][0].children![0]);
+    expect(deepFind(data, 'children', item => item.id === 19)).toBe((data[2] as any[])[2][0].children![0]);
+    // 查找多层嵌套下的深层嵌套元素 ( 使用不符合的子项键名 )
+    expect(deepFind(data, 'items', item => item.id === 19)).toBeUndefined();
+    expect(deepFind(data, 'xxx', item => item.id === 19)).toBeUndefined();
+
+    // 多层嵌套使用自定义子项键名
+    expect(deepFind(data, 'items', item => item.id === 20)).toBe((data[2] as any[])[2][0].items![0]);
+    // 多层嵌套使用自定义子项键名 ( 使用不符合的子项键名 )
+    expect(deepFind(data, 'children', item => item.id === 20)).toBeUndefined();
+    expect(deepFind(data, 'xxx', item => item.id === 20)).toBeUndefined();
   });
 
   it('边界情况测试', () => {
@@ -45,8 +144,8 @@ describe('deepFind', () => {
     expect(deepFind(undefined, 'children', () => true)).toBeUndefined();
 
     // 元素不存在时返回 undefined
-    expect(deepFind(data, item => item.id === 10)).toBeUndefined();
-    expect(deepFind(data, 'children', item => item.id === 10)).toBeUndefined();
+    expect(deepFind(data, item => item.id === 100)).toBeUndefined();
+    expect(deepFind(data, 'children', item => item.id === 100)).toBeUndefined();
 
     // 空数组返回 undefined
     expect(deepFind([], () => true)).toBeUndefined();
@@ -59,6 +158,9 @@ describe('deepFind', () => {
     // 非数组子项
     expect(deepFind([{ id: 1, children: 'not an array' }, { id: 2 }], item => item.id === 2)).toEqual({ id: 2 });
     expect(deepFind([{ id: 1, children: 'not an array' }, { id: 2 }], 'children', item => item.id === 2)).toEqual({ id: 2 });
+
+    // 非对象子项将被忽略
+    expect(deepFind([{ id: 1 }, null, { id: 2 }], item => item.id === 2)).toEqual({ id: 2 });
   });
 
   it('查找匹配元素的顺序 - 深度优先', () => {
@@ -144,9 +246,9 @@ describe('deepSome', () => {
     expect(deepSome(data, 'items', item => item.id === 8)).toBe(true);
 
     // 不存在的元素
-    expect(deepSome(data, item => item.id === 10)).toBe(false);
-    expect(deepSome(data, 'children', item => item.id === 10)).toBe(false);
-    expect(deepSome(data, 'items', item => item.id === 10)).toBe(false);
+    expect(deepSome(data, item => item.id === 100)).toBe(false);
+    expect(deepSome(data, 'children', item => item.id === 100)).toBe(false);
+    expect(deepSome(data, 'items', item => item.id === 100)).toBe(false);
   });
 
   it('边界情况测试', () => {
