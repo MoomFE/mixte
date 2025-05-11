@@ -1,5 +1,6 @@
 ## [Unreleased]
-  - 💄 [mixte] 优化 `deepFind`、`deepSome`、`deepForEach` 函数，支持嵌套数组结构的深度查找
+  - 🌟 [mixte] 新增 `deepFind`、`deepSome`、`deepForEach` 函数选项，支持嵌套数组结构的深度查找
+  - 💄 [@mixte/snippets] 优化 `toggleThemeViewTransition` 在主题切换时鼠标样式为 `pointer`
 
 ## [v3.4.0], [v3.4.0-beta.10], [v3.4.0-beta.9], [v3.4.0-beta.8], [v3.4.0-beta.7], [v3.4.0-beta.6], [v3.4.0-beta.5], [v3.4.0-beta.4], [v3.4.0-beta.3], [v3.4.0-beta.2], [v3.4.0-beta.1]
   - 📅 2025-05-05
