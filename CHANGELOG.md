@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.4.1]
+  - 📅 2025-05-12
   - 🌟 [mixte] 新增 `deepFind`、`deepSome`、`deepForEach` 函数选项，支持嵌套数组结构的深度查找
   - 💄 [@mixte/snippets] 优化 `toggleThemeViewTransition` 在主题切换时鼠标样式为 `pointer`
 
@@ -85,7 +88,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.1...HEAD
+[v3.4.1]: https://github.com/MoomFE/mixte/releases/tag/v3.4.1
 [v3.4.0]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0
 [v3.4.0-beta.10]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.10
 [v3.4.0-beta.9]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.9
