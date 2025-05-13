@@ -318,14 +318,14 @@
         "common": [
           "bubble"
         ],
-        "wake": [
-          "welcome"
-        ],
         "express": [
           "sender"
         ],
         "tools": [
           "x-provider"
+        ],
+        "wake": [
+          "welcome"
         ]
       },
       "childrenGroupInfo": {

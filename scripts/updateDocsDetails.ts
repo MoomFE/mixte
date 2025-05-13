@@ -36,7 +36,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
     let sidebarTitle = '';
     let childrenGroupInfo = {};
     let childrenInfo = {};
-    const children: DocsInfo['children'] = {};
+    let children: DocsInfo['children'] = {};
 
     // 获取显示名称
     try {
@@ -52,18 +52,28 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
     catch {}
 
     // 获取子级文档
-    if (pkg === 'snippets' && fn === 'ant-design-x') {
-      const childrenDocsFile = await fg([`packages/${pkg}/src/${fn}/docs/*/*/index.md`], {
-        cwd: resolve(__dirname, '../'),
-      });
+    const childrenDocsFile = await fg([`packages/${pkg}/src/${fn}/docs/*/*/index.md`], {
+      cwd: resolve(__dirname, '../'),
+    });
 
-      for (const childPath of childrenDocsFile) {
-        const [,,,,, group, name] = childPath.split('/');
+    for (const childPath of childrenDocsFile) {
+      const [,,,,, group, name] = childPath.split('/');
 
-        children[group] ??= [];
-        children[group].push(name);
-      }
+      children[group] ??= [];
+      children[group].push(name);
     }
+
+    // 排个序, 防止每次都不一样
+    children = Object
+      .entries(children)
+      .sort(([a], [b]) => a[0].localeCompare(b[0]))
+      .reduce(
+        (acc: DocsInfo['children'], [key, value]) => {
+          acc![key] = value.sort((a, b) => a.localeCompare(b));
+          return acc;
+        },
+        {},
+      );
 
     docsDetails[camelCase(pkg) as keyof typeof docsDetails].push({
       fn,
