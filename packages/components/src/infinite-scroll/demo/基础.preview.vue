@@ -2,6 +2,7 @@
   <MixteInfiniteScroll
     class="h-66 overflow-y-auto flex-(~ col gap-2) text-center"
     :load="load"
+    :distance="100"
   >
     <template v-for="item in data" :key="item">
       <div class="px-2 py-2" style="background-color: var(--el-color-primary-light-7)">
