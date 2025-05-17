@@ -39,6 +39,7 @@
 
 <script lang="ts" setup>
   import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
+  import type { ResponseData, ResponseListData } from '@/types';
   import type { MixteInfiniteScrollInstance } from '@mixte/components/infinite-scroll';
   import { MixteInfiniteScroll } from '@mixte/components/infinite-scroll';
   import axios from 'axios';
@@ -77,18 +78,6 @@
     if (!value && !data.value.length)
       infiniteScrollRef.value?.reset();
   });
-
-  interface ResponseData<T = any> {
-    code: `${number}`;
-    data: T;
-    message: string;
-  }
-
-  interface ResponseListData<T = any> {
-    list: T[];
-    pageSize: number;
-    pageNum: number;
-  }
 
   inject<InjectCodeLang>('codeLang')!.value = 'vue';
   syncRef(

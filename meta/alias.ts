@@ -9,8 +9,16 @@ export const alias: Alias[] = [
   { find: '@mixte/use/register', replacement: resolve(__dirname, '../packages/use/src/register') },
   { find: '@mixte/use/nuxt', replacement: resolve(__dirname, '../packages/use/src/nuxt') },
   { find: '@mixte/use', replacement: resolve(__dirname, '../packages/use/src/index') },
-  { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/src/$1/index') },
   { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/src/index') },
+
+  {
+    find: /^@mixte\/components\/dist\/(grid-table|xxx)\/css\/(.*)$/,
+    replacement: resolve(__dirname, '../packages/components/src/$1/src/css/$2'),
+  },
+  {
+    find: /^@mixte\/components\/grid-table\/(utils|xxx)$/,
+    replacement: resolve(__dirname, '../packages/components/src/grid-table/src/$1'),
+  },
 
   {
     find: /^@mixte\/snippets\/tiptap-editor\/(config-provider-Injection-state|icons)$/,
@@ -38,6 +46,7 @@ export const alias: Alias[] = [
     replacement: resolve(__dirname, '../packages/snippets/src/$1/$2'),
   },
 
+  { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/src/$1/index') },
   { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/src/$1/index') },
   { find: /^@mixte\/mel-components\/(.*)$/, replacement: resolve(__dirname, '../packages/mel-components/src/$1/index') },
 ];
@@ -47,8 +56,17 @@ export const testAlias: Alias[] = [
   { find: '@mixte/use/register', replacement: resolve(__dirname, '../packages/use/dist/register') },
   { find: '@mixte/use/nuxt', replacement: resolve(__dirname, '../packages/use/dist/nuxt') },
   { find: '@mixte/use', replacement: resolve(__dirname, '../packages/use/dist/index') },
-  { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/dist/$1') },
   { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/dist/index') },
+
+  {
+    find: /^@mixte\/components\/dist\/(grid-table|xxx)\/css\/(.*)$/,
+    replacement: resolve(__dirname, '../packages/components/dist/$1/css/$2'),
+  },
+  {
+    find: /^@mixte\/components\/(grid-table|xxx)\/(.*)$/,
+    replacement: resolve(__dirname, '../packages/components/dist/$1/$2'),
+  },
+
   {
     find: /^@mixte\/snippets\/dist\/(tiptap-editor|lottery|low-code-editor)\/css\/(.*)$/,
     replacement: resolve(__dirname, '../packages/snippets/dist/$1/css/$2'),
@@ -57,6 +75,8 @@ export const testAlias: Alias[] = [
     find: /^@mixte\/snippets\/(tiptap-editor|lottery|ant-design-x|low-code-editor)\/(.*)$/,
     replacement: resolve(__dirname, '../packages/snippets/dist/$1/$2'),
   },
+
+  { find: /^@mixte\/components\/(.*)$/, replacement: resolve(__dirname, '../packages/components/dist/$1') },
   { find: /^@mixte\/snippets\/(.*)$/, replacement: resolve(__dirname, '../packages/snippets/dist/$1') },
   { find: /^@mixte\/mel-components\/(.*)$/, replacement: resolve(__dirname, '../packages/mel-components/dist/$1') },
 ];

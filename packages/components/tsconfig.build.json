@@ -3,6 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "src",
+    "paths": {
+      "@mixte/components/grid-table/types": ["./src/grid-table/src/types"],
+      "@mixte/components/grid-table/utils": ["./src/grid-table/src/utils"]
+    },
     "outDir": "dist/dts"
   },
   "include": [

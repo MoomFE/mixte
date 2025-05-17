@@ -10,7 +10,7 @@ import Layout from './Layout.vue';
 import './style.css';
 import 'uno.css';
 import 'element-plus/theme-chalk/src/dark/css-vars.scss';
-import 'element-plus/theme-chalk/src/message.scss';
+import 'element-plus/theme-chalk/src/index.scss';
 import '@shikijs/vitepress-twoslash/style.css';
 
 export default {
