@@ -13,6 +13,12 @@
       "@mixte/components/*": ["./packages/components/src/*/index.ts"],
       "@mixte/snippets/*": ["./packages/snippets/src/*/index.ts"],
 
+      "@mixte/components/dist/grid-table/css/*": ["./packages/components/src/grid-table/src/css/*"],
+      "@mixte/components/grid-table/*": [
+        "./packages/components/src/grid-table/src/*",
+        "./packages/components/src/grid-table/*"
+      ],
+
       "@mixte/snippets/dist/tiptap-editor/css/*": ["./packages/snippets/src/tiptap-editor/src/css/*"],
       "@mixte/snippets/tiptap-editor/*": [
         "./packages/snippets/src/tiptap-editor/src/*",
