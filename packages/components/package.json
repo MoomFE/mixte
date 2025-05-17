@@ -24,6 +24,16 @@
       "import": "./dist/infinite-scroll.mjs",
       "require": "./dist/infinite-scroll.cjs"
     },
+    "./grid-table": {
+      "types": "./dist/grid-table/index.d.ts",
+      "import": "./dist/grid-table/index.mjs",
+      "require": "./dist/grid-table/index.cjs"
+    },
+    "./grid-table/*": {
+      "types": "./dist/grid-table/*.d.ts",
+      "import": "./dist/grid-table/*.mjs",
+      "require": "./dist/grid-table/*.cjs"
+    },
     "./*": "./*"
   },
   "files": [

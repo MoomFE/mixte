@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/components] 新增 `GridTable` 组件
 
 ## [v3.4.1]
   - 📅 2025-05-12

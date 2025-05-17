@@ -265,6 +265,16 @@
       "childrenInfo": {}
     },
     {
+      "fn": "grid-table",
+      "title": "",
+      "name": "Grid 表格",
+      "hiddenTitle": false,
+      "sidebarTitle": "",
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
+    },
+    {
       "fn": "infinite-scroll",
       "title": "",
       "name": "无限滚动",

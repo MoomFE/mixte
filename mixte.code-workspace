@@ -41,8 +41,8 @@
       "name": "Low Code Editor"
     },
     {
-      "path": "packages/snippets/src/ant-design-x",
-      "name": "Ant Design X"
+      "path": "packages/components/src/grid-table",
+      "name": "Grid Table"
     }
   ],
   "settings": {
@@ -87,8 +87,8 @@
       "packages/snippets": true,
       "packages/use": true,
       "packages/validator": true,
-      "src/low-code-editor": true,
-      "src/ant-design-x": true
+      "src/grid-table": true,
+      "src/low-code-editor": true
     },
     "unocss.autocomplete.matchType": "fuzzy",
     "unocss.remToPxPreview": true,

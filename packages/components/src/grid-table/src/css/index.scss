@@ -1,0 +1,134 @@
+:root {
+  // 字体大小
+  --mixte-gt-font-size: 14px;
+  // 边框颜色
+  --mixte-gt-border-color: #EFEFF5;
+
+  // 表头: 背景色
+  --mixte-gt-thead-bg: #FAFAFC;
+
+  // 表头单元格: 内边距
+  --mixte-gt-th-padding: 12px;
+
+  // 表体单元格: 内边距
+  --mixte-gt-td-padding: 12px;
+
+  // 表体: 背景色
+  --mixte-gt-tbody-bg: #FFFFFF;
+}
+
+// 包裹层
+.mixte-gt-wrap {
+  width: 100%; height: 100%;
+  position: relative;
+  overflow: auto;
+}
+
+// 主体
+.mixte-gt {
+  min-width: 100%; min-height: 100%;
+  display: grid;
+  font-size: var(--mixte-gt-font-size);
+  grid-auto-rows: min-content;
+
+  // 表头
+  &-thead {
+    display: grid; grid-column: 1 / -1;
+    grid-template-columns: subgrid; grid-template-rows: subgrid;
+    position: sticky; top: 0; z-index: 3;
+    font-weight: 700;
+    background-color: var(--mixte-gt-thead-bg);
+  }
+
+  // 表体
+  &-tbody {
+    display: grid; grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+  }
+
+  // 表格行
+  &-tr {
+    display: grid; grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+  }
+
+  // 单元格
+  &-cell {
+    width: 100%; height: 100%;
+    display: grid; align-items: center; justify-items: start;
+    white-space: nowrap;
+    border-color: var(--mixte-gt-border-color);
+    border-bottom: 1px solid var(--mixte-gt-border-color);
+
+    // 列对齐
+    &-align-center {
+      justify-items: center;
+    }
+    &-align-right {
+      justify-items: end;
+    }
+
+    // 固定列
+    &-fix {
+      position: sticky;
+
+      // 常规状态
+      &-left::after, &-right::after {
+        content: '';
+        width: 30px; height: 100%;
+        position: absolute; top: 0;
+        pointer-events: none;
+        transition: box-shadow 0.3s;
+      }
+      &-left::after {
+        right: 0; transform: translateX(100%);
+      }
+      &-right::after {
+        left: 0; transform: translateX(-100%);
+      }
+
+      // 激活状态
+      &-left-active::after {
+        box-shadow: inset 10px 0 8px -8px rgba(5,5,5,0.06);
+      }
+      &-right-active::after {
+        box-shadow: inset -10px 0 8px -8px rgba(5,5,5,0.06);
+      }
+    }
+  }
+
+  // 表头单元格
+  &-th {
+    padding: var(--mixte-gt-th-padding);
+    background-color: var(--mixte-gt-thead-bg);
+  }
+
+  // 表体单元格
+  &-td {
+    padding: var(--mixte-gt-td-padding);
+    background-color: var(--mixte-gt-tbody-bg);
+  }
+
+  // 加载中
+  &-loading {
+    width: 100%; height: 100%;
+    display: flex; justify-content: center; align-items: center;
+    position: absolute; top: 0; left: 0;
+    background: rgba(255, 255, 255, 0.5);
+  }
+ 
+  // 无数据
+  &-empty-wrap {
+    height: 150px;
+    grid-column: 1 / -1;
+  }
+  &-empty {
+    height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px;
+    
+    &-description {
+      color: rgba(0,0,0,0.45);
+    }
+  }
+}
