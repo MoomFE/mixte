@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🐞 [@mixte/components] 修复 `GridTable` 组件样式未导出的问题 *
 
 ## [v3.5.0-beta.1]
   - 📅 2025-06-03

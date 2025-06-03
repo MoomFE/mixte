@@ -24,4 +24,10 @@ defineBuild([
       vueDtsInput: `grid-table/src/${name}.d.ts`,
     };
   }),
+  {
+    copy: [{
+      from: './src/grid-table/src/css',
+      to: 'grid-table/css',
+    }],
+  },
 ]);
