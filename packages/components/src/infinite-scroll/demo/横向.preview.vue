@@ -2,6 +2,7 @@
   <MixteInfiniteScroll
     class="w-full h-36 overflow-x-auto flex-(~ gap-2)"
     :load="load"
+    :distance="100"
     direction="right"
   >
     <template v-for="item in data" :key="item">
