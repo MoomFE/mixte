@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.2]
+  - 📅 2025-06-03
   - 🐞 [@mixte/components] 修复 `GridTable` 组件样式未导出的问题 *
 
 ## [v3.5.0-beta.1]
@@ -93,7 +96,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.2...HEAD
+[v3.5.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.2
 [v3.5.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.1
 [v3.4.1]: https://github.com/MoomFE/mixte/releases/tag/v3.4.1
 [v3.4.0]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0
