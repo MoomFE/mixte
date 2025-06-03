@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.1]
+  - 📅 2025-06-03
   - 🌟 [@mixte/components] 新增 `GridTable` 组件
 
 ## [v3.4.1]
@@ -89,7 +92,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.4.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.1...HEAD
+[v3.5.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.1
 [v3.4.1]: https://github.com/MoomFE/mixte/releases/tag/v3.4.1
 [v3.4.0]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0
 [v3.4.0-beta.10]: https://github.com/MoomFE/mixte/releases/tag/v3.4.0-beta.10
