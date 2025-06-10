@@ -37,8 +37,8 @@ describe('pick', () => {
     const obj = { a: 1, b: '2', c: true };
     const result = pick(obj, ['a', 'c']);
 
-    expectTypeOf(result).toMatchTypeOf<{ a: number; c: boolean }>();
-    expectTypeOf(pick(obj, ['a'])).toMatchTypeOf<{ a: number }>();
+    expectTypeOf(result).toEqualTypeOf<{ a: number; c: boolean }>();
+    expectTypeOf(pick(obj, ['a'])).toEqualTypeOf<{ a: number }>();
   });
 
   it('支持传入单个字符串键', () => {
@@ -89,8 +89,8 @@ describe('omit', () => {
     const obj = { a: 1, b: '2', c: true };
     const result = omit(obj, ['a', 'c']);
 
-    expectTypeOf(result).toMatchTypeOf<{ b: string }>();
-    expectTypeOf(omit(obj, ['a'])).toMatchTypeOf<{ b: string; c: boolean }>();
+    expectTypeOf(result).toEqualTypeOf<{ b: string }>();
+    expectTypeOf(omit(obj, ['a'])).toEqualTypeOf<{ b: string; c: boolean }>();
   });
 
   it('支持传入单个字符串键', () => {

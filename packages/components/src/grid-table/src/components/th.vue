@@ -5,12 +5,22 @@
     :class="classes"
     :style
   >
-    {{ column.title }}
+    <!-- 自定义渲染 -->
+    <component
+      v-if="isFunction(column.headerRender)"
+      :is="column.headerRender"
+      :column="column"
+    />
+    <!-- 正常渲染 -->
+    <template v-else>
+      {{ column.title }}
+    </template>
   </div>
 </template>
 
 <script lang="ts" setup>
   import type { GridTableColumn } from '@mixte/components/grid-table/types';
+  import { isFunction } from 'mixte';
   import { useCell, useTh } from '../composables/useCell';
 
   interface Props {

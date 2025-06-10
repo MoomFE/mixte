@@ -39,7 +39,12 @@ export interface GridTableColumn<
   /** 表头名称 */
   title?: string;
 
-  /** 自定义渲染方法 */
+  /** 表头自定义渲染方法 */
+  headerRender?: (props: {
+    column: GridTableColumn<Fields>;
+  }) => any;
+
+  /** 单元格自定义渲染方法 */
   render?: (props: {
     value: any;
     record: Item;

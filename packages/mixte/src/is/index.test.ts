@@ -127,7 +127,7 @@ describe('is', () => {
     const obj = { name: 'Jack', age: 18 };
 
     if (assertPlainObject<User>(obj)) {
-      expectTypeOf(obj).toMatchTypeOf<User>();
+      expectTypeOf(obj).toEqualTypeOf<User>();
     }
   });
 

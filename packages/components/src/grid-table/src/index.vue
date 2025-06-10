@@ -2,9 +2,9 @@
   <div ref="tableWrapRef" class="mixte-gt-wrap">
     <div class="mixte-gt" :style="tableWrapStyle">
       <!-- 表头 -->
-      <Thead />
+      <Thead v-if="columns?.length" />
       <!-- 表体 -->
-      <Tbody v-if="data?.length" />
+      <Tbody v-if="columns?.length && data?.length" />
       <!-- 无数据 -->
       <Empty v-else />
     </div>
