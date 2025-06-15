@@ -7,7 +7,7 @@
       <div class="mixte-gt-tr">
         <!-- 表体单元格 -->
         <template v-for="column in props.columns" :key="column.field">
-          <Td :column :record :index />
+          <component :is="h(Td, { column, record, index }, $slots)" />
         </template>
       </div>
     </template>
@@ -15,8 +15,12 @@
 </template>
 
 <script lang="ts" setup>
+  import type { GridTableFieldsSlots } from '@mixte/components/grid-table/types';
+  import { h } from 'vue';
   import { useShared } from '../composables/useShared';
   import Td from './td.vue';
+
+  defineSlots<GridTableFieldsSlots<any>>();
 
   const { props, rowKey } = useShared()!;
 </script>

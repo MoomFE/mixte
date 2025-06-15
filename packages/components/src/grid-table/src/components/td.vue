@@ -6,6 +6,18 @@
       :is="column.render"
       :value :record :column :index
     />
+    <!-- 指定字段单元格插槽 -->
+    <slot
+      v-else-if="$slots[`cell-${column.field}`]"
+      :name="`cell-${column.field}`"
+      :value :record :column :index
+    />
+    <!-- 通用字段单元格插槽 -->
+    <slot
+      v-else-if="$slots.cell"
+      name="cell"
+      :value :record :column :index
+    />
     <!-- 值 -->
     <template v-else>
       {{ value }}
@@ -14,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-  import type { GridTableColumn } from '@mixte/components/grid-table/types';
+  import type { GridTableColumn, GridTableFieldsSlots } from '@mixte/components/grid-table/types';
   import { isFunction } from 'mixte';
   import { computed } from 'vue';
   import { useCell } from '../composables/useCell';
@@ -26,6 +38,8 @@
   }
 
   const props = defineProps<Props>();
+
+  defineSlots<GridTableFieldsSlots<any>>();
 
   const { createCellStore } = useCell()!;
   const { classes, style } = createCellStore(props.column.field, props.column);

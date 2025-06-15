@@ -1,4 +1,4 @@
-import type { GridTableProps } from '@mixte/components/grid-table/types';
+import type { GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
 import type { StyleValue } from 'vue';
 import { columnIsFixedLeft, columnIsFixedRight } from '@mixte/components/grid-table/utils';
 import { createInjectionState, useElementSize, useScroll } from '@vueuse/core';
@@ -8,7 +8,10 @@ import { computed, reactive, ref, toValue, watch } from 'vue';
 export const [
   useSharedStore,
   useShared,
-] = createInjectionState((props: GridTableProps<any>) => {
+] = createInjectionState((
+  props: GridTableProps<any>,
+  slots: GridTableSlots<any>,
+) => {
   /** 表格行主键 */
   const rowKey = computed(() => {
     return toValue(props.rowKey) ?? 'id';
@@ -61,6 +64,8 @@ export const [
 
   return {
     props,
+    slots,
+
     rowKey,
     fixedLeftColumns,
     fixedRightColumns,

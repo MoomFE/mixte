@@ -1,4 +1,5 @@
 import type { User } from '@/types';
+import type { RenderProps } from './src/types';
 import { MixteGridTable } from '@mixte/components/grid-table';
 import { defineTableColumns } from '@mixte/components/grid-table/utils';
 import { mount } from '@vue/test-utils';
@@ -224,139 +225,147 @@ describe('grid-table', () => {
     expect(getTableLoading().exists()).toBe(true);
   });
 
-  describe('列配置', () => {
-    describe('表头名称: title', () => {
-      it('默认渲染', () => {
-        const columns = createColumns();
-        const { getTableTheadThs } = getTableStructure({
-          props: {
-            columns,
-          },
-        });
+  describe('插槽', () => {
+    it('指定字段单元格插槽 & 通用字段单元格插槽', () => {
+      const columns = createColumns();
+      const data = createData();
 
-        getTableTheadThs().forEach((th, index) => {
-          expect(th.text()).toBe(columns[index].title);
-        });
+      const nameRender = vi.fn(({ value }: RenderProps<TestUser>) => {
+        return `name: ${value}`;
       });
 
-      it('使用 headerRender 函数自定义渲染', () => {
-        const headerRender = vi.fn(({ column }) => (
-          <div class="custem-name-header">{column.title}</div>
-        ));
+      const genderRender = vi.fn(({ value, record }: RenderProps<TestUser>) => {
+        return <div class="custem-gender" data-gender-value={record.genderValue}>{value}</div>;
+      });
 
-        const columns = defineTableColumns([
-          { field: 'name', title: '姓名', headerRender },
-          { field: 'age', title: '年龄' },
-        ]);
-        const { getTableTheadThs } = getTableStructure({
-          props: {
-            columns,
-          },
-        });
+      const commonRender = vi.fn(({ value }: RenderProps<TestUser>) => {
+        return `common: ${value}`;
+      });
 
-        expect(headerRender).toHaveBeenCalledTimes(1);
-        expect(headerRender).toHaveBeenCalledWith({ column: columns[0] }, null);
+      const { getTableTbodyTrs } = getTableStructure({
+        props: {
+          columns,
+          data,
+        },
+        slots: {
+          'cell-name': nameRender,
+          'cell-gender': genderRender,
+          'cell': commonRender,
+        },
+      });
 
-        expect(getTableTheadThs()[0].text()).toBe('姓名');
-        expect(getTableTheadThs()[0].find('.custem-name-header').exists()).toBe(true);
-        expect(getTableTheadThs()[0].find('.custem-name-header').text()).toBe('姓名');
-        expect(getTableTheadThs()[0].find('.custem-name-header').element.parentElement).toBe(getTableTheadThs()[0].element);
+      getTableTbodyTrs().forEach((tr, index) => {
+        const item = data[index];
+        const name = tr.find('.mixte-gt-td.mixte-gt-cell:nth-child(2)');
+        const age = tr.find('.mixte-gt-td.mixte-gt-cell:nth-child(3)');
+        const gender = tr.find('.mixte-gt-td.mixte-gt-cell > .custem-gender');
 
-        expect(getTableTheadThs()[1].text()).toBe('年龄');
-        expect(getTableTheadThs()[1].find('.custem-name-header').exists()).toBe(false);
+        // render 函数的渲染方式比插槽优先级高
+        expect(name.exists()).toBe(true);
+        expect(name.text()).toBe(`${item.name} (${item.nameEn})`);
+
+        // 指定字段单元格插槽优先级第二
+        expect(gender.exists()).toBe(true);
+        expect(gender.text()).toBe(item.gender);
+        expect(gender.attributes('data-gender-value')).toBe(`${item.genderValue}`);
+
+        // 通用字段单元格插槽优先级第三
+        expect(age.exists()).toBe(true);
+        expect(age.text()).toBe(`common: ${item.age}`);
+      });
+    });
+  });
+
+  describe('列配置', () => {
+    it('表头名称: title', () => {
+      const columns = createColumns();
+      const { getTableTheadThs } = getTableStructure({
+        props: {
+          columns,
+        },
+      });
+
+      getTableTheadThs().forEach((th, index) => {
+        expect(th.text()).toBe(columns[index].title);
       });
     });
 
-    describe('列单元格自定义渲染方法: render', () => {
-      it('默认渲染', () => {
-        const columns = defineTableColumns([
-          { field: 'name', title: '姓名' },
-          { field: 'age', title: '年龄' },
-        ]);
-        const data = createData();
-        const { getTableTbodyTrs } = getTableStructure({
-          props: {
-            columns,
-            data,
-          },
-        });
+    it('表头自定义渲染方法: headerRender', () => {
+      const headerRender = vi.fn(({ column }) => (
+        <div class="custem-name-header">{column.title}</div>
+      ));
 
-        getTableTbodyTrs().forEach((tr, index) => {
-          const tds = tr.findAll('.mixte-gt-td.mixte-gt-cell');
-          const item = data[index];
-
-          expect(tds[0].text()).toBe(item.name);
-          expect(tds[1].text()).toBe(`${item.age}`);
-        });
+      const columns = defineTableColumns([
+        { field: 'name', title: '姓名', headerRender },
+        { field: 'age', title: '年龄' },
+      ]);
+      const { getTableTheadThs } = getTableStructure({
+        props: {
+          columns,
+        },
       });
 
-      it('使用 render 函数自定义渲染', () => {
-        const nameRender = vi.fn(({ value, record }) => {
-          return <div class="custem-render-name">{value} ({ record.nameEn })</div>;
-        });
+      expect(headerRender).toHaveBeenCalledTimes(1);
+      expect(headerRender).toHaveBeenCalledWith({ column: columns[0] }, null);
 
-        const columns = defineTableColumns([
-          { field: 'name', title: '姓名', render: nameRender },
-          { field: 'age', title: '年龄', render: ({ value }) => value + 1 },
-        ]);
-        const data = createData();
-        const { getTableTbodyTrs } = getTableStructure({
-          props: {
-            columns,
-            data,
-          },
-        });
+      expect(getTableTheadThs()[0].text()).toBe('姓名');
+      expect(getTableTheadThs()[0].find('.custem-name-header').exists()).toBe(true);
+      expect(getTableTheadThs()[0].find('.custem-name-header').text()).toBe('姓名');
+      expect(getTableTheadThs()[0].find('.custem-name-header').element.parentElement).toBe(getTableTheadThs()[0].element);
 
-        expect(nameRender).toHaveBeenCalledTimes(data.length);
-        expect(nameRender).toHaveBeenCalledWith({
-          value: data[0].name,
-          record: data[0],
-          column: columns[0],
-          index: 0,
-        }, null);
+      expect(getTableTheadThs()[1].text()).toBe('年龄');
+      expect(getTableTheadThs()[1].find('.custem-name-header').exists()).toBe(false);
+    });
 
-        getTableTbodyTrs().forEach((tr, index) => {
-          const tds = tr.findAll('.mixte-gt-td.mixte-gt-cell');
-          const item = data[index];
+    it('列单元格自定义渲染方法: render', () => {
+      interface Fields {
+        name: string;
+        nameEn: string;
+        age: number;
+      }
 
-          expect(tds[0].text()).toBe(`${item.name} (${item.nameEn})`);
-          expect(tds[0].find('.custem-render-name').exists()).toBe(true);
-          expect(tds[0].find('.custem-render-name').text()).toBe(`${item.name} (${item.nameEn})`);
-          expect(tds[0].find('.custem-render-name').element.parentElement).toBe(tds[0].element);
+      const nameRender = vi.fn(({ value, record }: RenderProps<Fields>) => {
+        return <div class="custem-render-name">{value} ({ record.nameEn })</div>;
+      });
+      const ageRender = vi.fn(({ value }: RenderProps<Fields>) => value + 1);
 
-          expect(tds[1].text()).toBe(`${item.age + 1}`);
-        });
+      const columns = defineTableColumns<Fields>([
+        { field: 'name', title: '姓名', render: nameRender },
+        { field: 'age', title: '年龄', render: ageRender },
+      ]);
+      const data = createData();
+
+      const { table, getTableTbodyTrs } = getTableStructure<Fields>({
+        props: {
+          columns,
+          data,
+        },
       });
 
-      it('使用 render 函数自定义渲染, 接受的参数', () => {
-        const nameRender = vi.fn();
-        const ageRender = vi.fn();
+      const trs = getTableTbodyTrs();
 
-        const columns = defineTableColumns([
-          { field: 'name', title: '姓名', render: nameRender },
-          { field: 'age', title: '年龄', render: ageRender },
-        ]);
-        const data = [
-          { id: '1', name: '张三', age: 18 },
-          { id: '2', name: '李四', age: 20 },
-        ];
+      // name
+      expect(nameRender).toHaveBeenCalledTimes(data.length);
+      expect(table.findAll('.custem-render-name').length).toBe(data.length);
+      data.forEach((item, i) => {
+        expect(trs[i].find('.custem-render-name').text()).toBe(`${item.name} (${item.nameEn})`);
+        expect(trs[i].find('.custem-render-name').element).toBe(trs[i].element.firstElementChild?.children[0]);
 
-        getTableStructure<{ id: string; name: string; age: number }>({
-          props: {
-            columns,
-            data,
-          },
-        });
+        expect(nameRender).toHaveBeenCalledWith(
+          { value: item.name, record: item, column: columns[0], index: data.indexOf(item) },
+          null,
+        );
+      });
 
-        // name
-        expect(nameRender).toHaveBeenCalledTimes(data.length);
-        expect(nameRender).toHaveBeenNthCalledWith(1, { value: data[0].name, record: data[0], column: columns[0], index: 0 }, null);
-        expect(nameRender).toHaveBeenNthCalledWith(2, { value: data[1].name, record: data[1], column: columns[0], index: 1 }, null);
+      // age
+      expect(ageRender).toHaveBeenCalledTimes(data.length);
+      data.forEach((item, i) => {
+        expect(trs[i].element.lastElementChild?.textContent).toBe(`${item.age + 1}`);
 
-        // age
-        expect(ageRender).toHaveBeenCalledTimes(data.length);
-        expect(ageRender).toHaveBeenNthCalledWith(1, { value: data[0].age, record: data[0], column: columns[1], index: 0 }, null);
-        expect(ageRender).toHaveBeenNthCalledWith(2, { value: data[1].age, record: data[1], column: columns[1], index: 1 }, null);
+        expect(ageRender).toHaveBeenCalledWith(
+          { value: item.age, record: item, column: columns[1], index: data.indexOf(item) },
+          null,
+        );
       });
     });
   });

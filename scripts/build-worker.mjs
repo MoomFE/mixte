@@ -55,7 +55,11 @@ const api = {
           compiler: 'vue3',
         }),
         lib.vueComponent && [
-          Vue(),
+          Vue({
+            template: {
+              compilerOptions: { comments: false },
+            },
+          }),
           {
             ...VueJsx({
               exclude: [/[/\\]components-react[\\/$]+/],

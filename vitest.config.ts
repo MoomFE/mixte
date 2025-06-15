@@ -27,7 +27,11 @@ export default defineConfig(({ mode }) => {
       __TEST_BUILD__: isTestBuild,
     },
     plugins: [
-      Vue(),
+      Vue({
+        template: {
+          compilerOptions: { comments: false },
+        },
+      }),
       VueJsx(),
       ...VitePlugins,
     ],
