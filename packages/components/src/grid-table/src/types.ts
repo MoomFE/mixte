@@ -71,7 +71,7 @@ export interface GridTableColumn<
 
 export type GridTableSlots<
   Fields extends Record<string, any>,
-> = GridTableFieldsSlots<Fields>;
+> = GridTableFieldsSlots<Fields> & GridTableHeaderSlots<Fields>;
 
 /** 字段单元格插槽 */
 export type GridTableFieldsSlots<
@@ -83,4 +83,20 @@ export type GridTableFieldsSlots<
 } & {
   /** 指定字段单元格插槽 */
   [K in Keys as `cell-${K}`]?: (props: RenderProps<Fields>) => any;
+};
+
+/** 表头单元格插槽 */
+export type GridTableHeaderSlots<
+  Fields extends Record<string, any>,
+  Keys extends string = Extract<keyof Fields, string>,
+> = {
+  /** 通用表头单元格插槽 */
+  header?: (props: {
+    column: GridTableColumn<Fields>;
+  }) => any;
+} & {
+  /** 指定字段表头单元格插槽 */
+  [K in Keys as `header-${K}`]?: (props: {
+    column: GridTableColumn<Fields>;
+  }) => any;
 };

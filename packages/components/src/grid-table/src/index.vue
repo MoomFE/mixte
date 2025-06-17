@@ -2,7 +2,7 @@
   <div ref="tableWrapRef" class="mixte-gt-wrap">
     <div class="mixte-gt" :style="tableWrapStyle">
       <!-- 表头 -->
-      <Thead v-if="columns?.length" />
+      <component v-if="columns?.length" :is="h(Thead, null, $slots)" />
       <!-- 表体 -->
       <component v-if="columns?.length && data?.length" :is="h(Tbody, null, $slots)" />
       <!-- 无数据 -->

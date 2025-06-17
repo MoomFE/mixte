@@ -3,7 +3,11 @@
     :columns
     :data="data.data?.data.list"
     :loading="data.isLoading"
-  />
+  >
+    <template #cell-email="{ value }">
+      <a :href="`mailto:${value}`">{{ value }}</a>
+    </template>
+  </MixteGridTable>
 </template>
 
 <script lang="tsx" setup>

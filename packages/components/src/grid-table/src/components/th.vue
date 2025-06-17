@@ -9,7 +9,19 @@
     <component
       v-if="isFunction(column.headerRender)"
       :is="column.headerRender"
-      :column="column"
+      :column
+    />
+    <!-- 指定字段表头单元格插槽 -->
+    <slot
+      v-else-if="$slots[`header-${column.field}`]"
+      :name="`header-${column.field}`"
+      :column
+    />
+    <!-- 通用表头单元格插槽 -->
+    <slot
+      v-else-if="$slots.header"
+      name="header"
+      :column
     />
     <!-- 正常渲染 -->
     <template v-else>
@@ -19,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-  import type { GridTableColumn } from '@mixte/components/grid-table/types';
+  import type { GridTableColumn, GridTableHeaderSlots } from '@mixte/components/grid-table/types';
   import { isFunction } from 'mixte';
   import { useCell, useTh } from '../composables/useCell';
 
@@ -28,6 +40,8 @@
   }
 
   const props = defineProps<Props>();
+
+  defineSlots<GridTableHeaderSlots<any>>();
 
   const { createCellStore } = useCell()!;
   const { classes, style } = createCellStore(props.column.field, props.column);

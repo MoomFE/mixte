@@ -226,19 +226,19 @@ describe('grid-table', () => {
   });
 
   describe('插槽', () => {
-    it('指定字段单元格插槽 & 通用字段单元格插槽', () => {
+    describe('指定字段单元格插槽 & 通用字段单元格插槽', () => {
       const columns = createColumns();
       const data = createData();
 
-      const nameRender = vi.fn(({ value }: RenderProps<TestUser>) => {
+      const nameSlot = vi.fn(({ value }: RenderProps<TestUser>) => {
         return `name: ${value}`;
       });
 
-      const genderRender = vi.fn(({ value, record }: RenderProps<TestUser>) => {
+      const genderSlot = vi.fn(({ value, record }: RenderProps<TestUser>) => {
         return <div class="custem-gender" data-gender-value={record.genderValue}>{value}</div>;
       });
 
-      const commonRender = vi.fn(({ value }: RenderProps<TestUser>) => {
+      const commonSlot = vi.fn(({ value }: RenderProps<TestUser>) => {
         return `common: ${value}`;
       });
 
@@ -248,30 +248,147 @@ describe('grid-table', () => {
           data,
         },
         slots: {
-          'cell-name': nameRender,
-          'cell-gender': genderRender,
-          'cell': commonRender,
+          'cell-name': nameSlot,
+          'cell-gender': genderSlot,
+          'cell': commonSlot,
         },
       });
 
-      getTableTbodyTrs().forEach((tr, index) => {
-        const item = data[index];
-        const name = tr.find('.mixte-gt-td.mixte-gt-cell:nth-child(2)');
-        const age = tr.find('.mixte-gt-td.mixte-gt-cell:nth-child(3)');
-        const gender = tr.find('.mixte-gt-td.mixte-gt-cell > .custem-gender');
+      it('优先级', () => {
+        getTableTbodyTrs().forEach((tr, index) => {
+          const item = data[index];
+          const name = tr.find('.mixte-gt-td.mixte-gt-cell:nth-child(2)');
+          const age = tr.find('.mixte-gt-td.mixte-gt-cell:nth-child(3)');
+          const gender = tr.find('.mixte-gt-td.mixte-gt-cell > .custem-gender');
+
+          // render 函数的渲染方式比插槽优先级高
+          expect(name.exists()).toBe(true);
+          expect(name.text()).toBe(`${item.name} (${item.nameEn})`);
+
+          // 指定字段单元格插槽优先级第二
+          expect(gender.exists()).toBe(true);
+          expect(gender.text()).toBe(item.gender);
+          expect(gender.attributes('data-gender-value')).toBe(`${item.genderValue}`);
+
+          // 通用字段单元格插槽优先级第三
+          expect(age.exists()).toBe(true);
+          expect(age.text()).toBe(`common: ${item.age}`);
+        });
+      });
+
+      it('渲染次数', () => {
+        // render 函数的渲染方式比插槽优先级高, 插槽没有执行
+        expect(nameSlot).toHaveBeenCalledTimes(0);
+        // 正常执行
+        expect(genderSlot).toHaveBeenCalledTimes(data.length);
+        // 所有单元格 - 定义了 render 的列 - 定义了 slot 的列
+        expect(commonSlot).toHaveBeenCalledTimes(
+          (columns.reduce((count, column) => count + (column.render ? 0 : 1), 0) - 1) * data.length,
+        );
+      });
+
+      it('渲染参数', () => {
+        let commonIndex = 0;
+
+        data.forEach((item, index) => {
+          expect(genderSlot).toHaveBeenNthCalledWith(index + 1, {
+            value: item.gender,
+            record: item,
+            column: columns.find(c => c.field === 'gender')!,
+            index,
+            key: 1, // ???
+          });
+
+          columns.forEach((column) => {
+            if (column.render || column.field === 'gender') return;
+
+            expect(commonSlot).toHaveBeenNthCalledWith(
+              ++commonIndex,
+              {
+                value: item[column.field as keyof TestUser],
+                record: item,
+                column,
+                index,
+                key: 2, // ???
+              },
+            );
+          });
+        });
+      });
+    });
+
+    describe('指定字段表头单元格插槽 & 通用表头单元格插槽', () => {
+      const nameRender = vi.fn(({ column }) => (
+        <div class="custem-name-header">{column.title}</div>
+      ));
+
+      const nameSlot = vi.fn(({ column }) => (
+        <div class="custem-name-slot">{column.title}</div>
+      ));
+
+      const emailSlot = vi.fn(({ column }) => (
+        <a class="custem-email-slot">{column.title}</a>
+      ));
+
+      const commonSlot = vi.fn(({ column }) => (
+        <div class="custem-common-slot">{column.title}</div>
+      ));
+
+      const columns = defineTableColumns([
+        { field: 'name', title: '姓名', headerRender: nameRender },
+        { field: 'age', title: '年龄' },
+        { field: 'email', title: '邮箱' },
+      ]);
+
+      const { getTableTheadThs } = getTableStructure({
+        props: {
+          columns,
+        },
+        slots: {
+          'header-name': nameSlot,
+          'header-email': emailSlot,
+          'header': commonSlot,
+        },
+      });
+
+      it('优先级', () => {
+        const ths = getTableTheadThs();
 
         // render 函数的渲染方式比插槽优先级高
-        expect(name.exists()).toBe(true);
-        expect(name.text()).toBe(`${item.name} (${item.nameEn})`);
+        expect(ths[0].text()).toBe('姓名');
+        expect(ths[0].find('.custem-name-header').exists()).toBe(true);
+        expect(ths[0].find('.custem-name-header').text()).toBe('姓名');
 
-        // 指定字段单元格插槽优先级第二
-        expect(gender.exists()).toBe(true);
-        expect(gender.text()).toBe(item.gender);
-        expect(gender.attributes('data-gender-value')).toBe(`${item.genderValue}`);
+        // 指定字段表头单元格插槽优先级第二
+        expect(ths[1].text()).toBe('年龄');
+        expect(ths[1].find('.custem-name-slot').exists()).toBe(false);
+        expect(ths[1].find('.custem-common-slot').exists()).toBe(true);
+        expect(ths[1].find('.custem-common-slot').text()).toBe('年龄');
 
-        // 通用字段单元格插槽优先级第三
-        expect(age.exists()).toBe(true);
-        expect(age.text()).toBe(`common: ${item.age}`);
+        // 通用表头单元格插槽优先级第三
+        expect(ths[2].text()).toBe('邮箱');
+        expect(ths[2].find('.custem-email-slot').exists()).toBe(true);
+      });
+
+      it('渲染次数', () => {
+        // render 函数的渲染方式比插槽优先级高, 插槽没有执行
+        expect(nameSlot).toHaveBeenCalledTimes(0);
+        // 指定字段表头单元格插槽正常执行
+        expect(emailSlot).toHaveBeenCalledTimes(1);
+        // 通用表头单元格插槽正常执行
+        expect(commonSlot).toHaveBeenCalledTimes(1);
+      });
+
+      it('渲染参数', () => {
+        expect(emailSlot).toHaveBeenCalledWith({
+          column: columns.find(c => c.field === 'email')!,
+          key: 1, // ???
+        });
+
+        expect(commonSlot).toHaveBeenCalledWith({
+          column: columns.find(c => c.field === 'age')!,
+          key: 2, // ???
+        });
       });
     });
   });
