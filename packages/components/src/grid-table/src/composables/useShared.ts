@@ -30,6 +30,8 @@ export const [
   const tableWrapSize = reactive(useElementSize(tableWrapRef));
   const tableWrapScroll = reactive(useScroll(tableWrapRef));
 
+  const tableRef = ref<HTMLDivElement>();
+
   /** 表格包裹层样式 */
   const tableWrapStyle = computed<StyleValue>(() => {
     let gridTemplateColumns = '';
@@ -74,6 +76,8 @@ export const [
     tableWrapSize,
     tableWrapScroll,
     tableWrapStyle,
+
+    tableRef,
 
     tableTheadRef,
     tableTheadSize,

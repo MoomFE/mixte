@@ -1,6 +1,6 @@
 <template>
   <div ref="tableWrapRef" class="mixte-gt-wrap">
-    <div class="mixte-gt" :style="tableWrapStyle">
+    <div ref="tableRef" class="mixte-gt" :style="tableWrapStyle">
       <!-- 表头 -->
       <component v-if="columns?.length" :is="h(Thead, null, $slots)" />
       <!-- 表体 -->
@@ -26,6 +26,7 @@
   import Thead from './components/thead.vue';
   import { useCellStore } from './composables/useCell';
   import { useSharedStore } from './composables/useShared';
+  import { useVirtualStore } from './composables/useVirtual';
 
   const props = defineProps<GridTableProps<Fields>>();
   const slots = defineSlots<GridTableSlots<Fields>>();
@@ -33,7 +34,11 @@
   const {
     tableWrapRef,
     tableWrapStyle,
+
+    tableRef,
   } = useSharedStore(props, slots);
+
+  useVirtualStore();
 
   useCellStore();
 </script>

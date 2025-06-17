@@ -22,12 +22,18 @@ export interface GridTableProps<
    * 是否启用虚拟列表
    *   - 需要为表格设置一个高度
    */
-  // virtual?: boolean;
+  virtual?: boolean;
+  /**
+   * 启用虚拟列表时预渲染的行数
+   *   - 可减少快速滚动时的白屏
+   * @default 5
+   */
+  overscan?: number;
   /**
    * 启用虚拟列表时的预估行高度
    * @default 50
    */
-  // estimatedRowHeight?: MaybeRefOrGetter<number>;
+  estimatedRowHeight?: MaybeRefOrGetter<number>;
 }
 
 export interface RenderProps<
