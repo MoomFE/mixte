@@ -4,7 +4,7 @@ import type { MaybeRefOrGetter, Ref, ShallowRef } from 'vue';
 import { createEventHook } from '@vueuse/core';
 import { reactive, ref, shallowRef, toValue } from 'vue';
 
-export interface UseRequestOptions {
+export interface UseRequestOptions<Response> {
   /**
    * 初始数据
    *  - 传递的数据会使用 `toValue` 进行转换
@@ -26,6 +26,12 @@ export interface UseRequestOptions {
    * @default false
    */
   shallow?: boolean;
+  /** 请求成功事件钩子 */
+  onSuccess?: Parameters<EventHook<Response>['on']>['0'];
+  /** 请求失败事件钩子 */
+  onError?: Parameters<EventHook<any>['on']>['0'];
+  /** 请求完成事件钩子 */
+  onFinally?: Parameters<EventHook['on']>['0'];
 }
 
 export interface UseRequestReturn<
@@ -80,7 +86,7 @@ export function useRequest<
   Args extends any[] = any[],
 >(
   userExecute: UseRequestUserExecute<Response, Args>,
-  options: UseRequestOptions = {},
+  options: UseRequestOptions<Response> = {},
 ) {
   const {
     initialData,
@@ -176,6 +182,10 @@ export function useRequest<
     isSuccess.value = false;
   }
 
+  options.onSuccess && successEvent.on(options.onSuccess);
+  options.onError && errorEvent.on(options.onError);
+  options.onFinally && finallyEvent.on(options.onFinally);
+
   // 初始化数据
   data.value = toValue(initialData);
   // 立即发起请求
@@ -218,7 +228,7 @@ export function useRequestReactive<
   Args extends any[] = any[],
 >(
   userExecute: UseRequestUserExecute<Response, Args>,
-  options: UseRequestOptions = {},
+  options: UseRequestOptions<Response> = {},
 ) {
   return useRequest<Response, Data, Args>(userExecute, options).reactive;
 }

@@ -1133,12 +1133,132 @@ describe.concurrent('useRequest', () => {
         expect(data2TriggerCount).toStrictEqual([1, 1]);
       });
     });
+
+    describe('onSuccess, onError, onFinally: 事件钩子配置项', () => {
+      it('基础测试', async ({ expect }) => {
+        let throwError: boolean = false;
+        let dataIndex = 1292;
+        const executionOrder: string[] = [];
+
+        // 统计配置项事件钩子调用次数
+        let optionSuccessCallCount = 0;
+        const optionSuccessArgs: any[] = [];
+        let optionErrorCallCount = 0;
+        const optionErrorArgs: any[] = [];
+        let optionFinallyCallCount = 0;
+
+        // 统计方法返回值事件钩子调用次数
+        let methodSuccessCallCount = 0;
+        const methodSuccessArgs: any[] = [];
+        let methodErrorCallCount = 0;
+        const methodErrorArgs: any[] = [];
+        let methodFinallyCallCount = 0;
+
+        const data = useRequest(async () => {
+          await delay(100);
+          if (throwError) throw new Error('test error');
+          return {
+            data: ++dataIndex,
+          };
+        }, {
+          onSuccess: (response) => {
+            optionSuccessCallCount++;
+            optionSuccessArgs.push(response);
+            executionOrder.push('option-success');
+          },
+          onError: (error) => {
+            optionErrorCallCount++;
+            optionErrorArgs.push(error);
+            executionOrder.push('option-error');
+          },
+          onFinally: () => {
+            optionFinallyCallCount++;
+            executionOrder.push('option-finally');
+          },
+        });
+
+        // 通过方法返回值注册事件钩子，验证两种方式可以共存
+        data.onSuccess((response) => {
+          methodSuccessCallCount++;
+          methodSuccessArgs.push(response);
+          executionOrder.push('method-success');
+        });
+        data.onError((error) => {
+          methodErrorCallCount++;
+          methodErrorArgs.push(error);
+          executionOrder.push('method-error');
+        });
+        data.onFinally(() => {
+          methodFinallyCallCount++;
+          executionOrder.push('method-finally');
+        });
+
+        // 初始状态
+        expect(optionSuccessCallCount).toBe(0);
+        expect(optionErrorCallCount).toBe(0);
+        expect(optionFinallyCallCount).toBe(0);
+        expect(methodSuccessCallCount).toBe(0);
+        expect(methodErrorCallCount).toBe(0);
+        expect(methodFinallyCallCount).toBe(0);
+
+        // 测试成功情况
+        await data.execute();
+
+        expect(optionSuccessCallCount).toBe(1);
+        expect(optionErrorCallCount).toBe(0);
+        expect(optionFinallyCallCount).toBe(1);
+        expect(methodSuccessCallCount).toBe(1);
+        expect(methodErrorCallCount).toBe(0);
+        expect(methodFinallyCallCount).toBe(1);
+        expect(optionSuccessArgs).toStrictEqual([{ data: 1293 }]);
+        expect(methodSuccessArgs).toStrictEqual([{ data: 1293 }]);
+        expect(executionOrder).toStrictEqual(['option-success', 'method-success', 'option-finally', 'method-finally']);
+
+        // 重置执行顺序
+        executionOrder.length = 0;
+
+        // 测试失败情况
+        throwError = true;
+        await expect(() => data.execute()).rejects.toThrow('test error');
+
+        expect(optionSuccessCallCount).toBe(1);
+        expect(optionErrorCallCount).toBe(1);
+        expect(optionFinallyCallCount).toBe(2);
+        expect(methodSuccessCallCount).toBe(1);
+        expect(methodErrorCallCount).toBe(1);
+        expect(methodFinallyCallCount).toBe(2);
+        expect(optionErrorArgs.length).toBe(1);
+        expect(optionErrorArgs[0]).toBeInstanceOf(Error);
+        expect(optionErrorArgs[0].message).toBe('test error');
+        expect(methodErrorArgs.length).toBe(1);
+        expect(methodErrorArgs[0]).toBeInstanceOf(Error);
+        expect(methodErrorArgs[0].message).toBe('test error');
+        expect(executionOrder).toStrictEqual(['option-error', 'method-error', 'option-finally', 'method-finally']);
+
+        // 重置执行顺序
+        executionOrder.length = 0;
+
+        // 再次测试成功情况
+        throwError = false;
+        await data.execute();
+
+        expect(optionSuccessCallCount).toBe(2);
+        expect(optionErrorCallCount).toBe(1);
+        expect(optionFinallyCallCount).toBe(3);
+        expect(methodSuccessCallCount).toBe(2);
+        expect(methodErrorCallCount).toBe(1);
+        expect(methodFinallyCallCount).toBe(3);
+        expect(optionSuccessArgs).toStrictEqual([{ data: 1293 }, { data: 1294 }]);
+        expect(methodSuccessArgs).toStrictEqual([{ data: 1293 }, { data: 1294 }]);
+        expect(executionOrder).toStrictEqual(['option-success', 'method-success', 'option-finally', 'method-finally']);
+      });
+    });
   });
 
   it('类型测试', () => {
     expectTypeOf(useRequest).parameters.toEqualTypeOf<[
       UseRequestUserExecute<unknown, any[]>,
-      UseRequestOptions?,
+      UseRequestOptions<unknown>?,
     ]>();
 
     // 非异步, 无方法传参, 无其他参数返回
@@ -1410,7 +1530,7 @@ describe('useRequestReactive', () => {
   it('类型测试', () => {
     expectTypeOf(useRequestReactive).parameters.toEqualTypeOf<[
       UseRequestUserExecute<unknown, any[]>,
-      UseRequestOptions?,
+      UseRequestOptions<unknown>?,
     ]>();
 
     // 非异步, 无方法传参, 无其他参数返回

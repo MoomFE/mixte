@@ -1,8 +1,9 @@
 ## [Unreleased]
+  - 🌟 [@mixte/use] 为 `useRequest`, `useRequestReactive` 新增 `onSuccess` `onError` `onFinally` 配置项
   - 💄 [@mixte/components] 组件 `GridTable` 表格列支持通过 `headerRender` 渲染表头 *
   - 💄 [@mixte/components] 组件 `GridTable` 新增支持通过插槽渲染单元格及表头单元格 *
   - 💄 [@mixte/components] 组件 `GridTable` 新增对虚拟列表的支持 *
-  - 💄 [@mixte/use] 优化 `useRequest` 类型定义
+  - 💄 [@mixte/use] 优化 `useRequest`, `useRequestReactive` 类型定义
 
 ## [v3.5.0-beta.2]
   - 📅 2025-06-03
