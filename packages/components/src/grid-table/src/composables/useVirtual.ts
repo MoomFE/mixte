@@ -19,50 +19,15 @@ export const [
     tableTheadSize,
   } = useShared()!;
 
-  /** 预估行高度 */
-  const estimatedRowHeight = computed(() => isNumeric(props.estimatedRowHeight) ? props.estimatedRowHeight : 50);
   /** 预渲染的行数 */
   const overscan = computed(() => isNumeric(props.overscan) && props.overscan >= 0 ? props.overscan : 5);
 
-  /** 实际行高度 */
-  const realRowsHeight = ref<Record<number, number>>({});
+  const { cumulativeHeights, updateRowHeight, findIndexByHeight } = useCumulativeHeights();
 
   /** 表格展示区高度 */
   const tableBodyHeight = computed(() => {
     return tableWrapSize.height - tableTheadSize.height;
   });
-
-  /** 累积高度数组，用于动态行高计算 */
-  const cumulativeHeights = computed(() => {
-    const dataLength = props.data?.length ?? 0;
-    const heights: number[] = Array.from({ length: dataLength + 1 });
-
-    heights[0] = 0;
-
-    for (let i = 0; i < dataLength; i++) {
-      const realHeight = realRowsHeight.value[i];
-      const height = realHeight ?? estimatedRowHeight.value;
-      heights[i + 1] = heights[i] + height;
-    }
-
-    return heights;
-  });
-
-  /** 使用二分查找定位索引 */
-  const findIndexByHeight = (targetHeight: number) => {
-    const heights = cumulativeHeights.value;
-    let left = 0;
-    let right = heights.length - 1;
-
-    while (left < right) {
-      const mid = Math.floor((left + right) / 2);
-
-      if (heights[mid] < targetHeight) left = mid + 1;
-      else right = mid;
-    }
-
-    return Math.max(0, left - 1);
-  };
 
   /** 可见行的起始索引 */
   const visibleStart = computed(() => {
@@ -112,6 +77,62 @@ export const [
 
     data,
 
-    realRowsHeight,
+    updateRowHeight,
   };
 });
+
+function useCumulativeHeights() {
+  const { props } = useShared()!;
+
+  /** 预估行高度 */
+  const estimatedRowHeight = computed(() => isNumeric(props.estimatedRowHeight) ? props.estimatedRowHeight : 50);
+
+  /** 实际行高度集合 */
+  const realRowsHeight = ref<Record<number, number>>({});
+
+  /** 更新行高度 */
+  function updateRowHeight(index: number, height: number) {
+    if (realRowsHeight.value[index] !== height) {
+      realRowsHeight.value[index] = height;
+    }
+  }
+
+  /** 累积高度数组，用于动态行高计算 */
+  const cumulativeHeights = computed(() => {
+    const dataLength = props.data?.length ?? 0;
+    const heights: number[] = Array.from({ length: dataLength + 1 });
+
+    heights[0] = 0;
+
+    for (let i = 0; i < dataLength; i++) {
+      const realHeight = realRowsHeight.value[i];
+      const height = realHeight ?? estimatedRowHeight.value;
+      heights[i + 1] = heights[i] + height;
+    }
+
+    return heights;
+  });
+
+  /** 使用二分查找定位索引 */
+  function findIndexByHeight(targetHeight: number) {
+    const heights = cumulativeHeights.value;
+    let left = 0;
+    let right = heights.length - 1;
+
+    while (left < right) {
+      const mid = Math.floor((left + right) / 2);
+
+      if (heights[mid] < targetHeight) left = mid + 1;
+      else right = mid;
+    }
+
+    return Math.max(0, left - 1);
+  };
+
+  return {
+    cumulativeHeights,
+
+    updateRowHeight,
+    findIndexByHeight,
+  };
+}

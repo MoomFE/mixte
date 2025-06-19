@@ -27,11 +27,11 @@
 
   onMounted(() => {
     wheneverEffectScopeImmediate(() => tableProps.virtual, () => {
-      const { realRowsHeight } = useVirtual()!;
+      const { updateRowHeight } = useVirtual()!;
       const height = useElementSize(trRef).height;
 
       watchImmediate(height, () => {
-        realRowsHeight.value[props.index] = trRef.value?.clientHeight ?? 0;
+        updateRowHeight(props.index, trRef.value?.clientHeight ?? 0);
       });
     });
   });
