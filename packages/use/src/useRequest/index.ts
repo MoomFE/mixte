@@ -1,7 +1,8 @@
+import type { EventHook } from '@vueuse/core';
 import type { Promisable } from 'type-fest';
-import type { MaybeRefOrGetter } from 'vue';
-import { createEventHook, toValue } from '@vueuse/core';
-import { reactive, ref, shallowRef } from 'vue';
+import type { MaybeRefOrGetter, Ref, ShallowRef } from 'vue';
+import { createEventHook } from '@vueuse/core';
+import { reactive, ref, shallowRef, toValue } from 'vue';
 
 export interface UseRequestOptions {
   /**
@@ -25,6 +26,40 @@ export interface UseRequestOptions {
    * @default false
    */
   shallow?: boolean;
+}
+
+export interface UseRequestReturn<
+  Response,
+  Data extends Response extends { data: infer D } ? D : never,
+  Args extends any[],
+> {
+  /** 服务器响应 */
+  response: ShallowRef<Response | undefined>;
+  /** 服务器响应数据 */
+  data: Ref<Data | undefined>;
+  /** 服务器返回的错误 */
+  error: ShallowRef<any>;
+
+  /** 是否发起过请求 */
+  isExecuted: Ref<boolean>;
+  /** 是否在请求中 */
+  isLoading: Ref<boolean>;
+  /** 是否已请求完成 */
+  isFinished: Ref<boolean>;
+  /** 是否已请求成功 */
+  isSuccess: Ref<boolean>;
+
+  /** 发起请求 */
+  execute: (...args: Args) => Promise<Response>;
+  /** 重置请求到初始状态 */
+  reset: () => void;
+
+  /** 请求成功事件钩子 */
+  onSuccess: EventHook<Response>['on'];
+  /** 请求失败事件钩子 */
+  onError: EventHook<any>['on'];
+  /** 请求完成事件钩子 */
+  onFinally: EventHook['on'];
 }
 
 /**
@@ -147,39 +182,26 @@ export function useRequest<
   // @ts-expect-error
   immediate && execute();
 
-  const common = {
-    /** 服务器响应 */
+  const common: UseRequestReturn<Response, Data, Args> = {
     response,
-    /** 服务器响应数据 */
     data,
-    /** 服务器返回的错误 */
     error,
 
-    /** 是否发起过请求 */
     isExecuted,
-    /** 是否在请求中 */
     isLoading,
-    /** 是否已请求完成 */
     isFinished,
-    /** 是否已请求成功 */
     isSuccess,
 
-    /** 发起请求 */
     execute,
-    /** 重置请求到初始状态 */
     reset,
 
-    /** 请求成功事件钩子 */
     onSuccess: successEvent.on,
-    /** 请求失败事件钩子 */
     onError: errorEvent.on,
-    /** 请求完成事件钩子 */
     onFinally: finallyEvent.on,
   };
 
   return {
     ...common,
-    /** 方法的响应式代理返回值 */
     reactive: reactive(common),
   };
 }
