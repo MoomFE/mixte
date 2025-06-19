@@ -7,6 +7,7 @@
 </template>
 
 <script lang="ts" setup>
+  import type { GridTableFieldsSlots } from '@mixte/components/grid-table/types';
   import { watchImmediate, wheneverEffectScopeImmediate } from '@mixte/use';
   import { useElementSize } from '@vueuse/core';
   import { h, onMounted, ref } from 'vue';
@@ -20,6 +21,8 @@
   }
 
   const props = defineProps<Props>();
+
+  defineSlots<GridTableFieldsSlots<any>>();
 
   const trRef = ref<HTMLDivElement>();
 

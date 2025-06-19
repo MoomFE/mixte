@@ -3,16 +3,23 @@
 <template>
   <div class="mixte-gt-tbody">
     <template v-if="props.virtual">
-      <Tr v-for="(record, index) in data" :key="record[rowKey]" :record :index="visibleStart + index" />
+      <component
+        v-for="(record, index) in data" :key="record[rowKey]"
+        :is="h(Tr, { record, index: visibleStart + index }, $slots)"
+      />
     </template>
     <template v-else>
-      <Tr v-for="(record, index) in data" :key="record[rowKey]" :record :index />
+      <component
+        v-for="(record, index) in data" :key="record[rowKey]"
+        :is="h(Tr, { record, index }, $slots)"
+      />
     </template>
   </div>
 </template>
 
 <script lang="ts" setup>
   import type { GridTableFieldsSlots } from '@mixte/components/grid-table/types';
+  import { h } from 'vue';
   import { useShared } from '../composables/useShared';
   import { useVirtual } from '../composables/useVirtual';
   import Tr from './tr.vue';
