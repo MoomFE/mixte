@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.3]
+  - 📅 2025-06-19
   - 🌟 [@mixte/use] 为 `useRequest`, `useRequestReactive` 新增 `onSuccess` `onError` `onFinally` 配置项
   - 💄 [@mixte/components] 组件 `GridTable` 表格列支持通过 `headerRender` 渲染表头 *
   - 💄 [@mixte/components] 组件 `GridTable` 新增支持通过插槽渲染单元格及表头单元格 *
@@ -101,7 +104,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.2...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.3...HEAD
+[v3.5.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.3
 [v3.5.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.2
 [v3.5.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.1
 [v3.4.1]: https://github.com/MoomFE/mixte/releases/tag/v3.4.1
