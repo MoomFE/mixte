@@ -8,9 +8,9 @@
 
 <script lang="ts" setup>
   import type { GridTableFieldsSlots } from '@mixte/components/grid-table/types';
-  import { watchImmediate, wheneverEffectScopeImmediate } from '@mixte/use';
+  import { wheneverEffectScopeImmediate } from '@mixte/use';
   import { useElementSize } from '@vueuse/core';
-  import { h, onMounted, ref } from 'vue';
+  import { h, onMounted, ref, watch } from 'vue';
   import { useShared } from '../composables/useShared';
   import { useVirtual } from '../composables/useVirtual';
   import Td from './td.vue';
@@ -29,12 +29,13 @@
   const { props: tableProps } = useShared()!;
 
   onMounted(() => {
+    const { updateRowHeight } = useVirtual()!;
+
     wheneverEffectScopeImmediate(() => tableProps.virtual, () => {
-      const { updateRowHeight } = useVirtual()!;
       const height = useElementSize(trRef).height;
 
-      watchImmediate(height, () => {
-        updateRowHeight(props.index, trRef.value?.clientHeight ?? 0);
+      watch(height, (height) => {
+        updateRowHeight(props.index, height);
       });
     });
   });

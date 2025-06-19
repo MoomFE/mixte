@@ -28,12 +28,12 @@ export interface GridTableProps<
    *   - 可减少快速滚动时的白屏
    * @default 5
    */
-  overscan?: number;
+  overscan?: number | `${number}`;
   /**
    * 启用虚拟列表时的预估行高度
    * @default 50
    */
-  estimatedRowHeight?: MaybeRefOrGetter<number>;
+  estimatedRowHeight?: number | `${number}`;
 }
 
 export interface RenderProps<

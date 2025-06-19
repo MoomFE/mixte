@@ -17,6 +17,18 @@ export const [
     return toValue(props.rowKey) ?? 'id';
   });
 
+  /** 预渲染的行数 */
+  const overscan = computed(() => {
+    let overscan = props.overscan;
+    return isNumeric(overscan) && (overscan = Number(overscan)) >= 0 ? overscan : 5;
+  });
+
+  /** 预估行高度 */
+  const estimatedRowHeight = computed(() => {
+    let estimatedHeight = props.estimatedRowHeight;
+    return isNumeric(estimatedHeight) && (estimatedHeight = Number(estimatedHeight)) > 0 ? estimatedHeight : 50;
+  });
+
   /** 所有固定在左侧的列 */
   const fixedLeftColumns = computed(() => {
     return props.columns?.filter(column => columnIsFixedLeft(column)) ?? [];
@@ -69,6 +81,9 @@ export const [
     slots,
 
     rowKey,
+    overscan,
+    estimatedRowHeight,
+
     fixedLeftColumns,
     fixedRightColumns,
 

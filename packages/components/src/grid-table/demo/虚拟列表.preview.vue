@@ -3,7 +3,7 @@
     :columns
     :data="data"
     virtual
-    style="height: 360px"
+    style="height: 520px"
   />
 </template>
 
@@ -16,6 +16,7 @@
 
   interface User {
     id: string;
+    height: number;
     fistName: string;
     lastName: string;
     age: number;
@@ -36,6 +37,20 @@
       fixed: 'left',
       align: 'center',
       render: ({ index }) => index + 1,
+    },
+    {
+      field: 'height',
+      title: 'height',
+      fixed: 'left',
+      align: 'center',
+      render: ({ value }) => (
+        <div
+          class="w-full flex justify-center items-center bg-neutral-2 px-2 rounded"
+          style={{ height: `${value}px` }}
+        >
+          {value}px
+        </div>
+      ),
     },
 
     { field: 'id', title: 'ID' },
@@ -71,6 +86,7 @@
     for (let i = 0; i < 10000; i++) {
       newData.push({
         id: `id-${i}`,
+        height: randomNatural(25, 150),
         fistName: `FistName-${i}`,
         lastName: `LastName-${i}`,
         age: randomNatural(18, 35),

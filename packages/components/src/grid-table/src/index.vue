@@ -1,12 +1,12 @@
 <template>
   <div ref="tableWrapRef" class="mixte-gt-wrap">
     <div ref="tableRef" class="mixte-gt" :style="tableWrapStyle">
-      <!-- 表头 -->
-      <component v-if="columns?.length" :is="h(Thead, null, $slots)" />
       <!-- 表体 -->
-      <component v-if="columns?.length && data?.length" :is="h(Tbody, null, $slots)" />
+      <component v-if="showTbody" :is="h(Tbody, null, $slots)" />
+      <!-- 表头 -->
+      <component v-if="showThead" :is="h(Thead, null, $slots)" />
       <!-- 无数据 -->
-      <Empty v-else />
+      <Empty v-if="!showTbody" />
     </div>
     <!-- 加载中 -->
     <Loading v-if="loading" />
@@ -19,7 +19,7 @@
   generic="Fields extends Record<string, any>"
 >
   import type { GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
-  import { h } from 'vue';
+  import { computed, h } from 'vue';
   import Empty from './components/empty.vue';
   import Loading from './components/loading.vue';
   import Tbody from './components/tbody.vue';
@@ -41,4 +41,7 @@
   useVirtualStore();
 
   useCellStore();
+
+  const showThead = computed(() => !!props.columns?.length);
+  const showTbody = computed(() => !!props.columns?.length && !!props.data?.length);
 </script>

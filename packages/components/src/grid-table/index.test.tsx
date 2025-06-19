@@ -83,7 +83,11 @@ function getTableStructure<
   // 表头
   if (options?.props?.columns?.length) {
     expect(tableThead.exists()).toBe(true);
-    expect(tableThead.element).toBe(table.element.firstElementChild);
+    expect(tableThead.element).toBe(
+      options.props.data?.length
+        ? table.element.lastElementChild
+        : table.element.firstElementChild,
+    );
   }
   else {
     expect(tableThead.exists()).toBe(false);
@@ -93,7 +97,7 @@ function getTableStructure<
   if (!!options?.props?.columns?.length && !!options?.props?.data?.length) {
     // 表体
     expect(tableTbody.exists()).toBe(true);
-    expect(tableTbody.element).toBe(table.element.lastElementChild);
+    expect(tableTbody.element).toBe(table.element.firstElementChild);
     // 无数据部分
     expect(tableEmptyWrap.exists()).toBe(false);
   }
@@ -185,8 +189,8 @@ describe('grid-table', () => {
 
     // 主体下有表头和表体
     expect(table.element.children.length).toBe(2);
-    expect(table.element.firstElementChild?.classList.contains('mixte-gt-thead')).toBe(true);
-    expect(table.element.lastElementChild?.classList.contains('mixte-gt-tbody')).toBe(true);
+    expect(table.element.lastElementChild?.classList.contains('mixte-gt-thead')).toBe(true);
+    expect(table.element.firstElementChild?.classList.contains('mixte-gt-tbody')).toBe(true);
 
     // 表头
     const thead = table.find('.mixte-gt-thead');

@@ -27,7 +27,8 @@
 // 主体
 .mixte-gt {
   min-width: 100%; min-height: 100%;
-  height: var(--mixte-gt-virtual-height, auto);
+  height: var(--mixte-gt-virtual-h, auto);
+  will-change: var(--mixte-gt-virtual-h-wc, auto);
   display: grid;
   font-size: var(--mixte-gt-font-size);
   grid-auto-rows: min-content;
@@ -39,13 +40,16 @@
     position: sticky; top: 0; z-index: 3;
     font-weight: 700;
     background-color: var(--mixte-gt-thead-bg);
+    order: 1;
   }
 
   // 表体
   &-tbody {
     display: grid; grid-column: 1 / -1;
     grid-template-columns: subgrid;
-    padding-top: var(--mixte-gt-virtual-padding-top, 0);
+    padding-top: var(--mixte-gt-virtual-pt, 0);
+    will-change: var(--mixte-gt-virtual-pt-wc, auto);
+    order: 2;
   }
 
   // 表格行
@@ -123,6 +127,7 @@
   &-empty-wrap {
     height: 150px;
     grid-column: 1 / -1;
+    order: 2;
   }
   &-empty {
     height: 100%;
