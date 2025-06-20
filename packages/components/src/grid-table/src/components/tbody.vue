@@ -4,14 +4,14 @@
   <div class="mixte-gt-tbody">
     <template v-if="props.virtual">
       <component
-        v-for="(record, index) in data" :key="record[rowKey]"
-        :is="h(Tr, { record, index: visibleStart + index }, $slots)"
+        v-for="(node, index) in data" :key="node.key"
+        :is="h(Tr, { node, index: visibleStart + index }, $slots)"
       />
     </template>
     <template v-else>
       <component
-        v-for="(record, index) in data" :key="record[rowKey]"
-        :is="h(Tr, { record, index }, $slots)"
+        v-for="(node, index) in displayedData" :key="node.key"
+        :is="h(Tr, { node, index }, $slots)"
       />
     </template>
   </div>
@@ -26,6 +26,6 @@
 
   defineSlots<GridTableFieldsSlots<any>>();
 
-  const { props, rowKey } = useShared()!;
+  const { props, displayedData } = useShared()!;
   const { data, visibleStart } = useVirtual()!;
 </script>

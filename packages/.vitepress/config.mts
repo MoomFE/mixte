@@ -5,10 +5,6 @@ import React from '@vitejs/plugin-react';
 import VueJsx from '@vitejs/plugin-vue-jsx';
 import { dirname, resolve } from 'pathe';
 import Unocss from 'unocss/vite';
-import IconsResolver from 'unplugin-icons/resolver';
-import Icons from 'unplugin-icons/vite';
-import { ArcoResolver, ElementPlusResolver, NaiveUiResolver } from 'unplugin-vue-components/resolvers';
-import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vitepress';
 import { alias } from '../../meta/alias';
 import { components, melComponents, mixte, snippets, use, validator } from '../../meta/docs.json';
@@ -144,23 +140,6 @@ export default defineConfig({
       MarkdownTransform(),
       Unocss({
         configFile: resolve(__dirname, '../unocss.config.ts'),
-      }),
-      Icons({
-        scale: 1,
-        compiler: 'vue3',
-      }),
-      Components({
-        include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-        dts: resolve(__dirname, '../components.d.ts'),
-        dirs: [
-          resolve(__dirname, './components'),
-        ],
-        resolvers: [
-          IconsResolver({ prefix: 'i' }),
-          ElementPlusResolver({ importStyle: 'sass' }),
-          NaiveUiResolver(),
-          ArcoResolver({ importStyle: false }),
-        ],
       }),
       ...VitePlugins,
     ],

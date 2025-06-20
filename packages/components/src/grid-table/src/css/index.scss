@@ -15,6 +15,13 @@
 
   // 表体: 背景色
   --mixte-gt-tbody-bg: #FFFFFF;
+
+  // 展开子级数据的按钮: 颜色
+  --mixte-gt-cell-expand-color: #3C3C43;
+  --mixte-gt-cell-expand-color-hover: #1677ff;
+  // 展开子级数据的按钮: 边框颜色
+  --mixte-gt-cell-expand-border-color: #D9D9D9;
+  --mixte-gt-cell-expand-border-color-hover: #1677ff;
 }
 
 // 包裹层
@@ -99,6 +106,37 @@
       }
       &-right-active::after {
         box-shadow: inset -10px 0 8px -8px rgba(5,5,5,0.06);
+      }
+    }
+
+    // 树形数据展开列
+    &-expand {
+      grid-template-columns: min-content 1fr;
+
+      &-icon {
+        width: 17px; height: 17px;
+        display: flex; justify-content: center; align-items: center;
+        cursor: pointer; margin-right: 8px;
+        color: var(--mixte-gt-cell-expand-color);
+        border: 1px solid var(--mixte-gt-cell-expand-border-color); border-radius: 3px;
+        transition: color 0.3s, border-color 0.3s;
+
+        padding: 0;
+        background-color: transparent;
+        background-image: none;
+
+        &:hover {
+          color: var(--mixte-gt-cell-expand-color-hover);
+          border-color: var(--mixte-gt-cell-expand-border-color-hover);
+        }
+
+        > svg {
+          width: 13px; height: 13px;
+        }
+
+        &-spaced {
+          visibility: hidden;
+        }
       }
     }
   }

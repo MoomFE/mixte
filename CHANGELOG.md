@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/components] 组件 `GridTable` 支持展开树形数据功能 *
   - 💄 [@mixte/components] 优化 `GridTable` 组件虚拟列表的动态高度计算相关逻辑 *
   - 💄 [@mixte/use] 优化 `useRequest` 的 `UseRequestOptions` 类型定义 *
 

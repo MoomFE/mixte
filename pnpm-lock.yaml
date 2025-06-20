@@ -296,6 +296,9 @@ importers:
       three:
         specifier: 'catalog:'
         version: 0.174.0
+      treemate:
+        specifier: ^0.3.11
+        version: 0.3.11
       tsx:
         specifier: ^4.19.3
         version: 4.19.3

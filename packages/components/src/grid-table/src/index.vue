@@ -31,12 +31,18 @@
   const props = defineProps<GridTableProps<Fields>>();
   const slots = defineSlots<GridTableSlots<Fields>>();
 
+  const expandedRowKeys = defineModel<string[]>('expandedRowKeys', {
+    default: () => [],
+  });
+
   const {
     tableWrapRef,
     tableWrapStyle,
 
     tableRef,
-  } = useSharedStore(props, slots);
+  } = useSharedStore(props, slots, {
+    expandedRowKeys,
+  });
 
   useVirtualStore();
 

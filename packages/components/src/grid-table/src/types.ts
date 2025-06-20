@@ -20,12 +20,12 @@ export interface GridTableProps<
 
   /**
    * 是否启用虚拟列表
-   *   - 需要为表格设置一个高度
+   *  - 需要为表格设置一个高度
    */
   virtual?: boolean;
   /**
    * 启用虚拟列表时预渲染的行数
-   *   - 可减少快速滚动时的白屏
+   *  - 可减少快速滚动时的白屏
    * @default 5
    */
   overscan?: number | `${number}`;
@@ -34,6 +34,22 @@ export interface GridTableProps<
    * @default 50
    */
   estimatedRowHeight?: number | `${number}`;
+
+  /**
+   * 树形数据子节点字段名
+   * @default 'children'
+   */
+  childrenKey?: string;
+  /**
+   * 树形数据展开的列主键
+   *  - 如果不设置, 则使用第一列作为展开列
+   */
+  expandColumnKey?: string;
+  /**
+   * 树形数据展开的行主键列表
+   *  - 支持通过 v-model:expandedRowKeys="xxx" 进行双向绑定
+   */
+  expandedRowKeys?: string[];
 }
 
 export interface RenderProps<

@@ -1,13 +1,14 @@
 <template>
   <div ref="trRef" class="mixte-gt-tr" :data-index="index">
     <template v-for="column in tableProps.columns" :key="column.field">
-      <component :is="h(Td, { column, record, index }, $slots)" />
+      <component :is="h(Td, { node, column, index }, $slots)" />
     </template>
   </div>
 </template>
 
 <script lang="ts" setup>
   import type { GridTableFieldsSlots } from '@mixte/components/grid-table/types';
+  import type { TreeNode } from 'treemate';
   import { wheneverEffectScopeImmediate } from '@mixte/use';
   import { useElementSize } from '@vueuse/core';
   import { h, onMounted, ref, watch } from 'vue';
@@ -16,7 +17,7 @@
   import Td from './td.vue';
 
   interface Props {
-    record: Record<string, any>;
+    node: TreeNode<any>;
     index: number;
   }
 
@@ -35,7 +36,7 @@
       const height = useElementSize(trRef).height;
 
       watch(height, (height) => {
-        updateRowHeight(props.index, height);
+        updateRowHeight(props.index, props.node.rawNode, height);
       });
     });
   });

@@ -123,6 +123,7 @@
     "shiki-magic-move": "^1.1.0",
     "simple-git-hooks": "^2.11.1",
     "three": "catalog:",
+    "treemate": "^0.3.11",
     "tsx": "^4.19.3",
     "type-fest": "^4.37.0",
     "typescript": "~5.8.2",

@@ -12,6 +12,8 @@ export const [
 
     overscan,
 
+    displayedData,
+
     tableWrapSize,
     tableWrapScroll,
 
@@ -38,16 +40,16 @@ export const [
   /** 可见行的结束索引 */
   const visibleEnd = computed(() => {
     return Math.min(
-      props.data?.length ?? 0,
+      displayedData.value.length ?? 0,
       findIndexByHeight(tableWrapScroll.y + tableBodyHeight.value) + overscan.value,
     );
   });
 
   /** 可见行数据 */
   const data = computed(() => {
-    if (!props.virtual) return props.data ?? [];
+    if (!props.virtual) return;
 
-    return props.data?.slice(visibleStart.value, visibleEnd.value) ?? [];
+    return displayedData.value.slice(visibleStart.value, visibleEnd.value) ?? [];
   });
 
   /** 表格高度 */
@@ -91,44 +93,46 @@ export const [
 });
 
 function useCumulativeHeights() {
-  const { props, estimatedRowHeight } = useShared()!;
+  const { estimatedRowHeight, displayedData } = useShared()!;
 
-  /** 实际行高度集合 */
-  const realRowsHeight = ref<Record<number, number>>({});
+  /** 实际行高度集合, key 为行对象本身 */
+  const realRowsHeight = new WeakMap<object, number>();
 
   /** 缓存累计高度数组 */
   let cumulativeHeightsCache: number[] = [0];
-  /** 记录被修改的行索引 */
+  /** 记录被修改的行 index 集合 */
   const dirtyIndexes = ref<Set<number>>(new Set());
 
-  /** 更新行高度 */
-  function updateRowHeight(index: number, height: number) {
-    if (realRowsHeight.value[index] !== height) {
-      realRowsHeight.value[index] = height;
+  /** 更新行高度, index + row */
+  function updateRowHeight(index: number, rowObj: object, height: number) {
+    if (realRowsHeight.get(rowObj) !== height) {
+      realRowsHeight.set(rowObj, height);
       dirtyIndexes.value.add(index);
     }
   }
 
   /** 增量更新累计高度数组 */
   const cumulativeHeights = computed(() => {
-    const dataLength = props.data?.length ?? 0;
-
-    // 计算需要增量更新的起点
+    const estimated = estimatedRowHeight.value;
+    const data = displayedData.value;
+    const dataLength = data.length ?? 0;
     const prevLength = cumulativeHeightsCache.length;
     const dirtyMin = dirtyIndexes.value.size > 0 ? Math.min(...dirtyIndexes.value) : dataLength;
-
-    // 新增数据时，prevLength-1 是新数据的起点
     const start = Math.min(prevLength - 1, dirtyMin);
 
     // 先裁剪到 start 之前
     const heights = cumulativeHeightsCache.slice(0, start + 1);
 
-    // 从 start+1 开始补全到 dataLength
+    let prev = heights[start] ?? 0;
     for (let i = start + 1; i <= dataLength; i++) {
-      heights[i] = heights[i - 1] + (realRowsHeight.value[i - 1] ?? estimatedRowHeight.value);
+      const rowObj = data[i - 1]?.rawNode;
+      const cachedHeight = rowObj ? realRowsHeight.get(rowObj) : undefined;
+      const rowHeight = cachedHeight != null ? cachedHeight : estimated;
+      prev = prev + rowHeight;
+      heights[i] = prev;
     }
 
-    // 如果数据变短，裁剪
+    // 如果数据变短, 裁剪
     if (heights.length > dataLength + 1) {
       heights.length = dataLength + 1;
     }

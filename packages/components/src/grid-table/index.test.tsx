@@ -300,7 +300,7 @@ describe('grid-table', () => {
             record: item,
             column: columns.find(c => c.field === 'gender')!,
             index,
-            key: 1, // ???
+            key: 2, // ???
           });
 
           columns.forEach((column) => {
@@ -313,7 +313,7 @@ describe('grid-table', () => {
                 record: item,
                 column,
                 index,
-                key: 2, // ???
+                key: 3, // ???
               },
             );
           });

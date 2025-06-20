@@ -10,7 +10,17 @@ export const [
   useCellStore,
   useCell,
 ] = createInjectionState(() => {
-  const { tableWrapScroll, fixedLeftColumns, fixedRightColumns } = useShared()!;
+  const {
+    childrenKey,
+    expandColumnKey,
+
+    displayedData,
+
+    fixedLeftColumns,
+    fixedRightColumns,
+
+    tableWrapScroll,
+  } = useShared()!;
 
   const createCellStore = createNamedSharedComposable((column: GridTableColumn<Record<string, any>>) => {
     const fixedLeft = computed(() => columnIsFixedLeft(column));
@@ -53,9 +63,27 @@ export const [
       return classes;
     });
 
+    const isExpandVisible = computed(() => {
+      return column.field === expandColumnKey.value && displayedData.value.some(node => node.rawNode[childrenKey.value]?.length > 0);
+    });
+
+    const cellClasses = computed(() => {
+      let classes = '';
+
+      if (isExpandVisible.value) {
+        classes += 'mixte-gt-cell-expand ';
+      }
+
+      return classes;
+    });
+
     return {
       classes,
+      cellClasses,
+
       style,
+
+      isExpandVisible,
     };
   });
 
