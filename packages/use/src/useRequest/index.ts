@@ -4,7 +4,7 @@ import type { MaybeRefOrGetter, Ref, ShallowRef } from 'vue';
 import { createEventHook } from '@vueuse/core';
 import { reactive, ref, shallowRef, toValue } from 'vue';
 
-export interface UseRequestOptions<Response> {
+export interface UseRequestOptions<Response = any> {
   /**
    * 初始数据
    *  - 传递的数据会使用 `toValue` 进行转换
