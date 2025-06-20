@@ -69,14 +69,12 @@
       title: '操作',
       fixed: 'right',
       align: 'center',
-      render() {
-        return (
-          <div>
-            <ElButton type="primary" size="small" link>编辑</ElButton>
-            <ElButton type="danger" size="small" link>删除</ElButton>
-          </div>
-        );
-      },
+      render: () => (
+        <div>
+          <ElButton type="primary" size="small" link>编辑</ElButton>
+          <ElButton type="danger" size="small" link>删除</ElButton>
+        </div>
+      ),
     },
   ]);
 
