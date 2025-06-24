@@ -9,5 +9,9 @@ export type {
 export type MixteGridTableInstance = ComponentExposed<typeof GridTable>;
 
 export {
+  defineTableColumns,
+} from '@mixte/components/grid-table/utils';
+
+export {
   GridTable as MixteGridTable,
 };

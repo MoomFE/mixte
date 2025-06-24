@@ -24,9 +24,9 @@ export const [
 
   const createCellStore = createNamedSharedComposable((column: GridTableColumn<Record<string, any>>) => {
     const fixedLeft = computed(() => columnIsFixedLeft(column));
-    const fixedLeftIndex = computed(() => fixedLeft.value ? fixedLeftColumns.value.indexOf(column) : -1);
+    const fixedLeftIndex = computed(() => fixedLeft.value ? fixedLeftColumns.value.findIndex(({ field }) => field === column.field) : -1);
     const fixedRight = computed(() => columnIsFixedRight(column));
-    const fixedRightIndex = computed(() => fixedRight.value ? fixedRightColumns.value.indexOf(column) : -1);
+    const fixedRightIndex = computed(() => fixedRight.value ? fixedRightColumns.value.findIndex(({ field }) => field === column.field) : -1);
 
     const style = computed(() => {
       const style: StyleValue = {};
@@ -34,12 +34,12 @@ export const [
       if (fixedLeft.value) {
         style.zIndex = fixedLeftIndex.value + 2;
         if (fixedLeftIndex.value === 0) style.left = '0';
-        else style.left = `calc(${Array.from({ length: fixedLeftColumns.value.length - 1 }).map((_, i) => `var(--mixte-gt-fix-left-column-${i}-width)`).join('+')})`;
+        else style.left = `calc(${Array.from({ length: fixedLeftIndex.value }).map((_, i) => `var(--mixte-gt-fix-left-column-${i}-width)`).join('+')})`;
       }
       else if (fixedRight.value) {
         style.zIndex = fixedRightIndex.value + 2;
         if (fixedRightIndex.value === 0) style.right = '0';
-        else style.right = `calc(${Array.from({ length: fixedRightColumns.value.length - 1 }).map((_, i) => `var(--mixte-gt-fix-right-column-${i}-width)`).join('+')})`;
+        else style.right = `calc(${Array.from({ length: fixedRightIndex.value }).map((_, i) => `var(--mixte-gt-fix-right-column-${i}-width)`).join('+')})`;
       }
 
       return style;
@@ -99,23 +99,29 @@ export function useTh(column: GridTableColumn<Record<string, any>>) {
 
   // 当前列是固定在左侧的
   wheneverEffectScopeImmediate(() => fixedLeftColumns.value.length > 1 && columnIsFixedLeft(column), () => {
-    const inxed = computed(() => fixedLeftColumns.value.indexOf(column));
-    const css = useCssVar(() => `--mixte-gt-fix-left-column-${inxed.value}-width`, tableWrapRef);
-    const width = useElementSize(thRef, undefined, { box: 'border-box' }).width;
+    const index = computed(() => fixedLeftColumns.value.findIndex(({ field }) => field === column.field));
 
-    watchImmediate(width, (width) => {
-      css.value = `${width}px`;
+    wheneverEffectScopeImmediate(() => index.value < fixedLeftColumns.value.length - 1, () => {
+      const css = useCssVar(() => `--mixte-gt-fix-left-column-${index.value}-width`, tableWrapRef);
+      const width = useElementSize(thRef, undefined, { box: 'border-box' }).width;
+
+      watchImmediate(width, (width) => {
+        css.value = `${width}px`;
+      });
     });
   });
 
   // 当前列是固定在右侧的
   wheneverEffectScopeImmediate(() => fixedRightColumns.value.length > 1 && columnIsFixedRight(column), () => {
-    const inxed = computed(() => fixedRightColumns.value.indexOf(column));
-    const css = useCssVar(() => `--mixte-gt-fix-right-column-${inxed.value}-width`, tableWrapRef);
-    const width = useElementSize(thRef, undefined, { box: 'border-box' }).width;
+    const index = computed(() => fixedRightColumns.value.findIndex(({ field }) => field === column.field));
 
-    watchImmediate(width, (width) => {
-      css.value = `${width}px`;
+    wheneverEffectScopeImmediate(() => index.value < fixedRightColumns.value.length - 1, () => {
+      const css = useCssVar(() => `--mixte-gt-fix-right-column-${index.value}-width`, tableWrapRef);
+      const width = useElementSize(thRef, undefined, { box: 'border-box' }).width;
+
+      watchImmediate(width, (width) => {
+        css.value = `${width}px`;
+      });
     });
   });
 

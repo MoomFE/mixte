@@ -20,6 +20,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: [
         ...isTestBuild ? testAlias : alias,
+        { find: '@', replacement: resolve(__dirname, './packages') },
         { find: '@@', replacement: __dirname },
       ],
     },

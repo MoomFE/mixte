@@ -1,11 +1,42 @@
 <template>
-  <el-switch v-model="virtual" inactive-text="虚拟列表" />
+  <el-form-item label="展开的行主键列表" class="mr-0!">
+    <el-tree-select
+      v-model="expandedRowKeys"
+      class="w-full!"
+      :data="data.data?.data.list"
+      :props="{ label: 'name' }" node-key="id" show-checkbox multiple clearable
+    />
+  </el-form-item>
+  <el-form inline>
+    <el-form-item label="虚拟列表">
+      <el-switch v-model="virtual" />
+    </el-form-item>
+    <el-form-item>
+      <template #label>
+        <div flex="~ items-center gap-1">
+          显示展开按钮的列
+          <el-tooltip content="如果不设置, 则使用第一列作为展开列" placement="top">
+            <i-ant-design-exclamation-circle-outlined class="size-4" />
+          </el-tooltip>
+        </div>
+      </template>
+
+      <MelSelect
+        v-model="expandColumnKey"
+        class="w-30!"
+        :options="[{ label: '姓名', value: 'name' }, { label: '年龄', value: 'age' }, { label: '性别', value: 'gender' }, { label: '邮箱', value: 'email' }, { label: '地址', value: 'address' }, { label: '状态', value: 'statusValue' }]"
+        clearable
+      />
+    </el-form-item>
+  </el-form>
 
   <MixteGridTable
+    v-model:expanded-row-keys="expandedRowKeys"
     :columns
     :data="data.data?.data.list"
     :loading="data.isLoading"
     :virtual
+    :expand-column-key
     style="height: 360px"
   >
     <template #cell-email="{ value }">
@@ -16,12 +47,16 @@
 
 <script lang="tsx" setup>
   import type { ResponseData, ResponseListData, User } from '@/types';
-  import { MixteGridTable } from '@mixte/components/grid-table';
-  import { defineTableColumns } from '@mixte/components/grid-table/utils';
+  import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
+  import { MelSelect } from '@mixte/mel-components/mel-select';
   import { useRequestReactive } from '@mixte/use';
   import axios from 'axios';
   import { ElButton, ElImage, ElTag } from 'element-plus';
   import '@mixte/components/dist/grid-table/css/index.scss';
+
+  const virtual = ref(false);
+  const expandColumnKey = ref<string>();
+  const expandedRowKeys = ref<string[]>([]);
 
   const data = useRequestReactive(() => {
     return axios.post<ResponseData<ResponseListData<User>>>('https://m1.apifoxmock.com/m1/4781098-4434938-default/list/user', { pageSize: 10, treeData: true });
@@ -67,6 +102,4 @@
       ),
     },
   ]);
-
-  const virtual = ref(false);
 </script>

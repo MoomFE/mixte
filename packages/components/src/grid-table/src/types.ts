@@ -41,7 +41,7 @@ export interface GridTableProps<
    */
   childrenKey?: string;
   /**
-   * 树形数据展开的列主键
+   * 显示展开按钮的列主键
    *  - 如果不设置, 则使用第一列作为展开列
    */
   expandColumnKey?: string;

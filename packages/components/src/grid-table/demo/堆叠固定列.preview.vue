@@ -8,8 +8,7 @@
 
 <script lang="tsx" setup>
   import type { ResponseData, ResponseListData, User } from '@/types';
-  import { MixteGridTable } from '@mixte/components/grid-table';
-  import { defineTableColumns } from '@mixte/components/grid-table/utils';
+  import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
   import { useRequestReactive } from '@mixte/use';
   import axios from 'axios';
   import { ElButton, ElImage } from 'element-plus';

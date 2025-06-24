@@ -1,12 +1,11 @@
 import type { User } from '@/types';
 import type { RenderProps } from './src/types';
-import { MixteGridTable } from '@mixte/components/grid-table';
-import { defineTableColumns } from '@mixte/components/grid-table/utils';
+import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
 import { mount } from '@vue/test-utils';
 
-type TestUser = Pick<User, 'id' | 'name' | 'nameEn' | 'age' | 'gender' | 'genderValue' | 'email' | 'address' | 'status' | 'statusValue'>;
+export type TestUser = Pick<User, 'id' | 'name' | 'nameEn' | 'age' | 'gender' | 'genderValue' | 'email' | 'address' | 'status' | 'statusValue'>;
 
-function createData() {
+export function createData() {
   return [
     { id: '1', name: '孙强', nameEn: 'Ruth Young', age: 25, gender: '未知', genderValue: -1, email: 'g.kjps@eqvtep.hr', address: '福建省 龙岩市 漳平市', status: '启用', statusValue: 1 },
     { id: '2', name: '戴杰', nameEn: 'Donald Jones', age: 18, gender: '男', genderValue: 1, email: 'y.pdwluvms@dpg.mt', address: '天津 天津市 河东区', status: '启用', statusValue: 1 },
@@ -21,7 +20,7 @@ function createData() {
   ] as TestUser[];
 }
 
-function createColumns() {
+export function createColumns() {
   return defineTableColumns<TestUser>([
     { field: 'index', title: '#', align: 'center', render: ({ index }) => index + 1 },
     { field: 'name', title: '姓名', render: ({ value, record }) => `${value} (${record.nameEn})` },
@@ -489,5 +488,47 @@ describe('grid-table', () => {
         );
       });
     });
+
+    it('列宽度: width ( 在浏览器模式中测试 )', () => {});
+
+    it('列的对齐方式: align', () => {
+      const columns = defineTableColumns<TestUser>([
+        { field: 'name', title: '姓名' },
+        { field: 'age', title: '年龄', align: 'left' },
+        { field: 'gender', title: '性别', align: 'center' },
+        { field: 'email', title: '邮箱', align: 'right' }, // @ts-expect-error
+        { field: 'address', title: '地址', align: 'xxx' }, // @ts-expect-error
+        { field: 'status', title: '状态', align: true }, // @ts-expect-error
+        { field: 'statusValue', title: '状态', align: false },
+      ]);
+      const { getTableTheadThs, getTableTbodyTds } = getTableStructure({
+        props: {
+          columns,
+          data: createData(),
+        },
+      });
+
+      getTableTheadThs().forEach((th, index) => {
+        const colIndex = index % columns.length;
+        const align = columns[colIndex].align;
+
+        if (align === 'center' || align === 'right')
+          expect(th.classes().sort()).toStrictEqual(['mixte-gt-cell', 'mixte-gt-th', `mixte-gt-cell-align-${align}`].sort());
+        else
+          expect(th.classes().sort()).toStrictEqual(['mixte-gt-cell', 'mixte-gt-th'].sort());
+      });
+
+      getTableTbodyTds().forEach((td, index) => {
+        const colIndex = index % columns.length;
+        const align = columns[colIndex].align;
+
+        if (align === 'center' || align === 'right')
+          expect(td.classes().sort()).toStrictEqual(['mixte-gt-cell', 'mixte-gt-td', `mixte-gt-cell-align-${align}`].sort());
+        else
+          expect(td.classes().sort()).toStrictEqual(['mixte-gt-cell', 'mixte-gt-td'].sort());
+      });
+    });
+
+    it('列固定: fixed ( 在浏览器模式中测试 )', () => {});
   });
 });
