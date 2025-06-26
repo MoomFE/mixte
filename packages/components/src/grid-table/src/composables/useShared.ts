@@ -89,8 +89,8 @@ export const [
     tableWrapScroll.measure();
   });
 
-  const tableTheadRef = ref<HTMLDivElement>();
-  const tableTheadSize = reactive(useElementSize(tableTheadRef));
+  /** 表格表头高度 */
+  const tableTheadHeight = ref(0);
 
   return {
     props,
@@ -119,8 +119,7 @@ export const [
 
     tableRef,
 
-    tableTheadRef,
-    tableTheadSize,
+    tableTheadHeight,
   };
 });
 

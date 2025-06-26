@@ -4,17 +4,15 @@
   // 边框颜色
   --mixte-gt-border-color: #EFEFF5;
 
-  // 表头: 背景色
-  --mixte-gt-thead-bg: #FAFAFC;
-
   // 表头单元格: 内边距
   --mixte-gt-th-padding: 12px;
+  // 表头单元格: 背景色
+  --mixte-gt-th-bg: #FAFAFC;
 
   // 表体单元格: 内边距
   --mixte-gt-td-padding: 12px;
-
-  // 表体: 背景色
-  --mixte-gt-tbody-bg: #FFFFFF;
+  // 表体单元格: 背景色
+  --mixte-gt-td-bg: #FFFFFF;
 
   // 展开子级数据的按钮: 颜色
   --mixte-gt-cell-expand-color: #3C3C43;
@@ -29,40 +27,43 @@
   width: 100%; height: 100%;
   position: relative;
   overflow: auto;
+
+  &, &::before, &::after,
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
 }
 
 // 主体
 .mixte-gt {
   min-width: 100%; min-height: 100%;
+  width: max-content;
   height: var(--mixte-gt-virtual-h, auto);
   will-change: var(--mixte-gt-virtual-h-wc, auto);
   display: grid;
   font-size: var(--mixte-gt-font-size);
   grid-auto-rows: min-content;
 
-  // 表头
-  &-thead {
-    display: grid; grid-column: 1 / -1;
-    grid-template-columns: subgrid; grid-template-rows: subgrid;
-    position: sticky; top: 0; z-index: 3;
+  // 虚拟表格占位
+  &-virtual-placeholder {
+    height: var(--mixte-gt-virtual-ph, 0);
+    will-change: var(--mixte-gt-virtual-h-wc, auto);
+  }
+
+  // 表头单元格
+  &-th {
+    position: sticky; top: 0; z-index: 1;
     font-weight: 700;
-    background-color: var(--mixte-gt-thead-bg);
     order: 1;
+    padding: var(--mixte-gt-th-padding);
+    background-color: var(--mixte-gt-th-bg);
   }
 
-  // 表体
-  &-tbody {
-    display: grid; grid-column: 1 / -1;
-    grid-template-columns: subgrid;
-    padding-top: var(--mixte-gt-virtual-pt, 0);
-    will-change: var(--mixte-gt-virtual-pt-wc, auto);
+  // 表体单元格
+  &-td {
+    padding: var(--mixte-gt-td-padding);
+    background-color: var(--mixte-gt-td-bg);
     order: 2;
-  }
-
-  // 表格行
-  &-tr {
-    display: grid; grid-column: 1 / -1;
-    grid-template-columns: subgrid;
   }
 
   // 单元格
@@ -139,18 +140,6 @@
         }
       }
     }
-  }
-
-  // 表头单元格
-  &-th {
-    padding: var(--mixte-gt-th-padding);
-    background-color: var(--mixte-gt-thead-bg);
-  }
-
-  // 表体单元格
-  &-td {
-    padding: var(--mixte-gt-td-padding);
-    background-color: var(--mixte-gt-tbody-bg);
   }
 
   // 加载中

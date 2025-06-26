@@ -1,15 +1,9 @@
 <!-- 表头 -->
 
 <template>
-  <div ref="tableTheadRef" class="mixte-gt-thead">
-    <!-- 表格行 -->
-    <div class="mixte-gt-tr">
-      <!-- 表头单元格 -->
-      <template v-for="column in props.columns" :key="column.field">
-        <component :is="h(Th, { column }, $slots)" />
-      </template>
-    </div>
-  </div>
+  <template v-for="column in props.columns" :key="column.field">
+    <component :is="h(Th, { column }, $slots)" />
+  </template>
 </template>
 
 <script lang="ts" setup>
@@ -22,6 +16,5 @@
 
   const {
     props,
-    tableTheadRef,
   } = useShared()!;
 </script>

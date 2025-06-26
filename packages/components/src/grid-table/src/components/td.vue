@@ -1,5 +1,10 @@
 <template>
-  <div class="mixte-gt-cell mixte-gt-td" :class="[classes, cellClasses]" :style>
+  <div
+    ref="tdRef"
+    class="mixte-gt-cell mixte-gt-td"
+    :class="[cellClasses, tdClasses]"
+    :style="[cellStyle, { zIndex }]"
+  >
     <!-- 展开子级数据的按钮 -->
     <button
       v-if="isExpandVisible"
@@ -42,10 +47,13 @@
 <script lang="ts" setup>
   import type { GridTableColumn, GridTableFieldsSlots } from '@mixte/components/grid-table/types';
   import type { TreeNode } from 'treemate';
+  import { wheneverEffectScopeImmediate } from '@mixte/use';
+  import { useElementSize } from '@vueuse/core';
   import { isFunction } from 'mixte';
-  import { computed } from 'vue';
+  import { computed, onMounted, ref, watch } from 'vue';
   import { useCell } from '../composables/useCell';
   import { useShared } from '../composables/useShared';
+  import { useVirtual } from '../composables/useVirtual';
 
   interface Props {
     node: TreeNode<any>;
@@ -57,12 +65,26 @@
 
   defineSlots<GridTableFieldsSlots<any>>();
 
-  const { expandedRowSet, rowKey, childrenKey, updateExpanded } = useShared()!;
-  const { createCellStore } = useCell()!;
-  const { classes, cellClasses, style, isExpandVisible } = createCellStore(props.column.field, props.column);
+  const tdRef = ref<HTMLDivElement>();
+
+  const { props: tableProps, expandedRowSet, rowKey, childrenKey, updateExpanded } = useShared()!;
+  const { createColumnStore } = useCell()!;
+  const { columnIndex, cellClasses, cellStyle, zIndex, tdClasses, isExpandVisible } = createColumnStore(props.column.field, props.column);
 
   const record = computed(() => props.node.rawNode);
   const value = computed(() => record.value[props.column.field]);
 
   const expandIconSpaced = computed(() => !record.value[childrenKey.value]?.length);
+
+  onMounted(() => {
+    const { updateRowHeight } = useVirtual()!;
+
+    wheneverEffectScopeImmediate(() => tableProps.virtual && columnIndex.value === 0, () => {
+      const height = useElementSize(tdRef, undefined, { box: 'border-box' }).height;
+
+      watch(height, (height) => {
+        updateRowHeight(props.index, props.node.rawNode, height);
+      });
+    });
+  });
 </script>

@@ -1,3 +1,4 @@
+/* eslint-disable style/max-statements-per-line */
 /* eslint-disable style/no-multi-spaces */
 
 import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
@@ -9,6 +10,10 @@ import '@mixte/components/dist/grid-table/css/index.scss';
 import '@/vitest.locators';
 
 // @unocss-include
+
+beforeEach(() => {
+  page.viewport(666, 666);
+});
 
 describe('grid-table', () => {
   describe('列配置', () => {
@@ -69,15 +74,97 @@ describe('grid-table', () => {
     });
 
     describe('列固定: fixed', async () => {
+      it('单元格固定效果', async () => {
+        const columns = defineTableColumns([
+          { field: 'col-1', width: 150,   fixed: 'left',      title: '左侧固定1' },
+          { field: 'col-2', width: 150,   fixed: 'left',      title: '左侧固定2' },
+          { field: 'col-3', width: 600,   fixed: undefined,   title: '未配置' },
+          { field: 'col-4', width: 600,   fixed: undefined,   title: '未配置' },
+          { field: 'col-5', width: 150,   fixed: 'right',     title: '右侧固定2'  },
+          { field: 'col-6', width: 150,   fixed: 'right',     title: '右侧固定1'  },
+        ]);
+
+        render(MixteGridTable, {
+          props: { // @ts-expect-error
+            columns,
+            data: Array.from({ length: 10 }).map(() => ({
+              'col-1': randomString(random(1, 6)),
+              'col-2': randomString(random(1, 6)),
+              'col-3': randomString(random(1, 6)),
+              'col-4': randomString(random(1, 6)),
+              'col-5': randomString(random(1, 6)),
+              'col-6': randomString(random(1, 6)),
+              'col-7': randomString(random(1, 6)),
+            })),
+          },
+        });
+
+        await delay(10);
+
+        const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
+        const cells = Array.from(tableWrap.querySelectorAll<HTMLDivElement>('.mixte-gt-cell'));
+
+        // left
+
+        cells.forEach((cell, index) => {
+          const colIndex = index % columns.length;
+
+          switch (colIndex) {
+            case 0: expect(cell.getBoundingClientRect().left).toBe(0); break;
+            case 1: expect(cell.getBoundingClientRect().left).toBe(150); break;
+            case 2: expect(cell.getBoundingClientRect().left + tableWrap.scrollLeft).toBe(300); break;
+            case 3: expect(cell.getBoundingClientRect().left + tableWrap.scrollLeft).toBe(900); break;
+            case 4: expect(cell.getBoundingClientRect().left).toBe(tableWrap.getBoundingClientRect().width - 150 - 150); break;
+            case 5: expect(cell.getBoundingClientRect().left).toBe(tableWrap.getBoundingClientRect().width - 150); break;
+          }
+        });
+
+        // center
+
+        tableWrap.scrollLeft = (tableWrap.scrollWidth - tableWrap.clientWidth) / 2;
+        await delay(10);
+
+        cells.forEach((cell, index) => {
+          const colIndex = index % columns.length;
+
+          switch (colIndex) {
+            case 0: expect(cell.getBoundingClientRect().left).toBe(0); break;
+            case 1: expect(cell.getBoundingClientRect().left).toBe(150); break;
+            case 2: expect(cell.getBoundingClientRect().left + tableWrap.scrollLeft).toBe(300); break;
+            case 3: expect(cell.getBoundingClientRect().left + tableWrap.scrollLeft).toBe(900); break;
+            case 4: expect(cell.getBoundingClientRect().left).toBe(tableWrap.getBoundingClientRect().width - 150 - 150); break;
+            case 5: expect(cell.getBoundingClientRect().left).toBe(tableWrap.getBoundingClientRect().width - 150); break;
+          }
+        });
+
+        // right
+
+        tableWrap.scrollLeft = tableWrap.scrollWidth - tableWrap.clientWidth;
+        await delay(10);
+
+        cells.forEach((cell, index) => {
+          const colIndex = index % columns.length;
+
+          switch (colIndex) {
+            case 0: expect(cell.getBoundingClientRect().left).toBe(0); break;
+            case 1: expect(cell.getBoundingClientRect().left).toBe(150); break;
+            case 2: expect(cell.getBoundingClientRect().left + tableWrap.scrollLeft).toBe(300); break;
+            case 3: expect(cell.getBoundingClientRect().left + tableWrap.scrollLeft).toBe(900); break;
+            case 4: expect(cell.getBoundingClientRect().left).toBe(tableWrap.getBoundingClientRect().width - 150 - 150); break;
+            case 5: expect(cell.getBoundingClientRect().left).toBe(tableWrap.getBoundingClientRect().width - 150); break;
+          }
+        });
+      });
+
       it('单元格上的样式类', async () => {
         const columns = defineTableColumns([
-          { field: 'col-1',   fixed: true,        title: '左侧固定' },
-          { field: 'col-2',   fixed: undefined,   title: '未配置' },
-          { field: 'col-3',   fixed: 'left',      title: '左侧固定2' }, // @ts-expect-error
-          { field: 'col-4',   fixed: 'xxxx',      title: '不合法' }, // @ts-expect-error
-          { field: 'col-5',   fixed: 'both',      title: '不合法' },
-          { field: 'col-6',   fixed: 'right',     title: '右侧固定'  },
-          { field: 'col-7',   fixed: 'right',     title: '右侧固定2'  },
+          { field: 'col-1', width: 150,   fixed: true,        title: '左侧固定' },
+          { field: 'col-2', width: 150,   fixed: undefined,   title: '未配置' },
+          { field: 'col-3', width: 150,   fixed: 'left',      title: '左侧固定2' }, // @ts-expect-error
+          { field: 'col-4', width: 150,   fixed: 'xxxx',      title: '不合法' }, // @ts-expect-error
+          { field: 'col-5', width: 150,   fixed: 'both',      title: '不合法' },
+          { field: 'col-6', width: 150,   fixed: 'right',     title: '右侧固定'  },
+          { field: 'col-7', width: 150,   fixed: 'right',     title: '右侧固定2'  },
         ]);
 
         render(MixteGridTable, {
@@ -94,6 +181,8 @@ describe('grid-table', () => {
             })),
           },
         });
+
+        await delay(10);
 
         const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
         const cells = Array.from(tableWrap.querySelectorAll<HTMLDivElement>('.mixte-gt-cell'));
@@ -125,7 +214,7 @@ describe('grid-table', () => {
 
         // center
 
-        tableWrap.scrollLeft += (tableWrap.scrollWidth - tableWrap.clientWidth) / 2;
+        tableWrap.scrollLeft = (tableWrap.scrollWidth - tableWrap.clientWidth) / 2;
         await delay(10);
 
         cells.forEach((cell, index) => {
@@ -179,26 +268,26 @@ describe('grid-table', () => {
       describe('表格上的固定列样式变量', async () => {
         it('单侧单个固定列, 无固定列样式变量', async () => {
           const columns = defineTableColumns([
-            { field: 'col-1',   fixed: 'left',      title: '左侧固定' },
-            { field: 'col-2',   fixed: undefined,   title: '未配置' },
-            { field: 'col-3',   fixed: undefined,   title: '未配置' },
-            { field: 'col-4',   fixed: undefined,   title: '未配置' },
-            { field: 'col-5',   fixed: undefined,   title: '未配置' },
-            { field: 'col-6',   fixed: undefined,   title: '未配置' },
-            { field: 'col-7',   fixed: 'right',     title: '右侧固定'  },
+            { field: 'col-1', width: 150,   fixed: 'left',      title: '左侧固定' },
+            { field: 'col-2', width: 150,   fixed: undefined,   title: '未配置' },
+            { field: 'col-3', width: 150,   fixed: undefined,   title: '未配置' },
+            { field: 'col-4', width: 150,   fixed: undefined,   title: '未配置' },
+            { field: 'col-5', width: 150,   fixed: undefined,   title: '未配置' },
+            { field: 'col-6', width: 150,   fixed: undefined,   title: '未配置' },
+            { field: 'col-7', width: 150,   fixed: 'right',     title: '右侧固定'  },
           ]);
 
           render(MixteGridTable, {
             props: { // @ts-expect-error
               columns,
               data: Array.from({ length: 10 }).map(() => ({
-                'col-1': randomString(random(1, 30)),
-                'col-2': randomString(random(1, 30)),
-                'col-3': randomString(random(1, 30)),
-                'col-4': randomString(random(1, 30)),
-                'col-5': randomString(random(1, 30)),
-                'col-6': randomString(random(1, 30)),
-                'col-7': randomString(random(1, 30)),
+                'col-1': randomString(random(1, 6)),
+                'col-2': randomString(random(1, 6)),
+                'col-3': randomString(random(1, 6)),
+                'col-4': randomString(random(1, 6)),
+                'col-5': randomString(random(1, 6)),
+                'col-6': randomString(random(1, 6)),
+                'col-7': randomString(random(1, 6)),
               })),
             },
           });
@@ -233,26 +322,26 @@ describe('grid-table', () => {
 
         it('单侧各两个固定列, 各 n-1 个固定列样式变量', async () => {
           const columns = defineTableColumns([
-            { field: 'col-1',   fixed: 'left',      title: '左侧固定' },
-            { field: 'col-2',   fixed: undefined,   title: '未配置' },
-            { field: 'col-3',   fixed: 'left',      title: '左侧固定2' },
-            { field: 'col-4',   fixed: undefined,   title: '未配置' },
-            { field: 'col-5',   fixed: 'right',     title: '右侧固定2' },
-            { field: 'col-6',   fixed: undefined,   title: '未配置' },
-            { field: 'col-7',   fixed: 'right',     title: '右侧固定'  },
+            { field: 'col-1', width: 150,   fixed: 'left',      title: '左侧固定' },
+            { field: 'col-2', width: 150,   fixed: undefined,   title: '未配置' },
+            { field: 'col-3', width: 150,   fixed: 'left',      title: '左侧固定2' },
+            { field: 'col-4', width: 150,   fixed: undefined,   title: '未配置' },
+            { field: 'col-5', width: 150,   fixed: 'right',     title: '右侧固定2' },
+            { field: 'col-6', width: 150,   fixed: undefined,   title: '未配置' },
+            { field: 'col-7', width: 150,   fixed: 'right',     title: '右侧固定'  },
           ]);
 
           render(MixteGridTable, {
             props: { // @ts-expect-error
               columns,
               data: Array.from({ length: 10 }).map(() => ({
-                'col-1': randomString(random(1, 30)),
-                'col-2': randomString(random(1, 30)),
-                'col-3': randomString(random(1, 30)),
-                'col-4': randomString(random(1, 30)),
-                'col-5': randomString(random(1, 30)),
-                'col-6': randomString(random(1, 30)),
-                'col-7': randomString(random(1, 30)),
+                'col-1': randomString(random(1, 6)),
+                'col-2': randomString(random(1, 6)),
+                'col-3': randomString(random(1, 6)),
+                'col-4': randomString(random(1, 6)),
+                'col-5': randomString(random(1, 6)),
+                'col-6': randomString(random(1, 6)),
+                'col-7': randomString(random(1, 6)),
               })),
             },
           });
@@ -260,7 +349,7 @@ describe('grid-table', () => {
           await delay(10);
 
           const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
-          const ths = Array.from(page.getByClass('.mixte-gt-thead > .mixte-gt-tr').query()!.children) as HTMLDivElement[];
+          const ths = Array.from(tableWrap.querySelectorAll<HTMLDivElement>('.mixte-gt-th'));
           const cells = Array.from(tableWrap.querySelectorAll<HTMLDivElement>('.mixte-gt-cell'));
 
           const left0 = Number.parseInt(tableWrap.attributeStyleMap.get('--mixte-gt-fix-left-column-0-width')!.toString());
@@ -301,26 +390,26 @@ describe('grid-table', () => {
 
         it('单侧各三个固定列, 各 n-1 个固定列样式变量', async () => {
           const columns = defineTableColumns([
-            { field: 'col-1',   fixed: 'left',      title: '左侧固定' },
-            { field: 'col-2',   fixed: 'left',      title: '左侧固定2' },
-            { field: 'col-3',   fixed: 'left',      title: '左侧固定3' },
-            { field: 'col-4',   fixed: undefined,   title: '未配置' },
-            { field: 'col-5',   fixed: 'right',     title: '右侧固定3' },
-            { field: 'col-6',   fixed: 'right',     title: '右侧固定2' },
-            { field: 'col-7',   fixed: 'right',     title: '右侧固定'  },
+            { field: 'col-1', width: 150,   fixed: 'left',      title: '左侧固定' },
+            { field: 'col-2', width: 150,   fixed: 'left',      title: '左侧固定2' },
+            { field: 'col-3', width: 150,   fixed: 'left',      title: '左侧固定3' },
+            { field: 'col-4', width: 150,   fixed: undefined,   title: '未配置' },
+            { field: 'col-5', width: 150,   fixed: 'right',     title: '右侧固定3' },
+            { field: 'col-6', width: 150,   fixed: 'right',     title: '右侧固定2' },
+            { field: 'col-7', width: 150,   fixed: 'right',     title: '右侧固定'  },
           ]);
 
           render(MixteGridTable, {
             props: { // @ts-expect-error
               columns,
               data: Array.from({ length: 10 }).map(() => ({
-                'col-1': randomString(random(1, 30)),
-                'col-2': randomString(random(1, 30)),
-                'col-3': randomString(random(1, 30)),
-                'col-4': randomString(random(1, 30)),
-                'col-5': randomString(random(1, 30)),
-                'col-6': randomString(random(1, 30)),
-                'col-7': randomString(random(1, 30)),
+                'col-1': randomString(random(1, 6)),
+                'col-2': randomString(random(1, 6)),
+                'col-3': randomString(random(1, 6)),
+                'col-4': randomString(random(1, 6)),
+                'col-5': randomString(random(1, 6)),
+                'col-6': randomString(random(1, 6)),
+                'col-7': randomString(random(1, 6)),
               })),
             },
           });
@@ -328,7 +417,7 @@ describe('grid-table', () => {
           await delay(10);
 
           const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
-          const ths = Array.from(page.getByClass('.mixte-gt-thead > .mixte-gt-tr').query()!.children) as HTMLDivElement[];
+          const ths = Array.from(tableWrap.querySelectorAll<HTMLDivElement>('.mixte-gt-th'));
           const cells = Array.from(tableWrap.querySelectorAll<HTMLDivElement>('.mixte-gt-cell'));
 
           const left0 = Number.parseInt(tableWrap.attributeStyleMap.get('--mixte-gt-fix-left-column-0-width')!.toString());

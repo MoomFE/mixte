@@ -19,14 +19,14 @@ export const [
 
     tableRef,
 
-    tableTheadSize,
+    tableTheadHeight,
   } = useShared()!;
 
   const { cumulativeHeights, updateRowHeight, findIndexByHeight } = useCumulativeHeights();
 
   /** 表格展示区高度 */
   const tableBodyHeight = computed(() => {
-    return tableWrapSize.height - tableTheadSize.height;
+    return tableWrapSize.height - tableTheadHeight.value;
   });
 
   /** 可见行的起始索引 */
@@ -55,9 +55,8 @@ export const [
   /** 表格高度 */
   const tableHeight = useCssVar('--mixte-gt-virtual-h', tableRef);
   const tableHeightWillChange = useCssVar('--mixte-gt-virtual-h-wc', tableRef);
-  /** 表格顶部不可见区域高度 */
-  const tableBodyPaddingTop = useCssVar('--mixte-gt-virtual-pt', tableRef);
-  const tableBodyPaddingTopWillChange = useCssVar('--mixte-gt-virtual-pt-wc', tableRef);
+  /** 表格顶部不可见区域高度 ( 虚拟表格占位 ) */
+  const tablePlaceholderHeight = useCssVar('--mixte-gt-virtual-ph', tableRef);
 
   wheneverEffectScopeImmediate(() => props.virtual, (_, __, onCleanup) => {
     watchImmediate(() => cumulativeHeights.value[cumulativeHeights.value.length - 1], (totalHeight) => {
@@ -65,21 +64,19 @@ export const [
     });
 
     watchImmediate(visibleStart, (start) => {
-      tableBodyPaddingTop.value = `${cumulativeHeights.value[start] || 0}px`;
+      tablePlaceholderHeight.value = `${cumulativeHeights.value[start] || 0}px`;
     });
 
     watch(() => tableWrapScroll.isScrolling, (isScrolling) => {
       tableHeightWillChange.value = isScrolling ? 'height' : undefined;
-      tableBodyPaddingTopWillChange.value = isScrolling ? 'padding-top' : undefined;
     }, {
       flush: 'sync',
     });
 
     onCleanup(() => {
       tableHeight.value = undefined;
-      tableBodyPaddingTop.value = undefined;
+      tablePlaceholderHeight.value = undefined;
       tableHeightWillChange.value = undefined;
-      tableBodyPaddingTopWillChange.value = undefined;
     });
   });
 

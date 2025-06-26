@@ -44,20 +44,16 @@ function getTableStructure<
 
   const getTableWrap = () => vm.find<HTMLDivElement>('.mixte-gt-wrap');
   const getTable = () => vm.find<HTMLDivElement>('.mixte-gt');
+  const getTableThs = () => vm.findAll<HTMLDivElement>('.mixte-gt-th.mixte-gt-cell');
+  const getTableTds = () => vm.findAll<HTMLDivElement>('.mixte-gt-td.mixte-gt-cell');
   const getTableLoading = () => vm.find<HTMLDivElement>('.mixte-gt-wrap > .mixte-gt-loading');
-  const getTableThead = () => vm.find<HTMLDivElement>('.mixte-gt-thead');
-  const getTableTheadTrs = () => vm.findAll<HTMLDivElement>('.mixte-gt-thead > .mixte-gt-tr');
-  const getTableTheadThs = () => vm.findAll<HTMLDivElement>('.mixte-gt-thead > .mixte-gt-tr > .mixte-gt-th.mixte-gt-cell');
-  const getTableTbody = () => vm.find<HTMLDivElement>('.mixte-gt-tbody');
-  const getTableTbodyTrs = () => vm.findAll<HTMLDivElement>('.mixte-gt-tbody > .mixte-gt-tr');
-  const getTableTbodyTds = () => vm.findAll<HTMLDivElement>('.mixte-gt-tbody > .mixte-gt-tr > .mixte-gt-td.mixte-gt-cell');
   const getTableEmptyWrap = () => vm.find<HTMLDivElement>('.mixte-gt-wrap > .mixte-gt > .mixte-gt-empty-wrap');
 
   const tableWrap = getTableWrap();
   const table = getTable();
+  const tableThs = getTableThs();
+  const tableTds = getTableTds();
   const tableLoading = getTableLoading();
-  const tableThead = getTableThead();
-  const tableTbody = getTableTbody();
   const tableEmptyWrap = getTableEmptyWrap();
 
   // 包裹层
@@ -81,28 +77,22 @@ function getTableStructure<
 
   // 表头
   if (options?.props?.columns?.length) {
-    expect(tableThead.exists()).toBe(true);
-    expect(tableThead.element).toBe(
-      options.props.data?.length
-        ? table.element.lastElementChild
-        : table.element.firstElementChild,
-    );
+    expect(tableThs.length).toBe(options.props.columns.length);
   }
   else {
-    expect(tableThead.exists()).toBe(false);
+    expect(tableThs.length).toBe(0);
   }
 
   // 表体 & 无数据部分
   if (!!options?.props?.columns?.length && !!options?.props?.data?.length) {
     // 表体
-    expect(tableTbody.exists()).toBe(true);
-    expect(tableTbody.element).toBe(table.element.firstElementChild);
+    expect(tableTds.length).toBe(options.props.columns.length * options.props.data.length);
     // 无数据部分
     expect(tableEmptyWrap.exists()).toBe(false);
   }
   else {
     // 表体
-    expect(tableTbody.exists()).toBe(false);
+    expect(tableTds.length).toBe(0);
     // 无数据部分
     expect(tableEmptyWrap.exists()).toBe(true);
     expect(tableEmptyWrap.element).toBe(table.element.lastElementChild);
@@ -115,23 +105,20 @@ function getTableStructure<
 
     getTableWrap,
     getTable,
+    getTableThs,
+    getTableTds,
     getTableLoading,
-    getTableThead,
-    getTableTheadTrs,
-    getTableTheadThs,
-    getTableTbody,
-    getTableTbodyTrs,
-    getTableTbodyTds,
     getTableEmptyWrap,
   };
 }
 
 describe('grid-table', () => {
   it('未传任何参数时, 不渲染表头和表体, 会渲染无数据部分', () => {
-    const { table, getTableThead, getTableTbody, getTableEmptyWrap } = getTableStructure();
+    const { table, getTableThs, getTableTds, getTableEmptyWrap } = getTableStructure();
+
     // 没有表头表体
-    expect(getTableThead().exists()).toBe(false);
-    expect(getTableTbody().exists()).toBe(false);
+    expect(getTableThs().length).toBe(0);
+    expect(getTableTds().length).toBe(0);
 
     // 主体下只有无数据部分
     expect(table.element.children.length).toBe(1);
@@ -139,34 +126,36 @@ describe('grid-table', () => {
   });
 
   it('仅传入表格列配置, 不渲染表体, 会渲染表头和无数据部分', () => {
-    const { table, getTableThead, getTableTbody, getTableEmptyWrap } = getTableStructure({
+    const columns = createColumns();
+    const { table, getTableThs, getTableTds, getTableEmptyWrap } = getTableStructure({
       props: {
-        columns: createColumns(),
+        columns,
       },
     });
 
     // 有表头, 没有表体
-    expect(getTableThead().exists()).toBe(true);
-    expect(getTableTbody().exists()).toBe(false);
+    expect(getTableThs().length).toBe(columns.length);
+    expect(getTableTds().length).toBe(0);
 
     // 主体下有表头和无数据部分
-    expect(table.element.children.length).toBe(2);
+    expect(table.element.children.length).toBe(columns.length + 1);
     expect(getTableEmptyWrap().exists()).toBe(true);
-    expect([getTableThead().element, getTableEmptyWrap().element]).toStrictEqual(
-      Array.from(table.element.children),
-    );
+    expect(Array.from(table.element.children)).toStrictEqual([
+      ...getTableThs().map(th => th.element),
+      getTableEmptyWrap().element,
+    ]);
   });
 
   it('仅传入数据源, 不渲染表头和表体, 会渲染无数据部分', () => {
-    const { table, getTableThead, getTableTbody, getTableEmptyWrap } = getTableStructure({
+    const { table, getTableThs, getTableTds, getTableEmptyWrap } = getTableStructure({
       props: {
         data: createData(),
       },
     });
 
     // 没有表头表体
-    expect(getTableThead().exists()).toBe(false);
-    expect(getTableTbody().exists()).toBe(false);
+    expect(getTableThs().length).toBe(0);
+    expect(getTableTds().length).toBe(0);
 
     // 主体下只有无数据部分
     expect(table.element.children.length).toBe(1);
@@ -176,7 +165,7 @@ describe('grid-table', () => {
   it('传入表格列配置和数据源, 渲染表头和表体, 无数据部分不渲染', () => {
     const columns = createColumns();
     const data = createData();
-    const { tableWrap, table } = getTableStructure({
+    const { tableWrap, table, getTableThs, getTableTds } = getTableStructure({
       props: {
         columns,
         data,
@@ -187,24 +176,11 @@ describe('grid-table', () => {
     expect(tableWrap.element.children.length).toBe(1);
 
     // 主体下有表头和表体
-    expect(table.element.children.length).toBe(2);
-    expect(table.element.lastElementChild?.classList.contains('mixte-gt-thead')).toBe(true);
-    expect(table.element.firstElementChild?.classList.contains('mixte-gt-tbody')).toBe(true);
-
-    // 表头
-    const thead = table.find('.mixte-gt-thead');
-    const tr = thead.find('.mixte-gt-tr');
-    const ths = tr.findAll('.mixte-gt-th.mixte-gt-cell');
-
-    expect(tr.exists()).toBe(true);
-    expect(tr.element).toBe(thead.element.firstElementChild);
-    expect(ths.length).toBe(columns.length);
-
-    // 表体
-    const tbody = table.find('.mixte-gt-tbody');
-    const trs = tbody.findAll('.mixte-gt-tr');
-
-    expect(trs.length).toBe(data.length);
+    expect(table.element.children.length).toBe(columns.length + columns.length * data.length);
+    expect(Array.from(table.element.children)).toStrictEqual([
+      ...getTableTds().map(td => td.element),
+      ...getTableThs().map(th => th.element),
+    ]);
   });
 
   it('传入 loading, 会渲染加载中部分', async () => {
@@ -245,7 +221,7 @@ describe('grid-table', () => {
         return `common: ${value}`;
       });
 
-      const { getTableTbodyTrs } = getTableStructure({
+      const { getTableTds } = getTableStructure({
         props: {
           columns,
           data,
@@ -258,24 +234,24 @@ describe('grid-table', () => {
       });
 
       it('优先级', () => {
-        getTableTbodyTrs().forEach((tr, index) => {
-          const item = data[index];
-          const name = tr.find('.mixte-gt-td.mixte-gt-cell:nth-child(2)');
-          const age = tr.find('.mixte-gt-td.mixte-gt-cell:nth-child(3)');
-          const gender = tr.find('.mixte-gt-td.mixte-gt-cell > .custem-gender');
+        getTableTds().forEach((td, index) => {
+          const colIndex = index % columns.length;
+          const column = columns[colIndex];
+          const item = data[Math.floor(index / columns.length)];
 
           // render 函数的渲染方式比插槽优先级高
-          expect(name.exists()).toBe(true);
-          expect(name.text()).toBe(`${item.name} (${item.nameEn})`);
-
+          if (column.field === 'name') {
+            expect(td.text()).toBe(`${item.name} (${item.nameEn})`);
+          }
           // 指定字段单元格插槽优先级第二
-          expect(gender.exists()).toBe(true);
-          expect(gender.text()).toBe(item.gender);
-          expect(gender.attributes('data-gender-value')).toBe(`${item.genderValue}`);
-
+          else if (column.field === 'gender') {
+            expect(td.text()).toBe(item.gender);
+            expect(td.find('.custem-gender').attributes('data-gender-value')).toBe(`${item.genderValue}`);
+          }
           // 通用字段单元格插槽优先级第三
-          expect(age.exists()).toBe(true);
-          expect(age.text()).toBe(`common: ${item.age}`);
+          else if (column.field === 'age') {
+            expect(td.text()).toBe(`common: ${item.age}`);
+          }
         });
       });
 
@@ -343,7 +319,7 @@ describe('grid-table', () => {
         { field: 'email', title: '邮箱' },
       ]);
 
-      const { getTableTheadThs } = getTableStructure({
+      const { getTableThs } = getTableStructure({
         props: {
           columns,
         },
@@ -355,7 +331,7 @@ describe('grid-table', () => {
       });
 
       it('优先级', () => {
-        const ths = getTableTheadThs();
+        const ths = getTableThs();
 
         // render 函数的渲染方式比插槽优先级高
         expect(ths[0].text()).toBe('姓名');
@@ -399,13 +375,13 @@ describe('grid-table', () => {
   describe('列配置', () => {
     it('表头名称: title', () => {
       const columns = createColumns();
-      const { getTableTheadThs } = getTableStructure({
+      const { getTableThs } = getTableStructure({
         props: {
           columns,
         },
       });
 
-      getTableTheadThs().forEach((th, index) => {
+      getTableThs().forEach((th, index) => {
         expect(th.text()).toBe(columns[index].title);
       });
     });
@@ -419,7 +395,7 @@ describe('grid-table', () => {
         { field: 'name', title: '姓名', headerRender },
         { field: 'age', title: '年龄' },
       ]);
-      const { getTableTheadThs } = getTableStructure({
+      const { getTableThs } = getTableStructure({
         props: {
           columns,
         },
@@ -428,13 +404,13 @@ describe('grid-table', () => {
       expect(headerRender).toHaveBeenCalledTimes(1);
       expect(headerRender).toHaveBeenCalledWith({ column: columns[0] }, null);
 
-      expect(getTableTheadThs()[0].text()).toBe('姓名');
-      expect(getTableTheadThs()[0].find('.custem-name-header').exists()).toBe(true);
-      expect(getTableTheadThs()[0].find('.custem-name-header').text()).toBe('姓名');
-      expect(getTableTheadThs()[0].find('.custem-name-header').element.parentElement).toBe(getTableTheadThs()[0].element);
+      expect(getTableThs()[0].text()).toBe('姓名');
+      expect(getTableThs()[0].find('.custem-name-header').exists()).toBe(true);
+      expect(getTableThs()[0].find('.custem-name-header').text()).toBe('姓名');
+      expect(getTableThs()[0].find('.custem-name-header').element.parentElement).toBe(getTableThs()[0].element);
 
-      expect(getTableTheadThs()[1].text()).toBe('年龄');
-      expect(getTableTheadThs()[1].find('.custem-name-header').exists()).toBe(false);
+      expect(getTableThs()[1].text()).toBe('年龄');
+      expect(getTableThs()[1].find('.custem-name-header').exists()).toBe(false);
     });
 
     it('列单元格自定义渲染方法: render', () => {
@@ -455,22 +431,22 @@ describe('grid-table', () => {
       ]);
       const data = createData();
 
-      const { table, getTableTbodyTrs } = getTableStructure<Fields>({
+      const { table, getTableTds } = getTableStructure<Fields>({
         props: {
           columns,
           data,
         },
       });
 
-      const trs = getTableTbodyTrs();
+      const tds = getTableTds();
 
       // name
       expect(nameRender).toHaveBeenCalledTimes(data.length);
       expect(table.findAll('.custem-render-name').length).toBe(data.length);
       data.forEach((item, i) => {
-        expect(trs[i].find('.custem-render-name').text()).toBe(`${item.name} (${item.nameEn})`);
-        expect(trs[i].find('.custem-render-name').element).toBe(trs[i].element.firstElementChild?.children[0]);
+        const td = tds[i * columns.length];
 
+        expect(td.text()).toBe(`${item.name} (${item.nameEn})`);
         expect(nameRender).toHaveBeenCalledWith(
           { value: item.name, record: item, column: columns[0], index: data.indexOf(item) },
           null,
@@ -480,8 +456,9 @@ describe('grid-table', () => {
       // age
       expect(ageRender).toHaveBeenCalledTimes(data.length);
       data.forEach((item, i) => {
-        expect(trs[i].element.lastElementChild?.textContent).toBe(`${item.age + 1}`);
+        const td = tds[i * columns.length + 1];
 
+        expect(td.text()).toBe(`${item.age + 1}`);
         expect(ageRender).toHaveBeenCalledWith(
           { value: item.age, record: item, column: columns[1], index: data.indexOf(item) },
           null,
@@ -501,14 +478,14 @@ describe('grid-table', () => {
         { field: 'status', title: '状态', align: true }, // @ts-expect-error
         { field: 'statusValue', title: '状态', align: false },
       ]);
-      const { getTableTheadThs, getTableTbodyTds } = getTableStructure({
+      const { getTableThs, getTableTds } = getTableStructure({
         props: {
           columns,
           data: createData(),
         },
       });
 
-      getTableTheadThs().forEach((th, index) => {
+      getTableThs().forEach((th, index) => {
         const colIndex = index % columns.length;
         const align = columns[colIndex].align;
 
@@ -518,7 +495,7 @@ describe('grid-table', () => {
           expect(th.classes().sort()).toStrictEqual(['mixte-gt-cell', 'mixte-gt-th'].sort());
       });
 
-      getTableTbodyTds().forEach((td, index) => {
+      getTableTds().forEach((td, index) => {
         const colIndex = index % columns.length;
         const align = columns[colIndex].align;
 

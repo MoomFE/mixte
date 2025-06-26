@@ -4,7 +4,7 @@
   <div
     class="mixte-gt-loading"
     :style="{
-      paddingTop: `${tableTheadSize.height}px`,
+      paddingTop: `${tableTheadHeight}px`,
     }"
   >
     <RenderSvg />
@@ -15,7 +15,7 @@
   import { useShared } from '../composables/useShared';
 
   const {
-    tableTheadSize,
+    tableTheadHeight,
   } = useShared()!;
 
   function RenderSvg() {

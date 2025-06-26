@@ -1,20 +1,26 @@
 <!-- 表体 -->
 
 <template>
-  <div class="mixte-gt-tbody">
-    <template v-if="props.virtual">
-      <component
-        v-for="(node, index) in data" :key="node.key"
-        :is="h(Tr, { node, index: visibleStart + index }, $slots)"
-      />
-    </template>
-    <template v-else>
-      <component
-        v-for="(node, index) in displayedData" :key="node.key"
-        :is="h(Tr, { node, index }, $slots)"
-      />
-    </template>
-  </div>
+  <template v-if="props.virtual">
+    <!-- 虚拟表格占位 -->
+    <div
+      class="mixte-gt-virtual-placeholder"
+      :style="{
+        gridColumnStart: `span ${props.columns?.length}`,
+      }"
+    />
+    <!-- 虚拟表格 -->
+    <component
+      v-for="(node, index) in data" :key="node.key"
+      :is="h(Tr, { node, index: visibleStart + index }, $slots)"
+    />
+  </template>
+  <template v-else>
+    <component
+      v-for="(node, index) in displayedData" :key="node.key"
+      :is="h(Tr, { node, index }, $slots)"
+    />
+  </template>
 </template>
 
 <script lang="ts" setup>

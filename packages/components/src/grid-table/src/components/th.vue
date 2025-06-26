@@ -2,8 +2,8 @@
   <div
     ref="thRef"
     class="mixte-gt-cell mixte-gt-th"
-    :class="classes"
-    :style
+    :class="cellClasses"
+    :style="[cellStyle, { zIndex: (zIndex ?? 0) + 1 }]"
   >
     <!-- 自定义渲染 -->
     <component
@@ -43,8 +43,8 @@
 
   defineSlots<GridTableHeaderSlots<any>>();
 
-  const { createCellStore } = useCell()!;
-  const { classes, style } = createCellStore(props.column.field, props.column);
+  const { createColumnStore } = useCell()!;
+  const { cellClasses, cellStyle, zIndex } = createColumnStore(props.column.field, props.column);
 
   const { thRef } = useTh(props.column);
 </script>
