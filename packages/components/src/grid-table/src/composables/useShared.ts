@@ -41,7 +41,7 @@ export const [
 
   const { treeMate, expandedRowSet, displayedData, updateExpanded } = useTreeData(props, {
     rowKey,
-    childrenKey,
+    childrenKey: childrenKey as any,
     expandedRowKeys,
   });
 

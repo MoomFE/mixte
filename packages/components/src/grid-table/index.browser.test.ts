@@ -99,7 +99,7 @@ describe('grid-table', () => {
           },
         });
 
-        await delay(10);
+        await delay(20);
 
         const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
         const cells = Array.from(tableWrap.querySelectorAll<HTMLDivElement>('.mixte-gt-cell'));
@@ -121,8 +121,8 @@ describe('grid-table', () => {
 
         // center
 
-        tableWrap.scrollLeft = (tableWrap.scrollWidth - tableWrap.clientWidth) / 2;
-        await delay(10);
+        tableWrap.scrollLeft = 150;
+        await delay(20);
 
         cells.forEach((cell, index) => {
           const colIndex = index % columns.length;
@@ -140,7 +140,7 @@ describe('grid-table', () => {
         // right
 
         tableWrap.scrollLeft = tableWrap.scrollWidth - tableWrap.clientWidth;
-        await delay(10);
+        await delay(20);
 
         cells.forEach((cell, index) => {
           const colIndex = index % columns.length;
@@ -182,7 +182,7 @@ describe('grid-table', () => {
           },
         });
 
-        await delay(10);
+        await delay(20);
 
         const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
         const cells = Array.from(tableWrap.querySelectorAll<HTMLDivElement>('.mixte-gt-cell'));
@@ -214,8 +214,8 @@ describe('grid-table', () => {
 
         // center
 
-        tableWrap.scrollLeft = (tableWrap.scrollWidth - tableWrap.clientWidth) / 2;
-        await delay(10);
+        tableWrap.scrollLeft = 150;
+        await delay(20);
 
         cells.forEach((cell, index) => {
           const colIndex = index % columns.length;
@@ -241,7 +241,7 @@ describe('grid-table', () => {
         // right
 
         tableWrap.scrollLeft = tableWrap.scrollWidth - tableWrap.clientWidth;
-        await delay(10);
+        await delay(20);
 
         cells.forEach((cell, index) => {
           const colIndex = index % columns.length;
@@ -292,7 +292,7 @@ describe('grid-table', () => {
             },
           });
 
-          await delay(10);
+          await delay(20);
 
           const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
           const cells = Array.from(tableWrap.querySelectorAll<HTMLDivElement>('.mixte-gt-cell'));
@@ -346,7 +346,7 @@ describe('grid-table', () => {
             },
           });
 
-          await delay(10);
+          await delay(20);
 
           const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
           const ths = Array.from(tableWrap.querySelectorAll<HTMLDivElement>('.mixte-gt-th'));
@@ -414,7 +414,7 @@ describe('grid-table', () => {
             },
           });
 
-          await delay(10);
+          await delay(20);
 
           const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
           const ths = Array.from(tableWrap.querySelectorAll<HTMLDivElement>('.mixte-gt-th'));

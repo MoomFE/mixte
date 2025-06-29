@@ -1,7 +1,9 @@
 import type { User } from '@/types';
+import type { GridTableColumn } from '@mixte/components/grid-table/types';
 import type { RenderProps } from './src/types';
 import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
 import { mount } from '@vue/test-utils';
+import { delay } from 'mixte';
 
 export type TestUser = Pick<User, 'id' | 'name' | 'nameEn' | 'age' | 'gender' | 'genderValue' | 'email' | 'address' | 'status' | 'statusValue'>;
 
@@ -98,6 +100,59 @@ function getTableStructure<
     expect(tableEmptyWrap.element).toBe(table.element.lastElementChild);
   }
 
+  /**
+   * 测试树形数据结构
+   */
+  function testTreeStructure() {
+    const columns = options?.props?.columns;
+    const data = options?.props?.data;
+
+    if (!columns?.length || !data?.length)
+      return;
+
+    const isExpandVisible = data.some(item => item.children?.length);
+    const expandColumnKey = vm.props().expandColumnKey ?? columns[0].field;
+    const expandColumnIndex = columns.findIndex(column => column.field === expandColumnKey);
+
+    expect(getTableTds().length).toBe(data.length * columns.length);
+
+    if (isExpandVisible && expandColumnIndex > -1) {
+      expect(tableWrap.findAll('.mixte-gt-cell-expand').length).toBe(data.length);
+      expect(tableWrap.findAll('.mixte-gt-cell-expand-icon').length).toBe(data.length);
+      expect(tableWrap.findAll('.mixte-gt-cell-expand-icon.mixte-gt-cell-expand-icon-spaced').length).toBe(
+        data.filter(item => !item.children?.length).length,
+      );
+    }
+    else {
+      expect(tableWrap.findAll('.mixte-gt-cell-expand').length).toBe(0);
+      expect(tableWrap.findAll('.mixte-gt-cell-expand-icon').length).toBe(0);
+      expect(tableWrap.findAll('.mixte-gt-cell-expand-icon.mixte-gt-cell-expand-icon-spaced').length).toBe(0);
+    }
+
+    isExpandVisible && getTableTds().forEach((td, index) => {
+      const columnIndex = index % columns.length;
+      const rowIndex = Math.floor(index / columns.length);
+      const item = data[rowIndex];
+
+      if (columnIndex === expandColumnIndex) {
+        expect(td.classes()).toContain('mixte-gt-cell-expand');
+        expect(td.find('.mixte-gt-cell-expand-icon').exists()).toBe(true);
+        expect(td.text()).toBe(item[expandColumnKey]);
+
+        if (item.children?.length) {
+          expect(td.find('.mixte-gt-cell-expand-icon').exists()).toBe(true);
+          expect(td.find('.mixte-gt-cell-expand-icon.mixte-gt-cell-expand-icon-spaced').exists()).toBe(false);
+        }
+        else {
+          expect(td.find('.mixte-gt-cell-expand-icon').exists()).toBe(true);
+          expect(td.find('.mixte-gt-cell-expand-icon.mixte-gt-cell-expand-icon-spaced').exists()).toBe(true);
+        }
+      }
+    });
+  }
+
+  testTreeStructure();
+
   return {
     vm,
     tableWrap,
@@ -109,6 +164,8 @@ function getTableStructure<
     getTableTds,
     getTableLoading,
     getTableEmptyWrap,
+
+    testTreeStructure,
   };
 }
 
@@ -202,6 +259,105 @@ describe('grid-table', () => {
 
     expect(tableWrap.element.children.length).toBe(2);
     expect(getTableLoading().exists()).toBe(true);
+  });
+
+  describe('树形数据', () => {
+    function createTreeColumns() {
+      return defineTableColumns([
+        { field: 'col-1', title: 'Col 1' },
+        { field: 'col-2', title: 'Col 2' },
+        { field: 'col-3', title: 'Col 3' },
+      ]);
+    }
+
+    function createTreeData() {
+      return [
+        {
+          'id': '1',
+          'col-1': '1-1',
+          'col-2': '1-2',
+          'col-3': '1-3',
+          'children': [
+            { 'id': '2', 'col-1': '1-1-1', 'col-2': '1-1-2', 'col-3': '1-1-3' },
+            { 'id': '3', 'col-1': '1-2-1', 'col-2': '1-2-2', 'col-3': '1-2-3' },
+          ],
+        },
+        { 'id': '4', 'col-1': '2-1', 'col-2': '2-2', 'col-3': '2-3' },
+        {
+          'id': '5',
+          'col-1': '3-1',
+          'col-2': '3-2',
+          'col-3': '3-3',
+          'children': [{
+            'col-1': '3-1-1',
+            'col-2': '3-1-2',
+            'col-3': '3-1-3',
+            'children': [{ 'id': '6', 'col-1': '3-1-1-1', 'col-2': '3-1-1-2', 'col-3': '3-1-1-3' }],
+          }],
+        },
+        { 'id': '7', 'col-1': '4-1', 'col-2': '4-2', 'col-3': '4-3' },
+        { 'id': '8', 'col-1': '5-1', 'col-2': '5-2', 'col-3': '5-3' },
+      ];
+    }
+
+    it('使用 expandColumnKey 修改显示展开按钮的列主键', async () => {
+      const columns = createTreeColumns();
+      const data = createTreeData();
+      const { vm, tableWrap, testTreeStructure } = getTableStructure({
+        props: {
+          columns,
+          data,
+        },
+      });
+
+      await vm.setProps({ expandColumnKey: 'col-2' });
+      testTreeStructure();
+      expect(tableWrap.findAll('.mixte-gt-cell-expand').length).toBe(data.length);
+
+      await vm.setProps({ expandColumnKey: 'col-3' });
+      testTreeStructure();
+      expect(tableWrap.findAll('.mixte-gt-cell-expand').length).toBe(data.length);
+
+      await vm.setProps({ expandColumnKey: 'col-1' });
+      testTreeStructure();
+      expect(tableWrap.findAll('.mixte-gt-cell-expand').length).toBe(data.length);
+
+      await vm.setProps({ expandColumnKey: 'xxx' });
+      testTreeStructure();
+      expect(tableWrap.findAll('.mixte-gt-cell-expand').length).toBe(0);
+    });
+
+    // 展开/收起行
+    // 树形数据层级缩进
+    // 多层嵌套展开
+    // 切换为普通数据 -> 切换回去
+    // 展开状态保持
+
+    // const expandIcons = tableWrap.findAll('.mixte-gt-cell-expand-icon');
+
+    // expandIcons[0].trigger('click');
+    // await delay(10);
+
+    // expect(getTableTds().length).toBe((data.length + data[0].children!.length) * columns.length);
+    // expect(tableWrap.findAll('.mixte-gt-cell-expand').length).toBe(data.length + data[0].children!.length);
+
+    // it('默认情况下, 在某一条数据包含 children 并且有数据时, 第一列将会标记为树形数据展开列', async () => {
+    //   const columns = createTreeColumns();
+    //   const data = createTreeData();
+    //   const { vm, tableWrap, testTreeStructure } = getTableStructure({
+    //     props: {
+    //       columns,
+    //       data,
+    //     },
+    //   });
+
+    //   // 没有数据有 children 时, 不会有任何列被标记为树形数据展开列
+    //   await vm.setProps({ // @ts-expect-error
+    //     data: createData(),
+    //   });
+
+    //   expect(tableWrap.findAll('.mixte-gt-cell-expand').length).toBe(0);
+    // });
   });
 
   describe('插槽', () => {

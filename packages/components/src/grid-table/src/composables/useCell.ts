@@ -70,7 +70,7 @@ export const [
     });
 
     const isExpandVisible = computed(() => {
-      return column.field === expandColumnKey.value && displayedData.value.some(node => node.rawNode[childrenKey.value]?.length > 0);
+      return column.field === expandColumnKey.value && displayedData.value.some(node => node.rawNode[childrenKey.value as any]?.length > 0);
     });
 
     const tdClasses = computed(() => {

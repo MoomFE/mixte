@@ -39,12 +39,12 @@ export interface GridTableProps<
    * 树形数据子节点字段名
    * @default 'children'
    */
-  childrenKey?: string;
+  childrenKey?: keyof Fields | 'children' | (string & {});
   /**
    * 显示展开按钮的列主键
    *  - 如果不设置, 则使用第一列作为展开列
    */
-  expandColumnKey?: string;
+  expandColumnKey?: keyof Fields | (string & {});
   /**
    * 树形数据展开的行主键列表
    *  - 支持通过 v-model:expandedRowKeys="xxx" 进行双向绑定
