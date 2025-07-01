@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.4]
+  - 📅 2025-07-01
   - 💄 [@mixte/components] 组件 `GridTable` 支持展开树形数据功能 *
   - 💄 [@mixte/components] 优化 `GridTable` 组件虚拟列表的动态高度计算相关逻辑 *
   - 💄 [@mixte/use] 优化 `useRequest` 的 `UseRequestOptions` 类型定义 *
@@ -109,7 +112,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.3...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.4...HEAD
+[v3.5.0-beta.4]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.4
 [v3.5.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.3
 [v3.5.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.2
 [v3.5.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.1
