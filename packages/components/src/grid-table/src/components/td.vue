@@ -2,7 +2,7 @@
   <div
     ref="tdRef"
     class="mixte-gt-cell mixte-gt-td"
-    :class="[cellClasses, tdClasses]"
+    :class="[cellClasses, tdClasses, column.cellClass, column.contentCellClass]"
     :style="[cellStyle, { zIndex }]"
   >
     <!-- 展开子级数据的按钮 -->

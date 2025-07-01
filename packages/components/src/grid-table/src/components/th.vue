@@ -2,7 +2,7 @@
   <div
     ref="thRef"
     class="mixte-gt-cell mixte-gt-th"
-    :class="cellClasses"
+    :class="[cellClasses, column.cellClass, column.headerCellClass]"
     :style="[cellStyle, { zIndex: (zIndex ?? 0) + 1 }]"
   >
     <!-- 自定义渲染 -->

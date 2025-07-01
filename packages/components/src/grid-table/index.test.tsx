@@ -1,9 +1,7 @@
 import type { User } from '@/types';
-import type { GridTableColumn } from '@mixte/components/grid-table/types';
 import type { RenderProps } from './src/types';
 import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
 import { mount } from '@vue/test-utils';
-import { delay } from 'mixte';
 
 export type TestUser = Pick<User, 'id' | 'name' | 'nameEn' | 'age' | 'gender' | 'genderValue' | 'email' | 'address' | 'status' | 'statusValue'>;
 
@@ -663,5 +661,65 @@ describe('grid-table', () => {
     });
 
     it('列固定: fixed ( 在浏览器模式中测试 )', () => {});
+
+    it('单元格样式类 ( th/td )', async () => {
+      const data = createData();
+      const { vm, getTableThs, getTableTds } = getTableStructure({
+        props: {
+          columns: [{ field: 'name', title: '姓名' }],
+          data,
+        },
+      });
+
+      expect(getTableThs().filter(th => th.classes().includes('mixte-666')).length).toBe(0);
+      expect(getTableTds().filter(td => td.classes().includes('mixte-666')).length).toBe(0);
+
+      await vm.setProps({
+        columns: [{ field: 'name', title: '姓名', cellClass: 'mixte-666' }],
+      });
+
+      expect(getTableThs().filter(th => th.classes().includes('mixte-666')).length).toBe(1);
+      expect(getTableTds().filter(td => td.classes().includes('mixte-666')).length).toBe(data.length);
+    });
+
+    it('表头单元格样式类 ( th )', async () => {
+      const data = createData();
+      const { vm, getTableThs, getTableTds } = getTableStructure({
+        props: {
+          columns: [{ field: 'name', title: '姓名' }],
+          data,
+        },
+      });
+
+      expect(getTableThs().filter(th => th.classes().includes('mixte-666')).length).toBe(0);
+      expect(getTableTds().filter(td => td.classes().includes('mixte-666')).length).toBe(0);
+
+      await vm.setProps({
+        columns: [{ field: 'name', title: '姓名', headerCellClass: 'mixte-666' }],
+      });
+
+      expect(getTableThs().filter(th => th.classes().includes('mixte-666')).length).toBe(1);
+      expect(getTableTds().filter(td => td.classes().includes('mixte-666')).length).toBe(0);
+    });
+
+    it('表体单元格样式类 ( td )', async () => {
+      const data = createData();
+      const { vm, getTableThs, getTableTds } = getTableStructure({
+        props: {
+          columns: [{ field: 'name', title: '姓名' }],
+          data,
+        },
+      });
+
+      expect(getTableThs().filter(th => th.classes().includes('mixte-666')).length).toBe(0);
+      expect(getTableTds().filter(td => td.classes().includes('mixte-666')).length).toBe(0);
+
+      await vm.setProps({
+        columns: [{ field: 'name', title: '姓名', contentCellClass: 'mixte-666' }],
+      });
+
+      expect(getTableThs().filter(th => th.classes().includes('mixte-666')).length).toBe(0);
+      expect(getTableTds().filter(td => td.classes().includes('mixte-666')).length).toBe(data.length);
+    });
   });
 });
