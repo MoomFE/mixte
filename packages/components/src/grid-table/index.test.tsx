@@ -259,6 +259,36 @@ describe('grid-table', () => {
     expect(getTableLoading().exists()).toBe(true);
   });
 
+  it('单元格上的 data-* 自定义属性', () => {
+    const columns = createColumns();
+    const data = createData();
+
+    const { getTableThs, getTableTds } = getTableStructure({
+      props: {
+        columns,
+        data,
+      },
+    });
+
+    const ths = getTableThs();
+    const tds = getTableTds();
+
+    ths.forEach((th, index) => {
+      const column = columns[index];
+
+      expect(th.attributes('data-field')).toBe(column.field);
+    });
+
+    tds.forEach((td, index) => {
+      const columnIndex = index % columns.length;
+      const rowIndex = Math.floor(index / columns.length);
+      const column = columns[columnIndex];
+
+      expect(td.attributes('data-field')).toBe(column.field);
+      expect(td.attributes('data-index')).toBe(String(rowIndex));
+    });
+  });
+
   describe('树形数据', () => {
     function createTreeColumns() {
       return defineTableColumns([

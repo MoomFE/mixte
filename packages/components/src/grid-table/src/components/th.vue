@@ -4,6 +4,7 @@
     class="mixte-gt-cell mixte-gt-th"
     :class="[cellClasses, column.cellClass, column.headerCellClass]"
     :style="[cellStyle, { zIndex: (zIndex ?? 0) + 1 }]"
+    :data-field="column.field"
   >
     <!-- 自定义渲染 -->
     <component

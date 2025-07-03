@@ -4,6 +4,8 @@
     class="mixte-gt-cell mixte-gt-td"
     :class="[cellClasses, tdClasses, column.cellClass, column.contentCellClass]"
     :style="[cellStyle, { zIndex }]"
+    :data-field="column.field"
+    :data-index="index"
   >
     <!-- 展开子级数据的按钮 -->
     <button
