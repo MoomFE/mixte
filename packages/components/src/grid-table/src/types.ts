@@ -50,6 +50,11 @@ export interface GridTableProps<
    *  - 支持通过 v-model:expandedRowKeys="xxx" 进行双向绑定
    */
   expandedRowKeys?: string[];
+  /**
+   * 展示树形数据时, 每层缩进的宽度, 以 px 为单位
+   * @default 15
+   */
+  expandedIndent?: number | `${number}`;
 }
 
 export interface RenderProps<

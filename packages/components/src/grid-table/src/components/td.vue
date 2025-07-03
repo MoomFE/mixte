@@ -19,7 +19,7 @@
           ? undefined
           : expanded ? 'mixte-gt-cell-expand-btn-expanded' : 'mixte-gt-cell-expand-btn-collapsed',
       ]"
-      :style="{ marginLeft: `${(node?.level ?? 0) * 15}px` }"
+      :style="{ marginLeft: `${(node?.level ?? 0) * expandedIndent}px` }"
       @click="updateExpanded(record[rowKey])"
     >
       <template v-if="!expandIconSpaced">
@@ -62,7 +62,7 @@
 
   const tdRef = ref<HTMLDivElement>();
 
-  const { props: tableProps, expandedRowSet, rowKey, childrenKey, updateExpanded } = useShared()!;
+  const { props: tableProps, expandedRowSet, rowKey, childrenKey, expandedIndent, updateExpanded } = useShared()!;
   const { createColumnStore } = useCell()!;
   const { columnIndex, cellClasses, cellStyle, zIndex, tdClasses, isExpandVisible } = createColumnStore(props.column.field, props.column);
 

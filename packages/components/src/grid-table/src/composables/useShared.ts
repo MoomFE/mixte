@@ -26,6 +26,11 @@ export const [
   const childrenKey = computed(() => props.childrenKey ?? 'children');
   /** 树形数据展开的列主键 */
   const expandColumnKey = computed(() => props.expandColumnKey ?? (props.columns?.[0]?.field ?? ''));
+  /** 树形数据缩进宽度 */
+  const expandedIndent = computed(() => {
+    let indent = props.expandedIndent;
+    return isNumeric(indent) && (indent = Number(indent)) >= 0 ? indent : 15;
+  });
 
   /** 预渲染的行数 */
   const overscan = computed(() => {
@@ -101,6 +106,7 @@ export const [
     rowKey,
     childrenKey,
     expandColumnKey,
+    expandedIndent,
     overscan,
     estimatedRowHeight,
 

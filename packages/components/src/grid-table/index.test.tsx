@@ -2,7 +2,7 @@ import type { User } from '@/types';
 import type { RenderProps } from './src/types';
 import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
 import { mount } from '@vue/test-utils';
-import { deepForEach, delay } from 'mixte';
+import { delay } from 'mixte';
 
 export type TestUser = Pick<User, 'id' | 'name' | 'nameEn' | 'age' | 'gender' | 'genderValue' | 'email' | 'address' | 'status' | 'statusValue'>;
 
@@ -345,14 +345,15 @@ describe('grid-table', () => {
           'col-2': '3-2',
           'col-3': '3-3',
           'children': [{
+            'id': '6',
             'col-1': '3-1-1',
             'col-2': '3-1-2',
             'col-3': '3-1-3',
-            'children': [{ 'id': '6', 'col-1': '3-1-1-1', 'col-2': '3-1-1-2', 'col-3': '3-1-1-3' }],
+            'children': [{ 'id': '7', 'col-1': '3-1-1-1', 'col-2': '3-1-1-2', 'col-3': '3-1-1-3' }],
           }],
         },
-        { 'id': '7', 'col-1': '4-1', 'col-2': '4-2', 'col-3': '4-3' },
-        { 'id': '8', 'col-1': '5-1', 'col-2': '5-2', 'col-3': '5-3' },
+        { 'id': '8', 'col-1': '4-1', 'col-2': '4-2', 'col-3': '4-3' },
+        { 'id': '9', 'col-1': '5-1', 'col-2': '5-2', 'col-3': '5-3' },
       ];
     }
 
@@ -489,35 +490,77 @@ describe('grid-table', () => {
       }
     });
 
-    // 树形数据层级缩进
+    it('层级缩进', async () => {
+      const columns = createTreeColumns();
+      const data = createTreeData();
+
+      const { vm } = getTableStructure({
+        props: {
+          columns,
+          data,
+        },
+      });
+
+      function getExpandBtn(index: number) {
+        return (vm.find(`.mixte-gt-cell-expand[data-index="${index}"] > .mixte-gt-cell-expand-btn`).element as HTMLDivElement);
+      }
+
+      await vm.find(`.mixte-gt-cell-expand[data-field="col-1"][data-index="2"] > .mixte-gt-cell-expand-btn`).trigger('click');
+      await delay(20);
+      await vm.find(`.mixte-gt-cell-expand[data-field="col-1"][data-index="3"] > .mixte-gt-cell-expand-btn`).trigger('click');
+      await delay(20);
+
+      // 默认
+      expect(getExpandBtn(0).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(1).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(2).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(3).style.marginLeft).toBe('15px');
+      expect(getExpandBtn(4).style.marginLeft).toBe('30px');
+      expect(getExpandBtn(5).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(6).style.marginLeft).toBe('0px');
+
+      // 自定义
+      await vm.setProps({
+        expandedIndent: 20,
+      });
+      await delay(20);
+      expect(getExpandBtn(0).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(1).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(2).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(3).style.marginLeft).toBe('20px');
+      expect(getExpandBtn(4).style.marginLeft).toBe('40px');
+      expect(getExpandBtn(5).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(6).style.marginLeft).toBe('0px');
+
+      // 负数
+      await vm.setProps({
+        expandedIndent: -10,
+      });
+      await delay(20);
+      expect(getExpandBtn(0).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(1).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(2).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(3).style.marginLeft).toBe('15px');
+      expect(getExpandBtn(4).style.marginLeft).toBe('30px');
+      expect(getExpandBtn(5).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(6).style.marginLeft).toBe('0px');
+
+      // 不合法
+      await vm.setProps({
+        expandedIndent: 'xxx' as any,
+      });
+      await delay(20);
+      expect(getExpandBtn(0).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(1).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(2).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(3).style.marginLeft).toBe('15px');
+      expect(getExpandBtn(4).style.marginLeft).toBe('30px');
+      expect(getExpandBtn(5).style.marginLeft).toBe('0px');
+      expect(getExpandBtn(6).style.marginLeft).toBe('0px');
+    });
+
     // 切换为普通数据 -> 切换回去
     // 展开状态保持
-
-    // const expandIcons = tableWrap.findAll('.mixte-gt-cell-expand-btn');
-
-    // expandIcons[0].trigger('click');
-    // await delay(10);
-
-    // expect(getTableTds().length).toBe((data.length + data[0].children!.length) * columns.length);
-    // expect(tableWrap.findAll('.mixte-gt-cell-expand').length).toBe(data.length + data[0].children!.length);
-
-    // it('默认情况下, 在某一条数据包含 children 并且有数据时, 第一列将会标记为树形数据展开列', async () => {
-    //   const columns = createTreeColumns();
-    //   const data = createTreeData();
-    //   const { vm, tableWrap, testTreeStructure } = getTableStructure({
-    //     props: {
-    //       columns,
-    //       data,
-    //     },
-    //   });
-
-    //   // 没有数据有 children 时, 不会有任何列被标记为树形数据展开列
-    //   await vm.setProps({ // @ts-expect-error
-    //     data: createData(),
-    //   });
-
-    //   expect(tableWrap.findAll('.mixte-gt-cell-expand').length).toBe(0);
-    // });
   });
 
   describe('插槽', () => {
