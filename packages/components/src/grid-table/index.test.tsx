@@ -184,6 +184,8 @@ function getTableStructure<
     tableWrap,
     table,
 
+    expandedRowKeys,
+
     getTableWrap,
     getTable,
     getTableThs,

@@ -11,7 +11,6 @@
   import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
   import { ElButton } from 'element-plus';
   import { randomNatural } from 'mixte';
-  import '@mixte/components/dist/grid-table/css/index.scss';
 
   interface User {
     id: string;

@@ -17,7 +17,6 @@
   import { useRequestReactive } from '@mixte/use';
   import axios from 'axios';
   import { ElButton, ElImage, ElTag } from 'element-plus';
-  import '@mixte/components/dist/grid-table/css/index.scss';
 
   const data = useRequestReactive(() => {
     return axios.post<ResponseData<ResponseListData<User>>>('https://m1.apifoxmock.com/m1/4781098-4434938-default/list/user', { pageSize: 66 });

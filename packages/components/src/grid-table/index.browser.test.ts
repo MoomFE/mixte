@@ -6,7 +6,6 @@ import { page } from '@vitest/browser/context';
 import { delay, random, randomString } from 'mixte';
 import { render } from 'vitest-browser-vue';
 import 'uno.css';
-import '@mixte/components/dist/grid-table/css/index.scss';
 import '@/vitest.locators';
 
 // @unocss-include

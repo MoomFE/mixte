@@ -1,5 +1,6 @@
 import type { ComponentExposed } from 'vue-component-type-helpers';
 import GridTable from './src/index.vue';
+import '@mixte/components/dist/grid-table/css/index.scss';
 
 export type {
   GridTableColumn as MixteGridTableColumn,
