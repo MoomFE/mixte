@@ -68,7 +68,7 @@
 ## [v3.0.0], [v3.0.0-beta.3], [v3.0.0-beta.2], [v3.0.0-beta.1]
   - 📅 2024-12-05
   - 🌟 新增 `@mixte/mel-components` 组件包
-  - 🌟 [@mixte/mel-components] 新增 `mel-select` 组件
+  - 🌟 [@mixte/mel-components] 新增 `MelSelect` 组件
   - 💄 [@mixte/components] 组件 `AutoGrid` 新增 `list` 参数
   - ⚠️ [@mixte/use] 调整 `wheneverEffectScope` 的 `watch` 触发时机为同步触发
   - ⚠️ [@mixte/components] 删除 `ListAutoGrid` 组件, 传递列表数据渲染的功能已合并至 `AutoGrid` 组件中
