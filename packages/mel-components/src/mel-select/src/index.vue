@@ -4,6 +4,7 @@
       ElSelect,
       {
         ...attrs,
+        ref: changeRef as VNodeRef,
         loading: props.loading || loading,
       },
       {
@@ -16,17 +17,16 @@
 </template>
 
 <script lang="tsx" setup>
-  import type { Ref } from 'vue';
+  import type { ComponentPublicInstance, Ref, VNodeRef } from 'vue';
+  import type { ComponentExposed } from 'vue-component-type-helpers';
   import type { MelSelectProps, MelSelectSlots, SelectInstance } from './types';
   import { useOptionsApi } from '@mixte/mel-components/utils';
   import { ElOption, ElSelect } from 'element-plus';
-  import { computed, h, ref, toRef, useAttrs } from 'vue';
+  import { computed, getCurrentInstance, h, toRef, useAttrs } from 'vue';
 
   const props = defineProps<MelSelectProps>();
   const slots = defineSlots<MelSelectSlots>();
   const attrs = useAttrs();
-
-  const selectRef = ref<SelectInstance>();
 
   const { propApi, api, loading } = useOptionsApi(toRef(props, 'optionsApi'));
 
@@ -49,8 +49,25 @@
     });
   }
 
-  defineExpose({
-    selectRef: selectRef as Ref<SelectInstance | undefined>,
-    api,
-  });
+  defineExpose<
+    ComponentExposed<typeof ElSelect> & {
+      selectRef: Ref<SelectInstance | undefined>;
+      api: ReturnType<typeof useOptionsApi>['api'];
+    }
+  >();
+
+  const vm = getCurrentInstance()!;
+
+  function changeRef(selectInstance: ComponentPublicInstance) {
+    const exposed = new Proxy({ api, selectRef: selectInstance }, {
+      get(target, key) {
+        return Reflect.get(target, key) ?? Reflect.get(selectInstance ?? {}, key);
+      },
+      has(target, key) {
+        return Reflect.has(target, key) || Reflect.has(selectInstance ?? {}, key);
+      },
+    });
+
+    vm.exposed = vm.exposeProxy = exposed;
+  }
 </script>
