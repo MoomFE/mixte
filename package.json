@@ -149,8 +149,8 @@
       "vue": "^3.5.17"
     },
     "patchedDependencies": {
-      "vue": "patches/vue.patch",
-      "@types/react": "patches/@types__react.patch"
+      "@types/react": "patches/@types__react.patch",
+      "vue": "patches/vue.patch"
     }
   },
   "simple-git-hooks": {
