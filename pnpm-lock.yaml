@@ -312,8 +312,8 @@ importers:
         specifier: ^66.3.3
         version: 66.3.3(postcss@8.5.3)(vite@7.0.3(@types/node@22.13.1)(jiti@2.4.2)(sass@1.85.1)(terser@5.37.0)(tsx@4.19.3)(yaml@2.8.0))(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.2))
       unocss-preset-extra:
-        specifier: ^0.5.3
-        version: 0.5.3(unocss@66.3.3(postcss@8.5.3)(vite@7.0.3(@types/node@22.13.1)(jiti@2.4.2)(sass@1.85.1)(terser@5.37.0)(tsx@4.19.3)(yaml@2.8.0))(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.2)))
+        specifier: ^1.0.0
+        version: 1.0.0(unocss@66.3.3(postcss@8.5.3)(vite@7.0.3(@types/node@22.13.1)(jiti@2.4.2)(sass@1.85.1)(terser@5.37.0)(tsx@4.19.3)(yaml@2.8.0))(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.2)))
       unocss-preset-scrollbar:
         specifier: ^3.2.0
         version: 3.2.0(unocss@66.3.3(postcss@8.5.3)(vite@7.0.3(@types/node@22.13.1)(jiti@2.4.2)(sass@1.85.1)(terser@5.37.0)(tsx@4.19.3)(yaml@2.8.0))(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.2)))
@@ -7499,10 +7499,10 @@ packages:
     resolution: {integrity: sha512-6bc58dPYhCMHHuwxldQxO3RRNZ4eCogZ/st++0+fcC1nr0jiGUtAdBJ2qzmLQWSxbtz42pWt4QQMiZ9HvZf5cg==}
     engines: {node: '>=0.10.0'}
 
-  unocss-preset-extra@0.5.3:
-    resolution: {integrity: sha512-rRosBmJ3S8/97o/l4J1lc3AJnSGMSD1FgDs4bvUWmrz2OQvPheuZluL8xULEd5MGwHjw4vAwYkue114pnVelzA==}
+  unocss-preset-extra@1.0.0:
+    resolution: {integrity: sha512-TByZwhEp3ChfND2fSiMTz023m1ghUPmuKpnhFG5/Uc9mCmL7eEV7y6nw06IE48m1niG1fI9THI4hWn5CpQ4JdA==}
     peerDependencies:
-      unocss: '>= 0.31.0 < 1'
+      unocss: '>= 0.31.0'
 
   unocss-preset-scrollbar@3.2.0:
     resolution: {integrity: sha512-j8BOoh2RgPm2U8XqEjMQ+XQk4YWYPH4T+yzv3fndxS+VpdizQinMvHmfsZGLN3yMv7I4O5Qi8fVTlQDhETyzbA==}
@@ -16470,7 +16470,7 @@ snapshots:
     dependencies:
       normalize-path: 2.1.1
 
-  unocss-preset-extra@0.5.3(unocss@66.3.3(postcss@8.5.3)(vite@7.0.3(@types/node@22.13.1)(jiti@2.4.2)(sass@1.85.1)(terser@5.37.0)(tsx@4.19.3)(yaml@2.8.0))(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.2))):
+  unocss-preset-extra@1.0.0(unocss@66.3.3(postcss@8.5.3)(vite@7.0.3(@types/node@22.13.1)(jiti@2.4.2)(sass@1.85.1)(terser@5.37.0)(tsx@4.19.3)(yaml@2.8.0))(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.2))):
     dependencies:
       unocss: 66.3.3(postcss@8.5.3)(vite@7.0.3(@types/node@22.13.1)(jiti@2.4.2)(sass@1.85.1)(terser@5.37.0)(tsx@4.19.3)(yaml@2.8.0))(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.2))
 
