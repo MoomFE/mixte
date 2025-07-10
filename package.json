@@ -128,7 +128,7 @@
     "type-fest": "^4.37.0",
     "typescript": "~5.8.2",
     "unocss": "^66.3.3",
-    "unocss-preset-extra": "^0.5.3",
+    "unocss-preset-extra": "^1.0.0",
     "unocss-preset-scrollbar": "^3.2.0",
     "unplugin-auto-import": "^19.1.1",
     "unplugin-icons": "^22.1.0",
