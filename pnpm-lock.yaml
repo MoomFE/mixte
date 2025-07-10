@@ -339,8 +339,8 @@ importers:
         specifier: ^3.2.3
         version: 3.2.3(@types/debug@4.1.12)(@types/node@22.13.1)(@vitest/browser@3.2.3)(@vitest/ui@3.2.3)(jiti@2.4.2)(jsdom@26.0.0)(sass@1.85.1)(terser@5.37.0)(tsx@4.19.3)(yaml@2.8.0)
       vitest-browser-vue:
-        specifier: ^0.2.0
-        version: 0.2.0(@vitest/browser@3.2.3)(vitest@3.2.3)(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.2))
+        specifier: ^1.0.0
+        version: 1.0.0(@vitest/browser@3.2.3)(vitest@3.2.3)(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.2))
       vue:
         specifier: ^3.5.17
         version: 3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.2)
@@ -7893,12 +7893,12 @@ packages:
       postcss:
         optional: true
 
-  vitest-browser-vue@0.2.0:
-    resolution: {integrity: sha512-18v3uUQebbtSba2jbqcRvqfUCebd3f0nFA3BLKFZF9P0vnj7QgOm2JAxlcCA1ytNSnyzV3OtnNeNpThRaW6AfA==}
+  vitest-browser-vue@1.0.0:
+    resolution: {integrity: sha512-zAIPkxcOL6gPlLVLm/sfVTqYDQD2LBh7VTRxjy3Eef9qBRXMdPTsq/B5ZfxGno4u4gZNljLzCe4iXJVudfNZJA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
-      '@vitest/browser': ^2.1.0 || ^3.0.0-0
-      vitest: ^2.1.0 || ^3.0.0-0
+      '@vitest/browser': ^2.1.0 || ^3.0.0 || ^4.0.0-0
+      vitest: ^2.1.0 || ^3.0.0 || ^4.0.0-0
       vue: ^3.5.17
 
   vitest@3.2.3:
@@ -16856,7 +16856,7 @@ snapshots:
       - typescript
       - universal-cookie
 
-  vitest-browser-vue@0.2.0(@vitest/browser@3.2.3)(vitest@3.2.3)(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.2)):
+  vitest-browser-vue@1.0.0(@vitest/browser@3.2.3)(vitest@3.2.3)(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.2)):
     dependencies:
       '@vitest/browser': 3.2.3(playwright@1.52.0)(vite@7.0.3(@types/node@22.13.1)(jiti@2.4.2)(sass@1.85.1)(terser@5.37.0)(tsx@4.19.3)(yaml@2.8.0))(vitest@3.2.3)
       '@vue/test-utils': 2.4.6

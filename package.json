@@ -137,7 +137,7 @@
     "vite": "^7.0.3",
     "vitepress": "^1.6.3",
     "vitest": "^3.2.3",
-    "vitest-browser-vue": "^0.2.0",
+    "vitest-browser-vue": "^1.0.0",
     "vue": "^3.5.17",
     "vue-component-type-helpers": "catalog:",
     "vue-draggable-plus": "catalog:",
