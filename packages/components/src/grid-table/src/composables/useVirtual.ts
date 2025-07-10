@@ -2,6 +2,7 @@ import { watchImmediate, wheneverEffectScopeImmediate } from '@mixte/use';
 import { createInjectionState, useCssVar } from '@vueuse/core';
 import { computed, ref, watch } from 'vue';
 import { useShared } from './useShared';
+import { useTreeData } from './useTreeData';
 
 export const [
   useVirtualStore,
@@ -12,8 +13,6 @@ export const [
 
     overscan,
 
-    displayedData,
-
     tableWrapSize,
     tableWrapScroll,
 
@@ -21,6 +20,8 @@ export const [
 
     tableTheadHeight,
   } = useShared()!;
+
+  const { displayedData } = useTreeData()!;
 
   const { cumulativeHeights, updateRowHeight, findIndexByHeight } = useCumulativeHeights();
 
@@ -90,7 +91,8 @@ export const [
 });
 
 function useCumulativeHeights() {
-  const { estimatedRowHeight, displayedData } = useShared()!;
+  const { estimatedRowHeight } = useShared()!;
+  const { displayedData } = useTreeData()!;
 
   /** 实际行高度集合, key 为行对象本身 */
   const realRowsHeight = new WeakMap<object, number>();

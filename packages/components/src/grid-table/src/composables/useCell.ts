@@ -5,6 +5,7 @@ import { createNamedSharedComposable, watchImmediate, wheneverEffectScopeImmedia
 import { createInjectionState, syncRef, useCssVar, useElementSize } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import { useShared } from './useShared';
+import { useTreeData } from './useTreeData';
 
 export const [
   useCellStore,
@@ -16,13 +17,13 @@ export const [
     childrenKey,
     expandColumnKey,
 
-    displayedData,
-
     fixedLeftColumns,
     fixedRightColumns,
 
     tableWrapScroll,
   } = useShared()!;
+
+  const { displayedData } = useTreeData()!;
 
   const createColumnStore = createNamedSharedComposable((column: GridTableColumn<Record<string, any>>) => {
     const columnIndex = computed(() => props.columns?.findIndex(({ field }) => field === column.field) ?? -1);

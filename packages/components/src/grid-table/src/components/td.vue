@@ -48,6 +48,7 @@
   import { computed, onMounted, ref, watch } from 'vue';
   import { useCell } from '../composables/useCell';
   import { useShared } from '../composables/useShared';
+  import { useTreeData } from '../composables/useTreeData';
   import { useVirtual } from '../composables/useVirtual';
 
   interface Props {
@@ -62,7 +63,8 @@
 
   const tdRef = ref<HTMLDivElement>();
 
-  const { props: tableProps, expandedRowSet, rowKey, childrenKey, expandedIndent, updateExpanded } = useShared()!;
+  const { props: tableProps, rowKey, childrenKey, expandedIndent } = useShared()!;
+  const { expandedRowSet, updateExpanded } = useTreeData()!;
   const { createColumnStore } = useCell()!;
   const { columnIndex, cellClasses, cellStyle, zIndex, tdClasses, isExpandVisible } = createColumnStore(props.column.field, props.column);
 

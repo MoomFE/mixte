@@ -26,6 +26,7 @@
   import Thead from './components/thead.vue';
   import { useCellStore } from './composables/useCell';
   import { useSharedStore } from './composables/useShared';
+  import { useTreeDataStore } from './composables/useTreeData';
   import { useVirtualStore } from './composables/useVirtual';
 
   const props = defineProps<GridTableProps<Fields>>();
@@ -44,10 +45,19 @@
     expandedRowKeys,
   });
 
+  const { expandAllRows, expandRows, collapseAllRows, collapseRows } = useTreeDataStore();
+
   useVirtualStore();
 
   useCellStore();
 
   const showThead = computed(() => !!props.columns?.length);
   const showTbody = computed(() => !!props.columns?.length && !!props.data?.length);
+
+  defineExpose({
+    expandAllRows,
+    expandRows,
+    collapseAllRows,
+    collapseRows,
+  });
 </script>

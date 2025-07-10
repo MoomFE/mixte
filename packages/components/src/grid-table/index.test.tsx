@@ -389,114 +389,11 @@ describe('grid-table', () => {
       expect(tableWrap.findAll('.mixte-gt-cell-expand').length).toBe(0);
     });
 
-    it('树形数据行的展开/收起', async () => {
-      const columns = createTreeColumns();
-      const data = createTreeData();
-      const { vm, testTreeStructure } = getTableStructure({
-        props: {
-          columns,
-          data,
-        },
-      });
-
-      // 初始状态
-      {
-        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
-
-        expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(5);
-
-        expect(expandIcons.length).toBe(2);
-        expect(expandIcons[0].text()).toBe('1-1');
-        expect(expandIcons[0].attributes('data-index')).toBe('0');
-        expect(expandIcons[1].text()).toBe('3-1');
-        expect(expandIcons[1].attributes('data-index')).toBe('2');
-      }
-
-      // 展开第一个
-      {
-        await vm.find(`.mixte-gt-cell-expand[data-field="col-1"][data-index="0"] > .mixte-gt-cell-expand-btn`).trigger('click');
-        await delay(20);
-        testTreeStructure();
-
-        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
-
-        expect(expandIcons.length).toBe(2);
-        expect(expandIcons[0].text()).toBe('1-1');
-        expect(expandIcons[0].attributes('data-index')).toBe('0');
-        expect(expandIcons[1].text()).toBe('3-1');
-        expect(expandIcons[1].attributes('data-index')).toBe('4');
-      }
-
-      // 收起第一个
-      {
-        await vm.find(`.mixte-gt-cell-expand[data-field="col-1"][data-index="0"] > .mixte-gt-cell-expand-btn`).trigger('click');
-        await delay(20);
-        testTreeStructure();
-
-        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
-
-        expect(expandIcons.length).toBe(2);
-        expect(expandIcons[0].text()).toBe('1-1');
-        expect(expandIcons[0].attributes('data-index')).toBe('0');
-        expect(expandIcons[1].text()).toBe('3-1');
-        expect(expandIcons[1].attributes('data-index')).toBe('2');
-      }
-
-      // 展开第三个
-      {
-        await vm.find(`.mixte-gt-cell-expand[data-field="col-1"][data-index="2"] > .mixte-gt-cell-expand-btn`).trigger('click');
-        await delay(20);
-        testTreeStructure();
-
-        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
-
-        expect(expandIcons.length).toBe(3);
-        expect(expandIcons[0].text()).toBe('1-1');
-        expect(expandIcons[0].attributes('data-index')).toBe('0');
-        expect(expandIcons[1].text()).toBe('3-1');
-        expect(expandIcons[1].attributes('data-index')).toBe('2');
-        expect(expandIcons[2].text()).toBe('3-1-1');
-        expect(expandIcons[2].attributes('data-index')).toBe('3');
-      }
-
-      // 展开第三个的子级
-      {
-        await vm.find(`.mixte-gt-cell-expand[data-field="col-1"][data-index="3"] > .mixte-gt-cell-expand-btn`).trigger('click');
-        await delay(20);
-        testTreeStructure();
-
-        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
-
-        expect(expandIcons.length).toBe(3);
-        expect(expandIcons[0].text()).toBe('1-1');
-        expect(expandIcons[0].attributes('data-index')).toBe('0');
-        expect(expandIcons[1].text()).toBe('3-1');
-        expect(expandIcons[1].attributes('data-index')).toBe('2');
-        expect(expandIcons[2].text()).toBe('3-1-1');
-        expect(expandIcons[2].attributes('data-index')).toBe('3');
-      }
-
-      // 收起第三个
-      {
-        await vm.find(`.mixte-gt-cell-expand[data-field="col-1"][data-index="2"] > .mixte-gt-cell-expand-btn`).trigger('click');
-        await delay(20);
-        testTreeStructure();
-
-        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
-
-        expect(expandIcons.length).toBe(2);
-        expect(expandIcons[0].text()).toBe('1-1');
-        expect(expandIcons[0].attributes('data-index')).toBe('0');
-        expect(expandIcons[1].text()).toBe('3-1');
-        expect(expandIcons[1].attributes('data-index')).toBe('2');
-      }
-    });
-
-    it('层级缩进', async () => {
+    it('自定义层级缩进宽度', async () => {
       const columns = createTreeColumns();
       const data = createTreeData();
 
-      const { vm } = getTableStructure({
+      const { vm, expandedRowKeys } = getTableStructure({
         props: {
           columns,
           data,
@@ -507,10 +404,13 @@ describe('grid-table', () => {
         return (vm.find(`.mixte-gt-cell-expand[data-index="${index}"] > .mixte-gt-cell-expand-btn`).element as HTMLDivElement);
       }
 
+      expect(expandedRowKeys.value).toEqual([]);
       await vm.find(`.mixte-gt-cell-expand[data-field="col-1"][data-index="2"] > .mixte-gt-cell-expand-btn`).trigger('click');
       await delay(20);
+      expect(expandedRowKeys.value).toEqual(['5']);
       await vm.find(`.mixte-gt-cell-expand[data-field="col-1"][data-index="3"] > .mixte-gt-cell-expand-btn`).trigger('click');
       await delay(20);
+      expect(expandedRowKeys.value).toEqual(['5', '6']);
 
       // 默认
       expect(getExpandBtn(0).style.marginLeft).toBe('0px');
@@ -561,8 +461,309 @@ describe('grid-table', () => {
       expect(getExpandBtn(6).style.marginLeft).toBe('0px');
     });
 
-    // 切换为普通数据 -> 切换回去
-    // 展开状态保持
+    it('树形数据行的展开/收起', async () => {
+      const columns = createTreeColumns();
+      const data = createTreeData();
+      const { vm, expandedRowKeys, testTreeStructure } = getTableStructure({
+        props: {
+          columns,
+          data,
+        },
+      });
+
+      // 初始状态
+      {
+        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
+
+        expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(5);
+
+        expect(expandIcons.length).toBe(2);
+        expect(expandIcons[0].text()).toBe('1-1');
+        expect(expandIcons[0].attributes('data-index')).toBe('0');
+        expect(expandIcons[1].text()).toBe('3-1');
+        expect(expandIcons[1].attributes('data-index')).toBe('2');
+
+        expect(expandedRowKeys.value).toEqual([]);
+      }
+
+      // 展开第一个
+      {
+        await vm.find(`.mixte-gt-cell-expand[data-field="col-1"][data-index="0"] > .mixte-gt-cell-expand-btn`).trigger('click');
+        await delay(20);
+        testTreeStructure();
+
+        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
+
+        expect(expandIcons.length).toBe(2);
+        expect(expandIcons[0].text()).toBe('1-1');
+        expect(expandIcons[0].attributes('data-index')).toBe('0');
+        expect(expandIcons[1].text()).toBe('3-1');
+        expect(expandIcons[1].attributes('data-index')).toBe('4');
+
+        expect(expandedRowKeys.value).toEqual(['1']);
+      }
+
+      // 收起第一个
+      {
+        await vm.find(`.mixte-gt-cell-expand[data-field="col-1"][data-index="0"] > .mixte-gt-cell-expand-btn`).trigger('click');
+        await delay(20);
+        testTreeStructure();
+
+        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
+
+        expect(expandIcons.length).toBe(2);
+        expect(expandIcons[0].text()).toBe('1-1');
+        expect(expandIcons[0].attributes('data-index')).toBe('0');
+        expect(expandIcons[1].text()).toBe('3-1');
+        expect(expandIcons[1].attributes('data-index')).toBe('2');
+
+        expect(expandedRowKeys.value).toEqual([]);
+      }
+
+      // 展开第三个
+      {
+        await vm.find(`.mixte-gt-cell-expand[data-field="col-1"][data-index="2"] > .mixte-gt-cell-expand-btn`).trigger('click');
+        await delay(20);
+        testTreeStructure();
+
+        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
+
+        expect(expandIcons.length).toBe(3);
+        expect(expandIcons[0].text()).toBe('1-1');
+        expect(expandIcons[0].attributes('data-index')).toBe('0');
+        expect(expandIcons[1].text()).toBe('3-1');
+        expect(expandIcons[1].attributes('data-index')).toBe('2');
+        expect(expandIcons[2].text()).toBe('3-1-1');
+        expect(expandIcons[2].attributes('data-index')).toBe('3');
+
+        expect(expandedRowKeys.value).toEqual(['5']);
+      }
+
+      // 展开第三个的子级
+      {
+        await vm.find(`.mixte-gt-cell-expand[data-field="col-1"][data-index="3"] > .mixte-gt-cell-expand-btn`).trigger('click');
+        await delay(20);
+        testTreeStructure();
+
+        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
+
+        expect(expandIcons.length).toBe(3);
+        expect(expandIcons[0].text()).toBe('1-1');
+        expect(expandIcons[0].attributes('data-index')).toBe('0');
+        expect(expandIcons[1].text()).toBe('3-1');
+        expect(expandIcons[1].attributes('data-index')).toBe('2');
+        expect(expandIcons[2].text()).toBe('3-1-1');
+        expect(expandIcons[2].attributes('data-index')).toBe('3');
+
+        expect(expandedRowKeys.value).toEqual(['5', '6']);
+      }
+
+      // 收起第三个
+      {
+        await vm.find(`.mixte-gt-cell-expand[data-field="col-1"][data-index="2"] > .mixte-gt-cell-expand-btn`).trigger('click');
+        await delay(20);
+        testTreeStructure();
+
+        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
+
+        expect(expandIcons.length).toBe(2);
+        expect(expandIcons[0].text()).toBe('1-1');
+        expect(expandIcons[0].attributes('data-index')).toBe('0');
+        expect(expandIcons[1].text()).toBe('3-1');
+        expect(expandIcons[1].attributes('data-index')).toBe('2');
+
+        expect(expandedRowKeys.value).toEqual(['6']);
+      }
+    });
+
+    it('通过 expandedRowKeys 双向绑定展开的行', async () => {
+      const columns = createTreeColumns();
+      const data = createTreeData();
+      const { vm, expandedRowKeys, testTreeStructure } = getTableStructure({
+        props: {
+          columns,
+          data,
+        },
+      });
+
+      // 初始状态
+      expect(expandedRowKeys.value).toEqual([]);
+
+      // 展开第一个
+      {
+        expandedRowKeys.value.push('1');
+        vm.setProps({
+          expandedRowKeys: expandedRowKeys.value,
+        });
+        await delay(20);
+        testTreeStructure();
+
+        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
+
+        expect(expandIcons.length).toBe(2);
+        expect(expandIcons[0].text()).toBe('1-1');
+        expect(expandIcons[0].attributes('data-index')).toBe('0');
+        expect(expandIcons[1].text()).toBe('3-1');
+        expect(expandIcons[1].attributes('data-index')).toBe('4');
+      }
+
+      // 收起第一个
+      {
+        expandedRowKeys.value.splice(0, 1);
+        vm.setProps({
+          expandedRowKeys: expandedRowKeys.value,
+        });
+        await delay(20);
+        testTreeStructure();
+
+        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
+
+        expect(expandIcons.length).toBe(2);
+        expect(expandIcons[0].text()).toBe('1-1');
+        expect(expandIcons[0].attributes('data-index')).toBe('0');
+        expect(expandIcons[1].text()).toBe('3-1');
+        expect(expandIcons[1].attributes('data-index')).toBe('2');
+      }
+
+      // 展开第三个
+      {
+        expandedRowKeys.value.push('5');
+        vm.setProps({
+          expandedRowKeys: expandedRowKeys.value,
+        });
+        await delay(20);
+        testTreeStructure();
+
+        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
+
+        expect(expandIcons.length).toBe(3);
+        expect(expandIcons[0].text()).toBe('1-1');
+        expect(expandIcons[0].attributes('data-index')).toBe('0');
+        expect(expandIcons[1].text()).toBe('3-1');
+        expect(expandIcons[1].attributes('data-index')).toBe('2');
+        expect(expandIcons[2].text()).toBe('3-1-1');
+        expect(expandIcons[2].attributes('data-index')).toBe('3');
+      }
+
+      // 展开第三个的子级
+      {
+        expandedRowKeys.value.push('6');
+        vm.setProps({
+          expandedRowKeys: expandedRowKeys.value,
+        });
+        await delay(20);
+        testTreeStructure();
+
+        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
+
+        expect(expandIcons.length).toBe(3);
+        expect(expandIcons[0].text()).toBe('1-1');
+        expect(expandIcons[0].attributes('data-index')).toBe('0');
+        expect(expandIcons[1].text()).toBe('3-1');
+        expect(expandIcons[1].attributes('data-index')).toBe('2');
+        expect(expandIcons[2].text()).toBe('3-1-1');
+        expect(expandIcons[2].attributes('data-index')).toBe('3');
+      }
+
+      // 收起第三个
+      {
+        expandedRowKeys.value.splice(0, 1);
+        vm.setProps({
+          expandedRowKeys: expandedRowKeys.value,
+        });
+        await delay(20);
+        testTreeStructure();
+
+        const expandIcons = vm.findAll(`.mixte-gt-cell-expand:has(> .mixte-gt-cell-expand-btn:not(.mixte-gt-cell-expand-btn-spaced))`);
+
+        expect(expandIcons.length).toBe(2);
+        expect(expandIcons[0].text()).toBe('1-1');
+        expect(expandIcons[0].attributes('data-index')).toBe('0');
+        expect(expandIcons[1].text()).toBe('3-1');
+        expect(expandIcons[1].attributes('data-index')).toBe('2');
+      }
+    });
+
+    it('切换数据时, expandedRowKeys 会自动移除掉不在新数据中的 keys', async () => {
+      const { vm, expandedRowKeys } = getTableStructure({
+        props: {
+          columns: createTreeColumns(),
+          data: createTreeData(),
+        },
+      });
+
+      vm.vm.expandAllRows();
+      expect(expandedRowKeys.value).toEqual(['1', '5', '6']);
+
+      await vm.setProps({
+        data: [createTreeData()[0]],
+      });
+
+      expect(expandedRowKeys.value).toEqual(['1']);
+
+      await vm.setProps({
+        data: createTreeData(),
+      });
+
+      expect(expandedRowKeys.value).toEqual(['1']);
+
+      await vm.setProps({
+        data: [],
+      });
+
+      expect(expandedRowKeys.value).toEqual([]);
+    });
+
+    it('使用对外导出的 expandAllRows / expandRows / collapseAllRows / collapseRows 方法展开/折叠行', async () => {
+      const { vm, expandedRowKeys, testTreeStructure } = getTableStructure({
+        props: {
+          columns: createTreeColumns(),
+          data: createTreeData(),
+        },
+      });
+
+      expect(expandedRowKeys.value).toEqual([]);
+      expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(5);
+
+      // expandAllRows
+
+      vm.vm.expandAllRows();
+      expect(expandedRowKeys.value).toEqual(['1', '5', '6']);
+      expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(5);
+
+      await delay(20);
+      testTreeStructure();
+      expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(9);
+
+      // collapseAllRows
+
+      vm.vm.collapseAllRows();
+      expect(expandedRowKeys.value).toEqual([]);
+      expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(9);
+
+      await delay(20);
+      testTreeStructure();
+      expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(5);
+
+      // expandRows
+
+      vm.vm.expandRows(['1', '5']);
+      expect(expandedRowKeys.value).toEqual(['1', '5']);
+      expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(5);
+
+      await delay(20);
+      testTreeStructure();
+      expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(8);
+
+      // collapseRows
+
+      vm.vm.collapseRows(['1']);
+      expect(expandedRowKeys.value).toEqual(['5']);
+
+      await delay(20);
+      testTreeStructure();
+      expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(6);
+    });
   });
 
   describe('插槽', () => {

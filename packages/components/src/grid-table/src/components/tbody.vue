@@ -27,11 +27,13 @@
   import type { GridTableFieldsSlots } from '@mixte/components/grid-table/types';
   import { h } from 'vue';
   import { useShared } from '../composables/useShared';
+  import { useTreeData } from '../composables/useTreeData';
   import { useVirtual } from '../composables/useVirtual';
   import Tr from './tr.vue';
 
   defineSlots<GridTableFieldsSlots<any>>();
 
-  const { props, displayedData } = useShared()!;
+  const { props } = useShared()!;
+  const { displayedData } = useTreeData()!;
   const { data, visibleStart } = useVirtual()!;
 </script>

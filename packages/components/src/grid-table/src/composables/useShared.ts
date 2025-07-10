@@ -1,9 +1,8 @@
 import type { GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
-import type { ComputedRef, ModelRef, StyleValue } from 'vue';
+import type { ModelRef, StyleValue } from 'vue';
 import { columnIsFixedLeft, columnIsFixedRight } from '@mixte/components/grid-table/utils';
 import { createInjectionState, useElementSize, useScroll } from '@vueuse/core';
 import { isNumeric } from 'mixte';
-import { createTreeMate } from 'treemate';
 import { computed, reactive, ref, toValue, watch } from 'vue';
 
 interface UseSharedStoreOptions {
@@ -42,12 +41,6 @@ export const [
   const estimatedRowHeight = computed(() => {
     let estimatedHeight = props.estimatedRowHeight;
     return isNumeric(estimatedHeight) && (estimatedHeight = Number(estimatedHeight)) > 0 ? estimatedHeight : 50;
-  });
-
-  const { treeMate, expandedRowSet, displayedData, updateExpanded } = useTreeData(props, {
-    rowKey,
-    childrenKey: childrenKey as any,
-    expandedRowKeys,
   });
 
   /** 所有固定在左侧的列 */
@@ -110,11 +103,6 @@ export const [
     overscan,
     estimatedRowHeight,
 
-    treeMate,
-    expandedRowSet,
-    displayedData,
-    updateExpanded,
-
     fixedLeftColumns,
     fixedRightColumns,
 
@@ -128,53 +116,3 @@ export const [
     tableTheadHeight,
   };
 });
-
-export function useTreeData(
-  props: GridTableProps<any>,
-  options: {
-    rowKey: ComputedRef<string>;
-    childrenKey: ComputedRef<string>;
-    expandedRowKeys: UseSharedStoreOptions['expandedRowKeys'];
-  },
-) {
-  const { rowKey, childrenKey, expandedRowKeys } = options;
-
-  const treeMate = computed(() => {
-    return createTreeMate<Record<string, any>>(props.data ?? [], {
-      ignoreEmptyChildren: true,
-      getKey: row => row[rowKey.value],
-      getChildren: row => row[childrenKey.value],
-      getIsGroup: () => false,
-    });
-  });
-
-  // todo
-  //  - props.expandedRowKeys 变更时, 需要重新计算
-  const expandedRowSet = ref(new Set(expandedRowKeys.value));
-
-  const displayedData = computed(() => {
-    // 直接使用 expandedRowKeys.value 不知为什么没有被收集依赖
-    // 当 expandedRowKeys.value 改变时, computed 不会重新计算, 等有空再研究
-    return treeMate.value.getFlattenedNodes([...expandedRowSet.value]);
-  });
-
-  function updateExpanded(key: string) {
-    const index = expandedRowKeys.value.indexOf(key);
-
-    if (index > -1) {
-      expandedRowKeys.value.splice(index, 1);
-      expandedRowSet.value.delete(key);
-    }
-    else {
-      expandedRowKeys.value.push(key);
-      expandedRowSet.value.add(key);
-    }
-  }
-
-  return {
-    treeMate,
-    expandedRowSet,
-    displayedData,
-    updateExpanded,
-  };
-}

@@ -3,6 +3,7 @@
   - 💄 [@mixte/components] 组件 `GridTable` 对树形数据展开/收起状态时应用不同的 `class` *
   - 💄 [@mixte/components] 组件 `GridTable` 新增 `expandedIndent` 属性以自定义树形数据缩进宽度 *
   - 💄 [@mixte/components] 组件 `GridTable` 内置 css 导入 *
+  - 💄 [@mixte/components] 组件 `GridTable` 新增展开/折叠行方法 *
 
 ## [v3.5.0-beta.4]
   - 📅 2025-07-01

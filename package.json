@@ -43,7 +43,7 @@
     "udd": "pnpm install && tsx scripts/updateDocsDetails.ts",
     "build": "pnpm install && pnpm --workspace-concurrency=Infinity -r --filter=./packages/* run build",
     "release": "pnpm test-release && npx bumpp -r --no-tag --no-push",
-    "postinstall": "pnpm exec playwright install"
+    "postinstall": "npx simple-git-hooks && pnpm exec playwright install"
   },
   "devDependencies": {
     "@ant-design/v5-patch-for-react-19": "catalog:",
