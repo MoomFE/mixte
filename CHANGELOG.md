@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.5]
+  - 📅 2025-07-15
   - 💄 [@mixte/components] 组件 `GridTable` 表头及表体单元格新增 `data-*` 自定义属性 *
   - 💄 [@mixte/components] 组件 `GridTable` 对树形数据展开/收起状态时应用不同的 `class` *
   - 💄 [@mixte/components] 组件 `GridTable` 新增 `expandedIndent` 属性以自定义树形数据缩进宽度 *
@@ -117,7 +120,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.4...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.5...HEAD
+[v3.5.0-beta.5]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.5
 [v3.5.0-beta.4]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.4
 [v3.5.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.3
 [v3.5.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.2
