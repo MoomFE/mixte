@@ -42,7 +42,7 @@ export const [
   const visibleEnd = computed(() => {
     return Math.min(
       displayedData.value.length ?? 0,
-      findIndexByHeight(tableWrapScroll.y + tableBodyHeight.value) + overscan.value,
+      findIndexByHeight(tableWrapScroll.y + tableBodyHeight.value) + 1 + overscan.value,
     );
   });
 

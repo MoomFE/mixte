@@ -15,6 +15,158 @@ beforeEach(() => {
 });
 
 describe('grid-table', () => {
+  describe('虚拟列表', () => {
+    /**
+     * 测试虚拟列表滚动到指定行的显示
+     */
+    async function testScrollRow(index: number, tableWrap: HTMLDivElement, data: Record<string, any>[], options?: {
+      overscan?: number;
+    }) {
+      const overscan = options?.overscan ?? 0;
+
+      // 滚动到第 index 行, 即将隐藏
+      {
+        tableWrap.scrollTop = 60 * index;
+        await delay(36);
+
+        let startIndex = Math.max(0, index - 1);
+        let endIndex = startIndex + 10;
+
+        if (index === 0) {
+          endIndex = 9;
+        }
+        else if (endIndex > data.length - 1) {
+          startIndex = data.length - 11;
+          endIndex = startIndex + 10;
+        }
+
+        startIndex = Math.max(0, startIndex - overscan);
+        endIndex = endIndex + overscan;
+
+        if (endIndex > data.length) {
+          startIndex = Math.min(index - overscan - 1, data.length - 10 - overscan);
+          endIndex = data.length;
+        }
+
+        const firstColumnTds = Array.from(tableWrap.querySelectorAll<HTMLDivElement>(`.mixte-gt-td[data-field="col-1"]`));
+
+        expect(firstColumnTds.length).toBe(endIndex - startIndex);
+        expect(firstColumnTds.map(td => td.textContent)).toEqual(data.slice(startIndex, endIndex).map(item => item['col-1']));
+
+        if (endIndex === data.length - 1) {
+          return;
+        }
+      }
+
+      // 滚动到第 index 行, 已隐藏
+      {
+        tableWrap.scrollTop = (60 * index) + 1;
+        await delay(36);
+
+        let startIndex = index;
+        let endIndex = startIndex + 10;
+        const firstColumnTds = Array.from(tableWrap.querySelectorAll<HTMLDivElement>(`.mixte-gt-td[data-field="col-1"]`));
+
+        startIndex = Math.max(0, startIndex - overscan);
+        endIndex = endIndex + overscan;
+
+        if (endIndex > data.length) {
+          startIndex = Math.min(index - overscan, data.length - 10 - overscan);
+          endIndex = data.length;
+        }
+
+        expect(firstColumnTds.length).toBe(endIndex - startIndex);
+        expect(firstColumnTds.map(td => td.textContent)).toEqual(data.slice(startIndex, endIndex).map(item => item['col-1']));
+      }
+    }
+
+    it('未设置预渲染的行数时, 无论何时都应该渲染所有可见行', async () => {
+      const data = Array.from({ length: 30 }).map((_, index) => ({
+        'id': index + 1,
+        'col-1': `数据 ${index + 1} - 列1`,
+        'col-2': `数据 ${index + 1} - 列2`,
+      }));
+
+      render(MixteGridTable, {
+        props: { // @ts-expect-error
+          columns: defineTableColumns([
+            { field: 'col-1', title: '列1', cellClass: 'h-60px' },
+            { field: 'col-2', title: '列2' },
+          ]),
+          data,
+          class: 'h-600px',
+          virtual: true,
+          overscan: 0,
+        },
+      });
+
+      await delay(20);
+
+      const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
+
+      for (let i = 0; i < data.length; i++) {
+        await testScrollRow(i, tableWrap, data);
+      }
+    });
+
+    it('设置预渲染的行数时, 应该渲染预渲染行数 + 可见行数', async () => {
+      const data = Array.from({ length: 30 }).map((_, index) => ({
+        'id': index + 1,
+        'col-1': `数据 ${index + 1} - 列1`,
+        'col-2': `数据 ${index + 1} - 列2`,
+      }));
+
+      render(MixteGridTable, {
+        props: { // @ts-expect-error
+          columns: defineTableColumns([
+            { field: 'col-1', title: '列1', cellClass: 'h-60px' },
+            { field: 'col-2', title: '列2' },
+          ]),
+          data,
+          class: 'h-600px',
+          virtual: true,
+          overscan: 3,
+        },
+      });
+
+      await delay(20);
+
+      const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
+
+      for (let i = 0; i < data.length; i++) {
+        await testScrollRow(i, tableWrap, data, { overscan: 3 });
+      }
+    });
+
+    it('默认预渲染的行数为 5', async () => {
+      const data = Array.from({ length: 30 }).map((_, index) => ({
+        'id': index + 1,
+        'col-1': `数据 ${index + 1} - 列1`,
+        'col-2': `数据 ${index + 1} - 列2`,
+      }));
+
+      render(MixteGridTable, {
+        props: { // @ts-expect-error
+          columns: defineTableColumns([
+            { field: 'col-1', title: '列1', cellClass: 'h-60px' },
+            { field: 'col-2', title: '列2' },
+          ]),
+          data,
+          class: 'h-600px',
+          virtual: true,
+        },
+      });
+
+      await delay(20);
+
+      const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
+
+      for (let i = 0; i < data.length; i++) {
+        await testScrollRow(i, tableWrap, data, { overscan: 5 });
+      }
+    });
+  });
+
   describe('列配置', () => {
     it('列宽度: width', () => {
       const columns = defineTableColumns([
