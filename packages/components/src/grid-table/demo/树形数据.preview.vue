@@ -6,7 +6,7 @@
           v-model:value="expandedRowKeys"
           :options="data.data?.data.list"
           key-field="id" label-field="name"
-          checkable check-strategy="parent" multiple clearable
+          checkable check-strategy="parent" clearable multiple max-tag-count="responsive"
         />
       </el-form-item>
     </el-form>

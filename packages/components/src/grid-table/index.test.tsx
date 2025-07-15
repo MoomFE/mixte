@@ -714,6 +714,23 @@ describe('grid-table', () => {
       expect(expandedRowKeys.value).toEqual([]);
     });
 
+    it('当 expandedRowKeys 中出现非树形数据的 keys 时, 会自动移除掉', async () => {
+      const { vm, expandedRowKeys } = getTableStructure({
+        props: {
+          columns: createTreeColumns(),
+          data: createTreeData(),
+        },
+      });
+
+      expandedRowKeys.value = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      vm.setProps({
+        expandedRowKeys: expandedRowKeys.value,
+      });
+
+      await delay(20);
+      expect(expandedRowKeys.value).toEqual(['1', '5', '6']);
+    });
+
     it('使用对外导出的 expandAllRows / expandRows / collapseAllRows / collapseRows 方法展开/折叠行', async () => {
       const { vm, expandedRowKeys, testTreeStructure } = getTableStructure({
         props: {
@@ -725,7 +742,7 @@ describe('grid-table', () => {
       expect(expandedRowKeys.value).toEqual([]);
       expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(5);
 
-      // expandAllRows
+      // 展开所有行
 
       vm.vm.expandAllRows();
       expect(expandedRowKeys.value).toEqual(['1', '5', '6']);
@@ -735,7 +752,7 @@ describe('grid-table', () => {
       testTreeStructure();
       expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(9);
 
-      // collapseAllRows
+      // 折叠所有行
 
       vm.vm.collapseAllRows();
       expect(expandedRowKeys.value).toEqual([]);
@@ -745,9 +762,9 @@ describe('grid-table', () => {
       testTreeStructure();
       expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(5);
 
-      // expandRows
+      // 展开指定行
 
-      vm.vm.expandRows(['1', '5']);
+      vm.vm.expandRows(['1', '2', '3', '4', '5', '7', '8', '9']);
       expect(expandedRowKeys.value).toEqual(['1', '5']);
       expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(5);
 
@@ -755,9 +772,9 @@ describe('grid-table', () => {
       testTreeStructure();
       expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(8);
 
-      // collapseRows
+      // 折叠指定行
 
-      vm.vm.collapseRows(['1']);
+      vm.vm.collapseRows(['1', '2', '3', '4', '6', '7', '8', '9']);
       expect(expandedRowKeys.value).toEqual(['5']);
 
       await delay(20);

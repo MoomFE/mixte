@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/components] 组件 `GridTable` 通过 `expandedRowKeys` 绑定了非树形数据的 `keys` 时, 会自动移除掉 *
 
 ## [v3.5.0-beta.5]
   - 📅 2025-07-15

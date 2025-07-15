@@ -30,9 +30,21 @@ export const [
   const watchExpandedRowKeys = shallowRef(true);
 
   wheneverEffectScopeImmediate(watchExpandedRowKeys, () => {
-    // 父组件更新时, 更新 set
+    // 父组件更新时, 更新 set 并且移除非树形数据的 keys
     watchDeep(expandedRowKeys, (newKeys: string[]) => {
       expandedRowSet.value = new Set(newKeys);
+
+      if (newKeys.length) {
+        newKeys.forEach((key) => {
+          if (!allExpandableRowKeys.value.includes(key)) expandedRowSet.value.delete(key);
+        });
+
+        if (newKeys.length !== expandedRowSet.value.size) {
+          watchExpandedRowKeys.value = false;
+          expandedRowKeys.value = [...expandedRowSet.value];
+          watchExpandedRowKeys.value = true;
+        }
+      }
     });
 
     // 数据变化时, 移除不在新数据中的 keys
