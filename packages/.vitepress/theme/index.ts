@@ -8,6 +8,7 @@ import Theme from 'vitepress/theme';
 import Layout from './Layout.vue';
 
 import './style.css';
+import './custom.css';
 import 'uno.css';
 import 'element-plus/theme-chalk/src/dark/css-vars.scss';
 import 'element-plus/theme-chalk/src/index.scss';

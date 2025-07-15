@@ -5,7 +5,7 @@ export interface ResponseData<T = any> {
 }
 
 export interface ResponseListData<T = any> {
-  list: T[];
+  list: (T & Record<string, any>)[];
   pageSize: number;
   pageNum: number;
 }

@@ -2,11 +2,11 @@
   <div class="[&_.el-form-item]-mb-2">
     <el-form>
       <el-form-item label="展开的行主键列表" class="mr-0!">
-        <el-tree-select
-          v-model="expandedRowKeys"
-          class="w-full!"
-          :data="data.data?.data.list"
-          :props="{ label: 'name' }" node-key="id" show-checkbox multiple clearable
+        <NTreeSelect
+          v-model:value="expandedRowKeys"
+          :options="data.data?.data.list"
+          key-field="id" label-field="name"
+          checkable check-strategy="parent" multiple clearable
         />
       </el-form-item>
     </el-form>
@@ -30,24 +30,25 @@
       </el-form-item>
 
       <el-form-item label="树形数据缩进宽度">
-        <el-input-number v-model="expandedIndent" :min="0" />
+        <el-input-number v-model="expandedIndent" :min="0" placeholder="15" />
       </el-form-item>
     </el-form>
-    <el-form>
-      <el-form-item label="虚拟列表">
-        <el-switch v-model="virtual" />
-      </el-form-item>
-    </el-form>
+
+    <div mb-3>
+      <ElButton type="primary" link @click="tableRef?.expandAllRows()"><i-codicon-expand-all class="size-4" />展开所有行</ElButton>
+      <ElButton type="primary" link @click="tableRef?.collapseAllRows()"><i-codicon-collapse-all class="size-4" /> 折叠所有行</ElButton>
+    </div>
   </div>
 
   <MixteGridTable
+    ref="tableRef"
     v-model:expanded-row-keys="expandedRowKeys"
     :columns
     :data="data.data?.data.list"
     :loading="data.isLoading"
-    :virtual
     :expand-column-key
     :expanded-indent
+    virtual
     style="height: 360px"
   >
     <template #cell-email="{ value }">
@@ -58,13 +59,17 @@
 
 <script lang="tsx" setup>
   import type { ResponseData, ResponseListData, User } from '@/types';
+  import type { MixteGridTableInstance } from '@mixte/components/grid-table';
   import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
   import { MelSelect } from '@mixte/mel-components/mel-select';
   import { useRequestReactive } from '@mixte/use';
   import axios from 'axios';
   import { ElButton, ElImage, ElTag } from 'element-plus';
+  import { deepForEach } from 'mixte';
+  import { NTreeSelect } from 'naive-ui';
 
-  const virtual = ref(false);
+  const tableRef = ref<MixteGridTableInstance>();
+
   const expandColumnKey = ref<string>();
   const expandedRowKeys = ref<string[]>([]);
   const expandedIndent = ref(15);
@@ -73,6 +78,11 @@
     return axios.post<ResponseData<ResponseListData<User>>>('https://m1.apifoxmock.com/m1/4781098-4434938-default/list/user', { pageSize: 10, treeData: true });
   }, {
     immediate: true,
+    onSuccess: (res) => {
+      deepForEach(res.data.data.list, (item) => {
+        item.disabled = !item.children?.length;
+      });
+    },
   });
 
   const columns = defineTableColumns<User>([
