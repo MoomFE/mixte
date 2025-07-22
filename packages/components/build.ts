@@ -17,13 +17,11 @@ defineBuild([
     outputFileName: 'grid-table/index',
     vueComponent: true,
   },
-  ...['types', 'utils'].map((name) => {
-    return {
-      entry: `./src/grid-table/src/${name}.ts`,
-      outputFileName: `grid-table/${name}`,
-      vueDtsInput: `grid-table/src/${name}.d.ts`,
-    };
-  }),
+  {
+    entry: `./src/grid-table/src/types.ts`,
+    outputFileName: `grid-table/types`,
+    vueDtsInput: `grid-table/src/types.d.ts`,
+  },
   {
     copy: [{
       from: './src/grid-table/src/css',

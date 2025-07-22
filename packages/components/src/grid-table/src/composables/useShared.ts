@@ -1,9 +1,9 @@
 import type { GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
 import type { ModelRef, StyleValue } from 'vue';
-import { columnIsFixedLeft, columnIsFixedRight } from '@mixte/components/grid-table/utils';
 import { createInjectionState, useElementSize, useScroll } from '@vueuse/core';
 import { isNumeric } from 'mixte';
 import { computed, reactive, ref, toValue, watch } from 'vue';
+import { columnIsFixedLeft, columnIsFixedRight } from '../utils';
 
 interface UseSharedStoreOptions {
   expandedRowKeys: ModelRef<string[]>;

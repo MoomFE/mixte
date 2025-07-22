@@ -1,9 +1,9 @@
 import type { GridTableColumn } from '@mixte/components/grid-table/types';
 import type { StyleValue } from 'vue';
-import { columnIsFixedLeft, columnIsFixedRight } from '@mixte/components/grid-table/utils';
 import { createNamedSharedComposable, watchImmediate, wheneverEffectScopeImmediate } from '@mixte/use';
 import { createInjectionState, syncRef, useCssVar, useElementSize } from '@vueuse/core';
 import { computed, ref } from 'vue';
+import { columnIsFixedLeft, columnIsFixedRight } from '../utils';
 import { useShared } from './useShared';
 import { useTreeData } from './useTreeData';
 
