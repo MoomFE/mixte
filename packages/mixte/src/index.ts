@@ -6,6 +6,7 @@ export * from './deepMerge/index';
 export * from './defineArgs/index';
 export * from './delay/index';
 export * from './env/index';
+export * from './get/index';
 export * from './is/index';
 export * from './leastRun/index';
 export * from './move/index';
