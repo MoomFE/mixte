@@ -1,5 +1,6 @@
 :root {
   --vp-sidebar-width: 310px;
+  --vp-layout-max-width: 1536px;
 }
 
 .outline-title{

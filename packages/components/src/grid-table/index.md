@@ -29,3 +29,36 @@ outline: [2,3]
 ### 树形数据
 
 表格支持树形数据的展示, 当数据中有 `children` 字段时会自动展示为树形表格, 如果不需要或配置为其他字段可以用 `expandColumnKey` 进行配置。
+
+## API
+
+### Props
+
+| 参数名 | 描述 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| rowKey | 表格行主键 | `string` | `'id'` |
+| data | 数据源 | `Record<string, any>[]` | - |
+| columns | 列配置 | [`GridTableColumn[]`](#GridTableColumn) | - |
+| loading | 是否加载中 | `boolean` | - |
+| virtual | 是否启用虚拟列表<br>&nbsp;- <small>需要为表格设置一个高度</small> | `boolean` | - |
+| overscan | 启用虚拟列表时预渲染的行数<br>&nbsp;- <small>可减少快速滚动时的白屏</small> | ``` number \| `${number}` ``` | `5` |
+| estimatedRowHeight | 启用虚拟列表时的预估行高度 | ``` number \| `${number}` ``` | `50` |
+| childrenKey | 树形数据子节点字段名 | `string` | `'children'` |
+| expandColumnKey | 显示展开按钮的列主键<br>&nbsp;- <small>如果不设置, 则使用第一列作为展开列</small> | `string` | - |
+| expandedRowKeys | 树形数据展开的行主键列表<br>&nbsp;- <small>支持通过 `v-model:expandedRowKeys="xxx"` 进行双向绑定</small> | `string[]` | - |
+| expandedIndent | 展示树形数据时, 每层缩进的宽度, 以 px 为单位 | ``` number \| `${number}` ``` | `15` |
+
+### Slots
+
+| 名称 | 描述 |
+| --- | --- |
+| header | 通用表头单元格插槽 |
+| header-$\{field\} | 指定字段表头单元格插槽 |
+| cell | 通用字段单元格插槽 |
+| cell-$\{field\} | 指定字段单元格插槽 |
+
+## 类型定义
+
+### GridTableColumn{#GridTableColumn}
+
+<<< ./src/types.ts#GridTableColumn

@@ -15,7 +15,7 @@ export interface GridTableProps<
   /** 表格列配置 */
   columns?: GridTableColumn<Fields>[];
 
-  /** 加载中 */
+  /** 是否加载中 */
   loading?: boolean;
 
   /**
@@ -57,19 +57,9 @@ export interface GridTableProps<
   expandedIndent?: number | `${number}`;
 }
 
-export interface RenderProps<
-  Fields extends Record<string, any>,
-  Item = Fields & Record<string, any>,
-> {
-  value: any;
-  record: Item;
-  column: GridTableColumn<Fields>;
-  index: number;
-}
+// #region GridTableColumn
 
-export interface GridTableColumn<
-  Fields extends Record<string, any>,
-> {
+export interface GridTableColumn<Fields extends Record<string, any>> {
   /** 字段名 */
   field: keyof Fields | (string & {});
   /** 表头名称 */
@@ -102,6 +92,18 @@ export interface GridTableColumn<
   /** 表体单元格样式类 ( td ) */
   contentCellClass?: string;
 }
+
+export interface RenderProps<
+  Fields extends Record<string, any>,
+  Item = Fields & Record<string, any>,
+> {
+  value: any;
+  record: Item;
+  column: GridTableColumn<Fields>;
+  index: number;
+}
+
+// #endregion GridTableColumn
 
 export type GridTableSlots<
   Fields extends Record<string, any>,
