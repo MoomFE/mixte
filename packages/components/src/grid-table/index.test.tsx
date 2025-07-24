@@ -952,6 +952,40 @@ describe('grid-table', () => {
   });
 
   describe('列配置', () => {
+    describe('字段名: field', () => {
+      it('支持字段名及字段路径', () => {
+        const data = [
+          { name: '张三', address: { city: '北京' }, tags: ['A', 'B'] },
+          { name: '李四', address: { city: '上海' }, tags: ['C'] },
+          { name: '王五', address: { city: '广州' }, tags: [] },
+          { name: '赵六', address: { city: '深圳' }, tags: ['D', 'E', 'F'] },
+        ];
+
+        const columns = defineTableColumns([
+          { field: 'name', title: '姓名' },
+          { field: 'address.city', title: '城市' },
+          { field: 'tags.0', title: '第一个标签' },
+          { field: 'tags[1]', title: '第二个标签' },
+          { field: 'tags.2', title: '第三个标签' },
+        ]);
+
+        const { getTable } = getTableStructure({
+          props: {
+            columns,
+            data,
+          },
+        });
+
+        const table = getTable().element as HTMLTableElement;
+
+        expect([...table.querySelectorAll('.mixte-gt-td[data-field="name"]')].map(td => td.textContent)).toEqual(['张三', '李四', '王五', '赵六']);
+        expect([...table.querySelectorAll('.mixte-gt-td[data-field="address.city"]')].map(td => td.textContent)).toEqual(['北京', '上海', '广州', '深圳']);
+        expect([...table.querySelectorAll('.mixte-gt-td[data-field="tags.0"]')].map(td => td.textContent)).toEqual(['A', 'C', '', 'D']);
+        expect([...table.querySelectorAll('.mixte-gt-td[data-field="tags[1]"]')].map(td => td.textContent)).toEqual(['B', '', '', 'E']);
+        expect([...table.querySelectorAll('.mixte-gt-td[data-field="tags.2"]')].map(td => td.textContent)).toEqual(['', '', '', 'F']);
+      });
+    });
+
     it('表头名称: title', () => {
       const columns = createColumns();
       const { getTableThs } = getTableStructure({

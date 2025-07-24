@@ -2,7 +2,6 @@ import type { MaybeRefOrGetter } from 'vue';
 
 export interface GridTableProps<
   Fields extends Record<string, any>,
-  Item = Fields & Record<string, any>,
 > {
   /**
    * 表格行主键
@@ -11,7 +10,7 @@ export interface GridTableProps<
   rowKey?: MaybeRefOrGetter<string>;
 
   /** 数据源 */
-  data?: Item[];
+  data?: any[];
   /** 表格列配置 */
   columns?: GridTableColumn<Fields>[];
 

@@ -36,7 +36,7 @@ outline: [2,3]
 
 | 参数名 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| rowKey | 表格行主键 | `string` | `'id'` |
+| rowKey | 表格行主键 | ``` string \| (() => string) ``` | `'id'` |
 | data | 数据源 | `Record<string, any>[]` | - |
 | columns | 列配置 | [`GridTableColumn[]`](#GridTableColumn) | - |
 | loading | 是否加载中 | `boolean` | - |

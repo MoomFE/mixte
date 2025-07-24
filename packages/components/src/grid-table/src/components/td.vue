@@ -44,7 +44,7 @@
   import type { TreeNode } from 'treemate';
   import { wheneverEffectScopeImmediate } from '@mixte/use';
   import { useElementSize } from '@vueuse/core';
-  import { isFunction } from 'mixte';
+  import { get, isFunction } from 'mixte';
   import { computed, onMounted, ref, watch } from 'vue';
   import { useCell } from '../composables/useCell';
   import { useShared } from '../composables/useShared';
@@ -69,7 +69,7 @@
   const { columnIndex, cellClasses, cellStyle, zIndex, tdClasses, isExpandVisible } = createColumnStore(props.column.field, props.column);
 
   const record = computed(() => props.node.rawNode);
-  const value = computed(() => record.value[props.column.field]);
+  const value = computed(() => get(record.value, props.column.field));
 
   const expandIconSpaced = computed(() => !record.value[childrenKey.value]?.length);
   const expanded = computed(() => expandedRowSet.value.has(props.node.key as string));
