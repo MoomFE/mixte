@@ -986,16 +986,33 @@ describe('grid-table', () => {
       });
     });
 
-    it('表头名称: title', () => {
-      const columns = createColumns();
-      const { getTableThs } = getTableStructure({
-        props: {
-          columns,
-        },
+    describe('表头名称: title', () => {
+      it('字符串形式', () => {
+        const columns = createColumns();
+        const { getTableThs } = getTableStructure({
+          props: {
+            columns,
+          },
+        });
+
+        getTableThs().forEach((th, index) => {
+          expect(th.text()).toBe(columns[index].title);
+        });
       });
 
-      getTableThs().forEach((th, index) => {
-        expect(th.text()).toBe(columns[index].title);
+      it('函数形式', () => {
+        const columns = defineTableColumns([
+          { field: 'name', title: ({ column }) => `姓名 (${column.field})` },
+          { field: 'age', title: ({ column }) => `年龄 (${column.field})` },
+        ]);
+        const { getTableThs } = getTableStructure({
+          props: {
+            columns,
+          },
+        });
+
+        expect(getTableThs()[0].text()).toBe('姓名 (name)');
+        expect(getTableThs()[1].text()).toBe('年龄 (age)');
       });
     });
 

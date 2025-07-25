@@ -13,7 +13,7 @@
     <!-- 通用表头单元格插槽 -->
     <slot v-else-if="$slots.header" name="header" :column />
     <!-- 正常渲染 -->
-    <template v-else> {{ column.title }}</template>
+    <template v-else>{{ title }}</template>
   </div>
 </template>
 
@@ -34,4 +34,8 @@
   const { cellClasses, cellStyle, zIndex } = createColumnStore(props.column.field, props.column);
 
   const { thRef } = useTh(props.column);
+
+  const title = computed(() => {
+    return isFunction(props.column.title) ? props.column.title({ column: props.column }) : props.column.title;
+  });
 </script>

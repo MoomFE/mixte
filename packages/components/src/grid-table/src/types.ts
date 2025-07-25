@@ -62,12 +62,10 @@ export interface GridTableColumn<Fields extends Record<string, any>> {
   /** 字段名 */
   field: keyof Fields | (string & {});
   /** 表头名称 */
-  title?: string;
+  title?: string | ((props: { column: GridTableColumn<Fields> }) => string);
 
   /** 表头自定义渲染方法 */
-  headerRender?: (props: {
-    column: GridTableColumn<Fields>;
-  }) => any;
+  headerRender?: (props: { column: GridTableColumn<Fields> }) => any;
 
   /** 单元格自定义渲染方法 */
   render?: (props: RenderProps<Fields>) => any;
