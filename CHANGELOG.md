@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.6]
+  - 📅 2025-07-25
   - 🌟 [mixte] 新增 `get`, `set` 工具方法
   - 💄 [@mixte/components] 组件 `GridTable` 通过 `expandedRowKeys` 绑定了非树形数据的 `keys` 时, 会自动移除掉 *
   - 💄 [@mixte/components] 组件 `GridTable` 字段配置的字段名 `field` 支持传入字段路径 *
@@ -126,7 +129,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.5...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.6...HEAD
+[v3.5.0-beta.6]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.6
 [v3.5.0-beta.5]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.5
 [v3.5.0-beta.4]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.4
 [v3.5.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.3
