@@ -48,6 +48,15 @@ outline: [2,3]
 | expandedRowKeys | 树形数据展开的行主键列表<br>&nbsp;- <small>支持通过 `v-model:expandedRowKeys="xxx"` 进行双向绑定</small> | `string[]` | - |
 | expandedIndent | 展示树形数据时, 每层缩进的宽度, 以 px 为单位 | ``` number \| `${number}` ``` | `15` |
 
+### Expose
+
+| 方法名 | 描述 | 类型 |
+| --- | --- | --- |
+| expandAllRows | 展开所有行 | `() => void` |
+| collapseAllRows | 折叠所有行 | `() => void` |
+| expandRows | 展开指定行 | `(rowKeys: string[]) => void` |
+| collapseRows | 折叠指定行 | `(rowKeys: string[]) => void` |
+
 ### Slots
 
 | 名称 | 描述 |

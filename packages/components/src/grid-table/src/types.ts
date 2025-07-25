@@ -106,6 +106,17 @@ export interface RenderProps<
 
 // #endregion GridTableColumn
 
+export interface GridTableExpose {
+  /** 展开所有行 */
+  expandAllRows: () => void;
+  /** 折叠所有行 */
+  collapseAllRows: () => void;
+  /** 展开指定行 */
+  expandRows: (keys: string[]) => void;
+  /** 折叠指定行 */
+  collapseRows: (keys: string[]) => void;
+}
+
 export type GridTableSlots<
   Fields extends Record<string, any>,
 > = GridTableFieldsSlots<Fields> & GridTableHeaderSlots<Fields>;

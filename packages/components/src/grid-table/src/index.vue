@@ -18,7 +18,7 @@
   lang="ts"
   generic="Fields extends Record<string, any>"
 >
-  import type { GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
+  import type { GridTableExpose, GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
   import { computed, h } from 'vue';
   import Empty from './components/empty.vue';
   import Loading from './components/loading.vue';
@@ -54,10 +54,10 @@
   const showThead = computed(() => !!props.columns?.length);
   const showTbody = computed(() => !!props.columns?.length && !!props.data?.length);
 
-  defineExpose({
+  defineExpose<GridTableExpose>({
     expandAllRows,
-    expandRows,
     collapseAllRows,
+    expandRows,
     collapseRows,
   });
 </script>
