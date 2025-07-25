@@ -168,60 +168,109 @@ describe('grid-table', () => {
   });
 
   describe('列配置', () => {
-    it('列宽度: width', () => {
-      const columns = defineTableColumns([
-        { field: 'col-1',    width: undefined,              title: '默认宽度 ☑️' },
-        { field: 'col-2',    width: 100,                    title: '数字 ☑️' },
-        { field: 'col-3',    width: -100,                   title: '负数数字 ❌' },
-        { field: 'col-4',    width: '200',                  title: '数字字符串 ☑️' },
-        { field: 'col-5',    width: '300px',                title: '指定像素 ☑️' },
-        { field: 'col-6',    width: '30%',                  title: '百分比 ☑️' },
-        { field: 'col-7',    width: 'auto',                 title: '自动 ☑️' },
-        { field: 'col-8',    width: '1fr',                  title: '弹性布局 ☑️' },
-        { field: 'col-9',    width: '.5fr',                 title: '弹性布局 ☑️' },
-        { field: 'col-10',   width: '-1fr',                 title: '负数弹性布局 ❌' },
-        { field: 'col-11',   width: 'calc(100% - 50px)',    title: '计算宽度 ☑️' },
-        { field: 'col-12',   width: 'calc(100% - 50px',     title: '错误计算宽度 ❌' },
-        { field: 'col-13',   width: 'minmax(100px, 1fr)',   title: '最小最大宽度 ☑️' },
-        { field: 'col-14',   width: 'max-content',          title: '最大内容宽度 ☑️' },
-        { field: 'col-15',   width: 'min-content',          title: '最小内容宽度 ☑️' },
-        { field: 'col-16',   width: 'fit-content(200px)',   title: '适应内容宽度 ☑️' },
-        { field: 'col-17',   width: 'fit-content',          title: '错误适应内容宽度 ❌' },
-        { field: 'col-18',   width: 'max(10vw, 100px)',     title: '最大宽度 ☑️' },
-        { field: 'col-19',   width: 'min(10vw, 100px)',     title: '最小宽度 ☑️' },
-      ]);
+    describe('列宽度: width', () => {
+      function createColumns() {
+        return defineTableColumns([
+          { field: 'col-1',    width: undefined,              title: '默认宽度 ☑️' },
+          { field: 'col-2',    width: 100,                    title: '数字 ☑️' },
+          { field: 'col-3',    width: -100,                   title: '负数数字 ❌' },
+          { field: 'col-4',    width: '200',                  title: '数字字符串 ☑️' },
+          { field: 'col-5',    width: '300px',                title: '指定像素 ☑️' },
+          { field: 'col-6',    width: '30%',                  title: '百分比 ☑️' },
+          { field: 'col-7',    width: 'auto',                 title: '自动 ☑️' },
+          { field: 'col-8',    width: '1fr',                  title: '弹性布局 ☑️' },
+          { field: 'col-9',    width: '.5fr',                 title: '弹性布局 ☑️' },
+          { field: 'col-10',   width: '-1fr',                 title: '负数弹性布局 ❌' },
+          { field: 'col-11',   width: 'calc(100% - 50px)',    title: '计算宽度 ☑️' },
+          { field: 'col-12',   width: 'calc(100% - 50px',     title: '错误计算宽度 ❌' },
+          { field: 'col-13',   width: 'minmax(100px, 1fr)',   title: '最小最大宽度 ☑️' },
+          { field: 'col-14',   width: 'max-content',          title: '最大内容宽度 ☑️' },
+          { field: 'col-15',   width: 'min-content',          title: '最小内容宽度 ☑️' },
+          { field: 'col-16',   width: 'fit-content(200px)',   title: '适应内容宽度 ☑️' },
+          { field: 'col-17',   width: 'fit-content',          title: '错误适应内容宽度 ❌' },
+          { field: 'col-18',   width: 'max(10vw, 100px)',     title: '最大宽度 ☑️' },
+          { field: 'col-19',   width: 'min(10vw, 100px)',     title: '最小宽度 ☑️' },
+        ]);
+      }
 
-      render(MixteGridTable, {
-        props: { // @ts-expect-error
-          columns,
-        },
+      it('字符串或数字形式的宽度', () => {
+        render(MixteGridTable, {
+          props: { // @ts-expect-error
+            columns: createColumns(),
+          },
+        });
+
+        const table = page.getByClass('mixte-gt').query() as HTMLDivElement;
+
+        expect(table.attributeStyleMap.get('grid-template-columns')!.toString()).toBe(
+          [
+            'auto', // 默认宽度 ☑️
+            '100px', // 数字 ☑️
+            'auto', // 负数数字 ❌
+            '200px', // 数字字符串 ☑️
+            '300px', // 指定像素 ☑️
+            '30%', // 百分比 ☑️
+            'auto', // 自动 ☑️
+            '1fr', // 弹性布局 ☑️
+            '0.5fr', // 弹性布局 ☑️
+            'auto', // 负数弹性布局 ❌
+            'calc(100% - 50px)', // 计算宽度 ☑️
+            'auto', // 错误计算宽度 ❌
+            'minmax(100px, 1fr)', // 最小最大宽度 ☑️
+            'max-content', // 最大内容宽度 ☑️
+            'min-content', // 最小内容宽度 ☑️
+            'fit-content(200px)', // 适应内容宽度 ☑️
+            'auto', // 错误适应内容宽度 ❌
+            'max(10vw, 100px)', // 最大宽度 ☑️
+            'min(10vw, 100px)', // 最小宽度 ☑️
+          ].join(' '),
+        );
       });
 
-      const table = page.getByClass('mixte-gt').query() as HTMLDivElement;
+      it('函数形式的宽度', () => {
+        const columns = createColumns().map(column => ({
+          ...column,
+          width: () => column.width,
+        }));
 
-      expect(table.attributeStyleMap.get('grid-template-columns')!.toString()).toBe(
-        [
-          'auto', // 默认宽度 ☑️
-          '100px', // 数字 ☑️
-          'auto', // 负数数字 ❌
-          '200px', // 数字字符串 ☑️
-          '300px', // 指定像素 ☑️
-          '30%', // 百分比 ☑️
-          'auto', // 自动 ☑️
-          '1fr', // 弹性布局 ☑️
-          '0.5fr', // 弹性布局 ☑️
-          'auto', // 负数弹性布局 ❌
-          'calc(100% - 50px)', // 计算宽度 ☑️
-          'auto', // 错误计算宽度 ❌
-          'minmax(100px, 1fr)', // 最小最大宽度 ☑️
-          'max-content', // 最大内容宽度 ☑️
-          'min-content', // 最小内容宽度 ☑️
-          'fit-content(200px)', // 适应内容宽度 ☑️
-          'auto', // 错误适应内容宽度 ❌
-          'max(10vw, 100px)', // 最大宽度 ☑️
-          'min(10vw, 100px)', // 最小宽度 ☑️
-        ].join(' '),
-      );
+        render(MixteGridTable, {
+          props: { // @ts-expect-error
+            columns: [
+              ...columns,
+              ...defineTableColumns([
+                { field: '20px', width: ({ column }) => column.field, title: '函数形式的宽度 ☑️' },
+              ]),
+            ],
+          },
+        });
+
+        const table = page.getByClass('mixte-gt').query() as HTMLDivElement;
+
+        expect(table.attributeStyleMap.get('grid-template-columns')!.toString()).toBe(
+          [
+            'auto', // 默认宽度 ☑️
+            '100px', // 数字 ☑️
+            'auto', // 负数数字 ❌
+            '200px', // 数字字符串 ☑️
+            '300px', // 指定像素 ☑️
+            '30%', // 百分比 ☑️
+            'auto', // 自动 ☑️
+            '1fr', // 弹性布局 ☑️
+            '0.5fr', // 弹性布局 ☑️
+            'auto', // 负数弹性布局 ❌
+            'calc(100% - 50px)', // 计算宽度 ☑️
+            'auto', // 错误计算宽度 ❌
+            'minmax(100px, 1fr)', // 最小最大宽度 ☑️
+            'max-content', // 最大内容宽度 ☑️
+            'min-content', // 最小内容宽度 ☑️
+            'fit-content(200px)', // 适应内容宽度 ☑️
+            'auto', // 错误适应内容宽度 ❌
+            'max(10vw, 100px)', // 最大宽度 ☑️
+            'min(10vw, 100px)', // 最小宽度 ☑️
+            '20px', // 函数形式的宽度 ☑️
+          ].join(' '),
+        );
+      });
     });
 
     describe('列固定: fixed', async () => {

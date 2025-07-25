@@ -1,7 +1,7 @@
 import type { GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
 import type { ModelRef, StyleValue } from 'vue';
 import { createInjectionState, useElementSize, useScroll } from '@vueuse/core';
-import { isNumeric } from 'mixte';
+import { isFunction, isNumeric } from 'mixte';
 import { computed, reactive, ref, toValue, watch } from 'vue';
 import { columnIsFixedLeft, columnIsFixedRight } from '../utils';
 
@@ -64,7 +64,10 @@ export const [
 
     if (props.columns?.length) {
       for (const column of props.columns) {
-        const width = column.width;
+        let width = column.width;
+
+        // 函数形式
+        if (isFunction(width)) width = width({ column });
 
         // 未设置
         if (width == null) gridTemplateColumns += 'auto ';

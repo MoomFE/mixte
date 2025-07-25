@@ -20,6 +20,7 @@
 <script lang="ts" setup>
   import type { GridTableColumn, GridTableHeaderSlots } from '@mixte/components/grid-table/types';
   import { isFunction } from 'mixte';
+  import { computed } from 'vue';
   import { useCell, useTh } from '../composables/useCell';
 
   interface Props {
