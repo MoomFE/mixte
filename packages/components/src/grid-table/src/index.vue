@@ -25,6 +25,7 @@
   import Tbody from './components/tbody.vue';
   import Thead from './components/thead.vue';
   import { useCellStore } from './composables/useCell';
+  import { useSelectionStore } from './composables/useSelection';
   import { useSharedStore } from './composables/useShared';
   import { useTreeDataStore } from './composables/useTreeData';
   import { useVirtualStore } from './composables/useVirtual';
@@ -36,6 +37,10 @@
     default: () => [],
   });
 
+  const selectedRowKeys = defineModel<string[]>('selectedRowKeys', {
+    default: () => [],
+  });
+
   const {
     tableWrapRef,
     tableWrapStyle,
@@ -43,6 +48,7 @@
     tableRef,
   } = useSharedStore(props, slots, {
     expandedRowKeys,
+    selectedRowKeys,
   });
 
   const { expandAllRows, expandRows, collapseAllRows, collapseRows } = useTreeDataStore();
@@ -50,6 +56,8 @@
   useVirtualStore();
 
   useCellStore();
+
+  useSelectionStore();
 
   const showThead = computed(() => !!props.columns?.length);
   const showTbody = computed(() => !!props.columns?.length && !!props.data?.length);

@@ -7,6 +7,7 @@ import { columnIsFixedLeft, columnIsFixedRight } from '../utils';
 
 interface UseSharedStoreOptions {
   expandedRowKeys: ModelRef<string[]>;
+  selectedRowKeys: ModelRef<string[]>;
 }
 
 export const [
@@ -17,7 +18,7 @@ export const [
   slots: GridTableSlots<any>,
   options: UseSharedStoreOptions,
 ) => {
-  const { expandedRowKeys } = options;
+  const { expandedRowKeys, selectedRowKeys } = options;
 
   /** 表格行主键 */
   const rowKey = computed(() => toValue(props.rowKey) ?? 'id');
@@ -98,6 +99,7 @@ export const [
     slots,
 
     expandedRowKeys,
+    selectedRowKeys,
 
     rowKey,
     childrenKey,

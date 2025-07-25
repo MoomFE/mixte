@@ -54,6 +54,12 @@ export interface GridTableProps<
    * @default 15
    */
   expandedIndent?: number | `${number}`;
+
+  /**
+   * 选中行的主键列表
+   *  - 支持通过 v-model:selectedRowKeys="xxx" 进行双向绑定
+   */
+  selectedRowKeys?: string[];
 }
 
 // #region GridTableColumn
