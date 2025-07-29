@@ -122,25 +122,25 @@ export type GridTableSlots<
 > = GridTableFieldsSlots<Fields> & GridTableHeaderSlots<Fields>;
 
 /** 字段单元格插槽 */
-export type GridTableFieldsSlots<
-  Fields extends Record<string, any>,
-  Keys extends string = Extract<keyof Fields, string>,
-> = {
+export type GridTableFieldsSlots<Fields extends Record<string, any>> = {
   /** 通用字段单元格插槽 */
   cell?: (props: RenderProps<Fields>) => any;
 } & {
   /** 指定字段单元格插槽 */
-  [K in Keys as `cell-${K}`]?: (props: RenderProps<Fields>) => any;
+  [K in Extract<keyof Fields, string> as `cell-${K}`]?: (props: RenderProps<Fields>) => any;
+} & {
+  /** 其他字段单元格插槽 */
+  [K in string as `cell-${K}`]?: (props: RenderProps<Fields>) => any;
 };
 
 /** 表头单元格插槽 */
-export type GridTableHeaderSlots<
-  Fields extends Record<string, any>,
-  Keys extends string = Extract<keyof Fields, string>,
-> = {
+export type GridTableHeaderSlots<Fields extends Record<string, any>> = {
   /** 通用表头单元格插槽 */
   header?: (props: { column: GridTableColumn<Fields> }) => any;
 } & {
   /** 指定字段表头单元格插槽 */
-  [K in Keys as `header-${K}`]?: (props: { column: GridTableColumn<Fields> }) => any;
+  [K in Extract<keyof Fields, string> as `header-${K}`]?: (props: { column: GridTableColumn<Fields> }) => any;
+} & {
+  /** 其他字段表头单元格插槽 */
+  [K in string as `header-${K}`]?: (props: { column: GridTableColumn<Fields> }) => any;
 };
