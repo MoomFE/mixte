@@ -408,6 +408,38 @@ describe('grid-table', () => {
           else {
             expect(cell.classList).not.toContain('mixte-gt-cell-fix');
             expect(cell.classList).not.toContain('mixte-gt-cell-fix-left');
+            expect(cell.classList).not.toContain('mixte-gt-cell-fix-left-active');
+            expect(cell.classList).not.toContain('mixte-gt-cell-fix-right');
+            expect(cell.classList).not.toContain('mixte-gt-cell-fix-right-active');
+          }
+        });
+
+        // half left cell
+
+        tableWrap.scrollLeft = 75;
+        await delay(20);
+
+        cells.forEach((cell, index) => {
+          const colIndex = index % columns.length;
+          const { field, fixed } = columns[colIndex];
+
+          if (fixed === true || fixed === 'left') {
+            expect(cell.classList).toContain('mixte-gt-cell-fix');
+            expect(cell.classList).toContain('mixte-gt-cell-fix-left');
+
+            if (field === 'col-1')
+              expect(cell.classList).toContain('mixte-gt-cell-fix-left-active');
+            else
+              expect(cell.classList).not.toContain('mixte-gt-cell-fix-left-active');
+          }
+          else if (fixed === 'right') {
+            expect(cell.classList).toContain('mixte-gt-cell-fix');
+            expect(cell.classList).toContain('mixte-gt-cell-fix-right');
+            expect(cell.classList).toContain('mixte-gt-cell-fix-right-active');
+          }
+          else {
+            expect(cell.classList).not.toContain('mixte-gt-cell-fix');
+            expect(cell.classList).not.toContain('mixte-gt-cell-fix-left');
             expect(cell.classList).not.toContain('mixte-gt-cell-fix-right');
           }
         });
@@ -438,7 +470,33 @@ describe('grid-table', () => {
           }
         });
 
-        // right
+        // half right cell
+
+        tableWrap.scrollLeft = tableWrap.scrollWidth - tableWrap.clientWidth - 75;
+        await delay(20);
+
+        cells.forEach((cell, index) => {
+          const colIndex = index % columns.length;
+          const fixed = columns[colIndex].fixed;
+
+          if (fixed === true || fixed === 'left') {
+            expect(cell.classList).toContain('mixte-gt-cell-fix');
+            expect(cell.classList).toContain('mixte-gt-cell-fix-left');
+            expect(cell.classList).toContain('mixte-gt-cell-fix-left-active');
+          }
+          else if (fixed === 'right') {
+            expect(cell.classList).toContain('mixte-gt-cell-fix');
+            expect(cell.classList).toContain('mixte-gt-cell-fix-right');
+            expect(cell.classList).toContain('mixte-gt-cell-fix-right-active');
+          }
+          else {
+            expect(cell.classList).not.toContain('mixte-gt-cell-fix');
+            expect(cell.classList).not.toContain('mixte-gt-cell-fix-left');
+            expect(cell.classList).not.toContain('mixte-gt-cell-fix-right');
+          }
+        });
+
+        // end
 
         tableWrap.scrollLeft = tableWrap.scrollWidth - tableWrap.clientWidth;
         await delay(20);
@@ -647,11 +705,11 @@ describe('grid-table', () => {
                 break;
               // 左侧固定3
               case 'col-3':
-                expect(cell.attributeStyleMap.get('left')!.toString()).toBe('calc(var(--mixte-gt-fix-left-column-0-width)+var(--mixte-gt-fix-left-column-1-width))');
+                expect(cell.attributeStyleMap.get('left')!.toString()).toBe('calc(var(--mixte-gt-fix-left-column-0-width) + var(--mixte-gt-fix-left-column-1-width))');
                 break;
               // 右侧固定3
               case 'col-5':
-                expect(cell.attributeStyleMap.get('right')!.toString()).toBe('calc(var(--mixte-gt-fix-right-column-0-width)+var(--mixte-gt-fix-right-column-1-width))');
+                expect(cell.attributeStyleMap.get('right')!.toString()).toBe('calc(var(--mixte-gt-fix-right-column-0-width) + var(--mixte-gt-fix-right-column-1-width))');
                 break;
               // 右侧固定2
               case 'col-6':

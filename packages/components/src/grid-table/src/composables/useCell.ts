@@ -1,7 +1,7 @@
 import type { GridTableColumn } from '@mixte/components/grid-table/types';
 import type { StyleValue } from 'vue';
 import { createNamedSharedComposable, watchImmediate, wheneverEffectScopeImmediate } from '@mixte/use';
-import { createInjectionState, syncRef, useCssVar, useElementSize } from '@vueuse/core';
+import { createInjectionState, syncRef, useCssVar, useElementBounding, useElementSize } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import { columnIsFixedLeft, columnIsFixedRight } from '../utils';
 import { useShared } from './useShared';
@@ -18,7 +18,9 @@ export const [
     expandColumnKey,
 
     fixedLeftColumns,
+    fixedLeftColumnsRect,
     fixedRightColumns,
+    fixedRightColumnsRect,
 
     tableWrapScroll,
   } = useShared()!;
@@ -42,11 +44,11 @@ export const [
 
       if (fixedLeft.value) {
         if (fixedLeftIndex.value === 0) style.left = '0';
-        else style.left = `calc(${Array.from({ length: fixedLeftIndex.value }).map((_, i) => `var(--mixte-gt-fix-left-column-${i}-width)`).join('+')})`;
+        else style.left = `calc(${Array.from({ length: fixedLeftIndex.value }).map((_, i) => `var(--mixte-gt-fix-left-column-${i}-width)`).join(' + ')})`;
       }
       else if (fixedRight.value) {
         if (fixedRightIndex.value === 0) style.right = '0';
-        else style.right = `calc(${Array.from({ length: fixedRightIndex.value }).map((_, i) => `var(--mixte-gt-fix-right-column-${i}-width)`).join('+')})`;
+        else style.right = `calc(${Array.from({ length: fixedRightIndex.value }).map((_, i) => `var(--mixte-gt-fix-right-column-${i}-width)`).join(' + ')})`;
       }
 
       return style;
@@ -56,12 +58,24 @@ export const [
       let classes = '';
 
       if (fixedLeft.value) {
+        const index = fixedLeftIndex.value;
+
         classes += 'mixte-gt-cell-fix mixte-gt-cell-fix-left ';
-        if (tableWrapScroll.arrivedState.left === false) classes += 'mixte-gt-cell-fix-left-active ';
+
+        if (tableWrapScroll.arrivedState.left === false) {
+          if (index === 0) classes += 'mixte-gt-cell-fix-left-active ';
+          else if (fixedLeftColumnsRect.value[index]?.left <= fixedLeftColumnsRect.value[index - 1]?.right) classes += 'mixte-gt-cell-fix-left-active ';
+        }
       }
       else if (fixedRight.value) {
+        const index = fixedRightIndex.value;
+
         classes += 'mixte-gt-cell-fix mixte-gt-cell-fix-right ';
-        if (tableWrapScroll.arrivedState.right === false) classes += 'mixte-gt-cell-fix-right-active ';
+
+        if (tableWrapScroll.arrivedState.right === false) {
+          if (index === 0) classes += 'mixte-gt-cell-fix-right-active ';
+          else if (fixedRightColumnsRect.value[index]?.right >= fixedRightColumnsRect.value[index - 1]?.left) classes += 'mixte-gt-cell-fix-right-active ';
+        }
       }
 
       if (column.align === 'center') classes += 'mixte-gt-cell-align-center ';
@@ -107,7 +121,7 @@ export const [
 });
 
 export function useTh(column: GridTableColumn<Record<string, any>>) {
-  const { tableWrapRef, fixedLeftColumns, fixedRightColumns, tableTheadHeight } = useShared()!;
+  const { tableWrapRef, fixedLeftColumns, fixedLeftColumnsRect, fixedRightColumns, fixedRightColumnsRect, tableTheadHeight } = useShared()!;
   const { createColumnStore } = useCell()!;
   const { columnIndex, fixedLeft, fixedLeftIndex, fixedRight, fixedRightIndex } = createColumnStore(column.field, column);
 
@@ -121,23 +135,37 @@ export function useTh(column: GridTableColumn<Record<string, any>>) {
   });
 
   // 当前列是固定在左侧的, 读取宽度写入到表格上
-  wheneverEffectScopeImmediate(() => fixedLeftColumns.value.length > 1 && fixedLeft.value && fixedLeftIndex.value < fixedLeftColumns.value.length - 1, () => {
-    const css = useCssVar(() => `--mixte-gt-fix-left-column-${fixedLeftIndex.value}-width`, tableWrapRef);
-    const width = useElementSize(thRef, undefined, { box: 'border-box' }).width;
+  wheneverEffectScopeImmediate(() => fixedLeftColumns.value.length > 1 && fixedLeft.value && fixedLeftIndex.value < fixedLeftColumns.value.length, () => {
+    const { width, left, right } = useElementBounding(thRef);
 
-    watchImmediate(width, (width) => {
-      css.value = `${width}px`;
+    watchImmediate([left, right], ([left, right]) => {
+      fixedLeftColumnsRect.value[fixedLeftIndex.value] = { left: left ?? 0, right: right ?? 0 };
     });
+
+    if (fixedLeftIndex.value < fixedLeftColumns.value.length - 1) {
+      const css = useCssVar(() => `--mixte-gt-fix-left-column-${fixedLeftIndex.value}-width`, tableWrapRef);
+
+      watchImmediate(width, (width) => {
+        css.value = `${width}px`;
+      });
+    }
   });
 
   // 当前列是固定在右侧的, 读取宽度写入到表格上
-  wheneverEffectScopeImmediate(() => fixedRightColumns.value.length > 1 && fixedRight.value && fixedRightIndex.value < fixedRightColumns.value.length - 1, () => {
-    const css = useCssVar(() => `--mixte-gt-fix-right-column-${fixedRightIndex.value}-width`, tableWrapRef);
-    const width = useElementSize(thRef, undefined, { box: 'border-box' }).width;
+  wheneverEffectScopeImmediate(() => fixedRightColumns.value.length > 1 && fixedRight.value && fixedRightIndex.value < fixedRightColumns.value.length, () => {
+    const { width, left, right } = useElementBounding(thRef);
 
-    watchImmediate(width, (width) => {
-      css.value = `${width}px`;
+    watchImmediate([left, right], ([left, right]) => {
+      fixedRightColumnsRect.value[fixedRightIndex.value] = { left: left ?? 0, right: right ?? 0 };
     });
+
+    if (fixedRightIndex.value < fixedRightColumns.value.length - 1) {
+      const css = useCssVar(() => `--mixte-gt-fix-right-column-${fixedRightIndex.value}-width`, tableWrapRef);
+
+      watchImmediate(width, (width) => {
+        css.value = `${width}px`;
+      });
+    }
   });
 
   return {

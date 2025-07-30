@@ -1,5 +1,7 @@
 ## [Unreleased]
   - 💄 [@mixte/components] 优化 `GridTable` 组件插槽类型, 支持不在类型定义中的字段名显示类型提示 *
+  - 💄 [@mixte/components] 优化 `GridTable` 组件固定列堆叠逻辑, 使 `...-fix-*-active` 样式类只在列被真实固定时被应用 *
+  - 🐞 [@mixte/components] 修复 `GridTable` 超过 2 个固定列时, 后续的固定列无法固定的问题 *
 
 ## [v3.5.0-beta.6]
   - 📅 2025-07-25

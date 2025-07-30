@@ -44,13 +44,13 @@ export const [
   });
 
   /** 所有固定在左侧的列 */
-  const fixedLeftColumns = computed(() => {
-    return props.columns?.filter(column => columnIsFixedLeft(column)) ?? [];
-  });
+  const fixedLeftColumns = computed(() => props.columns?.filter(column => columnIsFixedLeft(column)) ?? []);
+  /** 所有固定在左侧的列的位置 */
+  const fixedLeftColumnsRect = ref<Pick<DOMRect, 'left' | 'right'>[]>([]);
   /** 所有固定在右侧的列 */
-  const fixedRightColumns = computed(() => {
-    return props.columns?.filter(column => columnIsFixedRight(column)).reverse() ?? [];
-  });
+  const fixedRightColumns = computed(() => props.columns?.filter(column => columnIsFixedRight(column)).reverse() ?? []);
+  /** 所有固定在右侧的列的位置 */
+  const fixedRightColumnsRect = ref<Pick<DOMRect, 'left' | 'right'>[]>([]);
 
   const tableWrapRef = ref<HTMLDivElement>();
   const tableWrapSize = reactive(useElementSize(tableWrapRef));
@@ -107,7 +107,9 @@ export const [
     estimatedRowHeight,
 
     fixedLeftColumns,
+    fixedLeftColumnsRect,
     fixedRightColumns,
+    fixedRightColumnsRect,
 
     tableWrapRef,
     tableWrapSize,
