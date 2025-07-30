@@ -63,8 +63,17 @@ export const [
         classes += 'mixte-gt-cell-fix mixte-gt-cell-fix-left ';
 
         if (tableWrapScroll.arrivedState.left === false) {
+          const currentRect = fixedLeftColumnsRect.value[index];
+          const prevRect = fixedLeftColumnsRect.value[index - 1];
+          const nextRect = fixedLeftColumnsRect.value[index + 1];
+
+          // 已固定
           if (index === 0) classes += 'mixte-gt-cell-fix-left-active ';
-          else if (fixedLeftColumnsRect.value[index]?.left <= fixedLeftColumnsRect.value[index - 1]?.right) classes += 'mixte-gt-cell-fix-left-active ';
+          else if (currentRect?.left <= prevRect?.right) classes += 'mixte-gt-cell-fix-left-active ';
+
+          // 已固定列中, 当前列是最后一列
+          if (classes.includes('mixte-gt-cell-fix-left-active') && (!nextRect || currentRect?.right < nextRect?.left))
+            classes += 'mixte-gt-cell-fix-left-active-last ';
         }
       }
       else if (fixedRight.value) {
@@ -73,8 +82,17 @@ export const [
         classes += 'mixte-gt-cell-fix mixte-gt-cell-fix-right ';
 
         if (tableWrapScroll.arrivedState.right === false) {
+          const currentRect = fixedRightColumnsRect.value[index];
+          const prevRect = fixedRightColumnsRect.value[index - 1];
+          const nextRect = fixedRightColumnsRect.value[index + 1];
+
+          // 已固定
           if (index === 0) classes += 'mixte-gt-cell-fix-right-active ';
-          else if (fixedRightColumnsRect.value[index]?.right >= fixedRightColumnsRect.value[index - 1]?.left) classes += 'mixte-gt-cell-fix-right-active ';
+          else if (currentRect?.right >= prevRect?.left) classes += 'mixte-gt-cell-fix-right-active ';
+
+          // 已固定列中, 当前列是最后一列
+          if (classes.includes('mixte-gt-cell-fix-right-active') && (!nextRect || currentRect?.left > nextRect?.right))
+            classes += 'mixte-gt-cell-fix-right-active-last ';
         }
       }
 

@@ -393,17 +393,23 @@ describe('grid-table', () => {
         expect(tableWrap.scrollWidth > tableWrap.clientWidth).toBe(true);
         cells.forEach((cell, index) => {
           const colIndex = index % columns.length;
-          const fixed = columns[colIndex].fixed;
+          const { field, fixed } = columns[colIndex];
 
           if (fixed === true || fixed === 'left') {
             expect(cell.classList).toContain('mixte-gt-cell-fix');
             expect(cell.classList).toContain('mixte-gt-cell-fix-left');
             expect(cell.classList).not.toContain('mixte-gt-cell-fix-left-active');
+            expect(cell.classList).not.toContain('mixte-gt-cell-fix-left-active-last');
           }
           else if (fixed === 'right') {
             expect(cell.classList).toContain('mixte-gt-cell-fix');
             expect(cell.classList).toContain('mixte-gt-cell-fix-right');
             expect(cell.classList).toContain('mixte-gt-cell-fix-right-active');
+
+            if (field === 'col-6')
+              expect(cell.classList).toContain('mixte-gt-cell-fix-right-active-last');
+            else
+              expect(cell.classList).not.toContain('mixte-gt-cell-fix-right-active-last');
           }
           else {
             expect(cell.classList).not.toContain('mixte-gt-cell-fix');
@@ -427,15 +433,24 @@ describe('grid-table', () => {
             expect(cell.classList).toContain('mixte-gt-cell-fix');
             expect(cell.classList).toContain('mixte-gt-cell-fix-left');
 
-            if (field === 'col-1')
+            if (field === 'col-1') {
               expect(cell.classList).toContain('mixte-gt-cell-fix-left-active');
-            else
+              expect(cell.classList).toContain('mixte-gt-cell-fix-left-active-last');
+            }
+            else {
               expect(cell.classList).not.toContain('mixte-gt-cell-fix-left-active');
+              expect(cell.classList).not.toContain('mixte-gt-cell-fix-left-active-last');
+            }
           }
           else if (fixed === 'right') {
             expect(cell.classList).toContain('mixte-gt-cell-fix');
             expect(cell.classList).toContain('mixte-gt-cell-fix-right');
             expect(cell.classList).toContain('mixte-gt-cell-fix-right-active');
+
+            if (field === 'col-6')
+              expect(cell.classList).toContain('mixte-gt-cell-fix-right-active-last');
+            else
+              expect(cell.classList).not.toContain('mixte-gt-cell-fix-right-active-last');
           }
           else {
             expect(cell.classList).not.toContain('mixte-gt-cell-fix');
@@ -451,17 +466,27 @@ describe('grid-table', () => {
 
         cells.forEach((cell, index) => {
           const colIndex = index % columns.length;
-          const fixed = columns[colIndex].fixed;
+          const { field, fixed } = columns[colIndex];
 
           if (fixed === true || fixed === 'left') {
             expect(cell.classList).toContain('mixte-gt-cell-fix');
             expect(cell.classList).toContain('mixte-gt-cell-fix-left');
             expect(cell.classList).toContain('mixte-gt-cell-fix-left-active');
+
+            if (field === 'col-1')
+              expect(cell.classList).not.toContain('mixte-gt-cell-fix-left-active-last');
+            else
+              expect(cell.classList).toContain('mixte-gt-cell-fix-left-active-last');
           }
           else if (fixed === 'right') {
             expect(cell.classList).toContain('mixte-gt-cell-fix');
             expect(cell.classList).toContain('mixte-gt-cell-fix-right');
             expect(cell.classList).toContain('mixte-gt-cell-fix-right-active');
+
+            if (field === 'col-6')
+              expect(cell.classList).toContain('mixte-gt-cell-fix-right-active-last');
+            else
+              expect(cell.classList).not.toContain('mixte-gt-cell-fix-right-active-last');
           }
           else {
             expect(cell.classList).not.toContain('mixte-gt-cell-fix');
@@ -477,17 +502,27 @@ describe('grid-table', () => {
 
         cells.forEach((cell, index) => {
           const colIndex = index % columns.length;
-          const fixed = columns[colIndex].fixed;
+          const { field, fixed } = columns[colIndex];
 
           if (fixed === true || fixed === 'left') {
             expect(cell.classList).toContain('mixte-gt-cell-fix');
             expect(cell.classList).toContain('mixte-gt-cell-fix-left');
             expect(cell.classList).toContain('mixte-gt-cell-fix-left-active');
+
+            if (field === 'col-1')
+              expect(cell.classList).not.toContain('mixte-gt-cell-fix-left-active-last');
+            else
+              expect(cell.classList).toContain('mixte-gt-cell-fix-left-active-last');
           }
           else if (fixed === 'right') {
             expect(cell.classList).toContain('mixte-gt-cell-fix');
             expect(cell.classList).toContain('mixte-gt-cell-fix-right');
             expect(cell.classList).toContain('mixte-gt-cell-fix-right-active');
+
+            if (field === 'col-6')
+              expect(cell.classList).toContain('mixte-gt-cell-fix-right-active-last');
+            else
+              expect(cell.classList).not.toContain('mixte-gt-cell-fix-right-active-last');
           }
           else {
             expect(cell.classList).not.toContain('mixte-gt-cell-fix');
@@ -503,17 +538,23 @@ describe('grid-table', () => {
 
         cells.forEach((cell, index) => {
           const colIndex = index % columns.length;
-          const fixed = columns[colIndex].fixed;
+          const { field, fixed } = columns[colIndex];
 
           if (fixed === true || fixed === 'left') {
             expect(cell.classList).toContain('mixte-gt-cell-fix');
             expect(cell.classList).toContain('mixte-gt-cell-fix-left');
             expect(cell.classList).toContain('mixte-gt-cell-fix-left-active');
+
+            if (field === 'col-1')
+              expect(cell.classList).not.toContain('mixte-gt-cell-fix-left-active-last');
+            else
+              expect(cell.classList).toContain('mixte-gt-cell-fix-left-active-last');
           }
           else if (fixed === 'right') {
             expect(cell.classList).toContain('mixte-gt-cell-fix');
             expect(cell.classList).toContain('mixte-gt-cell-fix-right');
             expect(cell.classList).not.toContain('mixte-gt-cell-fix-right-active');
+            expect(cell.classList).not.toContain('mixte-gt-cell-fix-right-active-last');
           }
           else {
             expect(cell.classList).not.toContain('mixte-gt-cell-fix');
