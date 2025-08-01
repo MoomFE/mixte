@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.7]
+  - 📅 2025-08-01
   - 💄 [@mixte/components] 优化 `GridTable` 组件插槽类型, 支持不在类型定义中的字段名显示类型提示 *
   - 💄 [@mixte/components] 优化 `GridTable` 组件固定列堆叠逻辑, 使 `...-fix-*-active` 样式类只在列被真实固定时被应用 *
   - 💄 [@mixte/components] 组件 `GridTable` 的左右已固定列中的最后一列, 增加 `...-fix-*-active-last` 样式类 *
@@ -134,7 +137,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.6...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.7...HEAD
+[v3.5.0-beta.7]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.7
 [v3.5.0-beta.6]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.6
 [v3.5.0-beta.5]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.5
 [v3.5.0-beta.4]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.4
