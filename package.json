@@ -86,7 +86,7 @@
     "chalk": "^5.4.1",
     "cheerio": "^1.1.2",
     "comlink": "^4.4.2",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.0.0",
     "defu": "^6.1.4",
     "element-plus": "^2.10.4",
     "eslint": "^9.32.0",
