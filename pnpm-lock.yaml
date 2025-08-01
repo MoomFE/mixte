@@ -37,8 +37,8 @@ catalogs:
       specifier: ^5.1.5
       version: 5.1.5
     three:
-      specifier: ^0.178.0
-      version: 0.178.0
+      specifier: ^0.179.0
+      version: 0.179.0
     veaury:
       specifier: ^2.6.3
       version: 2.6.3
@@ -295,7 +295,7 @@ importers:
         version: 2.13.1
       three:
         specifier: 'catalog:'
-        version: 0.178.0
+        version: 0.179.0
       treemate:
         specifier: ^0.3.11
         version: 0.3.11
@@ -435,7 +435,7 @@ importers:
         version: 5.1.5
       three:
         specifier: 'catalog:'
-        version: 0.178.0
+        version: 0.179.0
       veaury:
         specifier: 'catalog:'
         version: 2.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -7066,8 +7066,8 @@ packages:
   text-hex@1.0.0:
     resolution: {integrity: sha512-uuVGNWzgJ4yhRaNSiubPY7OjISw4sw4E5Uv0wbjp+OzcbmVU/rsT8ujgcXJhn9ypzsgr5vlzpPqP+MBBKcGvbg==}
 
-  three@0.178.0:
-    resolution: {integrity: sha512-ybFIB0+x8mz0wnZgSGy2MO/WCO6xZhQSZnmfytSPyNpM0sBafGRVhdaj+erYh5U+RhQOAg/eXqw5uVDiM2BjhQ==}
+  three@0.179.0:
+    resolution: {integrity: sha512-V04E7nW9QS+ZDugmpu50x7cLT69th15elaXJPDo79CZs3q/0V8zHf1d3vrm9q2vQ/jef1fXdg8FvaMq2gJvzkw==}
 
   throttle-debounce@5.0.2:
     resolution: {integrity: sha512-B71/4oyj61iNH0KeCamLuE2rmKuTO5byTOSVwECM5FA7TiAiAW+UqTKZ9ERueC4qvgSttUhdmq1mXC3kJqGX7A==}
@@ -15797,7 +15797,7 @@ snapshots:
 
   text-hex@1.0.0: {}
 
-  three@0.178.0: {}
+  three@0.179.0: {}
 
   throttle-debounce@5.0.2: {}
 
