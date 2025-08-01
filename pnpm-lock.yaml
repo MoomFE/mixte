@@ -192,8 +192,8 @@ importers:
         specifier: ^6.1.4
         version: 6.1.4
       element-plus:
-        specifier: ^2.10.3
-        version: 2.10.3(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.3))
+        specifier: ^2.10.4
+        version: 2.10.4(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.3))
       eslint:
         specifier: ^9.30.1
         version: 9.30.1(jiti@2.4.2)
@@ -4105,8 +4105,8 @@ packages:
   electron-to-chromium@1.5.92:
     resolution: {integrity: sha512-BeHgmNobs05N1HMmMZ7YIuHfYBGlq/UmvlsTgg+fsbFs9xVMj+xJHFg19GN04+9Q+r8Xnh9LXqaYIyEWElnNgQ==}
 
-  element-plus@2.10.3:
-    resolution: {integrity: sha512-OLpf0iekuvWJrz1+H9ybvem6TYTKSNk6L1QDA3tYq2YWbogKXJnWpHG1UAGKR1B7gx+vUH7M15VIH3EijE9Kgw==}
+  element-plus@2.10.4:
+    resolution: {integrity: sha512-UD4elWHrCnp1xlPhbXmVcaKFLCRaRAY6WWRwemGfGW3ceIjXm9fSYc9RNH3AiOEA6Ds1p9ZvhCs76CR9J8Vd+A==}
     peerDependencies:
       vue: ^3.5.17
 
@@ -12055,7 +12055,7 @@ snapshots:
 
   electron-to-chromium@1.5.92: {}
 
-  element-plus@2.10.3(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.3)):
+  element-plus@2.10.4(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.3)):
     dependencies:
       '@ctrl/tinycolor': 3.6.1
       '@element-plus/icons-vue': 2.3.1(vue@3.5.17(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.3))
