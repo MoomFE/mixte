@@ -68,6 +68,10 @@ outline: [2,3]
 
 ## 类型定义
 
+### GridTableProps{#GridTableProps}
+
+<<< ./src/types.ts#GridTableProps
+
 ### GridTableColumn{#GridTableColumn}
 
 <<< ./src/types.ts#GridTableColumn

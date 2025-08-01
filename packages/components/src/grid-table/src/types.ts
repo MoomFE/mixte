@@ -1,5 +1,7 @@
 import type { MaybeRefOrGetter } from 'vue';
 
+// #region GridTableProps
+
 export interface GridTableProps<
   Fields extends Record<string, any>,
 > {
@@ -56,6 +58,7 @@ export interface GridTableProps<
   expandedIndent?: number | `${number}`;
 }
 
+// #endregion GridTableProps
 // #region GridTableColumn
 
 export interface GridTableColumn<Fields extends Record<string, any>> {

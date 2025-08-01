@@ -7,6 +7,10 @@
     <template #cell-email="{ value }">
       <a :href="`mailto:${value}`">{{ value }}</a>
     </template>
+
+    <template #cell="{ value, record }">
+      {{ value || record.nameEn }}
+    </template>
   </MixteGridTable>
 </template>
 
@@ -40,6 +44,12 @@
     },
     { field: 'age', title: '年龄', align: 'center' },
     { field: 'gender', title: '性别', align: 'center' },
+
+    ...Array.from({ length: 20 }).map((_, index) => ({
+      field: `field${index + 1}`,
+      title: `Column ${index + 1}`,
+    })),
+
     { field: 'email', title: '邮箱' },
     { field: 'address', title: '地址' },
     {
