@@ -1,9 +1,13 @@
 <template>
   <MixteGridTable
     :columns
-    :data="list"
+    :data="data.data?.data.list"
     :loading="data.isLoading"
-  />
+  >
+    <template #cell="{ value, record }">
+      {{ value || record.nameEn }}
+    </template>
+  </MixteGridTable>
 </template>
 
 <script lang="tsx" setup>
@@ -17,18 +21,6 @@
     return axios.post<ResponseData<ResponseListData<User>>>('https://m1.apifoxmock.com/m1/4781098-4434938-default/list/user', { pageSize: 2 });
   }, {
     immediate: true,
-  });
-
-  const list = computed(() => {
-    return (data.data?.data.list || []).map((item) => {
-      return {
-        ...item,
-        ...Array.from({ length: 20 }).reduce<Record<string, string>>((acc, _, index) => {
-          acc[`field${index + 1}`] = item.nameEn;
-          return acc;
-        }, {}),
-      };
-    });
   });
 
   const columns = defineTableColumns<User>([
