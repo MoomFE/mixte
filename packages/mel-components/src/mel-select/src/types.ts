@@ -1,5 +1,5 @@
 import type { OptionsApi } from '@mixte/mel-components/utils';
-import type { ElSelect, ISelectProps, SelectOptionProxy } from 'element-plus';
+import type { ElSelect, SelectOptionProxy, SelectProps } from 'element-plus';
 import type { SetOptional } from 'type-fest';
 import type { VNodeChild } from 'vue';
 
@@ -13,7 +13,7 @@ export type MelSelectOption = SetOptional<
   [key: string]: any;
 };
 
-export interface MelSelectProps extends /* @vue-ignore */ Partial<ISelectProps> {
+export interface MelSelectProps extends /* @vue-ignore */ Partial<SelectProps> {
   /** 数据源 */
   options?: MelSelectOption[];
   /** 请求数据源的方法或参数 */
