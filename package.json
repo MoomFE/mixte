@@ -79,7 +79,7 @@
     "@vitest/browser": "^3.2.4",
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",
-    "@vue/compiler-core": "^3.5.17",
+    "@vue/compiler-core": "^3.5.18",
     "@vue/test-utils": "^2.4.6",
     "@vueuse/core": "^13.5.0",
     "axios": "^1.11.0",
@@ -138,15 +138,15 @@
     "vitepress": "^1.6.3",
     "vitest": "^3.2.4",
     "vitest-browser-vue": "^1.0.0",
-    "vue": "^3.5.17",
+    "vue": "^3.5.18",
     "vue-component-type-helpers": "catalog:",
     "vue-draggable-plus": "catalog:",
-    "vue-tsc": "^3.0.1"
+    "vue-tsc": "^3.0.4"
   },
   "pnpm": {
     "overrides": {
-      "@vue/compiler-core": "^3.5.17",
-      "vue": "^3.5.17"
+      "@vue/compiler-core": "^3.5.18",
+      "vue": "^3.5.18"
     },
     "patchedDependencies": {
       "@types/react": "patches/@types__react.patch",
