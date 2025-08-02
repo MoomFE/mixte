@@ -2,7 +2,7 @@
   <div
     ref="tdRef"
     class="mixte-gt-cell mixte-gt-td"
-    :class="[cellClasses, tdClasses, column.cellClass, column.contentCellClass]"
+    :class="[cellClasses, tdClasses, tableProps.cellClass, tableProps.contentCellClass, column.cellClass, column.contentCellClass]"
     :style="[cellStyle, { zIndex }]"
     :data-field="column.field"
     :data-index="index"

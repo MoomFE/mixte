@@ -1,3 +1,5 @@
+/* eslint-disable antfu/consistent-chaining */
+
 import type { User } from '@/types';
 import type { RenderProps } from './src/types';
 import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
@@ -1188,15 +1190,36 @@ describe('grid-table', () => {
         },
       });
 
-      expect(getTableThs().filter(th => th.classes().includes('mixte-666')).length).toBe(0);
-      expect(getTableTds().filter(td => td.classes().includes('mixte-666')).length).toBe(0);
+      getTableThs().forEach((th) => {
+        expect(th.classes())
+          .not.includes('mixte-666').not.includes('mixte-777')
+          .not.includes('mixte-888').not.includes('mixte-999');
+      });
+      getTableTds().forEach((td) => {
+        expect(td.classes())
+          .not.includes('mixte-666').not.includes('mixte-777')
+          .not.includes('mixte-888').not.includes('mixte-999');
+      });
 
       await vm.setProps({
         columns: [{ field: 'name', title: '姓名', cellClass: 'mixte-666' }],
+        cellClass: 'mixte-777',
+        headerCellClass: 'mixte-888',
+        contentCellClass: 'mixte-999',
       });
 
-      expect(getTableThs().filter(th => th.classes().includes('mixte-666')).length).toBe(1);
-      expect(getTableTds().filter(td => td.classes().includes('mixte-666')).length).toBe(data.length);
+      getTableThs().forEach((th) => {
+        const classes = th.classes();
+
+        expect(classes).toEqual(expect.arrayContaining(['mixte-666', 'mixte-777', 'mixte-888']));
+        expect(classes).not.includes('mixte-999');
+      });
+      getTableTds().forEach((td) => {
+        const classes = td.classes();
+
+        expect(classes).toEqual(expect.arrayContaining(['mixte-666', 'mixte-777', 'mixte-999']));
+        expect(classes).not.includes('mixte-888');
+      });
     });
 
     it('表头单元格样式类 ( th )', async () => {
@@ -1208,15 +1231,38 @@ describe('grid-table', () => {
         },
       });
 
-      expect(getTableThs().filter(th => th.classes().includes('mixte-666')).length).toBe(0);
-      expect(getTableTds().filter(td => td.classes().includes('mixte-666')).length).toBe(0);
+      getTableThs().forEach((th) => {
+        expect(th.classes())
+          .not.includes('mixte-666').not.includes('mixte-777')
+          .not.includes('mixte-888').not.includes('mixte-999');
+      });
+      getTableTds().forEach((td) => {
+        expect(td.classes())
+          .not.includes('mixte-666').not.includes('mixte-777')
+          .not.includes('mixte-888').not.includes('mixte-999');
+      });
 
       await vm.setProps({
         columns: [{ field: 'name', title: '姓名', headerCellClass: 'mixte-666' }],
+        cellClass: 'mixte-777',
+        headerCellClass: 'mixte-888',
+        contentCellClass: 'mixte-999',
       });
 
-      expect(getTableThs().filter(th => th.classes().includes('mixte-666')).length).toBe(1);
-      expect(getTableTds().filter(td => td.classes().includes('mixte-666')).length).toBe(0);
+      getTableThs().forEach((th) => {
+        const classes = th.classes();
+
+        expect(classes).toEqual(expect.arrayContaining(['mixte-666', 'mixte-777', 'mixte-888']));
+        expect(classes).not.includes('mixte-999');
+      });
+      getTableTds().forEach((td) => {
+        const classes = td.classes();
+
+        expect(classes).toEqual(expect.arrayContaining(['mixte-777', 'mixte-999']));
+        expect(classes)
+          .not.includes('mixte-666')
+          .not.includes('mixte-888');
+      });
     });
 
     it('表体单元格样式类 ( td )', async () => {
@@ -1228,15 +1274,38 @@ describe('grid-table', () => {
         },
       });
 
-      expect(getTableThs().filter(th => th.classes().includes('mixte-666')).length).toBe(0);
-      expect(getTableTds().filter(td => td.classes().includes('mixte-666')).length).toBe(0);
+      getTableThs().forEach((th) => {
+        expect(th.classes())
+          .not.includes('mixte-666').not.includes('mixte-777')
+          .not.includes('mixte-888').not.includes('mixte-999');
+      });
+      getTableTds().forEach((td) => {
+        expect(td.classes())
+          .not.includes('mixte-666').not.includes('mixte-777')
+          .not.includes('mixte-888').not.includes('mixte-999');
+      });
 
       await vm.setProps({
         columns: [{ field: 'name', title: '姓名', contentCellClass: 'mixte-666' }],
+        cellClass: 'mixte-777',
+        headerCellClass: 'mixte-888',
+        contentCellClass: 'mixte-999',
       });
 
-      expect(getTableThs().filter(th => th.classes().includes('mixte-666')).length).toBe(0);
-      expect(getTableTds().filter(td => td.classes().includes('mixte-666')).length).toBe(data.length);
+      getTableThs().forEach((th) => {
+        const classes = th.classes();
+
+        expect(classes).toEqual(expect.arrayContaining(['mixte-777', 'mixte-888']));
+        expect(classes)
+          .not.includes('mixte-666')
+          .not.includes('mixte-999');
+      });
+      getTableTds().forEach((td) => {
+        const classes = td.classes();
+
+        expect(classes).toEqual(expect.arrayContaining(['mixte-666', 'mixte-777', 'mixte-999']));
+        expect(classes).not.includes('mixte-888');
+      });
     });
   });
 });

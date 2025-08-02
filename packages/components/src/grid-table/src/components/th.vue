@@ -2,7 +2,7 @@
   <div
     ref="thRef"
     class="mixte-gt-cell mixte-gt-th"
-    :class="[cellClasses, column.cellClass, column.headerCellClass]"
+    :class="[cellClasses, tableProps.cellClass, tableProps.headerCellClass, column.cellClass, column.headerCellClass]"
     :style="[cellStyle, { zIndex: (zIndex ?? 0) + 1 }]"
     :data-field="column.field"
   >
@@ -22,6 +22,7 @@
   import { isFunction } from 'mixte';
   import { computed } from 'vue';
   import { useCell, useTh } from '../composables/useCell';
+  import { useShared } from '../composables/useShared';
 
   interface Props {
     column: GridTableColumn<Record<string, any>>;
@@ -31,6 +32,7 @@
 
   defineSlots<GridTableHeaderSlots<any>>();
 
+  const { props: tableProps } = useShared()!;
   const { createColumnStore } = useCell()!;
   const { cellClasses, cellStyle, zIndex } = createColumnStore(props.column.field, props.column);
 

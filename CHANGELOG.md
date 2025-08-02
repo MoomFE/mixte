@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/components] 组件 `GridTable` Props 新增单元格样式类参数 *
   - 💄 [@mixte/components] 组件 `GridTable` 的第一列和最后一列添加 `mixte-gt-cell-{first|last}` 样式类
   - 🐞 [@mixte/components] 修复 `GridTable` 空数据时最后一列的表头分割线依然显示的问题 *
 

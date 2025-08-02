@@ -56,6 +56,13 @@ export interface GridTableProps<
    * @default 15
    */
   expandedIndent?: number | `${number}`;
+
+  /** 单元格样式类 ( th/td ) */
+  cellClass?: string;
+  /** 表头单元格样式类 ( th ) */
+  headerCellClass?: string;
+  /** 表体单元格样式类 ( td ) */
+  contentCellClass?: string;
 }
 
 // #endregion GridTableProps
