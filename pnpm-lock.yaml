@@ -37,14 +37,14 @@ catalogs:
       specifier: ^5.1.5
       version: 5.1.5
     three:
-      specifier: ^0.179.0
-      version: 0.179.0
+      specifier: ^0.179.1
+      version: 0.179.1
     veaury:
       specifier: ^2.6.3
       version: 2.6.3
     vue-component-type-helpers:
-      specifier: ^3.0.4
-      version: 3.0.4
+      specifier: ^3.0.5
+      version: 3.0.5
     vue-draggable-plus:
       specifier: ^0.6.0
       version: 0.6.0
@@ -295,7 +295,7 @@ importers:
         version: 2.13.1
       three:
         specifier: 'catalog:'
-        version: 0.179.0
+        version: 0.179.1
       treemate:
         specifier: ^0.3.11
         version: 0.3.11
@@ -346,7 +346,7 @@ importers:
         version: 3.5.18(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.3)
       vue-component-type-helpers:
         specifier: 'catalog:'
-        version: 3.0.4
+        version: 3.0.5
       vue-draggable-plus:
         specifier: 'catalog:'
         version: 0.6.0(@types/sortablejs@1.15.8)
@@ -370,7 +370,7 @@ importers:
         version: 3.5.18(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.3)
       vue-component-type-helpers:
         specifier: 'catalog:'
-        version: 3.0.4
+        version: 3.0.5
 
   packages/mel-components:
     dependencies:
@@ -435,7 +435,7 @@ importers:
         version: 5.1.5
       three:
         specifier: 'catalog:'
-        version: 0.179.0
+        version: 0.179.1
       veaury:
         specifier: 'catalog:'
         version: 2.6.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -444,7 +444,7 @@ importers:
         version: 3.5.18(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.3)
       vue-component-type-helpers:
         specifier: 'catalog:'
-        version: 3.0.4
+        version: 3.0.5
       vue-draggable-plus:
         specifier: 'catalog:'
         version: 0.6.0(@types/sortablejs@1.15.8)
@@ -7519,8 +7519,8 @@ packages:
   text-hex@1.0.0:
     resolution: {integrity: sha512-uuVGNWzgJ4yhRaNSiubPY7OjISw4sw4E5Uv0wbjp+OzcbmVU/rsT8ujgcXJhn9ypzsgr5vlzpPqP+MBBKcGvbg==}
 
-  three@0.179.0:
-    resolution: {integrity: sha512-V04E7nW9QS+ZDugmpu50x7cLT69th15elaXJPDo79CZs3q/0V8zHf1d3vrm9q2vQ/jef1fXdg8FvaMq2gJvzkw==}
+  three@0.179.1:
+    resolution: {integrity: sha512-5y/elSIQbrvKOISxpwXCR4sQqHtGiOI+MKLc3SsBdDXA2hz3Mdp3X59aUp8DyybMa34aeBwbFTpdoLJaUDEWSw==}
 
   throttle-debounce@5.0.2:
     resolution: {integrity: sha512-B71/4oyj61iNH0KeCamLuE2rmKuTO5byTOSVwECM5FA7TiAiAW+UqTKZ9ERueC4qvgSttUhdmq1mXC3kJqGX7A==}
@@ -8199,8 +8199,8 @@ packages:
   vue-component-type-helpers@2.2.8:
     resolution: {integrity: sha512-4bjIsC284coDO9om4HPA62M7wfsTvcmZyzdfR0aUlFXqq4tXxM1APyXpNVxPC8QazKw9OhmZNHBVDA6ODaZsrA==}
 
-  vue-component-type-helpers@3.0.4:
-    resolution: {integrity: sha512-WtR3kPk8vqKYfCK/HGyT47lK/T3FaVyWxaCNuosaHYE8h9/k0lYRZ/PI/+T/z2wP+uuNKmL6z30rOcBboOu/YA==}
+  vue-component-type-helpers@3.0.5:
+    resolution: {integrity: sha512-uoNZaJ+a1/zppa/Vgmi8zIOP2PHXDN2rT8NyF+zQRK6ZG94lNB9prcV0GdLJbY9i9lrD47JOVIH92SaiA7oJ1A==}
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -16588,7 +16588,7 @@ snapshots:
 
   text-hex@1.0.0: {}
 
-  three@0.179.0: {}
+  three@0.179.1: {}
 
   throttle-debounce@5.0.2: {}
 
@@ -17298,7 +17298,7 @@ snapshots:
 
   vue-component-type-helpers@2.2.8: {}
 
-  vue-component-type-helpers@3.0.4: {}
+  vue-component-type-helpers@3.0.5: {}
 
   vue-demi@0.14.10(vue@3.5.18(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.8.3)):
     dependencies:
