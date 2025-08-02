@@ -1,8 +1,19 @@
 <template>
+  <div class="[&_.el-form-item]-mb-2">
+    <el-form inline>
+      <el-form-item label="空数据">
+        <el-switch v-model="emptyData" />
+      </el-form-item>
+      <el-form-item label="加载中">
+        <el-switch v-model="loading" />
+      </el-form-item>
+    </el-form>
+  </div>
+
   <MixteGridTable
     :columns
-    :data="data.data?.data.list"
-    :loading="data.isLoading"
+    :data="emptyData ? [] : data.data?.data.list"
+    :loading="data.isLoading || loading"
   >
     <template #cell-email="{ value }">
       <a :href="`mailto:${value}`">{{ value }}</a>
@@ -16,6 +27,9 @@
   import { useRequestReactive } from '@mixte/use';
   import axios from 'axios';
   import { ElButton, ElImage, ElTag } from 'element-plus';
+
+  const emptyData = ref(false);
+  const loading = ref(false);
 
   const data = useRequestReactive(() => {
     return axios.post<ResponseData<ResponseListData<User>>>('https://m1.apifoxmock.com/m1/4781098-4434938-default/list/user', { pageSize: 2 });

@@ -38,6 +38,7 @@
       field: 'avatar',
       title: '头像',
       align: 'center',
+      fixed: 'left',
       render: ({ value }) => {
         return <ElImage class="size-8" src={value} preview-src-list={[value]} preview-teleported lazy />;
       },
