@@ -319,6 +319,47 @@ describe('grid-table', () => {
     });
   });
 
+  it('单元格上的样式类', () => {
+    const columns = createColumns();
+    const data = createData();
+
+    const { getTableThs, getTableTds } = getTableStructure({
+      props: {
+        columns,
+        data,
+      },
+    });
+
+    const ths = getTableThs();
+    const tds = getTableTds();
+
+    ths.forEach((th, index) => {
+      const colIndex = index % columns.length;
+
+      expect(th.classes()).toEqual(expect.arrayContaining(['mixte-gt-th', 'mixte-gt-cell']));
+
+      if (colIndex === 0) {
+        expect(th.classes()).toContain('mixte-gt-cell-first');
+      }
+      if (colIndex === columns.length - 1) {
+        expect(th.classes()).toContain('mixte-gt-cell-last');
+      }
+    });
+
+    tds.forEach((td, index) => {
+      const colIndex = index % columns.length;
+
+      expect(td.classes()).toEqual(expect.arrayContaining(['mixte-gt-td', 'mixte-gt-cell']));
+
+      if (colIndex === 0) {
+        expect(td.classes()).toContain('mixte-gt-cell-first');
+      }
+      if (colIndex === columns.length - 1) {
+        expect(td.classes()).toContain('mixte-gt-cell-last');
+      }
+    });
+  });
+
   describe('树形数据', () => {
     function createTreeColumns() {
       return defineTableColumns([
@@ -1120,9 +1161,9 @@ describe('grid-table', () => {
         const align = columns[colIndex].align;
 
         if (align === 'center' || align === 'right')
-          expect(th.classes().sort()).toStrictEqual(['mixte-gt-cell', 'mixte-gt-th', `mixte-gt-cell-align-${align}`].sort());
+          expect(th.classes()).toEqual(expect.arrayContaining(['mixte-gt-cell', 'mixte-gt-th', `mixte-gt-cell-align-${align}`]));
         else
-          expect(th.classes().sort()).toStrictEqual(['mixte-gt-cell', 'mixte-gt-th'].sort());
+          expect(th.classes()).toEqual(expect.arrayContaining(['mixte-gt-cell', 'mixte-gt-th']));
       });
 
       getTableTds().forEach((td, index) => {
@@ -1130,9 +1171,9 @@ describe('grid-table', () => {
         const align = columns[colIndex].align;
 
         if (align === 'center' || align === 'right')
-          expect(td.classes().sort()).toStrictEqual(['mixte-gt-cell', 'mixte-gt-td', `mixte-gt-cell-align-${align}`].sort());
+          expect(td.classes()).toStrictEqual(expect.arrayContaining(['mixte-gt-cell', 'mixte-gt-td', `mixte-gt-cell-align-${align}`]));
         else
-          expect(td.classes().sort()).toStrictEqual(['mixte-gt-cell', 'mixte-gt-td'].sort());
+          expect(td.classes()).toStrictEqual(expect.arrayContaining(['mixte-gt-cell', 'mixte-gt-td']));
       });
     });
 

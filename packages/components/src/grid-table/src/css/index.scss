@@ -61,7 +61,7 @@
     background-color: var(--mixte-gt-th-bg);
 
     // 表头分割线
-    &:not(:last-child):not(.mixte-gt-cell-fix-left-active-last)::before {
+    &:not(.mixte-gt-cell-last):not(.mixte-gt-cell-fix-left-active-last)::before {
       content: '';
       width: 1px; height: 50%;
       position: absolute; top: 50%; inset-inline-end: 0; transform: translateY(-50%);
