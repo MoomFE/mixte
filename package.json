@@ -88,7 +88,7 @@
     "comlink": "^4.4.2",
     "cross-env": "^10.0.0",
     "defu": "^6.1.4",
-    "element-plus": "^2.10.4",
+    "element-plus": "^2.10.5",
     "eslint": "^9.32.0",
     "fast-glob": "^3.3.3",
     "fs-extra": "^11.3.0",
