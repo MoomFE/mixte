@@ -1,7 +1,8 @@
 /* eslint-disable antfu/consistent-chaining */
 
 import type { User } from '@/types';
-import type { RenderProps } from './src/types';
+import type { GridTableColumn, RenderProps } from '@mixte/components/grid-table/types';
+import type { ComponentProps, ComponentSlots } from 'vue-component-type-helpers';
 import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
 import { mount } from '@vue/test-utils';
 import { delay } from 'mixte';
@@ -1306,6 +1307,62 @@ describe('grid-table', () => {
         expect(classes).toEqual(expect.arrayContaining(['mixte-666', 'mixte-777', 'mixte-999']));
         expect(classes).not.includes('mixte-888');
       });
+    });
+  });
+
+  describe('类型测试', () => {
+    it('表格传参', () => {
+      type Props = ComponentProps<typeof MixteGridTable<User>>;
+
+      expectTypeOf<Props['data']>().toEqualTypeOf<any[] | undefined>();
+      expectTypeOf<Props['columns']>().toEqualTypeOf<GridTableColumn<User>[] | undefined>();
+      expectTypeOf<Props['childrenKey']>().toEqualTypeOf<keyof User | 'children' | (string & {}) | undefined>();
+      expectTypeOf<Props['expandColumnKey']>().toEqualTypeOf<keyof User | (string & {}) | undefined>();
+    });
+
+    it('表格列配置', () => {
+      const userColumns: GridTableColumn<User>[] = [];
+      const normalColumns: GridTableColumn<Record<string, any>>[] = [];
+
+      assertType<GridTableColumn<User>[]>([
+        ...userColumns,
+        ...normalColumns,
+      ]);
+    });
+
+    it('单元格插槽', () => {
+      type Slots = ComponentSlots<typeof MixteGridTable<User>>;
+
+      expectTypeOf<keyof Slots>().toEqualTypeOf<
+        'header' |
+        `header-${keyof User}` |
+        `header-${string}` |
+        'cell' |
+        `cell-${keyof User}` |
+        `cell-${string}`
+      >();
+
+      // Header
+      expectTypeOf<Slots['header']>().toEqualTypeOf<
+        ((props: { column: GridTableColumn<User> }) => any) | undefined
+      >();
+      expectTypeOf<Slots['header-name']>().toEqualTypeOf<
+        ((props: { column: GridTableColumn<User> }) => any) | undefined
+      >();
+      expectTypeOf<Slots['header-xxx']>().toEqualTypeOf<
+        ((props: { column: GridTableColumn<User> }) => any) | undefined
+      >();
+
+      // Cell
+      expectTypeOf<Slots['cell']>().toEqualTypeOf<
+        ((props: RenderProps<User>) => any) | undefined
+      >();
+      expectTypeOf<Slots['cell-name']>().toEqualTypeOf<
+        ((props: RenderProps<User>) => any) | undefined
+      >();
+      expectTypeOf<Slots['cell-xxx']>().toEqualTypeOf<
+        ((props: RenderProps<User>) => any) | undefined
+      >();
     });
   });
 });

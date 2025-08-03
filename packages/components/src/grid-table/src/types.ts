@@ -2,9 +2,7 @@ import type { MaybeRefOrGetter } from 'vue';
 
 // #region GridTableProps
 
-export interface GridTableProps<
-  Fields extends Record<string, any>,
-> {
+export interface GridTableProps<Fields extends Record<string, any>> {
   /**
    * 表格行主键
    * @default 'id'
@@ -68,20 +66,23 @@ export interface GridTableProps<
 // #endregion GridTableProps
 // #region GridTableColumn
 
-export interface GridTableColumn<Fields extends Record<string, any>> {
+export interface GridTableColumn<
+  Fields extends Record<string, any>,
+  Item extends Record<string, any> = Fields & Record<string, any>,
+> {
   /** 字段名 */
   field: keyof Fields | (string & {});
   /** 表头名称 */
-  title?: string | ((props: ColumnProps<Fields>) => string);
+  title?: string | ((props: ColumnProps<Item>) => string);
 
   /** 表头自定义渲染方法 */
-  headerRender?: (props: ColumnProps<Fields>) => any;
+  headerRender?: (props: ColumnProps<Item>) => any;
 
   /** 单元格自定义渲染方法 */
-  render?: (props: RenderProps<Fields>) => any;
+  render?: (props: RenderProps<Item>) => any;
 
   /** 列宽度 */
-  width?: string | number | `${number}` | ((props: ColumnProps<Fields>) => string | number | `${number}`);
+  width?: string | number | `${number}` | ((props: ColumnProps<Item>) => string | number | `${number}`);
 
   /**
    * 列的对齐方式
@@ -104,12 +105,9 @@ export interface ColumnProps<Fields extends Record<string, any>> {
   column: GridTableColumn<Fields>;
 }
 
-export interface RenderProps<
-  Fields extends Record<string, any>,
-  Item = Fields & Record<string, any>,
-> {
+export interface RenderProps<Fields extends Record<string, any>> {
   value: any;
-  record: Item;
+  record: Fields;
   column: GridTableColumn<Fields>;
   index: number;
 }
