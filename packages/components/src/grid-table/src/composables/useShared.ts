@@ -57,6 +57,7 @@ export const [
   const tableWrapScroll = reactive(useScroll(tableWrapRef));
 
   const tableRef = ref<HTMLDivElement>();
+  const tableSize = reactive(useElementSize(tableRef));
 
   /** 表格包裹层样式 */
   const tableWrapStyle = computed<StyleValue>(() => {
@@ -134,6 +135,7 @@ export const [
     tableWrapStyle,
 
     tableRef,
+    tableSize,
 
     tableTheadHeight,
 

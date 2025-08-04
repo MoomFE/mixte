@@ -2,12 +2,20 @@
 
 <template>
   <div
-    class="mixte-gt-loading"
+    class="mixte-gt-loading-wrap"
     :style="{
+      width: `${tableSize.width}px`,
       paddingTop: `${tableTheadHeight}px`,
     }"
   >
-    <RenderSvg />
+    <div
+      class="mixte-gt-loading"
+      :style="{
+        width: `${tableWrapSize.width}px`,
+      }"
+    >
+      <RenderSvg />
+    </div>
   </div>
 </template>
 
@@ -16,6 +24,8 @@
 
   const {
     tableTheadHeight,
+    tableWrapSize,
+    tableSize,
   } = useShared()!;
 
   function RenderSvg() {
