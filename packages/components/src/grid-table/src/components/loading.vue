@@ -6,6 +6,7 @@
     :style="{
       width: `${tableSize.width}px`,
       paddingTop: `${tableTheadHeight}px`,
+      zIndex: Math.max(fixedLeftColumns.length, fixedRightColumns.length) + 2,
     }"
   >
     <div
@@ -26,6 +27,8 @@
     tableTheadHeight,
     tableWrapSize,
     tableSize,
+    fixedLeftColumns,
+    fixedRightColumns,
   } = useShared()!;
 
   function RenderSvg() {

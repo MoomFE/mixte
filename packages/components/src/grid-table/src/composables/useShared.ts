@@ -1,7 +1,6 @@
 import type { GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
 import type { ModelRef, StyleValue } from 'vue';
-import { watchImmediate } from '@mixte/use';
-import { createInjectionState, useCssVar, useElementSize, useScroll } from '@vueuse/core';
+import { createInjectionState, useElementSize, useScroll } from '@vueuse/core';
 import { isFunction, isNumeric } from 'mixte';
 import { computed, reactive, ref, toValue, watch } from 'vue';
 import { columnIsFixedLeft, columnIsFixedRight } from '../utils';
@@ -95,23 +94,6 @@ export const [
   /** 表格表头高度 */
   const tableTheadHeight = ref(0);
 
-  /** 列 Index 集合 */
-  const columnIndexMap = ref<Record<string, number | undefined>>({});
-
-  {
-    /** 最大列 Index 值 */
-    const maxColumnIndex = computed(() => Object.values(columnIndexMap.value).reduce((max, index) => {
-      if (index == null) return max;
-      return Math.max(max!, index);
-    }, 0));
-
-    const css = useCssVar('--mixte-gt-max-column-index', tableWrapRef);
-
-    watchImmediate(maxColumnIndex, (index) => {
-      css.value = `${index ?? 0}`;
-    });
-  }
-
   return {
     props,
     slots,
@@ -139,7 +121,5 @@ export const [
     tableSize,
 
     tableTheadHeight,
-
-    columnIndexMap,
   };
 });

@@ -2,7 +2,7 @@ import type { GridTableColumn } from '@mixte/components/grid-table/types';
 import type { StyleValue } from 'vue';
 import { createNamedSharedComposable, watchImmediate, wheneverEffectScopeImmediate } from '@mixte/use';
 import { createInjectionState, syncRef, useCssVar, useElementBounding, useElementSize } from '@vueuse/core';
-import { computed, ref, toRef } from 'vue';
+import { computed, ref } from 'vue';
 import { columnIsFixedLeft, columnIsFixedRight } from '../utils';
 import { useShared } from './useShared';
 import { useTreeData } from './useTreeData';
@@ -23,8 +23,6 @@ export const [
     fixedRightColumnsRect,
 
     tableWrapScroll,
-
-    columnIndexMap,
   } = useShared()!;
 
   const { displayedData } = useTreeData()!;
@@ -40,15 +38,8 @@ export const [
     const fixedRightIndex = computed(() => fixedRight.value ? fixedRightColumns.value.findIndex(({ field }) => field === column.field) : -1);
 
     const zIndex = computed(() => {
-      if (fixedLeft.value) return fixedLeftIndex.value + 2;
-      if (fixedRight.value) return fixedRightIndex.value + 2;
-    });
-
-    syncRef(toRef(columnIndexMap.value, column.field), zIndex, {
-      direction: 'rtl',
-      transform: {
-        rtl: val => val,
-      },
+      if (fixedLeft.value) return fixedLeftIndex.value + 1;
+      if (fixedRight.value) return fixedRightIndex.value + 1;
     });
 
     const cellStyle = computed(() => {
