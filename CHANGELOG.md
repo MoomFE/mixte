@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.8]
+  - 📅 2025-08-04
   - 💄 [@mixte/components] 优化 `GridTable` 表格列配置类型, 支持当显式指定泛型参数时, 类型更宽松 *
   - 💄 [@mixte/components] 优化 `GridTable` 无数据层高度, 最大跟随父组件高度, 最低 `150px` *
   - 🐞 [@mixte/components] 修复 `GridTable` 加载中蒙版层级过低未遮挡固定列的问题 *
@@ -148,7 +151,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.8...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.9...HEAD
+[v3.5.0-beta.9]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.9
 [v3.5.0-beta.8]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.8
 [v3.5.0-beta.7]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.7
 [v3.5.0-beta.6]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.6
