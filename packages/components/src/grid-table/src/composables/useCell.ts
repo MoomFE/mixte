@@ -23,6 +23,8 @@ export const [
     fixedRightColumnsRect,
 
     tableWrapScroll,
+
+    columnIndexMap,
   } = useShared()!;
 
   const { displayedData } = useTreeData()!;
@@ -40,6 +42,13 @@ export const [
     const zIndex = computed(() => {
       if (fixedLeft.value) return fixedLeftIndex.value + 2;
       if (fixedRight.value) return fixedRightIndex.value + 2;
+    });
+
+    syncRef(toRef(columnIndexMap.value, column.field), zIndex, {
+      direction: 'rtl',
+      transform: {
+        rtl: val => val,
+      },
     });
 
     const cellStyle = computed(() => {

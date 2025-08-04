@@ -93,6 +93,23 @@ export const [
   /** 表格表头高度 */
   const tableTheadHeight = ref(0);
 
+  /** 列 Index 集合 */
+  const columnIndexMap = ref<Record<string, number | undefined>>({});
+
+  {
+    /** 最大列 Index 值 */
+    const maxColumnIndex = computed(() => Object.values(columnIndexMap.value).reduce((max, index) => {
+      if (index == null) return max;
+      return Math.max(max!, index);
+    }, 0));
+
+    const css = useCssVar('--mixte-gt-max-column-index', tableWrapRef);
+
+    watchImmediate(maxColumnIndex, (index) => {
+      css.value = `${index ?? 0}`;
+    });
+  }
+
   return {
     props,
     slots,
@@ -119,5 +136,7 @@ export const [
     tableRef,
 
     tableTheadHeight,
+
+    columnIndexMap,
   };
 });
