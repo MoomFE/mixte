@@ -1,5 +1,6 @@
 ## [Unreleased]
   - 💄 [@mixte/components] 优化 `GridTable` 表格列配置类型, 支持当显式指定泛型参数时, 类型更宽松 *
+  - 💄 [@mixte/components] 优化 `GridTable` 无数据层高度, 最大跟随父组件高度, 最低 `150px` *
   - 🐞 [@mixte/components] 修复 `GridTable` 加载中蒙版层级过低未遮挡固定列的问题 *
   - 🐞 [@mixte/components] 修复 `GridTable` 加载中蒙版和图标会随着横向滚动一起移动的问题 *
   - 🐞 [@mixte/components] 修复 `GridTable` 无数据层会随着横向滚动一起移动的问题 *

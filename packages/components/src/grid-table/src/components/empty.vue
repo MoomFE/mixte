@@ -1,7 +1,12 @@
 <!-- 无数据 -->
 
 <template>
-  <div class="mixte-gt-empty-wrap">
+  <div
+    class="mixte-gt-empty-wrap"
+    :style="{
+      height: `${tableWrapSize.height - tableTheadHeight}px`,
+    }"
+  >
     <div
       v-if="!props.loading"
       class="mixte-gt-empty"
@@ -18,7 +23,7 @@
 <script lang="tsx" setup>
   import { useShared } from '../composables/useShared';
 
-  const { props, tableWrapSize } = useShared()!;
+  const { props, tableWrapSize, tableTheadHeight } = useShared()!;
 
   function RenderSvg() {
     return (

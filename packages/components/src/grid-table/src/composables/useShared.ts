@@ -1,6 +1,7 @@
 import type { GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
 import type { ModelRef, StyleValue } from 'vue';
-import { createInjectionState, useElementSize, useScroll } from '@vueuse/core';
+import { watchImmediate } from '@mixte/use';
+import { createInjectionState, useCssVar, useElementSize, useScroll } from '@vueuse/core';
 import { isFunction, isNumeric } from 'mixte';
 import { computed, reactive, ref, toValue, watch } from 'vue';
 import { columnIsFixedLeft, columnIsFixedRight } from '../utils';

@@ -59,7 +59,7 @@ function getTableStructure<
   const getTable = () => vm.find<HTMLDivElement>('.mixte-gt');
   const getTableThs = () => vm.findAll<HTMLDivElement>('.mixte-gt-th.mixte-gt-cell');
   const getTableTds = () => vm.findAll<HTMLDivElement>('.mixte-gt-td.mixte-gt-cell');
-  const getTableLoading = () => vm.find<HTMLDivElement>('.mixte-gt-wrap > .mixte-gt-loading');
+  const getTableLoading = () => vm.find<HTMLDivElement>('.mixte-gt-wrap > .mixte-gt-loading-wrap');
   const getTableEmptyWrap = () => vm.find<HTMLDivElement>('.mixte-gt-wrap > .mixte-gt > .mixte-gt-empty-wrap');
 
   const tableWrap = getTableWrap();

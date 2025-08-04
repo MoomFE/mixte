@@ -167,7 +167,7 @@
 
   // 无数据
   &-empty-wrap {
-    height: 150px;
+    min-height: 150px;
     grid-column: 1 / -1;
     order: 2;
   }
