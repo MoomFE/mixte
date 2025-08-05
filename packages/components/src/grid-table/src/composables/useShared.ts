@@ -1,4 +1,5 @@
 import type { GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
+import type { MixteScrollbarInstance } from '@mixte/components/scrollbar';
 import type { ModelRef, StyleValue } from 'vue';
 import { createInjectionState, useElementSize, useScroll } from '@vueuse/core';
 import { isFunction, isNumeric } from 'mixte';
@@ -52,9 +53,12 @@ export const [
   /** 所有固定在右侧的列的位置 */
   const fixedRightColumnsRect = ref<Pick<DOMRect, 'left' | 'right'>[]>([]);
 
+  const scrollbarRef = ref<MixteScrollbarInstance>();
+  const scrollbarContentRef = computed(() => scrollbarRef.value?.contentRef);
+  const scrollbarContentScroll = reactive(useScroll(scrollbarContentRef));
+
   const tableWrapRef = ref<HTMLDivElement>();
   const tableWrapSize = reactive(useElementSize(tableWrapRef));
-  const tableWrapScroll = reactive(useScroll(tableWrapRef));
 
   const tableRef = ref<HTMLDivElement>();
   const tableSize = reactive(useElementSize(tableRef));
@@ -88,7 +92,7 @@ export const [
 
   // 表格包裹层尺寸变化时, 重新测量滚动条情况
   watch(() => `${tableWrapSize.width}-${tableWrapSize.height}`, () => {
-    tableWrapScroll.measure();
+    scrollbarContentScroll.measure();
   });
 
   /** 表格表头高度 */
@@ -112,9 +116,12 @@ export const [
     fixedRightColumns,
     fixedRightColumnsRect,
 
+    scrollbarRef,
+    scrollbarContentScroll,
+
     tableWrapRef,
     tableWrapSize,
-    tableWrapScroll,
+    scrollbarContentScroll,
     tableWrapStyle,
 
     tableRef,

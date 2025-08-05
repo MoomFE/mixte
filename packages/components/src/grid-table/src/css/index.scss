@@ -34,6 +34,11 @@
   *, *::before, *::after {
     box-sizing: border-box;
   }
+
+  > .mixte-scrollbar {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 // 主体

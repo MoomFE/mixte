@@ -1,15 +1,17 @@
 <template>
   <div ref="tableWrapRef" class="mixte-gt-wrap">
-    <div ref="tableRef" class="mixte-gt" :style="tableWrapStyle">
-      <!-- 表体 -->
-      <component v-if="showTbody" :is="h(Tbody, null, $slots)" />
-      <!-- 表头 -->
-      <component v-if="showThead" :is="h(Thead, null, $slots)" />
-      <!-- 无数据 -->
-      <Empty v-if="!showTbody" />
-    </div>
-    <!-- 加载中 -->
-    <Loading v-if="loading" />
+    <MixteScrollbar ref="scrollbarRef">
+      <div ref="tableRef" class="mixte-gt" :style="tableWrapStyle">
+        <!-- 表体 -->
+        <component v-if="showTbody" :is="h(Tbody, null, $slots)" />
+        <!-- 表头 -->
+        <component v-if="showThead" :is="h(Thead, null, $slots)" />
+        <!-- 无数据 -->
+        <Empty v-if="!showTbody" />
+      </div>
+      <!-- 加载中 -->
+      <Loading v-if="loading" />
+    </MixteScrollbar>
   </div>
 </template>
 
@@ -19,6 +21,7 @@
   generic="Fields extends Record<string, any>"
 >
   import type { GridTableExpose, GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
+  import { MixteScrollbar } from '@mixte/components/scrollbar';
   import { computed, h } from 'vue';
   import Empty from './components/empty.vue';
   import Loading from './components/loading.vue';
@@ -37,6 +40,8 @@
   });
 
   const {
+    scrollbarRef,
+
     tableWrapRef,
     tableWrapStyle,
 

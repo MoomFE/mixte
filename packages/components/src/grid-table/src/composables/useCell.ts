@@ -22,7 +22,7 @@ export const [
     fixedRightColumns,
     fixedRightColumnsRect,
 
-    tableWrapScroll,
+    scrollbarContentScroll,
   } = useShared()!;
 
   const { displayedData } = useTreeData()!;
@@ -68,7 +68,7 @@ export const [
 
         classes += 'mixte-gt-cell-fix mixte-gt-cell-fix-left ';
 
-        if (tableWrapScroll.arrivedState.left === false) {
+        if (scrollbarContentScroll.arrivedState.left === false) {
           const currentRect = fixedLeftColumnsRect.value[index];
           const prevRect = fixedLeftColumnsRect.value[index - 1];
           const nextRect = fixedLeftColumnsRect.value[index + 1];
@@ -87,7 +87,7 @@ export const [
 
         classes += 'mixte-gt-cell-fix mixte-gt-cell-fix-right ';
 
-        if (tableWrapScroll.arrivedState.right === false) {
+        if (scrollbarContentScroll.arrivedState.right === false) {
           const currentRect = fixedRightColumnsRect.value[index];
           const prevRect = fixedRightColumnsRect.value[index - 1];
           const nextRect = fixedRightColumnsRect.value[index + 1];

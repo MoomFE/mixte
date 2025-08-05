@@ -14,7 +14,7 @@ export const [
     overscan,
 
     tableWrapSize,
-    tableWrapScroll,
+    scrollbarContentScroll,
 
     tableRef,
 
@@ -34,7 +34,7 @@ export const [
   const visibleStart = computed(() => {
     return Math.max(
       0,
-      findIndexByHeight(tableWrapScroll.y) - overscan.value,
+      findIndexByHeight(scrollbarContentScroll.y) - overscan.value,
     );
   });
 
@@ -42,7 +42,7 @@ export const [
   const visibleEnd = computed(() => {
     return Math.min(
       displayedData.value.length ?? 0,
-      findIndexByHeight(tableWrapScroll.y + tableBodyHeight.value) + 1 + overscan.value,
+      findIndexByHeight(scrollbarContentScroll.y + tableBodyHeight.value) + 1 + overscan.value,
     );
   });
 
@@ -68,7 +68,7 @@ export const [
       tablePlaceholderHeight.value = `${cumulativeHeights.value[start] || 0}px`;
     });
 
-    watch(() => tableWrapScroll.isScrolling, (isScrolling) => {
+    watch(() => scrollbarContentScroll.isScrolling, (isScrolling) => {
       tableHeightWillChange.value = isScrolling ? 'height' : undefined;
     }, {
       flush: 'sync',
