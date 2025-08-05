@@ -34,6 +34,16 @@
       "import": "./dist/grid-table/*.mjs",
       "require": "./dist/grid-table/*.cjs"
     },
+    "./scrollbar": {
+      "types": "./dist/scrollbar/index.d.ts",
+      "import": "./dist/scrollbar/index.mjs",
+      "require": "./dist/scrollbar/index.cjs"
+    },
+    "./scrollbar/*": {
+      "types": "./dist/scrollbar/*.d.ts",
+      "import": "./dist/scrollbar/*.mjs",
+      "require": "./dist/scrollbar/*.cjs"
+    },
     "./*": "./*"
   },
   "files": [

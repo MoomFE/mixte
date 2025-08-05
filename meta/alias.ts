@@ -12,12 +12,8 @@ export const alias: Alias[] = [
   { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/src/index') },
 
   {
-    find: /^@mixte\/components\/dist\/(grid-table|xxx)\/css\/(.*)$/,
+    find: /^@mixte\/components\/dist\/(grid-table|scrollbar)\/css\/(.*)$/,
     replacement: resolve(__dirname, '../packages/components/src/$1/src/css/$2'),
-  },
-  {
-    find: /^@mixte\/components\/grid-table\/(utils|xxx)$/,
-    replacement: resolve(__dirname, '../packages/components/src/grid-table/src/$1'),
   },
 
   {
@@ -59,11 +55,11 @@ export const testAlias: Alias[] = [
   { find: '@mixte/validator', replacement: resolve(__dirname, '../packages/validator/dist/index') },
 
   {
-    find: /^@mixte\/components\/dist\/(grid-table|xxx)\/css\/(.*)$/,
+    find: /^@mixte\/components\/dist\/(grid-table|scrollbar)\/css\/(.*)$/,
     replacement: resolve(__dirname, '../packages/components/dist/$1/css/$2'),
   },
   {
-    find: /^@mixte\/components\/(grid-table|xxx)\/(.*)$/,
+    find: /^@mixte\/components\/(grid-table|scrollbar)\/(.*)$/,
     replacement: resolve(__dirname, '../packages/components/dist/$1/$2'),
   },
 

@@ -107,6 +107,7 @@
     "nanoid": "catalog:",
     "nuxt": "^4.0.2",
     "ora": "^8.2.0",
+    "overlayscrollbars": "^2.11.4",
     "pathe": "^2.0.3",
     "playwright": "^1.54.2",
     "pnpm": "^9.15.6",

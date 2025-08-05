@@ -1,4 +1,5 @@
-import { defineBuild } from '../../scripts/build-utils';
+import { resolve } from 'pathe';
+import { defineBuild, rootDir } from '../../scripts/build-utils';
 
 defineBuild([
   {
@@ -27,5 +28,28 @@ defineBuild([
       from: './src/grid-table/src/css',
       to: 'grid-table/css',
     }],
+  },
+
+  {
+    entry: './src/scrollbar/index.ts',
+    outputFileName: 'scrollbar/index',
+    vueComponent: true,
+  },
+  {
+    entry: `./src/scrollbar/src/types.ts`,
+    outputFileName: `scrollbar/types`,
+    vueDtsInput: `scrollbar/src/types.d.ts`,
+  },
+  {
+    copy: [
+      {
+        from: './src/scrollbar/src/css',
+        to: 'scrollbar/css',
+      },
+      {
+        from: resolve(rootDir, 'node_modules/overlayscrollbars/styles/overlayscrollbars.css'),
+        to: 'scrollbar/css/overlayscrollbars.scss',
+      },
+    ],
   },
 ]);

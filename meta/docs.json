@@ -293,6 +293,16 @@
       "children": {},
       "childrenGroupInfo": {},
       "childrenInfo": {}
+    },
+    {
+      "fn": "scrollbar",
+      "title": "",
+      "name": "滚动条",
+      "hiddenTitle": false,
+      "sidebarTitle": "",
+      "children": {},
+      "childrenGroupInfo": {},
+      "childrenInfo": {}
     }
   ],
   "validator": [
