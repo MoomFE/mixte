@@ -130,15 +130,18 @@ export type GridTableSlots<
 > = GridTableFieldsSlots<Fields> & GridTableHeaderSlots<Fields>;
 
 /** 字段单元格插槽 */
-export type GridTableFieldsSlots<Fields extends Record<string, any>> = {
+export type GridTableFieldsSlots<
+  Fields extends Record<string, any>,
+  Item extends Record<string, any> = Fields & Record<string, any>,
+> = {
   /** 通用字段单元格插槽 */
-  cell?: (props: RenderProps<Fields>) => any;
+  cell?: (props: RenderProps<Item>) => any;
 } & {
   /** 指定字段单元格插槽 */
-  [K in Extract<keyof Fields, string> as `cell-${K}`]?: (props: RenderProps<Fields>) => any;
+  [K in Extract<keyof Fields, string> as `cell-${K}`]?: (props: RenderProps<Item>) => any;
 } & {
   /** 其他字段单元格插槽 */
-  [K in string as `cell-${K}`]?: (props: RenderProps<Fields>) => any;
+  [K in string as `cell-${K}`]?: (props: RenderProps<Item>) => any;
 };
 
 /** 表头单元格插槽 */

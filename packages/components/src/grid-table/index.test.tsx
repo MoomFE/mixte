@@ -1330,39 +1330,61 @@ describe('grid-table', () => {
       ]);
     });
 
-    it('单元格插槽', () => {
+    describe('单元格插槽', () => {
       type Slots = ComponentSlots<typeof MixteGridTable<User>>;
 
-      expectTypeOf<keyof Slots>().toEqualTypeOf<
-        'header' |
-        `header-${keyof User}` |
-        `header-${string}` |
-        'cell' |
-        `cell-${keyof User}` |
-        `cell-${string}`
-      >();
+      it('根据字段名动态生成指定字段单元格插槽', () => {
+        expectTypeOf<keyof Slots>().toEqualTypeOf<
+          'header' |
+          `header-${keyof User}` |
+          `header-${string}` |
+          'cell' |
+          `cell-${keyof User}` |
+          `cell-${string}`
+        >();
 
-      // Header
-      expectTypeOf<Slots['header']>().toEqualTypeOf<
+        // Header
+        expectTypeOf<Slots['header']>().toEqualTypeOf<
         ((props: { column: GridTableColumn<User> }) => any) | undefined
-      >();
-      expectTypeOf<Slots['header-name']>().toEqualTypeOf<
+        >();
+        expectTypeOf<Slots['header-name']>().toEqualTypeOf<
         ((props: { column: GridTableColumn<User> }) => any) | undefined
-      >();
-      expectTypeOf<Slots['header-xxx']>().toEqualTypeOf<
+        >();
+        expectTypeOf<Slots['header-xxx']>().toEqualTypeOf<
         ((props: { column: GridTableColumn<User> }) => any) | undefined
-      >();
+        >();
 
-      // Cell
-      expectTypeOf<Slots['cell']>().toEqualTypeOf<
-        ((props: RenderProps<User>) => any) | undefined
-      >();
-      expectTypeOf<Slots['cell-name']>().toEqualTypeOf<
-        ((props: RenderProps<User>) => any) | undefined
-      >();
-      expectTypeOf<Slots['cell-xxx']>().toEqualTypeOf<
-        ((props: RenderProps<User>) => any) | undefined
-      >();
+        // Cell
+        expectTypeOf<Slots['cell']>().toEqualTypeOf<
+        ((props: RenderProps<User & Record<string, any>>) => any) | undefined
+        >();
+        expectTypeOf<Slots['cell-name']>().toEqualTypeOf<
+        ((props: RenderProps<User & Record<string, any>>) => any) | undefined
+        >();
+        expectTypeOf<Slots['cell-xxx']>().toEqualTypeOf<
+        ((props: RenderProps<User & Record<string, any>>) => any) | undefined
+        >();
+      });
+
+      it('通过字段单元格插槽传入的 record 类型会变宽松', () => {
+        expectTypeOf<
+          Parameters<NonNullable<Slots['cell']>>['0']['record']
+        >().toEqualTypeOf<
+          User & Record<string, any>
+        >();
+
+        expectTypeOf<
+          Parameters<NonNullable<Slots['cell-name']>>['0']['record']
+        >().toEqualTypeOf<
+          User & Record<string, any>
+        >();
+
+        expectTypeOf<
+          Parameters<NonNullable<Slots['cell-xxx']>>['0']['record']
+        >().toEqualTypeOf<
+          User & Record<string, any>
+        >();
+      });
     });
   });
 });
