@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/components] 新增 `Scrollbar` 组件 ( 开发中 )
   - 💄 [@mixte/components] 优化 `GridTable` 加载中蒙版层级实现逻辑 *
   - 💄 [@mixte/components] 优化 `GridTable` 表格字段单元格插槽传入的 record 参数类型, 变得更为宽松 *
 

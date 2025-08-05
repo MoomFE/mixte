@@ -248,6 +248,9 @@ importers:
       ora:
         specifier: ^8.2.0
         version: 8.2.0
+      overlayscrollbars:
+        specifier: ^2.11.4
+        version: 2.11.4
       pathe:
         specifier: ^2.0.3
         version: 2.0.3
@@ -6230,6 +6233,9 @@ packages:
 
   orderedmap@2.1.1:
     resolution: {integrity: sha512-TvAWxi0nDe1j/rtMcWcIj94+Ffe6n7zhow33h40SKxmsmozs6dz/e+EajymfoFcHd7sxNn8yHM8839uixMOV6g==}
+
+  overlayscrollbars@2.11.4:
+    resolution: {integrity: sha512-GKYQo3OZ1QWnppNjQVv5hfpn+glYUxc6+ufW+ivdXUyLWFNc01XoH2Z36KGM4I8e5pXYeA3ElNItcXiLvmUhnQ==}
 
   oxc-minify@0.78.0:
     resolution: {integrity: sha512-QmoYJBPvzm+uqagkUaCRmyQL5LAzUYnz0r1JtMa6gi2sGyc5elDR8oE0F/1G1NjM3K3Kefwn4sdDFTZeRWc8sA==}
@@ -15097,6 +15103,8 @@ snapshots:
       strip-ansi: 7.1.0
 
   orderedmap@2.1.1: {}
+
+  overlayscrollbars@2.11.4: {}
 
   oxc-minify@0.78.0:
     optionalDependencies:

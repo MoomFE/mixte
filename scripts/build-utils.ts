@@ -18,6 +18,8 @@ const api = Comlink.wrap<{ build: (lib: LibConfig) => Promise<void> }>(nodeEndpo
 
 const spinner = ora();
 
+export const rootDir = resolve(__dirname, '../');
+
 interface LibConfig {
   /**
    * 打包入口文件
@@ -97,7 +99,9 @@ export async function defineBuild(libs: LibConfig[]) {
         const fromPath = resolve(rootDir, from);
         const toPath = resolve(outDir, to);
 
-        await fs.copy(fromPath, toPath);
+        await fs.copy(fromPath, toPath, {
+          dereference: true,
+        });
       }
     }
 

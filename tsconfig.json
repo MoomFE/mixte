@@ -18,6 +18,11 @@
         "./packages/components/src/grid-table/src/*",
         "./packages/components/src/grid-table/*"
       ],
+      "@mixte/components/dist/scrollbar/css/*": ["./packages/components/src/scrollbar/src/css/*"],
+      "@mixte/components/scrollbar/*": [
+        "./packages/components/src/scrollbar/src/*",
+        "./packages/components/src/scrollbar/*"
+      ],
 
       "@mixte/snippets/dist/tiptap-editor/css/*": ["./packages/snippets/src/tiptap-editor/src/css/*"],
       "@mixte/snippets/tiptap-editor/*": [

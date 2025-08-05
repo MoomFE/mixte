@@ -43,6 +43,10 @@
     {
       "path": "packages/components/src/grid-table",
       "name": "Grid Table"
+    },
+    {
+      "path": "packages/components/src/scrollbar",
+      "name": "Scrollbar"
     }
   ],
   "settings": {
@@ -88,7 +92,8 @@
       "packages/use": true,
       "packages/validator": true,
       "src/grid-table": true,
-      "src/low-code-editor": true
+      "src/low-code-editor": true,
+      "src/scrollbar": true
     },
     "unocss.autocomplete.matchType": "fuzzy",
     "unocss.remToPxPreview": true,
