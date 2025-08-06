@@ -24,30 +24,38 @@ function removeUnusedAttribute(html: string) {
   return $.html();
 }
 
-async function getOptions() {
+const getOptions = vi.fn(async () => {
   await delay(100);
   return [{ label: 'Option 1', value: '1' }, { label: 'Option 2', value: '2' }];
-}
-async function getOptions2() {
+});
+
+const getOptions2 = vi.fn(async () => {
   await delay(100);
   return {
     data: [{ label: 'Option 3', value: '3' }, { label: 'Option 4', value: '4' }],
   };
-}
-async function getOptions3() {
+});
+
+const getOptions3 = vi.fn(async () => {
   await delay(100);
   return {
     data: {
       data: [{ label: 'Option 5', value: '5' }, { label: 'Option 6', value: '6' }],
     },
   };
-}
+});
 
 const optionsLabels = new Map<() => Promise<any>, string[]>();
 
 optionsLabels.set(getOptions, ['Option 1', 'Option 2']);
 optionsLabels.set(getOptions2, ['Option 3', 'Option 4']);
 optionsLabels.set(getOptions3, ['Option 5', 'Option 6']);
+
+beforeEach(() => {
+  getOptions.mockClear();
+  getOptions2.mockClear();
+  getOptions3.mockClear();
+});
 
 describe('mel-select', () => {
   it('正常使用, 和原组件 DOM 结构一致', async () => {
@@ -207,10 +215,12 @@ describe('mel-select', () => {
       expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
       expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
       expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
+      expect(getOptions).toHaveBeenCalledTimes(1);
 
       await delay(100);
 
       expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+      expect(getOptions).toHaveBeenCalledTimes(1);
 
       const options = mel.findAll('.el-select-dropdown__item');
 
@@ -232,10 +242,12 @@ describe('mel-select', () => {
       expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
       expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
       expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
+      expect(getOptions).toHaveBeenCalledTimes(1);
 
       await delay(100);
 
       expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+      expect(getOptions).toHaveBeenCalledTimes(1);
 
       const options = mel.findAll('.el-select-dropdown__item');
 
@@ -257,16 +269,19 @@ describe('mel-select', () => {
 
       expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
       expect(mel.find('.el-select-dropdown__empty').text()).toBe('No data');
+      expect(getOptions).toHaveBeenCalledTimes(0);
 
       mel.vm.api.execute();
       await nextTick();
 
       expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
       expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
+      expect(getOptions).toHaveBeenCalledTimes(1);
 
       await delay(100);
 
       expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+      expect(getOptions).toHaveBeenCalledTimes(1);
 
       const options = mel.findAll('.el-select-dropdown__item');
 
@@ -294,10 +309,12 @@ describe('mel-select', () => {
         expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
         expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
         expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
+        expect(api).toHaveBeenCalledTimes(1);
 
         await delay(100);
 
         expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+        expect(api).toHaveBeenCalledTimes(1);
 
         const options = mel.findAll('.el-select-dropdown__item');
 
@@ -305,6 +322,203 @@ describe('mel-select', () => {
         expect(options[0].text()).toBe(labels[0]);
         expect(options[1].text()).toBe(labels[1]);
       }
+    });
+
+    describe('配置请求参数', () => {
+      it('会传递给 api 方法', async () => {
+        const mel = mount(MelSelect, {
+          props: {
+            teleported: false,
+            optionsApi: {
+              api: getOptions,
+              params: { a: 1, b: 2 },
+            },
+          },
+        });
+
+        expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
+        expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
+        expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
+        expect(getOptions).toHaveBeenCalledTimes(1);
+        expect(getOptions).toHaveBeenCalledWith({ a: 1, b: 2 });
+
+        await delay(100);
+
+        expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+        expect(getOptions).toHaveBeenCalledTimes(1);
+
+        const options = mel.findAll('.el-select-dropdown__item');
+
+        expect(options.length).toBe(2);
+        expect(options[0].text()).toBe('Option 1');
+        expect(options[1].text()).toBe('Option 2');
+      });
+
+      it('支持传入函数, 返回请求参数, 变化时会重新请求', async () => {
+        const index = ref(1);
+
+        const mel = mount(MelSelect, {
+          props: {
+            teleported: false,
+            optionsApi: {
+              api: getOptions,
+              params: () => ({ a: index.value, b: index.value + 1 }),
+            },
+          },
+        });
+
+        {
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
+          expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
+          expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
+          expect(getOptions).toHaveBeenCalledTimes(1);
+          expect(getOptions).toHaveBeenCalledWith({ a: 1, b: 2 });
+
+          await delay(100);
+
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+          expect(getOptions).toHaveBeenCalledTimes(1);
+
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(options.length).toBe(2);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 2');
+        }
+
+        {
+          index.value = 2;
+
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+          expect(getOptions).toHaveBeenCalledTimes(1);
+
+          await nextTick();
+
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
+          expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
+          expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
+          expect(getOptions).toHaveBeenCalledTimes(2);
+          expect(getOptions).toHaveBeenCalledWith({ a: 2, b: 3 });
+
+          await delay(100);
+
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+          expect(getOptions).toHaveBeenCalledTimes(2);
+
+          const options = mel.findAll('.el-select-dropdown__item');
+          expect(options.length).toBe(2);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 2');
+        }
+
+        {
+          index.value = 3;
+
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+          expect(getOptions).toHaveBeenCalledTimes(2);
+
+          await nextTick();
+
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
+          expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
+          expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
+          expect(getOptions).toHaveBeenCalledTimes(3);
+          expect(getOptions).toHaveBeenCalledWith({ a: 3, b: 4 });
+
+          await delay(100);
+
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+          expect(getOptions).toHaveBeenCalledTimes(3);
+
+          const options = mel.findAll('.el-select-dropdown__item');
+          expect(options.length).toBe(2);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 2');
+        }
+      });
+
+      it('支持传入 MaybeRef 对象, 变化时会重新请求', async () => {
+        const index = ref(1);
+
+        const mel = mount(MelSelect, {
+          props: {
+            teleported: false,
+            optionsApi: {
+              api: getOptions,
+              params: computed(() => ({ a: index.value, b: index.value + 1 })),
+            },
+          },
+        });
+
+        {
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
+          expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
+          expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
+          expect(getOptions).toHaveBeenCalledTimes(1);
+          expect(getOptions).toHaveBeenCalledWith({ a: 1, b: 2 });
+
+          await delay(100);
+
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+          expect(getOptions).toHaveBeenCalledTimes(1);
+
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(options.length).toBe(2);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 2');
+        }
+
+        {
+          index.value = 2;
+
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+          expect(getOptions).toHaveBeenCalledTimes(1);
+
+          await nextTick();
+
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
+          expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
+          expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
+          expect(getOptions).toHaveBeenCalledTimes(2);
+          expect(getOptions).toHaveBeenCalledWith({ a: 2, b: 3 });
+
+          await delay(100);
+
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+          expect(getOptions).toHaveBeenCalledTimes(2);
+
+          const options = mel.findAll('.el-select-dropdown__item');
+          expect(options.length).toBe(2);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 2');
+        }
+
+        {
+          index.value = 3;
+
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+          expect(getOptions).toHaveBeenCalledTimes(2);
+
+          await nextTick();
+
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
+          expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
+          expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
+          expect(getOptions).toHaveBeenCalledTimes(3);
+          expect(getOptions).toHaveBeenCalledWith({ a: 3, b: 4 });
+
+          await delay(100);
+
+          expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+          expect(getOptions).toHaveBeenCalledTimes(3);
+
+          const options = mel.findAll('.el-select-dropdown__item');
+          expect(options.length).toBe(2);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 2');
+        }
+      });
     });
   });
 

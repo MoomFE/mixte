@@ -1,6 +1,7 @@
 ## [Unreleased]
   - 💄 [@mixte/components] 优化 `GridTable` 加载中蒙版层级实现逻辑 *
   - 💄 [@mixte/components] 优化 `GridTable` 表格字段单元格插槽传入的 record 参数类型, 变得更为宽松 *
+  - 💄 [@mixte/mel-components] 组件 `MelSelect` 的 `optionsApi` 新增 `params`, 会传入 `api` 方法, 发生改变后会触发重新请求
 
 ## [v3.5.0-beta.8]
   - 📅 2025-08-04
