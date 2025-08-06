@@ -1,3 +1,4 @@
+/* eslint-disable style/no-multi-spaces */
 /* eslint-disable antfu/consistent-chaining */
 
 import type { User } from '@/types';
@@ -5,7 +6,7 @@ import type { GridTableColumn, RenderProps } from '@mixte/components/grid-table/
 import type { ComponentProps, ComponentSlots } from 'vue-component-type-helpers';
 import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
 import { mount } from '@vue/test-utils';
-import { delay } from 'mixte';
+import { delay, isFunction } from 'mixte';
 
 export type TestUser = Pick<User, 'id' | 'name' | 'nameEn' | 'age' | 'gender' | 'genderValue' | 'email' | 'address' | 'status' | 'statusValue'>;
 
@@ -88,18 +89,28 @@ function getTableStructure<
     expect(tableWrap.element.children.length).toBe(1);
   }
 
+  const columns = options?.props?.columns?.filter((column) => {
+    const visible = column.visible ?? true;
+    if (isFunction(visible) ? !visible({ column }) : !visible) return false;
+
+    const hidden = column.hidden ?? false;
+    if (isFunction(hidden) ? hidden({ column }) : hidden) return false;
+
+    return true;
+  });
+
   // 表头
-  if (options?.props?.columns?.length) {
-    expect(tableThs.length).toBe(options.props.columns.length);
+  if (columns?.length) {
+    expect(tableThs.length).toBe(columns.length);
   }
   else {
     expect(tableThs.length).toBe(0);
   }
 
   // 表体 & 无数据部分
-  if (!!options?.props?.columns?.length && !!options?.props?.data?.length) {
+  if (!!columns?.length && !!options?.props?.data?.length) {
     // 表体
-    expect(tableTds.length).toBe(options.props.columns.length * options.props.data.length);
+    expect(tableTds.length).toBe(columns.length * options.props.data.length);
     // 无数据部分
     expect(tableEmptyWrap.exists()).toBe(false);
   }
@@ -115,7 +126,6 @@ function getTableStructure<
    * 测试树形数据结构
    */
   function testTreeStructure() {
-    const columns = options?.props?.columns;
     const data = options?.props?.data;
 
     if (!columns?.length || !data?.length)
@@ -1306,6 +1316,56 @@ describe('grid-table', () => {
 
         expect(classes).toEqual(expect.arrayContaining(['mixte-666', 'mixte-777', 'mixte-999']));
         expect(classes).not.includes('mixte-888');
+      });
+    });
+
+    it('显示列 & 隐藏列: visible & hidden', () => {
+      const columns = defineTableColumns([
+        // visible
+        { field: 'col-1',    visible: undefined,     title: '显示' },
+        { field: 'col-2',    visible: true,          title: '显示' },
+        { field: 'col-3',    visible: false,         title: '隐藏' },
+        { field: 'col-4',    visible: () => true,    title: '显示' },
+        { field: 'col-5',    visible: () => false,   title: '隐藏' }, // @ts-expect-error
+        { field: 'col-6',    visible: null,          title: '显示' }, // @ts-expect-error
+        { field: 'col-7',    visible: 0,             title: '隐藏' }, // @ts-expect-error
+        { field: 'col-8',    visible: 1,             title: '显示' },
+
+        // hidden
+        { field: 'col-9',    hidden: undefined,     title: '显示' },
+        { field: 'col-10',   hidden: true,          title: '隐藏' },
+        { field: 'col-11',   hidden: false,         title: '显示' },
+        { field: 'col-12',   hidden: () => true,    title: '隐藏' },
+        { field: 'col-13',   hidden: () => false,   title: '显示' }, // @ts-expect-error
+        { field: 'col-14',   hidden: null,          title: '显示' }, // @ts-expect-error
+        { field: 'col-15',   hidden: 0,             title: '显示' }, // @ts-expect-error
+        { field: 'col-16',   hidden: 1,             title: '隐藏' },
+
+        // visible & hidden 混合
+        { field: 'col-17',   visible: true,  hidden: true,    title: '隐藏' },
+        { field: 'col-18',   visible: true,  hidden: false,   title: '显示' },
+        { field: 'col-19',   visible: false, hidden: true,    title: '隐藏' },
+        { field: 'col-20',   visible: false, hidden: false,   title: '隐藏' },
+        { field: 'col-21',   visible: () => true,  hidden: () => true,    title: '隐藏' },
+        { field: 'col-22',   visible: () => true,  hidden: () => false,   title: '显示' },
+        { field: 'col-23',   visible: () => false, hidden: () => true,    title: '隐藏' },
+        { field: 'col-24',   visible: () => false, hidden: () => false,   title: '隐藏' },
+      ]);
+
+      const { getTableThs } = getTableStructure({
+        props: {
+          columns,
+        },
+      });
+
+      const ths = getTableThs();
+      const thFields = ths.map(th => th.attributes('data-field'));
+
+      expect(ths.length).toBe(12);
+
+      columns.forEach((column) => {
+        if (column.title === '显示') expect(thFields).includes(column.field);
+        if (column.title === '隐藏') expect(thFields).not.includes(column.field);
       });
     });
   });

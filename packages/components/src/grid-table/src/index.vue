@@ -37,6 +37,8 @@
   });
 
   const {
+    columns,
+
     tableWrapRef,
     tableWrapStyle,
 
@@ -51,8 +53,8 @@
 
   useCellStore();
 
-  const showThead = computed(() => !!props.columns?.length);
-  const showTbody = computed(() => !!props.columns?.length && !!props.data?.length);
+  const showThead = computed(() => !!columns.value?.length);
+  const showTbody = computed(() => !!columns.value?.length && !!props.data?.length);
 
   defineExpose<GridTableExpose>({
     expandAllRows,

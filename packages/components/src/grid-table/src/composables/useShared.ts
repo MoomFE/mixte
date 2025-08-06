@@ -19,12 +19,24 @@ export const [
 ) => {
   const { expandedRowKeys } = options;
 
+  const columns = computed(() => {
+    return props.columns?.filter((column) => {
+      const visible = column.visible ?? true;
+      if (isFunction(visible) ? !visible({ column }) : !visible) return false;
+
+      const hidden = column.hidden ?? false;
+      if (isFunction(hidden) ? hidden({ column }) : hidden) return false;
+
+      return true;
+    });
+  });
+
   /** 表格行主键 */
   const rowKey = computed(() => toValue(props.rowKey) ?? 'id');
   /** 树形数据子节点字段名 */
   const childrenKey = computed(() => props.childrenKey ?? 'children');
   /** 树形数据展开的列主键 */
-  const expandColumnKey = computed(() => props.expandColumnKey ?? (props.columns?.[0]?.field ?? ''));
+  const expandColumnKey = computed(() => props.expandColumnKey ?? (columns.value?.[0]?.field ?? ''));
   /** 树形数据缩进宽度 */
   const expandedIndent = computed(() => {
     let indent = props.expandedIndent;
@@ -44,11 +56,11 @@ export const [
   });
 
   /** 所有固定在左侧的列 */
-  const fixedLeftColumns = computed(() => props.columns?.filter(column => columnIsFixedLeft(column)) ?? []);
+  const fixedLeftColumns = computed(() => columns.value?.filter(column => columnIsFixedLeft(column)) ?? []);
   /** 所有固定在左侧的列的位置 */
   const fixedLeftColumnsRect = ref<Pick<DOMRect, 'left' | 'right'>[]>([]);
   /** 所有固定在右侧的列 */
-  const fixedRightColumns = computed(() => props.columns?.filter(column => columnIsFixedRight(column)).reverse() ?? []);
+  const fixedRightColumns = computed(() => columns.value?.filter(column => columnIsFixedRight(column)).reverse() ?? []);
   /** 所有固定在右侧的列的位置 */
   const fixedRightColumnsRect = ref<Pick<DOMRect, 'left' | 'right'>[]>([]);
 
@@ -63,8 +75,8 @@ export const [
   const tableWrapStyle = computed<StyleValue>(() => {
     let gridTemplateColumns = '';
 
-    if (props.columns?.length) {
-      for (const column of props.columns) {
+    if (columns.value?.length) {
+      for (const column of columns.value) {
         let width = column.width;
 
         // 函数形式
@@ -100,6 +112,7 @@ export const [
 
     expandedRowKeys,
 
+    columns,
     rowKey,
     childrenKey,
     expandColumnKey,

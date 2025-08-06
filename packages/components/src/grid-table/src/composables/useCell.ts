@@ -12,8 +12,7 @@ export const [
   useCell,
 ] = createInjectionState(() => {
   const {
-    props,
-
+    columns,
     childrenKey,
     expandColumnKey,
 
@@ -28,9 +27,9 @@ export const [
   const { displayedData } = useTreeData()!;
 
   const createColumnStore = createNamedSharedComposable((column: GridTableColumn<Record<string, any>>) => {
-    const columnIndex = computed(() => props.columns?.findIndex(({ field }) => field === column.field) ?? -1);
+    const columnIndex = computed(() => columns.value?.findIndex(({ field }) => field === column.field) ?? -1);
     const columnIsFirst = computed(() => columnIndex.value === 0);
-    const columnIsLast = computed(() => columnIndex.value === (props.columns?.length ?? 0) - 1);
+    const columnIsLast = computed(() => columnIndex.value === (columns.value?.length ?? 0) - 1);
 
     const fixedLeft = computed(() => columnIsFixedLeft(column));
     const fixedLeftIndex = computed(() => fixedLeft.value ? fixedLeftColumns.value.findIndex(({ field }) => field === column.field) : -1);

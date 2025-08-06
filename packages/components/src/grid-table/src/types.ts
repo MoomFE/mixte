@@ -99,6 +99,11 @@ export interface GridTableColumn<
   headerCellClass?: string;
   /** 表体单元格样式类 ( td ) */
   contentCellClass?: string;
+
+  /** 显示列 */
+  visible?: boolean | ((props: ColumnProps<Item>) => boolean);
+  /** 隐藏列 */
+  hidden?: boolean | ((props: ColumnProps<Item>) => boolean);
 }
 
 export interface ColumnProps<Fields extends Record<string, any>> {

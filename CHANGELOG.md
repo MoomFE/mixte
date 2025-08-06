@@ -1,5 +1,6 @@
 ## [Unreleased]
   - 💄 [@mixte/mel-components] 组件 `MelSelect` 的 `optionsApi.params`, 返回数组不会认为是 iterator, 而是直接传入
+  - 💄 [@mixte/components] 组件 `GridTable` 的列配置新增 `visible` 和 `hidden` 参数, 支持动态控制列的显示和隐藏 *
 
 ## [v3.5.0-beta.10]
   - 📅 2025-08-06

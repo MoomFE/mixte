@@ -6,7 +6,7 @@
     <div
       class="mixte-gt-virtual-placeholder"
       :style="{
-        gridColumnStart: `span ${props.columns?.length}`,
+        gridColumnStart: `span ${columns?.length}`,
       }"
     />
     <!-- 虚拟表格 -->
@@ -33,7 +33,7 @@
 
   defineSlots<GridTableFieldsSlots<any>>();
 
-  const { props } = useShared()!;
+  const { props, columns } = useShared()!;
   const { displayedData } = useTreeData()!;
   const { data, visibleStart } = useVirtual()!;
 </script>

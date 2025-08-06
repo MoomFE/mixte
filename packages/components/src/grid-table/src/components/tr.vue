@@ -1,5 +1,5 @@
 <template>
-  <template v-for="column in tableProps.columns" :key="column.field">
+  <template v-for="column in columns" :key="column.field">
     <component :is="h(Td, { node, column, index }, $slots)" />
   </template>
 </template>
@@ -20,5 +20,5 @@
 
   defineSlots<GridTableFieldsSlots<any>>();
 
-  const { props: tableProps } = useShared()!;
+  const { columns } = useShared()!;
 </script>

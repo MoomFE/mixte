@@ -1,7 +1,7 @@
 <!-- 表头 -->
 
 <template>
-  <template v-for="column in props.columns" :key="column.field">
+  <template v-for="column in columns" :key="column.field">
     <component :is="h(Th, { column }, $slots)" />
   </template>
 </template>
@@ -15,6 +15,6 @@
   defineSlots<GridTableHeaderSlots<any>>();
 
   const {
-    props,
+    columns,
   } = useShared()!;
 </script>
