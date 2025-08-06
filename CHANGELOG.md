@@ -1,9 +1,12 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.10]
+  - 📅 2025-08-06
   - 💄 [@mixte/components] 优化 `GridTable` 加载中蒙版层级实现逻辑 *
   - 💄 [@mixte/components] 优化 `GridTable` 表格字段单元格插槽传入的 record 参数类型, 变得更为宽松 *
   - 💄 [@mixte/mel-components] 组件 `MelSelect` 的 `optionsApi` 新增 `params`, 会传入 `api` 方法, 发生改变后会触发重新请求
 
-## [v3.5.0-beta.8]
+## [v3.5.0-beta.9]
   - 📅 2025-08-04
   - 💄 [@mixte/components] 优化 `GridTable` 表格列配置类型, 支持当显式指定泛型参数时, 类型更宽松 *
   - 💄 [@mixte/components] 优化 `GridTable` 无数据层高度, 最大跟随父组件高度, 最低 `150px` *
@@ -154,7 +157,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.9...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.10...HEAD
+[v3.5.0-beta.10]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.10
 [v3.5.0-beta.9]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.9
 [v3.5.0-beta.8]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.8
 [v3.5.0-beta.7]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.7
