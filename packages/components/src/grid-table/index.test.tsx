@@ -2,7 +2,7 @@
 /* eslint-disable antfu/consistent-chaining */
 
 import type { User } from '@/types';
-import type { GridTableColumn, RenderProps } from '@mixte/components/grid-table/types';
+import type { GridTableColumn, RenderHeaderProps, RenderProps } from '@mixte/components/grid-table/types';
 import type { ComponentProps, ComponentSlots } from 'vue-component-type-helpers';
 import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
 import { mount } from '@vue/test-utils';
@@ -994,11 +994,13 @@ describe('grid-table', () => {
       it('渲染参数', () => {
         expect(emailSlot).toHaveBeenCalledWith({
           column: columns.find(c => c.field === 'email')!,
+          title: '邮箱',
           key: 1, // ???
         });
 
         expect(commonSlot).toHaveBeenCalledWith({
           column: columns.find(c => c.field === 'age')!,
+          title: '年龄',
           key: 2, // ???
         });
       });
@@ -1071,12 +1073,13 @@ describe('grid-table', () => {
     });
 
     it('表头自定义渲染方法: headerRender', () => {
-      const headerRender = vi.fn(({ column }) => (
-        <div class="custem-name-header">{column.title}</div>
+      const headerRender = vi.fn(({ column, title }) => (
+        <div class="custem-name-header">{column.field},{title}</div>
       ));
 
       const columns = defineTableColumns([
         { field: 'name', title: '姓名', headerRender },
+        { field: 'name2', title: () => '姓名2', headerRender },
         { field: 'age', title: '年龄' },
       ]);
       const { getTableThs } = getTableStructure({
@@ -1085,16 +1088,22 @@ describe('grid-table', () => {
         },
       });
 
-      expect(headerRender).toHaveBeenCalledTimes(1);
-      expect(headerRender).toHaveBeenCalledWith({ column: columns[0] }, null);
+      expect(headerRender).toHaveBeenCalledTimes(2);
+      expect(headerRender).toHaveBeenCalledWith({ column: columns[0], title: '姓名' }, null);
+      expect(headerRender).toHaveBeenCalledWith({ column: columns[1], title: '姓名2' }, null);
 
-      expect(getTableThs()[0].text()).toBe('姓名');
+      expect(getTableThs()[0].text()).toBe('name,姓名');
       expect(getTableThs()[0].find('.custem-name-header').exists()).toBe(true);
-      expect(getTableThs()[0].find('.custem-name-header').text()).toBe('姓名');
+      expect(getTableThs()[0].find('.custem-name-header').text()).toBe('name,姓名');
       expect(getTableThs()[0].find('.custem-name-header').element.parentElement).toBe(getTableThs()[0].element);
 
-      expect(getTableThs()[1].text()).toBe('年龄');
-      expect(getTableThs()[1].find('.custem-name-header').exists()).toBe(false);
+      expect(getTableThs()[1].text()).toBe('name2,姓名2');
+      expect(getTableThs()[1].find('.custem-name-header').exists()).toBe(true);
+      expect(getTableThs()[1].find('.custem-name-header').text()).toBe('name2,姓名2');
+      expect(getTableThs()[1].find('.custem-name-header').element.parentElement).toBe(getTableThs()[1].element);
+
+      expect(getTableThs()[2].text()).toBe('年龄');
+      expect(getTableThs()[2].find('.custem-name-header').exists()).toBe(false);
     });
 
     it('列单元格自定义渲染方法: render', () => {
@@ -1405,24 +1414,24 @@ describe('grid-table', () => {
 
         // Header
         expectTypeOf<Slots['header']>().toEqualTypeOf<
-        ((props: { column: GridTableColumn<User> }) => any) | undefined
+          ((props: RenderHeaderProps<User>) => any) | undefined
         >();
         expectTypeOf<Slots['header-name']>().toEqualTypeOf<
-        ((props: { column: GridTableColumn<User> }) => any) | undefined
+          ((props: RenderHeaderProps<User>) => any) | undefined
         >();
         expectTypeOf<Slots['header-xxx']>().toEqualTypeOf<
-        ((props: { column: GridTableColumn<User> }) => any) | undefined
+          ((props: RenderHeaderProps<User>) => any) | undefined
         >();
 
         // Cell
         expectTypeOf<Slots['cell']>().toEqualTypeOf<
-        ((props: RenderProps<User & Record<string, any>>) => any) | undefined
+          ((props: RenderProps<User & Record<string, any>>) => any) | undefined
         >();
         expectTypeOf<Slots['cell-name']>().toEqualTypeOf<
-        ((props: RenderProps<User & Record<string, any>>) => any) | undefined
+          ((props: RenderProps<User & Record<string, any>>) => any) | undefined
         >();
         expectTypeOf<Slots['cell-xxx']>().toEqualTypeOf<
-        ((props: RenderProps<User & Record<string, any>>) => any) | undefined
+          ((props: RenderProps<User & Record<string, any>>) => any) | undefined
         >();
       });
 

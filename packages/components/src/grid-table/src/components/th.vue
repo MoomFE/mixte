@@ -7,11 +7,11 @@
     :data-field="column.field"
   >
     <!-- 自定义渲染 -->
-    <component v-if="isFunction(column.headerRender)" :is="column.headerRender" :column />
+    <component v-if="isFunction(column.headerRender)" :is="column.headerRender" :column :title />
     <!-- 指定字段表头单元格插槽 -->
-    <slot v-else-if="$slots[`header-${column.field}`]" :name="`header-${column.field}`" :column />
+    <slot v-else-if="$slots[`header-${column.field}`]" :name="`header-${column.field}`" :column :title />
     <!-- 通用表头单元格插槽 -->
-    <slot v-else-if="$slots.header" name="header" :column />
+    <slot v-else-if="$slots.header" name="header" :column :title />
     <!-- 正常渲染 -->
     <template v-else>{{ title }}</template>
   </div>

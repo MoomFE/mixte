@@ -76,7 +76,7 @@ export interface GridTableColumn<
   title?: string | ((props: ColumnProps<Item>) => string);
 
   /** 表头自定义渲染方法 */
-  headerRender?: (props: ColumnProps<Item>) => any;
+  headerRender?: (props: RenderHeaderProps<Item>) => any;
 
   /** 单元格自定义渲染方法 */
   render?: (props: RenderProps<Item>) => any;
@@ -108,6 +108,12 @@ export interface GridTableColumn<
 
 export interface ColumnProps<Fields extends Record<string, any>> {
   column: GridTableColumn<Fields>;
+}
+
+export interface RenderHeaderProps<Fields extends Record<string, any>> {
+  column: GridTableColumn<Fields>;
+  /** 表头名称 */
+  title?: string;
 }
 
 export interface RenderProps<Fields extends Record<string, any>> {
@@ -152,11 +158,11 @@ export type GridTableFieldsSlots<
 /** 表头单元格插槽 */
 export type GridTableHeaderSlots<Fields extends Record<string, any>> = {
   /** 通用表头单元格插槽 */
-  header?: (props: { column: GridTableColumn<Fields> }) => any;
+  header?: (props: RenderHeaderProps<Fields>) => any;
 } & {
   /** 指定字段表头单元格插槽 */
-  [K in Extract<keyof Fields, string> as `header-${K}`]?: (props: { column: GridTableColumn<Fields> }) => any;
+  [K in Extract<keyof Fields, string> as `header-${K}`]?: (props: RenderHeaderProps<Fields>) => any;
 } & {
   /** 其他字段表头单元格插槽 */
-  [K in string as `header-${K}`]?: (props: { column: GridTableColumn<Fields> }) => any;
+  [K in string as `header-${K}`]?: (props: RenderHeaderProps<Fields>) => any;
 };
