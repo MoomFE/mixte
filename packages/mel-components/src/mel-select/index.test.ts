@@ -354,6 +354,35 @@ describe('mel-select', () => {
         expect(options[1].text()).toBe('Option 2');
       });
 
+      it('返回数组不会认为是 iterator, 而是直接传入', async () => {
+        const mel = mount(MelSelect, {
+          props: {
+            teleported: false,
+            optionsApi: {
+              api: getOptions,
+              params: [{ a: 1, b: 2 }],
+            },
+          },
+        });
+
+        expect(mel.find('.el-select-dropdown__empty').exists()).toBe(true);
+        expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
+        expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
+        expect(getOptions).toHaveBeenCalledTimes(1);
+        expect(getOptions).toHaveBeenCalledWith([{ a: 1, b: 2 }]);
+
+        await delay(100);
+
+        expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
+        expect(getOptions).toHaveBeenCalledTimes(1);
+
+        const options = mel.findAll('.el-select-dropdown__item');
+
+        expect(options.length).toBe(2);
+        expect(options[0].text()).toBe('Option 1');
+        expect(options[1].text()).toBe('Option 2');
+      });
+
       it('支持传入函数, 返回请求参数, 变化时会重新请求', async () => {
         const index = ref(1);
 

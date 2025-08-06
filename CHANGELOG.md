@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/mel-components] 组件 `MelSelect` 的 `optionsApi.params`, 返回数组不会认为是 iterator, 而是直接传入
 
 ## [v3.5.0-beta.10]
   - 📅 2025-08-06

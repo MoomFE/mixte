@@ -1,6 +1,6 @@
 import type { MaybeRefOrGetter, Ref } from 'vue';
 import { useRequestReactive, wheneverEffectScopeImmediate } from '@mixte/use';
-import { isFunction, isPlainObject, toArray } from 'mixte';
+import { isFunction, isPlainObject } from 'mixte';
 import { computed, toValue, watch } from 'vue';
 
 export type OptionsApiRequest<T> = (...args: any[]) => Promise<
@@ -47,10 +47,11 @@ function extractData<T>(res: any): T[] | undefined {
 export function useOptionsApi<T>(optionsApi: Ref<OptionsApi<T> | undefined>) {
   const propApi = computed(() => isFunction(optionsApi.value) ? optionsApi.value : optionsApi.value?.api);
   const propImmediate = computed(() => isFunction(optionsApi.value) ? true : (optionsApi.value?.immediate ?? true));
-  const propParams = computed(() => toArray(isFunction(optionsApi.value) ? undefined : toValue(optionsApi.value?.params)));
+  const propParams = computed(() => isFunction(optionsApi.value) ? undefined : toValue(optionsApi.value?.params));
 
   const api = useRequestReactive<T[] | undefined>(async () => {
-    const response = await propApi.value?.(...propParams.value);
+    const params = propParams.value == null ? [] : [propParams.value];
+    const response = await propApi.value?.(...params);
     return extractData<T>(response);
   });
 
