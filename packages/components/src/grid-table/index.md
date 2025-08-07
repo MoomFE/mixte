@@ -47,6 +47,9 @@ outline: [2,3]
 | expandColumnKey | 显示展开按钮的列主键<br>&nbsp;- <small>如果不设置, 则使用第一列作为展开列</small> | `string` | - |
 | expandedRowKeys | 树形数据展开的行主键列表<br>&nbsp;- <small>支持通过 `v-model:expandedRowKeys="xxx"` 进行双向绑定</small> | `string[]` | - |
 | expandedIndent | 展示树形数据时, 每层缩进的宽度, 以 px 为单位 | ``` number \| `${number}` ``` | `15` |
+| cellClass | 单元格样式类 ( th/td ) | `string` | - |
+| headerCellClass | 表头单元格样式类 ( th ) | `string` | - |
+| contentCellClass | 表体单元格样式类 ( td ) | `string` | - |
 
 ### Expose
 
