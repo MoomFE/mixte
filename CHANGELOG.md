@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.11]
+  - 📅 2025-08-07
   - 💄 [@mixte/mel-components] 组件 `MelSelect` 的 `optionsApi.params`, 返回数组不会认为是 iterator, 而是直接传入 *
   - 💄 [@mixte/components] 组件 `GridTable` 的列配置新增 `visible` 和 `hidden` 参数, 支持动态控制列的显示和隐藏 *
   - 💄 [@mixte/components] 组件 `GridTable` 表头插槽和表头渲染函数传入 `title` 参数
@@ -77,7 +80,7 @@
   - 🌟 [mixte] 新增 `deepFind`、`deepSome`、`deepForEach` 函数选项，支持嵌套数组结构的深度查找
   - 💄 [@mixte/snippets] 优化 `toggleThemeViewTransition` 在主题切换时鼠标样式为 `pointer`
 
-## [v3.4.0], [v3.4.0-beta.10], [v3.4.0-beta.9], [v3.4.0-beta.8], [v3.4.0-beta.7], [v3.4.0-beta.6], [v3.4.0-beta.5], [v3.4.0-beta.4], [v3.4.0-beta.3], [v3.4.0-beta.2], [v3.4.0-beta.1]
+## [v3.4.0], [-beta.10](v3.4.0-beta.10), [-beta.9]([v3.4.0-beta.9), [-beta.8]([v3.4.0-beta.8), [-beta.7]([v3.4.0-beta.7), [-beta.6]([v3.4.0-beta.6), [-beta.5]([v3.4.0-beta.5), [-beta.4]([v3.4.0-beta.4), [-beta.3]([v3.4.0-beta.3), [-beta.2]([v3.4.0-beta.2), [-beta.1]([v3.4.0-beta.1)
   - 📅 2025-05-05
   - 🌟 [@mixte/snippets] 新增 `LowCodeEditor` 相关组件 ( 开发中 )
   - 🌟 [@mixte/snippets] 新增 `Ant Design X` 相关组件 ( 开发中 )
@@ -90,7 +93,7 @@
   - 💄 [@mixte/mel-components] 优化组件 `MelSelect` 的 `MelSelectOption` 类型
 
 
-## [v3.3.0], [v3.3.0-beta.2], [v3.3.0-beta.1]
+## [v3.3.0], [-beta.2](v3.3.0-beta.2), [-beta.1](v3.3.0-beta.1)
   - 📅 2025-03-03
   - 🌟 [@mixte/components] 新增 `InfiniteScroll` 组件
   - 🌟 [@mixte/mel-components] 组件 `MelSelect` 的 `options` 支持传入 `render` 函数以实现自定义渲染选项
@@ -99,17 +102,17 @@
   - 🌟 [@mixte/mel-components] 组件 `MelSelect` 支持传入 `all-label` 插槽以实现自定义渲染选项内容和标签
   - 💄 [@mixte/mel-components] 组件 `MelSelect` 支持更深层次的数据返回, 更新 `useOptionsApi` 以处理不同结构的响应
 
-## [v3.2.0], [v3.2.0-beta.8], [v3.2.0-beta.7], [v3.2.0-beta.6], [v3.2.0-beta.5], [v3.2.0-beta.4], [v3.2.0-beta.3], [v3.2.0-beta.2], [v3.2.0-beta.1]
+## [v3.2.0], [-beta.8](v3.2.0-beta.8), [-beta.7](v3.2.0-beta.7), [-beta.6](v3.2.0-beta.6), [-beta.5](v3.2.0-beta.5), [-beta.4](v3.2.0-beta.4), [-beta.3](v3.2.0-beta.3), [-beta.2](v3.2.0-beta.2), [-beta.1](v3.2.0-beta.1)
   - 📅 2025-02-05
   - 🌟 [@mixte/snippets] 新增 `Tiptap` 编辑器组件 ( 开发中 )
   - 🌟 [@mixte/snippets] 新增 `Lottery` 年会抽奖组件 ( 开发中 )
 
-## [v3.1.0], [v3.1.0-beta.1]
+## [v3.1.0], [-beta.1](v3.1.0-beta.1)
   - 📅 2024-12-22
   - 🌟 [@mixte/mel-components] 组件 `MelSelect` 新增 `optionsApi` 参数
   - 🐞 [@mixte/components] 修复 v3 版本以来 组件 `AutoGrid` 丢失 `AutoGridInstance` 类型导出的问题
 
-## [v3.0.0], [v3.0.0-beta.3], [v3.0.0-beta.2], [v3.0.0-beta.1]
+## [v3.0.0], [-beta.3](v3.0.0-beta.3), [-beta.2](v3.0.0-beta.2), [-beta.1](v3.0.0-beta.1)
   - 📅 2024-12-05
   - 🌟 新增 `@mixte/mel-components` 组件包
   - 🌟 [@mixte/mel-components] 新增 `MelSelect` 组件
@@ -160,7 +163,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.10...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.11...HEAD
+[v3.5.0-beta.11]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.11
 [v3.5.0-beta.10]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.10
 [v3.5.0-beta.9]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.9
 [v3.5.0-beta.8]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.8
