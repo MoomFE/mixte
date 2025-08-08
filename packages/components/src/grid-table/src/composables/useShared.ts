@@ -87,7 +87,7 @@ export const [
         // 数字宽度
         else if (isNumeric(width) && Number(width) >= 0) gridTemplateColumns += `${width}px `;
         // 合法的宽度
-        else if (CSS.supports('grid-template-columns', `${width} auto`)) gridTemplateColumns += `${width} `;
+        else if (CSS?.supports('grid-template-columns', `${width} auto`)) gridTemplateColumns += `${width} `;
         // 其他情况
         else gridTemplateColumns += 'auto ';
       }
