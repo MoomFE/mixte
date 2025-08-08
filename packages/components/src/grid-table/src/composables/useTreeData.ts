@@ -20,9 +20,9 @@ export const [
   });
 
   /** 所有可展开的行主键列表 */
-  const allExpandableRowKeys = computed(() => {
-    return treeMate.value.getNonLeafKeys() as string[];
-  });
+  const allExpandableRowKeys = computed(() => treeMate.value.getNonLeafKeys() as string[]);
+  /** 是否存在可展开的行 */
+  const hasExpandableRows = computed(() => allExpandableRowKeys.value.length > 0);
 
   /** 树形数据展开的行主键列表 */
   const expandedRowSet = ref(new Set(expandedRowKeys.value));
@@ -140,6 +140,7 @@ export const [
 
   return {
     treeMate,
+    hasExpandableRows,
     expandedRowSet,
     displayedData,
     updateExpanded,

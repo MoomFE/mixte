@@ -13,7 +13,6 @@ export const [
 ] = createInjectionState(() => {
   const {
     columns,
-    childrenKey,
     expandColumnKey,
 
     fixedLeftColumns,
@@ -24,7 +23,7 @@ export const [
     tableWrapScroll,
   } = useShared()!;
 
-  const { displayedData } = useTreeData()!;
+  const { hasExpandableRows } = useTreeData()!;
 
   const createColumnStore = createNamedSharedComposable((column: GridTableColumn<Record<string, any>>) => {
     const columnIndex = computed(() => columns.value?.findIndex(({ field }) => field === column.field) ?? -1);
@@ -108,7 +107,7 @@ export const [
     });
 
     const isExpandVisible = computed(() => {
-      return column.field === expandColumnKey.value && displayedData.value.some(node => node.rawNode[childrenKey.value as any]?.length > 0);
+      return column.field === expandColumnKey.value && hasExpandableRows.value;
     });
 
     const tdClasses = computed(() => {
