@@ -1,6 +1,6 @@
 import type { GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
 import type { ModelRef, StyleValue } from 'vue';
-import { createInjectionState, useElementSize, useScroll } from '@vueuse/core';
+import { createInjectionState, useElementSize, useEventListener, useScroll } from '@vueuse/core';
 import { isFunction, isNumeric } from 'mixte';
 import { computed, reactive, ref, toValue, watch } from 'vue';
 import { columnIsFixedLeft, columnIsFixedRight } from '../utils';
@@ -106,6 +106,21 @@ export const [
   /** 表格表头高度 */
   const tableTheadHeight = ref(0);
 
+  /** 鼠标悬停的行索引 */
+  const hoverIndex = ref<number | null>(null);
+
+  useEventListener(tableRef, 'pointerover', (event: PointerEvent) => {
+    const target = event.target as HTMLDivElement | undefined;
+    const td = target?.closest<HTMLDivElement>('.mixte-gt-td');
+
+    if (td) hoverIndex.value = Number(td.dataset.index);
+    else hoverIndex.value = null;
+  });
+
+  useEventListener(tableWrapRef, 'pointerleave', () => {
+    hoverIndex.value = null;
+  });
+
   return {
     props,
     slots,
@@ -134,5 +149,6 @@ export const [
     tableSize,
 
     tableTheadHeight,
+    hoverIndex,
   };
 });

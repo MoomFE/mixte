@@ -15,6 +15,8 @@
   --mixte-gt-td-padding: 12px;
   // 表体单元格: 背景色
   --mixte-gt-td-bg: #FFFFFF;
+  // 表体单元格: 鼠标移上时背景色
+  --mixte-gt-td-bg-hover: #FAFAFA;
 
   // 展开子级数据的按钮: 颜色
   --mixte-gt-cell-expand-color: #3C3C43;
@@ -74,6 +76,7 @@
     padding: var(--mixte-gt-td-padding);
     background-color: var(--mixte-gt-td-bg);
     order: 2;
+    transition: background-color 0.3s;
   }
 
   // 单元格
@@ -150,6 +153,11 @@
         }
       }
     }
+  }
+
+  // 鼠标悬停行
+  &-tr-hover {
+    background-color: var(--mixte-gt-td-bg-hover);
   }
 
   // 加载中

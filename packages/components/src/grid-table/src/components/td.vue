@@ -2,7 +2,9 @@
   <div
     ref="tdRef"
     class="mixte-gt-cell mixte-gt-td"
-    :class="[cellClasses, tdClasses, tableProps.cellClass, tableProps.contentCellClass, column.cellClass, column.contentCellClass]"
+    :class="[cellClasses, tdClasses, tableProps.cellClass, tableProps.contentCellClass, column.cellClass, column.contentCellClass, {
+      'mixte-gt-tr-hover': hoverIndex === index,
+    }]"
     :style="[cellStyle, { zIndex }]"
     :data-field="column.field"
     :data-index="index"
@@ -63,7 +65,7 @@
 
   const tdRef = ref<HTMLDivElement>();
 
-  const { props: tableProps, rowKey, childrenKey, expandedIndent } = useShared()!;
+  const { props: tableProps, rowKey, childrenKey, expandedIndent, hoverIndex } = useShared()!;
   const { expandedRowSet, updateExpanded } = useTreeData()!;
   const { createColumnStore } = useCell()!;
   const { columnIndex, cellClasses, cellStyle, zIndex, tdClasses, isExpandVisible } = createColumnStore(props.column.field, props.column);
