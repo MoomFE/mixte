@@ -1,11 +1,10 @@
 <template>
   <div
+    v-if="spanMatrix[index]?.[columnIndex].skip !== true"
     ref="tdRef"
     class="mixte-gt-cell mixte-gt-td"
-    :class="[cellClasses, tdClasses, tableProps.cellClass, tableProps.contentCellClass, column.cellClass, column.contentCellClass, {
-      'mixte-gt-tr-hover': hoverIndex === index,
-    }]"
-    :style="[cellStyle, { zIndex }]"
+    :class="[cellClasses, tdClasses, tdClassesFn(index), tableProps.cellClass, tableProps.contentCellClass, column.cellClass, column.contentCellClass]"
+    :style="[cellStyle, { zIndex }, tdStyleFn(index)]"
     :data-field="column.field"
     :data-index="index"
   >
@@ -50,6 +49,7 @@
   import { computed, onMounted, ref, watch } from 'vue';
   import { useCell } from '../composables/useCell';
   import { useShared } from '../composables/useShared';
+  import { useSpan } from '../composables/useSpan';
   import { useTreeData } from '../composables/useTreeData';
   import { useVirtual } from '../composables/useVirtual';
 
@@ -65,10 +65,11 @@
 
   const tdRef = ref<HTMLDivElement>();
 
-  const { props: tableProps, rowKey, childrenKey, expandedIndent, hoverIndex } = useShared()!;
+  const { props: tableProps, rowKey, childrenKey, expandedIndent } = useShared()!;
   const { expandedRowSet, updateExpanded } = useTreeData()!;
   const { createColumnStore } = useCell()!;
-  const { columnIndex, cellClasses, cellStyle, zIndex, tdClasses, isExpandVisible } = createColumnStore(props.column.field, props.column);
+  const { columnIndex, cellClasses, cellStyle, zIndex, tdClasses, tdClassesFn, tdStyleFn, isExpandVisible } = createColumnStore(props.column.field, props.column);
+  const { spanMatrix } = useSpan()!;
 
   const record = computed(() => props.node.rawNode);
   const value = computed(() => get(record.value, props.column.field));

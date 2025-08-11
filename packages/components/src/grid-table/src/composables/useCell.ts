@@ -5,6 +5,7 @@ import { createInjectionState, syncRef, useCssVar, useElementBounding, useElemen
 import { computed, ref } from 'vue';
 import { columnIsFixedLeft, columnIsFixedRight } from '../utils';
 import { useShared } from './useShared';
+import { useSpan } from './useSpan';
 import { useTreeData } from './useTreeData';
 
 export const [
@@ -21,6 +22,8 @@ export const [
     fixedRightColumnsRect,
 
     tableWrapScroll,
+
+    hoverIndex,
   } = useShared()!;
 
   const { hasExpandableRows } = useTreeData()!;
@@ -120,6 +123,30 @@ export const [
       return classes;
     });
 
+    function tdClassesFn(index: number) {
+      let classes = '';
+
+      if (hoverIndex.value === index) {
+        classes += 'mixte-gt-tr-hover ';
+      }
+
+      return classes;
+    }
+
+    const { spanMatrix } = useSpan()!;
+
+    function tdStyleFn(index: number) {
+      const style: StyleValue = {};
+      const meta = spanMatrix.value?.[index]?.[columnIndex.value];
+
+      if (meta) {
+        if (meta.rowSpan > 1) style.gridRow = `span ${meta.rowSpan}`;
+        if (meta.colSpan > 1) style.gridColumn = `span ${meta.colSpan}`;
+      }
+
+      return style;
+    }
+
     return {
       columnIndex,
       columnIsFirst,
@@ -135,6 +162,8 @@ export const [
       zIndex,
 
       tdClasses,
+      tdClassesFn,
+      tdStyleFn,
 
       isExpandVisible,
     };

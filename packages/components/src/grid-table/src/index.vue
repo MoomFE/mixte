@@ -26,6 +26,7 @@
   import Thead from './components/thead.vue';
   import { useCellStore } from './composables/useCell';
   import { useSharedStore } from './composables/useShared';
+  import { useSpanStore } from './composables/useSpan';
   import { useTreeDataStore } from './composables/useTreeData';
   import { useVirtualStore } from './composables/useVirtual';
 
@@ -48,6 +49,8 @@
   });
 
   const { expandAllRows, expandRows, collapseAllRows, collapseRows } = useTreeDataStore();
+
+  useSpanStore();
 
   useVirtualStore();
 

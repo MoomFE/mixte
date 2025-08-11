@@ -1,5 +1,6 @@
 ## [Unreleased]
   - 💄 [@mixte/components] 组件 `GridTable` 新增鼠标悬停行背景变色 *
+  - 💄 [@mixte/components] 组件 `GridTable` 的列配置新增 `colSpan` 和 `rowSpan` 参数, 用于行列合并功能 *
   - 💄 [@mixte/components] 优化 `GridTable` 判断是否显示展开按钮的逻辑, 避免重复遍历树数据 *
   - 🐞 [@mixte/components] 修复 `GridTable` 在 SSR 环境下使用 CSS.supports 可能报错的问题 *
 

@@ -104,6 +104,11 @@ export interface GridTableColumn<
   visible?: boolean | ((props: ColumnProps<Item>) => boolean);
   /** 隐藏列 */
   hidden?: boolean | ((props: ColumnProps<Item>) => boolean);
+
+  /** 单元格列合并 */
+  colSpan?: (props: Omit<RenderProps<Item>, 'value'>) => number | `${number}` | undefined;
+  /** 单元格行合并 */
+  rowSpan?: (props: Omit<RenderProps<Item>, 'value'>) => number | `${number}` | undefined;
 }
 
 export interface ColumnProps<Fields extends Record<string, any>> {
