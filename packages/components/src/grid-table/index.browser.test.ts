@@ -2,7 +2,7 @@
 /* eslint-disable style/no-multi-spaces */
 
 import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
-import { page } from '@vitest/browser/context';
+import { page, userEvent } from '@vitest/browser/context';
 import { delay, random, randomString } from 'mixte';
 import { render } from 'vitest-browser-vue';
 import 'uno.css';
@@ -767,6 +767,89 @@ describe('grid-table', () => {
           });
         });
       });
+    });
+  });
+
+  describe('样式', () => {
+    it('鼠标悬停行背景变色', async () => {
+      const columns = defineTableColumns([
+        { field: 'col-1', title: 'Col-1' },
+        { field: 'col-2', title: 'Col-2' },
+        { field: 'col-3', title: 'Col-3' },
+        { field: 'col-4', title: 'Col-4' },
+        { field: 'col-5', title: 'Col-5' },
+        { field: 'col-6', title: 'Col-6' },
+      ]);
+
+      render(MixteGridTable, {
+        props: { // @ts-expect-error
+          columns,
+          data: Array.from({ length: 10 }).map(() => ({
+            'col-1': randomString(random(1, 6)),
+            'col-2': randomString(random(1, 6)),
+            'col-3': randomString(random(1, 6)),
+            'col-4': randomString(random(1, 6)),
+            'col-5': randomString(random(1, 6)),
+            'col-6': randomString(random(1, 6)),
+            'col-7': randomString(random(1, 6)),
+          })),
+        },
+      });
+
+      await delay(20);
+
+      // index: 0
+
+      const tds0 = page.getByAttrs({ 'data-index': '0' }).elements() as HTMLDivElement[];
+
+      expect(tds0.length).toBe(6);
+      tds0.forEach((td) => {
+        expect(td.classList).not.toContain('mixte-gt-tr-hover');
+      });
+
+      await userEvent.hover(tds0[0]);
+      await delay(20);
+      tds0.forEach(td => expect(td.classList).toContain('mixte-gt-tr-hover'));
+
+      await userEvent.hover(tds0[3]);
+      await delay(20);
+      tds0.forEach(td => expect(td.classList).toContain('mixte-gt-tr-hover'));
+
+      // index: 1
+
+      const tds1 = page.getByAttrs({ 'data-index': '1' }).elements() as HTMLDivElement[];
+
+      expect(tds1.length).toBe(6);
+      tds1.forEach(td => expect(td.classList).not.toContain('mixte-gt-tr-hover'));
+
+      await userEvent.hover(tds1[0]);
+      await delay(20);
+      tds0.forEach(td => expect(td.classList).not.toContain('mixte-gt-tr-hover'));
+      tds1.forEach(td => expect(td.classList).toContain('mixte-gt-tr-hover'));
+
+      // index: 9
+
+      const tds9 = page.getByAttrs({ 'data-index': '9' }).elements() as HTMLDivElement[];
+
+      expect(tds9.length).toBe(6);
+      tds9.forEach(td => expect(td.classList).not.toContain('mixte-gt-tr-hover'));
+
+      await userEvent.hover(tds9[5]);
+      await delay(20);
+      tds0.forEach(td => expect(td.classList).not.toContain('mixte-gt-tr-hover'));
+      tds1.forEach(td => expect(td.classList).not.toContain('mixte-gt-tr-hover'));
+      tds9.forEach(td => expect(td.classList).toContain('mixte-gt-tr-hover'));
+
+      // unhover
+
+      const ths = page.getByClass('mixte-gt-th').elements() as HTMLDivElement[];
+
+      await userEvent.hover(ths[0]);
+      await delay(20);
+
+      tds0.forEach(td => expect(td.classList).not.toContain('mixte-gt-tr-hover'));
+      tds1.forEach(td => expect(td.classList).not.toContain('mixte-gt-tr-hover'));
+      tds9.forEach(td => expect(td.classList).not.toContain('mixte-gt-tr-hover'));
     });
   });
 });
