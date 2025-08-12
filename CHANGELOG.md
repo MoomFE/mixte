@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/mel-components] 组件 `MelSelect` 新增 `options` 导出变量
 
 ## [v3.5.0-beta.13]
   - 📅 2025-08-12

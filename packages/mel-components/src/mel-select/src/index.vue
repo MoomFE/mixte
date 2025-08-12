@@ -51,6 +51,7 @@
 
   defineExpose({
     selectRef: selectRef as Ref<SelectInstance | undefined>,
+    options,
     api,
   });
 </script>
