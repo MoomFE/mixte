@@ -42,7 +42,7 @@ export const [
 
           if (meta.skip) continue;
 
-          const record = displayedData.value[r];
+          const record = displayedData.value[r].rawNode;
           const column = columns.value![c];
 
           const fnProps: Omit<RenderProps<any>, 'value'> = { column, record, index: r };

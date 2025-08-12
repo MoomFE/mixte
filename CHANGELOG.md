@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🐞 [@mixte/components] 修复 `GridTable` 列配置 `colSpan` 和 `rowSpan` 传入参数错误的问题 *
 
 ## [v3.5.0-beta.12]
   - 📅 2025-08-12
