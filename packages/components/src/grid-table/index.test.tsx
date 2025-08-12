@@ -110,7 +110,9 @@ function getTableStructure<
   // 表体 & 无数据部分
   if (!!columns?.length && !!options?.props?.data?.length) {
     // 表体
-    expect(tableTds.length).toBe(columns.length * options.props.data.length);
+    if (!columns.some(column => column.colSpan || column.rowSpan)) {
+      expect(tableTds.length).toBe(columns.length * options.props.data.length);
+    }
     // 无数据部分
     expect(tableEmptyWrap.exists()).toBe(false);
   }
@@ -148,7 +150,9 @@ function getTableStructure<
       });
     })();
 
-    expect(getTableTds().length).toBe(dataLength * columns.length);
+    if (!columns.some(column => column.colSpan || column.rowSpan)) {
+      expect(getTableTds().length).toBe(dataLength * columns.length);
+    }
 
     if (isExpandVisible && expandColumnIndex > -1) {
       expect(tableWrap.findAll('.mixte-gt-cell-expand').length).toBe(dataLength);
@@ -1375,6 +1379,148 @@ describe('grid-table', () => {
       columns.forEach((column) => {
         if (column.title === '显示') expect(thFields).includes(column.field);
         if (column.title === '隐藏') expect(thFields).not.includes(column.field);
+      });
+    });
+
+    it('单元格列合并: colSpan', () => {
+      const columns = defineTableColumns([
+        { field: 'col-1', title: 'Col-1', colSpan: ({ index }) => index === 0 ? 2 : index === 4 ? 99 : -1 },
+        { field: 'col-2', title: 'Col-2' },
+        { field: 'col-3', title: 'Col-3', colSpan: ({ index }) => index === 1 ? 3 : 0 },
+        { field: 'col-4', title: 'Col-4' },
+        { field: 'col-5', title: 'Col-5' },
+        { field: 'col-6', title: 'Col-6', colSpan: ({ index }) => index === 2 ? 4 : 1 },
+        { field: 'col-7', title: 'Col-7' },
+      ]);
+
+      //      |  Col-1  |  Col-2  |  Col-3  |  Col-4  |  Col-5  |  Col-6  |  Col-7  |
+      //      |---------|---------|---------|---------|---------|---------|---------|
+      // 行 1 | R1C1              | R1C3    | R1C4    | R1C5    | R1C6    | R1C7    |
+      // 行 2 | R2C1    | R2C2    | R2C3                        | R2C6    | R2C7    |
+      // 行 3 | R3C1    | R3C2    | R3C3    | R3C4    | R3C5    | R3C6              |
+      // 行 4 | R4C1    | R4C2    | R4C3    | R4C4    | R4C5    | R4C6    | R4C7    |
+      // 行 5 | R5C1                                                                |
+
+      const { getTableTds } = getTableStructure({
+        props: {
+          columns,
+          data: Array.from({ length: 5 }).map((_, i) => ({
+            'id': i + 1,
+            'col-1': `R${i + 1}C1`,
+            'col-2': `R${i + 1}C2`,
+            'col-3': `R${i + 1}C3`,
+            'col-4': `R${i + 1}C4`,
+            'col-5': `R${i + 1}C5`,
+            'col-6': `R${i + 1}C6`,
+            'col-7': `R${i + 1}C7`,
+          })),
+        },
+      });
+
+      const tds = getTableTds();
+      const R1C1 = tds[0];
+      const R2C3 = tds[8];
+      const R3C6 = tds[16];
+      const R5C1 = tds[24];
+
+      expect(tds.length).toBe(25);
+
+      expect(R1C1.text()).toBe('R1C1');
+      expect(R1C1.element.style.gridColumn).toBe('span 2');
+      expect(R1C1.element.nextElementSibling!.textContent).toBe('R1C3');
+
+      expect(R2C3.text()).toBe('R2C3');
+      expect(R2C3.element.style.gridColumn).toBe('span 3');
+      expect(R2C3.element.previousElementSibling!.textContent).toBe('R2C2');
+      expect(R2C3.element.nextElementSibling!.textContent).toBe('R2C6');
+
+      expect(R3C6.text()).toBe('R3C6');
+      expect(R3C6.element.style.gridColumn).toBe('span 2');
+      expect(R3C6.element.previousElementSibling!.textContent).toBe('R3C5');
+      expect(R3C6.element.nextElementSibling!.textContent).toBe('R4C1');
+
+      expect(R5C1.text()).toBe('R5C1');
+      expect(R5C1.element.style.gridColumn).toBe('span 7');
+      expect(R5C1.element.previousElementSibling!.textContent).toBe('R4C7');
+
+      tds.forEach((td) => {
+        if ([R1C1, R2C3, R3C6, R5C1].includes(td)) return;
+
+        expect(td.element.style.gridColumn).toBe('');
+      });
+    });
+
+    it('单元格行合并: rowSpan', () => {
+      const columns = defineTableColumns([
+        { field: 'col-1', title: 'Col-1', rowSpan: ({ index }) => index === 0 ? 2 : -1 },
+        { field: 'col-2', title: 'Col-2', rowSpan: ({ index }) => index === 1 ? 3 : 0 },
+        { field: 'col-3', title: 'Col-3', rowSpan: ({ index }) => index === 2 ? 4 : 1 },
+        { field: 'col-4', title: 'Col-4', rowSpan: ({ index }) => index === 0 ? 5 : 1 },
+        { field: 'col-5', title: 'Col-5', rowSpan: ({ index }) => index === 1 ? 99 : 1 },
+      ]);
+
+      //      |  Col-1  |  Col-2  |  Col-3  |  Col-4  |  Col-5  |
+      //      |---------|---------|---------|---------|---------|
+      // 行 1 | R1C1    | R1C2    | R1C3    | R1C4    | R1C5    |
+      // 行 2 |         | R2C2    | R2C3    |         | R2C5    |
+      // 行 3 | R3C1    |         | R3C3    |         |         |
+      // 行 4 | R4C1    |         |         |         |         |
+      // 行 5 | R5C1    | R5C2    |         |         |         |
+      // 行 6 | R6C1    | R6C2    |         | R6C4    |         |
+
+      const { getTableTds } = getTableStructure({
+        props: {
+          columns,
+          data: Array.from({ length: 6 }).map((_, i) => ({
+            'id': i + 1,
+            'col-1': `R${i + 1}C1`,
+            'col-2': `R${i + 1}C2`,
+            'col-3': `R${i + 1}C3`,
+            'col-4': `R${i + 1}C4`,
+            'col-5': `R${i + 1}C5`,
+            'col-6': `R${i + 1}C6`,
+            'col-7': `R${i + 1}C7`,
+          })),
+        },
+      });
+
+      const tds = getTableTds();
+      const R1C1 = tds[0];
+      const R2C2 = tds[5];
+      const R3C3 = tds[9];
+      const R1C4 = tds[3];
+      const R2C5 = tds[7];
+
+      expect(tds.length).toBe(16);
+
+      expect(R1C1.text()).toBe('R1C1');
+      expect(R1C1.element.style.gridRow).toBe('span 2');
+      expect(R1C1.element.nextElementSibling!.textContent).toBe('R1C2');
+
+      expect(R2C2.text()).toBe('R2C2');
+      expect(R2C2.element.style.gridRow).toBe('span 3');
+      expect(R2C2.element.previousElementSibling!.textContent).toBe('R1C5');
+      expect(R2C2.element.nextElementSibling!.textContent).toBe('R2C3');
+
+      expect(R3C3.text()).toBe('R3C3');
+      expect(R3C3.element.style.gridRow).toBe('span 4');
+      expect(R3C3.element.previousElementSibling!.textContent).toBe('R3C1');
+      expect(R3C3.element.nextElementSibling!.textContent).toBe('R4C1');
+
+      expect(R1C4.text()).toBe('R1C4');
+      expect(R1C4.element.style.gridRow).toBe('span 5');
+      expect(R1C4.element.previousElementSibling!.textContent).toBe('R1C3');
+      expect(R1C4.element.nextElementSibling!.textContent).toBe('R1C5');
+
+      expect(R2C5.text()).toBe('R2C5');
+      expect(R2C5.element.style.gridRow).toBe('span 5');
+      expect(R2C5.element.previousElementSibling!.textContent).toBe('R2C3');
+      expect(R2C5.element.nextElementSibling!.textContent).toBe('R3C1');
+
+      tds.forEach((td) => {
+        if ([R1C1, R2C2, R3C3, R1C4, R2C5].includes(td)) return;
+
+        expect(td.element.style.gridRow).toBe('');
       });
     });
   });
