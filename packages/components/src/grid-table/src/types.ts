@@ -61,6 +61,9 @@ export interface GridTableProps<Fields extends Record<string, any>> {
   headerCellClass?: string;
   /** 表体单元格样式类 ( td ) */
   contentCellClass?: string;
+
+  /** 是否展示外边框和列边框 */
+  bordered?: boolean;
 }
 
 // #endregion GridTableProps
@@ -105,9 +108,17 @@ export interface GridTableColumn<
   /** 隐藏列 */
   hidden?: boolean | ((props: ColumnProps<Item>) => boolean);
 
-  /** 单元格列合并 */
+  /**
+   * 单元格列合并
+   *  - 返回需要合并的列数, 2 代表将当前单元格与右侧的一个单元格合并, 以此类推
+   *  - 返回 <= 1 或 undefined 则不进行合并
+   */
   colSpan?: (props: Omit<RenderProps<Item>, 'value'>) => number | `${number}` | undefined;
-  /** 单元格行合并 */
+  /**
+   * 单元格行合并
+   *  - 返回需要合并的行数, 2 代表将当前单元格与下方的一个单元格合并, 以此类推
+   *  - 返回 <= 1 或 undefined 则不进行合并
+   */
   rowSpan?: (props: Omit<RenderProps<Item>, 'value'>) => number | `${number}` | undefined;
 }
 

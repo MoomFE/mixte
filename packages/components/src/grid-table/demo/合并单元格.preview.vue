@@ -4,6 +4,7 @@
       :columns
       :data="list"
       :loading="data.isLoading"
+      bordered
     >
       <template #cell-email="{ value }">
         <a :href="`mailto:${value}`">{{ value }}</a>

@@ -1,5 +1,9 @@
 <template>
-  <div ref="tableWrapRef" class="mixte-gt-wrap">
+  <div
+    ref="tableWrapRef"
+    class="mixte-gt-wrap"
+    :class="{ 'mixte-gt-bordered': bordered }"
+  >
     <div ref="tableRef" class="mixte-gt" :style="tableWrapStyle">
       <!-- 表体 -->
       <component v-if="showTbody" :is="h(Tbody, null, $slots)" />

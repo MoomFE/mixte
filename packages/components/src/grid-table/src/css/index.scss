@@ -63,7 +63,7 @@
     background-color: var(--mixte-gt-th-bg);
 
     // 表头分割线
-    &:not(.mixte-gt-cell-last):not(.mixte-gt-cell-fix-left-active-last)::before {
+    &:not(.mixte-gt-bordered > .mixte-gt > &):not(.mixte-gt-cell-last):not(.mixte-gt-cell-fix-left-active-last)::before {
       content: '';
       width: 1px; height: 50%;
       position: absolute; top: 50%; inset-inline-end: 0; transform: translateY(-50%);
@@ -152,6 +152,15 @@
           visibility: hidden;
         }
       }
+    }
+  }
+
+  // 边框
+  &-bordered {
+    border: 1px solid var(--mixte-gt-border-color);
+
+    .mixte-gt-cell:not(.mixte-gt-cell-last) {
+      border-right: 1px solid var(--mixte-gt-border-color);
     }
   }
 

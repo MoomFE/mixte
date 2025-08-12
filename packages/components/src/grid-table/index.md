@@ -54,6 +54,7 @@ outline: [2,3]
 | cellClass | 单元格样式类 ( th/td ) | `string` | - |
 | headerCellClass | 表头单元格样式类 ( th ) | `string` | - |
 | contentCellClass | 表体单元格样式类 ( td ) | `string` | - |
+| bordered | 是否展示外边框和列边框 | `boolean` | - |
 
 ### Expose
 
