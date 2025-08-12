@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.12]
+  - 📅 2025-08-12
   - 💄 [@mixte/components] 组件 `GridTable` 新增鼠标悬停行背景变色 *
   - 💄 [@mixte/components] 组件 `GridTable` 的列配置新增 `colSpan` 和 `rowSpan` 参数, 用于行列合并功能 *
   - 💄 [@mixte/components] 组件 `GridTable` 新增 `bordered` 控制是否展示外边框和列边框 *
@@ -168,7 +171,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.11...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.12...HEAD
+[v3.5.0-beta.12]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.12
 [v3.5.0-beta.11]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.11
 [v3.5.0-beta.10]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.10
 [v3.5.0-beta.9]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.9
