@@ -48,26 +48,21 @@
   font-size: var(--mixte-gt-font-size);
   grid-auto-rows: min-content;
 
-  // 虚拟表格占位
-  &-virtual-placeholder {
-    height: var(--mixte-gt-virtual-ph, 0);
-    will-change: var(--mixte-gt-virtual-h-wc, auto);
-  }
-
   // 表头单元格
   &-th {
     position: sticky; top: 0; z-index: 1;
     font-weight: 700;
-    order: 1;
     padding: var(--mixte-gt-th-padding);
     background-color: var(--mixte-gt-th-bg);
 
     // 表头分割线
-    &:not(.mixte-gt-bordered > .mixte-gt > &):not(.mixte-gt-cell-last):not(.mixte-gt-cell-fix-left-active-last)::before {
-      content: '';
-      width: 1px; height: 50%;
-      position: absolute; top: 50%; inset-inline-end: 0; transform: translateY(-50%);
-      background-color: var(--mixte-gt-th-split-color);
+    &:not(.mixte-gt-bordered > .mixte-gt > &):not(.mixte-gt-bordered > .mixte-gt > .mixte-gt-thead > .mixte-gt-tr > &) {
+      &:not(.mixte-gt-cell-last):not(.mixte-gt-cell-fix-left-active-last)::before {
+        content: '';
+        width: 1px; height: 50%;
+        position: absolute; top: 50%; inset-inline-end: 0; transform: translateY(-50%);
+        background-color: var(--mixte-gt-th-split-color);
+      }
     }
   }
 
@@ -75,7 +70,6 @@
   &-td {
     padding: var(--mixte-gt-td-padding);
     background-color: var(--mixte-gt-td-bg);
-    order: 2;
     transition: background-color 0.3s;
   }
 
@@ -159,8 +153,8 @@
   &-bordered {
     border: 1px solid var(--mixte-gt-border-color);
 
-    .mixte-gt-cell:not(.mixte-gt-cell-last) {
-      border-right: 1px solid var(--mixte-gt-border-color);
+    .mixte-gt-cell:not(.mixte-gt-cell-first):not(.mixte-gt-cell-fix-right-active-last) {
+      border-left: 1px solid var(--mixte-gt-border-color);
     }
   }
 
@@ -196,5 +190,46 @@
     &-description {
       color: rgba(0,0,0,0.45);
     }
+  }
+}
+
+// 传统渲染模式
+.mixte-gt-render-mode-legacy {
+  // 虚拟表格占位
+  .mixte-gt-virtual-placeholder {
+    height: var(--mixte-gt-virtual-ph, 0);
+    will-change: var(--mixte-gt-virtual-h-wc, auto);
+  }
+
+  // 表头单元格
+  .mixte-gt-th {
+    order: 1;
+  }
+
+  // 表体单元格
+  .mixte-gt-td {
+    order: 2;
+  }
+}
+
+// 现代渲染模式
+.mixte-gt-render-mode-modern {
+  // 表头
+  .mixte-gt-thead {
+    display: grid; grid-column: 1 / -1;
+    grid-template-columns: subgrid; grid-template-rows: subgrid;
+    position: sticky; top: 0; z-index: 3;
+    font-weight: 700;
+    background-color: var(--mixte-gt-thead-bg);
+    order: 1;
+  }
+
+  // 表体
+  .mixte-gt-tbody {
+    display: grid; grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    padding-top: var(--mixte-gt-virtual-ph, 0);
+    will-change: var(--mixte-gt-virtual-h-wc, auto);
+    order: 2;
   }
 }

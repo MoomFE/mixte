@@ -11,6 +11,8 @@ export const [
   const {
     props,
 
+    isModernRenderMode,
+
     overscan,
 
     tableWrapSize,
@@ -69,7 +71,7 @@ export const [
     });
 
     watch(() => tableWrapScroll.isScrolling, (isScrolling) => {
-      tableHeightWillChange.value = isScrolling ? 'height' : undefined;
+      tableHeightWillChange.value = isScrolling ? (isModernRenderMode.value ? 'padding-top' : 'height') : undefined;
     }, {
       flush: 'sync',
     });

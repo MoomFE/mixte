@@ -1,8 +1,25 @@
 <template>
+  <div class="[&_.el-form-item]-mb-2">
+    <el-form inline>
+      <el-form-item label="边框">
+        <el-switch v-model="bordered" />
+      </el-form-item>
+      <el-form-item label="渲染模式">
+        <el-select v-model="renderMode" class="w-20!" placeholder="请选择渲染模式">
+          <el-option label="自动" value="auto" />
+          <el-option label="现代" value="modern" />
+          <el-option label="传统" value="legacy" />
+        </el-select>
+      </el-form-item>
+    </el-form>
+  </div>
+
   <MixteGridTable
     :columns
     :data="data"
     virtual
+    :bordered
+    :render-mode
     style="height: 520px"
   />
 </template>
@@ -25,6 +42,9 @@
     col5: string;
     col6: string;
   }
+
+  const bordered = ref(false);
+  const renderMode = ref<'auto' | 'modern' | 'legacy'>('auto');
 
   const data = shallowRef<User[]>(generateData());
 

@@ -1,39 +1,19 @@
 <!-- 表体 -->
 
 <template>
-  <template v-if="props.virtual">
-    <!-- 虚拟表格占位 -->
-    <div
-      class="mixte-gt-virtual-placeholder"
-      :style="{
-        gridColumnStart: `span ${columns?.length}`,
-      }"
-    />
-    <!-- 虚拟表格 -->
-    <component
-      v-for="(node, index) in data" :key="node.key"
-      :is="h(Tr, { node, index: visibleStart + index }, $slots)"
-    />
-  </template>
-  <template v-else>
-    <component
-      v-for="(node, index) in displayedData" :key="node.key"
-      :is="h(Tr, { node, index }, $slots)"
-    />
-  </template>
+  <div v-if="isModernRenderMode" class="mixte-gt-tbody">
+    <component :is="h(Trs, null, $slots)" />
+  </div>
+  <component v-else :is="h(Trs, null, $slots)" />
 </template>
 
 <script lang="ts" setup>
   import type { GridTableFieldsSlots } from '@mixte/components/grid-table/types';
   import { h } from 'vue';
   import { useShared } from '../composables/useShared';
-  import { useTreeData } from '../composables/useTreeData';
-  import { useVirtual } from '../composables/useVirtual';
-  import Tr from './tr.vue';
+  import Trs from './trs.vue';
 
   defineSlots<GridTableFieldsSlots<any>>();
 
-  const { props, columns } = useShared()!;
-  const { displayedData } = useTreeData()!;
-  const { data, visibleStart } = useVirtual()!;
+  const { isModernRenderMode } = useShared()!;
 </script>

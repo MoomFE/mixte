@@ -800,7 +800,7 @@ describe('grid-table', () => {
 
       // index: 0
 
-      const tds0 = page.getByAttrs({ 'data-index': '0' }).elements() as HTMLDivElement[];
+      const tds0 = page.getByAttrs({ 'data-index': '0' }, 'mixte-gt-td').elements() as HTMLDivElement[];
 
       expect(tds0.length).toBe(6);
       tds0.forEach((td) => {
@@ -817,7 +817,7 @@ describe('grid-table', () => {
 
       // index: 1
 
-      const tds1 = page.getByAttrs({ 'data-index': '1' }).elements() as HTMLDivElement[];
+      const tds1 = page.getByAttrs({ 'data-index': '1' }, 'mixte-gt-td').elements() as HTMLDivElement[];
 
       expect(tds1.length).toBe(6);
       tds1.forEach(td => expect(td.classList).not.toContain('mixte-gt-tr-hover'));
@@ -829,7 +829,7 @@ describe('grid-table', () => {
 
       // index: 9
 
-      const tds9 = page.getByAttrs({ 'data-index': '9' }).elements() as HTMLDivElement[];
+      const tds9 = page.getByAttrs({ 'data-index': '9' }, 'mixte-gt-td').elements() as HTMLDivElement[];
 
       expect(tds9.length).toBe(6);
       tds9.forEach(td => expect(td.classList).not.toContain('mixte-gt-tr-hover'));

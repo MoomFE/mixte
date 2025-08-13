@@ -1,10 +1,26 @@
 <template>
+  <div class="[&_.el-form-item]-mb-2">
+    <el-form inline>
+      <el-form-item label="边框">
+        <el-switch v-model="bordered" />
+      </el-form-item>
+      <el-form-item label="渲染模式">
+        <el-select v-model="renderMode" class="w-20!" placeholder="请选择渲染模式">
+          <el-option label="自动" value="auto" />
+          <el-option label="现代" value="modern" />
+          <el-option label="传统" value="legacy" />
+        </el-select>
+      </el-form-item>
+    </el-form>
+  </div>
+
   <div class="h-100">
     <MixteGridTable
       :columns
       :data="list"
       :loading="data.isLoading"
-      bordered
+      :bordered
+      :render-mode
     >
       <template #cell-email="{ value }">
         <a :href="`mailto:${value}`">{{ value }}</a>
@@ -19,6 +35,9 @@
   import { useRequestReactive } from '@mixte/use';
   import axios from 'axios';
   import { ElButton, ElImage, ElTag } from 'element-plus';
+
+  const bordered = ref(true);
+  const renderMode = ref<'auto' | 'modern' | 'legacy'>('auto');
 
   const data = useRequestReactive(() => {
     return axios.post<ResponseData<ResponseListData<User>>>('https://m1.apifoxmock.com/m1/4781098-4434938-default/list/user', { pageSize: 20 });

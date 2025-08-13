@@ -7,6 +7,16 @@
       <el-form-item label="加载中">
         <el-switch v-model="loading" />
       </el-form-item>
+      <el-form-item label="边框">
+        <el-switch v-model="bordered" />
+      </el-form-item>
+      <el-form-item label="渲染模式">
+        <el-select v-model="renderMode" class="w-20!" placeholder="请选择渲染模式">
+          <el-option label="自动" value="auto" />
+          <el-option label="现代" value="modern" />
+          <el-option label="传统" value="legacy" />
+        </el-select>
+      </el-form-item>
     </el-form>
   </div>
 
@@ -14,6 +24,8 @@
     :columns
     :data="emptyData ? [] : data.data?.data.list"
     :loading="data.isLoading || loading"
+    :bordered
+    :render-mode
   >
     <template #cell-email="{ value }">
       <a :href="`mailto:${value}`">{{ value }}</a>
@@ -30,6 +42,8 @@
 
   const emptyData = ref(false);
   const loading = ref(false);
+  const bordered = ref(false);
+  const renderMode = ref<'auto' | 'modern' | 'legacy'>('auto');
 
   const data = useRequestReactive(() => {
     return axios.post<ResponseData<ResponseListData<User>>>('https://m1.apifoxmock.com/m1/4781098-4434938-default/list/user', { pageSize: 2 });

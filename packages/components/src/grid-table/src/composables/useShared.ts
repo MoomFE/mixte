@@ -1,9 +1,11 @@
 import type { GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
-import type { ModelRef, StyleValue } from 'vue';
+import type { ModelRef } from 'vue';
 import { createInjectionState, useElementSize, useEventListener, useScroll } from '@vueuse/core';
-import { isFunction, isNumeric } from 'mixte';
+import { isBrowser, isFunction, isNumeric } from 'mixte';
 import { computed, reactive, ref, toValue, watch } from 'vue';
 import { columnIsFixedLeft, columnIsFixedRight } from '../utils';
+
+const supportsSubgrid = isBrowser && CSS?.supports('grid-template-columns', `subgrid`);
 
 interface UseSharedStoreOptions {
   expandedRowKeys: ModelRef<string[]>;
@@ -18,6 +20,18 @@ export const [
   options: UseSharedStoreOptions,
 ) => {
   const { expandedRowKeys } = options;
+
+  /** 渲染模式 */
+  const renderMode = computed(() => {
+    const mode = props.renderMode ?? 'auto';
+    if (mode === 'modern' || mode === 'legacy') return mode;
+    if (supportsSubgrid) return 'modern';
+    return 'legacy';
+  });
+  /** 是否是现代渲染模式 */
+  const isModernRenderMode = computed(() => renderMode.value === 'modern');
+  /** 是否是传统渲染模式 */
+  const isLegacyRenderMode = computed(() => renderMode.value === 'legacy');
 
   const columns = computed(() => {
     return props.columns?.filter((column) => {
@@ -71,33 +85,6 @@ export const [
   const tableRef = ref<HTMLDivElement>();
   const tableSize = reactive(useElementSize(tableRef));
 
-  /** 表格包裹层样式 */
-  const tableWrapStyle = computed<StyleValue>(() => {
-    let gridTemplateColumns = '';
-
-    if (columns.value?.length) {
-      for (const column of columns.value) {
-        let width = column.width;
-
-        // 函数形式
-        if (isFunction(width)) width = width({ column });
-
-        // 未设置
-        if (width == null) gridTemplateColumns += 'auto ';
-        // 数字宽度
-        else if (isNumeric(width) && Number(width) >= 0) gridTemplateColumns += `${width}px `;
-        // 合法的宽度
-        else if (CSS?.supports('grid-template-columns', `${width} auto`)) gridTemplateColumns += `${width} `;
-        // 其他情况
-        else gridTemplateColumns += 'auto ';
-      }
-    }
-
-    return {
-      gridTemplateColumns,
-    };
-  });
-
   // 表格包裹层尺寸变化时, 重新测量滚动条情况
   watch(() => `${tableWrapSize.width}-${tableWrapSize.height}`, () => {
     tableWrapScroll.measure();
@@ -127,6 +114,10 @@ export const [
 
     expandedRowKeys,
 
+    renderMode,
+    isModernRenderMode,
+    isLegacyRenderMode,
+
     columns,
     rowKey,
     childrenKey,
@@ -143,7 +134,6 @@ export const [
     tableWrapRef,
     tableWrapSize,
     tableWrapScroll,
-    tableWrapStyle,
 
     tableRef,
     tableSize,

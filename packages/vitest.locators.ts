@@ -10,10 +10,14 @@ locators.extend({
   getByAttr(attr: string, value: string) {
     return `[${attr}="${value}"]`;
   },
-  getByAttrs(attrs: Record<string, string>) {
-    return Object.entries(attrs)
+  getByAttrs(attrs: Record<string, string>, className?: string) {
+    const attrsString = Object.entries(attrs)
       .map(([attr, value]) => `[${attr}="${value}"]`)
       .join('');
+
+    return className
+      ? `${this.getByClass(className)}${attrsString}`
+      : attrsString;
   },
 });
 
@@ -22,6 +26,6 @@ declare module '@vitest/browser/context' {
     getById: (id: string) => Locator;
     getByClass: (className: string) => Locator;
     getByAttr: (attr: string, value: string) => Locator;
-    getByAttrs: (attrs: Record<string, string>) => Locator;
+    getByAttrs: (attrs: Record<string, string>, className?: string) => Locator;
   }
 }

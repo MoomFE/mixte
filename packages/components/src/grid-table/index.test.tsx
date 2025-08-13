@@ -50,6 +50,7 @@ function getTableStructure<
   const vm = mount(MixteGridTable<Fields>, {
     ...options,
     props: {
+      'renderMode': 'legacy',
       ...options?.props,
       'expandedRowKeys': expandedRowKeys.value,
       'onUpdate:expandedRowKeys': (keys: string[]) => expandedRowKeys.value = keys,
@@ -58,7 +59,9 @@ function getTableStructure<
 
   const getTableWrap = () => vm.find<HTMLDivElement>('.mixte-gt-wrap');
   const getTable = () => vm.find<HTMLDivElement>('.mixte-gt');
+  const getTableThead = () => vm.find<HTMLDivElement>('.mixte-gt-thead');
   const getTableThs = () => vm.findAll<HTMLDivElement>('.mixte-gt-th.mixte-gt-cell');
+  const getTableTbody = () => vm.find<HTMLDivElement>('.mixte-gt-tbody');
   const getTableTds = () => vm.findAll<HTMLDivElement>('.mixte-gt-td.mixte-gt-cell');
   const getTableLoading = () => vm.find<HTMLDivElement>('.mixte-gt-wrap > .mixte-gt-loading-wrap');
   const getTableEmptyWrap = () => vm.find<HTMLDivElement>('.mixte-gt-wrap > .mixte-gt > .mixte-gt-empty-wrap');
@@ -110,7 +113,7 @@ function getTableStructure<
   // 表体 & 无数据部分
   if (!!columns?.length && !!options?.props?.data?.length) {
     // 表体
-    if (!columns.some(column => column.colSpan || column.rowSpan)) {
+    if (options.props.virtual !== true && !columns.some(column => column.colSpan || column.rowSpan)) {
       expect(tableTds.length).toBe(columns.length * options.props.data.length);
     }
     // 无数据部分
@@ -150,7 +153,7 @@ function getTableStructure<
       });
     })();
 
-    if (!columns.some(column => column.colSpan || column.rowSpan)) {
+    if (options?.props?.virtual !== true && !columns.some(column => column.colSpan || column.rowSpan)) {
       expect(getTableTds().length).toBe(dataLength * columns.length);
     }
 
@@ -205,7 +208,9 @@ function getTableStructure<
 
     getTableWrap,
     getTable,
+    getTableThead,
     getTableThs,
+    getTableTbody,
     getTableTds,
     getTableLoading,
     getTableEmptyWrap,
@@ -373,6 +378,110 @@ describe('grid-table', () => {
       }
       if (colIndex === columns.length - 1) {
         expect(td.classes()).toContain('mixte-gt-cell-last');
+      }
+    });
+  });
+
+  describe('渲染模式', () => {
+    it('现代渲染模式会增加 thead, tbody 节点', () => {
+      // 传统渲染模式
+      {
+        const columns = createColumns();
+        const data = createData();
+        const { getTable, getTableThead, getTableThs, getTableTbody, getTableTds } = getTableStructure({
+          props: {
+            columns,
+            data,
+          },
+        });
+
+        const table = getTable();
+        const tableThead = getTableThead();
+        const tableTheadThs = getTableThs();
+        const tableTbody = getTableTbody();
+        const tableTds = getTableTds();
+
+        // 传统渲染模式下, 没有以下节点
+        expect(tableThead.exists()).toBe(false);
+        expect(tableTbody.exists()).toBe(false);
+
+        // 传统渲染模式下, th, td 直接在 table 下
+        expect(tableTheadThs.length).toBe(columns.length);
+        expect(tableTds.length).toBe(columns.length * data.length);
+        tableTheadThs.forEach((th) => {
+          expect(th.element.parentElement).toBe(table.element);
+        });
+        tableTds.forEach((td) => {
+          expect(td.element.parentElement).toBe(table.element);
+        });
+      }
+
+      // 现代渲染模式
+      {
+        const columns = createColumns();
+        const data = createData();
+        const { getTable, getTableThead, getTableThs, getTableTbody, getTableTds } = getTableStructure({
+          props: {
+            columns,
+            data,
+            renderMode: 'modern',
+          },
+        });
+
+        const table = getTable();
+        const tableThead = getTableThead();
+        const tableTheadThs = getTableThs();
+        const tableTbody = getTableTbody();
+        const tableTds = getTableTds();
+
+        // 现代渲染模式下, 有以下节点
+        expect(tableThead.exists()).toBe(true);
+        expect(tableThead.element.parentElement).toBe(table.element);
+        expect(tableTbody.exists()).toBe(true);
+        expect(tableTbody.element.parentElement).toBe(table.element);
+
+        // 现代渲染模式下, th 在 thead 下, td 在 tbody 下
+        expect(tableTheadThs.length).toBe(columns.length);
+        expect(tableTds.length).toBe(columns.length * data.length);
+        tableTheadThs.forEach((th) => {
+          expect(th.element.parentElement).toBe(tableThead.element);
+        });
+        tableTds.forEach((td) => {
+          expect(td.element.parentElement).toBe(tableTbody.element);
+        });
+      }
+    });
+
+    it('现代渲染模式的虚拟列表不再需要虚拟表格占位', () => {
+      // 传统渲染模式
+      {
+        const columns = createColumns();
+        const data = createData();
+        const { getTable } = getTableStructure({
+          props: {
+            columns,
+            data,
+            virtual: true,
+          },
+        });
+
+        expect(getTable().find('.mixte-gt-virtual-placeholder').exists()).toBe(true);
+      }
+
+      // 现代渲染模式
+      {
+        const columns = createColumns();
+        const data = createData();
+        const { getTable } = getTableStructure({
+          props: {
+            columns,
+            data,
+            virtual: true,
+            renderMode: 'modern',
+          },
+        });
+
+        expect(getTable().find('.mixte-gt-virtual-placeholder').exists()).toBe(false);
       }
     });
   });
@@ -876,7 +985,7 @@ describe('grid-table', () => {
           const column = columns[colIndex];
           const item = data[Math.floor(index / columns.length)];
 
-          // render 函数的渲染方式比插槽优先级高
+          // render 函数的渲染模式比插槽优先级高
           if (column.field === 'name') {
             expect(td.text()).toBe(`${item.name} (${item.nameEn})`);
           }
@@ -893,7 +1002,7 @@ describe('grid-table', () => {
       });
 
       it('渲染次数', () => {
-        // render 函数的渲染方式比插槽优先级高, 插槽没有执行
+        // render 函数的渲染模式比插槽优先级高, 插槽没有执行
         expect(nameSlot).toHaveBeenCalledTimes(0);
         // 正常执行
         expect(genderSlot).toHaveBeenCalledTimes(data.length);
@@ -970,7 +1079,7 @@ describe('grid-table', () => {
       it('优先级', () => {
         const ths = getTableThs();
 
-        // render 函数的渲染方式比插槽优先级高
+        // render 函数的渲染模式比插槽优先级高
         expect(ths[0].text()).toBe('姓名');
         expect(ths[0].find('.custem-name-header').exists()).toBe(true);
         expect(ths[0].find('.custem-name-header').text()).toBe('姓名');
@@ -987,7 +1096,7 @@ describe('grid-table', () => {
       });
 
       it('渲染次数', () => {
-        // render 函数的渲染方式比插槽优先级高, 插槽没有执行
+        // render 函数的渲染模式比插槽优先级高, 插槽没有执行
         expect(nameSlot).toHaveBeenCalledTimes(0);
         // 指定字段表头单元格插槽正常执行
         expect(emailSlot).toHaveBeenCalledTimes(1);
@@ -1383,145 +1492,157 @@ describe('grid-table', () => {
     });
 
     describe('单元格行列合并: colSpan & rowSpan', () => {
-      it('单元格列合并: colSpan', () => {
-        const columns = defineTableColumns([
-          { field: 'col-1', title: 'Col-1', colSpan: ({ index }) => index === 0 ? 2 : index === 4 ? 99 : -1 },
-          { field: 'col-2', title: 'Col-2' },
-          { field: 'col-3', title: 'Col-3', colSpan: ({ index }) => index === 1 ? 3 : 0 },
-          { field: 'col-4', title: 'Col-4' },
-          { field: 'col-5', title: 'Col-5' },
-          { field: 'col-6', title: 'Col-6', colSpan: ({ index }) => index === 2 ? 4 : 1 },
-          { field: 'col-7', title: 'Col-7' },
-        ]);
+      describe('单元格列合并: colSpan', () => {
+        it.each([
+          ['现代渲染模式', 'modern'],
+          ['传统渲染模式', 'legacy'],
+        ])('%s', (_, renderMode) => {
+          const columns = defineTableColumns([
+            { field: 'col-1', title: 'Col-1', colSpan: ({ index }) => index === 0 ? 2 : index === 4 ? 99 : -1 },
+            { field: 'col-2', title: 'Col-2' },
+            { field: 'col-3', title: 'Col-3', colSpan: ({ index }) => index === 1 ? 3 : 0 },
+            { field: 'col-4', title: 'Col-4' },
+            { field: 'col-5', title: 'Col-5' },
+            { field: 'col-6', title: 'Col-6', colSpan: ({ index }) => index === 2 ? 4 : 1 },
+            { field: 'col-7', title: 'Col-7' },
+          ]);
 
-        //      |  Col-1  |  Col-2  |  Col-3  |  Col-4  |  Col-5  |  Col-6  |  Col-7  |
-        //      |---------|---------|---------|---------|---------|---------|---------|
-        // 行 1 | R1C1              | R1C3    | R1C4    | R1C5    | R1C6    | R1C7    |
-        // 行 2 | R2C1    | R2C2    | R2C3                        | R2C6    | R2C7    |
-        // 行 3 | R3C1    | R3C2    | R3C3    | R3C4    | R3C5    | R3C6              |
-        // 行 4 | R4C1    | R4C2    | R4C3    | R4C4    | R4C5    | R4C6    | R4C7    |
-        // 行 5 | R5C1                                                                |
+          //      |  Col-1  |  Col-2  |  Col-3  |  Col-4  |  Col-5  |  Col-6  |  Col-7  |
+          //      |---------|---------|---------|---------|---------|---------|---------|
+          // 行 1 | R1C1              | R1C3    | R1C4    | R1C5    | R1C6    | R1C7    |
+          // 行 2 | R2C1    | R2C2    | R2C3                        | R2C6    | R2C7    |
+          // 行 3 | R3C1    | R3C2    | R3C3    | R3C4    | R3C5    | R3C6              |
+          // 行 4 | R4C1    | R4C2    | R4C3    | R4C4    | R4C5    | R4C6    | R4C7    |
+          // 行 5 | R5C1                                                                |
 
-        const { getTableTds } = getTableStructure({
-          props: {
-            columns,
-            data: Array.from({ length: 5 }).map((_, i) => ({
-              'id': i + 1,
-              'col-1': `R${i + 1}C1`,
-              'col-2': `R${i + 1}C2`,
-              'col-3': `R${i + 1}C3`,
-              'col-4': `R${i + 1}C4`,
-              'col-5': `R${i + 1}C5`,
-              'col-6': `R${i + 1}C6`,
-              'col-7': `R${i + 1}C7`,
-            })),
-          },
-        });
+          const { getTableTds } = getTableStructure({
+            props: {
+              renderMode: renderMode as 'modern' | 'legacy',
+              columns,
+              data: Array.from({ length: 5 }).map((_, i) => ({
+                'id': i + 1,
+                'col-1': `R${i + 1}C1`,
+                'col-2': `R${i + 1}C2`,
+                'col-3': `R${i + 1}C3`,
+                'col-4': `R${i + 1}C4`,
+                'col-5': `R${i + 1}C5`,
+                'col-6': `R${i + 1}C6`,
+                'col-7': `R${i + 1}C7`,
+              })),
+            },
+          });
 
-        const tds = getTableTds();
-        const R1C1 = tds[0];
-        const R2C3 = tds[8];
-        const R3C6 = tds[16];
-        const R5C1 = tds[24];
+          const tds = getTableTds();
+          const R1C1 = tds[0];
+          const R2C3 = tds[8];
+          const R3C6 = tds[16];
+          const R5C1 = tds[24];
 
-        expect(tds.length).toBe(25);
+          expect(tds.length).toBe(25);
 
-        expect(R1C1.text()).toBe('R1C1');
-        expect(R1C1.element.style.gridColumn).toBe('span 2');
-        expect(R1C1.element.nextElementSibling!.textContent).toBe('R1C3');
+          expect(R1C1.text()).toBe('R1C1');
+          expect(R1C1.element.style.gridColumn).toBe('span 2');
+          expect(R1C1.element.nextElementSibling!.textContent).toBe('R1C3');
 
-        expect(R2C3.text()).toBe('R2C3');
-        expect(R2C3.element.style.gridColumn).toBe('span 3');
-        expect(R2C3.element.previousElementSibling!.textContent).toBe('R2C2');
-        expect(R2C3.element.nextElementSibling!.textContent).toBe('R2C6');
+          expect(R2C3.text()).toBe('R2C3');
+          expect(R2C3.element.style.gridColumn).toBe('span 3');
+          expect(R2C3.element.previousElementSibling!.textContent).toBe('R2C2');
+          expect(R2C3.element.nextElementSibling!.textContent).toBe('R2C6');
 
-        expect(R3C6.text()).toBe('R3C6');
-        expect(R3C6.element.style.gridColumn).toBe('span 2');
-        expect(R3C6.element.previousElementSibling!.textContent).toBe('R3C5');
-        expect(R3C6.element.nextElementSibling!.textContent).toBe('R4C1');
+          expect(R3C6.text()).toBe('R3C6');
+          expect(R3C6.element.style.gridColumn).toBe('span 2');
+          expect(R3C6.element.previousElementSibling!.textContent).toBe('R3C5');
+          expect(R3C6.element.nextElementSibling!.textContent).toBe('R4C1');
 
-        expect(R5C1.text()).toBe('R5C1');
-        expect(R5C1.element.style.gridColumn).toBe('span 7');
-        expect(R5C1.element.previousElementSibling!.textContent).toBe('R4C7');
+          expect(R5C1.text()).toBe('R5C1');
+          expect(R5C1.element.style.gridColumn).toBe('span 7');
+          expect(R5C1.element.previousElementSibling!.textContent).toBe('R4C7');
 
-        tds.forEach((td) => {
-          if ([R1C1, R2C3, R3C6, R5C1].includes(td)) return;
+          tds.forEach((td) => {
+            if ([R1C1, R2C3, R3C6, R5C1].includes(td)) return;
 
-          expect(td.element.style.gridColumn).toBe('');
+            expect(td.element.style.gridColumn).toBe('');
+          });
         });
       });
 
-      it('单元格行合并: rowSpan', () => {
-        const columns = defineTableColumns([
-          { field: 'col-1', title: 'Col-1', rowSpan: ({ index }) => index === 0 ? 2 : -1 },
-          { field: 'col-2', title: 'Col-2', rowSpan: ({ index }) => index === 1 ? 3 : 0 },
-          { field: 'col-3', title: 'Col-3', rowSpan: ({ index }) => index === 2 ? 4 : 1 },
-          { field: 'col-4', title: 'Col-4', rowSpan: ({ index }) => index === 0 ? 5 : 1 },
-          { field: 'col-5', title: 'Col-5', rowSpan: ({ index }) => index === 1 ? 99 : 1 },
-        ]);
+      describe('单元格行合并: rowSpan', () => {
+        it.each([
+          ['现代渲染模式', 'modern'],
+          ['传统渲染模式', 'legacy'],
+        ])('%s', (_, renderMode) => {
+          const columns = defineTableColumns([
+            { field: 'col-1', title: 'Col-1', rowSpan: ({ index }) => index === 0 ? 2 : -1 },
+            { field: 'col-2', title: 'Col-2', rowSpan: ({ index }) => index === 1 ? 3 : 0 },
+            { field: 'col-3', title: 'Col-3', rowSpan: ({ index }) => index === 2 ? 4 : 1 },
+            { field: 'col-4', title: 'Col-4', rowSpan: ({ index }) => index === 0 ? 5 : 1 },
+            { field: 'col-5', title: 'Col-5', rowSpan: ({ index }) => index === 1 ? 99 : 1 },
+          ]);
 
-        //      |  Col-1  |  Col-2  |  Col-3  |  Col-4  |  Col-5  |
-        //      |---------|---------|---------|---------|---------|
-        // 行 1 | R1C1    | R1C2    | R1C3    | R1C4    | R1C5    |
-        // 行 2 |         | R2C2    | R2C3    |         | R2C5    |
-        // 行 3 | R3C1    |         | R3C3    |         |         |
-        // 行 4 | R4C1    |         |         |         |         |
-        // 行 5 | R5C1    | R5C2    |         |         |         |
-        // 行 6 | R6C1    | R6C2    |         | R6C4    |         |
+          //      |  Col-1  |  Col-2  |  Col-3  |  Col-4  |  Col-5  |
+          //      |---------|---------|---------|---------|---------|
+          // 行 1 | R1C1    | R1C2    | R1C3    | R1C4    | R1C5    |
+          // 行 2 |         | R2C2    | R2C3    |         | R2C5    |
+          // 行 3 | R3C1    |         | R3C3    |         |         |
+          // 行 4 | R4C1    |         |         |         |         |
+          // 行 5 | R5C1    | R5C2    |         |         |         |
+          // 行 6 | R6C1    | R6C2    |         | R6C4    |         |
 
-        const { getTableTds } = getTableStructure({
-          props: {
-            columns,
-            data: Array.from({ length: 6 }).map((_, i) => ({
-              'id': i + 1,
-              'col-1': `R${i + 1}C1`,
-              'col-2': `R${i + 1}C2`,
-              'col-3': `R${i + 1}C3`,
-              'col-4': `R${i + 1}C4`,
-              'col-5': `R${i + 1}C5`,
-              'col-6': `R${i + 1}C6`,
-              'col-7': `R${i + 1}C7`,
-            })),
-          },
-        });
+          const { getTableTds } = getTableStructure({
+            props: {
+              renderMode: renderMode as 'modern' | 'legacy',
+              columns,
+              data: Array.from({ length: 6 }).map((_, i) => ({
+                'id': i + 1,
+                'col-1': `R${i + 1}C1`,
+                'col-2': `R${i + 1}C2`,
+                'col-3': `R${i + 1}C3`,
+                'col-4': `R${i + 1}C4`,
+                'col-5': `R${i + 1}C5`,
+                'col-6': `R${i + 1}C6`,
+                'col-7': `R${i + 1}C7`,
+              })),
+            },
+          });
 
-        const tds = getTableTds();
-        const R1C1 = tds[0];
-        const R2C2 = tds[5];
-        const R3C3 = tds[9];
-        const R1C4 = tds[3];
-        const R2C5 = tds[7];
+          const tds = getTableTds();
+          const R1C1 = tds[0];
+          const R2C2 = tds[5];
+          const R3C3 = tds[9];
+          const R1C4 = tds[3];
+          const R2C5 = tds[7];
 
-        expect(tds.length).toBe(16);
+          expect(tds.length).toBe(16);
 
-        expect(R1C1.text()).toBe('R1C1');
-        expect(R1C1.element.style.gridRow).toBe('span 2');
-        expect(R1C1.element.nextElementSibling!.textContent).toBe('R1C2');
+          expect(R1C1.text()).toBe('R1C1');
+          expect(R1C1.element.style.gridRow).toBe('span 2');
+          expect(R1C1.element.nextElementSibling!.textContent).toBe('R1C2');
 
-        expect(R2C2.text()).toBe('R2C2');
-        expect(R2C2.element.style.gridRow).toBe('span 3');
-        expect(R2C2.element.previousElementSibling!.textContent).toBe('R1C5');
-        expect(R2C2.element.nextElementSibling!.textContent).toBe('R2C3');
+          expect(R2C2.text()).toBe('R2C2');
+          expect(R2C2.element.style.gridRow).toBe('span 3');
+          expect(R2C2.element.previousElementSibling!.textContent).toBe('R1C5');
+          expect(R2C2.element.nextElementSibling!.textContent).toBe('R2C3');
 
-        expect(R3C3.text()).toBe('R3C3');
-        expect(R3C3.element.style.gridRow).toBe('span 4');
-        expect(R3C3.element.previousElementSibling!.textContent).toBe('R3C1');
-        expect(R3C3.element.nextElementSibling!.textContent).toBe('R4C1');
+          expect(R3C3.text()).toBe('R3C3');
+          expect(R3C3.element.style.gridRow).toBe('span 4');
+          expect(R3C3.element.previousElementSibling!.textContent).toBe('R3C1');
+          expect(R3C3.element.nextElementSibling!.textContent).toBe('R4C1');
 
-        expect(R1C4.text()).toBe('R1C4');
-        expect(R1C4.element.style.gridRow).toBe('span 5');
-        expect(R1C4.element.previousElementSibling!.textContent).toBe('R1C3');
-        expect(R1C4.element.nextElementSibling!.textContent).toBe('R1C5');
+          expect(R1C4.text()).toBe('R1C4');
+          expect(R1C4.element.style.gridRow).toBe('span 5');
+          expect(R1C4.element.previousElementSibling!.textContent).toBe('R1C3');
+          expect(R1C4.element.nextElementSibling!.textContent).toBe('R1C5');
 
-        expect(R2C5.text()).toBe('R2C5');
-        expect(R2C5.element.style.gridRow).toBe('span 5');
-        expect(R2C5.element.previousElementSibling!.textContent).toBe('R2C3');
-        expect(R2C5.element.nextElementSibling!.textContent).toBe('R3C1');
+          expect(R2C5.text()).toBe('R2C5');
+          expect(R2C5.element.style.gridRow).toBe('span 5');
+          expect(R2C5.element.previousElementSibling!.textContent).toBe('R2C3');
+          expect(R2C5.element.nextElementSibling!.textContent).toBe('R3C1');
 
-        tds.forEach((td) => {
-          if ([R1C1, R2C2, R3C3, R1C4, R2C5].includes(td)) return;
+          tds.forEach((td) => {
+            if ([R1C1, R2C2, R3C3, R1C4, R2C5].includes(td)) return;
 
-          expect(td.element.style.gridRow).toBe('');
+            expect(td.element.style.gridRow).toBe('');
+          });
         });
       });
 

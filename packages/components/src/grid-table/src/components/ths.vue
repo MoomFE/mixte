@@ -1,19 +1,20 @@
-<!-- 表头 -->
+<!-- 整行表头单元格 -->
 
 <template>
-  <div v-if="isModernRenderMode" class="mixte-gt-thead">
-    <component :is="h(Ths, null, $slots)" />
-  </div>
-  <component v-else :is="h(Ths, null, $slots)" />
+  <template v-for="column in columns" :key="column.field">
+    <component :is="h(Th, { column }, $slots)" />
+  </template>
 </template>
 
 <script lang="ts" setup>
   import type { GridTableHeaderSlots } from '@mixte/components/grid-table/types';
   import { h } from 'vue';
   import { useShared } from '../composables/useShared';
-  import Ths from './ths.vue';
+  import Th from './th.vue';
 
   defineSlots<GridTableHeaderSlots<any>>();
 
-  const { isModernRenderMode } = useShared()!;
+  const {
+    columns,
+  } = useShared()!;
 </script>

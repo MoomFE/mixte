@@ -64,6 +64,15 @@ export interface GridTableProps<Fields extends Record<string, any>> {
 
   /** 是否展示外边框和列边框 */
   bordered?: boolean;
+
+  /**
+   * 渲染模式
+   *  - `auto`: 自动检测浏览器, 自动切换为 `modern` 或 `legacy` 模式
+   *  - `modern`: 强制使用现代渲染模式 ( 如 CSS Subgrid ), 在不支持的浏览器可能出现布局异常
+   *  - `legacy`: 强制使用传统渲染模式 ( 不依赖 `modern` 模式的现代特性 )
+   * @default 'auto'
+   */
+  renderMode?: 'auto' | 'modern' | 'legacy';
 }
 
 // #endregion GridTableProps

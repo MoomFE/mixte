@@ -55,6 +55,7 @@ outline: [2,3]
 | headerCellClass | 表头单元格样式类 ( th ) | `string` | - |
 | contentCellClass | 表体单元格样式类 ( td ) | `string` | - |
 | bordered | 是否展示外边框和列边框 | `boolean` | - |
+| renderMode | 渲染模式<br>&nbsp;- <small>具体可查看 [`GridTableProps`](#GridTableProps)</small> | ``` 'auto' \| 'modern' \| 'legacy' ``` | `'auto'` |
 
 ### Expose
 
