@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.14]
+  - 📅 2025-08-26
   - 💄 [@mixte/mel-components] 组件 `MelSelect` 支持不同的渲染模式
   - 💄 [@mixte/mel-components] 组件 `MelSelect` 新增 `options` 导出变量
 
@@ -177,7 +180,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.13...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.14...HEAD
+[v3.5.0-beta.14]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.14
 [v3.5.0-beta.13]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.13
 [v3.5.0-beta.12]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.12
 [v3.5.0-beta.11]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.11
