@@ -56,7 +56,7 @@
     background-color: var(--mixte-gt-th-bg);
 
     // 表头分割线
-    &:not(.mixte-gt-bordered > .mixte-gt > &):not(.mixte-gt-bordered > .mixte-gt > .mixte-gt-thead > .mixte-gt-tr > &) {
+    &:not(.mixte-gt-bordered > .mixte-gt > &):not(.mixte-gt-bordered > .mixte-gt > .mixte-gt-thead > &) {
       &:not(.mixte-gt-cell-last):not(.mixte-gt-cell-fix-left-active-last)::before {
         content: '';
         width: 1px; height: 50%;
