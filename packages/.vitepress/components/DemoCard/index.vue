@@ -99,7 +99,7 @@
   onMounted(() => {
     wheneverImmediate(showCode, async () => {
       highlighter.value = await getSingletonHighlighter({
-        langs: ['ts', 'vue'],
+        langs: ['ts', 'vue', 'tsx'],
         themes: ['material-theme-darker'],
       });
     }, {

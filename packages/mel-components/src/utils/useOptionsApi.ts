@@ -3,10 +3,15 @@ import { useRequestReactive, wheneverEffectScopeImmediate } from '@mixte/use';
 import { isFunction, isPlainObject } from 'mixte';
 import { computed, toValue, watch } from 'vue';
 
+// #region OptionsApi
+
 export type OptionsApiRequest<T> = (...args: any[]) => Promise<
   T[] |
   {
-    data: T[] | { data: T[] };
+    data: T[] |
+      {
+        data: T[];
+      };
   }
 >;
 
@@ -28,6 +33,8 @@ export interface OptionsApiConfig<T> {
 }
 
 export type OptionsApi<T> = OptionsApiRequest<T> | OptionsApiConfig<T>;
+
+// #endregion OptionsApi
 
 /**
  * 从不同结构的响应中提取数据数组

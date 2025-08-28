@@ -73,8 +73,9 @@ export interface MelSelectSlots {
    */
   'option-label'?: (option: MelSelectOption) => void;
   /**
-   * 1. 自定义渲染选项内容 ( 仅内容部分, 而非整个选项, 和 `option-label` 的作用一致 )
-   * 2. 同时在未传入 label 插槽时代替 label 插槽
+   * 自定义渲染选项内容和标签
+   *  - 自定义渲染选项内容 ( 仅内容部分, 而非整个选项, 和 `option-label` 的作用一致 )
+   *  - 在未传入 label 插槽时代替 label 插槽来渲染标签
    * @param option 选项数据
    * @version @mixte/mel-components@3.3.0
    */

@@ -44,10 +44,8 @@
   }
 
   watchImmediate(immediate, (immediate) => {
-    if (immediate)
-      melSelectRef.value?.api.execute();
-    else
-      melSelectRef.value?.api.reset();
+    if (immediate) melSelectRef.value?.api.execute();
+    else melSelectRef.value?.api.reset();
   });
 
   interface ResponseData<T = any> {
@@ -102,7 +100,6 @@
   function getGoods() {
     return axios
       .get<ResponseData<SelectorItem[]>>('https://apifoxmock.com/m1/4781098-4434938-default/selector/foods')
-      .then(res => res.data.data);
   }
 
   interface ResponseData<T = any> {
