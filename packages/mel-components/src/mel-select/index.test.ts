@@ -3,7 +3,7 @@ import { MelSelect } from '@mixte/mel-components/mel-select';
 import { mount } from '@vue/test-utils';
 import * as cheerio from 'cheerio';
 import { ElOption, ElSelect } from 'element-plus';
-import { delay } from 'mixte';
+import { deepClone, delay } from 'mixte';
 
 function removeUnusedAttribute(html: string) {
   const $ = cheerio.load(html);
@@ -24,15 +24,19 @@ function removeUnusedAttribute(html: string) {
   return $.html();
 }
 
+const options = [{ label: 'Option 1', value: '1' }, { label: 'Option 2', value: '2' }, { label: 'Option 12', value: '12' }];
+const options2 = [{ label: 'Option 3', value: '3' }, { label: 'Option 4', value: '4' }];
+const options3 = [{ label: 'Option 5', value: '5' }, { label: 'Option 6', value: '6' }];
+
 const getOptions = vi.fn(async () => {
   await delay(100);
-  return [{ label: 'Option 1', value: '1' }, { label: 'Option 2', value: '2' }];
+  return deepClone(options);
 });
 
 const getOptions2 = vi.fn(async () => {
   await delay(100);
   return {
-    data: [{ label: 'Option 3', value: '3' }, { label: 'Option 4', value: '4' }],
+    data: deepClone(options2),
   };
 });
 
@@ -40,21 +44,21 @@ const getOptions3 = vi.fn(async () => {
   await delay(100);
   return {
     data: {
-      data: [{ label: 'Option 5', value: '5' }, { label: 'Option 6', value: '6' }],
+      data: deepClone(options3),
     },
   };
 });
 
 const optionsLabels = new Map<() => Promise<any>, string[]>();
 
-optionsLabels.set(getOptions, ['Option 1', 'Option 2']);
-optionsLabels.set(getOptions2, ['Option 3', 'Option 4']);
-optionsLabels.set(getOptions3, ['Option 5', 'Option 6']);
+optionsLabels.set(getOptions, options.map(item => item.label));
+optionsLabels.set(getOptions2, options2.map(item => item.label));
+optionsLabels.set(getOptions3, options3.map(item => item.label));
 
 beforeEach(() => {
-  getOptions.mockClear();
-  getOptions2.mockClear();
-  getOptions3.mockClear();
+  getOptions.mockReset();
+  getOptions2.mockReset();
+  getOptions3.mockReset();
 });
 
 describe('mel-select', () => {
@@ -224,9 +228,10 @@ describe('mel-select', () => {
 
       const options = mel.findAll('.el-select-dropdown__item');
 
-      expect(options.length).toBe(2);
+      expect(options.length).toBe(3);
       expect(options[0].text()).toBe('Option 1');
       expect(options[1].text()).toBe('Option 2');
+      expect(options[2].text()).toBe('Option 12');
     });
 
     it('对象形式传入方法给 optionsApi 参数请求选项数据', async () => {
@@ -251,9 +256,10 @@ describe('mel-select', () => {
 
       const options = mel.findAll('.el-select-dropdown__item');
 
-      expect(options.length).toBe(2);
+      expect(options.length).toBe(3);
       expect(options[0].text()).toBe('Option 1');
       expect(options[1].text()).toBe('Option 2');
+      expect(options[2].text()).toBe('Option 12');
     });
 
     it('配置不立即请求', async () => {
@@ -285,9 +291,10 @@ describe('mel-select', () => {
 
       const options = mel.findAll('.el-select-dropdown__item');
 
-      expect(options.length).toBe(2);
+      expect(options.length).toBe(3);
       expect(options[0].text()).toBe('Option 1');
       expect(options[1].text()).toBe('Option 2');
+      expect(options[2].text()).toBe('Option 12');
     });
 
     it('支持更深层次的数据返回', async () => {
@@ -349,9 +356,10 @@ describe('mel-select', () => {
 
         const options = mel.findAll('.el-select-dropdown__item');
 
-        expect(options.length).toBe(2);
+        expect(options.length).toBe(3);
         expect(options[0].text()).toBe('Option 1');
         expect(options[1].text()).toBe('Option 2');
+        expect(options[2].text()).toBe('Option 12');
       });
 
       it('返回数组不会认为是 iterator, 而是直接传入', async () => {
@@ -378,9 +386,10 @@ describe('mel-select', () => {
 
         const options = mel.findAll('.el-select-dropdown__item');
 
-        expect(options.length).toBe(2);
+        expect(options.length).toBe(3);
         expect(options[0].text()).toBe('Option 1');
         expect(options[1].text()).toBe('Option 2');
+        expect(options[2].text()).toBe('Option 12');
       });
 
       it('支持传入函数, 返回请求参数, 变化时会重新请求', async () => {
@@ -410,9 +419,10 @@ describe('mel-select', () => {
 
           const options = mel.findAll('.el-select-dropdown__item');
 
-          expect(options.length).toBe(2);
+          expect(options.length).toBe(3);
           expect(options[0].text()).toBe('Option 1');
           expect(options[1].text()).toBe('Option 2');
+          expect(options[2].text()).toBe('Option 12');
         }
 
         {
@@ -435,9 +445,10 @@ describe('mel-select', () => {
           expect(getOptions).toHaveBeenCalledTimes(2);
 
           const options = mel.findAll('.el-select-dropdown__item');
-          expect(options.length).toBe(2);
+          expect(options.length).toBe(3);
           expect(options[0].text()).toBe('Option 1');
           expect(options[1].text()).toBe('Option 2');
+          expect(options[2].text()).toBe('Option 12');
         }
 
         {
@@ -460,9 +471,10 @@ describe('mel-select', () => {
           expect(getOptions).toHaveBeenCalledTimes(3);
 
           const options = mel.findAll('.el-select-dropdown__item');
-          expect(options.length).toBe(2);
+          expect(options.length).toBe(3);
           expect(options[0].text()).toBe('Option 1');
           expect(options[1].text()).toBe('Option 2');
+          expect(options[2].text()).toBe('Option 12');
         }
       });
 
@@ -493,9 +505,10 @@ describe('mel-select', () => {
 
           const options = mel.findAll('.el-select-dropdown__item');
 
-          expect(options.length).toBe(2);
+          expect(options.length).toBe(3);
           expect(options[0].text()).toBe('Option 1');
           expect(options[1].text()).toBe('Option 2');
+          expect(options[2].text()).toBe('Option 12');
         }
 
         {
@@ -518,9 +531,10 @@ describe('mel-select', () => {
           expect(getOptions).toHaveBeenCalledTimes(2);
 
           const options = mel.findAll('.el-select-dropdown__item');
-          expect(options.length).toBe(2);
+          expect(options.length).toBe(3);
           expect(options[0].text()).toBe('Option 1');
           expect(options[1].text()).toBe('Option 2');
+          expect(options[2].text()).toBe('Option 12');
         }
 
         {
@@ -543,9 +557,198 @@ describe('mel-select', () => {
           expect(getOptions).toHaveBeenCalledTimes(3);
 
           const options = mel.findAll('.el-select-dropdown__item');
-          expect(options.length).toBe(2);
+          expect(options.length).toBe(3);
           expect(options[0].text()).toBe('Option 1');
           expect(options[1].text()).toBe('Option 2');
+          expect(options[2].text()).toBe('Option 12');
+        }
+      });
+    });
+  });
+
+  describe('新增参数: filterOptionMethod', () => {
+    describe('使用外部关键词进行筛选', () => {
+      it.each([
+        ['使用 options 参数', { options }, false],
+        ['使用 optionsApi 参数', { optionsApi: getOptions }, true],
+      ])('%s', async (_, props, isApi) => {
+        const filterValue = ref('');
+        const filterOptionMethod = vi.fn((query: string, option: MelSelectOption) => {
+          return `${option.label}`.includes(query) && `${option.label}`.includes(filterValue.value);
+        });
+
+        const mel = mount(MelSelect, {
+          props: {
+            teleported: false,
+            ...props,
+            filterOptionMethod,
+          },
+        });
+
+        isApi && await delay(100);
+
+        {
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(filterOptionMethod).toHaveBeenCalledTimes(3);
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
+          expect(options.length).toBe(3);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 2');
+          expect(options[2].text()).toBe('Option 12');
+        }
+
+        {
+          filterValue.value = '1';
+          await nextTick();
+
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(filterOptionMethod).toHaveBeenCalledTimes(6);
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
+          expect(options.length).toBe(2);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 12');
+        }
+
+        {
+          filterValue.value = '2';
+          await nextTick();
+
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(filterOptionMethod).toHaveBeenCalledTimes(9);
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
+          expect(options.length).toBe(2);
+          expect(options[0].text()).toBe('Option 2');
+          expect(options[1].text()).toBe('Option 12');
+        }
+
+        {
+          filterValue.value = '3';
+          await nextTick();
+
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(filterOptionMethod).toHaveBeenCalledTimes(12);
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
+          expect(options.length).toBe(0);
+        }
+
+        {
+          filterValue.value = '';
+          await nextTick();
+
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(filterOptionMethod).toHaveBeenCalledTimes(15);
+
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
+          expect(options.length).toBe(3);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 2');
+          expect(options[2].text()).toBe('Option 12');
+        }
+      });
+    });
+
+    describe('使用 `filterable` 时用户输入的关键词进行筛选', () => {
+      it.each([
+        ['使用 options 参数', { options }, false],
+        ['使用 optionsApi 参数', { optionsApi: getOptions }, true],
+      ])('%s', async (_, props, isApi) => {
+        const filterValue = ref('');
+        const filterOptionMethod = vi.fn((query: string, option: MelSelectOption) => {
+          return `${option.label}`.includes(query) && `${option.label}`.includes(filterValue.value);
+        });
+
+        const mel = mount(MelSelect, {
+          props: {
+            teleported: false,
+            ...props,
+            filterable: true,
+            filterOptionMethod,
+          },
+        });
+
+        isApi && await delay(100);
+
+        {
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(filterOptionMethod).toHaveBeenCalledTimes(3);
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
+          expect(options.length).toBe(3);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 2');
+          expect(options[2].text()).toBe('Option 12');
+        }
+
+        {
+          await mel.find('input').setValue('1');
+
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(filterOptionMethod).toHaveBeenCalledTimes(6);
+          expect(filterOptionMethod).toHaveBeenCalledWith('1', { label: 'Option 1', value: '1' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('1', { label: 'Option 2', value: '2' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('1', { label: 'Option 12', value: '12' });
+          expect(options.length).toBe(2);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 12');
+        }
+
+        {
+          await mel.find('input').setValue('2');
+
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(filterOptionMethod).toHaveBeenCalledTimes(9);
+          expect(filterOptionMethod).toHaveBeenCalledWith('2', { label: 'Option 1', value: '1' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('2', { label: 'Option 2', value: '2' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('2', { label: 'Option 12', value: '12' });
+          expect(options.length).toBe(2);
+          expect(options[0].text()).toBe('Option 2');
+          expect(options[1].text()).toBe('Option 12');
+        }
+
+        {
+          await mel.find('input').setValue('3');
+
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(filterOptionMethod).toHaveBeenCalledTimes(12);
+          expect(filterOptionMethod).toHaveBeenCalledWith('3', { label: 'Option 1', value: '1' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('3', { label: 'Option 2', value: '2' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('3', { label: 'Option 12', value: '12' });
+          expect(options.length).toBe(0);
+        }
+
+        {
+          await mel.find('input').setValue('');
+
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(filterOptionMethod).toHaveBeenCalledTimes(15);
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
+          expect(options.length).toBe(3);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 2');
+          expect(options[2].text()).toBe('Option 12');
         }
       });
     });

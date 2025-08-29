@@ -1,10 +1,11 @@
 ## [Unreleased]
-  - 🐞 [@mixte/components] 修复 `GridTable` 在现代渲染模式使用 `bordered` 时, 表头分割线还存在的问题
+  - 🌟 [@mixte/mel-components] 组件 `MelSelect` 新增 `filterOptionMethod` 参数对数据源选项进行筛选
+  - 🐞 [@mixte/components] 修复 `GridTable` 在现代渲染模式使用 `bordered` 时, 表头分割线还存在的问题 *
 
 ## [v3.5.0-beta.14]
   - 📅 2025-08-26
-  - 💄 [@mixte/mel-components] 组件 `MelSelect` 支持不同的渲染模式
-  - 💄 [@mixte/mel-components] 组件 `MelSelect` 新增 `options` 导出变量
+  - 🌟 [@mixte/mel-components] 组件 `MelSelect` 新增 `options` 导出变量
+  - 💄 [@mixte/components] 组件 `GridTable` 支持不同的渲染模式 *
 
 ## [v3.5.0-beta.13]
   - 📅 2025-08-12

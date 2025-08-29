@@ -16,6 +16,12 @@ outline: [2,3]
 
 可以给 `optionsApi` 传递对象, 以控制 `是否立即发起请求`、`请求参数` 等, 具体可参考 [OptionsApi](#OptionsApi) 类型
 
+### 筛选选项
+
+通过 `filterOptionMethod` 传入方法对数据源选项进行筛选, 返回 `false` 则表示这个选项会被隐藏<br>
+· <small>*方法第一个参数为启用 `filterable` 时的输入值, 若未启用则始终为 `''`*</small><br>
+· <small>*方法第二个参数为当前筛选的选项数据*</small>
+
 ### 自定义渲染选项: 使用 options 传递 render
 
 当数据源是在代码中定义时, 可以直接在 `options` 里传入 `render` 方法, 来自定义渲染选项<br>
@@ -44,6 +50,7 @@ outline: [2,3]
 | --- | --- | --- | --- |
 | options | 选项数据源 | `MelSelectOption[]` | - |
 | optionsApi | 请求数据源的方法 | [`OptionsApi`](#OptionsApi) | - |
+| filterOptionMethod | 对数据源选项进行筛选时执行的方法, 返回 `false` 则表示这个选项会被隐藏<br>&nbsp;- <small>方法第一个参数为启用 `filterable` 时的输入值, 若未启用则始终为 `''`</small><br>&nbsp;- <small>方法第二个参数为当前筛选的选项数据</small> | `(query: string, option: MelSelectOption) => boolean \| undefined` | - |
 | ... | 其它 [el-select](https://element-plus.org/zh-CN/component/select.html#select-attributes) 属性均可使用 | - | - |
 
 ### Expose

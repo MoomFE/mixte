@@ -110,9 +110,9 @@ describe('infinite-scroll', () => {
     loadDataError = false;
     loadDataCount = undefined;
     loadDataWait.value = false;
-    load.mockClear();
-    prependSlot.mockClear();
-    appendSlot.mockClear();
+    load.mockReset();
+    prependSlot.mockReset();
+    appendSlot.mockReset();
   });
 
   describe('数据加载', () => {

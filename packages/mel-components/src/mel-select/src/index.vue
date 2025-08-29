@@ -5,6 +5,8 @@
       {
         ...attrs,
         loading: props.loading || loading,
+        filterable: props.filterable,
+        filterMethod,
       },
       {
         default: defaultSlot,
@@ -20,6 +22,7 @@
   import type { MelSelectProps, MelSelectSlots, SelectInstance } from './types';
   import { useOptionsApi } from '@mixte/mel-components/utils';
   import { ElOption, ElSelect } from 'element-plus';
+  import { isFunction } from 'mixte';
   import { computed, h, ref, toRef, useAttrs } from 'vue';
 
   const props = defineProps<MelSelectProps>();
@@ -30,9 +33,22 @@
 
   const { propApi, api, loading } = useOptionsApi(toRef(props, 'optionsApi'));
 
+  const filterValue = ref('');
+  const filterOptionMethod = computed(() => isFunction(props.filterOptionMethod) ? props.filterOptionMethod : undefined);
+
   const options = computed(() => {
-    return (propApi.value ? api.response : props.options);
+    const options = (propApi.value ? api.response : props.options);
+
+    if (filterOptionMethod.value) {
+      return options?.filter(option => filterOptionMethod.value!(filterValue.value, option));
+    }
+
+    return options;
   });
+
+  function filterMethod(query: string) {
+    filterValue.value = query;
+  }
 
   function defaultSlot() {
     return options.value?.map((option) => {

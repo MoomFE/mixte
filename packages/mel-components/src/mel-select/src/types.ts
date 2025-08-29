@@ -13,13 +13,22 @@ export type MelSelectOption = SetOptional<
   [key: string]: any;
 };
 
-export interface MelSelectProps extends /* @vue-ignore */ Partial<SelectProps> {
+export interface MelSelectProps extends /* @vue-ignore */ Omit<Partial<SelectProps>, 'loading' | 'filterable'> {
+  /** 是否正在从远程获取数据 */
+  loading?: boolean;
+  /** Select 组件是否可筛选 */
+  filterable?: boolean;
+
   /** 数据源 */
   options?: MelSelectOption[];
   /** 请求数据源的方法或参数 */
   optionsApi?: OptionsApi<MelSelectOption>;
-  /** 是否正在从远程获取数据 */
-  loading?: boolean;
+  /**
+   * 对数据源选项进行筛选时执行的方法, 返回 `false` 则表示这个选项会被隐藏
+   *  - 方法第一个参数为启用 `filterable` 时的输入值, 若未启用则始终为 `''`
+   *  - 方法第二个参数为当前筛选的选项数据
+   */
+  filterOptionMethod?: (query: string, option: MelSelectOption) => boolean | undefined;
 }
 
 export interface MelSelectSlots {

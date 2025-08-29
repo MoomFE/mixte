@@ -23,9 +23,9 @@ describe('watchImmediate', () => {
     expect(fn2.mock.calls[0].slice(0, 2)).toStrictEqual([1, undefined]);
     expect(fn3).toHaveBeenCalledTimes(1);
     expect(fn3.mock.calls[0].slice(0, 2)).toStrictEqual([1, undefined]);
-    fn1.mockClear();
-    fn2.mockClear();
-    fn3.mockClear();
+    fn1.mockReset();
+    fn2.mockReset();
+    fn3.mockReset();
 
     a.value = 2;
     await nextTick();
@@ -54,8 +54,8 @@ describe('watchImmediate', () => {
     expect(fn1.mock.calls[0].slice(0, 2)).toStrictEqual([1, undefined]);
     expect(fn2).toHaveBeenCalledTimes(1);
     expect(fn2.mock.calls[0].slice(0, 2)).toStrictEqual([1, undefined]);
-    fn1.mockClear();
-    fn2.mockClear();
+    fn1.mockReset();
+    fn2.mockReset();
 
     a.value = 2;
     await nextTick();

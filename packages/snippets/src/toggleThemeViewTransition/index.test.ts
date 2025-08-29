@@ -27,16 +27,16 @@ describe('toggleThemeViewTransition', () => {
   beforeEach(() => {
     startViewTransition = document.startViewTransition;// @ts-expect-error
     document.startViewTransition = mockStartViewTransition;
-    mockStartViewTransition.mockClear();
+    mockStartViewTransition.mockReset();
 
     documentElementAnimate = document.documentElement.animate; // @ts-expect-error
     document.documentElement.animate = mockDocumentElementAnimate;
-    mockDocumentElementAnimate.mockClear();
+    mockDocumentElementAnimate.mockReset();
 
     matchMedia = window.matchMedia; // @ts-expect-error
     window.matchMedia = mockMatchMedia;
     mockMatchMediaMatches = false;
-    mockMatchMedia.mockClear();
+    mockMatchMedia.mockReset();
   });
 
   afterEach(async () => {
@@ -104,7 +104,7 @@ describe('toggleThemeViewTransition', () => {
       await nextTick();
 
       noClipPath = deepClone(mockDocumentElementAnimate.mock.calls[0]);
-      mockDocumentElementAnimate.mockClear();
+      mockDocumentElementAnimate.mockReset();
 
       expect(noClipPath.length).not.toBe(0);
 
@@ -120,7 +120,7 @@ describe('toggleThemeViewTransition', () => {
       await nextTick();
 
       trueClipPath = deepClone(mockDocumentElementAnimate.mock.calls[0]);
-      mockDocumentElementAnimate.mockClear();
+      mockDocumentElementAnimate.mockReset();
 
       expect(trueClipPath.length).not.toBe(0);
 
@@ -136,7 +136,7 @@ describe('toggleThemeViewTransition', () => {
       await nextTick();
 
       falseClipPath = deepClone(mockDocumentElementAnimate.mock.calls[0]);
-      mockDocumentElementAnimate.mockClear();
+      mockDocumentElementAnimate.mockReset();
 
       expect(falseClipPath.length).not.toBe(0);
 
@@ -168,7 +168,7 @@ describe('toggleThemeViewTransition', () => {
     ], async ([prefersReducedMotion, _mockMatchMediaMatches]) => {
       isRun = false;
       mockMatchMediaMatches = _mockMatchMediaMatches;
-      mockMatchMedia.mockClear();
+      mockMatchMedia.mockReset();
 
       const result = toggleThemeViewTransition(() => {
         isRun = true;
