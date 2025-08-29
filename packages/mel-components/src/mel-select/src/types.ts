@@ -1,4 +1,4 @@
-import type { OptionsApi } from '@mixte/mel-components/utils';
+import type { OptionsApiConfig, OptionsApiRequest } from '@mixte/mel-components/utils';
 import type { ElSelect, SelectOptionProxy, SelectProps } from 'element-plus';
 import type { SetOptional } from 'type-fest';
 import type { VNodeChild } from 'vue';
@@ -13,16 +13,32 @@ export type MelSelectOption = SetOptional<
   [key: string]: any;
 };
 
-export interface MelSelectProps extends /* @vue-ignore */ Omit<Partial<SelectProps>, 'loading' | 'filterable'> {
+// #region SelectOptionsApiConfig
+export interface SelectOptionsApiConfig<T> extends OptionsApiConfig<T> {
+  /**
+   * 远程筛选时的字段名
+   *  - 当 `filterable: true` 和 `remote: true` 时可用
+   *  - 定义后则会在搜索时将输入值作为该字段的值传入 `api` 方法并发起请求
+   */
+  remoteKey?: string;
+}
+// #endregion SelectOptionsApiConfig
+// #region SelectOptionsApi
+export type SelectOptionsApi<T> = OptionsApiRequest<T> | SelectOptionsApiConfig<T>;
+// #endregion SelectOptionsApi
+
+export interface MelSelectProps extends /* @vue-ignore */ Omit<Partial<SelectProps>, 'loading' | 'filterable' | 'remote'> {
   /** 是否正在从远程获取数据 */
   loading?: boolean;
   /** Select 组件是否可筛选 */
   filterable?: boolean;
+  /** 选项是否从服务器远程加载 */
+  remote?: boolean;
 
   /** 数据源 */
   options?: MelSelectOption[];
   /** 请求数据源的方法或参数 */
-  optionsApi?: OptionsApi<MelSelectOption>;
+  optionsApi?: SelectOptionsApi<MelSelectOption>;
   /**
    * 对数据源选项进行筛选时执行的方法, 返回 `false` 则表示这个选项会被隐藏
    *  - 方法第一个参数为启用 `filterable` 时的输入值, 若未启用则始终为 `''`

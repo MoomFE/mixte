@@ -5,8 +5,10 @@
       {
         ...attrs,
         loading: props.loading || loading,
-        filterable: props.filterable,
-        filterMethod,
+        filterable,
+        filterMethod: remote ? undefined : filterMethod,
+        remote,
+        remoteMethod,
       },
       {
         default: defaultSlot,
@@ -31,7 +33,16 @@
 
   const selectRef = ref<SelectInstance>();
 
-  const { propApi, api, loading } = useOptionsApi(toRef(props, 'optionsApi'));
+  const remoteFilterValue = ref('');
+
+  const { propApi, api, loading } = useOptionsApi(toRef(props, 'optionsApi'), {
+    params: () => {
+      if (!props.filterable || !props.remote || isFunction(props.optionsApi) || !props.optionsApi?.remoteKey) return undefined;
+      return {
+        [props.optionsApi.remoteKey]: remoteFilterValue.value,
+      };
+    },
+  });
 
   const filterValue = ref('');
   const filterOptionMethod = computed(() => isFunction(props.filterOptionMethod) ? props.filterOptionMethod : undefined);
@@ -48,6 +59,10 @@
 
   function filterMethod(query: string) {
     filterValue.value = query;
+  }
+
+  function remoteMethod(query: string) {
+    remoteFilterValue.value = query;
   }
 
   function defaultSlot() {

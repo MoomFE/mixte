@@ -28,37 +28,41 @@ const options = [{ label: 'Option 1', value: '1' }, { label: 'Option 2', value: 
 const options2 = [{ label: 'Option 3', value: '3' }, { label: 'Option 4', value: '4' }];
 const options3 = [{ label: 'Option 5', value: '5' }, { label: 'Option 6', value: '6' }];
 
-const getOptions = vi.fn(async () => {
+const getOptions = vi.fn(async ({ name }: { name?: string }) => {
   await delay(100);
-  return deepClone(options);
+  return deepClone(options).filter(item => !name || item.label.includes(name));
 });
 
-const getOptions2 = vi.fn(async () => {
+const getOptions2 = vi.fn(async ({ name }: { name?: string }) => {
   await delay(100);
   return {
-    data: deepClone(options2),
+    data: deepClone(options2).filter(item => !name || item.label.includes(name)),
   };
 });
 
-const getOptions3 = vi.fn(async () => {
+const getOptions3 = vi.fn(async ({ name }: { name?: string }) => {
   await delay(100);
   return {
     data: {
-      data: deepClone(options3),
+      data: deepClone(options3).filter(item => !name || item.label.includes(name)),
     },
   };
 });
 
-const optionsLabels = new Map<() => Promise<any>, string[]>();
+const optionsLabels = new Map<(...args: any[]) => Promise<any>, string[]>();
 
 optionsLabels.set(getOptions, options.map(item => item.label));
 optionsLabels.set(getOptions2, options2.map(item => item.label));
 optionsLabels.set(getOptions3, options3.map(item => item.label));
 
 beforeEach(() => {
+  vi.useFakeTimers();
   getOptions.mockReset();
   getOptions2.mockReset();
   getOptions3.mockReset();
+});
+afterEach(() => {
+  vi.useRealTimers();
 });
 
 describe('mel-select', () => {
@@ -221,7 +225,7 @@ describe('mel-select', () => {
       expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
       expect(getOptions).toHaveBeenCalledTimes(1);
 
-      await delay(100);
+      await vi.advanceTimersByTimeAsync(100);
 
       expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
       expect(getOptions).toHaveBeenCalledTimes(1);
@@ -249,7 +253,7 @@ describe('mel-select', () => {
       expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
       expect(getOptions).toHaveBeenCalledTimes(1);
 
-      await delay(100);
+      await vi.advanceTimersByTimeAsync(100);
 
       expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
       expect(getOptions).toHaveBeenCalledTimes(1);
@@ -284,7 +288,7 @@ describe('mel-select', () => {
       expect(mel.find('.el-select-dropdown__empty').text()).toBe('Loading');
       expect(getOptions).toHaveBeenCalledTimes(1);
 
-      await delay(100);
+      await vi.advanceTimersByTimeAsync(100);
 
       expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
       expect(getOptions).toHaveBeenCalledTimes(1);
@@ -318,7 +322,7 @@ describe('mel-select', () => {
         expect(mel.findAll('.el-select-dropdown__item').length).toBe(0);
         expect(api).toHaveBeenCalledTimes(1);
 
-        await delay(100);
+        await vi.advanceTimersByTimeAsync(100);
 
         expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
         expect(api).toHaveBeenCalledTimes(1);
@@ -349,7 +353,7 @@ describe('mel-select', () => {
         expect(getOptions).toHaveBeenCalledTimes(1);
         expect(getOptions).toHaveBeenCalledWith({ a: 1, b: 2 });
 
-        await delay(100);
+        await vi.advanceTimersByTimeAsync(100);
 
         expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
         expect(getOptions).toHaveBeenCalledTimes(1);
@@ -379,7 +383,7 @@ describe('mel-select', () => {
         expect(getOptions).toHaveBeenCalledTimes(1);
         expect(getOptions).toHaveBeenCalledWith([{ a: 1, b: 2 }]);
 
-        await delay(100);
+        await vi.advanceTimersByTimeAsync(100);
 
         expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
         expect(getOptions).toHaveBeenCalledTimes(1);
@@ -412,7 +416,7 @@ describe('mel-select', () => {
           expect(getOptions).toHaveBeenCalledTimes(1);
           expect(getOptions).toHaveBeenCalledWith({ a: 1, b: 2 });
 
-          await delay(100);
+          await vi.advanceTimersByTimeAsync(100);
 
           expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
           expect(getOptions).toHaveBeenCalledTimes(1);
@@ -439,7 +443,7 @@ describe('mel-select', () => {
           expect(getOptions).toHaveBeenCalledTimes(2);
           expect(getOptions).toHaveBeenCalledWith({ a: 2, b: 3 });
 
-          await delay(100);
+          await vi.advanceTimersByTimeAsync(100);
 
           expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
           expect(getOptions).toHaveBeenCalledTimes(2);
@@ -465,7 +469,7 @@ describe('mel-select', () => {
           expect(getOptions).toHaveBeenCalledTimes(3);
           expect(getOptions).toHaveBeenCalledWith({ a: 3, b: 4 });
 
-          await delay(100);
+          await vi.advanceTimersByTimeAsync(100);
 
           expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
           expect(getOptions).toHaveBeenCalledTimes(3);
@@ -498,7 +502,7 @@ describe('mel-select', () => {
           expect(getOptions).toHaveBeenCalledTimes(1);
           expect(getOptions).toHaveBeenCalledWith({ a: 1, b: 2 });
 
-          await delay(100);
+          await vi.advanceTimersByTimeAsync(100);
 
           expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
           expect(getOptions).toHaveBeenCalledTimes(1);
@@ -525,7 +529,7 @@ describe('mel-select', () => {
           expect(getOptions).toHaveBeenCalledTimes(2);
           expect(getOptions).toHaveBeenCalledWith({ a: 2, b: 3 });
 
-          await delay(100);
+          await vi.advanceTimersByTimeAsync(100);
 
           expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
           expect(getOptions).toHaveBeenCalledTimes(2);
@@ -551,7 +555,7 @@ describe('mel-select', () => {
           expect(getOptions).toHaveBeenCalledTimes(3);
           expect(getOptions).toHaveBeenCalledWith({ a: 3, b: 4 });
 
-          await delay(100);
+          await vi.advanceTimersByTimeAsync(100);
 
           expect(mel.find('.el-select-dropdown__empty').exists()).toBe(false);
           expect(getOptions).toHaveBeenCalledTimes(3);
@@ -561,6 +565,156 @@ describe('mel-select', () => {
           expect(options[0].text()).toBe('Option 1');
           expect(options[1].text()).toBe('Option 2');
           expect(options[2].text()).toBe('Option 12');
+        }
+      });
+    });
+
+    describe('远程筛选', () => {
+      it('正常使用', async () => {
+        const mel = mount(MelSelect, {
+          props: {
+            teleported: false,
+            filterable: true,
+            remote: true,
+            optionsApi: {
+              api: getOptions,
+              remoteKey: 'name',
+            },
+          },
+        });
+
+        await vi.advanceTimersByTimeAsync(100);
+
+        {
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(getOptions).toHaveBeenCalledTimes(1);
+          expect(getOptions).toHaveBeenCalledWith({ name: '' });
+          expect(options.length).toBe(3);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 2');
+          expect(options[2].text()).toBe('Option 12');
+        }
+
+        {
+          await mel.find('input').setValue('1');
+          await vi.advanceTimersByTimeAsync(500);
+
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(getOptions).toHaveBeenCalledTimes(2);
+          expect(getOptions).toHaveBeenCalledWith({ name: '1' });
+          expect(options.length).toBe(2);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 12');
+        }
+
+        {
+          await mel.find('input').setValue('2');
+          await vi.advanceTimersByTimeAsync(500);
+
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(getOptions).toHaveBeenCalledTimes(3);
+          expect(getOptions).toHaveBeenCalledWith({ name: '2' });
+          expect(options.length).toBe(2);
+          expect(options[0].text()).toBe('Option 2');
+          expect(options[1].text()).toBe('Option 12');
+        }
+      });
+
+      it('配置 remoteKey 但未启用 filterable 和 remote 时不传递关键词', async () => {
+        const mel = mount(MelSelect, {
+          props: {
+            teleported: false,
+            optionsApi: {
+              api: getOptions,
+              remoteKey: 'mixte',
+            },
+          },
+        });
+
+        await vi.advanceTimersByTimeAsync(100);
+        expect(getOptions).toHaveBeenCalledTimes(1);
+        expect(getOptions).toHaveBeenCalledWith({});
+
+        await mel.setProps({ filterable: true });
+        await vi.advanceTimersByTimeAsync(100);
+        expect(getOptions).toHaveBeenCalledTimes(1);
+        expect(getOptions).toHaveBeenCalledWith({});
+
+        await mel.setProps({ remote: true });
+        await vi.advanceTimersByTimeAsync(100);
+        expect(getOptions).toHaveBeenCalledTimes(2);
+        expect(getOptions).toHaveBeenCalledWith({ mixte: '' });
+      });
+
+      it('和 filterOptionMethod 配合使用', async () => {
+        const filterValue = ref('');
+        const filterOptionMethod = vi.fn((query: string, option: MelSelectOption) => {
+          return `${option.label}`.includes(query) && `${option.label}`.includes(filterValue.value);
+        });
+
+        const mel = mount(MelSelect, {
+          props: {
+            teleported: false,
+            optionsApi: {
+              api: getOptions,
+              remoteKey: 'name',
+            },
+            remote: true,
+            filterable: true,
+            filterOptionMethod,
+          },
+        });
+
+        await vi.advanceTimersByTimeAsync(100);
+
+        {
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(getOptions).toHaveBeenCalledTimes(1);
+          expect(getOptions).toHaveBeenCalledWith({ name: '' });
+          expect(filterOptionMethod).toHaveBeenCalledTimes(3);
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
+          expect(options.length).toBe(3);
+          expect(options[0].text()).toBe('Option 1');
+          expect(options[1].text()).toBe('Option 2');
+          expect(options[2].text()).toBe('Option 12');
+        }
+
+        {
+          await mel.find('input').setValue('1');
+          filterValue.value = '2';
+          await vi.advanceTimersByTimeAsync(500);
+
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(getOptions).toHaveBeenCalledTimes(2);
+          expect(getOptions).toHaveBeenCalledWith({ name: '1' });
+          expect(filterOptionMethod).toHaveBeenCalledTimes(3 + 3 + 2);
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
+          expect(options.length).toBe(1);
+          expect(options[0].text()).toBe('Option 12');
+        }
+
+        {
+          await mel.find('input').setValue('2');
+          await vi.advanceTimersByTimeAsync(500);
+
+          const options = mel.findAll('.el-select-dropdown__item');
+
+          expect(getOptions).toHaveBeenCalledTimes(3);
+          expect(getOptions).toHaveBeenCalledWith({ name: '2' });
+          expect(filterOptionMethod).toHaveBeenCalledTimes(3 + 3 + 2 + 2);
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
+          expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
+          expect(options.length).toBe(2);
+          expect(options[0].text()).toBe('Option 2');
+          expect(options[1].text()).toBe('Option 12');
         }
       });
     });
@@ -585,7 +739,7 @@ describe('mel-select', () => {
           },
         });
 
-        isApi && await delay(100);
+        isApi && await vi.advanceTimersByTimeAsync(100);
 
         {
           const options = mel.findAll('.el-select-dropdown__item');
@@ -681,7 +835,7 @@ describe('mel-select', () => {
           },
         });
 
-        isApi && await delay(100);
+        isApi && await vi.advanceTimersByTimeAsync(100);
 
         {
           const options = mel.findAll('.el-select-dropdown__item');

@@ -14,7 +14,12 @@ outline: [2,3]
 
 ### 使用 optionsApi 传递请求数据源的参数
 
-可以给 `optionsApi` 传递对象, 以控制 `是否立即发起请求`、`请求参数` 等, 具体可参考 [OptionsApi](#OptionsApi) 类型
+可以给 `optionsApi` 传递对象, 以控制 `是否立即发起请求`、`请求参数` 等, 具体可参考 [SelectOptionsApi](#SelectOptionsApi) 类型<br>
+· <small>*该示例还演示了如何手动触发请求*</small>
+
+### 使用 optionsApi 远程筛选选项
+
+当启用了 `filterable` 和 `remote` 并且定义了 `optionsApi.remoteKey` 字段名, 搜索时会将输入值作为 `optionsApi.remoteKey` 字段名的值传入 `optionsApi.api` 的方法并发起请求
 
 ### 筛选选项
 
@@ -49,7 +54,7 @@ outline: [2,3]
 | 参数名 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | options | 选项数据源 | `MelSelectOption[]` | - |
-| optionsApi | 请求数据源的方法 | [`OptionsApi`](#OptionsApi) | - |
+| optionsApi | 请求数据源的方法 | [`SelectOptionsApi`](#SelectOptionsApi) | - |
 | filterOptionMethod | 对数据源选项进行筛选时执行的方法, 返回 `false` 则表示这个选项会被隐藏<br>&nbsp;- <small>方法第一个参数为启用 `filterable` 时的输入值, 若未启用则始终为 `''`</small><br>&nbsp;- <small>方法第二个参数为当前筛选的选项数据</small> | `(query: string, option: MelSelectOption) => boolean \| undefined` | - |
 | ... | 其它 [el-select](https://element-plus.org/zh-CN/component/select.html#select-attributes) 属性均可使用 | - | - |
 
@@ -72,6 +77,9 @@ outline: [2,3]
 
 ## 类型定义
 
-### OptionsApi{#OptionsApi}
+### SelectOptionsApi{#SelectOptionsApi}
 
-<<< ../utils/useOptionsApi.ts#OptionsApi
+<<< ./src/types.ts#SelectOptionsApi
+<<< ./src/types.ts#SelectOptionsApiConfig
+<<< ../utils/useOptionsApi.ts#OptionsApiConfig
+<<< ../utils/useOptionsApi.ts#OptionsApiRequest

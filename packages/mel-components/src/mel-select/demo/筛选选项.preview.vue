@@ -1,8 +1,7 @@
 <template>
-  <div grid="~ cols-[auto_auto_1fr] rows-2" items-center gap-x-2>
+  <div grid="~ cols-[auto_auto_1fr]" items-center gap="x2 y1">
     <div text-sm>⬇️ 通过 <code>filterable</code> 进行筛选</div>
-    <div text-sm>⬇️ 通过外部关键词进行筛选</div>
-    <div />
+    <div text-sm col-span-2>⬇️ 通过外部关键词进行筛选</div>
 
     <MelSelect
       v-model="value"
