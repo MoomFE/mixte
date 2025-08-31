@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.15]
+  - 📅 2025-08-31
   - 🌟 [@mixte/mel-components] 组件 `MelSelect` 新增 `filterOptionMethod` 参数对数据源选项进行筛选
   - 🌟 [@mixte/mel-components] 组件 `MelSelect` 新增 `optionsApi.remoteKey` 参数以支持筛选时使用远程搜索
   - 🐞 [@mixte/components] 修复 `GridTable` 在现代渲染模式使用 `bordered` 时, 表头分割线还存在的问题 *
@@ -183,7 +186,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.14...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.15...HEAD
+[v3.5.0-beta.15]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.15
 [v3.5.0-beta.14]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.14
 [v3.5.0-beta.13]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.13
 [v3.5.0-beta.12]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.12
