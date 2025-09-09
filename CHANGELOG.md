@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.16]
+  - 📅 2025-09-09
   - 💄 [@mixte/mel-components] 组件 `MelSelect` 的 `options` 选项支持 `MaybeRefOrGetter` 类型
 
 ## [v3.5.0-beta.15]
@@ -187,7 +190,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.15...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.16...HEAD
+[v3.5.0-beta.16]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.16
 [v3.5.0-beta.15]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.15
 [v3.5.0-beta.14]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.14
 [v3.5.0-beta.13]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.13
