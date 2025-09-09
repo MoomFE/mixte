@@ -1,8 +1,9 @@
 ## [Unreleased]
+  - 🐞 [@mixte/mel-components] 修复 `MelSelect` 组件启用 `filterable` 时筛选无效的问题
 
 ## [v3.5.0-beta.16]
   - 📅 2025-09-09
-  - 💄 [@mixte/mel-components] 组件 `MelSelect` 的 `options` 选项支持 `MaybeRefOrGetter` 类型
+  - 💄 [@mixte/mel-components] 组件 `MelSelect` 的 `options` 选项支持 [MaybeRefOrGetter](https://cn.vuejs.org/api/utility-types.html#maybereforgetter) 类型
 
 ## [v3.5.0-beta.15]
   - 📅 2025-08-31

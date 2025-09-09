@@ -55,6 +55,9 @@
     if (filterOptionMethod.value) {
       return options?.filter(option => filterOptionMethod.value!(filterValue.value, option));
     }
+    else if (props.filterable) {
+      return options?.filter(option => `${option.label}`.includes(filterValue.value));
+    }
 
     return options;
   });
