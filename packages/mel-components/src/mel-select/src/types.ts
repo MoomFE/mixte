@@ -1,7 +1,7 @@
 import type { OptionsApiConfig, OptionsApiRequest } from '@mixte/mel-components/utils';
 import type { ElSelect, SelectOptionProxy, SelectProps } from 'element-plus';
 import type { SetOptional } from 'type-fest';
-import type { VNodeChild } from 'vue';
+import type { MaybeRefOrGetter, VNodeChild } from 'vue';
 
 export type SelectInstance = InstanceType<typeof ElSelect>;
 
@@ -36,7 +36,7 @@ export interface MelSelectProps extends /* @vue-ignore */ Omit<Partial<SelectPro
   remote?: boolean;
 
   /** 数据源 */
-  options?: MelSelectOption[];
+  options?: MaybeRefOrGetter<MelSelectOption[]>;
   /** 请求数据源的方法或参数 */
   optionsApi?: SelectOptionsApi<MelSelectOption>;
   /**

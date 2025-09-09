@@ -25,7 +25,7 @@
   import { useOptionsApi } from '@mixte/mel-components/utils';
   import { ElOption, ElSelect } from 'element-plus';
   import { isFunction } from 'mixte';
-  import { computed, h, ref, toRef, useAttrs } from 'vue';
+  import { computed, h, ref, toRef, toValue, useAttrs } from 'vue';
 
   const props = defineProps<MelSelectProps>();
   const slots = defineSlots<MelSelectSlots>();
@@ -47,8 +47,10 @@
   const filterValue = ref('');
   const filterOptionMethod = computed(() => isFunction(props.filterOptionMethod) ? props.filterOptionMethod : undefined);
 
+  const propOptions = computed(() => toValue(props.options));
+
   const options = computed(() => {
-    const options = (propApi.value ? api.response : props.options);
+    const options = (propApi.value ? api.response : propOptions.value);
 
     if (filterOptionMethod.value) {
       return options?.filter(option => filterOptionMethod.value!(filterValue.value, option));

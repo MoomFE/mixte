@@ -53,7 +53,7 @@ outline: [2,3]
 
 | 参数名 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| options | 选项数据源 | `MelSelectOption[]` | - |
+| options | 选项数据源 | `MaybeRefOrGetter<MelSelectOption[]>` | - |
 | optionsApi | 请求数据源的方法 | [`SelectOptionsApi`](#SelectOptionsApi) | - |
 | filterOptionMethod | 对数据源选项进行筛选时执行的方法, 返回 `false` 则表示这个选项会被隐藏<br>&nbsp;- <small>方法第一个参数为启用 `filterable` 时的输入值, 若未启用则始终为 `''`</small><br>&nbsp;- <small>方法第二个参数为当前筛选的选项数据</small> | `(query: string, option: MelSelectOption) => boolean \| undefined` | - |
 | ... | 其它 [el-select](https://element-plus.org/zh-CN/component/select.html#select-attributes) 属性均可使用 | - | - |

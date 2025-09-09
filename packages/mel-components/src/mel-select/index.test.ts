@@ -103,11 +103,24 @@ describe('mel-select', () => {
   });
 
   describe('新增参数: options', () => {
-    it('传入 options 以渲染选项', () => {
+    it.each([
+      [
+        '传入 `options` 以渲染选项',
+        [{ label: '1', value: '2' }, { label: '2', value: '2' }],
+      ],
+      [
+        '传入 `() => options` 以渲染选项',
+        () => [{ label: '1', value: '2' }, { label: '2', value: '2' }],
+      ],
+      [
+        '传入 `ref(options)` 以渲染选项',
+        ref([{ label: '1', value: '2' }, { label: '2', value: '2' }]),
+      ],
+    ])('%s', (_, _options) => {
       const mel = mount(MelSelect, {
         props: {
           teleported: false,
-          options: [{ label: '1', value: '2' }, { label: '2', value: '2' }],
+          options: _options,
         },
       });
       const el = mount(ElSelect, {
