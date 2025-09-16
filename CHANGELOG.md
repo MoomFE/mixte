@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.0-beta.18]
+  - 📅 2025-09-16
   - 🐞 [@mixte/mel-components] 修复 `MelSelect` 组件启用 `filterable` 时筛选不会忽略大小写的问题
   - 🐞 [@mixte/mel-components] 修复 `MelSelect` 组件使用 `option` 时报的控制台警告
 
@@ -196,7 +199,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.17...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.18...HEAD
+[v3.5.0-beta.18]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.18
 [v3.5.0-beta.17]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.17
 [v3.5.0-beta.16]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.16
 [v3.5.0-beta.15]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.15
