@@ -11,7 +11,7 @@
         remoteMethod,
       },
       {
-        default: defaultSlot,
+        default: DefaultSlot,
         ...slots,
         label: slots.label ?? slots['all-label'],
       },
@@ -21,7 +21,7 @@
 
 <script lang="tsx" setup>
   import type { Ref } from 'vue';
-  import type { MelSelectProps, MelSelectSlots, SelectInstance } from './types';
+  import type { MelSelectOption, MelSelectProps, MelSelectSlots, SelectInstance } from './types';
   import { useOptionsApi } from '@mixte/mel-components/utils';
   import { ElOption, ElSelect } from 'element-plus';
   import { isFunction } from 'mixte';
@@ -56,7 +56,7 @@
       return options?.filter(option => filterOptionMethod.value!(filterValue.value, option));
     }
     else if (props.filterable) {
-      return options?.filter(option => `${option.label}`.includes(filterValue.value));
+      return options?.filter(option => `${option.label}`.toLowerCase().includes(filterValue.value.toLowerCase()));
     }
 
     return options;
@@ -70,12 +70,20 @@
     remoteFilterValue.value = query;
   }
 
-  function defaultSlot() {
+  /**
+   * 在当前组件的渲染上下文内包装一次对 slots.option 的调用
+   *  - 避免 Vue 的警告: `Slot "option" invoked outside of the render function: this will not track dependencies used in the slot. Invoke the slot function inside the render function instead.`
+   */
+  function OptionSlot(option: MelSelectOption) {
+    return slots.option?.(option);
+  }
+
+  function DefaultSlot() {
     return options.value?.map((option) => {
       // 优先使用选项的 render 函数
       if (option.render) return option.render(option);
       // 其次使用 option 插槽
-      if (slots.option) return slots.option(option);
+      if (slots.option) return <OptionSlot {...option} />;
 
       return (
         <ElOption key={`${option.value}`} {...option}>

@@ -762,9 +762,7 @@ describe('mel-select', () => {
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
           expect(options.length).toBe(3);
-          expect(options[0].text()).toBe('Option 1');
-          expect(options[1].text()).toBe('Option 2');
-          expect(options[2].text()).toBe('Option 12');
+          expect(options.map(op => op.text())).toStrictEqual(['Option 1', 'Option 2', 'Option 12']);
         }
 
         {
@@ -778,8 +776,7 @@ describe('mel-select', () => {
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
           expect(options.length).toBe(2);
-          expect(options[0].text()).toBe('Option 1');
-          expect(options[1].text()).toBe('Option 12');
+          expect(options.map(op => op.text())).toStrictEqual(['Option 1', 'Option 12']);
         }
 
         {
@@ -793,8 +790,7 @@ describe('mel-select', () => {
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
           expect(options.length).toBe(2);
-          expect(options[0].text()).toBe('Option 2');
-          expect(options[1].text()).toBe('Option 12');
+          expect(options.map(op => op.text())).toStrictEqual(['Option 2', 'Option 12']);
         }
 
         {
@@ -822,9 +818,7 @@ describe('mel-select', () => {
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
           expect(options.length).toBe(3);
-          expect(options[0].text()).toBe('Option 1');
-          expect(options[1].text()).toBe('Option 2');
-          expect(options[2].text()).toBe('Option 12');
+          expect(options.map(op => op.text())).toStrictEqual(['Option 1', 'Option 2', 'Option 12']);
         }
       });
     });
@@ -858,9 +852,7 @@ describe('mel-select', () => {
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
           expect(options.length).toBe(3);
-          expect(options[0].text()).toBe('Option 1');
-          expect(options[1].text()).toBe('Option 2');
-          expect(options[2].text()).toBe('Option 12');
+          expect(options.map(op => op.text())).toStrictEqual(['Option 1', 'Option 2', 'Option 12']);
         }
 
         {
@@ -873,8 +865,7 @@ describe('mel-select', () => {
           expect(filterOptionMethod).toHaveBeenCalledWith('1', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('1', { label: 'Option 12', value: '12' });
           expect(options.length).toBe(2);
-          expect(options[0].text()).toBe('Option 1');
-          expect(options[1].text()).toBe('Option 12');
+          expect(options.map(op => op.text())).toStrictEqual(['Option 1', 'Option 12']);
         }
 
         {
@@ -887,8 +878,7 @@ describe('mel-select', () => {
           expect(filterOptionMethod).toHaveBeenCalledWith('2', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('2', { label: 'Option 12', value: '12' });
           expect(options.length).toBe(2);
-          expect(options[0].text()).toBe('Option 2');
-          expect(options[1].text()).toBe('Option 12');
+          expect(options.map(op => op.text())).toStrictEqual(['Option 2', 'Option 12']);
         }
 
         {
@@ -913,11 +903,114 @@ describe('mel-select', () => {
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
           expect(options.length).toBe(3);
-          expect(options[0].text()).toBe('Option 1');
-          expect(options[1].text()).toBe('Option 2');
-          expect(options[2].text()).toBe('Option 12');
+          expect(options.map(op => op.text())).toStrictEqual(['Option 1', 'Option 2', 'Option 12']);
         }
       });
+    });
+
+    it('不使用 filterOptionMethod 时的默认筛选行为和 ElSelect 一致', async () => {
+      const el = mount(ElSelect, {
+        props: {
+          teleported: false,
+          filterable: true,
+        },
+        slots: {
+          default: () => options.map(option => h(ElOption, { key: option.value, label: option.label, value: option.value })),
+        },
+      });
+      const mel = mount(MelSelect, {
+        props: {
+          teleported: false,
+          filterable: true,
+          options,
+        },
+      });
+
+      {
+        const elOptions = el.findAll('.el-select-dropdown__item').filter(op => op.attributes('style') !== 'display: none;');
+        const melOptions = mel.findAll('.el-select-dropdown__item');
+
+        expect(elOptions.length).toBe(3);
+        expect(elOptions.map(op => op.text())).toStrictEqual(['Option 1', 'Option 2', 'Option 12']);
+        expect(melOptions.length).toBe(3);
+        expect(melOptions.map(op => op.text())).toStrictEqual(['Option 1', 'Option 2', 'Option 12']);
+      }
+
+      {
+        await el.find('input').setValue('1');
+        await mel.find('input').setValue('1');
+
+        const elOptions = el.findAll('.el-select-dropdown__item').filter(op => op.attributes('style') !== 'display: none;');
+        const melOptions = mel.findAll('.el-select-dropdown__item');
+
+        expect(elOptions.length).toBe(2);
+        expect(elOptions.map(op => op.text())).toStrictEqual(['Option 1', 'Option 12']);
+        expect(melOptions.length).toBe(2);
+        expect(melOptions.map(op => op.text())).toStrictEqual(['Option 1', 'Option 12']);
+      }
+
+      {
+        await el.find('input').setValue('2');
+        await mel.find('input').setValue('2');
+
+        const elOptions = el.findAll('.el-select-dropdown__item').filter(op => op.attributes('style') !== 'display: none;');
+        const melOptions = mel.findAll('.el-select-dropdown__item');
+
+        expect(elOptions.length).toBe(2);
+        expect(elOptions.map(op => op.text())).toStrictEqual(['Option 2', 'Option 12']);
+        expect(melOptions.length).toBe(2);
+        expect(melOptions.map(op => op.text())).toStrictEqual(['Option 2', 'Option 12']);
+      }
+
+      {
+        await el.find('input').setValue('3');
+        await mel.find('input').setValue('3');
+
+        const elOptions = el.findAll('.el-select-dropdown__item').filter(op => op.attributes('style') !== 'display: none;');
+        const melOptions = mel.findAll('.el-select-dropdown__item');
+
+        expect(elOptions.length).toBe(0);
+        expect(melOptions.length).toBe(0);
+      }
+
+      {
+        await el.find('input').setValue('op');
+        await mel.find('input').setValue('op');
+
+        const elOptions = el.findAll('.el-select-dropdown__item').filter(op => op.attributes('style') !== 'display: none;');
+        const melOptions = mel.findAll('.el-select-dropdown__item');
+
+        expect(elOptions.length).toBe(3);
+        expect(elOptions.map(op => op.text())).toStrictEqual(['Option 1', 'Option 2', 'Option 12']);
+        expect(melOptions.length).toBe(3);
+        expect(melOptions.map(op => op.text())).toStrictEqual(['Option 1', 'Option 2', 'Option 12']);
+      }
+
+      {
+        await el.find('input').setValue('OP');
+        await mel.find('input').setValue('OP');
+
+        const elOptions = el.findAll('.el-select-dropdown__item').filter(op => op.attributes('style') !== 'display: none;');
+        const melOptions = mel.findAll('.el-select-dropdown__item');
+
+        expect(elOptions.length).toBe(3);
+        expect(elOptions.map(op => op.text())).toStrictEqual(['Option 1', 'Option 2', 'Option 12']);
+        expect(melOptions.length).toBe(3);
+        expect(melOptions.map(op => op.text())).toStrictEqual(['Option 1', 'Option 2', 'Option 12']);
+      }
+
+      {
+        await el.find('input').setValue('');
+        await mel.find('input').setValue('');
+
+        const elOptions = el.findAll('.el-select-dropdown__item').filter(op => op.attributes('style') !== 'display: none;');
+        const melOptions = mel.findAll('.el-select-dropdown__item');
+
+        expect(elOptions.length).toBe(3);
+        expect(elOptions.map(op => op.text())).toStrictEqual(['Option 1', 'Option 2', 'Option 12']);
+        expect(melOptions.length).toBe(3);
+        expect(melOptions.map(op => op.text())).toStrictEqual(['Option 1', 'Option 2', 'Option 12']);
+      }
     });
   });
 
