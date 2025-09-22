@@ -36,8 +36,8 @@ export interface UseRequestOptions<Response = any> {
 
 export interface UseRequestReturn<
   Response,
-  Data extends Response extends { data: infer D } ? D : never,
-  Args extends any[],
+  Data extends Response extends { data: infer D } ? D : never = Response extends { data: infer D } ? D : never,
+  Args extends any[] = any[],
 > {
   /** 服务器响应 */
   response: ShallowRef<Response | undefined>;

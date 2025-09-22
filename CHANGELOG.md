@@ -1,13 +1,14 @@
 ## [Unreleased]
+  - 💄 [@mixte/use] 优化 `useRequest` 的 `UseRequestReturn` 类型定义
 
 ## [v3.5.0-beta.18]
   - 📅 2025-09-16
-  - 🐞 [@mixte/mel-components] 修复 `MelSelect` 组件启用 `filterable` 时筛选不会忽略大小写的问题
-  - 🐞 [@mixte/mel-components] 修复 `MelSelect` 组件使用 `option` 时报的控制台警告
+  - 🐞 [@mixte/mel-components] 修复 `MelSelect` 组件启用 `filterable` 时筛选不会忽略大小写的问题 *
+  - 🐞 [@mixte/mel-components] 修复 `MelSelect` 组件使用 `option` 时报的控制台警告 *
 
 ## [v3.5.0-beta.17]
   - 📅 2025-09-09
-  - 🐞 [@mixte/mel-components] 修复 `MelSelect` 组件启用 `filterable` 时筛选无效的问题
+  - 🐞 [@mixte/mel-components] 修复 `MelSelect` 组件启用 `filterable` 时筛选无效的问题 *
 
 ## [v3.5.0-beta.16]
   - 📅 2025-09-09
