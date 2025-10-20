@@ -1,5 +1,6 @@
 ## [Unreleased]
   - 🌟 [@mixte/components] 组件 `GridTable` 新增 `headerDivider` 参数以支持控制表头分割线的显示
+  - 💄 [@mixte/mel-components] 组件 `MelSelect` 新增 `MelSelectOption` 类型导出
 
 ## [v3.5.0], [-beta.18][v3.5.0-beta.18], [-beta.17][v3.5.0-beta.17], [-beta.16][v3.5.0-beta.16], [-beta.15][v3.5.0-beta.15], [-beta.14][v3.5.0-beta.14], [-beta.13][v3.5.0-beta.13], [-beta.12][v3.5.0-beta.12], [-beta.11][v3.5.0-beta.11], [-beta.10][v3.5.0-beta.10], [-beta.9][v3.5.0-beta.9], [-beta.8][v3.5.0-beta.8], [-beta.7][v3.5.0-beta.7], [-beta.6][v3.5.0-beta.6], [-beta.5][v3.5.0-beta.5], [-beta.4][v3.5.0-beta.4], [-beta.3][v3.5.0-beta.3], [-beta.2][v3.5.0-beta.2], [-beta.1][v3.5.0-beta.1]
   - 📅 2025-09-22
