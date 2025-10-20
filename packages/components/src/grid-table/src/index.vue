@@ -32,7 +32,9 @@
   import { useTreeDataStore } from './composables/useTreeData';
   import { useVirtualStore } from './composables/useVirtual';
 
-  const props = defineProps<GridTableProps<Fields>>();
+  const props = withDefaults(defineProps<GridTableProps<Fields>>(), {
+    headerDivider: true,
+  });
   const slots = defineSlots<GridTableSlots<Fields>>();
 
   const expandedRowKeys = defineModel<string[]>('expandedRowKeys', {
@@ -63,6 +65,7 @@
     let classes = `mixte-gt-wrap mixte-gt-render-mode-${renderMode.value} `;
 
     if (props.bordered) classes += 'mixte-gt-bordered ';
+    else if (props.headerDivider) classes += 'mixte-gt-header-divider ';
 
     return classes;
   });

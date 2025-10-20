@@ -382,6 +382,44 @@ describe('grid-table', () => {
     });
   });
 
+  it('表格边框和表头分割线是互斥的', async () => {
+    const columns = createColumns();
+    const data = createData();
+
+    const { vm, getTableWrap } = getTableStructure({
+      props: {
+        columns,
+        data,
+      },
+    });
+
+    const tableWrap = getTableWrap();
+
+    // 默认没有边框, 有表头分割线
+    expect(tableWrap.classes()).not.toContain('mixte-gt-bordered');
+    expect(tableWrap.classes()).toContain('mixte-gt-header-divider');
+
+    // 设置 headerDivider 为 false, 没有边框, 没有表头分割线
+    await vm.setProps({ headerDivider: false });
+    expect(tableWrap.classes()).not.toContain('mixte-gt-bordered');
+    expect(tableWrap.classes()).not.toContain('mixte-gt-header-divider');
+
+    // 设置 bordered 为 true, 有边框, 没有表头分割线
+    await vm.setProps({ bordered: true });
+    expect(tableWrap.classes()).toContain('mixte-gt-bordered');
+    expect(tableWrap.classes()).not.toContain('mixte-gt-header-divider');
+
+    // 设置 headerDivider 为 true, 有边框, 没有表头分割线
+    await vm.setProps({ headerDivider: true });
+    expect(tableWrap.classes()).toContain('mixte-gt-bordered');
+    expect(tableWrap.classes()).not.toContain('mixte-gt-header-divider');
+
+    // 设置 bordered 为 false, 没有边框, 有表头分割线
+    await vm.setProps({ bordered: false });
+    expect(tableWrap.classes()).not.toContain('mixte-gt-bordered');
+    expect(tableWrap.classes()).toContain('mixte-gt-header-divider');
+  });
+
   describe('渲染模式', () => {
     it('现代渲染模式会增加 thead, tbody 节点', () => {
       // 传统渲染模式

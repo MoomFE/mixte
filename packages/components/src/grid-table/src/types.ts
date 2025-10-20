@@ -64,6 +64,11 @@ export interface GridTableProps<Fields extends Record<string, any>> {
 
   /** 是否展示外边框和列边框 */
   bordered?: boolean;
+  /**
+   * 是否展示未启用 `bordered` 时的表头分割线
+   * @default true
+   */
+  headerDivider?: boolean;
 
   /**
    * 渲染模式
