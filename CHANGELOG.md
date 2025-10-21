@@ -105,7 +105,9 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.0-beta.18...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.1...HEAD
+[v3.5.1]: https://github.com/MoomFE/mixte/releases/tag/v3.5.1
+[v3.5.0]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0
 [v3.5.0-beta.18]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.18
 [v3.5.0-beta.17]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.17
 [v3.5.0-beta.16]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.16
