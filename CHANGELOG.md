@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.5.1]
+  - 📅 2025-10-21
   - 🌟 [@mixte/components] 组件 `GridTable` 新增 `headerDivider` 参数以支持控制表头分割线的显示
   - 🌟 [@mixte/components] 组件 `GridTable` 新增 `tableWrapSize` 和 `tableSize` 导出属性
   - 💄 [@mixte/mel-components] 组件 `MelSelect` 新增 `MelSelectOption` 类型导出
