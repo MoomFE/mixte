@@ -1,4 +1,4 @@
-import type { MaybeRefOrGetter } from 'vue';
+import type { ComputedRef, MaybeRefOrGetter } from 'vue';
 
 // #region GridTableProps
 
@@ -156,6 +156,11 @@ export interface RenderProps<Fields extends Record<string, any>> {
 // #endregion GridTableColumn
 
 export interface GridTableExpose {
+  /** 表格包裹层宽高 */
+  tableWrapSize: ComputedRef<{ width: number; height: number }>;
+  /** 表格主体宽高 */
+  tableSize: ComputedRef<{ width: number; height: number }>;
+
   /** 展开所有行 */
   expandAllRows: () => void;
   /** 折叠所有行 */

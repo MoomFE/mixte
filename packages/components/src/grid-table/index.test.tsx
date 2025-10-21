@@ -420,6 +420,36 @@ describe('grid-table', () => {
     expect(tableWrap.classes()).toContain('mixte-gt-header-divider');
   });
 
+  describe('表格导出方法/属性', () => {
+    it('tableWrapSize: 表格包裹层宽高',  async () => {
+      const columns = createColumns();
+
+      const { vm } = getTableStructure({
+        props: { columns },
+        attrs: {
+          class: 'w-200px h-300px',
+        },
+      });
+
+      expect(vm.vm.tableWrapSize.width).toBeTypeOf('number');
+      expect(vm.vm.tableWrapSize.height).toBeTypeOf('number');
+    });
+
+    it('tableSize: 表格主体宽高',  async () => {
+      const columns = createColumns();
+
+      const { vm } = getTableStructure({
+        props: { columns },
+        attrs: {
+          class: 'w-200px h-300px',
+        },
+      });
+
+      expect(vm.vm.tableSize.width).toBeTypeOf('number');
+      expect(vm.vm.tableSize.height).toBeTypeOf('number');
+    });
+  });
+
   describe('渲染模式', () => {
     it('现代渲染模式会增加 thead, tbody 节点', () => {
       // 传统渲染模式

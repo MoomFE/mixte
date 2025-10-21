@@ -60,8 +60,10 @@ outline: [2,3]
 
 ### Expose
 
-| 方法名 | 描述 | 类型 |
+| 方法名/属性名 | 描述 | 类型 |
 | --- | --- | --- |
+| tableWrapSize | 表格包裹层宽高 | `{ width: number; height: number }` |
+| tableSize | 表格主体宽高 | `{ width: number; height: number }` |
 | expandAllRows | 展开所有行 | `() => void` |
 | collapseAllRows | 折叠所有行 | `() => void` |
 | expandRows | 展开指定行 | `(rowKeys: string[]) => void` |

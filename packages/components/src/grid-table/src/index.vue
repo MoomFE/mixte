@@ -45,7 +45,9 @@
     columns,
     renderMode,
     tableWrapRef,
+    tableWrapSize,
     tableRef,
+    tableSize,
   } = useSharedStore(props, slots, {
     expandedRowKeys,
   });
@@ -97,6 +99,9 @@
   });
 
   defineExpose<GridTableExpose>({
+    tableWrapSize: computed(() => ({ width: tableWrapSize.width, height: tableWrapSize.height })),
+    tableSize: computed(() => ({ width: tableSize.width, height: tableSize.height })),
+
     expandAllRows,
     collapseAllRows,
     expandRows,
