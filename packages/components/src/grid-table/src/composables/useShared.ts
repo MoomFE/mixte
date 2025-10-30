@@ -68,6 +68,11 @@ export const [
     let estimatedHeight = props.estimatedRowHeight;
     return isNumeric(estimatedHeight) && (estimatedHeight = Number(estimatedHeight)) > 0 ? estimatedHeight : 50;
   });
+  /** 固定行高度 */
+  const fixedRowHeight = computed(() => {
+    let fixedHeight = props.fixedRowHeight;
+    return isNumeric(fixedHeight) && (fixedHeight = Number(fixedHeight)) > 0 ? fixedHeight : null;
+  });
 
   /** 所有固定在左侧的列 */
   const fixedLeftColumns = computed(() => columns.value?.filter(column => columnIsFixedLeft(column)) ?? []);
@@ -125,6 +130,7 @@ export const [
     expandedIndent,
     overscan,
     estimatedRowHeight,
+    fixedRowHeight,
 
     fixedLeftColumns,
     fixedLeftColumnsRect,

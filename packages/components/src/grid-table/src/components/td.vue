@@ -67,7 +67,7 @@
 
   const tdRef = ref<HTMLDivElement>();
 
-  const { props: tableProps, rowKey, childrenKey, expandedIndent } = useShared()!;
+  const { props: tableProps, rowKey, childrenKey, expandedIndent, fixedRowHeight } = useShared()!;
   const { expandedRowSet, updateExpanded } = useTreeData()!;
   const { createColumnStore } = useCell()!;
   const { columnIndex, cellClasses, cellStyle, zIndex, tdClasses, tdClassesFn, tdStyleFn, isExpandVisible } = createColumnStore(props.column.field, props.column);
@@ -82,7 +82,7 @@
   onMounted(() => {
     const { updateRowHeight } = useVirtual()!;
 
-    wheneverEffectScopeImmediate(() => tableProps.virtual && columnIndex.value === 0, () => {
+    wheneverEffectScopeImmediate(() => tableProps.virtual && columnIndex.value === 0 && !fixedRowHeight.value, () => {
       const height = useElementSize(tdRef, undefined, { box: 'border-box' }).height;
 
       watch(height, (height) => {

@@ -11,6 +11,9 @@
           <el-option label="传统" value="legacy" />
         </el-select>
       </el-form-item>
+      <el-form-item label="固定行高度">
+        <el-input-number v-model="fixedRowHeight" class="w-55!" :min="30" placeholder="不设置则为动态高度" />
+      </el-form-item>
     </el-form>
   </div>
 
@@ -20,6 +23,7 @@
     virtual
     :bordered
     :render-mode
+    :fixed-row-height
     style="height: 520px"
   />
 </template>
@@ -45,6 +49,7 @@
 
   const bordered = ref(false);
   const renderMode = ref<'auto' | 'modern' | 'legacy'>('auto');
+  const fixedRowHeight = ref<number>();
 
   const data = shallowRef<User[]>(generateData());
 
@@ -69,6 +74,7 @@
           {value}px
         </div>
       ),
+      hidden: () => !!fixedRowHeight.value,
     },
 
     { field: 'id', title: 'ID' },

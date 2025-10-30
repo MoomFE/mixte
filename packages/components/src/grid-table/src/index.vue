@@ -44,6 +44,7 @@
   const {
     columns,
     renderMode,
+    fixedRowHeight,
     tableWrapRef,
     tableWrapSize,
     tableRef,
@@ -68,6 +69,9 @@
 
     if (props.bordered) classes += 'mixte-gt-bordered ';
     else if (props.headerDivider) classes += 'mixte-gt-header-divider ';
+
+    if (fixedRowHeight.value) classes += 'mixte-gt-virtual-fixed-height ';
+    else classes += 'mixte-gt-virtual-estimated-height ';
 
     return classes;
   });

@@ -72,6 +72,14 @@
     padding: var(--mixte-gt-td-padding);
     background-color: var(--mixte-gt-td-bg);
     transition: background-color 0.3s;
+
+    // 启用虚拟列表时的固定行高度
+    .mixte-gt-virtual-fixed-height > .mixte-gt > &,
+    .mixte-gt-virtual-fixed-height > .mixte-gt > .mixte-gt-tbody > & {
+      height: var(--mixte-gt-virtual-td-h, 100%) !important;
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
   }
 
   // 单元格

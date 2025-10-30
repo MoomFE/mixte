@@ -1,4 +1,4 @@
-import { watchImmediate, wheneverEffectScopeImmediate } from '@mixte/use';
+import { watchImmediate, wheneverEffectScopeImmediate, wheneverImmediate } from '@mixte/use';
 import { createInjectionState, useCssVar } from '@vueuse/core';
 import { computed, ref, watch } from 'vue';
 import { useShared } from './useShared';
@@ -14,6 +14,7 @@ export const [
     isModernRenderMode,
 
     overscan,
+    fixedRowHeight,
 
     tableWrapSize,
     tableWrapScroll,
@@ -58,6 +59,8 @@ export const [
   /** 表格高度 */
   const tableHeight = useCssVar('--mixte-gt-virtual-h', tableRef);
   const tableHeightWillChange = useCssVar('--mixte-gt-virtual-h-wc', tableRef);
+  /** 表格表体单元格高度 */
+  const tableTdHeight = useCssVar('--mixte-gt-virtual-td-h', tableRef);
   /** 表格顶部不可见区域高度 ( 虚拟表格占位 ) */
   const tablePlaceholderHeight = useCssVar('--mixte-gt-virtual-ph', tableRef);
 
@@ -70,6 +73,10 @@ export const [
       tablePlaceholderHeight.value = `${cumulativeHeights.value[start] || 0}px`;
     });
 
+    wheneverImmediate(fixedRowHeight, () => {
+      tableTdHeight.value = `${fixedRowHeight.value}px`;
+    });
+
     watch(() => tableWrapScroll.isScrolling, (isScrolling) => {
       tableHeightWillChange.value = isScrolling ? (isModernRenderMode.value ? 'padding-top' : 'height') : undefined;
     }, {
@@ -78,8 +85,9 @@ export const [
 
     onCleanup(() => {
       tableHeight.value = undefined;
-      tablePlaceholderHeight.value = undefined;
       tableHeightWillChange.value = undefined;
+      tableTdHeight.value = undefined;
+      tablePlaceholderHeight.value = undefined;
     });
   });
 
@@ -93,7 +101,7 @@ export const [
 });
 
 function useCumulativeHeights() {
-  const { estimatedRowHeight } = useShared()!;
+  const { estimatedRowHeight, fixedRowHeight } = useShared()!;
   const { displayedData } = useTreeData()!;
 
   /** 实际行高度集合, key 为行对象本身 */
@@ -114,9 +122,20 @@ function useCumulativeHeights() {
 
   /** 增量更新累计高度数组 */
   const cumulativeHeights = computed(() => {
-    const estimated = estimatedRowHeight.value;
     const data = displayedData.value;
     const dataLength = data.length ?? 0;
+    const fixed = fixedRowHeight.value;
+
+    if (fixed != null) {
+      const heights = Array.from({ length: dataLength + 1 }, (_, i) => i * fixed);
+
+      dirtyIndexes.value.clear();
+      cumulativeHeightsCache = heights;
+
+      return heights;
+    }
+
+    const estimated = estimatedRowHeight.value;
     const prevLength = cumulativeHeightsCache.length;
     const dirtyMin = dirtyIndexes.value.size > 0 ? Math.min(...dirtyIndexes.value) : dataLength;
     const start = Math.min(prevLength - 1, dirtyMin);
@@ -146,6 +165,16 @@ function useCumulativeHeights() {
 
   /** 使用二分查找定位索引 */
   function findIndexByHeight(targetHeight: number) {
+    const dataLength = displayedData.value.length ?? 0;
+    const fixed = fixedRowHeight.value;
+
+    if (fixed != null) {
+      if (dataLength === 0) return 0;
+
+      const index = Math.floor(Math.max(0, targetHeight) / fixed);
+      return Math.min(dataLength - 1, index);
+    }
+
     const heights = cumulativeHeights.value;
     let left = 0;
     let right = heights.length - 1;

@@ -47,6 +47,7 @@ outline: [2,3]
 | virtual | 是否启用虚拟列表<br>&nbsp;- <small>需要为表格设置一个高度</small> | `boolean` | - |
 | overscan | 启用虚拟列表时预渲染的行数<br>&nbsp;- <small>可减少快速滚动时的白屏</small> | ``` number \| `${number}` ``` | `5` |
 | estimatedRowHeight | 启用虚拟列表时的预估行高度 | ``` number \| `${number}` ``` | `50` |
+| fixedRowHeight<br><el-tag>v3.5.2</el-tag> | 启用虚拟列表时的固定行高度<br>&nbsp;- <small>设置后, 将不再动态计算行高, 提升渲染性能, 和 `estimatedRowHeight` 互斥</small><br>&nbsp;- <small>设置后, 将移除单元格上下内边距</small> | ``` number \| `${number}` ``` | - |
 | childrenKey | 树形数据子节点字段名 | `string` | `'children'` |
 | expandColumnKey | 显示展开按钮的列主键<br>&nbsp;- <small>如果不设置, 则使用第一列作为展开列</small> | `string` | - |
 | expandedRowKeys | 树形数据展开的行主键列表<br>&nbsp;- <small>支持通过 `v-model:expandedRowKeys="xxx"` 进行双向绑定</small> | `string[]` | - |

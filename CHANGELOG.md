@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [@mixte/components] 组件 `GridTable` 新增 `fixedRowHeight` 属性以支持在启用虚拟列表时固定行高度
 
 ## [v3.5.1]
   - 📅 2025-10-21

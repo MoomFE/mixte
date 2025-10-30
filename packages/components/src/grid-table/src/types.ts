@@ -33,6 +33,13 @@ export interface GridTableProps<Fields extends Record<string, any>> {
    * @default 50
    */
   estimatedRowHeight?: number | `${number}`;
+  /**
+   * 启用虚拟列表时的固定行高度
+   *  - 设置后, 将不再动态计算行高, 提升渲染性能, 和 `estimatedRowHeight` 互斥
+   *  - 设置后, 将移除单元格上下内边距
+   * @version 3.5.2
+   */
+  fixedRowHeight?: number | `${number}`;
 
   /**
    * 树形数据子节点字段名
