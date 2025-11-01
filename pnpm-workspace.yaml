@@ -5,15 +5,15 @@ packages:
 catalog:
   '@ant-design/v5-patch-for-react-19': ^1.0.3
   '@ant-design/x': ^1.0.5
-  '@tiptap/extension-bubble-menu': ^2.26.2
-  '@tiptap/extension-underline': ^2.26.2
-  '@tiptap/pm': ^2.26.2
-  '@tiptap/starter-kit': ^2.26.1
-  '@tiptap/vue-3': ^2.26.2
-  '@types/three': ^0.180.0
+  '@tiptap/extension-bubble-menu': ^2.27.1
+  '@tiptap/extension-underline': ^2.27.1
+  '@tiptap/pm': ^2.27.1
+  '@tiptap/starter-kit': ^2.27.1
+  '@tiptap/vue-3': ^2.27.1
+  '@types/three': ^0.181.0
   gsap: ^3.13.0
   nanoid: ^5.1.6
-  three: ^0.180.0
+  three: ^0.181.0
   veaury: ^2.6.3
-  vue-component-type-helpers: ^3.1.0
+  vue-component-type-helpers: ^3.1.2
   vue-draggable-plus: ^0.6.0
