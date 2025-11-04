@@ -49,6 +49,7 @@
     :expand-column-key
     :expanded-indent
     virtual
+    :fixed-row-height="56"
     style="height: 360px"
   >
     <template #cell-email="{ value }">
