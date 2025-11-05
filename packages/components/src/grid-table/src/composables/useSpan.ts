@@ -7,8 +7,11 @@ import { useShared } from './useShared';
 import { useTreeData } from './useTreeData';
 
 interface CellSpanMeta {
+  /** 行合并数 */
   rowSpan: number;
+  /** 列合并数 */
   colSpan: number;
+  /** 是否跳过渲染 ( 被合并覆盖 ) */
   skip: boolean;
 }
 

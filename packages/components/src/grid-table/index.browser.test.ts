@@ -165,6 +165,36 @@ describe('grid-table', () => {
         await testScrollRow(i, tableWrap, data, { overscan: 5 });
       }
     });
+
+    it('固定行高度的虚拟列表', async () => {
+      const data = Array.from({ length: 30 }).map((_, index) => ({
+        'id': index + 1,
+        'col-1': `数据 ${index + 1} - 列1`,
+        'col-2': `数据 ${index + 1} - 列2`,
+      }));
+
+      render(MixteGridTable, {
+        props: { // @ts-expect-error
+          columns: defineTableColumns([
+            { field: 'col-1', title: '列1', headerCellClass: 'h-60px' },
+            { field: 'col-2', title: '列2' },
+          ]),
+          data,
+          class: 'h-600px',
+          virtual: true,
+          overscan: 0,
+          fixedRowHeight: 60,
+        },
+      });
+
+      await delay(20);
+
+      const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
+
+      for (let i = 0; i < data.length; i++) {
+        await testScrollRow(i, tableWrap, data);
+      }
+    });
   });
 
   describe('列配置', () => {

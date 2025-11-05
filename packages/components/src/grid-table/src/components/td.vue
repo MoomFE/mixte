@@ -82,7 +82,7 @@
   onMounted(() => {
     const { updateRowHeight } = useVirtual()!;
 
-    wheneverEffectScopeImmediate(() => tableProps.virtual && columnIndex.value === 0 && !fixedRowHeight.value, () => {
+    wheneverEffectScopeImmediate(() => tableProps.virtual && columnIndex.value === 0 && fixedRowHeight.value == null, () => {
       const height = useElementSize(tdRef, undefined, { box: 'border-box' }).height;
 
       watch(height, (height) => {

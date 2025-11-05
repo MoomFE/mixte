@@ -171,8 +171,9 @@ function useCumulativeHeights() {
     if (fixed != null) {
       if (dataLength === 0) return 0;
 
-      const index = Math.floor(Math.max(0, targetHeight) / fixed);
-      return Math.min(dataLength - 1, index);
+      const normalizedHeight = Math.max(0, targetHeight);
+      const index = Math.ceil(normalizedHeight / fixed) - 1;
+      return Math.min(dataLength - 1, Math.max(0, index));
     }
 
     const heights = cumulativeHeights.value;
