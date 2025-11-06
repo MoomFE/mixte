@@ -11,7 +11,7 @@
     <!-- 虚拟表格 -->
     <component
       v-for="(node, index) in data" :key="node.key"
-      :is="h(Tr, { node, index: visibleStart + index }, $slots)"
+      :is="h(Tr, { node, index: dataStart + index }, $slots)"
     />
   </template>
   <template v-else>
@@ -34,5 +34,5 @@
 
   const { props, columns, isLegacyRenderMode } = useShared()!;
   const { displayedData } = useTreeData()!;
-  const { data, visibleStart } = useVirtual()!;
+  const { data, dataStart } = useVirtual()!;
 </script>

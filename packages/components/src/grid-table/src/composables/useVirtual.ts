@@ -2,6 +2,7 @@ import { watchImmediate, wheneverEffectScopeImmediate, wheneverImmediate } from 
 import { createInjectionState, useCssVar } from '@vueuse/core';
 import { computed, ref, watch } from 'vue';
 import { useShared } from './useShared';
+import { useSpan } from './useSpan';
 import { useTreeData } from './useTreeData';
 
 export const [
@@ -25,7 +26,7 @@ export const [
   } = useShared()!;
 
   const { displayedData } = useTreeData()!;
-
+  const { getVisibleDataColSpanStart } = useSpan()!;
   const { cumulativeHeights, updateRowHeight, findIndexByHeight } = useCumulativeHeights();
 
   /** 表格展示区高度 */
@@ -40,7 +41,6 @@ export const [
       findIndexByHeight(tableWrapScroll.y) - overscan.value,
     );
   });
-
   /** 可见行的结束索引 */
   const visibleEnd = computed(() => {
     return Math.min(
@@ -50,10 +50,22 @@ export const [
   });
 
   /** 可见行数据 */
-  const data = computed(() => {
+  const visibleData = computed(() => {
     if (!props.virtual) return;
 
     return displayedData.value.slice(visibleStart.value, visibleEnd.value) ?? [];
+  });
+
+  /** 可见行数据的列合并起始索引 */
+  const visibleDataColSpanStart = computed(() => {
+    return getVisibleDataColSpanStart(visibleStart.value, visibleData.value);
+  });
+
+  /** 可见行数据的列合并扩展数据 */
+  const data = computed(() => {
+    if (!props.virtual) return;
+
+    return displayedData.value.slice(visibleDataColSpanStart.value, visibleEnd.value) ?? [];
   });
 
   /** 表格高度 */
@@ -69,7 +81,7 @@ export const [
       tableHeight.value = `${totalHeight}px`;
     });
 
-    watchImmediate(visibleStart, (start) => {
+    watchImmediate(visibleDataColSpanStart, (start) => {
       tablePlaceholderHeight.value = `${cumulativeHeights.value[start] || 0}px`;
     });
 
@@ -93,7 +105,9 @@ export const [
 
   return {
     visibleStart,
+    visibleData,
 
+    dataStart: visibleDataColSpanStart,
     data,
 
     updateRowHeight,

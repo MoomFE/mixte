@@ -21,6 +21,8 @@
       :loading="data.isLoading"
       :bordered
       :render-mode
+      virtual
+      overscan="0"
     >
       <template #cell-email="{ value }">
         <a :href="`mailto:${value}`">{{ value }}</a>
@@ -40,7 +42,7 @@
   const renderMode = ref<'auto' | 'modern' | 'legacy'>('auto');
 
   const data = useRequestReactive(() => {
-    return axios.post<ResponseData<ResponseListData<User>>>('https://m1.apifoxmock.com/m1/4781098-4434938-default/list/user', { pageSize: 20 });
+    return axios.post<ResponseData<ResponseListData<User>>>('https://m1.apifoxmock.com/m1/4781098-4434938-default/list/user', { pageSize: 66 });
   }, {
     immediate: true,
   });
