@@ -2,7 +2,7 @@
 
 <template>
   <template v-for="column in columns" :key="column.field">
-    <component :is="h(Td, { node, column, index }, $slots)" />
+    <component :is="h(TdProxy, { node, column, index }, $slots)" />
   </template>
 </template>
 
@@ -11,7 +11,7 @@
   import type { TreeNode } from 'treemate';
   import { h } from 'vue';
   import { useShared } from '../composables/useShared';
-  import Td from './td.vue';
+  import TdProxy from './td-proxy.vue';
 
   interface Props {
     node: TreeNode<any>;
