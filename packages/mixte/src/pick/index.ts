@@ -12,7 +12,10 @@ import { get, set, toArray } from 'mixte';
  * pick({ a: 1, b: 2, c: 3 }, ['a', 'c']); // -> { a: 1, c: 3 }
  * pick({ a: 1, b: 2, c: 3 }, 'a'); // -> { a: 1 }
  */
-export function pick<T extends object, K extends keyof T>(obj: T, keys: K[] | readonly K[] | K): Pick<T, K> {
+export function pick<T extends object, K extends keyof T>(
+  obj: T,
+  keys: (K | (string & {}))[] | readonly (K | (string & {}))[] | (K | (string & {})),
+): Pick<T, K> {
   if (!obj) return {} as Pick<T, K>;
 
   const result: Record<string, any> = {};
@@ -38,7 +41,10 @@ export function pick<T extends object, K extends keyof T>(obj: T, keys: K[] | re
  * omit({ a: 1, b: 2, c: 3 }, ['a', 'c']); // -> { b: 2 }
  * omit({ a: 1, b: 2, c: 3 }, 'a'); // -> { b: 2, c: 3 }
  */
-export function omit<T extends object, K extends keyof T>(obj: T, keys: K[] | readonly K[] | K): Omit<T, K> {
+export function omit<T extends object, K extends keyof T>(
+  obj: T,
+  keys: (K | (string & {}))[] | readonly (K | (string & {}))[] | (K | (string & {})),
+): Omit<T, K> {
   if (!obj) return {} as Omit<T, K>;
 
   const result = { ...obj };

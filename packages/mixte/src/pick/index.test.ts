@@ -15,17 +15,13 @@ describe('pick', () => {
 
     expect(pick(obj, 'a')).toStrictEqual({ a: 1 });
     expect(pick(obj, 'b')).toStrictEqual({ b: 2 });
-
-    // @ts-expect-error
     expect(pick(obj, 'd')).toStrictEqual({});
   });
 
   it('处理键不存在的情况', () => {
     const obj = { a: 1, b: 2 };
 
-    // @ts-expect-error
     expect(pick(obj, ['a', 'c'])).toStrictEqual({ a: 1 });
-    // @ts-expect-error
     expect(pick(obj, ['c', 'd'])).toStrictEqual({});
   });
 
@@ -67,17 +63,13 @@ describe('omit', () => {
 
     expect(omit(obj, 'a')).toStrictEqual({ b: 2, c: 3 });
     expect(omit(obj, 'b')).toStrictEqual({ a: 1, c: 3 });
-
-    // @ts-expect-error
     expect(omit(obj, 'd')).toStrictEqual(obj);
   });
 
   it('处理键不存在的情况', () => {
     const obj = { a: 1, b: 2 };
 
-    // @ts-expect-error
     expect(omit(obj, ['a', 'c'])).toStrictEqual({ b: 2 });
-    // @ts-expect-error
     expect(omit(obj, ['c', 'd'])).toStrictEqual(obj);
   });
 

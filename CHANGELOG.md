@@ -2,6 +2,7 @@
   - 🌟 [mixte] 新增 `pickDeep` 函数, 支持从对象中选择指定的深层属性
   - 🌟 [@mixte/components] 组件 `GridTable` 新增 `fixedRowHeight` 属性以支持在启用虚拟列表时固定行高度
   - 💄 [mixte] 优化 `set` 函数, 确保数组赋值时初始化正确的长度, 避免出现 `<empty item>`
+  - 💄 [mixte] 优化 `pick` 和 `omit` 函数的 `keys` 类型定义, 更加灵活
 
 ## [v3.5.1]
   - 📅 2025-10-21
