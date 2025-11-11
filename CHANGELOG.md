@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.6.0-beta.1]
+  - 📅 2025-11-11
   - 🌟 [mixte] 新增 `pickDeep` 函数, 支持从对象中选择指定的深层属性
   - 🌟 [@mixte/components] 组件 `GridTable` 新增 `fixedRowHeight` 属性以支持在启用虚拟列表时固定行高度
   - 💄 [mixte] 优化 `set` 函数, 确保数组赋值时初始化正确的长度, 避免出现 `<empty item>`
@@ -109,7 +112,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.5.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.6.0-beta.1...HEAD
+[v3.6.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.1
 [v3.5.1]: https://github.com/MoomFE/mixte/releases/tag/v3.5.1
 [v3.5.0]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0
 [v3.5.0-beta.18]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0-beta.18
