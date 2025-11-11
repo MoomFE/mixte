@@ -101,19 +101,19 @@ describe('set', () => {
   it('简单属性赋值', () => {
     const obj = {};
     set(obj, 'a.b', 5);
-    expect(obj).toEqual({ a: { b: 5 } });
+    expect(obj).toStrictEqual({ a: { b: 5 } });
   });
 
   it('数组嵌套对象赋值', () => {
     const obj = {};
     set(obj, 'x.y[2].z', 'hello');
-    expect(obj).toEqual({ x: { y: [undefined, undefined, { z: 'hello' }] } });
+    expect(obj).toStrictEqual({ x: { y: [undefined, undefined, { z: 'hello' }] } });
   });
 
   it('多层嵌套赋值', () => {
     const obj = { a: { b: [{ c: 1 }] } };
     set(obj, 'a.b[0].d.e', true);
-    expect(obj).toEqual({ a: { b: [{ c: 1, d: { e: true } }] } });
+    expect(obj).toStrictEqual({ a: { b: [{ c: 1, d: { e: true } }] } });
   });
 
   it('覆盖已有值', () => {

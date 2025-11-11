@@ -97,7 +97,9 @@ export function set<T extends object = any>(
       const isArray = PATH_ARRAY_INDEX_REGEXP.test(nextKey);
 
       if (!(key in result) || result[key] == null) {
-        result[key] = isArray ? [] : {};
+        result[key] = isArray
+          ? Array.from({ length: +nextKey })
+          : {};
       }
 
       result = result[key];
