@@ -31,3 +31,24 @@ const obj = { a: 1, b: 2, c: 3 };
 omit(obj, ['a', 'c']); // -> { b: 2 }
 omit(obj, 'a'); // -> { b: 2, c: 3 }
 ```
+
+## `pickDeep` {#pickdeep}
+
+从对象中选择指定的深层属性
+
+### 示例
+
+```ts twoslash
+import { pickDeep } from 'mixte';
+
+const obj = {
+  a: {
+    b: 2,
+    c: 3
+  },
+  d: 4
+};
+
+pickDeep(obj, ['a.b', 'd']); // -> { a: { b: 2 }, d: 4 }
+pickDeep(obj, 'a.c'); // -> { a: { c: 3 } }
+```

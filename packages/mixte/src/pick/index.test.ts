@@ -1,4 +1,4 @@
-import { omit, pick } from 'mixte';
+import { omit, pick, pickDeep } from 'mixte';
 
 describe('pick', () => {
   it('从对象中选择指定属性', () => {
@@ -8,6 +8,16 @@ describe('pick', () => {
     expect(pick(obj, ['b', 'd'])).toStrictEqual({ b: 2, d: 4 });
     expect(pick(obj, ['a', 'b', 'c', 'd'])).toStrictEqual(obj);
     expect(pick(obj, [])).toStrictEqual({});
+  });
+
+  it('支持传入单个字符串键', () => {
+    const obj = { a: 1, b: 2, c: 3 };
+
+    expect(pick(obj, 'a')).toStrictEqual({ a: 1 });
+    expect(pick(obj, 'b')).toStrictEqual({ b: 2 });
+
+    // @ts-expect-error
+    expect(pick(obj, 'd')).toStrictEqual({});
   });
 
   it('处理键不存在的情况', () => {
@@ -40,16 +50,6 @@ describe('pick', () => {
     expectTypeOf(result).toEqualTypeOf<{ a: number; c: boolean }>();
     expectTypeOf(pick(obj, ['a'])).toEqualTypeOf<{ a: number }>();
   });
-
-  it('支持传入单个字符串键', () => {
-    const obj = { a: 1, b: 2, c: 3 };
-
-    expect(pick(obj, 'a')).toStrictEqual({ a: 1 });
-    expect(pick(obj, 'b')).toStrictEqual({ b: 2 });
-
-    // @ts-expect-error
-    expect(pick(obj, 'd')).toStrictEqual({});
-  });
 });
 
 describe('omit', () => {
@@ -60,6 +60,16 @@ describe('omit', () => {
     expect(omit(obj, ['b', 'd'])).toStrictEqual({ a: 1, c: 3 });
     expect(omit(obj, ['a', 'b', 'c', 'd'])).toStrictEqual({});
     expect(omit(obj, [])).toStrictEqual(obj);
+  });
+
+  it('支持传入单个字符串键', () => {
+    const obj = { a: 1, b: 2, c: 3 };
+
+    expect(omit(obj, 'a')).toStrictEqual({ b: 2, c: 3 });
+    expect(omit(obj, 'b')).toStrictEqual({ a: 1, c: 3 });
+
+    // @ts-expect-error
+    expect(omit(obj, 'd')).toStrictEqual(obj);
   });
 
   it('处理键不存在的情况', () => {
@@ -92,14 +102,105 @@ describe('omit', () => {
     expectTypeOf(result).toEqualTypeOf<{ b: string }>();
     expectTypeOf(omit(obj, ['a'])).toEqualTypeOf<{ b: string; c: boolean }>();
   });
+});
 
-  it('支持传入单个字符串键', () => {
-    const obj = { a: 1, b: 2, c: 3 };
+describe('pickDeep', () => {
+  it('从对象中选择指定的深层属性', () => {
+    const obj = {
+      a: {
+        b: 2,
+        c: 3,
+      },
+      d: {
+        e: 4,
+        f: 5,
+      },
+    };
 
-    expect(omit(obj, 'a')).toStrictEqual({ b: 2, c: 3 });
-    expect(omit(obj, 'b')).toStrictEqual({ a: 1, c: 3 });
+    expect(pickDeep(obj, ['a.b', 'd.e'])).toStrictEqual({
+      a: { b: 2 },
+      d: { e: 4 },
+    });
+    expect(pickDeep(obj, ['a.c'])).toStrictEqual({
+      a: { c: 3 },
+    });
+  });
 
+  it('支持传入单个路径字符串', () => {
+    const obj = {
+      user: {
+        profile: {
+          name: 'mixte',
+        },
+      },
+    };
+
+    expect(pickDeep(obj, 'user.profile.name')).toStrictEqual({
+      user: {
+        profile: { name: 'mixte' },
+      },
+    });
+  });
+
+  it('支持数组路径的选择', () => {
+    const obj = {
+      list: [
+        { id: 1, value: 'foo' },
+        { id: 2, value: 'bar' },
+      ],
+    };
+
+    expect(pickDeep(obj, 'list.0.id')).toStrictEqual({
+      list: [{ id: 1 }],
+    });
+    expect(pickDeep(obj, 'list[1].value')).toStrictEqual({
+      list: [
+        undefined,
+        { value: 'bar' },
+      ],
+    });
+  });
+
+  it('处理路径不存在的情况', () => {
+    const obj = { a: { b: 1 } };
+
+    expect(pickDeep(obj, ['a.c'])).toStrictEqual({
+      a: { c: undefined },
+    });
+    expect(pickDeep(obj, ['x.y'])).toStrictEqual({
+      x: { y: undefined },
+    });
+  });
+
+  it('处理 null 或 undefined', () => {
     // @ts-expect-error
-    expect(omit(obj, 'd')).toStrictEqual(obj);
+    expect(pickDeep(null, ['a.b'])).toStrictEqual({});
+    // @ts-expect-error
+    expect(pickDeep(undefined, ['a.b'])).toStrictEqual({});
+  });
+
+  it('返回的是新对象并且不修改原对象', () => {
+    const obj = { a: { b: 1 } };
+    const result = pickDeep(obj, ['a.b']);
+
+    expect(result).not.toBe(obj);
+    expect(obj).toStrictEqual({
+      a: { b: 1 },
+    });
+  });
+
+  it('类型测试', () => {
+    const obj = {
+      a: { b: 1, c: true },
+      d: { e: 'mixte' },
+    };
+
+    expectTypeOf(pickDeep(obj, ['a.b', 'd.e'])).toEqualTypeOf<{
+      a: { b: number };
+      d: { e: string };
+    }>();
+    expectTypeOf(pickDeep(obj, 'a.c')).toEqualTypeOf<{
+      a: { c: boolean };
+    }>();
   });
 });

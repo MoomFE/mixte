@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [mixte] 新增 `pickDeep` 函数, 支持从对象中选择指定的深层属性
   - 🌟 [@mixte/components] 组件 `GridTable` 新增 `fixedRowHeight` 属性以支持在启用虚拟列表时固定行高度
   - 💄 [mixte] 优化 `set` 函数, 确保数组赋值时初始化正确的长度, 避免出现 `<empty item>`
 
@@ -21,7 +22,7 @@
 
 ## [v3.4.1]
   - 📅 2025-05-12
-  - 🌟 [mixte] 新增 `deepFind`、`deepSome`、`deepForEach` 函数选项，支持嵌套数组结构的深度查找
+  - 🌟 [mixte] 新增 `deepFind`、`deepSome`、`deepForEach` 函数选项, 支持嵌套数组结构的深度查找
   - 💄 [@mixte/snippets] 优化 `toggleThemeViewTransition` 在主题切换时鼠标样式为 `pointer`
 
 ## [v3.4.0], [-beta.10][v3.4.0-beta.10], [-beta.9][v3.4.0-beta.9], [-beta.8][v3.4.0-beta.8], [-beta.7][v3.4.0-beta.7], [-beta.6][v3.4.0-beta.6], [-beta.5][v3.4.0-beta.5], [-beta.4][v3.4.0-beta.4], [-beta.3][v3.4.0-beta.3], [-beta.2][v3.4.0-beta.2], [-beta.1][v3.4.0-beta.1]
