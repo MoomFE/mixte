@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.6.0-beta.2]
+  - 📅 2025-11-12
   - 💄 将 `toValue` 导入库由 `@vueuse/core` 改为 `vue`
 
 ## [v3.6.0-beta.1]
@@ -113,7 +116,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.6.0-beta.1...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.6.0-beta.2...HEAD
+[v3.6.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.2
 [v3.6.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.1
 [v3.5.1]: https://github.com/MoomFE/mixte/releases/tag/v3.5.1
 [v3.5.0]: https://github.com/MoomFE/mixte/releases/tag/v3.5.0
