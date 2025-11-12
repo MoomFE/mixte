@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 将 `toValue` 导入库由 `@vueuse/core` 改为 `vue`
 
 ## [v3.6.0-beta.1]
   - 📅 2025-11-11

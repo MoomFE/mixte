@@ -1,7 +1,7 @@
 import type { MaybeRefOrGetter } from '@vueuse/core';
 import { wheneverImmediate } from '@mixte/use';
-import { toValue, tryOnScopeDispose } from '@vueuse/core';
-import { ref, shallowRef } from 'vue';
+import { tryOnScopeDispose } from '@vueuse/core';
+import { ref, shallowRef, toValue } from 'vue';
 
 const ReadAs = {
   DataURL: 'readAsDataURL',

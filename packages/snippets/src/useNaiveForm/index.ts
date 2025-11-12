@@ -1,9 +1,8 @@
 import type { MaybeRefOrGetter } from '@vueuse/core';
 import type { FormItemRule, NForm } from 'naive-ui';
 import type { Ref } from 'vue';
-import { toValue } from '@vueuse/core';
 import { deepClone, deepMerge, onceRun, toArray } from 'mixte';
-import { isReactive, reactive } from 'vue';
+import { isReactive, reactive, toValue } from 'vue';
 
 type NFormRef = Ref<InstanceType<typeof NForm> | undefined>;
 
