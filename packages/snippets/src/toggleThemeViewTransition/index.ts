@@ -78,6 +78,7 @@ export async function toggleThemeViewTransition(
       {
         duration: 300,
         easing: 'ease-in',
+        fill: 'forwards',
         pseudoElement: `::view-transition-${isReverse ? 'old' : 'new'}(root)`,
       },
     );

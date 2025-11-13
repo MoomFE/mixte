@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🐞 [@mixte/snippets] 为 `toggleThemeViewTransition` 的过渡动画添加 `fill` 选项
 
 ## [v3.6.0-beta.2]
   - 📅 2025-11-12
