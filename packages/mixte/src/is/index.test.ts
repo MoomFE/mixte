@@ -1,4 +1,4 @@
-import { assertPlainObject, isBoolean, isEmptyObject, isESModule, isFunction, isNativePromise, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isPromise, isReference, isString } from 'mixte';
+import { assertPlainObject, isBoolean, isEmptyObject, isESModule, isFunction, isNativePromise, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isPromise, isReference, isString, isSymbol } from 'mixte';
 import { testTypes, types } from './testTypes';
 
 describe('testTypes', () => {
@@ -94,6 +94,13 @@ describe('is', () => {
     expect(isNumeric('666')).toBe(true);
     expect(isNumeric(Number.NaN)).toBe(false);
     expect(testTypes(isNumeric, ['number', 'numericString'])).toBe(true);
+  });
+
+  it('isSymbol', () => {
+    expect(isSymbol(Symbol('666'))).toBe(true);
+    expect(isSymbol('666')).toBe(false);
+    expect(isSymbol(666)).toBe(false);
+    expect(testTypes(isSymbol, ['symbol'])).toBe(true);
   });
 
   it('isObject', () => {

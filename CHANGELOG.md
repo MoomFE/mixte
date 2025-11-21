@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🌟 [mixte] 新增 `isSymbol` 函数
   - 🐞 [@mixte/snippets] 为 `toggleThemeViewTransition` 的过渡动画添加 `fill` 选项
 
 ## [v3.6.0-beta.2]

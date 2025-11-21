@@ -76,6 +76,20 @@ export function isNumeric(value: unknown): value is number | `${number}` {
 }
 
 /**
+ * 判断传入参数是否是 Symbol 类型
+ *
+ * @see https://mixte.moomfe.com/mixte/is#isSymbol
+ * @param value 需要判断的参数
+ * @example
+ *
+ * isSymbol(Symbol('666')); // -> true
+ * isSymbol('666'); // -> false
+ */
+export function isSymbol(value: unknown): value is symbol {
+  return typeof value === 'symbol';
+}
+
+/**
  * 判断传入参数是否是 Object 类型, 并且不为 null
  *
  * @see https://mixte.moomfe.com/mixte/is#isObject

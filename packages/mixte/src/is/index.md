@@ -70,6 +70,19 @@ isNumeric('666'); // -> true
 isNumeric(Number.NaN); // -> false
 ```
 
+## `isSymbol` {#isSymbol}
+
+判断传入参数是否是 Symbol 类型
+
+### 示例
+
+```ts twoslash
+import { isSymbol } from 'mixte';
+
+isSymbol(Symbol('666')); // -> true
+isSymbol('666'); // -> false
+```
+
 ## `isObject` {#isObject}
 
 判断传入参数是否是 Object 类型, 并且不为 null
