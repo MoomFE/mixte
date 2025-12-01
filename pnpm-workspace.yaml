@@ -13,7 +13,7 @@ catalog:
   '@types/three': ^0.181.0
   gsap: ^3.13.0
   nanoid: ^5.1.6
-  three: ^0.181.0
+  three: ^0.181.2
   veaury: ^2.6.3
-  vue-component-type-helpers: ^3.1.2
+  vue-component-type-helpers: ^3.1.5
   vue-draggable-plus: ^0.6.0
