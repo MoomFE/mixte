@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.6.0-beta.3]
+  - 📅 2025-12-18
   - 🌟 [mixte] 新增 `isSymbol` 函数
   - 🌟 [@mixte/components] 组件 `GridTable` 新增 `hover` 参数以控制鼠标悬浮时的高亮模式
   - 🐞 [@mixte/snippets] 为 `toggleThemeViewTransition` 的过渡动画添加 `fill` 选项
@@ -119,7 +122,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.6.0-beta.2...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.6.0-beta.3...HEAD
+[v3.6.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.3
 [v3.6.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.2
 [v3.6.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.1
 [v3.5.1]: https://github.com/MoomFE/mixte/releases/tag/v3.5.1
