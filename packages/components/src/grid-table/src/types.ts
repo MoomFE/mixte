@@ -78,6 +78,14 @@ export interface GridTableProps<Fields extends Record<string, any>> {
   headerDivider?: boolean;
 
   /**
+   * 鼠标悬浮时的高亮模式
+   *  - 'row': 高亮当前行
+   *  - false: 禁用高亮
+   * @default 'row'
+   */
+  hover?: 'row' | false;
+
+  /**
    * 渲染模式
    *  - `auto`: 自动检测浏览器, 自动切换为 `modern` 或 `legacy` 模式
    *  - `modern`: 强制使用现代渲染模式 ( 如 CSS Subgrid ), 在不支持的浏览器可能出现布局异常

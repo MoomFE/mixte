@@ -1,5 +1,6 @@
 ## [Unreleased]
   - 🌟 [mixte] 新增 `isSymbol` 函数
+  - 🌟 [@mixte/components] 组件 `GridTable` 新增 `hover` 参数以控制鼠标悬浮时的高亮模式
   - 🐞 [@mixte/snippets] 为 `toggleThemeViewTransition` 的过渡动画添加 `fill` 选项
 
 ## [v3.6.0-beta.2]

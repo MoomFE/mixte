@@ -34,6 +34,7 @@
 
   const props = withDefaults(defineProps<GridTableProps<Fields>>(), {
     headerDivider: true,
+    hover: 'row',
   });
   const slots = defineSlots<GridTableSlots<Fields>>();
 

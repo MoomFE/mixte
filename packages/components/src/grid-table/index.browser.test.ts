@@ -801,7 +801,11 @@ describe('grid-table', () => {
   });
 
   describe('样式', () => {
-    it('鼠标悬停行背景变色', async () => {
+    it.each([
+      ['默认情况下, 鼠标悬停单元格, 行背景变色', 'row', {}],
+      ['配置 hover: "row", 鼠标悬停单元格, 行背景变色', 'row', { hover: 'row' }],
+      ['配置 hover: false, 鼠标悬停单元格, 行背景不变色', false, { hover: false }],
+    ])('%s', async (_, hoverType, props) => {
       const columns = defineTableColumns([
         { field: 'col-1', title: 'Col-1' },
         { field: 'col-2', title: 'Col-2' },
@@ -823,6 +827,7 @@ describe('grid-table', () => {
             'col-6': randomString(random(1, 6)),
             'col-7': randomString(random(1, 6)),
           })),
+          ...props,
         },
       });
 
@@ -839,11 +844,17 @@ describe('grid-table', () => {
 
       await userEvent.hover(tds0[0]);
       await delay(20);
-      tds0.forEach(td => expect(td.classList).toContain('mixte-gt-tr-hover'));
+      tds0.forEach((td) => {
+        if (hoverType === 'row') expect(td.classList).toContain('mixte-gt-tr-hover');
+        else if (hoverType === false) expect(td.classList).not.toContain('mixte-gt-tr-hover');
+      });
 
       await userEvent.hover(tds0[3]);
       await delay(20);
-      tds0.forEach(td => expect(td.classList).toContain('mixte-gt-tr-hover'));
+      tds0.forEach((td) => {
+        if (hoverType === 'row') expect(td.classList).toContain('mixte-gt-tr-hover');
+        else if (hoverType === false) expect(td.classList).not.toContain('mixte-gt-tr-hover');
+      });
 
       // index: 1
 
@@ -855,7 +866,10 @@ describe('grid-table', () => {
       await userEvent.hover(tds1[0]);
       await delay(20);
       tds0.forEach(td => expect(td.classList).not.toContain('mixte-gt-tr-hover'));
-      tds1.forEach(td => expect(td.classList).toContain('mixte-gt-tr-hover'));
+      tds1.forEach((td) => {
+        if (hoverType === 'row') expect(td.classList).toContain('mixte-gt-tr-hover');
+        else if (hoverType === false) expect(td.classList).not.toContain('mixte-gt-tr-hover');
+      });
 
       // index: 9
 
@@ -868,7 +882,10 @@ describe('grid-table', () => {
       await delay(20);
       tds0.forEach(td => expect(td.classList).not.toContain('mixte-gt-tr-hover'));
       tds1.forEach(td => expect(td.classList).not.toContain('mixte-gt-tr-hover'));
-      tds9.forEach(td => expect(td.classList).toContain('mixte-gt-tr-hover'));
+      tds9.forEach((td) => {
+        if (hoverType === 'row') expect(td.classList).toContain('mixte-gt-tr-hover');
+        else if (hoverType === false) expect(td.classList).not.toContain('mixte-gt-tr-hover');
+      });
 
       // unhover
 

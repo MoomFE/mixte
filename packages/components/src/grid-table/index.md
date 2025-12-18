@@ -61,6 +61,7 @@ outline: [2,3]
 | contentCellClass | 表体单元格样式类 ( td ) | `string` | - |
 | bordered | 是否展示外边框和列边框 | `boolean` | - |
 | headerDivider | 是否展示未启用 `bordered` 时的表头分割线 | `boolean` | `true` |
+| hover | 鼠标悬浮时的高亮模式 | ``` 'row' \| false ``` | `'row'` |
 | renderMode | 渲染模式<br>&nbsp;- <small>具体可查看 [`GridTableProps`](#GridTableProps)</small> | ``` 'auto' \| 'modern' \| 'legacy' ``` | `'auto'` |
 
 ### Expose

@@ -1,5 +1,6 @@
 import type { GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
 import type { ModelRef } from 'vue';
+import { wheneverEffectScopeImmediate } from '@mixte/use';
 import { createInjectionState, useElementSize, useEventListener, useScroll } from '@vueuse/core';
 import { isBrowser, isFunction, isNumeric } from 'mixte';
 import { computed, reactive, ref, toValue, watch } from 'vue';
@@ -101,16 +102,18 @@ export const [
   /** 鼠标悬停的行索引 */
   const hoverIndex = ref<number | null>(null);
 
-  useEventListener(tableRef, 'pointerover', (event: PointerEvent) => {
-    const target = event.target as HTMLDivElement | undefined;
-    const td = target?.closest<HTMLDivElement>('.mixte-gt-td');
+  wheneverEffectScopeImmediate(() => props.hover === 'row', () => {
+    useEventListener(tableRef, 'pointerover', (event: PointerEvent) => {
+      const target = event.target as HTMLDivElement | undefined;
+      const td = target?.closest<HTMLDivElement>('.mixte-gt-td');
 
-    if (td) hoverIndex.value = Number(td.dataset.index);
-    else hoverIndex.value = null;
-  });
+      if (td) hoverIndex.value = Number(td.dataset.index);
+      else hoverIndex.value = null;
+    });
 
-  useEventListener(tableWrapRef, 'pointerleave', () => {
-    hoverIndex.value = null;
+    useEventListener(tableWrapRef, 'pointerleave', () => {
+      hoverIndex.value = null;
+    });
   });
 
   return {
