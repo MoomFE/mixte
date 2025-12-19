@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.6.0-beta.4]
+  - 📅 2025-12-19
   - 💄 [@mixte/components] 组件 `GridTable` 通过 `render` 和插槽渲染单元格时, 添加 `columnIndex` 参数
 
 ## [v3.6.0-beta.3]
@@ -123,7 +126,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.6.0-beta.3...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.6.0-beta.4...HEAD
+[v3.6.0-beta.4]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.4
 [v3.6.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.3
 [v3.6.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.2
 [v3.6.0-beta.1]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.1
