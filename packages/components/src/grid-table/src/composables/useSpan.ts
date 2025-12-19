@@ -48,7 +48,7 @@ export const [
           const record = displayedData.value[r].rawNode;
           const column = columns.value![c];
 
-          const fnProps: Omit<RenderProps<any>, 'value'> = { column, record, index: r };
+          const fnProps: Omit<RenderProps<any>, 'value' | 'columnIndex'> = { column, record, index: r };
 
           const colSpanRaw = column.colSpan?.(fnProps);
           const rowSpanRaw = column.rowSpan?.(fnProps);

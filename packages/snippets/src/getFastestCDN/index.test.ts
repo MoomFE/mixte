@@ -23,7 +23,7 @@ describe.skipIf(isInCi).concurrent('getFastestCDN', () => {
 
   it('支持传入 file 参数', { timeout: Number.POSITIVE_INFINITY }, async ({ expect }) => {
     const url = await getFastestCDN('monaco-editor', {
-      file: '/min/vs/basic-languages/yaml/yaml.js',
+      file: '/min/vs/basic-languages/monaco.contribution.js',
     });
 
     expect(url).toBeTypeOf('string');

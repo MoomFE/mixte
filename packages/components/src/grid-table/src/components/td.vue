@@ -31,11 +31,11 @@
     </button>
 
     <!-- 自定义渲染 -->
-    <component v-if="isFunction(column.render)" :is="column.render" :value :record :column :index />
+    <component v-if="isFunction(column.render)" :is="column.render" :value :record :column :columnIndex :index /> <!-- eslint-disable-line vue/attribute-hyphenation -->
     <!-- 指定字段单元格插槽 -->
-    <slot v-else-if="$slots[`cell-${column.field}`]" :name="`cell-${column.field}`" :value :record :column :index />
+    <slot v-else-if="$slots[`cell-${column.field}`]" :name="`cell-${column.field}`" :value :record :column :column-index :index />
     <!-- 通用字段单元格插槽 -->
-    <slot v-else-if="$slots.cell" name="cell" :value :record :column :index />
+    <slot v-else-if="$slots.cell" name="cell" :value :record :column :column-index :index />
     <!-- 值 -->
     <template v-else>{{ value }}</template>
   </div>

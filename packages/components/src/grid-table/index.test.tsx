@@ -1088,6 +1088,7 @@ describe('grid-table', () => {
             value: item.gender,
             record: item,
             column: columns.find(c => c.field === 'gender')!,
+            columnIndex: columns.findIndex(c => c.field === 'gender'),
             index,
             key: 2, // ???
           });
@@ -1101,6 +1102,7 @@ describe('grid-table', () => {
                 value: item[column.field as keyof TestUser],
                 record: item,
                 column,
+                columnIndex: columns.findIndex(c => c.field === column.field),
                 index,
                 key: 3, // ???
               },
@@ -1322,7 +1324,13 @@ describe('grid-table', () => {
 
         expect(td.text()).toBe(`${item.name} (${item.nameEn})`);
         expect(nameRender).toHaveBeenCalledWith(
-          { value: item.name, record: item, column: columns[0], index: data.indexOf(item) },
+          {
+            value: item.name,
+            record: item,
+            column: columns[0],
+            columnIndex: 0,
+            index: data.indexOf(item),
+          },
           null,
         );
       });
@@ -1334,7 +1342,13 @@ describe('grid-table', () => {
 
         expect(td.text()).toBe(`${item.age + 1}`);
         expect(ageRender).toHaveBeenCalledWith(
-          { value: item.age, record: item, column: columns[1], index: data.indexOf(item) },
+          {
+            value: item.age,
+            record: item,
+            column: columns[1],
+            columnIndex: 1,
+            index: data.indexOf(item),
+          },
           null,
         );
       });

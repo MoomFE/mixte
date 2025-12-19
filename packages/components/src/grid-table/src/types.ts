@@ -143,14 +143,14 @@ export interface GridTableColumn<
    *  - 返回 <= 1 或 undefined 则不进行合并
    *  - 启用虚拟列表时暂不支持此功能
    */
-  colSpan?: (props: Omit<RenderProps<Item>, 'value'>) => number | `${number}` | undefined;
+  colSpan?: (props: Omit<RenderProps<Item>, 'value' | 'columnIndex'>) => number | `${number}` | undefined;
   /**
    * 单元格行合并
    *  - 返回需要合并的行数, 2 代表将当前单元格与下方的一个单元格合并, 以此类推
    *  - 返回 <= 1 或 undefined 则不进行合并
    *  - 启用虚拟列表时暂不支持此功能
    */
-  rowSpan?: (props: Omit<RenderProps<Item>, 'value'>) => number | `${number}` | undefined;
+  rowSpan?: (props: Omit<RenderProps<Item>, 'value' | 'columnIndex'>) => number | `${number}` | undefined;
 }
 
 export interface ColumnProps<Fields extends Record<string, any>> {
@@ -167,6 +167,7 @@ export interface RenderProps<Fields extends Record<string, any>> {
   value: any;
   record: Fields;
   column: GridTableColumn<Fields>;
+  columnIndex: number;
   index: number;
 }
 

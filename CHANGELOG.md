@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/components] 组件 `GridTable` 通过 `render` 和插槽渲染单元格时, 添加 `columnIndex` 参数
 
 ## [v3.6.0-beta.3]
   - 📅 2025-12-18
