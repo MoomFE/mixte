@@ -21,6 +21,8 @@ export const [
 
   /** 所有可展开的行主键列表 */
   const allExpandableRowKeys = computed(() => treeMate.value.getNonLeafKeys() as string[]);
+  /** 所有可展开的行主键集合 */
+  const allExpandableRowKeySet = computed(() => new Set(allExpandableRowKeys.value));
   /** 是否存在可展开的行 */
   const hasExpandableRows = computed(() => allExpandableRowKeys.value.length > 0);
 
@@ -36,7 +38,7 @@ export const [
 
       if (newKeys.length) {
         newKeys.forEach((key) => {
-          if (!allExpandableRowKeys.value.includes(key)) expandedRowSet.value.delete(key);
+          if (!allExpandableRowKeySet.value.has(key)) expandedRowSet.value.delete(key);
         });
 
         if (newKeys.length !== expandedRowSet.value.size) {
@@ -52,7 +54,7 @@ export const [
       const size = expandedRowSet.value.size;
 
       expandedRowSet.value.forEach((key) => {
-        if (!allExpandableRowKeys.value.includes(key)) expandedRowSet.value.delete(key);
+        if (!allExpandableRowKeySet.value.has(key)) expandedRowSet.value.delete(key);
       });
 
       if (size !== expandedRowSet.value.size) {
@@ -116,7 +118,7 @@ export const [
     watchExpandedRowKeys.value = false;
 
     keys.forEach((key) => {
-      if (allExpandableRowKeys.value.includes(key)) expandedRowSet.value.add(key);
+      if (allExpandableRowKeySet.value.has(key)) expandedRowSet.value.add(key);
     });
 
     expandedRowKeys.value = [...expandedRowSet.value];
