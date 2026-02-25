@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "skills": {
+    "create-adaptable-composable": {
+      "source": "vuejs-ai/skills",
+      "sourceType": "github",
+      "computedHash": "3d044f8c43ddaee6a58ab28acc9d6315775aed150c3a9ab059d2714768be5bec"
+    },
+    "nuxt": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "6f5456948b35c0c0005424098eaf28ebbba1bbd92a3f3268466fe7d85e9e3789"
+    },
+    "pnpm": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "d473204df25defd08a7d47b55c6d124b41ebde440b774995952b65223d0d8d6f"
+    },
+    "tsdown": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "bc7e99a164b136cb6b036695c6cadf13fa1066f507163c05ea771b8ba02dd9c8"
+    },
+    "unocss": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "1054e69977e1d2d3b7c8479adf16b4db43191bf775f150ce8a06a0b1c191318b"
+    },
+    "vite": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "f406fceb1b9020cd759a728d8424de7ffd8dfe5874bd97be2724571741e54852"
+    },
+    "vitepress": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "a8aa9c4c23b88c5f6ff59159d8dd0678c8c87ae28bab19b4e84fa399022ce5ce"
+    },
+    "vitest": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "0efd9cf8c56aada060d418d009cfe621a7915d0c73a958fe611985bc0c2fa4b8"
+    },
+    "vue": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "f72b54618560c53d65740515ded5bb833750c4574dbe961fd21f022bd2b31a74"
+    },
+    "vue-best-practices": {
+      "source": "vuejs-ai/skills",
+      "sourceType": "github",
+      "computedHash": "21132f6c11c765bd11d0d6ad081122dd858630073e2123b651e58f17b399b131"
+    },
+    "vue-debug-guides": {
+      "source": "vuejs-ai/skills",
+      "sourceType": "github",
+      "computedHash": "58bb2ad9e92dce0c15b42acc65aeec1dd93bc36f9db96ab248e52b1d22945472"
+    },
+    "vue-jsx-best-practices": {
+      "source": "vuejs-ai/skills",
+      "sourceType": "github",
+      "computedHash": "4e214770e8c516a073929902c54cb17ab8ac45c01f11beabd85f470392de2a1c"
+    },
+    "vue-options-api-best-practices": {
+      "source": "vuejs-ai/skills",
+      "sourceType": "github",
+      "computedHash": "4c613ef2a6d5fd5599e6aa58f24bb6460a9f0903f389cf71bad3a71400dbad20"
+    },
+    "vue-testing-best-practices": {
+      "source": "vuejs-ai/skills",
+      "sourceType": "github",
+      "computedHash": "743e11d7e5eaea83aead5853200df531328036f0cb7009d70f525626292f12d2"
+    },
+    "vueuse-functions": {
+      "source": "vueuse/vueuse-skills",
+      "sourceType": "github",
+      "computedHash": "100acbd706b56a55f36037fa495865087246efef85ae21a137d806b8bf05eabf"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "computedHash": "d8e7d3afe37dcc8a97b99ffb5afdb4d0919ae0092ea8b68f44eb201f035e33ac"
+    }
+  }
+}
