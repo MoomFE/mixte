@@ -46,6 +46,9 @@ export const [
     });
   });
 
+  /** 列 field 到索引的映射 */
+  const columnFieldToIndex = computed(() => new Map(columns.value?.map((column, index) => [String(column.field), index]) ?? []));
+
   /** 表格行主键 */
   const rowKey = computed(() => toValue(props.rowKey) ?? 'id');
   /** 树形数据子节点字段名 */
@@ -77,10 +80,15 @@ export const [
 
   /** 所有固定在左侧的列 */
   const fixedLeftColumns = computed(() => columns.value?.filter(column => columnIsFixedLeft(column)) ?? []);
+  /** 固定在左侧列的 field 到索引映射 */
+  const fixedLeftColumnFieldToIndex = computed(() => new Map(fixedLeftColumns.value.map((column, index) => [String(column.field), index])));
   /** 所有固定在左侧的列的位置 */
   const fixedLeftColumnsRect = ref<Pick<DOMRect, 'left' | 'right'>[]>([]);
+
   /** 所有固定在右侧的列 */
   const fixedRightColumns = computed(() => columns.value?.filter(column => columnIsFixedRight(column)).reverse() ?? []);
+  /** 固定在右侧列的 field 到索引映射 */
+  const fixedRightColumnFieldToIndex = computed(() => new Map(fixedRightColumns.value.map((column, index) => [String(column.field), index])));
   /** 所有固定在右侧的列的位置 */
   const fixedRightColumnsRect = ref<Pick<DOMRect, 'left' | 'right'>[]>([]);
 
@@ -127,6 +135,7 @@ export const [
     isLegacyRenderMode,
 
     columns,
+    columnFieldToIndex,
     rowKey,
     childrenKey,
     expandColumnKey,
@@ -136,8 +145,10 @@ export const [
     fixedRowHeight,
 
     fixedLeftColumns,
+    fixedLeftColumnFieldToIndex,
     fixedLeftColumnsRect,
     fixedRightColumns,
+    fixedRightColumnFieldToIndex,
     fixedRightColumnsRect,
 
     tableWrapRef,

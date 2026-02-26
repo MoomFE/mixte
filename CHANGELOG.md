@@ -1,5 +1,5 @@
 ## [Unreleased]
-  - 💄 [@mixte/components] 略微优化组件 `GridTable` 对于树形数据的性能
+  - 💄 [@mixte/components] 略微优化组件 `GridTable` 对于树形数据/固定列的性能
 
 ## [v3.6.0-beta.4]
   - 📅 2025-12-19

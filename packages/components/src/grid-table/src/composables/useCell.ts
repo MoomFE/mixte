@@ -15,10 +15,11 @@ export const [
   const {
     columns,
     expandColumnKey,
+    columnFieldToIndex,
 
-    fixedLeftColumns,
+    fixedLeftColumnFieldToIndex,
     fixedLeftColumnsRect,
-    fixedRightColumns,
+    fixedRightColumnFieldToIndex,
     fixedRightColumnsRect,
 
     tableWrapScroll,
@@ -29,14 +30,16 @@ export const [
   const { hasExpandableRows } = useTreeData()!;
 
   const createColumnStore = createNamedSharedComposable((column: GridTableColumn<Record<string, any>>) => {
-    const columnIndex = computed(() => columns.value?.findIndex(({ field }) => field === column.field) ?? -1);
+    const columnField = String(column.field);
+
+    const columnIndex = computed(() => columnFieldToIndex.value.get(columnField) ?? -1);
     const columnIsFirst = computed(() => columnIndex.value === 0);
     const columnIsLast = computed(() => columnIndex.value === (columns.value?.length ?? 0) - 1);
 
     const fixedLeft = computed(() => columnIsFixedLeft(column));
-    const fixedLeftIndex = computed(() => fixedLeft.value ? fixedLeftColumns.value.findIndex(({ field }) => field === column.field) : -1);
+    const fixedLeftIndex = computed(() => fixedLeft.value ? (fixedLeftColumnFieldToIndex.value.get(columnField) ?? -1) : -1);
     const fixedRight = computed(() => columnIsFixedRight(column));
-    const fixedRightIndex = computed(() => fixedRight.value ? fixedRightColumns.value.findIndex(({ field }) => field === column.field) : -1);
+    const fixedRightIndex = computed(() => fixedRight.value ? (fixedRightColumnFieldToIndex.value.get(columnField) ?? -1) : -1);
 
     const zIndex = computed(() => {
       if (fixedLeft.value) return fixedLeftIndex.value + 1;
@@ -65,41 +68,45 @@ export const [
       if (columnIsLast.value) classes += 'mixte-gt-cell-last ';
 
       if (fixedLeft.value) {
-        const index = fixedLeftIndex.value;
-
         classes += 'mixte-gt-cell-fix mixte-gt-cell-fix-left ';
 
         if (tableWrapScroll.arrivedState.left === false) {
+          const index = fixedLeftIndex.value;
           const currentRect = fixedLeftColumnsRect.value[index];
           const prevRect = fixedLeftColumnsRect.value[index - 1];
-          const nextRect = fixedLeftColumnsRect.value[index + 1];
 
           // 已固定
-          if (index === 0) classes += 'mixte-gt-cell-fix-left-active ';
-          else if (currentRect?.left <= prevRect?.right) classes += 'mixte-gt-cell-fix-left-active ';
+          if (index === 0 || currentRect?.left <= prevRect?.right) {
+            classes += 'mixte-gt-cell-fix-left-active ';
 
-          // 已固定列中, 当前列是最后一列
-          if (classes.includes('mixte-gt-cell-fix-left-active') && (!nextRect || currentRect?.right < nextRect?.left))
-            classes += 'mixte-gt-cell-fix-left-active-last ';
+            const nextRect = fixedLeftColumnsRect.value[index + 1];
+
+            // 已固定列中, 当前列是最后一列
+            if (!nextRect || currentRect?.right < nextRect?.left) {
+              classes += 'mixte-gt-cell-fix-left-active-last ';
+            }
+          }
         }
       }
       else if (fixedRight.value) {
-        const index = fixedRightIndex.value;
-
         classes += 'mixte-gt-cell-fix mixte-gt-cell-fix-right ';
 
         if (tableWrapScroll.arrivedState.right === false) {
+          const index = fixedRightIndex.value;
           const currentRect = fixedRightColumnsRect.value[index];
           const prevRect = fixedRightColumnsRect.value[index - 1];
-          const nextRect = fixedRightColumnsRect.value[index + 1];
 
           // 已固定
-          if (index === 0) classes += 'mixte-gt-cell-fix-right-active ';
-          else if (currentRect?.right >= prevRect?.left) classes += 'mixte-gt-cell-fix-right-active ';
+          if (index === 0 || currentRect?.right >= prevRect?.left) {
+            classes += 'mixte-gt-cell-fix-right-active ';
 
-          // 已固定列中, 当前列是最后一列
-          if (classes.includes('mixte-gt-cell-fix-right-active') && (!nextRect || currentRect?.left > nextRect?.right))
-            classes += 'mixte-gt-cell-fix-right-active-last ';
+            const nextRect = fixedRightColumnsRect.value[index + 1];
+
+            // 已固定列中, 当前列是最后一列
+            if (!nextRect || currentRect?.left > nextRect?.right) {
+              classes += 'mixte-gt-cell-fix-right-active-last ';
+            }
+          }
         }
       }
 
