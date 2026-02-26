@@ -109,14 +109,17 @@ function useCumulativeHeights() {
 
   /** 缓存累计高度数组 */
   let cumulativeHeightsCache: number[] = [0];
-  /** 记录被修改的行 index 集合 */
-  const dirtyIndexes = ref<Set<number>>(new Set());
+  /** 最小脏索引 */
+  const minDirtyIndex = ref<number>();
 
   /** 更新行高度, index + row */
   function updateRowHeight(index: number, rowObj: object, height: number) {
     if (realRowsHeight.get(rowObj) !== height) {
       realRowsHeight.set(rowObj, height);
-      dirtyIndexes.value.add(index);
+
+      if (minDirtyIndex.value === undefined || index < minDirtyIndex.value) {
+        minDirtyIndex.value = index;
+      }
     }
   }
 
@@ -129,7 +132,7 @@ function useCumulativeHeights() {
     if (fixed != null) {
       const heights = Array.from({ length: dataLength + 1 }, (_, i) => i * fixed);
 
-      dirtyIndexes.value.clear();
+      minDirtyIndex.value = undefined;
       cumulativeHeightsCache = heights;
 
       return heights;
@@ -137,7 +140,7 @@ function useCumulativeHeights() {
 
     const estimated = estimatedRowHeight.value;
     const prevLength = cumulativeHeightsCache.length;
-    const dirtyMin = dirtyIndexes.value.size > 0 ? Math.min(...dirtyIndexes.value) : dataLength;
+    const dirtyMin = minDirtyIndex.value ?? dataLength;
     const start = Math.min(prevLength - 1, dirtyMin);
 
     // 先裁剪到 start 之前
@@ -157,7 +160,7 @@ function useCumulativeHeights() {
       heights.length = dataLength + 1;
     }
 
-    dirtyIndexes.value.clear();
+    minDirtyIndex.value = undefined;
     cumulativeHeightsCache = heights;
 
     return heights;
