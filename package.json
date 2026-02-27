@@ -39,7 +39,7 @@
     "docs:preview": "pnpm docs:build && vitepress preview packages --host",
     "up": "npx taze latest -r -w -i -x",
     "lint": "pnpm install && eslint .",
-    "lint:fix": "pnpm install && eslint . --fix",
+    "lint:fix": "pnpm lint --fix",
     "udd": "pnpm install && tsx scripts/updateDocsDetails.ts",
     "build": "pnpm install && pnpm --workspace-concurrency=Infinity -r --filter=./packages/* run build",
     "release": "pnpm test-release && npx bumpp -r --no-tag --no-push",
