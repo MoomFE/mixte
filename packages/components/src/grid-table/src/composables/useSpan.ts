@@ -2,7 +2,7 @@ import type { RenderProps } from '@mixte/components/grid-table/types';
 import { wheneverEffectScopeImmediate } from '@mixte/use';
 import { createInjectionState } from '@vueuse/core';
 import { isNumeric } from 'mixte';
-import { ref, watchEffect } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { useShared } from './useShared';
 import { useTreeData } from './useTreeData';
 
@@ -24,8 +24,12 @@ export const [
 
   const matrix = ref<CellSpanMeta[][]>([]);
 
+  const spanColumns = computed(() => {
+    return columns.value?.filter(column => column.colSpan || column.rowSpan) ?? [];
+  });
+
   wheneverEffectScopeImmediate(() => {
-    return !props.virtual && columns.value?.some(col => col.colSpan || col.rowSpan) && !!displayedData.value.length;
+    return !props.virtual && !!spanColumns.value.length && !!displayedData.value.length;
   }, (_, __, onCleanup) => {
     onCleanup(() => {
       matrix.value = [];
@@ -34,6 +38,10 @@ export const [
     watchEffect(() => {
       const rows = displayedData.value.length;
       const cols = columns.value!.length;
+
+      if (!rows || !cols) {
+        return matrix.value = [];
+      }
 
       const newMatrix: CellSpanMeta[][] = Array.from({ length: rows }, () => {
         return Array.from({ length: cols }, () => ({ rowSpan: 1, colSpan: 1, skip: false }));
