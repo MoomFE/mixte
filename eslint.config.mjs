@@ -17,4 +17,8 @@ export default moomfe(
       'vue/no-template-shadow': 'off',
     },
   },
+  {
+    name: 'ignore',
+    ignores: ['**/.agents/**'],
+  },
 );
