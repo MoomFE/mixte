@@ -135,11 +135,11 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
       '@types/react':
-        specifier: ^19.2.10
-        version: 19.2.10(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu)
+        specifier: ^19.2.14
+        version: 19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu)
       '@types/react-dom':
         specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.10(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))
+        version: 19.2.3(@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))
       '@types/three':
         specifier: 'catalog:'
         version: 0.183.1
@@ -334,7 +334,7 @@ importers:
         version: 7.0.8(@types/node@22.13.1)(jiti@2.5.1)(sass@1.85.1)(terser@5.37.0)(tsx@4.20.3)(yaml@2.8.2)
       vitepress:
         specifier: ^1.6.4
-        version: 1.6.4(@algolia/client-search@5.20.0)(@types/node@22.13.1)(@types/react@19.2.10(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(async-validator@4.2.5)(axios@1.13.6)(change-case@5.4.4)(fuse.js@7.1.0)(jwt-decode@4.0.0)(postcss@8.5.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1)(search-insights@2.17.3)(terser@5.37.0)(typescript@5.8.3)
+        version: 1.6.4(@algolia/client-search@5.20.0)(@types/node@22.13.1)(@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(async-validator@4.2.5)(axios@1.13.6)(change-case@5.4.4)(fuse.js@7.1.0)(jwt-decode@4.0.0)(postcss@8.5.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1)(search-insights@2.17.3)(terser@5.37.0)(typescript@5.8.3)
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@22.13.1)(@vitest/browser@3.2.4)(@vitest/ui@3.2.4)(jiti@2.5.1)(jsdom@26.1.0)(sass@1.85.1)(terser@5.37.0)(tsx@4.20.3)(yaml@2.8.2)
@@ -3063,8 +3063,8 @@ packages:
     peerDependencies:
       '@types/react': ^19.2.0
 
-  '@types/react@19.2.10':
-    resolution: {integrity: sha512-WPigyYuGhgZ/cTPRXB2EwUw+XvsRA3GqHlsP4qteqrnnjDrApbS7MxcGr/hke5iUoeB7E/gQtrs9I37zAJ0Vjw==}
+  '@types/react@19.2.14':
+    resolution: {integrity: sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==}
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -9040,9 +9040,9 @@ snapshots:
 
   '@docsearch/css@3.8.2': {}
 
-  '@docsearch/js@3.8.2(@algolia/client-search@5.20.0)(@types/react@19.2.10(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)':
+  '@docsearch/js@3.8.2(@algolia/client-search@5.20.0)(@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)':
     dependencies:
-      '@docsearch/react': 3.8.2(@algolia/client-search@5.20.0)(@types/react@19.2.10(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)
+      '@docsearch/react': 3.8.2(@algolia/client-search@5.20.0)(@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)
       preact: 10.25.4
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -9051,14 +9051,14 @@ snapshots:
       - react-dom
       - search-insights
 
-  '@docsearch/react@3.8.2(@algolia/client-search@5.20.0)(@types/react@19.2.10(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)':
+  '@docsearch/react@3.8.2(@algolia/client-search@5.20.0)(@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)':
     dependencies:
       '@algolia/autocomplete-core': 1.17.7(@algolia/client-search@5.20.0)(algoliasearch@5.20.0)(search-insights@2.17.3)
       '@algolia/autocomplete-preset-algolia': 1.17.7(@algolia/client-search@5.20.0)(algoliasearch@5.20.0)
       '@docsearch/css': 3.8.2
       algoliasearch: 5.20.0
     optionalDependencies:
-      '@types/react': 19.2.10(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu)
+      '@types/react': 19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu)
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
       search-insights: 2.17.3
@@ -10995,11 +10995,11 @@ snapshots:
     dependencies:
       postcss: 8.5.6
 
-  '@types/react-dom@19.2.3(@types/react@19.2.10(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))':
+  '@types/react-dom@19.2.3(@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))':
     dependencies:
-      '@types/react': 19.2.10(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu)
+      '@types/react': 19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu)
 
-  '@types/react@19.2.10(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu)':
+  '@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu)':
     dependencies:
       csstype: 3.2.3
 
@@ -17099,10 +17099,10 @@ snapshots:
       tsx: 4.20.3
       yaml: 2.8.2
 
-  vitepress@1.6.4(@algolia/client-search@5.20.0)(@types/node@22.13.1)(@types/react@19.2.10(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(async-validator@4.2.5)(axios@1.13.6)(change-case@5.4.4)(fuse.js@7.1.0)(jwt-decode@4.0.0)(postcss@8.5.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1)(search-insights@2.17.3)(terser@5.37.0)(typescript@5.8.3):
+  vitepress@1.6.4(@algolia/client-search@5.20.0)(@types/node@22.13.1)(@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(async-validator@4.2.5)(axios@1.13.6)(change-case@5.4.4)(fuse.js@7.1.0)(jwt-decode@4.0.0)(postcss@8.5.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1)(search-insights@2.17.3)(terser@5.37.0)(typescript@5.8.3):
     dependencies:
       '@docsearch/css': 3.8.2
-      '@docsearch/js': 3.8.2(@algolia/client-search@5.20.0)(@types/react@19.2.10(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)
+      '@docsearch/js': 3.8.2(@algolia/client-search@5.20.0)(@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)
       '@iconify-json/simple-icons': 1.2.23
       '@shikijs/core': 2.5.0
       '@shikijs/transformers': 2.3.1
