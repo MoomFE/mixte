@@ -161,7 +161,7 @@ function find<
 ): PartialDeep<Item> | undefined {
   if (!data?.length) return;
 
-  const childrenKey = options?.childrenKey ?? 'children';
+  const childrenKey = (options?.childrenKey ?? 'children') as ChildrenKey;
   const cache = options?.cache ?? new WeakMap<Item, boolean>();
   const nestedArray = options?.nestedArray ?? false;
 
@@ -190,7 +190,7 @@ function find<
       if (predicate(item))
         return item;
 
-      const children = item[childrenKey as keyof typeof item];
+      const children = item[childrenKey as unknown as keyof typeof item];
 
       if (Array.isArray(children) && children.length) {
         const result = find(children, predicate, {
