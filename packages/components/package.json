@@ -41,7 +41,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsx build.ts"
+    "build": "tsdown"
   },
   "peerDependencies": {
     "@mixte/use": "workspace:*",

@@ -1,10 +1,9 @@
 import type { ComponentExposed } from 'vue-component-type-helpers';
-import AutoGrid from './src/index.vue';
+
+type AutoGridComponent = typeof import('./src/index.vue')['default'];
+
+export { default as MixteAutoGrid } from './src/index.vue';
+
+export type MixteAutoGridInstance = ComponentExposed<AutoGridComponent>;
 
 export type { AutoGridProps as MixteAutoGridProps } from './src/types';
-
-export type MixteAutoGridInstance = ComponentExposed<typeof AutoGrid>;
-
-export {
-  AutoGrid as MixteAutoGrid,
-};

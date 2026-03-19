@@ -1,8 +1,7 @@
 import type { ComponentExposed } from 'vue-component-type-helpers';
-import LowCodeEditorConfigProvider from './src/config-provider.vue';
 
-export type LowCodeEditorConfigProviderInstance = ComponentExposed<typeof LowCodeEditorConfigProvider>;
+type LowCodeEditorConfigProviderComponent = typeof import('./src/config-provider.vue')['default'];
 
-export {
-  LowCodeEditorConfigProvider,
-};
+export type LowCodeEditorConfigProviderInstance = ComponentExposed<LowCodeEditorConfigProviderComponent>;
+
+export { default as LowCodeEditorConfigProvider } from './src/config-provider.vue';

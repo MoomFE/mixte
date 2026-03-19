@@ -1,7 +1,5 @@
-import LowCodeEditorCanvas from './src/canvas.vue';
+type LowCodeEditorCanvasComponent = typeof import('./src/canvas.vue')['default'];
 
-export type LowCodeEditorCanvasInstance = InstanceType<typeof LowCodeEditorCanvas>;
+export type LowCodeEditorCanvasInstance = InstanceType<LowCodeEditorCanvasComponent>;
 
-export {
-  LowCodeEditorCanvas,
-};
+export { default as LowCodeEditorCanvas } from './src/canvas.vue';

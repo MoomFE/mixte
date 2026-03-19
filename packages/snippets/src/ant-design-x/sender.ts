@@ -1,14 +1,13 @@
-import SenderHeader from './src/sender.header.vue';
-import Sender from './src/sender.vue';
 import '@mixte/snippets/ant-design-x/patch-for-veaury';
 
-export type SenderInstance = InstanceType<typeof Sender>;
-export type SenderHeaderInstance = InstanceType<typeof SenderHeader>;
+type SenderComponent = typeof import('./src/sender.vue')['default'];
+type SenderHeaderComponent = typeof import('./src/sender.header.vue')['default'];
 
-export type SenderProps = InstanceType<typeof Sender>['$props'];
-export type SenderHeaderProps = InstanceType<typeof SenderHeader>['$props'];
+export type SenderInstance = InstanceType<SenderComponent>;
+export type SenderHeaderInstance = InstanceType<SenderHeaderComponent>;
 
-export {
-  Sender,
-  SenderHeader,
-};
+export type SenderProps = InstanceType<SenderComponent>['$props'];
+export type SenderHeaderProps = InstanceType<SenderHeaderComponent>['$props'];
+
+export { default as SenderHeader } from './src/sender.header.vue';
+export { default as Sender } from './src/sender.vue';

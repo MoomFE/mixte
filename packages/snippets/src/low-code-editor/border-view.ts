@@ -1,7 +1,5 @@
-import LowCodeEditorBorderView from './src/border-view.vue';
+type LowCodeEditorBorderViewComponent = typeof import('./src/border-view.vue')['default'];
 
-export type LowCodeEditorBorderViewInstance = InstanceType<typeof LowCodeEditorBorderView>;
+export type LowCodeEditorBorderViewInstance = InstanceType<LowCodeEditorBorderViewComponent>;
 
-export {
-  LowCodeEditorBorderView,
-};
+export { default as LowCodeEditorBorderView } from './src/border-view.vue';

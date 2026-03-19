@@ -29,6 +29,6 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsx build.ts"
+    "build": "tsdown"
   }
 }

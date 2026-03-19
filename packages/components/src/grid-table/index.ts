@@ -1,18 +1,17 @@
 import type { ComponentExposed } from 'vue-component-type-helpers';
-import GridTable from './src/index.vue';
 import '@mixte/components/dist/grid-table/css/index.scss';
+
+type GridTableComponent = typeof import('./src/index.vue')['default'];
+
+export { default as MixteGridTable } from './src/index.vue';
+
+export type MixteGridTableInstance = ComponentExposed<GridTableComponent>;
 
 export type {
   GridTableColumn as MixteGridTableColumn,
   GridTableProps as MixteGridTableProps,
 } from './src/types';
 
-export type MixteGridTableInstance = ComponentExposed<typeof GridTable>;
-
 export {
   defineTableColumns,
 } from './src/utils';
-
-export {
-  GridTable as MixteGridTable,
-};

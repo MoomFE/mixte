@@ -1,10 +1,9 @@
-import XProvider from './src/x-provider.vue';
 import '@mixte/snippets/ant-design-x/patch-for-veaury';
 
-export type XProviderInstance = InstanceType<typeof XProvider>;
+type XProviderComponent = typeof import('./src/x-provider.vue')['default'];
 
-export type XProviderProps = InstanceType<typeof XProvider>['$props'];
+export type XProviderInstance = InstanceType<XProviderComponent>;
 
-export {
-  XProvider,
-};
+export type XProviderProps = InstanceType<XProviderComponent>['$props'];
+
+export { default as XProvider } from './src/x-provider.vue';

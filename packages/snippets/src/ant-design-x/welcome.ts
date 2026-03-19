@@ -1,10 +1,9 @@
-import Welcome from './src/welcome.vue';
 import '@mixte/snippets/ant-design-x/patch-for-veaury';
 
-export type WelcomeInstance = InstanceType<typeof Welcome>;
+type WelcomeComponent = typeof import('./src/welcome.vue')['default'];
 
-export type WelcomeProps = InstanceType<typeof Welcome>['$props'];
+export type WelcomeInstance = InstanceType<WelcomeComponent>;
 
-export {
-  Welcome,
-};
+export type WelcomeProps = InstanceType<WelcomeComponent>['$props'];
+
+export { default as Welcome } from './src/welcome.vue';

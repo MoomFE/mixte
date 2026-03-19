@@ -1,13 +1,12 @@
 import type { RewriteConversation } from './src/types';
-import Conversations from './src/conversations.vue';
 import '@mixte/snippets/ant-design-x/patch-for-veaury';
 
-export type ConversationsInstance = InstanceType<typeof Conversations>;
+type ConversationsComponent = typeof import('./src/conversations.vue')['default'];
 
-export type ConversationsProps = InstanceType<typeof Conversations>['$props'];
+export type ConversationsInstance = InstanceType<ConversationsComponent>;
+
+export type ConversationsProps = InstanceType<ConversationsComponent>['$props'];
 
 export type Conversation = RewriteConversation;
 
-export {
-  Conversations,
-};
+export { default as Conversations } from './src/conversations.vue';

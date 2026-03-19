@@ -1,7 +1,5 @@
-import LowCodeEditorPreview from './src/preview.vue';
+type LowCodeEditorPreviewComponent = typeof import('./src/preview.vue')['default'];
 
-export type LowCodeEditorPreviewInstance = InstanceType<typeof LowCodeEditorPreview>;
+export type LowCodeEditorPreviewInstance = InstanceType<LowCodeEditorPreviewComponent>;
 
-export {
-  LowCodeEditorPreview,
-};
+export { default as LowCodeEditorPreview } from './src/preview.vue';

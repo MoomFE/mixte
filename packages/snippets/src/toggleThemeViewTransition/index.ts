@@ -1,7 +1,7 @@
 import type { Ref } from 'vue';
 import { delay } from 'mixte';
 import { nextTick, toValue } from 'vue';
-import styleText from './index.scss?inline';
+import styleText from './styleText';
 
 interface ToggleThemeViewTransitionOptions {
   /** X 轴坐标 ( 传递鼠标事件的 clientX ) */

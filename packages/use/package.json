@@ -39,7 +39,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsx build.ts"
+    "build": "tsdown"
   },
   "peerDependencies": {
     "@vueuse/core": ">=8.0.0",

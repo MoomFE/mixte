@@ -1,7 +1,5 @@
-import LowCodeEditorComponentList from './src/component-list.vue';
+type LowCodeEditorComponentListComponent = typeof import('./src/component-list.vue')['default'];
 
-export type LowCodeEditorComponentListInstance = InstanceType<typeof LowCodeEditorComponentList>;
+export type LowCodeEditorComponentListInstance = InstanceType<LowCodeEditorComponentListComponent>;
 
-export {
-  LowCodeEditorComponentList,
-};
+export { default as LowCodeEditorComponentList } from './src/component-list.vue';

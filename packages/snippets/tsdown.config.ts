@@ -1,0 +1,58 @@
+import { createTsdownConfig } from '../../scripts/tsdown';
+
+export default createTsdownConfig({
+  entry: {
+    'getFastestCDN': './src/getFastestCDN/index.ts',
+    'toggleThemeViewTransition': './src/toggleThemeViewTransition/index.ts',
+    'useNaiveForm': './src/useNaiveForm/index.ts',
+    'tiptap-editor': './src/tiptap-editor/index.ts',
+    'tiptap-editor/menu': './src/tiptap-editor/menu.ts',
+    'tiptap-editor/bubble-menu': './src/tiptap-editor/bubble-menu.ts',
+    'tiptap-editor/config-provider': './src/tiptap-editor/config-provider.ts',
+    'tiptap-editor/config-provider-Injection-state': './src/tiptap-editor/src/config-provider-Injection-state.ts',
+    'tiptap-editor/icons': './src/tiptap-editor/src/icons.ts',
+    'lottery': './src/lottery/index.ts',
+    'lottery/config-provider-Injection-state': './src/lottery/src/config-provider-Injection-state.ts',
+    'lottery/utils': './src/lottery/src/utils.ts',
+    'low-code-editor/config-provider': './src/low-code-editor/config-provider.ts',
+    'low-code-editor/component-list': './src/low-code-editor/component-list.ts',
+    'low-code-editor/canvas': './src/low-code-editor/canvas.ts',
+    'low-code-editor/border-view': './src/low-code-editor/border-view.ts',
+    'low-code-editor/config': './src/low-code-editor/config.ts',
+    'low-code-editor/preview': './src/low-code-editor/preview.ts',
+    'low-code-editor/editor': './src/low-code-editor/editor.ts',
+    'low-code-editor/config-provider-Injection-state': './src/low-code-editor/src/config-provider-Injection-state.ts',
+    'low-code-editor/types': './src/low-code-editor/src/types.ts',
+    'low-code-editor/utils': './src/low-code-editor/src/utils.ts',
+    'ant-design-x/sender': './src/ant-design-x/sender.ts',
+    'ant-design-x/welcome': './src/ant-design-x/welcome.ts',
+    'ant-design-x/x-provider': './src/ant-design-x/x-provider.ts',
+    'ant-design-x/bubble': './src/ant-design-x/bubble.ts',
+    'ant-design-x/conversations': './src/ant-design-x/conversations.ts',
+    'ant-design-x/index': './src/ant-design-x/index.ts',
+    'ant-design-x/patch-for-react-19': './src/ant-design-x/src/patch-for-react-19.ts',
+    'ant-design-x/patch-for-veaury': './src/ant-design-x/src/patch-for-veaury.ts',
+    'ant-design-x/utils': './src/ant-design-x/src/utils.ts',
+  },
+  vue: true,
+  external: [
+    'naive-ui',
+    /^(@types\/)?react((\/.+)|-dom|$)/,
+    /^@ant-design\/.+/,
+    'antd',
+  ],
+  copy: [
+    {
+      from: './src/tiptap-editor/src/css',
+      to: 'tiptap-editor/css',
+    },
+    {
+      from: './src/lottery/src/css',
+      to: 'lottery/css',
+    },
+    {
+      from: './src/low-code-editor/src/css',
+      to: 'low-code-editor/css',
+    },
+  ],
+});
