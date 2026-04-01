@@ -12,8 +12,8 @@ catalog:
   '@tiptap/vue-3': ^2.27.2
   '@types/three': ^0.183.1
   gsap: ^3.14.2
-  nanoid: ^5.1.6
+  nanoid: ^5.1.7
   three: ^0.183.2
   veaury: ^2.6.3
-  vue-component-type-helpers: ^3.2.5
+  vue-component-type-helpers: ^3.2.6
   vue-draggable-plus: ^0.6.1
