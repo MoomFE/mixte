@@ -1,5 +1,6 @@
 ## [Unreleased]
   - 💄 [@mixte/components] 略微优化组件 `GridTable` 对于树形数据/固定列/虚拟列表/行列合并的性能
+  - 🐞 [@mixte/components] 修复组件 `GridTable` 的表头分割线在某些情况下宽度不统一的问题
 
 ## [v3.6.0-beta.4]
   - 📅 2025-12-19
