@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.6.0-beta.5]
+  - 📅 2026-04-16
   - 💄 [@mixte/components] 略微优化组件 `GridTable` 对于树形数据/固定列/虚拟列表/行列合并的性能
   - 🐞 [@mixte/components] 修复组件 `GridTable` 的表头分割线在某些情况下宽度不统一的问题
 
@@ -128,7 +131,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.6.0-beta.4...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.6.0-beta.5...HEAD
+[v3.6.0-beta.5]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.5
 [v3.6.0-beta.4]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.4
 [v3.6.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.3
 [v3.6.0-beta.2]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.2
