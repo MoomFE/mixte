@@ -1,33 +1,20 @@
 ## [Unreleased]
-  - 🐞 [@mixte/components] 修复组件 `GridTable` 的表头分割线在某些情况下不显示的问题
-  - 🐞 [@mixte/components] 修复组件 `InfiniteScroll` 的 `reset()` 方法重置后每页条数不一致的问题
-  - 🐞 [@mixte/snippets] 修复 `toggleThemeViewTransition` 动画取消后临时样式未及时清理的问题
 
-## [v3.6.0-beta.5]
-  - 📅 2026-04-16
-  - 💄 [@mixte/components] 略微优化组件 `GridTable` 对于树形数据/固定列/虚拟列表/行列合并的性能
-  - 🐞 [@mixte/components] 修复组件 `GridTable` 的表头分割线在某些情况下宽度不统一的问题
-
-## [v3.6.0-beta.4]
-  - 📅 2025-12-19
-  - 💄 [@mixte/components] 组件 `GridTable` 通过 `render` 和插槽渲染单元格时, 添加 `columnIndex` 参数
-
-## [v3.6.0-beta.3]
-  - 📅 2025-12-18
+## [v3.6.0], [-beta.5][v3.6.0-beta.5], [-beta.4][v3.6.0-beta.4], [-beta.3][v3.6.0-beta.3], [-beta.2][v3.6.0-beta.2], [-beta.1][v3.6.0-beta.1]
+  - 📅 2026-04-17
   - 🌟 [mixte] 新增 `isSymbol` 函数
-  - 🌟 [@mixte/components] 组件 `GridTable` 新增 `hover` 参数以控制鼠标悬浮时的高亮模式
-  - 🐞 [@mixte/snippets] 为 `toggleThemeViewTransition` 的过渡动画添加 `fill` 选项
-
-## [v3.6.0-beta.2]
-  - 📅 2025-11-12
-  - 💄 将 `toValue` 导入库由 `@vueuse/core` 改为 `vue`
-
-## [v3.6.0-beta.1]
-  - 📅 2025-11-11
   - 🌟 [mixte] 新增 `pickDeep` 函数, 支持从对象中选择指定的深层属性
   - 🌟 [@mixte/components] 组件 `GridTable` 新增 `fixedRowHeight` 属性以支持在启用虚拟列表时固定行高度
+  - 🌟 [@mixte/components] 组件 `GridTable` 新增 `hover` 参数以控制鼠标悬浮时的高亮模式
+  - 💄 将 `toValue` 导入库由 `@vueuse/core` 改为 `vue`
   - 💄 [mixte] 优化 `set` 函数, 确保数组赋值时初始化正确的长度, 避免出现 `<empty item>`
   - 💄 [mixte] 优化 `pick` 和 `omit` 函数的 `keys` 类型定义, 更加灵活
+  - 💄 [@mixte/components] 组件 `GridTable` 通过 `render` 和插槽渲染单元格时, 添加 `columnIndex` 参数
+  - 💄 [@mixte/components] 略微优化组件 `GridTable` 对于树形数据/固定列/虚拟列表/行列合并的性能
+  - 🐞 [@mixte/components] 修复组件 `GridTable` 的表头分割线在某些情况下宽度不统一或不显示的问题
+  - 🐞 [@mixte/components] 修复组件 `InfiniteScroll` 的 `reset()` 方法重置后每页条数不一致的问题
+  - 🐞 [@mixte/snippets] 为 `toggleThemeViewTransition` 的过渡动画添加 `fill` 选项
+  - 🐞 [@mixte/snippets] 修复 `toggleThemeViewTransition` 动画取消后临时样式未及时清理的问题
 
 ## [v3.5.1]
   - 📅 2025-10-21
@@ -134,7 +121,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.6.0-beta.5...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.6.0...HEAD
+[v3.6.0]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0
 [v3.6.0-beta.5]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.5
 [v3.6.0-beta.4]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.4
 [v3.6.0-beta.3]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.3
