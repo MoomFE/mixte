@@ -196,4 +196,23 @@ describe('toggleThemeViewTransition', () => {
       expect(document.head.children.length).toBe(headChildrenLength);
     });
   });
+
+  it('动画被取消后也会清理插入的样式', async () => {
+    const headChildrenLength = document.head.children.length;
+
+    mockDocumentElementAnimate.mockReturnValueOnce({
+      finished: Promise.reject(
+        new DOMException('Animation aborted', 'AbortError'),
+      ),
+    });
+
+    const result = toggleThemeViewTransition(() => {});
+
+    expect(document.head.children.length).toBe(headChildrenLength + 1);
+
+    await nextTick();
+    await expect(result).resolves.toBeUndefined();
+
+    expect(document.head.children.length).toBe(headChildrenLength);
+  });
 });

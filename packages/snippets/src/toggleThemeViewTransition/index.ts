@@ -3,6 +3,10 @@ import { delay } from 'mixte';
 import { nextTick, toValue } from 'vue';
 import styleText from './index.scss?inline';
 
+function isAbortError(error: unknown) {
+  return (error as { name?: string } | undefined)?.name === 'AbortError';
+}
+
 interface ToggleThemeViewTransitionOptions {
   /** X 轴坐标 ( 传递鼠标事件的 clientX ) */
   x?: number;
@@ -63,18 +67,23 @@ export async function toggleThemeViewTransition(
   style.appendChild(document.createTextNode(styleText.replaceAll('._', reverseSelector)));
   document.head.appendChild(style);
 
+  const cleanup = async () => {
+    await delay(1);
+    style.remove();
+  };
+
   // eslint-disable-next-line ts/no-unused-expressions
   window.getComputedStyle(style).opacity;
 
-  await document.startViewTransition(async () => {
-    toggle();
-    await nextTick();
-  }).ready;
+  try {
+    await document.startViewTransition(async () => {
+      toggle();
+      await nextTick();
+    }).ready;
 
-  return new Promise<void>((resolve) => {
     const isReverse = toValue(reverse);
     const animation = document.documentElement.animate(
-      { clipPath: isReverse ? clipPath.reverse() : clipPath },
+      { clipPath: isReverse ? [...clipPath].reverse() : clipPath },
       {
         duration: 300,
         easing: 'ease-in',
@@ -83,10 +92,15 @@ export async function toggleThemeViewTransition(
       },
     );
 
-    animation.finished.then(async () => {
-      await delay(1);
-      document.head.removeChild(style);
-      resolve();
-    });
-  });
+    try {
+      await animation.finished;
+    }
+    catch (error) {
+      if (!isAbortError(error))
+        throw error;
+    }
+  }
+  finally {
+    await cleanup();
+  }
 }
