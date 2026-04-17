@@ -1,5 +1,6 @@
 ## [Unreleased]
   - 🐞 [@mixte/components] 修复组件 `GridTable` 的表头分割线在某些情况下不显示的问题
+  - 🐞 [@mixte/components] 修复组件 `InfiniteScroll` 的 `reset()` 方法重置后每页条数不一致的问题
 
 ## [v3.6.0-beta.5]
   - 📅 2026-04-16

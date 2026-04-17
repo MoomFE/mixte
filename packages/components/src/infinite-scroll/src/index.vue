@@ -69,7 +69,7 @@
     error,
     reset() {
       pageNum.value = 1;
-      pageSize.value = 15;
+      pageSize.value = 10;
       isFinished.value = false;
       error.value = undefined;
       if (Array.isArray(data.value)) {
