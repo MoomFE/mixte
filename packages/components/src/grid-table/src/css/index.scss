@@ -60,10 +60,19 @@
     .mixte-gt-header-divider > .mixte-gt > .mixte-gt-thead > & {
       &:not(.mixte-gt-cell-last):not(.mixte-gt-cell-fix-left-active-last)::before {
         content: '';
-        width: 0;
-        position: absolute; top: 25%; bottom: 25%; right: 0;
+        width: 1px; height: 100%;
+        position: absolute; top: 0; right: 0;
         pointer-events: none;
-        border-right: 1px solid var(--mixte-gt-th-split-color);
+        background-image: linear-gradient(
+          to bottom,
+          transparent 25%,
+          var(--mixte-gt-th-split-color) 25%,
+          var(--mixte-gt-th-split-color) 75%,
+          transparent 75%
+        );
+        background-repeat: no-repeat;
+        background-size: 1px 100%;
+        background-position: right top;
       }
     }
   }

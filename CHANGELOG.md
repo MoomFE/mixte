@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🐞 [@mixte/components] 修复组件 `GridTable` 的表头分割线在某些情况下不显示的问题
 
 ## [v3.6.0-beta.5]
   - 📅 2026-04-16
