@@ -28,23 +28,23 @@ catalogs:
       specifier: ^2.27.2
       version: 2.27.2
     '@types/three':
-      specifier: ^0.183.1
-      version: 0.183.1
+      specifier: ^0.184.0
+      version: 0.184.0
     gsap:
-      specifier: ^3.14.2
-      version: 3.14.2
+      specifier: ^3.15.0
+      version: 3.15.0
     nanoid:
-      specifier: ^5.1.7
-      version: 5.1.7
+      specifier: ^5.1.11
+      version: 5.1.11
     three:
-      specifier: ^0.183.2
-      version: 0.183.2
+      specifier: ^0.184.0
+      version: 0.184.0
     veaury:
       specifier: ^2.6.3
       version: 2.6.3
     vue-component-type-helpers:
-      specifier: ^3.2.6
-      version: 3.2.6
+      specifier: ^3.2.7
+      version: 3.2.7
     vue-draggable-plus:
       specifier: ^0.6.1
       version: 0.6.1
@@ -78,8 +78,8 @@ importers:
         specifier: ^1.1.11
         version: 1.1.11(vue@3.5.31(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.9.3))
       '@iconify/json':
-        specifier: ^2.2.458
-        version: 2.2.458
+        specifier: ^2.2.468
+        version: 2.2.468
       '@mixte/components':
         specifier: workspace:*
         version: link:packages/components
@@ -142,7 +142,7 @@ importers:
         version: 19.2.3(@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))
       '@types/three':
         specifier: 'catalog:'
-        version: 0.183.1
+        version: 0.184.0
       '@vercel/analytics':
         specifier: ^1.6.1
         version: 1.6.1(react@19.2.4)(vue-router@4.6.4(vue@3.5.31(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.9.3)))(vue@3.5.31(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.9.3))
@@ -174,8 +174,8 @@ importers:
         specifier: ^13.6.0
         version: 13.6.0(vue@3.5.31(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.9.3))
       axios:
-        specifier: ^1.14.0
-        version: 1.15.0
+        specifier: ^1.15.2
+        version: 1.15.2
       chalk:
         specifier: ^5.6.2
         version: 5.6.2
@@ -189,8 +189,8 @@ importers:
         specifier: ^10.1.0
         version: 10.1.0
       defu:
-        specifier: ^6.1.4
-        version: 6.1.5
+        specifier: ^6.1.7
+        version: 6.1.7
       element-plus:
         specifier: ^2.11.7
         version: 2.11.7(vue@3.5.31(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.9.3))
@@ -205,7 +205,7 @@ importers:
         version: 11.3.4
       gsap:
         specifier: 'catalog:'
-        version: 3.14.2
+        version: 3.15.0
       is-in-ci:
         specifier: ^1.0.0
         version: 1.0.0
@@ -222,7 +222,7 @@ importers:
         specifier: ^16.4.0
         version: 16.4.0
       lodash-es:
-        specifier: ^4.17.23
+        specifier: ^4.18.1
         version: 4.18.1
       magic-string:
         specifier: ^0.30.21
@@ -241,7 +241,7 @@ importers:
         version: 2.43.1(vue@3.5.31(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.9.3))
       nanoid:
         specifier: 'catalog:'
-        version: 5.1.7
+        version: 5.1.11
       nuxt:
         specifier: ^4.3.1
         version: 4.3.1(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.6)(@types/node@22.13.1)(@vue/compiler-sfc@3.5.31)(cac@6.7.14)(db0@0.3.4)(eslint@9.32.0(jiti@2.6.1))(ioredis@5.10.0)(magicast@0.5.2)(optionator@0.9.4)(rollup@4.59.0)(sass@1.85.1)(terser@5.46.0)(tsx@4.21.0)(typescript@5.9.3)(vite@7.3.2(@types/node@22.13.1)(jiti@2.6.1)(sass@1.85.1)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))(vue-tsc@3.2.6(typescript@5.9.3))(yaml@2.8.2)
@@ -295,7 +295,7 @@ importers:
         version: 2.13.1
       three:
         specifier: 'catalog:'
-        version: 0.183.2
+        version: 0.184.0
       treemate:
         specifier: ^0.3.11
         version: 0.3.11
@@ -334,7 +334,7 @@ importers:
         version: 7.3.2(@types/node@22.13.1)(jiti@2.6.1)(sass@1.85.1)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
       vitepress:
         specifier: ^1.6.4
-        version: 1.6.4(@algolia/client-search@5.20.0)(@types/node@22.13.1)(@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(async-validator@4.2.5)(axios@1.15.0)(change-case@5.4.4)(fuse.js@7.1.0)(jwt-decode@4.0.0)(postcss@8.5.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1)(search-insights@2.17.3)(terser@5.46.0)(typescript@5.9.3)
+        version: 1.6.4(@algolia/client-search@5.20.0)(@types/node@22.13.1)(@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(async-validator@4.2.5)(axios@1.15.2)(change-case@5.4.4)(fuse.js@7.1.0)(jwt-decode@4.0.0)(postcss@8.5.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1)(search-insights@2.17.3)(terser@5.46.0)(typescript@5.9.3)
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@22.13.1)(@vitest/browser@3.2.4)(@vitest/ui@3.2.4)(jiti@2.6.1)(jsdom@26.1.0)(sass@1.85.1)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
@@ -346,7 +346,7 @@ importers:
         version: 3.5.31(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.9.3)
       vue-component-type-helpers:
         specifier: 'catalog:'
-        version: 3.2.6
+        version: 3.2.7
       vue-draggable-plus:
         specifier: 'catalog:'
         version: 0.6.1(@types/sortablejs@1.15.8)
@@ -370,7 +370,7 @@ importers:
         version: 3.5.31(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.9.3)
       vue-component-type-helpers:
         specifier: 'catalog:'
-        version: 3.2.6
+        version: 3.2.7
 
   packages/mel-components:
     dependencies:
@@ -420,22 +420,22 @@ importers:
         version: 2.27.2(@tiptap/core@2.27.2(@tiptap/pm@2.27.2))(@tiptap/pm@2.27.2)(vue@3.5.31(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.9.3))
       '@types/three':
         specifier: 'catalog:'
-        version: 0.183.1
+        version: 0.184.0
       '@vueuse/core':
         specifier: '>=8.0.0'
         version: 12.5.0(typescript@5.9.3)
       gsap:
         specifier: 'catalog:'
-        version: 3.14.2
+        version: 3.15.0
       mixte:
         specifier: workspace:*
         version: link:../mixte
       nanoid:
         specifier: 'catalog:'
-        version: 5.1.7
+        version: 5.1.11
       three:
         specifier: 'catalog:'
-        version: 0.183.2
+        version: 0.184.0
       veaury:
         specifier: 'catalog:'
         version: 2.6.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -444,7 +444,7 @@ importers:
         version: 3.5.31(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.9.3)
       vue-component-type-helpers:
         specifier: 'catalog:'
-        version: 3.2.6
+        version: 3.2.7
       vue-draggable-plus:
         specifier: 'catalog:'
         version: 0.6.1(@types/sortablejs@1.15.8)
@@ -1699,8 +1699,8 @@ packages:
   '@iconify-json/simple-icons@1.2.23':
     resolution: {integrity: sha512-ySyZ0ZXdNveWnR71t7XGV7jhknxSlTtpM2TyIR1cUHTUzZLP36hYHTNqb2pYYsCzH5ed85KTTKz7vYT33FyNIQ==}
 
-  '@iconify/json@2.2.458':
-    resolution: {integrity: sha512-YcJx5EjyRU3O+qpYNjx0BX/Uewxao9uSF0gd9Xa+d8YzCGGbMXosaANQ5aQV/lptnToqpu/PDTQ1c883GhvGRA==}
+  '@iconify/json@2.2.468':
+    resolution: {integrity: sha512-vfW6JQdYiHAFnCRZN6H5uzObcFBTaAguNaKqUpeazDLz5DO7R2UM8StyM/+v8d8KP15SfrQzG9aZy4uF9lViVQ==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -3040,8 +3040,8 @@ packages:
   '@types/stats.js@0.17.3':
     resolution: {integrity: sha512-pXNfAD3KHOdif9EQXZ9deK82HVNaXP5ZIF5RP2QG6OQFNTaY2YIetfrE9t528vEreGQvEPRDDc8muaoYeK0SxQ==}
 
-  '@types/three@0.183.1':
-    resolution: {integrity: sha512-f2Pu5Hrepfgavttdye3PsH5RWyY/AvdZQwIVhrc4uNtvF7nOWJacQKcoVJn0S4f0yYbmAE6AR+ve7xDcuYtMGw==}
+  '@types/three@0.184.0':
+    resolution: {integrity: sha512-4mY2tZAu0y0B0567w7013BBXSpsP0+Z48NJvmNo4Y/Pf76yCyz6Jw4P3tUVs10WuYNXXZ+wmHyGWpCek3amJxA==}
 
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
@@ -3684,9 +3684,6 @@ packages:
   '@vueuse/shared@9.13.0':
     resolution: {integrity: sha512-UrnhU+Cnufu4S6JLCPZnkWh0WwZGUp72ktOF2DFptMlOs3TOdVv8xJN53zhHGARmVOsz5KqOls09+J1NR6sBKw==}
 
-  '@webgpu/types@0.1.54':
-    resolution: {integrity: sha512-81oaalC8LFrXjhsczomEQ0u3jG+TqE6V9QHLA8GNZq/Rnot0KDugu3LhSYSlie8tSdooAN1Hov05asrUUp9qgg==}
-
   '@whatwg-node/disposablestack@0.0.6':
     resolution: {integrity: sha512-LOtTn+JgJvX8WfBVJtF08TGrdjuFzGJc4mkP8EdDI8ADbvO7kiexYep1o8dwnt0okb0jYclCDXF13xU7Ge4zSw==}
     engines: {node: '>=18.0.0'}
@@ -3860,8 +3857,8 @@ packages:
     peerDependencies:
       postcss: ^8.1.0
 
-  axios@1.15.0:
-    resolution: {integrity: sha512-wWyJDlAatxk30ZJer+GeCWS209sA42X+N5jU2jy6oHTp7ufw8uzUTVFBX9+wTfAlhiJXGS0Bq7X6efruWjuK9Q==}
+  axios@1.15.2:
+    resolution: {integrity: sha512-wLrXxPtcrPTsNlJmKjkPnNPK2Ihe0hn0wGSaTEiHRPxwjvJwT3hKmXF4dpqxmPO9SoNb2FsYXj/xEo0gHN+D5A==}
 
   b-tween@0.3.3:
     resolution: {integrity: sha512-oEHegcRpA7fAuc9KC4nktucuZn2aS8htymCPcP3qkEGPqiBH+GfqtqoG2l7LxHngg6O0HFM7hOeOYExl1Oz4ZA==}
@@ -4431,8 +4428,8 @@ packages:
     resolution: {integrity: sha512-N+MeXYoqr3pOgn8xfyRPREN7gHakLYjhsHhWGT3fWAiL4IkAt0iDw14QiiEm2bE30c5XX5q0FtAA3CK5f9/BUg==}
     engines: {node: '>=12'}
 
-  defu@6.1.5:
-    resolution: {integrity: sha512-pwdBJxJuJXmqrLO6s0VBmfbRz+G7FUzkjldAsdi9Yrv86mPyzq0ll1o8+8gB4Gsr6GJHbK1Lh3ngllgTInDCjA==}
+  defu@6.1.7:
+    resolution: {integrity: sha512-7z22QmUWiQ/2d0KkdYmANbRUVABpZ9SNYyH5vx6PZ+nE5bcC0l7uFvEfHlyld/HcGBFTL536ClDt3DEcSlEJAQ==}
 
   delayed-stream@1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
@@ -5116,8 +5113,8 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
-  gsap@3.14.2:
-    resolution: {integrity: sha512-P8/mMxVLU7o4+55+1TCnQrPmgjPKnwkzkXOK1asnR9Jg2lna4tEY5qBJjMmAaOBDDZWtlRjBXjLa0w53G/uBLA==}
+  gsap@3.15.0:
+    resolution: {integrity: sha512-dMW4CWBTUK1AEEDeZc1g4xpPGIrSf9fJF960qbTZmN/QwZIWY5wgliS6JWl9/25fpTGJrMRtSjGtOmPnfjZB+A==}
 
   gzip-size@6.0.0:
     resolution: {integrity: sha512-ax7ZYomf6jqPTQ4+XCpUGyXKHk5WweS+e05MBO4/y3WJ5RkmPXNKvX+bx1behVILVwr6JSQvZAku021CHPXG3Q==}
@@ -5724,8 +5721,8 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
 
-  meshoptimizer@1.0.1:
-    resolution: {integrity: sha512-Vix+QlA1YYT3FwmBBZ+49cE5y/b+pRrcXKqGpS5ouh33d3lSp2PoTpCw19E0cKDFWalembrHnIaZetf27a+W2g==}
+  meshoptimizer@1.1.1:
+    resolution: {integrity: sha512-oRFNWJRDA/WTrVj7NWvqa5HqE1t9MYDj2VaWirQCzCCrAd2GHrqR/sQezCxiWATPNlKTcRaPRHPJwIRoPBAp5g==}
 
   micro-api-client@3.3.0:
     resolution: {integrity: sha512-y0y6CUB9RLVsy3kfgayU28746QrNMpSm9O/AYGNsBgOkJr/X/Jk0VLGoO8Ude7Bpa8adywzF+MzXNZRFRsNPhg==}
@@ -5925,8 +5922,8 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  nanoid@5.1.7:
-    resolution: {integrity: sha512-ua3NDgISf6jdwezAheMOk4mbE1LXjm1DfMUDMuJf4AqxLFK3ccGpgWizwa5YV7Yz9EpXwEaWoRXSb/BnV0t5dQ==}
+  nanoid@5.1.11:
+    resolution: {integrity: sha512-v+KEsUv2ps74PaSKv0gHTxTCgMXOIfBEbaqa6w6ISIGC7ZsvHN4N9oJ8d4cmf0n5oTzQz2SLmThbQWhjd/8eKg==}
     engines: {node: ^18 || >=20}
     hasBin: true
 
@@ -7395,8 +7392,8 @@ packages:
   text-decoder@1.2.3:
     resolution: {integrity: sha512-3/o9z3X0X0fTupwsYvR03pJ/DjWuqqrfwBgTQzdWDiQSm9KitAyz/9WqsT2JQW7KV2m+bC2ol/zqpW37NHxLaA==}
 
-  three@0.183.2:
-    resolution: {integrity: sha512-di3BsL2FEQ1PA7Hcvn4fyJOlxRRgFYBpMTcyOgkwJIaDOdJMebEFPA+t98EvjuljDx4hNulAGwF6KIjtwI5jgQ==}
+  three@0.184.0:
+    resolution: {integrity: sha512-wtTRjG92pM5eUg/KuUnHsqSAlPM296brTOcLgMRqEeylYTh/CdtvKUvCyyCQTzFuStieWxvZb8mVTMvdPyUpxg==}
 
   throttle-debounce@5.0.2:
     resolution: {integrity: sha512-B71/4oyj61iNH0KeCamLuE2rmKuTO5byTOSVwECM5FA7TiAiAW+UqTKZ9ERueC4qvgSttUhdmq1mXC3kJqGX7A==}
@@ -8052,8 +8049,8 @@ packages:
   vue-component-type-helpers@2.2.8:
     resolution: {integrity: sha512-4bjIsC284coDO9om4HPA62M7wfsTvcmZyzdfR0aUlFXqq4tXxM1APyXpNVxPC8QazKw9OhmZNHBVDA6ODaZsrA==}
 
-  vue-component-type-helpers@3.2.6:
-    resolution: {integrity: sha512-O02tnvIfOQVmnvoWwuSydwRoHjZVt8UEBR+2p4rT35p8GAy5VTlWP8o5qXfJR/GWCN0nVZoYWsVUvx2jwgdBmQ==}
+  vue-component-type-helpers@3.2.7:
+    resolution: {integrity: sha512-+gPp5YGmhfsj1IN+xUo7y0fb4clfnOiiUA39y07yW1VzCRjzVgwLbtmdWlghh7mXrPsEaYc7rrIir/HT6C8vYQ==}
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -9515,7 +9512,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify/json@2.2.458':
+  '@iconify/json@2.2.468':
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 2.0.3
@@ -9699,7 +9696,7 @@ snapshots:
       consola: 3.4.2
       copy-paste: 2.2.0
       debug: 4.4.3
-      defu: 6.1.5
+      defu: 6.1.7
       exsolve: 1.0.8
       fuse.js: 7.1.0
       fzf: 0.5.2
@@ -9793,7 +9790,7 @@ snapshots:
     dependencies:
       c12: 3.3.3(magicast@0.5.2)
       consola: 3.4.2
-      defu: 6.1.5
+      defu: 6.1.7
       destr: 2.0.5
       errx: 0.1.0
       exsolve: 1.0.8
@@ -9821,7 +9818,7 @@ snapshots:
       '@unhead/vue': 2.1.9(vue@3.5.31(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.9.3))
       '@vue/shared': 3.5.29
       consola: 3.4.2
-      defu: 6.1.5
+      defu: 6.1.7
       destr: 2.0.5
       devalue: 5.6.3
       errx: 0.1.0
@@ -9880,7 +9877,7 @@ snapshots:
   '@nuxt/schema@4.3.1':
     dependencies:
       '@vue/shared': 3.5.29
-      defu: 6.1.5
+      defu: 6.1.7
       pathe: 2.0.3
       pkg-types: 2.3.0
       std-env: 3.10.0
@@ -9903,7 +9900,7 @@ snapshots:
       autoprefixer: 10.4.27(postcss@8.5.8)
       consola: 3.4.2
       cssnano: 7.1.2(postcss@8.5.8)
-      defu: 6.1.5
+      defu: 6.1.7
       esbuild: 0.27.7
       escape-string-regexp: 5.0.0
       exsolve: 1.0.8
@@ -10947,15 +10944,14 @@ snapshots:
 
   '@types/stats.js@0.17.3': {}
 
-  '@types/three@0.183.1':
+  '@types/three@0.184.0':
     dependencies:
       '@dimforge/rapier3d-compat': 0.12.0
       '@tweenjs/tween.js': 23.1.3
       '@types/stats.js': 0.17.3
       '@types/webxr': 0.5.21
-      '@webgpu/types': 0.1.54
       fflate: 0.8.2
-      meshoptimizer: 1.0.1
+      meshoptimizer: 1.1.1
 
   '@types/unist@3.0.3': {}
 
@@ -11768,14 +11764,14 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/integrations@12.5.0(async-validator@4.2.5)(axios@1.15.0)(change-case@5.4.4)(focus-trap@7.6.4)(fuse.js@7.1.0)(jwt-decode@4.0.0)(typescript@5.9.3)':
+  '@vueuse/integrations@12.5.0(async-validator@4.2.5)(axios@1.15.2)(change-case@5.4.4)(focus-trap@7.6.4)(fuse.js@7.1.0)(jwt-decode@4.0.0)(typescript@5.9.3)':
     dependencies:
       '@vueuse/core': 12.5.0(typescript@5.9.3)
       '@vueuse/shared': 12.5.0(typescript@5.9.3)
       vue: 3.5.31(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.9.3)
     optionalDependencies:
       async-validator: 4.2.5
-      axios: 1.15.0
+      axios: 1.15.2
       change-case: 5.4.4
       focus-trap: 7.6.4
       fuse.js: 7.1.0
@@ -11813,8 +11809,6 @@ snapshots:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
-
-  '@webgpu/types@0.1.54': {}
 
   '@whatwg-node/disposablestack@0.0.6':
     dependencies:
@@ -12052,7 +12046,7 @@ snapshots:
       postcss: 8.5.8
       postcss-value-parser: 4.2.0
 
-  axios@1.15.0:
+  axios@1.15.2:
     dependencies:
       follow-redirects: 1.15.11
       form-data: 4.0.5
@@ -12153,7 +12147,7 @@ snapshots:
     dependencies:
       chokidar: 5.0.0
       confbox: 0.2.4
-      defu: 6.1.5
+      defu: 6.1.7
       dotenv: 17.3.1
       exsolve: 1.0.8
       giget: 2.0.0
@@ -12602,7 +12596,7 @@ snapshots:
 
   define-lazy-prop@3.0.0: {}
 
-  defu@6.1.5: {}
+  defu@6.1.7: {}
 
   delayed-stream@1.0.0: {}
 
@@ -13367,7 +13361,7 @@ snapshots:
     dependencies:
       citty: 0.1.6
       consola: 3.4.2
-      defu: 6.1.5
+      defu: 6.1.7
       node-fetch-native: 1.6.6
       nypm: 0.6.0
       pathe: 2.0.3
@@ -13426,7 +13420,7 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  gsap@3.14.2: {}
+  gsap@3.15.0: {}
 
   gzip-size@6.0.0:
     dependencies:
@@ -13440,7 +13434,7 @@ snapshots:
     dependencies:
       cookie-es: 1.2.2
       crossws: 0.3.3
-      defu: 6.1.5
+      defu: 6.1.7
       destr: 2.0.3
       iron-webcrypto: 1.2.1
       node-mock-http: 1.0.0
@@ -13452,7 +13446,7 @@ snapshots:
     dependencies:
       cookie-es: 1.2.2
       crossws: 0.3.5
-      defu: 6.1.5
+      defu: 6.1.7
       destr: 2.0.5
       iron-webcrypto: 1.2.1
       node-mock-http: 1.0.4
@@ -13854,7 +13848,7 @@ snapshots:
       clipboardy: 4.0.0
       consola: 3.4.2
       crossws: 0.3.4
-      defu: 6.1.5
+      defu: 6.1.7
       get-port-please: 3.1.2
       h3: 1.15.1
       http-shutdown: 1.2.2
@@ -14142,7 +14136,7 @@ snapshots:
 
   merge2@1.4.1: {}
 
-  meshoptimizer@1.0.1: {}
+  meshoptimizer@1.1.1: {}
 
   micro-api-client@3.3.0:
     optional: true
@@ -14448,7 +14442,7 @@ snapshots:
 
   nanoid@3.3.11: {}
 
-  nanoid@5.1.7: {}
+  nanoid@5.1.11: {}
 
   nanotar@0.2.1: {}
 
@@ -14488,7 +14482,7 @@ snapshots:
       croner: 9.1.0
       crossws: 0.3.5
       db0: 0.3.4
-      defu: 6.1.5
+      defu: 6.1.7
       destr: 2.0.5
       dot-prop: 10.1.0
       esbuild: 0.27.7
@@ -14648,7 +14642,7 @@ snapshots:
       compatx: 0.2.0
       consola: 3.4.2
       cookie-es: 2.0.0
-      defu: 6.1.5
+      defu: 6.1.7
       destr: 2.0.5
       devalue: 5.6.3
       errx: 0.1.0
@@ -15730,12 +15724,12 @@ snapshots:
 
   rc9@2.1.2:
     dependencies:
-      defu: 6.1.5
+      defu: 6.1.7
       destr: 2.0.3
 
   rc9@3.0.0:
     dependencies:
-      defu: 6.1.5
+      defu: 6.1.7
       destr: 2.0.5
 
   react-dom@19.2.4(react@19.2.4):
@@ -15991,7 +15985,7 @@ snapshots:
 
   serve-placeholder@2.0.2:
     dependencies:
-      defu: 6.1.5
+      defu: 6.1.7
 
   serve-static@2.2.1:
     dependencies:
@@ -16321,7 +16315,7 @@ snapshots:
     dependencies:
       b4a: 1.6.7
 
-  three@0.183.2: {}
+  three@0.184.0: {}
 
   throttle-debounce@5.0.2: {}
 
@@ -16453,7 +16447,7 @@ snapshots:
   unconfig@7.3.2:
     dependencies:
       '@quansync/fs': 0.1.3
-      defu: 6.1.5
+      defu: 6.1.7
       jiti: 2.4.2
       quansync: 0.2.10
 
@@ -16722,7 +16716,7 @@ snapshots:
   untyped@2.0.0:
     dependencies:
       citty: 0.1.6
-      defu: 6.1.5
+      defu: 6.1.7
       jiti: 2.4.2
       knitwork: 1.2.0
       scule: 1.3.0
@@ -16916,7 +16910,7 @@ snapshots:
       tsx: 4.21.0
       yaml: 2.8.2
 
-  vitepress@1.6.4(@algolia/client-search@5.20.0)(@types/node@22.13.1)(@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(async-validator@4.2.5)(axios@1.15.0)(change-case@5.4.4)(fuse.js@7.1.0)(jwt-decode@4.0.0)(postcss@8.5.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1)(search-insights@2.17.3)(terser@5.46.0)(typescript@5.9.3):
+  vitepress@1.6.4(@algolia/client-search@5.20.0)(@types/node@22.13.1)(@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(async-validator@4.2.5)(axios@1.15.2)(change-case@5.4.4)(fuse.js@7.1.0)(jwt-decode@4.0.0)(postcss@8.5.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1)(search-insights@2.17.3)(terser@5.46.0)(typescript@5.9.3):
     dependencies:
       '@docsearch/css': 3.8.2
       '@docsearch/js': 3.8.2(@algolia/client-search@5.20.0)(@types/react@19.2.14(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)
@@ -16929,7 +16923,7 @@ snapshots:
       '@vue/devtools-api': 7.7.1
       '@vue/shared': 3.5.18
       '@vueuse/core': 12.8.2(typescript@5.9.3)
-      '@vueuse/integrations': 12.5.0(async-validator@4.2.5)(axios@1.15.0)(change-case@5.4.4)(focus-trap@7.6.4)(fuse.js@7.1.0)(jwt-decode@4.0.0)(typescript@5.9.3)
+      '@vueuse/integrations': 12.5.0(async-validator@4.2.5)(axios@1.15.2)(change-case@5.4.4)(focus-trap@7.6.4)(fuse.js@7.1.0)(jwt-decode@4.0.0)(typescript@5.9.3)
       focus-trap: 7.6.4
       mark.js: 8.11.1
       minisearch: 7.1.1
@@ -17030,7 +17024,7 @@ snapshots:
 
   vue-component-type-helpers@2.2.8: {}
 
-  vue-component-type-helpers@3.2.6: {}
+  vue-component-type-helpers@3.2.7: {}
 
   vue-demi@0.14.10(vue@3.5.31(patch_hash=5wyypc62hjzqypl7ztfnvhar4i)(typescript@5.9.3)):
     dependencies:

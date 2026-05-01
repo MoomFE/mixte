@@ -10,10 +10,10 @@ catalog:
   '@tiptap/pm': ^2.27.2
   '@tiptap/starter-kit': ^2.27.2
   '@tiptap/vue-3': ^2.27.2
-  '@types/three': ^0.183.1
-  gsap: ^3.14.2
-  nanoid: ^5.1.7
-  three: ^0.183.2
+  '@types/three': ^0.184.0
+  gsap: ^3.15.0
+  nanoid: ^5.1.11
+  three: ^0.184.0
   veaury: ^2.6.3
-  vue-component-type-helpers: ^3.2.6
+  vue-component-type-helpers: ^3.2.7
   vue-draggable-plus: ^0.6.1
