@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 🐞 [@mixte/components] 修复组件 `GridTable` 的外部容器仅设置 `max-height` 时表格高度不对的问题
 
 ## [v3.6.0], [-beta.5][v3.6.0-beta.5], [-beta.4][v3.6.0-beta.4], [-beta.3][v3.6.0-beta.3], [-beta.2][v3.6.0-beta.2], [-beta.1][v3.6.0-beta.1]
   - 📅 2026-04-17

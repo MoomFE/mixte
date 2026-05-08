@@ -801,6 +801,48 @@ describe('grid-table', () => {
   });
 
   describe('样式', () => {
+    it('父容器仅设置 max-height 时, 表格包裹层应该继承最大高度并启用滚动', async () => {
+      const data = Array.from({ length: 20 }).map((_, index) => ({
+        'id': index + 1,
+        'col-1': `数据 ${index + 1} - 列1`,
+        'col-2': `数据 ${index + 1} - 列2`,
+      }));
+
+      render({
+        components: {
+          MixteGridTable,
+        },
+        setup() {
+          return {
+            columns: defineTableColumns([
+              { field: 'col-1', title: '列1', headerCellClass: 'h-60px', contentCellClass: 'h-60px' },
+              { field: 'col-2', title: '列2' },
+            ]),
+            data,
+          };
+        },
+        template: `
+          <div style="max-height: 240px; width: 400px;">
+            <MixteGridTable :columns="columns" :data="data" />
+          </div>
+        `,
+      });
+
+      await delay(20);
+
+      const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
+      const parent = tableWrap.parentElement as HTMLDivElement;
+
+      expect(tableWrap.clientHeight).toBeLessThanOrEqual(240);
+      expect(Math.abs(tableWrap.clientHeight - parent.clientHeight)).toBeLessThanOrEqual(1);
+      expect(tableWrap.scrollHeight).toBeGreaterThan(tableWrap.clientHeight);
+
+      tableWrap.scrollTop = 120;
+      await delay(20);
+
+      expect(tableWrap.scrollTop).toBeGreaterThan(0);
+    });
+
     it.each([
       ['默认情况下, 鼠标悬停单元格, 行背景变色', 'row', {}],
       ['配置 hover: "row", 鼠标悬停单元格, 行背景变色', 'row', { hover: 'row' }],
