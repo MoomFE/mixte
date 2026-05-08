@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## [v3.6.1]
+  - 📅 2026-04-17
   - 🐞 [@mixte/components] 修复组件 `GridTable` 的外部容器仅设置 `max-height` 时表格高度不对的问题
 
 ## [v3.6.0], [-beta.5][v3.6.0-beta.5], [-beta.4][v3.6.0-beta.4], [-beta.3][v3.6.0-beta.3], [-beta.2][v3.6.0-beta.2], [-beta.1][v3.6.0-beta.1]
@@ -122,7 +125,8 @@ CHANGELOG 图标规范
 <hr>
 <br>
 
-[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.6.0...HEAD
+[Unreleased]: https://github.com/MoomFE/mixte/compare/v3.6.1...HEAD
+[v3.6.1]: https://github.com/MoomFE/mixte/releases/tag/v3.6.1
 [v3.6.0]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0
 [v3.6.0-beta.5]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.5
 [v3.6.0-beta.4]: https://github.com/MoomFE/mixte/releases/tag/v3.6.0-beta.4
