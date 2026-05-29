@@ -89,7 +89,7 @@
     "cross-env": "^10.1.0",
     "defu": "^6.1.7",
     "element-plus": "^2.11.7",
-    "eslint": "^9.32.0",
+    "eslint": "^10.4.1",
     "fast-glob": "^3.3.3",
     "fs-extra": "^11.3.4",
     "gsap": "catalog:",
