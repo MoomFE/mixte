@@ -13,5 +13,5 @@ node_modules
 coverage
 dist
 
-packages/.vitepress/cache
-packages/.vitepress/dist
+**/.vitepress/cache
+**/.vitepress/dist
