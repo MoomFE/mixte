@@ -1,4 +1,5 @@
 ## [Unreleased]
+  - 💄 [@mixte/components] 重构 `GridTable` 树形数据展开行状态管理, 补充相关测试
 
 ## [v3.6.1]
   - 📅 2026-04-17

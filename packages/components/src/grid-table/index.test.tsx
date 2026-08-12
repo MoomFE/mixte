@@ -594,6 +594,10 @@ describe('grid-table', () => {
       ];
     }
 
+    function getExpandBtnSelector(index: number) {
+      return `.mixte-gt-cell-expand[data-field="col-1"][data-index="${index}"] > .mixte-gt-cell-expand-btn`;
+    }
+
     it('使用 expandColumnKey 修改显示展开按钮的列主键', async () => {
       const columns = createTreeColumns();
       const data = createTreeData();
@@ -964,6 +968,182 @@ describe('grid-table', () => {
 
       await delay(20);
       expect(expandedRowKeys.value).toEqual(['1', '5', '6']);
+    });
+
+    it('当 expandedRowKeys 中出现重复的 keys 时, 会自动去重', async () => {
+      const { vm, expandedRowKeys } = getTableStructure({
+        props: {
+          columns: createTreeColumns(),
+          data: createTreeData(),
+        },
+      });
+
+      expandedRowKeys.value = ['1', '1', '5', '5', '5'];
+      vm.setProps({
+        expandedRowKeys: expandedRowKeys.value,
+      });
+
+      await delay(20);
+      expect(expandedRowKeys.value).toEqual(['1', '5']);
+    });
+
+    it('当 expandedRowKeys 中出现重复且不可展开的 keys 时, 会自动去重并移除', async () => {
+      const { vm, expandedRowKeys } = getTableStructure({
+        props: {
+          columns: createTreeColumns(),
+          data: createTreeData(),
+        },
+      });
+
+      expandedRowKeys.value = ['1', '1', '2', '3', '6', '6', '7', '9'];
+      vm.setProps({
+        expandedRowKeys: expandedRowKeys.value,
+      });
+
+      await delay(20);
+      expect(expandedRowKeys.value).toEqual(['1', '6']);
+    });
+
+    it('点击展开按钮会触发 update:expandedRowKeys 事件', async () => {
+      const { vm } = getTableStructure({
+        props: {
+          columns: createTreeColumns(),
+          data: createTreeData(),
+        },
+      });
+
+      await vm.find(getExpandBtnSelector(0)).trigger('click');
+      await delay(20);
+
+      expect(vm.emitted('update:expandedRowKeys')?.at(-1)?.[0]).toEqual(['1']);
+    });
+
+    it('点击不可展开的行的按钮不会写入 expandedRowKeys', async () => {
+      const { vm, expandedRowKeys } = getTableStructure({
+        props: {
+          columns: createTreeColumns(),
+          data: createTreeData(),
+        },
+      });
+
+      // 第 2 行是叶节点, 点击占位按钮不生效
+      await vm.find(getExpandBtnSelector(1)).trigger('click');
+      await delay(20);
+
+      expect(expandedRowKeys.value).toEqual([]);
+      expect(vm.emitted('update:expandedRowKeys')).toBeUndefined();
+    });
+
+    it('父组件不回传 expandedRowKeys 时, 点击展开按钮后行仍然展开', async () => {
+      const { vm } = getTableStructure({
+        props: {
+          columns: createTreeColumns(),
+          data: createTreeData(),
+        },
+      });
+
+      expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(5);
+
+      // 父组件不回传 prop, 显示仍以内部集合为准保持展开
+      await vm.find(getExpandBtnSelector(0)).trigger('click');
+      await delay(20);
+      expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(7);
+
+      await vm.find(getExpandBtnSelector(0)).trigger('click');
+      await delay(20);
+      expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(5);
+    });
+
+    it('真实 v-model 回传时, 点击展开只触发一次 update:expandedRowKeys', async () => {
+      const expandedRowKeys = ref<string[]>([]);
+      let emitCount = 0;
+
+      const App = defineComponent({
+        setup() {
+          return () => h(MixteGridTable, {
+            'renderMode': 'legacy',
+            'columns': createTreeColumns(),
+            'data': createTreeData(),
+            'expandedRowKeys': expandedRowKeys.value,
+            'onUpdate:expandedRowKeys': (keys: string[]) => {
+              emitCount++;
+              expandedRowKeys.value = keys;
+            },
+          });
+        },
+      });
+
+      const vm = mount(App);
+
+      await vm.find(getExpandBtnSelector(0)).trigger('click');
+      await delay(20);
+
+      // 父组件回传规范化值后, 回写收敛, 不会造成循环或冗余 emit
+      expect(expandedRowKeys.value).toEqual(['1']);
+      expect(emitCount).toBe(1);
+      expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(7);
+    });
+
+    it('真实 v-model 回传时, 传入重复 keys 会在下次操作时规范化且不循环', async () => {
+      const expandedRowKeys = ref<string[]>(['1', '1']);
+      let emitCount = 0;
+
+      const App = defineComponent({
+        setup() {
+          return () => h(MixteGridTable, {
+            'renderMode': 'legacy',
+            'columns': createTreeColumns(),
+            'data': createTreeData(),
+            'expandedRowKeys': expandedRowKeys.value,
+            'onUpdate:expandedRowKeys': (keys: string[]) => {
+              emitCount++;
+              expandedRowKeys.value = keys;
+            },
+          });
+        },
+      });
+
+      const vm = mount(App);
+
+      // 初始 '1' 已展开, 展开第 5 行 ( id 5 ), 触发规范化回写
+      await vm.find(getExpandBtnSelector(4)).trigger('click');
+      await delay(20);
+
+      expect(expandedRowKeys.value).toEqual(['1', '5']);
+      expect(emitCount).toBe(1);
+    });
+
+    it('真实 v-model 回传时, 初始传入不可展开的 keys 会被忽略, 点击展开只触发一次 update:expandedRowKeys', async () => {
+      const expandedRowKeys = ref<string[]>(['1', '2']);
+      let emitCount = 0;
+
+      const App = defineComponent({
+        setup() {
+          return () => h(MixteGridTable, {
+            'renderMode': 'legacy',
+            'columns': createTreeColumns(),
+            'data': createTreeData(),
+            'expandedRowKeys': expandedRowKeys.value,
+            'onUpdate:expandedRowKeys': (keys: string[]) => {
+              emitCount++;
+              expandedRowKeys.value = keys;
+            },
+          });
+        },
+      });
+
+      const vm = mount(App);
+
+      // 初始 '1' 已展开, 脏 key '2' 不进入内部集合, 也不会在挂载时触发回写
+      expect(expandedRowKeys.value).toEqual(['1', '2']);
+
+      // 展开第 5 行 ( id 5 )
+      await vm.find(getExpandBtnSelector(4)).trigger('click');
+      await delay(20);
+
+      // 只 emit 一次, 且回传的模型不含不可展开的 '2'
+      expect(expandedRowKeys.value).toEqual(['1', '5']);
+      expect(emitCount).toBe(1);
     });
 
     it('使用对外导出的 expandAllRows / expandRows / collapseAllRows / collapseRows 方法展开/折叠行', async () => {

@@ -66,7 +66,7 @@
   const tdRef = ref<HTMLDivElement>();
 
   const { props: tableProps, rowKey, childrenKey, expandedIndent, fixedRowHeight } = useShared()!;
-  const { expandedRowSet, updateExpanded } = useTreeData()!;
+  const { expandedRowKeySet, updateExpanded } = useTreeData()!;
   const { createColumnStore } = useCell()!;
   const { columnIndex, cellClasses, cellStyle, zIndex, tdClasses, tdClassesFn, tdStyleFn, isExpandVisible } = createColumnStore(props.column.field, props.column);
 
@@ -74,7 +74,7 @@
   const value = computed(() => get(record.value, props.column.field));
 
   const expandIconSpaced = computed(() => !record.value[childrenKey.value]?.length);
-  const expanded = computed(() => expandedRowSet.value.has(props.node.key as string));
+  const expanded = computed(() => expandedRowKeySet.value.has(props.node.key as string));
 
   onMounted(() => {
     const { updateRowHeight } = useVirtual()!;
