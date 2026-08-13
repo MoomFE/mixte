@@ -1,19 +1,34 @@
+import type { TreeNode } from 'treemate';
+import type { MaybeRefOrGetter, Ref } from 'vue';
 import { watchImmediate, wheneverEffectScopeImmediate, wheneverImmediate } from '@mixte/use';
-import { createInjectionState, useCssVar } from '@vueuse/core';
-import { computed, ref, watch } from 'vue';
+import { createInjectionState, useCssVar, useElementSize } from '@vueuse/core';
+import { computed, onMounted, ref, toValue, watch } from 'vue';
+import { createHeightCache } from './createHeightCache';
 import { useShared } from './useShared';
 import { useTreeData } from './useTreeData';
+
+/** 测量源 ( 行高的测量方式, 可注入以便测试 ) */
+export type MeasureSource = (target: MaybeRefOrGetter<HTMLElement | undefined>) => Ref<number>;
+
+/** 默认测量源 ( 基于 DOM 元素的实际尺寸 ) */
+const domMeasureSource: MeasureSource = (target) => {
+  return useElementSize(target, undefined, { box: 'border-box' }).height;
+};
 
 export const [
   useVirtualStore,
   useVirtual,
-] = createInjectionState(() => {
+] = createInjectionState((options?: {
+  /** 测量源 ( 默认为 DOM 测量 ) */
+  measureSource?: MeasureSource;
+}) => {
   const {
     props,
 
     isModernRenderMode,
 
     overscan,
+    estimatedRowHeight,
     fixedRowHeight,
 
     tableWrapSize,
@@ -26,7 +41,27 @@ export const [
 
   const { displayedData } = useTreeData()!;
 
-  const { cumulativeHeights, updateRowHeight, findIndexByHeight } = useCumulativeHeights();
+  /** 测量源 */
+  const measureSource = options?.measureSource ?? domMeasureSource;
+
+  /** 行高变更信号 */
+  const heightsVersion = ref(0);
+
+  /** 累计高度缓存 */
+  const heightCache = createHeightCache({
+    getData: () => displayedData.value,
+    getEstimated: () => estimatedRowHeight.value,
+    getFixed: () => fixedRowHeight.value,
+  });
+
+  /** 累计高度数组 ( 响应式 ) */
+  const heights = computed(() => {
+    // 读取版本号建立依赖, 行高变更时失效重算
+    void heightsVersion.value;
+
+    // 缓存通过 getter 读取响应式值 ( displayedData / fixedRowHeight / estimatedRowHeight ), 其变化也会使本计算失效重算
+    return heightCache.getHeights();
+  });
 
   /** 表格展示区高度 */
   const tableBodyHeight = computed(() => {
@@ -35,10 +70,7 @@ export const [
 
   /** 可见行的起始索引 */
   const visibleStart = computed(() => {
-    return Math.max(
-      0,
-      findIndexByHeight(tableWrapScroll.y) - overscan.value,
-    );
+    return Math.max(0, findIndexByHeight(tableWrapScroll.y) - overscan.value);
   });
 
   /** 可见行的结束索引 */
@@ -65,12 +97,12 @@ export const [
   const tablePlaceholderHeight = useCssVar('--mixte-gt-virtual-ph', tableRef);
 
   wheneverEffectScopeImmediate(() => props.virtual, (_, __, onCleanup) => {
-    watchImmediate(() => cumulativeHeights.value[cumulativeHeights.value.length - 1], (totalHeight) => {
+    watchImmediate(() => heights.value[heights.value.length - 1], (totalHeight) => {
       tableHeight.value = `${totalHeight}px`;
     });
 
     watchImmediate(visibleStart, (start) => {
-      tablePlaceholderHeight.value = `${cumulativeHeights.value[start] || 0}px`;
+      tablePlaceholderHeight.value = `${heights.value[start] || 0}px`;
     });
 
     wheneverImmediate(fixedRowHeight, () => {
@@ -91,112 +123,73 @@ export const [
     });
   });
 
+  /**
+   * 更新行高度
+   * - 统一处理缓存更新与失效信号递增, 调用方无需关心
+   */
+  function updateRowHeight(index: number, rowObj: object, height: number) {
+    if (heightCache.updateHeight(index, rowObj, height)) {
+      heightsVersion.value++;
+    }
+  }
+
+  /**
+   * 测量行高
+   * - 由单元格组件调用
+   * - 仅在虚拟列表且为第一列且未设置固定行高时进行测量
+   */
+  function useRowMeasure(
+    node: MaybeRefOrGetter<TreeNode<any>>,
+    index: MaybeRefOrGetter<number>,
+    columnIndex: MaybeRefOrGetter<number>,
+  ) {
+    /** 行元素 */
+    const rowRef = ref<HTMLElement>();
+
+    /** 是否需要测量 ( 虚拟列表首列且未设置固定行高时 ) */
+    const needMeasure = computed(() => {
+      return props.virtual && toValue(columnIndex) === 0 && fixedRowHeight.value == null;
+    });
+
+    /**
+     * 行元素 ref 设置
+     * - 函数形式, 兼容 Vue 3.5 的模板 ref 处理
+     * - 卸载时 Vue 会以 null 调用, 同时清空 rowRef
+     */
+    function setRowRef(el: unknown) {
+      rowRef.value = el as HTMLElement | undefined;
+    }
+
+    onMounted(() => {
+      wheneverEffectScopeImmediate(needMeasure, () => {
+        const height = measureSource(rowRef);
+
+        watch(height, (height) => {
+          updateRowHeight(toValue(index), toValue(node).rawNode, height);
+        });
+      });
+    });
+
+    return {
+      rowRef,
+      setRowRef,
+    };
+  }
+
+  /**
+   * 根据高度二分查找索引 ( 响应式, 行高变更时失效重算 )
+   */
+  function findIndexByHeight(height: number) {
+    return heightCache.findIndexByHeight(height, heights.value);
+  }
+
   return {
     visibleStart,
 
     data,
 
-    updateRowHeight,
+    findIndexByHeight,
+
+    useRowMeasure,
   };
 });
-
-function useCumulativeHeights() {
-  const { estimatedRowHeight, fixedRowHeight } = useShared()!;
-  const { displayedData } = useTreeData()!;
-
-  /** 实际行高度集合, key 为行对象本身 */
-  const realRowsHeight = new WeakMap<object, number>();
-
-  /** 缓存累计高度数组 */
-  let cumulativeHeightsCache: number[] = [0];
-  /** 最小脏索引 */
-  const minDirtyIndex = ref<number>();
-
-  /** 更新行高度, index + row */
-  function updateRowHeight(index: number, rowObj: object, height: number) {
-    if (realRowsHeight.get(rowObj) !== height) {
-      realRowsHeight.set(rowObj, height);
-
-      if (minDirtyIndex.value === undefined || index < minDirtyIndex.value) {
-        minDirtyIndex.value = index;
-      }
-    }
-  }
-
-  /** 增量更新累计高度数组 */
-  const cumulativeHeights = computed(() => {
-    const data = displayedData.value;
-    const dataLength = data.length ?? 0;
-    const fixed = fixedRowHeight.value;
-
-    if (fixed != null) {
-      const heights = Array.from({ length: dataLength + 1 }, (_, i) => i * fixed);
-
-      minDirtyIndex.value = undefined;
-      cumulativeHeightsCache = heights;
-
-      return heights;
-    }
-
-    const estimated = estimatedRowHeight.value;
-    const prevLength = cumulativeHeightsCache.length;
-    const dirtyMin = minDirtyIndex.value ?? dataLength;
-    const start = Math.min(prevLength - 1, dirtyMin);
-
-    // 先裁剪到 start 之前
-    const heights = cumulativeHeightsCache.slice(0, start + 1);
-
-    let prev = heights[start] ?? 0;
-    for (let i = start + 1; i <= dataLength; i++) {
-      const rowObj = data[i - 1]?.rawNode;
-      const cachedHeight = rowObj ? realRowsHeight.get(rowObj) : undefined;
-      const rowHeight = cachedHeight != null ? cachedHeight : estimated;
-      prev = prev + rowHeight;
-      heights[i] = prev;
-    }
-
-    // 如果数据变短, 裁剪
-    if (heights.length > dataLength + 1) {
-      heights.length = dataLength + 1;
-    }
-
-    minDirtyIndex.value = undefined;
-    cumulativeHeightsCache = heights;
-
-    return heights;
-  });
-
-  /** 使用二分查找定位索引 */
-  function findIndexByHeight(targetHeight: number) {
-    const dataLength = displayedData.value.length ?? 0;
-    const fixed = fixedRowHeight.value;
-
-    if (fixed != null) {
-      if (dataLength === 0) return 0;
-
-      const normalizedHeight = Math.max(0, targetHeight);
-      const index = Math.ceil(normalizedHeight / fixed) - 1;
-      return Math.min(dataLength - 1, Math.max(0, index));
-    }
-
-    const heights = cumulativeHeights.value;
-    let left = 0;
-    let right = heights.length - 1;
-
-    while (left < right) {
-      const mid = Math.floor((left + right) / 2);
-
-      if (heights[mid] < targetHeight) left = mid + 1;
-      else right = mid;
-    }
-
-    return Math.max(0, left - 1);
-  }
-
-  return {
-    cumulativeHeights,
-
-    updateRowHeight,
-    findIndexByHeight,
-  };
-}

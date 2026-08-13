@@ -1,6 +1,6 @@
 ---
 description: "Use when 执行或修改构建流程（pnpm build）、配置 defineBuild / build.ts、新增子路径导出（package.json exports、meta/alias.ts）、生成 dist 产物，或执行发布 release 流程。"
-applyTo: "**/build.ts,scripts/**,meta/alias.ts"
+applyTo: "**/build.ts,**/package.json,scripts/**,meta/alias.ts"
 ---
 
 # 构建与发布

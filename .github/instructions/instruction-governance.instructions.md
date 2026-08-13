@@ -1,5 +1,6 @@
 ---
 description: "Use when 创建、更新、审查、重命名、拆分或删除 copilot-instructions.md、*.instructions.md，判断 recurring repository convention 是否应沉淀为长期指令，或涉及 memory / /memories/ 笔记、记忆、教训的记录（本仓库禁止写入）。"
+applyTo: "**"
 ---
 
 # 仓库指令治理
@@ -14,7 +15,7 @@ description: "Use when 创建、更新、审查、重命名、拆分或删除 co
 ## 发现与作用域
 
 - 每个 `*.instructions.md` 必须提供带引号、关键词充分的 `description`，并使用 “Use when…” 模式；包含 Agent 可能检索的具体任务术语。
-- 仅当文件或目录匹配时确实应自动附加规则，才添加 `applyTo`。使用尽可能窄的 glob；除非所有仓库任务都需要全文，否则避免 `**`。
+- 每个 `*.instructions.md` 必须始终提供 `applyTo`，限定规则自动附加的文件范围。使用尽可能窄的 glob；除非所有仓库任务都需要全文，否则避免 `**`。
 - 每个文件只处理一个关注点。通过引用关联指令，避免复制规则。
 - 对应指令新增、重命名、拆分或删除时，同步维护总入口路由项。
 

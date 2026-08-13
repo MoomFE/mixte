@@ -1,5 +1,6 @@
 ---
 description: "Use when 编写或修改 Vitepress 文档，涉及 index.md / info.ts / demo 目录、子级文档 docs/<group>/<name>、pnpm udd 生成 meta/docs.json、或 packages/.vitepress 站点配置。"
+applyTo: "packages/**/*.md,packages/**/info.ts,packages/**/demo/**,packages/.vitepress/**,meta/docs.json"
 ---
 
 # 文档约定（Vitepress）

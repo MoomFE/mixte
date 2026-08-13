@@ -2,7 +2,7 @@
 
 <template>
   <div
-    ref="tdRef"
+    :ref="setRowRef"
     class="mixte-gt-cell mixte-gt-td"
     :class="[cellClasses, tdClasses, tdClassesFn(index), tableProps.cellClass, tableProps.contentCellClass, column.cellClass, column.contentCellClass]"
     :style="[cellStyle, { zIndex }, tdStyleFn(index)]"
@@ -44,10 +44,8 @@
 <script lang="ts" setup>
   import type { GridTableColumn, GridTableFieldsSlots } from '@mixte/components/grid-table/types';
   import type { TreeNode } from 'treemate';
-  import { wheneverEffectScopeImmediate } from '@mixte/use';
-  import { useElementSize } from '@vueuse/core';
   import { get, isFunction } from 'mixte';
-  import { computed, onMounted, ref, watch } from 'vue';
+  import { computed } from 'vue';
   import { useCell } from '../composables/useCell';
   import { useShared } from '../composables/useShared';
   import { useTreeData } from '../composables/useTreeData';
@@ -63,28 +61,17 @@
 
   defineSlots<GridTableFieldsSlots<any>>();
 
-  const tdRef = ref<HTMLDivElement>();
-
-  const { props: tableProps, rowKey, childrenKey, expandedIndent, fixedRowHeight } = useShared()!;
+  const { props: tableProps, rowKey, childrenKey, expandedIndent } = useShared()!;
   const { expandedRowKeySet, updateExpanded } = useTreeData()!;
   const { createColumnStore } = useCell()!;
   const { columnIndex, cellClasses, cellStyle, zIndex, tdClasses, tdClassesFn, tdStyleFn, isExpandVisible } = createColumnStore(props.column.field, props.column);
+
+  const { useRowMeasure } = useVirtual()!;
+  const { setRowRef } = useRowMeasure(props.node, () => props.index, columnIndex);
 
   const record = computed(() => props.node.rawNode);
   const value = computed(() => get(record.value, props.column.field));
 
   const expandIconSpaced = computed(() => !record.value[childrenKey.value]?.length);
   const expanded = computed(() => expandedRowKeySet.value.has(props.node.key as string));
-
-  onMounted(() => {
-    const { updateRowHeight } = useVirtual()!;
-
-    wheneverEffectScopeImmediate(() => tableProps.virtual && columnIndex.value === 0 && fixedRowHeight.value == null, () => {
-      const height = useElementSize(tdRef, undefined, { box: 'border-box' }).height;
-
-      watch(height, (height) => {
-        updateRowHeight(props.index, props.node.rawNode, height);
-      });
-    });
-  });
 </script>
