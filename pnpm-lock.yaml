@@ -138,8 +138,8 @@ importers:
         specifier: ^19.2.18
         version: 19.2.18(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu)
       '@types/react-dom':
-        specifier: ^19.2.4
-        version: 19.2.4(@types/react@19.2.18(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))
+        specifier: ^19.2.7
+        version: 19.2.7(@types/react@19.2.18(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))
       '@types/three':
         specifier: 'catalog:'
         version: 0.185.3
@@ -3027,8 +3027,8 @@ packages:
   '@types/postcss-js@4.1.0':
     resolution: {integrity: sha512-E19kBYOk2uEhzxfbam6jALzE6J1GNdny2jdftwDHo72+oWWt7bkWSGzZYVfaRK1r/UToMhAcfbKCAauBXrxi7g==}
 
-  '@types/react-dom@19.2.4':
-    resolution: {integrity: sha512-Bsc+QHgp+P/F02XDzNCY9jnZNCUuLki36KT7VKrTXXLdHf+vHMNZnW1rVu5DNW/rCK+fya3DATySbLM4yhtKUw==}
+  '@types/react-dom@19.2.7':
+    resolution: {integrity: sha512-I8bPpDLcHBv1qiIiXDCy71Rt8eQDKJP0sMSWJphDdAcdqiJ1sGpZamavoEIRZmYzjia9LuEb2HlYdDpmoENpvQ==}
     peerDependencies:
       '@types/react': ^19.2.0
 
@@ -4847,6 +4847,7 @@ packages:
   eslint@9.32.0:
     resolution: {integrity: sha512-LSehfdpgMeWcTZkWZVIJl+tkZ2nuSkyyB9C27MZqFWXuph7DvaowgcTvKqxvpLW1JZIk8PN7hFY3Rj9LQ7m7lg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
     peerDependencies:
       jiti: '*'
@@ -10978,7 +10979,7 @@ snapshots:
     dependencies:
       postcss: 8.5.10
 
-  '@types/react-dom@19.2.4(@types/react@19.2.18(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))':
+  '@types/react-dom@19.2.7(@types/react@19.2.18(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu))':
     dependencies:
       '@types/react': 19.2.18(patch_hash=ijvsbglwqgj3c5len7sb4lw6gu)
 
