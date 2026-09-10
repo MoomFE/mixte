@@ -136,7 +136,7 @@
     "veaury": "catalog:",
     "vite": "^7.0.3",
     "vitepress": "^1.6.4",
-    "vitest": "^3.2.4",
+    "vitest": "^4.0.0",
     "vitest-browser-vue": "^1.0.0",
     "vue": "^3.5.31",
     "vue-component-type-helpers": "catalog:",
