@@ -1,22 +1,22 @@
 import { MixteUseAutoImport } from '@mixte/use/register';
 
 describe('mixteUseAutoImport', () => {
-  it('方法返回一个 key 为 @mixte/use 的对象', () => {
+  it('方法返回一个指向 @mixte/use 的 preset, 并带有高于默认值的 priority', () => {
     const result = MixteUseAutoImport();
 
-    expect(result).toHaveProperty('@mixte/use');
-    expect(Object.keys(result)).toHaveLength(1);
+    expect(result.from).toBe('@mixte/use');
+    expect(result.priority).toBeGreaterThan(1);
   });
 
   it('默认情况下返回所有导出的方法', async () => {
-    const autoImport = MixteUseAutoImport()['@mixte/use'].sort();
+    const autoImport = [...MixteUseAutoImport().imports].sort();
     const mixteUse = Object.keys(await import('@mixte/use')).sort();
 
     expect(autoImport).toStrictEqual(mixteUse);
   });
 
   it('支持传入 `useWithVueUseCore` 选项标识是和 `@vueuse/core` 一起使用的场景, 会排除与 `@vueuse/core` 功能相同且名称相同的方法 ( 不包括 useCountdown, 因功能不同 )', async () => {
-    const autoImport = MixteUseAutoImport({ useWithVueUseCore: true })['@mixte/use'].sort();
+    const autoImport = [...MixteUseAutoImport({ useWithVueUseCore: true }).imports].sort();
     const mixteUse = Object.keys(await import('@mixte/use')).sort();
     const vueuse = Object.keys(await import('@vueuse/core')).sort();
 

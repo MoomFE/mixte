@@ -48,11 +48,12 @@
     "types": [
       "vite/client",
       "vitest/globals",
-      "@vitest/browser/providers/playwright",
+      "@vitest/browser-playwright",
       "element-plus/global",
       "naive-ui/volar",
       "unplugin-icons/types/vue"
     ],
+    "allowImportingTsExtensions": true,
     "allowJs": true,
     "strict": true,
     "strictNullChecks": true,

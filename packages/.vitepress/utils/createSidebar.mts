@@ -1,8 +1,10 @@
 import type { DefaultTheme } from 'vitepress';
-import type { GroupInfo, Info } from '../types/info';
+import type { GroupInfo, Info } from '../types/info.ts';
 import { isEmpty } from 'lodash-es';
 import { pascalCase } from 'scule';
-import { components, melComponents, mixte, snippets, use, validator } from '../../../meta/docs.json';
+import docs from '../../../meta/docs.json' with { type: 'json' };
+
+const { components, melComponents, mixte, snippets, use, validator } = docs;
 
 const sidebarGroup = [
   { text: 'mixte', docs: mixte },

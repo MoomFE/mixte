@@ -2,12 +2,13 @@ import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import Vue from '@vitejs/plugin-vue';
 import VueJsx from '@vitejs/plugin-vue-jsx';
+import { playwright } from '@vitest/browser-playwright';
 import isInCi from 'is-in-ci';
 import { dirname, resolve } from 'pathe';
 import Unocss from 'unocss/vite';
 import { defineConfig } from 'vitest/config';
-import { alias, testAlias } from './meta/alias';
-import VitePlugins from './packages/.vitepress/vite.common.plugins';
+import { alias, testAlias } from './meta/alias.ts';
+import VitePlugins from './packages/.vitepress/vite.common.plugins.ts';
 
 const showBrowserUI = process.env.Browser_UI === 'true';
 
@@ -39,6 +40,8 @@ export default defineConfig(({ mode }) => {
     test: {
       globals: true,
       environment: 'jsdom',
+      // Vitest 5 起 `clearMocks` 默认为 true, 与既有测试行为不符, 这里保持旧行为
+      clearMocks: false,
       coverage: {
         enabled: true,
         provider: 'v8',
@@ -75,7 +78,7 @@ export default defineConfig(({ mode }) => {
             name: 'browser',
             browser: {
               enabled: true,
-              provider: 'playwright',
+              provider: playwright(),
               headless: !showBrowserUI,
               instances: [{
                 browser: 'chromium',

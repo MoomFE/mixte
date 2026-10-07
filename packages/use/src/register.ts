@@ -1,5 +1,5 @@
-import type { ImportsMap } from 'unplugin-auto-import/types';
-import { functions, vueuseFunctions } from './metadata';
+import type { InlinePreset } from 'unimport';
+import { functions, vueuseFunctions } from './metadata.ts';
 
 interface MixteUseAutoImportOptions {
   /**
@@ -15,6 +15,7 @@ interface MixteUseAutoImportOptions {
 /**
  * 按需导入
  *  - 供 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) 使用
+ *  - 返回的 preset 带有高于默认值的 priority, 与 `@vueuse/core` 等存在同名方法时优先使用 `@mixte/use` 的实现 ( 如 `useCountdown` )
  *
  * @example
  *
@@ -36,13 +37,16 @@ interface MixteUseAutoImportOptions {
  *   ],
  * })
  */
-export function MixteUseAutoImport(options?: MixteUseAutoImportOptions): ImportsMap {
+export function MixteUseAutoImport(options?: MixteUseAutoImportOptions): InlinePreset {
   const {
     useWithVueUseCore = false,
   } = options ?? {};
 
   return {
-    '@mixte/use': [
+    from: '@mixte/use',
+    // 高于 unimport 默认的 1, 同名方法冲突时优先使用 `@mixte/use` 的实现
+    priority: 2,
+    imports: [
       ...(useWithVueUseCore ? [] : vueuseFunctions),
       ...functions,
     ],

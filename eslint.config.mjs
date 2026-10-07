@@ -19,6 +19,6 @@ export default moomfe(
   },
   {
     name: 'ignore',
-    ignores: ['**/.agents/**'],
+    ignores: ['**/.agents/**', '.github/**/*.md'],
   },
 );

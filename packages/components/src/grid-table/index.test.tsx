@@ -1270,7 +1270,6 @@ describe('grid-table', () => {
             column: columns.find(c => c.field === 'gender')!,
             columnIndex: columns.findIndex(c => c.field === 'gender'),
             index,
-            key: 2, // ???
           });
 
           columns.forEach((column) => {
@@ -1284,7 +1283,6 @@ describe('grid-table', () => {
                 column,
                 columnIndex: columns.findIndex(c => c.field === column.field),
                 index,
-                key: 3, // ???
               },
             );
           });
@@ -1358,13 +1356,11 @@ describe('grid-table', () => {
         expect(emailSlot).toHaveBeenCalledWith({
           column: columns.find(c => c.field === 'email')!,
           title: '邮箱',
-          key: 1, // ???
         });
 
         expect(commonSlot).toHaveBeenCalledWith({
           column: columns.find(c => c.field === 'age')!,
           title: '年龄',
-          key: 2, // ???
         });
       });
     });

@@ -1,3 +1,4 @@
+import type { BuiltinLanguage } from 'shiki';
 import { fileURLToPath } from 'node:url';
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash';
 import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs';
@@ -6,20 +7,26 @@ import VueJsx from '@vitejs/plugin-vue-jsx';
 import { dirname, resolve } from 'pathe';
 import Unocss from 'unocss/vite';
 import { defineConfig } from 'vitepress';
-import { alias } from '../../meta/alias';
-import { components, melComponents, mixte, snippets, use, validator } from '../../meta/docs.json';
-import { version } from '../../package.json';
-import { MarkdownTransform } from './plugins/markdownTransform';
-import { createDetailSidebar, createSidebar } from './utils/createSidebar.mjs';
-import VitePlugins from './vite.common.plugins';
+import { alias } from '../../meta/alias.ts';
+import docs from '../../meta/docs.json' with { type: 'json' };
+import pkg from '../../package.json' with { type: 'json' };
+import { MarkdownTransform } from './plugins/markdownTransform.ts';
+import { createDetailSidebar, createSidebar } from './utils/createSidebar.mts';
+import VitePlugins from './vite.common.plugins.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const { components, melComponents, mixte, snippets, use, validator } = docs;
+const { version } = pkg;
 
 export default defineConfig({
   title: 'Mixte',
   description: '',
 
   lang: 'zh-CN',
+
+  // 禁用 vitepress 2 对源码目录中 `config.{js,mjs,ts,mts}` 的自动收集
+  additionalConfig: {},
 
   cleanUrls: true,
   rewrites: {
@@ -29,6 +36,18 @@ export default defineConfig({
   },
 
   markdown: {
+    // 预载文档中用到的语言 ( vitepress 2 改为按需加载, twoslash 代码块会绕过按需加载流程 )
+    languages: [
+      'javascript',
+      'typescript',
+      'vue',
+      'jsx',
+      'tsx',
+      'bash',
+      'shellscript',
+      'diff',
+      'html',
+    ] satisfies BuiltinLanguage[],
     codeTransformers: [
       transformerTwoslash({
         typesCache: createFileSystemTypesCache({
@@ -130,13 +149,6 @@ export default defineConfig({
       React({
         jsxImportSource: 'react',
       }),
-      {
-        config: () => ({
-          esbuild: {
-            include: /\.[jt]sx?$/,
-          },
-        }),
-      },
       MarkdownTransform(),
       Unocss({
         configFile: resolve(__dirname, '../unocss.config.ts'),

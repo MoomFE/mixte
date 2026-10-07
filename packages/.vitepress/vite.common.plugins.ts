@@ -5,7 +5,7 @@ import IconsResolver from 'unplugin-icons/resolver';
 import Icons from 'unplugin-icons/vite';
 import { ArcoResolver, ElementPlusResolver, NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 import Components from 'unplugin-vue-components/vite';
-import { MixteUseAutoImport } from '../use/src/register';
+import { MixteUseAutoImport } from '../use/src/register.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

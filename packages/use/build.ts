@@ -6,7 +6,7 @@ defineBuild([
   },
   {
     entry: './src/register.ts',
-    dtsExternal: ['unplugin-auto-import/types'],
+    dtsExternal: ['unimport'],
   },
   {
     entry: './src/nuxt.ts',

@@ -1,5 +1,6 @@
 ---
 description: "Use when 需要了解 Mixte monorepo 的目录结构、各包（mixte / @mixte/use / @mixte/components / @mixte/validator / @mixte/snippets / @mixte/mel-components）的功能模块、路径别名（@ / @@ / alias / testAlias）、常用命令（build / test / docs / lint / udd / release），或新增一个功能模块。"
+applyTo: "**"
 ---
 
 # 项目结构与常用命令
@@ -7,7 +8,7 @@ description: "Use when 需要了解 Mixte monorepo 的目录结构、各包（mi
 ## 仓库概况
 
 - Monorepo，pnpm workspace（`pnpm-workspace.yaml`，包含 `packages/*`、`playground`、`docs`）
-- 包管理器：`pnpm@9.15.6`；CI 使用 Node 20
+- 包管理器：`pnpm@9.15.6`；CI 使用 Node 24
 - 所有发布包版本号统一（当前 `3.6.1`），依赖尽量通过 `catalog:` 集中管理
 - 文档站点（Vitepress）也位于 `packages/` 下，与源码包共处一个 workspace
 
@@ -41,7 +42,7 @@ meta/                          # alias.ts（源码 / 测试别名）、docs.json
 - `@` → `packages/`（Vitest 中为 `packages` 目录，Vitepress 中为 `packages/`）
 - `@@` → 仓库根目录
 - `meta/alias.ts` 定义了两套别名：`alias`（指向各包 `src`，开发 / 文档用）与 `testAlias`（指向 `dist`，`test-build` 用）
-- 新增子路径导出时，需同步维护：包内 `package.json` 的 `exports`、`build.ts` 的 `defineBuild` 配置、`meta/alias.ts`
+- 新增子路径导出时，需同步维护：`build.ts` 的 `defineBuild` 配置、`meta/alias.ts`（详见 `build.instructions.md`）
 
 ## 常用命令
 
@@ -72,4 +73,4 @@ meta/                          # alias.ts（源码 / 测试别名）、docs.json
 7. 运行 `pnpm udd` 重新生成 `meta/docs.json`，确认侧边栏 / 导航出现该模块
 8. 运行 `pnpm lint` 与相关测试（`pnpm test-tsc`）
 
-> 若新增的是「组件 / 需要子路径导出」的模块（如 `components`、`snippets`、`mel-components`），还需同步维护：包内 `package.json` 的 `exports`、`build.ts` 的 `defineBuild` 配置、`meta/alias.ts`，详见 `build.instructions.md`。
+> 若新增的是「组件 / 需要子路径导出」的模块（如 `components`、`snippets`、`mel-components`），还需同步维护：`build.ts` 的 `defineBuild` 配置、`meta/alias.ts`，详见 `build.instructions.md`。

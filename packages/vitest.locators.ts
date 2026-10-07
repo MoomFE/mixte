@@ -1,4 +1,5 @@
-import { locators } from '@vitest/browser/context';
+import type { Locator } from 'vitest/browser';
+import { locators } from 'vitest/browser';
 
 locators.extend({
   getById(id: string) {
@@ -21,7 +22,7 @@ locators.extend({
   },
 });
 
-declare module '@vitest/browser/context' {
+declare module 'vitest/browser' {
   interface LocatorSelectors {
     getById: (id: string) => Locator;
     getByClass: (className: string) => Locator;

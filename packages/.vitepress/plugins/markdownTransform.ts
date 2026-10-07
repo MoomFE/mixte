@@ -2,7 +2,7 @@
 
 import type { BundledLanguage } from 'shiki';
 import type { Plugin } from 'vite';
-import type { Info } from '../types/info';
+import type { Info } from '../types/info.ts';
 import fs from 'fs-extra';
 import { encode } from 'js-base64';
 import { find } from 'lodash-es';
@@ -10,7 +10,7 @@ import MagicString from 'magic-string';
 import { customRandom, random } from 'nanoid';
 import { dirname, resolve } from 'pathe';
 import { camelCase, pascalCase } from 'scule';
-import docs from '../../../meta/docs.json';
+import docs from '../../../meta/docs.json' with { type: 'json' };
 
 const nanoid = customRandom('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', 18, random);
 

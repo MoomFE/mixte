@@ -22,7 +22,8 @@
 
   const data = defineModel<InfiniteScrollProps<T>['data']>('data', {
     required: false,
-    default: DefaultData,
+    // vue 3.5.43 起 `default` 不再允许任意值, 而哨兵值仅用于内部判断是否传入了 v-model
+    default: DefaultData as any,
   });
 
   const rootRef = shallowRef<HTMLDivElement>();

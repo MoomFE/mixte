@@ -32,7 +32,8 @@ export default defineConfig({
     }),
     presetIcons(),
     presetExtra(),
-    presetScrollbar(),
+    // 输出标准滚动条属性 ( scrollbar-color / scrollbar-width, 兼容非 webkit 浏览器 ), 同时避免 unocss 对空结果的 unmatched utility 警告
+    presetScrollbar({ noCompatible: false }),
   ],
   transformers: [
     transformerDirectives(),

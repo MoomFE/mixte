@@ -2,9 +2,9 @@
 /* eslint-disable style/no-multi-spaces */
 
 import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
-import { page, userEvent } from '@vitest/browser/context';
 import { delay, random, randomString } from 'mixte';
 import { render } from 'vitest-browser-vue';
+import { page, userEvent } from 'vitest/browser';
 import 'uno.css';
 import '@/vitest.locators';
 
@@ -626,8 +626,8 @@ describe('grid-table', () => {
           const tableWrap = page.getByClass('mixte-gt-wrap').query() as HTMLDivElement;
           const cells = Array.from(tableWrap.querySelectorAll<HTMLDivElement>('.mixte-gt-cell'));
 
-          expect(tableWrap.attributeStyleMap.get('--mixte-gt-fix-left-column-0-width')).toBe(null);
-          expect(tableWrap.attributeStyleMap.get('--mixte-gt-fix-right-column-0-width')).toBe(null);
+          expect(tableWrap.attributeStyleMap.get('--mixte-gt-fix-left-column-0-width')).toBeUndefined();
+          expect(tableWrap.attributeStyleMap.get('--mixte-gt-fix-right-column-0-width')).toBeUndefined();
 
           cells.forEach((cell, index) => {
             const colIndex = index % columns.length;
@@ -644,7 +644,7 @@ describe('grid-table', () => {
                 break;
               // 未配置
               default:
-                expect(cell.attributeStyleMap.get('left')).toBe(null);
+                expect(cell.attributeStyleMap.get('left')).toBeUndefined();
             }
           });
         });
@@ -686,8 +686,8 @@ describe('grid-table', () => {
 
           expect(Math.abs(left0 - ths.at(0)!.clientWidth)).toBeLessThanOrEqual(1);
           expect(Math.abs(right0 - ths.at(-1)!.clientWidth)).toBeLessThanOrEqual(1);
-          expect(tableWrap.attributeStyleMap.get('--mixte-gt-fix-left-column-1-width')).toBe(null);
-          expect(tableWrap.attributeStyleMap.get('--mixte-gt-fix-right-column-1-width')).toBe(null);
+          expect(tableWrap.attributeStyleMap.get('--mixte-gt-fix-left-column-1-width')).toBeUndefined();
+          expect(tableWrap.attributeStyleMap.get('--mixte-gt-fix-right-column-1-width')).toBeUndefined();
 
           cells.forEach((cell, index) => {
             const colIndex = index % columns.length;
@@ -712,7 +712,7 @@ describe('grid-table', () => {
                 break;
               // 未配置
               default:
-                expect(cell.attributeStyleMap.get('left')).toBe(null);
+                expect(cell.attributeStyleMap.get('left')).toBeUndefined();
             }
           });
         });
@@ -758,8 +758,8 @@ describe('grid-table', () => {
           expect(Math.abs(left1 - ths.at(1)!.clientWidth)).toBeLessThanOrEqual(1);
           expect(Math.abs(right0 - ths.at(-1)!.clientWidth)).toBeLessThanOrEqual(1);
           expect(Math.abs(right1 - ths.at(-2)!.clientWidth)).toBeLessThanOrEqual(1);
-          expect(tableWrap.attributeStyleMap.get('--mixte-gt-fix-left-column-2-width')).toBe(null);
-          expect(tableWrap.attributeStyleMap.get('--mixte-gt-fix-right-column-2-width')).toBe(null);
+          expect(tableWrap.attributeStyleMap.get('--mixte-gt-fix-left-column-2-width')).toBeUndefined();
+          expect(tableWrap.attributeStyleMap.get('--mixte-gt-fix-right-column-2-width')).toBeUndefined();
 
           cells.forEach((cell, index) => {
             const colIndex = index % columns.length;
@@ -792,7 +792,7 @@ describe('grid-table', () => {
                 break;
               // 未配置
               default:
-                expect(cell.attributeStyleMap.get('left')).toBe(null);
+                expect(cell.attributeStyleMap.get('left')).toBeUndefined();
             }
           });
         });
