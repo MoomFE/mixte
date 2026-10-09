@@ -38,5 +38,4 @@ applyTo: "**/*.{ts,tsx,vue}"
 
 ## 其他
 
-- 涉及 React 集成的代码（`ant-design-x` 等）通过 `veaury` 与补丁（`patches/`）桥接
 - 依赖版本尽量走 `catalog:`（`pnpm-workspace.yaml`），不直接写死版本

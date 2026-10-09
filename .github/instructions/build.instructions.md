@@ -17,7 +17,7 @@ applyTo: "**/build.ts,**/package.json,scripts/**,meta/alias.ts"
 ## package.json exports
 
 - 构建结束时会自动同步 `package.json` 的 `exports`：按每个入口生成/修正 `.` 与顶层子路径的 `types` / `import` / `require` 三份映射（新增条目插入在 `./*` 透传条目之前）
-- 嵌套子路径（如 `./tiptap-editor/*`、`./grid-table/*`）已由手写通配符条目覆盖时不会重复新增；其他手写条目（如 `./*` 资源透传）不会被修改或删除
+- 嵌套子路径（如 `./lottery/*`、`./grid-table/*`）已由手写通配符条目覆盖时不会重复新增；其他手写条目（如 `./*` 资源透传）不会被修改或删除
 - 同步仅在内容不一致时写入，一致时为无操作（no-op），运行 `git diff` 不应出现包内 `package.json` 变化
 
 ## 类型生成

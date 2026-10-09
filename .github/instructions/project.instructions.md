@@ -34,7 +34,7 @@ meta/                          # alias.ts（源码 / 测试别名）、docs.json
 - `@mixte/use`：`createNamedSharedComposable` `deepUnref` `useCountdown` `useDraggableDistance` `useFileReader` `useRequest` `watch` `whenever` `wheneverEffectScope`；另有 `register`（组件 / 指令注册）与 `nuxt`（Nuxt 模块）子路径导出
 - `@mixte/components`：`auto-grid`、`grid-table`、`infinite-scroll`；均按子路径导出（如 `@mixte/components/grid-table`），`grid-table` 还导出 `css` / `utils` / `types`
 - `@mixte/validator`：`citizenID`、`email`、`mobile`
-- `@mixte/snippets`：`ant-design-x`（React 集成）、`getFastestCDN`、`lottery`、`low-code-editor`、`tiptap-editor`、`toggleThemeViewTransition`、`useNaiveForm`；其中 `tiptap-editor` / `lottery` / `ant-design-x` / `low-code-editor` 有子路径导出
+- `@mixte/snippets`：`getFastestCDN`、`lottery`、`low-code-editor`、`toggleThemeViewTransition`、`useNaiveForm`；其中 `lottery` / `low-code-editor` 有子路径导出
 - `@mixte/mel-components`：`mel-select`、`utils`
 
 ## 路径别名

@@ -329,63 +329,6 @@
   ],
   "snippets": [
     {
-      "fn": "ant-design-x",
-      "title": "Ant Design X",
-      "name": "",
-      "hiddenTitle": false,
-      "sidebarTitle": "Ant Design X",
-      "children": {
-        "common": [
-          "bubble"
-        ],
-        "express": [
-          "sender"
-        ],
-        "tools": [
-          "x-provider"
-        ],
-        "wake": [
-          "welcome"
-        ]
-      },
-      "childrenGroupInfo": {
-        "common": {
-          "sidebarTitle": "通用"
-        },
-        "wake": {
-          "sidebarTitle": "唤醒"
-        },
-        "express": {
-          "sidebarTitle": "表达"
-        },
-        "tools": {
-          "sidebarTitle": "工具"
-        }
-      },
-      "childrenInfo": {
-        "sender": {
-          "name": "输入框",
-          "title": "Sender",
-          "sidebarTitle": "Sender"
-        },
-        "welcome": {
-          "name": "欢迎",
-          "title": "Welcome",
-          "sidebarTitle": "Welcome"
-        },
-        "x-provider": {
-          "name": "全局化配置",
-          "title": "XProvider",
-          "sidebarTitle": "XProvider"
-        },
-        "bubble": {
-          "name": "对话气泡",
-          "title": "Bubble",
-          "sidebarTitle": "Bubble"
-        }
-      }
-    },
-    {
       "fn": "getFastestCDN",
       "title": "",
       "name": "",
@@ -411,16 +354,6 @@
       "name": "低代码编辑器",
       "hiddenTitle": false,
       "sidebarTitle": "LowCodeEditor",
-      "children": {},
-      "childrenGroupInfo": {},
-      "childrenInfo": {}
-    },
-    {
-      "fn": "tiptap-editor",
-      "title": "TiptapEditor",
-      "name": "富文本编辑器",
-      "hiddenTitle": false,
-      "sidebarTitle": "TiptapEditor",
       "children": {},
       "childrenGroupInfo": {},
       "childrenInfo": {}

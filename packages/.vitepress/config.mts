@@ -2,7 +2,6 @@ import type { BuiltinLanguage } from 'shiki';
 import { fileURLToPath } from 'node:url';
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash';
 import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs';
-import React from '@vitejs/plugin-react';
 import VueJsx from '@vitejs/plugin-vue-jsx';
 import { dirname, resolve } from 'pathe';
 import Unocss from 'unocss/vite';
@@ -140,15 +139,7 @@ export default defineConfig({
       ],
     },
     plugins: [
-      {
-        ...VueJsx({
-          exclude: [/[/\\]components-react[\\/$]+/],
-        }),
-        enforce: 'pre',
-      },
-      React({
-        jsxImportSource: 'react',
-      }),
+      VueJsx(),
       MarkdownTransform(),
       Unocss({
         configFile: resolve(__dirname, '../unocss.config.ts'),
@@ -164,7 +155,7 @@ export default defineConfig({
       },
     },
     ssr: {
-      noExternal: ['element-plus', 'naive-ui', 'vueuc', 'date-fns', 'veaury', /^@ant-design\/.+/, 'antd', /^rc-.+/],
+      noExternal: ['element-plus', 'naive-ui', 'vueuc', 'date-fns'],
     },
   },
 });

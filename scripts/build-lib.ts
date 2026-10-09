@@ -198,9 +198,9 @@ export async function buildLib(lib: BuildEntryConfig) {
             return transformJsx(code, 'vue');
           }
 
-          // 项目内的 .tsx ( components-react 目录使用 react 运行时, 其余使用 vue 运行时 )
+          // 项目内的 .tsx ( 使用 vue 运行时 )
           if (/\.tsx$/.test(id) && !id.includes('node_modules')) {
-            return transformJsx(code, /[/\\]components-react[\\/$]+/.test(id) ? 'react' : 'vue');
+            return transformJsx(code, 'vue');
           }
         },
       },
