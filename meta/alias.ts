@@ -21,16 +21,8 @@ export const alias: Alias[] = [
   },
 
   {
-    find: /^@mixte\/snippets\/tiptap-editor\/(config-provider-Injection-state|icons)$/,
-    replacement: resolve(__dirname, '../packages/snippets/src/tiptap-editor/src/$1'),
-  },
-  {
     find: /^@mixte\/snippets\/lottery\/(config-provider-Injection-state|utils)$/,
     replacement: resolve(__dirname, '../packages/snippets/src/lottery/src/$1'),
-  },
-  {
-    find: /^@mixte\/snippets\/ant-design-x\/(patch-for-(react-19|veaury)|utils)$/,
-    replacement: resolve(__dirname, '../packages/snippets/src/ant-design-x/src/$1'),
   },
   {
     find: /^@mixte\/snippets\/low-code-editor\/(config-provider-Injection-state|types|utils)$/,
@@ -38,11 +30,11 @@ export const alias: Alias[] = [
   },
 
   {
-    find: /^@mixte\/snippets\/dist\/(tiptap-editor|lottery|low-code-editor)\/css\/(.*)$/,
+    find: /^@mixte\/snippets\/dist\/(lottery|low-code-editor)\/css\/(.*)$/,
     replacement: resolve(__dirname, '../packages/snippets/src/$1/src/css/$2'),
   },
   {
-    find: /^@mixte\/snippets\/(tiptap-editor|lottery|ant-design-x|low-code-editor)\/(.*)$/,
+    find: /^@mixte\/snippets\/(lottery|low-code-editor)\/(.*)$/,
     replacement: resolve(__dirname, '../packages/snippets/src/$1/$2'),
   },
 
@@ -68,11 +60,11 @@ export const testAlias: Alias[] = [
   },
 
   {
-    find: /^@mixte\/snippets\/dist\/(tiptap-editor|lottery|low-code-editor)\/css\/(.*)$/,
+    find: /^@mixte\/snippets\/dist\/(lottery|low-code-editor)\/css\/(.*)$/,
     replacement: resolve(__dirname, '../packages/snippets/dist/$1/css/$2'),
   },
   {
-    find: /^@mixte\/snippets\/(tiptap-editor|lottery|ant-design-x|low-code-editor)\/(.*)$/,
+    find: /^@mixte\/snippets\/(lottery|low-code-editor)\/(.*)$/,
     replacement: resolve(__dirname, '../packages/snippets/dist/$1/$2'),
   },
 

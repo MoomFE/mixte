@@ -1,5 +1,8 @@
 ## [Unreleased]
   - 💄 [@mixte/components] 重构 `GridTable` 树形数据展开行状态管理, 补充相关测试
+  - 💄 [@mixte/components] 重构 `GridTable` 虚拟列表行高缓存及测量逻辑
+  - ⚠️ 构建由 `rollup` 迁移至 `tsdown`
+  - ⚠️ [@mixte/snippets] 删除 `ant-design-x` 与 `tiptap-editor` 模块及相关依赖
 
 ## [v3.6.1]
   - 📅 2026-04-17

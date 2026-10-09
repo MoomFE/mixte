@@ -78,12 +78,12 @@ interface BuildPackageJson {
   peerDependencies?: Record<string, string>;
 }
 
-/** 将 JSX 转译为指定运行时 ( rolldown 会遵循 tsconfig 的 `jsx: preserve` 而保留 JSX ) */
-async function transformJsx(code: string, jsxImportSource: string) {
+/** 将 JSX 转译为 Vue 运行时 ( rolldown 会遵循 tsconfig 的 `jsx: preserve` 而保留 JSX ) */
+async function transformJsx(code: string) {
   const result = await esbuild.transform(code, {
     loader: 'tsx',
     jsx: 'automatic',
-    jsxImportSource,
+    jsxImportSource: 'vue',
   });
 
   return { code: result.code };
@@ -195,12 +195,7 @@ export async function buildLib(lib: BuildEntryConfig) {
         async transform(code, id) {
           // .vue 内 lang="tsx" 的脚本块
           if (id.includes('.vue?vue&') && id.includes('lang.tsx')) {
-            return transformJsx(code, 'vue');
-          }
-
-          // 项目内的 .tsx ( components-react 目录使用 react 运行时, 其余使用 vue 运行时 )
-          if (/\.tsx$/.test(id) && !id.includes('node_modules')) {
-            return transformJsx(code, /[/\\]components-react[\\/$]+/.test(id) ? 'react' : 'vue');
+            return transformJsx(code);
           }
         },
       },

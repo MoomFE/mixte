@@ -19,19 +19,10 @@
         "./packages/components/src/grid-table/*"
       ],
 
-      "@mixte/snippets/dist/tiptap-editor/css/*": ["./packages/snippets/src/tiptap-editor/src/css/*"],
-      "@mixte/snippets/tiptap-editor/*": [
-        "./packages/snippets/src/tiptap-editor/src/*",
-        "./packages/snippets/src/tiptap-editor/*"
-      ],
       "@mixte/snippets/dist/lottery/css/*": ["./packages/snippets/src/lottery/src/css/*"],
       "@mixte/snippets/lottery/*": [
         "./packages/snippets/src/lottery/src/*",
         "./packages/snippets/src/lottery/*"
-      ],
-      "@mixte/snippets/ant-design-x/*": [
-        "./packages/snippets/src/ant-design-x/src/*",
-        "./packages/snippets/src/ant-design-x/*"
       ],
       "@mixte/snippets/dist/low-code-editor/css/*": ["./packages/snippets/src/low-code-editor/src/css/*"],
       "@mixte/snippets/low-code-editor/*": [
