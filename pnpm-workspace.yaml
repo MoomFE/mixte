@@ -3,9 +3,9 @@ packages:
   - playground
   - docs
 catalog:
-  '@types/three': ^0.185.3
+  '@types/three': ^0.186.0
   gsap: ^3.15.0
   nanoid: ^5.1.16
-  three: ^0.185.1
-  vue-component-type-helpers: ^3.3.9
+  three: ^0.186.1
+  vue-component-type-helpers: ^3.3.13
   vue-draggable-plus: ^0.6.1
