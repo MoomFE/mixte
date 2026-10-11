@@ -1,7 +1,13 @@
+import type { ModuleOptions, NuxtModule } from '@nuxt/schema';
 import { defineNuxtModule } from '@nuxt/kit';
 import { functions, vueuseFunctions } from './metadata';
 
-export default defineNuxtModule({
+interface MixteUseModuleOptions extends ModuleOptions {
+  /** 自动导入 @mixte/use 中的方法 */
+  autoImports?: boolean;
+}
+
+const nuxtModule: NuxtModule<MixteUseModuleOptions, MixteUseModuleOptions, false> = defineNuxtModule<MixteUseModuleOptions>({
   meta: {
     name: '@mixte/use',
     configKey: 'mixteUse',
@@ -23,3 +29,5 @@ export default defineNuxtModule({
     }
   },
 });
+
+export default nuxtModule;
