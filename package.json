@@ -63,7 +63,6 @@
     "@shikijs/vitepress-twoslash": "catalog:",
     "@tsdown/css": "catalog:",
     "@types/fs-extra": "catalog:",
-    "@types/js-yaml": "catalog:",
     "@types/lodash-es": "catalog:",
     "@types/postcss-js": "catalog:",
     "@types/three": "catalog:",

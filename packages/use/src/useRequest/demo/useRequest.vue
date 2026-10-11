@@ -22,7 +22,7 @@
 <script lang="tsx" setup>
   import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
   import axios from 'axios';
-  import yaml from 'js-yaml';
+  import * as yaml from 'js-yaml';
   import { isPlainObject, omit } from 'mixte';
   import { useData } from 'vitepress';
 
