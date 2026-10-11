@@ -28,3 +28,5 @@ minimumReleaseAgeExclude:
   - rolldown-plugin-dts@0.28.7
   - tsdown@0.23.1
   - vue-component-type-helpers@3.3.13
+  - '@vue/language-core@3.3.13'
+  - vue-tsc@3.3.13
