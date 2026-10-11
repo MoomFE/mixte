@@ -79,6 +79,7 @@ catalog:
   '@nuxt/kit': ^4.6.1
   '@nuxt/schema': ^4.6.1
   '@rollup/pluginutils': ^5.4.0
+  '@shikijs/magic-move': ^4.5.0
   '@shikijs/vitepress-twoslash': ^4.5.0
   '@tsdown/css': 0.23.1
   '@types/fs-extra': ^11.0.4
@@ -125,7 +126,6 @@ catalog:
   sass: ^1.105.1
   scule: ^1.3.0
   shiki: ^4.5.0
-  shiki-magic-move: ^1.4.0
   simple-git-hooks: ^2.14.0
   three: ^0.186.1
   treemate: ^0.3.11

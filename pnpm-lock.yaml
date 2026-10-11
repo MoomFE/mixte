@@ -210,6 +210,9 @@ catalogs:
     '@rollup/pluginutils':
       specifier: ^5.4.0
       version: 5.4.0
+    '@shikijs/magic-move':
+      specifier: ^4.5.0
+      version: 4.5.0
     '@shikijs/vitepress-twoslash':
       specifier: ^4.5.0
       version: 4.5.0
@@ -345,9 +348,6 @@ catalogs:
     shiki:
       specifier: ^4.5.0
       version: 4.5.0
-    shiki-magic-move:
-      specifier: ^1.4.0
-      version: 1.4.0
     simple-git-hooks:
       specifier: ^2.14.0
       version: 2.14.0
@@ -456,6 +456,9 @@ importers:
       '@rollup/pluginutils':
         specifier: 'catalog:'
         version: 5.4.0(rollup@4.64.4)
+      '@shikijs/magic-move':
+        specifier: 'catalog:'
+        version: 4.5.0(react@19.2.8)(shiki@4.5.0)(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3))
       '@shikijs/vitepress-twoslash':
         specifier: 'catalog:'
         version: 4.5.0(@nuxt/kit@4.6.1(@nuxt/schema@4.6.1)(confbox@0.3.1)(dotenv@17.3.1)(giget@3.3.1)(jiti@2.7.0)(magic-string@1.4.3)(mlly@1.8.2)(oxc-parser@0.150.0)(rolldown@1.2.13)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.13)(rollup@4.64.4)(vite@8.3.4(@types/node@22.13.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.46.0)(tsx@4.23.15)(yaml@2.8.2))))(supports-color@10.2.2)(typescript@6.0.3)
@@ -597,9 +600,6 @@ importers:
       shiki:
         specifier: 'catalog:'
         version: 4.5.0
-      shiki-magic-move:
-        specifier: 'catalog:'
-        version: 1.4.0(react@19.2.8)(shiki@4.5.0)(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3))
       simple-git-hooks:
         specifier: 'catalog:'
         version: 2.14.0
@@ -6110,28 +6110,6 @@ packages:
   shell-quote@1.12.0:
     resolution: {integrity: sha512-PcByqNyT/38F2kDNi006HAMRJaULuBzq/FOsw3qdZvX/GA9W/jamDaRskgHjubHiftXK5sIFxLNkvrXUwcof6Q==}
     engines: {node: '>= 0.4'}
-
-  shiki-magic-move@1.4.0:
-    resolution: {integrity: sha512-DDEv7khyBMAQghQEfQ6Ab3KZxT5ub6tVNe8+NcvglWauKVV9jxiRYC055DoiFLgvs6Hd9+LuBndeaSPNOSxgSg==}
-    engines: {node: '>=20'}
-    deprecated: shiki-magic-move is now @shikijs/magic-move, please migrate by renaming the package
-    peerDependencies:
-      react: ^18.2.0 || ^19.0.0
-      shiki: ^4.0.0
-      solid-js: ^1.9.1
-      svelte: ^5.0.0-0
-      vue: ^3.5.43
-    peerDependenciesMeta:
-      react:
-        optional: true
-      shiki:
-        optional: true
-      solid-js:
-        optional: true
-      svelte:
-        optional: true
-      vue:
-        optional: true
 
   shiki@4.5.0:
     resolution: {integrity: sha512-OcRW72ngQvc+MSVWBRIovC/BTW589iUE/Vxav7VeM4RcY9MUjqB+IR6ILG1k9nuW6LiG/nct9uma4/MBtnZbmQ==}
@@ -13329,14 +13307,6 @@ snapshots:
   shebang-regex@3.0.0: {}
 
   shell-quote@1.12.0: {}
-
-  shiki-magic-move@1.4.0(react@19.2.8)(shiki@4.5.0)(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3)):
-    dependencies:
-      '@shikijs/magic-move': 4.5.0(react@19.2.8)(shiki@4.5.0)(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3))
-    optionalDependencies:
-      react: 19.2.8
-      shiki: 4.5.0
-      vue: 3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3)
 
   shiki@4.5.0:
     dependencies:

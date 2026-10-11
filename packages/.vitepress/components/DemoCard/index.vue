@@ -61,15 +61,15 @@
 
 <script lang="ts" setup>
   import type { Highlighter } from 'shiki';
+  import { ShikiMagicMove } from '@shikijs/magic-move/vue';
   import elZhCN from 'element-plus/es/locale/lang/zh-cn';
   import { decode } from 'js-base64';
   import { isBrowser } from 'mixte';
   import { darkTheme, dateZhCN, NConfigProvider, zhCN } from 'naive-ui';
   import { getSingletonHighlighter } from 'shiki';
-  import { ShikiMagicMove } from 'shiki-magic-move/vue';
   import { useData } from 'vitepress';
   import { nextTick } from 'vue';
-  import 'shiki-magic-move/dist/style.css';
+  import '@shikijs/magic-move/style.css';
 
   interface Props {
     code?: string;
