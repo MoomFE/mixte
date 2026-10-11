@@ -193,8 +193,8 @@ catalogs:
       specifier: ^2.58.0
       version: 2.58.0
     '@floating-ui/vue':
-      specifier: ^1.1.11
-      version: 1.1.11
+      specifier: ^2.0.1
+      version: 2.0.1
     '@iconify/json':
       specifier: ^2.2.541
       version: 2.2.541
@@ -229,8 +229,8 @@ catalogs:
       specifier: ^0.186.0
       version: 0.186.0
     '@vercel/analytics':
-      specifier: ^1.6.1
-      version: 1.6.1
+      specifier: ^2.0.1
+      version: 2.0.1
     '@vitejs/plugin-vue':
       specifier: ^6.0.10
       version: 6.0.10
@@ -376,8 +376,8 @@ catalogs:
       specifier: ^1.0.0
       version: 1.0.0
     unocss-preset-scrollbar:
-      specifier: ^3.2.0
-      version: 3.2.0
+      specifier: ^4.0.0
+      version: 4.0.0
     unplugin-auto-import:
       specifier: ^21.1.0
       version: 21.1.0
@@ -428,7 +428,7 @@ importers:
         version: 2.58.0(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3))
       '@floating-ui/vue':
         specifier: 'catalog:'
-        version: 1.1.11(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3))
+        version: 2.0.1(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3))
       '@iconify/json':
         specifier: 'catalog:'
         version: 2.2.541
@@ -476,7 +476,7 @@ importers:
         version: 0.186.0
       '@vercel/analytics':
         specifier: 'catalog:'
-        version: 1.6.1(react@19.2.8)(vue-router@4.6.4(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3)))(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3))
+        version: 2.0.1(3855c222ece089a49c20b5312f76b8ad)
       '@vitejs/plugin-vue':
         specifier: 'catalog:'
         version: 6.0.10(vite@8.3.4(@types/node@22.13.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.46.0)(tsx@4.23.15)(yaml@2.8.2))(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3))
@@ -629,7 +629,7 @@ importers:
         version: 1.0.0(unocss@66.10.5(cac@7.0.1)(rolldown@1.2.13)(rollup@4.64.4)(srvx@1.0.5)(vite@8.3.4(@types/node@22.13.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.46.0)(tsx@4.23.15)(yaml@2.8.2)))
       unocss-preset-scrollbar:
         specifier: 'catalog:'
-        version: 3.2.0(unocss@66.10.5(cac@7.0.1)(rolldown@1.2.13)(rollup@4.64.4)(srvx@1.0.5)(vite@8.3.4(@types/node@22.13.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.46.0)(tsx@4.23.15)(yaml@2.8.2)))
+        version: 4.0.0(unocss@66.10.5(cac@7.0.1)(rolldown@1.2.13)(rollup@4.64.4)(srvx@1.0.5)(vite@8.3.4(@types/node@22.13.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.46.0)(tsx@4.23.15)(yaml@2.8.2)))
       unplugin-auto-import:
         specifier: 'catalog:'
         version: 21.1.0(@nuxt/kit@4.6.1(@nuxt/schema@4.6.1)(confbox@0.3.1)(dotenv@17.3.1)(giget@3.3.1)(jiti@2.7.0)(magic-string@1.4.3)(mlly@1.8.2)(oxc-parser@0.150.0)(rolldown@1.2.13)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.13)(rollup@4.64.4)(vite@8.3.4(@types/node@22.13.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.46.0)(tsx@4.23.15)(yaml@2.8.2))))(@vueuse/core@15.0.0(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3)))(esbuild@0.28.2)(oxc-parser@0.150.0)(rolldown@1.2.13)(rollup@4.64.4)(vite@8.3.4(@types/node@22.13.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.46.0)(tsx@4.23.15)(yaml@2.8.2))
@@ -1378,26 +1378,19 @@ packages:
   '@fastify/busboy@3.2.2':
     resolution: {integrity: sha512-yXSS27qPExaXeuLvMRMXOLtpipzfQYNjG3FkunDWKGfMYjKuhFXko9CVzqxm8jcF+lmtS9Fd89QNdh9XDjnbNg==}
 
-  '@floating-ui/core@1.7.5':
-    resolution: {integrity: sha512-1Ih4WTWyw0+lKyFMcBHGbb5U5FtuHJuujoyyr5zTaWS5EYMeT6Jb2AuDeftsCsEuchO+mM2ij5+q9crhydzLhQ==}
-
   '@floating-ui/core@1.8.0':
     resolution: {integrity: sha512-0CIZ5itps/8x7BG8dEIhs53BvCUH2PCoogtakwRTut+Arm58sJooJ0AuZhLw2HJYIR5cMLNPBSS728sPho2khQ==}
-
-  '@floating-ui/dom@1.7.6':
-    resolution: {integrity: sha512-9gZSAI5XM36880PPMm//9dfiEngYoC6Am2izES1FF406YFsjvyBMmeJ2g4SAju3xWwtuynNRFL2s9hgxpLI5SQ==}
 
   '@floating-ui/dom@1.8.0':
     resolution: {integrity: sha512-yXSrzeHZBTZadLOlfyhCkJHNeLJnHRnRInwdZ40L7ZiaAtrBwoYlsDrX3v5zB1Utk7CLfzcOVnVVWoXEky7Ceg==}
 
-  '@floating-ui/utils@0.2.11':
-    resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
-
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
 
-  '@floating-ui/vue@1.1.11':
-    resolution: {integrity: sha512-HzHKCNVxnGS35r9fCHBc3+uCnjw9IWIlCPL683cGgM9Kgj2BiAl8x1mS7vtvP6F9S/e/q4O6MApwSHj8hNLGfw==}
+  '@floating-ui/vue@2.0.1':
+    resolution: {integrity: sha512-043dyEKD9TDSfz080YH2vobubgg+NIo/9Fw4RAl7sEMpD8Am1DNrrSTl/GpMBjyGHoD/FbJY2QLawY+HSQsEIA==}
+    peerDependencies:
+      vue: ^3.5.43
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -2622,14 +2615,8 @@ packages:
   '@unocss/config@66.10.5':
     resolution: {integrity: sha512-ddmmmsJ+Vjg9oS4c5ElP8vR1oftID9dqG0yASDWLsLNY4uKo295EuCQXIBVbkyRnBZcdjpnOUfo71iwElaCeyA==}
 
-  '@unocss/core@65.4.3':
-    resolution: {integrity: sha512-luFgdcchSlNrYSaDvU2176T2PPQZdxqfREVbxEXNXlFEgyEFrx5hOSUXoJtJSZjRhAcE6zkWyLDf/JkQJ5Eeyw==}
-
   '@unocss/core@66.10.5':
     resolution: {integrity: sha512-fukv4bL32z/kWIiKgDy5ih452Jzf7S76p8RnP4N+3utqMFeqWayEApiqRidGv5b6NwPguTsKXaLsy+mbK9aMfA==}
-
-  '@unocss/extractor-arbitrary-variants@65.4.3':
-    resolution: {integrity: sha512-RhSOOzOxkNjJl9zeglaBe0U+o39jleCCNPWJ87DDJA3ckbyylIIf21ZwY1Xu76rmdar5DT9ob7ucuPfEpJLN9A==}
 
   '@unocss/extractor-arbitrary-variants@66.10.5':
     resolution: {integrity: sha512-8qCJjByALdNiGQB1xHWK3tAl3n+hacBLlklqHhgNj0qWYtr3Hp+pfyA2nuyzJcPXkolqtGn1APJ1TNPbL5w+qg==}
@@ -2642,9 +2629,6 @@ packages:
 
   '@unocss/preset-icons@66.10.5':
     resolution: {integrity: sha512-YZuDehWpwpvLzkMPxO329fhd66GKpblhbUHrL/5uVMAXJpxK7ZVSQECgpIbU8sXlc4/gvTOjkIFD0fZ1MRPK7A==}
-
-  '@unocss/preset-mini@65.4.3':
-    resolution: {integrity: sha512-JajAF18DKJRXgd9usrAYTcHUtZy606mD396ZswDgw/mUSu529tuiT6LOD43aJMYHgPEw7wKYjiGFHkeBTHijuQ==}
 
   '@unocss/preset-mini@66.10.5':
     resolution: {integrity: sha512-oFKjmK32jyKp8rMI8Zu5+1AaFOvbwlQ7wztNGjtiAhhglKREZoncThLBE6Yd3B2+p/xf8YXfSOr5TFzhzXnDIQ==}
@@ -2681,10 +2665,6 @@ packages:
       rollup:
         optional: true
 
-  '@unocss/rule-utils@65.4.3':
-    resolution: {integrity: sha512-bzRRdb9mb82IvgOt3KiRyUh/njRfJC3hoV84lMyUPryT8YTEP/hl6kt2KQ2l1K3WDz7ZPQXVi2eqUbqc+AUpwg==}
-    engines: {node: '>=14'}
-
   '@unocss/rule-utils@66.10.5':
     resolution: {integrity: sha512-ePcz9fJfEVN4VXJgx2bPdGSZ/ujdyUhiJOnMTwIWRxlUdZ2Wgc5aT6zTb9W9AjOB0eWxO2Iyb0HGhA9GGuIY8g==}
 
@@ -2705,12 +2685,13 @@ packages:
     peerDependencies:
       vite: ^5.0.0-0 || ^6.0.0-0 || ^7.0.0-0 || ^8.0.0-0
 
-  '@vercel/analytics@1.6.1':
-    resolution: {integrity: sha512-oH9He/bEM+6oKlv3chWuOOcp8Y6fo6/PSro8hEkgCW3pu9/OiCXiUpRUogDh3Fs3LH2sosDrx8CxeOLBEE+afg==}
+  '@vercel/analytics@2.0.1':
+    resolution: {integrity: sha512-MTQG6V9qQrt1tsDeF+2Uoo5aPjqbVPys1xvnIftXSJYG2SrwXRHnqEvVoYID7BTruDz4lCd2Z7rM1BdkUehk2g==}
     peerDependencies:
       '@remix-run/react': ^2
       '@sveltejs/kit': ^1 || ^2
       next: '>= 13'
+      nuxt: '>= 3'
       react: ^18 || ^19 || ^19.0.0-rc
       svelte: '>= 4'
       vue: ^3.5.43
@@ -2721,6 +2702,8 @@ packages:
       '@sveltejs/kit':
         optional: true
       next:
+        optional: true
+      nuxt:
         optional: true
       react:
         optional: true
@@ -6671,10 +6654,10 @@ packages:
     peerDependencies:
       unocss: '>= 0.31.0'
 
-  unocss-preset-scrollbar@3.2.0:
-    resolution: {integrity: sha512-j8BOoh2RgPm2U8XqEjMQ+XQk4YWYPH4T+yzv3fndxS+VpdizQinMvHmfsZGLN3yMv7I4O5Qi8fVTlQDhETyzbA==}
+  unocss-preset-scrollbar@4.0.0:
+    resolution: {integrity: sha512-wPePkUCOvWsA1kOeImQtBzUnBuWhFvo2gOdWsPpmBke+z2zWbW4p9KfOPtGch+WrgnwnpmM4d4BxoVulC+1xhA==}
     peerDependencies:
-      unocss: '>= 0.31.13'
+      unocss: '>=66.0.0'
 
   unocss@66.10.5:
     resolution: {integrity: sha512-hts6uxRjtEdOLmdmo0Mbh5k3jrHsjsQlU3rFJdtob+wu57iM5b+d70fnxqMWe7yF/OBeiZKW6H+ti0qHNJBKPw==}
@@ -7086,17 +7069,6 @@ packages:
 
   vue-component-type-helpers@3.3.13:
     resolution: {integrity: sha512-02KCxSmKDhIITjKyJ4QT5csP6L0WoRborLqY/34a40+S9uvMvdNgMV0yVjO3p2Gkz3ZoPmFz/0JsGHacwJYTxw==}
-
-  vue-demi@0.14.10:
-    resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
-    engines: {node: '>=12'}
-    hasBin: true
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue: ^3.5.43
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
 
   vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
@@ -7944,36 +7916,22 @@ snapshots:
   '@fastify/busboy@3.2.2':
     optional: true
 
-  '@floating-ui/core@1.7.5':
-    dependencies:
-      '@floating-ui/utils': 0.2.11
-
   '@floating-ui/core@1.8.0':
     dependencies:
       '@floating-ui/utils': 0.2.12
-
-  '@floating-ui/dom@1.7.6':
-    dependencies:
-      '@floating-ui/core': 1.7.5
-      '@floating-ui/utils': 0.2.11
 
   '@floating-ui/dom@1.8.0':
     dependencies:
       '@floating-ui/core': 1.8.0
       '@floating-ui/utils': 0.2.12
 
-  '@floating-ui/utils@0.2.11': {}
-
   '@floating-ui/utils@0.2.12': {}
 
-  '@floating-ui/vue@1.1.11(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3))':
+  '@floating-ui/vue@2.0.1(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3))':
     dependencies:
-      '@floating-ui/dom': 1.7.6
-      '@floating-ui/utils': 0.2.11
-      vue-demi: 0.14.10(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3))
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
+      '@floating-ui/dom': 1.8.0
+      '@floating-ui/utils': 0.2.12
+      vue: 3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3)
 
   '@humanfs/core@0.19.1': {}
 
@@ -9300,13 +9258,7 @@ snapshots:
       consola: 3.4.2
       unconfig: 7.5.0
 
-  '@unocss/core@65.4.3': {}
-
   '@unocss/core@66.10.5': {}
-
-  '@unocss/extractor-arbitrary-variants@65.4.3':
-    dependencies:
-      '@unocss/core': 65.4.3
 
   '@unocss/extractor-arbitrary-variants@66.10.5':
     dependencies:
@@ -9335,12 +9287,6 @@ snapshots:
       '@iconify/utils': 3.1.7
       '@unocss/core': 66.10.5
       ofetch: 1.5.1
-
-  '@unocss/preset-mini@65.4.3':
-    dependencies:
-      '@unocss/core': 65.4.3
-      '@unocss/extractor-arbitrary-variants': 65.4.3
-      '@unocss/rule-utils': 65.4.3
 
   '@unocss/preset-mini@66.10.5':
     dependencies:
@@ -9398,11 +9344,6 @@ snapshots:
       rolldown: 1.2.13
       rollup: 4.64.4
 
-  '@unocss/rule-utils@65.4.3':
-    dependencies:
-      '@unocss/core': 65.4.3
-      magic-string: 0.30.21
-
   '@unocss/rule-utils@66.10.5':
     dependencies:
       '@unocss/core': 66.10.5
@@ -9446,8 +9387,9 @@ snapshots:
       - ocache
       - srvx
 
-  '@vercel/analytics@1.6.1(react@19.2.8)(vue-router@4.6.4(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3)))(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3))':
+  '@vercel/analytics@2.0.1(3855c222ece089a49c20b5312f76b8ad)':
     optionalDependencies:
+      nuxt: 4.6.1(@babel/plugin-syntax-jsx@7.28.6(@babel/core@7.29.0(supports-color@10.2.2)))(@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.0(supports-color@10.2.2)))(@netlify/blobs@9.1.2)(@oxc-project/types@0.153.0)(@types/node@22.13.1)(@vue/compiler-sfc@3.5.43)(acorn@8.16.0)(confbox@0.3.1)(db0@0.3.4)(dotenv@17.3.1)(esbuild@0.28.2)(eslint@10.12.0(jiti@2.7.0)(supports-color@10.2.2))(giget@3.3.1)(ioredis@5.11.1(supports-color@10.2.2))(lightningcss@1.33.0)(mlly@1.8.2)(optionator@0.9.4)(oxc-parser@0.150.0)(rolldown@1.2.13)(rollup-plugin-visualizer@7.1.1(rolldown@1.2.13)(rollup@4.64.4))(rollup@4.64.4)(sass@1.105.1)(srvx@1.0.5)(supports-color@10.2.2)(terser@5.46.0)(tsx@4.23.15)(typescript@6.0.3)(vite@8.3.4(@types/node@22.13.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.46.0)(tsx@4.23.15)(yaml@2.8.2))(vue-tsc@3.3.13(typescript@6.0.3))(yaml@2.8.2)
       react: 19.2.8
       vue: 3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3)
       vue-router: 4.6.4(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3))
@@ -13943,9 +13885,9 @@ snapshots:
     dependencies:
       unocss: 66.10.5(cac@7.0.1)(rolldown@1.2.13)(rollup@4.64.4)(srvx@1.0.5)(vite@8.3.4(@types/node@22.13.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.46.0)(tsx@4.23.15)(yaml@2.8.2))
 
-  unocss-preset-scrollbar@3.2.0(unocss@66.10.5(cac@7.0.1)(rolldown@1.2.13)(rollup@4.64.4)(srvx@1.0.5)(vite@8.3.4(@types/node@22.13.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.46.0)(tsx@4.23.15)(yaml@2.8.2))):
+  unocss-preset-scrollbar@4.0.0(unocss@66.10.5(cac@7.0.1)(rolldown@1.2.13)(rollup@4.64.4)(srvx@1.0.5)(vite@8.3.4(@types/node@22.13.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.46.0)(tsx@4.23.15)(yaml@2.8.2))):
     dependencies:
-      '@unocss/preset-mini': 65.4.3
+      '@unocss/preset-mini': 66.10.5
       unocss: 66.10.5(cac@7.0.1)(rolldown@1.2.13)(rollup@4.64.4)(srvx@1.0.5)(vite@8.3.4(@types/node@22.13.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.46.0)(tsx@4.23.15)(yaml@2.8.2))
 
   unocss@66.10.5(cac@7.0.1)(rolldown@1.2.13)(rollup@4.64.4)(srvx@1.0.5)(vite@8.3.4(@types/node@22.13.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.105.1)(terser@5.46.0)(tsx@4.23.15)(yaml@2.8.2)):
@@ -14370,10 +14312,6 @@ snapshots:
       ufo: 1.6.4
 
   vue-component-type-helpers@3.3.13: {}
-
-  vue-demi@0.14.10(vue@3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3)):
-    dependencies:
-      vue: 3.5.43(patch_hash=459161b1b73a7aa8613b82f048ce17cb556aede2470b4697a92940c197216d62)(typescript@6.0.3)
 
   vue-devtools-stub@0.1.0: {}
 
