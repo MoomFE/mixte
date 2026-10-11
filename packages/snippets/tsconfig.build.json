@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.tsc.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "rootDir": "src",
     "paths": {
       "@mixte/snippets/lottery/config-provider-Injection-state": ["./src/lottery/src/config-provider-Injection-state"],

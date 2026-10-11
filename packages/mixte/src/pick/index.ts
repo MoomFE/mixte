@@ -79,11 +79,7 @@ export function omit<T extends object, K extends keyof T>(
  */
 export function pickDeep<
   T extends object,
-  K extends Paths<T, {
-    maxRecursionDepth: 10;
-    bracketNotation: false;
-    leavesOnly: false;
-  }>,
+  K extends Paths<T>,
 >(
   obj: T,
   keys: (K | (string & {}))[] | readonly (K | (string & {}))[] | (K | (string & {})),

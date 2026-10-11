@@ -132,8 +132,8 @@ catalog:
   treemate: ^0.3.11
   tsdown: 0.23.1
   tsx: ^4.23.15
-  type-fest: ^4.41.0
-  typescript: ~5.9.3
+  type-fest: ^5.10.0
+  typescript: ~6.0.3
   unocss: ^66.10.5
   unocss-preset-extra: ^1.0.0
   unocss-preset-scrollbar: ^3.2.0
