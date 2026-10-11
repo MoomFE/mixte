@@ -1,5 +1,6 @@
 /* eslint-disable antfu/consistent-list-newline */
 
+import type { ComputedRef, Ref, ShallowRef } from 'vue';
 import type { LotteryProps, User } from './types';
 import { addHighlight, createCard, createHighlight, removeHighlight, updateCard, updateCardBg } from '@mixte/snippets/lottery/utils';
 import { useRequest, watchImmediate, wheneverEffectScope, wheneverEffectScopeImmediate } from '@mixte/use';
@@ -12,6 +13,39 @@ import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls
 import { computed, markRaw, onMounted, ref, shallowReactive, shallowRef, watch } from 'vue';
 import { CSS3DObject, CSS3DRenderer } from './CSS3DRenderer';
 
+interface LotterySharedStore {
+  rootRef: Ref<HTMLDivElement | undefined>;
+  rootWidth: Ref<number>;
+  rootHeight: Ref<number>;
+  vh: ComputedRef<number>;
+
+  camera: ShallowRef<THREE.PerspectiveCamera | undefined>;
+  scene: ShallowRef<THREE.Scene | undefined>;
+  renderer: ShallowRef<CSS3DRenderer | undefined>;
+  controls: ShallowRef<TrackballControls | undefined>;
+
+  cards: Ref<CSS3DObject[]>;
+  targets: {
+    table: THREE.Object3D[];
+    sphere: THREE.Object3D[];
+    current: THREE.Object3D[];
+  };
+  isTable: ComputedRef<boolean>;
+  isSphere: ComputedRef<boolean>;
+
+  highlightCells: string[];
+
+  selectedCardsIndex: Ref<number[]>;
+  resetselectedCardsElement: () => void;
+
+  transformGsapTimeline: ShallowRef<gsap.core.Timeline | undefined>;
+  resetGsapTimeline: ShallowRef<gsap.core.Timeline | undefined>;
+  rotateGsapTween: ShallowRef<gsap.core.Tween | undefined>;
+  selectGsapTimeline: ShallowRef<gsap.core.Timeline | undefined>;
+
+  updateSelectCard: Ref<LotteryProps['updateSelectCard'] | undefined>;
+}
+
 export const rowCount = 7;
 export const colCount = 17;
 export const total = rowCount * colCount;
@@ -19,7 +53,7 @@ export const total = rowCount * colCount;
 const [
   useSharedStore,
   useShared,
-] = createInjectionState(() => {
+] = createInjectionState((): LotterySharedStore => {
   const rootRef = ref<HTMLDivElement>();
   const { width: rootWidth, height: rootHeight } = useElementSize(rootRef);
 
