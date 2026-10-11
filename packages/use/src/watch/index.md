@@ -23,6 +23,7 @@ obj.value = 2;
 // ---cut-start---
 import { watchImmediate } from '@mixte/use';
 import { ref, watch } from 'vue';
+
 const obj = ref(1);
 // ---cut-end---
 // 当前写法
@@ -63,6 +64,7 @@ obj.value.a = 2;
 // ---cut-start---
 import { watchDeep } from '@mixte/use';
 import { ref, watch } from 'vue';
+
 const obj = ref(1);
 // ---cut-end---
 // 当前写法
@@ -103,6 +105,7 @@ obj.value.a = 2;
 // ---cut-start---
 import { watchImmediateDeep } from '@mixte/use';
 import { ref, watch } from 'vue';
+
 const obj = ref(1);
 // ---cut-end---
 // 当前写法

@@ -7,8 +7,8 @@
 </template>
 
 <script lang="ts" setup>
-  import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
   import type { FormInstance, FormItemRule } from 'element-plus';
+  import type { InjectCode } from '@/.vitepress/components/DemoCard/types';
   import { isMobile } from '@mixte/validator';
 
   interface Props {

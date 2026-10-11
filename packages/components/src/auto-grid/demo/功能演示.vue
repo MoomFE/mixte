@@ -53,9 +53,9 @@
 
 <script lang="ts" setup>
   import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
-  import { colors as colorsMap } from '@/.vitepress/shared/unocss.theme';
   import { MixteAutoGrid } from '@mixte/components/auto-grid';
   import { isNumeric, isPlainObject, omit, random } from 'mixte';
+  import { colors as colorsMap } from '@/.vitepress/shared/unocss.theme';
 
   const rootRef = ref<HTMLDivElement>();
   const rootWidth = useElementSize(rootRef).width;

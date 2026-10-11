@@ -113,7 +113,7 @@ function createHeightCache(options: HeightCacheOptions): HeightCache {
       for (let i = start + 1; i <= dataLength; i++) {
         const rowObj = data?.[i - 1]?.rawNode;
         const cachedHeight = rowObj ? measuredRowHeights.get(rowObj) : undefined;
-        const rowHeight = cachedHeight != null ? cachedHeight : estimated;
+        const rowHeight = cachedHeight ?? estimated;
         prev = prev + rowHeight;
         heights[i] = prev;
       }

@@ -71,6 +71,7 @@ function login() {
 // ---cut-start---
 import axios from 'axios';
 import { reactive, ref } from 'vue';
+
 const login = info => axios.post('/api/user/login', info);
 // ---cut-end---
 const form = reactive({ username: '', password: '' });
@@ -97,6 +98,7 @@ async function submit() {
 import { useRequest } from '@mixte/use';
 import axios from 'axios';
 import { reactive } from 'vue';
+
 const login = () => useRequest(info => axios.post('/api/user/login', info));
 // ---cut-end---
 const form = reactive({ username: '', password: '' });
@@ -120,6 +122,7 @@ async function submit() {
 // ---cut-start---
 import { useRequest } from '@mixte/use';
 import axios from 'axios';
+
 const login = () => useRequest(() => axios.post('/api/user/login'));
 const getUserInfo = () => useRequest(() => axios.post('/api/user/info'));
 // ---cut-end---
@@ -152,6 +155,7 @@ async function submit() {
 // ---cut-start---
 import { useRequest } from '@mixte/use';
 import axios from 'axios';
+
 const login = () => useRequest(() => axios.post('/api/user/login'));
 const getUserInfo = () => useRequest(() => axios.post('/api/user/info'));
 // ---cut-end---
@@ -176,6 +180,7 @@ async function submit() {
 // ---cut-start---
 import { useRequest } from '@mixte/use';
 import axios from 'axios';
+
 const login = () => useRequest(() => axios.post('/api/user/login'));
 const getUserInfo = () => useRequest(() => axios.post('/api/user/info'));
 // ---cut-end---

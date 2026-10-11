@@ -12,7 +12,7 @@ await delay(1000); // 延迟 1 秒
 
 ## `wait`
 
-返回一个延迟指定时间的 Promise, [`delay`](#delay-fn) 方法的别名
+返回一个延迟指定时间的 Promise, [`delay`](#delay) 方法的别名
 
 ### 示例
 

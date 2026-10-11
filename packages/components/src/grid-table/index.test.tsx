@@ -1,9 +1,9 @@
 /* eslint-disable style/no-multi-spaces */
 /* eslint-disable antfu/consistent-chaining */
 
-import type { User } from '@/types';
 import type { GridTableColumn, RenderHeaderProps, RenderProps } from '@mixte/components/grid-table/types';
 import type { ComponentProps, ComponentSlots } from 'vue-component-type-helpers';
+import type { User } from '@/types';
 import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
 import { mount } from '@vue/test-utils';
 import { delay, isFunction } from 'mixte';
@@ -1967,12 +1967,12 @@ describe('grid-table', () => {
 
       it('根据字段名动态生成指定字段单元格插槽', () => {
         expectTypeOf<keyof Slots>().toEqualTypeOf<
-          'header' |
-          `header-${keyof User}` |
-          `header-${string}` |
-          'cell' |
-          `cell-${keyof User}` |
-          `cell-${string}`
+          'header'
+          | `header-${keyof User}`
+          | `header-${string}`
+          | 'cell'
+          | `cell-${keyof User}`
+          | `cell-${string}`
         >();
 
         // Header

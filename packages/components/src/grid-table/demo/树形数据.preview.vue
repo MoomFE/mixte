@@ -59,8 +59,8 @@
 </template>
 
 <script lang="tsx" setup>
-  import type { ResponseData, ResponseListData, User } from '@/types';
   import type { MixteGridTableInstance } from '@mixte/components/grid-table';
+  import type { ResponseData, ResponseListData, User } from '@/types';
   import { defineTableColumns, MixteGridTable } from '@mixte/components/grid-table';
   import { MelSelect } from '@mixte/mel-components/mel-select';
   import { useRequestReactive } from '@mixte/use';

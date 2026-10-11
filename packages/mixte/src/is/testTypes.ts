@@ -42,7 +42,7 @@ export const types = readonly({
     [6],
     [6, 'mixte'],
     Array.from({ length: 6 }),
-    Array.from({ length: 6 }, () => 6),
+    Array.from({ length: 6 }).fill(6),
   ],
   // RegExp
   regexp: [

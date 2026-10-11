@@ -26,8 +26,8 @@
 </template>
 
 <script lang="ts" setup>
-  import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
   import type { MelSelectInstance } from '@mixte/mel-components/mel-select';
+  import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
   import { MelSelect } from '@mixte/mel-components/mel-select';
   import axios from 'axios';
   import 'element-plus/es/components/select/style/index';

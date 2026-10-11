@@ -38,9 +38,9 @@
 </template>
 
 <script lang="ts" setup>
+  import type { MixteInfiniteScrollInstance } from '@mixte/components/infinite-scroll';
   import type { InjectCode, InjectCodeLang } from '@/.vitepress/components/DemoCard/types';
   import type { ResponseData, ResponseListData } from '@/types';
-  import type { MixteInfiniteScrollInstance } from '@mixte/components/infinite-scroll';
   import { MixteInfiniteScroll } from '@mixte/components/infinite-scroll';
   import axios from 'axios';
 

@@ -5,10 +5,10 @@ import { computed, toValue, watch } from 'vue';
 
 // #region OptionsApiRequest
 export type OptionsApiRequest<T> = (...args: any[]) => Promise<
-  T[] |
-  {
-    data: T[] |
-      {
+  T[]
+  | {
+    data: T[]
+      | {
         data: T[];
       };
   }
