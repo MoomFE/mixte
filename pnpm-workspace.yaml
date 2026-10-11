@@ -2,6 +2,9 @@ packages:
   - 'packages/*'
   - playground
   - docs
+shamefullyHoist: true
+strictPeerDependencies: false
+ignoreWorkspaceRootCheck: true
 catalog:
   '@types/three': ^0.185.3
   gsap: ^3.15.0
@@ -9,3 +12,14 @@ catalog:
   three: ^0.185.1
   vue-component-type-helpers: ^3.3.9
   vue-draggable-plus: ^0.6.1
+overrides:
+  '@vue/compiler-core': ^3.5.43
+  vue: ^3.5.43
+patchedDependencies:
+  vue: patches/vue.patch
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  pnpm: true
+  simple-git-hooks: true
+  vue-demi: true

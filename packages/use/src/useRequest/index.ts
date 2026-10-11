@@ -149,6 +149,7 @@ export function useRequest<
       isLoading.value = false;
       isFinished.value = true;
       isSuccess.value = true;
+      // @ts-expect-error 泛型 Response 下, 无法满足 trigger 的参数类型约束
       successEvent.trigger(res);
       finallyEvent.trigger();
       return res;

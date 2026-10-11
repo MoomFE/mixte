@@ -3,7 +3,7 @@
   "type": "module",
   "version": "3.6.1",
   "private": true,
-  "packageManager": "pnpm@9.15.6",
+  "packageManager": "pnpm@12.11.2",
   "description": "实用工具函数/Vue 组合式函数/工具向 Vue 组件/常用校验函数/一些代码片段 - Utilities/Vue composable/Vue utility components/Validator/Code snippet",
   "author": "Wei Zhang <https://github.com/Zhang-Wei-666>",
   "license": "MIT",
@@ -101,7 +101,7 @@
     "ora": "^8.2.0",
     "pathe": "^2.0.3",
     "playwright": "^1.64.0",
-    "pnpm": "^9.15.6",
+    "pnpm": "^12.11.2",
     "postcss": "^8.5.3",
     "postcss-js": "^4.1.0",
     "radash": "^12.1.1",
@@ -131,15 +131,6 @@
     "vue-component-type-helpers": "catalog:",
     "vue-draggable-plus": "catalog:",
     "vue-tsc": "^3.2.6"
-  },
-  "pnpm": {
-    "overrides": {
-      "@vue/compiler-core": "^3.5.43",
-      "vue": "^3.5.43"
-    },
-    "patchedDependencies": {
-      "vue": "patches/vue.patch"
-    }
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"

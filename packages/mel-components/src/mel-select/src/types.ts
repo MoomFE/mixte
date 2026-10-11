@@ -27,7 +27,7 @@ export interface SelectOptionsApiConfig<T> extends OptionsApiConfig<T> {
 export type SelectOptionsApi<T> = OptionsApiRequest<T> | SelectOptionsApiConfig<T>;
 // #endregion SelectOptionsApi
 
-export interface MelSelectProps extends /* @vue-ignore */ Omit<Partial<SelectProps>, 'loading' | 'filterable' | 'remote'> {
+export interface MelSelectProps extends /* @vue-ignore */ Omit<Partial<SelectProps>, 'loading' | 'filterable' | 'remote' | 'options'> {
   /** 是否正在从远程获取数据 */
   loading?: boolean;
   /** Select 组件是否可筛选 */
