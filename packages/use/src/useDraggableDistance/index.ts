@@ -1,4 +1,4 @@
-import type { MaybeRefOrGetter } from '@vueuse/core';
+import type { MaybeRefOrGetter } from 'vue';
 import { watchImmediate, wheneverEffectScopeImmediate } from '@mixte/use';
 import { unrefElement, useDraggable, useMouse } from '@vueuse/core';
 import { ref } from 'vue';

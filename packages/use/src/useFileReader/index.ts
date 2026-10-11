@@ -1,4 +1,4 @@
-import type { MaybeRefOrGetter } from '@vueuse/core';
+import type { MaybeRefOrGetter } from 'vue';
 import { wheneverImmediate } from '@mixte/use';
 import { tryOnScopeDispose } from '@vueuse/core';
 import { ref, shallowRef, toValue } from 'vue';

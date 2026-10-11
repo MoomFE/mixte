@@ -1,5 +1,5 @@
-import type { MaybeRefOrGetter, TransitionOptions } from '@vueuse/core';
-import type { Ref } from 'vue';
+import type { TransitionOptions } from '@vueuse/core';
+import type { MaybeRefOrGetter, Ref } from 'vue';
 import { whenever, wheneverEffectScopeImmediate } from '@mixte/use';
 import { executeTransition, syncRef, TransitionPresets, tryOnScopeDispose } from '@vueuse/core';
 import { computed, ref, toValue, watch } from 'vue';
@@ -102,7 +102,7 @@ function useTransition(source: Ref<number>, options: UseTransitionOptions): Ref<
   return computed(() => options.disabled() ? source.value : outputRef.value);
 }
 
-interface UseTransitionOptions extends TransitionOptions {
+interface UseTransitionOptions extends TransitionOptions<number> {
   /**
    * Disables the transition
    */
