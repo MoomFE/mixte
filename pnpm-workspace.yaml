@@ -11,7 +11,7 @@ minimumReleaseAgeExclude:
 
 trustPolicy: no-downgrade
 trustPolicyExclude:
-  # nuxt@4.6.1 的 cssnano 依赖波 (2026-10-08/09 发布) 缺少信任证据, 已审查并接受
+  # nuxt@4.6.1 的 cssnano 依赖波 (2026-10-08/09 发布) 缺少信任证据, 已审查并接受, 待相关依赖下次升级时复核
   - cssnano@9.5.0
   - cssnano-preset-default@9.5.0
   - cssnano-utils@8.2.1

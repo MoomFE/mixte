@@ -52,7 +52,7 @@
   function yamlDump(obj: any) {
     return yaml.dump(
       isPlainObject(obj) ? readonly(obj) : obj,
-      { skipInvalid: true, condenseFlow: true, noCompatMode: true },
+      { skipInvalid: true },
     );
   }
 

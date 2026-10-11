@@ -8,7 +8,7 @@ applyTo: "**"
 ## 仓库概况
 
 - Monorepo，pnpm workspace（`pnpm-workspace.yaml`，包含 `packages/*`、`playground`、`docs`）
-- 包管理器：`pnpm@9.15.6`；CI 使用 Node 24
+- 包管理器：`pnpm@12.11.2`；CI 使用 Node 24
 - 所有发布包版本号统一（当前 `3.6.1`），依赖尽量通过 `catalog:` 集中管理
 - 文档站点（Vitepress）也位于 `packages/` 下，与源码包共处一个 workspace
 
