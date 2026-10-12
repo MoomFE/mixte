@@ -3,6 +3,8 @@ import type { Get } from 'type-fest';
 const PATH_ARRAY_REGEXP = /\[(\d+)\]/g;
 const PATH_ARRAY_INDEX_REGEXP = /^\d+$/;
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 /**
  * 根据路径获取对象属性值, 若路径不存在则返回默认值
  *
@@ -39,7 +41,8 @@ export function get<T = any, P extends string = string, D = undefined>(
   let result: any = obj;
 
   for (const key of pathArr) {
-    if (result != null && key in result) {
+    // 使用 hasOwnProperty 判断, 避免读取到原型链上的属性
+    if (result != null && hasOwnProperty.call(result, key)) {
       result = result[key];
     }
     else {
@@ -84,8 +87,15 @@ export function set<T extends object = any>(
     .split('.');
 
   let result: any = obj;
+
   for (let i = 0; i < pathArr.length; i++) {
     const key = pathArr[i];
+
+    // 拒绝 `__proto__` 路径, 避免通过原型链篡改原型 ( 原型污染 )
+    if (key === '__proto__') return;
+
+    // 当前值不是对象时无法继续设置属性, 直接中断
+    if (result === null || (typeof result !== 'object' && typeof result !== 'function')) return;
 
     // 最后一个 key, 赋值
     if (i === pathArr.length - 1) {
@@ -96,7 +106,8 @@ export function set<T extends object = any>(
       const nextKey = pathArr[i + 1];
       const isArray = PATH_ARRAY_INDEX_REGEXP.test(nextKey);
 
-      if (!(key in result) || result[key] == null) {
+      // 使用 hasOwnProperty 判断, 避免命中原型链上的同名属性
+      if (!hasOwnProperty.call(result, key) || result[key] == null) {
         result[key] = isArray
           ? Array.from({ length: +nextKey })
           : {};

@@ -5,6 +5,7 @@
   - ⚠️ 构建由 `rollup` 迁移至 `tsdown`
   - ⚠️ [@mixte/snippets] 删除 `ant-design-x` 与 `tiptap-editor` 模块及相关依赖
   - 🐞 [mixte] 修复 `deepForEach` 和 `deepSome` 遍历嵌套数组结构时跳过后续兄弟元素的问题
+  - 🐞 [mixte] 修复 `get` 和 `set` 可能读取到原型链上的属性及污染原型链的问题
 
 ## [v3.6.1]
   - 📅 2026-04-17

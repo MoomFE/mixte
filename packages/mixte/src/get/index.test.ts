@@ -95,6 +95,17 @@ describe('get', () => {
     expect(get({ undefined: 1 }, undefined as any)).toBe(1);
     expect(get({ null: 1 }, null as any)).toBe(1);
   });
+
+  it('不会返回原型链上的属性', () => {
+    expect(get({}, 'toString')).toBeUndefined();
+    expect(get({}, 'constructor')).toBeUndefined();
+    expect(get({}, 'toString', 'default')).toBe('default');
+  });
+
+  it('路径中间值为原始类型时返回默认值', () => {
+    expect(get({ a: 'hello' }, 'a.b')).toBeUndefined();
+    expect(get({ a: 1 }, 'a.b', 'default')).toBe('default');
+  });
 });
 
 describe('set', () => {
@@ -125,5 +136,41 @@ describe('set', () => {
   it('对 null/undefined 不操作', () => {
     expect(() => set(null as any, 'a.b', 1)).not.toThrow();
     expect(() => set(undefined as any, 'a.b', 1)).not.toThrow();
+  });
+
+  it('路径中的 `__proto__` 不会污染原型链', () => {
+    const obj: any = {};
+
+    set(obj, '__proto__.polluted', true);
+
+    expect(({} as any).polluted).toBeUndefined();
+    expect((Object.prototype as any).polluted).toBeUndefined();
+    expect('polluted' in obj).toBe(false);
+    expect(obj).toStrictEqual({});
+  });
+
+  it('路径中的 `constructor` / `prototype` 不会污染原型链', () => {
+    const obj: any = {};
+
+    set(obj, 'constructor.prototype.polluted', true);
+
+    expect(({} as any).polluted).toBeUndefined();
+    expect((Object.prototype as any).polluted).toBeUndefined();
+  });
+
+  it('不会修改原型链上的共享对象', () => {
+    const obj: any = {};
+
+    set(obj, 'toString.polluted', true);
+
+    expect((Object.prototype.toString as any).polluted).toBeUndefined();
+    expect(obj).toStrictEqual({ toString: { polluted: true } });
+  });
+
+  it('路径中间值为原始类型时会被忽略', () => {
+    const obj = { a: 1 };
+
+    expect(() => set(obj, 'a.b', 2)).not.toThrow();
+    expect(obj).toStrictEqual({ a: 1 });
   });
 });
