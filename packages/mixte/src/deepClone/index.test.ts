@@ -16,6 +16,18 @@ describe('deepClone', () => {
     expect(result.b).toStrictEqual(obj.b);
   });
 
+  it('不会因为源对象中的 `__proto__` 键污染原型链', () => {
+    const source = JSON.parse('{"__proto__":{"polluted":true}}');
+
+    expect(Object.keys(source)).toContain('__proto__');
+
+    const result = deepClone(source);
+
+    expect(({} as any).polluted).toBeUndefined();
+    expect((Object.prototype as any).polluted).toBeUndefined();
+    expect(Object.getPrototypeOf(result)).toBe(Object.prototype);
+  });
+
   it('深拷贝数组', () => {
     const arr = [
       [1],

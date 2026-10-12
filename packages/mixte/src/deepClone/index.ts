@@ -15,6 +15,9 @@ function clone<T>(value: T, cache = new WeakMap<object, object>()) {
 
     if (isObject) {
       Object.entries(value as object).forEach(([k, v]) => {
+        // 忽略 `__proto__` 键, 避免赋值时触发原型 setter 改变克隆对象的原型 ( 原型污染 )
+        if (k === '__proto__') return;
+
         cloneValue[k] = clone(v, cache);
       });
     }

@@ -5,6 +5,9 @@ function merge<T extends object, S extends object>(target: T, source: S, cache: 
   cache.set(source, target);
 
   for (const [key, value] of Object.entries(source)) {
+    // 忽略 `__proto__` 键, 避免沿原型链写入导致的原型污染
+    if (key === '__proto__') continue;
+
     let isArray = false;
 
     if (isPlainObject(value) || (isArray = Array.isArray(value))) {

@@ -13,6 +13,18 @@ describe('deepMerge', () => {
     });
   });
 
+  it('不会因为来源对象中的 `__proto__` 键污染原型链', () => {
+    const source = JSON.parse('{"__proto__":{"polluted":true}}');
+
+    expect(Object.keys(source)).toContain('__proto__');
+
+    const result = deepMerge({}, source);
+
+    expect(({} as any).polluted).toBeUndefined();
+    expect((Object.prototype as any).polluted).toBeUndefined();
+    expect(result).toStrictEqual({});
+  });
+
   it('会合并所有传入参数的属性', () => {
     // 普通对象
     expect(deepMerge({ a: 1 })).toStrictEqual({ a: 1 });
