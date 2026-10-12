@@ -307,4 +307,35 @@ describe('useFileReader', () => {
       isReading: Ref<boolean>;
     }>();
   });
+
+  it('文件读取中, 将文件置空, 会中断读取并重置状态', async () => {
+    const file = ref<Blob | null | undefined>(textBlob);
+    const { result, error, isReading } = useFileReader(file);
+
+    expect(isReading.value).toBe(true);
+
+    file.value = null;
+
+    await nextTick();
+
+    expect(result.value).toBeUndefined();
+    expect(error.value).toBeUndefined();
+    expect(isReading.value).toBe(false);
+  });
+
+  it('文件读取完成后, 将文件置空, 会重置状态', async () => {
+    const file = ref<Blob | null | undefined>(textBlob);
+    const { result, error, isReading } = useFileReader(file);
+
+    await until(isReading).toBe(false);
+    expect(result.value).toBe(textBlobDataURL);
+
+    file.value = undefined;
+
+    await nextTick();
+
+    expect(result.value).toBeUndefined();
+    expect(error.value).toBeUndefined();
+    expect(isReading.value).toBe(false);
+  });
 });

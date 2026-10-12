@@ -1,5 +1,5 @@
 import type { MaybeRefOrGetter } from 'vue';
-import { wheneverImmediate } from '@mixte/use';
+import { watchImmediate } from '@mixte/use';
 import { tryOnScopeDispose } from '@vueuse/core';
 import { ref, shallowRef, toValue } from 'vue';
 
@@ -38,10 +38,17 @@ export function useFileReader<
     isReading.value = false;
   };
 
-  wheneverImmediate(() => toValue(file), (file) => {
+  watchImmediate(() => toValue(file), (file) => {
     reader.abort();
     result.value = undefined;
     error.value = undefined;
+
+    // 文件被清空时, 结束本次读取状态
+    if (!file) {
+      isReading.value = false;
+      return;
+    }
+
     isReading.value = true;
 
     try {
