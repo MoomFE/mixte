@@ -159,11 +159,13 @@ function forEach<
     if (Array.isArray(item)) {
       if (!nestedArray) continue;
 
-      return forEach(item, callback, {
+      forEach(item, callback, {
         childrenKey,
         cache,
         nestedArray,
       });
+
+      continue;
     }
 
     if (isObject(item)) {

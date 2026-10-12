@@ -162,11 +162,16 @@ function some<
     if (Array.isArray(item)) {
       if (!nestedArray) continue;
 
-      return some(item, predicate, {
+      const result = some(item, predicate, {
         childrenKey,
         cache,
         nestedArray,
       });
+
+      if (result)
+        return true;
+
+      continue;
     }
 
     if (isObject(item)) {

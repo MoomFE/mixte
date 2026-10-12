@@ -745,3 +745,33 @@ describe('deepForEach', () => {
     expect(ids6).toStrictEqual([1, 2, 6, 7, 8, 9, 10, 12]);
   });
 });
+
+describe('嵌套数组不在末位时, 不会跳过后续兄弟元素', () => {
+  // 嵌套数组位于首位, 其后仍有兄弟元素
+  const list = [
+    [
+      { id: 1 },
+      { id: 2 },
+    ],
+    { id: 3 },
+    [{ id: 4 }],
+    { id: 5 },
+  ];
+
+  it('deepForEach 会遍历全部元素', () => {
+    const ids: number[] = [];
+    deepForEach(list, item => ids.push(item.id!), { nestedArray: true });
+    expect(ids).toEqual([1, 2, 3, 4, 5]);
+  });
+
+  it('deepSome 能找到嵌套数组之后的元素', () => {
+    expect(deepSome(list, item => item.id === 3, { nestedArray: true })).toBe(true);
+    expect(deepSome(list, item => item.id === 5, { nestedArray: true })).toBe(true);
+    expect(deepSome(list, item => item.id === 100, { nestedArray: true })).toBe(false);
+  });
+
+  it('deepFind 能找到嵌套数组之后的元素', () => {
+    expect(deepFind(list, item => item.id === 3, { nestedArray: true })).toEqual({ id: 3 });
+    expect(deepFind(list, item => item.id === 5, { nestedArray: true })).toEqual({ id: 5 });
+  });
+});

@@ -4,6 +4,7 @@
   - 💄 [mixte] pickDeep 支持任意深度的路径类型推导
   - ⚠️ 构建由 `rollup` 迁移至 `tsdown`
   - ⚠️ [@mixte/snippets] 删除 `ant-design-x` 与 `tiptap-editor` 模块及相关依赖
+  - 🐞 [mixte] 修复 `deepForEach` 和 `deepSome` 遍历嵌套数组结构时跳过后续兄弟元素的问题
 
 ## [v3.6.1]
   - 📅 2026-04-17
