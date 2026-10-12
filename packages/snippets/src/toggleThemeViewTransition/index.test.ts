@@ -215,4 +215,34 @@ describe('toggleThemeViewTransition', () => {
 
     expect(document.head.children.length).toBe(headChildrenLength);
   });
+
+  it('过渡被中断导致 `ready` 失败时, 不会抛出异常并清理插入的样式', async () => {
+    const headChildrenLength = document.head.children.length;
+    let isRun = false;
+
+    // 注意: `startViewTransition` 需同步返回带有 `ready` 的对象, 因此这里不能使用 async 函数
+    document.startViewTransition = ((fn: any) => {
+      fn();
+      return { ready: Promise.reject(new DOMException('Transition aborted', 'AbortError')) };
+    }) as any;
+
+    const result = toggleThemeViewTransition(() => {
+      isRun = true;
+    });
+
+    await expect(result).resolves.toBeUndefined();
+
+    expect(isRun).toBe(true);
+    expect(mockDocumentElementAnimate).toHaveBeenCalledTimes(0);
+    expect(document.head.children.length).toBe(headChildrenLength);
+  });
+
+  it('`ready` 失败且不是 AbortError 时, 会继续抛出异常', async () => {
+    document.startViewTransition = ((fn: any) => {
+      fn();
+      return { ready: Promise.reject(new Error('other error')) };
+    }) as any;
+
+    await expect(toggleThemeViewTransition(() => {})).rejects.toThrow('other error');
+  });
 });

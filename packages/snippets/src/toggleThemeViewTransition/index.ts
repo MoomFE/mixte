@@ -76,10 +76,19 @@ export async function toggleThemeViewTransition(
   window.getComputedStyle(style).opacity;
 
   try {
-    await document.startViewTransition(async () => {
-      toggle();
-      await nextTick();
-    }).ready;
+    try {
+      await document.startViewTransition(async () => {
+        toggle();
+        await nextTick();
+      }).ready;
+    }
+    catch (error) {
+      // 过渡被中断 / 跳过时, `ready` 会以 AbortError 拒绝, 此时跳过动画
+      if (!isAbortError(error))
+        throw error;
+
+      return;
+    }
 
     const isReverse = toValue(reverse);
     const animation = document.documentElement.animate(
