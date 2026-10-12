@@ -36,7 +36,7 @@ export function camelCase<T extends string>(str: T): CamelCase<T> {
  * pascalCase('Foo Bar Baz'); // -> 'FooBarBaz'
  */
 export function pascalCase<T extends string>(str: T): PascalCase<T> {
-  return splitByCase(str, SPLITTERS).map(s => upperFirst(s)).join('') as PascalCase<T>;
+  return splitByCase(str, SPLITTERS).map(s => upperFirst(s.toLowerCase())).join('') as PascalCase<T>;
 }
 
 /**

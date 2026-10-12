@@ -26,6 +26,9 @@ const tests: [string, Result][] = [
 
   ['foo bar baz', { camelCase: 'fooBarBaz', pascalCase: 'FooBarBaz', kebabCase: 'foo-bar-baz', snakeCase: 'foo_bar_baz', upperFirst: 'Foo bar baz', lowerFirst: 'foo bar baz' }],
   ['Foo Bar Baz', { camelCase: 'fooBarBaz', pascalCase: 'FooBarBaz', kebabCase: 'foo-bar-baz', snakeCase: 'foo_bar_baz', upperFirst: 'Foo Bar Baz', lowerFirst: 'foo Bar Baz' }],
+
+  ['FOO_BAR', { camelCase: 'fooBar', pascalCase: 'FooBar', kebabCase: 'foo-bar', snakeCase: 'foo_bar', upperFirst: 'FOO_BAR', lowerFirst: 'fOO_BAR' }],
+  ['HTTPServer', { camelCase: 'httpServer', pascalCase: 'HttpServer', kebabCase: 'http-server', snakeCase: 'http_server', upperFirst: 'HTTPServer', lowerFirst: 'hTTPServer' }],
 ];
 
 describe('change-case', () => {
