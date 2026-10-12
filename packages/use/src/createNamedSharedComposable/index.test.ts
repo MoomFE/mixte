@@ -136,6 +136,38 @@ describe('createNamedSharedComposable', () => {
     expect(newFn('name2', obj2)).toBe(obj2);
   });
 
+  it('clear() 后再次创建同名缓存, 销毁旧作用域不会误删新缓存', () => {
+    const fn = (obj?: any) => obj;
+    const newFn = createNamedSharedComposable(fn);
+
+    const obj = { a: 1 };
+    const obj2 = { a: 2 };
+
+    const scopeA = effectScope();
+    scopeA.run(() => {
+      expect(newFn('name', obj)).toBe(obj);
+    });
+
+    // 清空缓存
+    newFn.clear('name');
+
+    const scopeB = effectScope();
+    scopeB.run(() => {
+      expect(newFn('name', obj2)).toBe(obj2);
+    });
+
+    // 销毁旧作用域, 不应影响新缓存
+    scopeA.stop();
+
+    const scopeC = effectScope();
+    scopeC.run(() => {
+      expect(newFn('name')).toBe(obj2);
+    });
+
+    scopeB.stop();
+    scopeC.stop();
+  });
+
   it('类型测试: 形函数返回值类型和原有函数一致', () => {
     const fn = (a: number, b: number) => a + b;
     const newFn = createNamedSharedComposable(fn);

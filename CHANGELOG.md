@@ -9,6 +9,7 @@
   - 🐞 [mixte] 修复 `deepMerge` 和 `deepClone` 处理 `__proto__` 键时可能污染原型链的问题
   - 🐞 [mixte] 修复 `camelCase` 和 `pascalCase` 未将连续大写转换为正确驼峰命名的问题
   - 🐞 [@mixte/use] 修复 `useFileReader` 在文件被清空后未中断读取及重置状态的问题
+  - 🐞 [@mixte/use] 修复 `createNamedSharedComposable` 调用 `clear` 后销毁旧作用域会误删同名缓存的问题
 
 ## [v3.6.1]
   - 📅 2026-04-17

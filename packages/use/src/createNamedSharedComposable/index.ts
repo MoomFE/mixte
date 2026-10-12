@@ -65,9 +65,13 @@ export function createNamedSharedComposable<Fn extends (...args: any[]) => any>(
         result.state = (result.scope = effectScope()).run(() => composable(...args));
 
       tryOnScopeDispose(() => {
+        // 条目可能已被 clear() 或后续同名调用替换, 此时不再操作缓存
+        if (cache[name] !== result) return;
+
         result.subscribers--;
-        if (result.scope && result.subscribers <= 0) {
-          result.scope.stop();
+
+        if (result.subscribers <= 0) {
+          result.scope?.stop();
           delete cache[name];
         }
       });
