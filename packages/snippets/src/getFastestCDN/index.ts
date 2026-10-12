@@ -11,6 +11,11 @@ export interface GetFastestCDNOptions {
   version?: string;
   /** 用于检测用的文件地址 */
   file?: string;
+  /**
+   * 请求超时时间 ( 毫秒 )
+   * @default 10000
+   */
+  timeout?: number;
 }
 
 /**
@@ -21,7 +26,7 @@ export interface GetFastestCDNOptions {
  * @param options 可选项
  */
 export async function getFastestCDN(pkg: string, options?: GetFastestCDNOptions) {
-  const { version, file } = options ?? {};
+  const { version, file, timeout = 10000 } = options ?? {};
   const list: [string, string][] = [];
 
   const pkgVersion = `${pkg}${version ? `@${version}` : ''}`;
@@ -54,34 +59,39 @@ export async function getFastestCDN(pkg: string, options?: GetFastestCDNOptions)
   }
 
   const controller = new AbortController();
+  // 超时后中断所有请求, 避免某个 CND 无响应时 `Promise.any` 永远不结束
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
   const fetchOptions = {
     method: 'get',
     signal: controller.signal,
   };
 
-  const fastestCDN = await Promise.any(
-    list.map(async ([CND, url]) => {
-      return fetch(url, fetchOptions).then(async (res) => {
-        if (res.ok) {
-          // 这几个 CND 即使未找到资源, 也会返回 200 状态, 但是内容是 Not Found
-          if (CND.startsWith(bootcdn) || CND.startsWith(baomitu) || CND.startsWith(staticfile)) {
-            const text: string = await res.text();
+  try {
+    return await Promise.any(
+      list.map(async ([CND, url]) => {
+        return fetch(url, fetchOptions).then(async (res) => {
+          if (res.ok) {
+            // 这几个 CND 即使未找到资源, 也会返回 200 状态, 但是内容是 Not Found
+            if (CND.startsWith(bootcdn) || CND.startsWith(baomitu) || CND.startsWith(staticfile)) {
+              const text: string = await res.text();
 
-            // 'File Not Found'
-            // '404: Not Found'
-            if (text.length < 15 && text.endsWith('Not Found'))
-              throw new Error(CND);
-          }
+              // 'File Not Found'
+              // '404: Not Found'
+              if (text.length < 15 && text.endsWith('Not Found'))
+                throw new Error(CND);
+            }
 
-          return CND;
-        };
+            return CND;
+          };
 
-        throw new Error(CND);
-      });
-    }),
-  );
-
-  controller.abort();
-
-  return fastestCDN;
+          throw new Error(CND);
+        });
+      }),
+    );
+  }
+  finally {
+    clearTimeout(timeoutId);
+    // 无论成功或失败, 都取消可能仍在进行中的请求
+    controller.abort();
+  }
 }
