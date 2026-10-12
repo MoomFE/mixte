@@ -194,5 +194,14 @@ describe('pickDeep', () => {
     expectTypeOf(pickDeep(obj, 'a.c')).toEqualTypeOf<{
       a: { c: boolean };
     }>();
+
+    // 深于 type-fest v5 Paths 枚举上限 ( 10 层 ) 的路径也应完整推导
+    const deepObj = {
+      l1: { l2: { l3: { l4: { l5: { l6: { l7: { l8: { l9: { l10: { l11: { l12: 'deep' } } } } } } } } } } },
+    };
+
+    expectTypeOf(pickDeep(deepObj, 'l1.l2.l3.l4.l5.l6.l7.l8.l9.l10.l11.l12')).toEqualTypeOf<{
+      l1: { l2: { l3: { l4: { l5: { l6: { l7: { l8: { l9: { l10: { l11: { l12: string } } } } } } } } } } };
+    }>();
   });
 });
