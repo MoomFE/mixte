@@ -34,14 +34,14 @@ description: Mixte 仓库的提交信息与 CHANGELOG.md 书写规范。使用�
 ## [Unreleased]
   - 🌟 [mixte] 新增 `isSymbol` 函数
   - 💄 [@mixte/components] 重构 `GridTable` 树形数据展开行状态管理, 补充相关测试
-  - ⚠️ 构建由 `rollup` 迁移至 `tsdown`
   - 🐞 [@mixte/components] 修复组件 `GridTable` 的表头分割线在某些情况下宽度不统一或不显示的问题
+  - ⚠️ 构建由 `rollup` 迁移至 `tsdown`
 ```
 
-- 缩进两个空格再写 `- `；图标按变更性质选择：🌟 功能新增、💄 功能更改 / 优化、⚠️ 可能与上一版本不兼容的更改、🐞 问题修正；`📅` 只出现在版本日期行。
+- 缩进两个空格再写 `- `；图标按变更性质选择：🌟 功能新增、💄 功能更改 / 优化、🐞 问题修正、⚠️ 可能与上一版本不兼容的更改；`📅` 只出现在版本日期行。
 - 包名用完整名：`[@mixte/components]`、`[@mixte/use]`、`[@mixte/snippets]`、`[@mixte/mel-components]`；`mixte` 包写作 `[mixte]`；跨包条目可省略包名。
 - 描述与提交标题是同一句，只换作用域写法；面向使用者陈述价值，不写测试 / 文档细节；同类改动可以合并成一条。
-- 同章节内按 🌟 → 💄 → ⚠️ → 🐞 分组排序。
+- 同章节内按 🌟 → 💄 → 🐞 → ⚠️ 分组排序。
 
 ```md
 标题: [components] 修复组件 `GridTable` 的外部容器仅设置 `max-height` 时表格高度不对的问题

@@ -2,8 +2,6 @@
   - 💄 [@mixte/components] 重构 `GridTable` 树形数据展开行状态管理, 补充相关测试
   - 💄 [@mixte/components] 重构 `GridTable` 虚拟列表行高缓存及测量逻辑
   - 💄 [mixte] pickDeep 支持任意深度的路径类型推导
-  - ⚠️ 构建由 `rollup` 迁移至 `tsdown`
-  - ⚠️ [@mixte/snippets] 删除 `ant-design-x` 与 `tiptap-editor` 模块及相关依赖
   - 🐞 [mixte] 修复 `deepForEach` 和 `deepSome` 遍历嵌套数组结构时跳过后续兄弟元素的问题
   - 🐞 [mixte] 修复 `get` 和 `set` 可能读取到原型链上的属性及污染原型链的问题
   - 🐞 [mixte] 修复 `deepMerge` 和 `deepClone` 处理 `__proto__` 键时可能污染原型链的问题
@@ -12,6 +10,8 @@
   - 🐞 [@mixte/use] 修复 `createNamedSharedComposable` 调用 `clear` 后销毁旧作用域会误删同名缓存的问题
   - 🐞 [@mixte/snippets] 修复 `getFastestCDN` 缺少请求超时且在全部请求失败时未中断剩余请求的问题
   - 🐞 [@mixte/snippets] 修复 `toggleThemeViewTransition` 未处理视图过渡被中断时 `ready` 抛出的异常的问题
+  - ⚠️ 构建由 `rollup` 迁移至 `tsdown`
+  - ⚠️ [@mixte/snippets] 删除 `ant-design-x` 与 `tiptap-editor` 模块及相关依赖
 
 ## [v3.6.1]
   - 📅 2026-04-17
@@ -130,8 +130,8 @@ CHANGELOG 图标规范
 
 - 🌟: 功能新增<br>
 - 💄: 功能更改、功能优化<br>
-- ⚠️: 与上一版本可能不兼容的功能更改<br>
 - 🐞: 问题修正<br>
+- ⚠️: 与上一版本可能不兼容的功能更改<br>
 - 📅: 版本发布日期
 
 <br>
