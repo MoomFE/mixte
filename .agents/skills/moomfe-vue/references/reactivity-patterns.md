@@ -2,7 +2,7 @@
 
 # 响应式与副作用选择
 
-> 触发条件：需要在 `ref` / `reactive` / `computed` / `watch` / `watchEffect` / `whenever` 之间做实现选择，或需要判断某段响应式逻辑应该留在组件还是下沉到 composable。
+> 触发条件：新增、修改、重构、替换或排查 `ref` / `reactive` / `computed` / `watch` / `watchEffect` / `whenever` 相关逻辑；或判断某段响应式逻辑应该留在组件还是下沉到 composable。既有代码的迁移与 bug 修复同样触发。
 > 范围说明：这是个人长期形成的响应式习惯。项目已有实现优先；工具不存在时不要为了匹配个人习惯引入新依赖。
 >
 > 边界：本文件负责“如何选择响应式实现、是否应该下沉”；一旦已经决定需要设计一个可复用 composable，停止在这里继续讨论 API 形状，转读 `composable-design.md`。
@@ -72,20 +72,19 @@ watch(source, value => {
 })
 ```
 
-如果项目存在 `@mixte/use` / vueuse 的语义化工具，优先使用对应封装：
+如果项目存在 `@mixte/use` / vueuse 的语义化工具，优先使用语义匹配的封装，而不是简单比较哪种写法更短：
 
-```text
-truthy 条件副作用
-→ whenever / wheneverImmediate
+| 真实语义 | 优先检查 |
+| --- | --- |
+| 只在 source 为 truthy 时执行回调 | `whenever` |
+| 监听开始时若当前值 truthy，也立即执行回调 | `wheneverImmediate` |
+| source 变为 `null` / `undefined` / `false` 等 falsy 值时也必须执行回调 | `watch` 族；若还需要立即执行，优先检查 `watchImmediate` |
+| 条件成立期间注册一组副作用，并在条件失效时清理 | `wheneverEffectScope` / `wheneverEffectScopeImmediate` |
+| 需要 deep / immediate + deep 预设 | `watchDeep` / `watchImmediateDeep` |
 
-条件成立期间注册一组副作用
-→ wheneverEffectScope / wheneverEffectScopeImmediate
+例如，清空文件时要重置状态或执行 abort，那么“清空”本身就是必须被处理的状态变化；`wheneverImmediate` 的 truthy 语义不匹配。若 `watchImmediate` 可以表达该行为，应优先用它，而不是直接手写 `watch(..., { immediate: true })`。
 
-需要 immediate / deep 预设
-→ watchImmediate / watchDeep / watchImmediateDeep
-```
-
-如果项目没有这些工具，也不要为了形式一致而添加依赖。此时使用原生 `watch`，但让它直接表达命令式副作用，并尽量把复杂逻辑下沉到 composable。
+如果项目没有语义匹配的工具，或现有工具无法表达需要的行为，也不要为了形式一致而添加依赖。此时才使用原生 `watch`，让它直接表达命令式副作用，并尽量把复杂逻辑下沉到 composable。
 
 ## 4. 副作用的几个判断问题
 
@@ -115,3 +114,15 @@ truthy 条件副作用
 - 组件已经变成“状态 + 副作用”的杂糅层。
 
 这里的职责只到“是否值得形成抽象”为止。**不要在本文件里继续设计 composable 的命名、输入、输出或内部实现协议；确定封装后读取 `composable-design.md`。**
+
+
+## 7. 修改既有监听时的迁移检查
+
+修改监听逻辑前，先明确：
+
+1. 原回调会在什么状态触发，是否只处理 truthy 值？
+2. 新需求是否要求处理 `null` / `undefined` / `false`、初始化状态或清理场景？
+3. 从现有工具切换到另一个工具后，是否改变了首次执行、触发条件、deep 行为或清理时机？
+4. 是否先检查了同包邻居和工具实现，再决定是否降级到原生 `watch`？
+
+**迁移原则：修复目标行为，不顺手降级无关抽象。** 如果不得不使用更底层的 API，应能明确说出更高层工具缺少什么能力。

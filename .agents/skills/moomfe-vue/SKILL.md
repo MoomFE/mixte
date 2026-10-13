@@ -19,6 +19,18 @@ description: 个人 Vue 开发习惯与实现规范（Vue 3 Composition API / `<
 - **AVOID**：通常避免。
 - **NEVER**：明确禁止。
 
+## 每次代码变更的执行门禁（MUST）
+
+本 skill 同样适用于修复、重构、迁移和替换既有实现，不只适用于新代码。每次任务都必须按以下顺序执行；不能因为目标是一个小 bug，就跳过语义核对和交付前自检。
+
+1. **先确认原语义**：阅读目标实现，明确输入的全部有效状态（包括 `null`、`undefined`、`false`、空值）、触发时机、清理行为和副作用边界。修复缺陷不等于可以顺手改变无关语义。
+2. **再查邻居与工具箱**：至少对照目标文件和 1~3 个相近实现；确认相关工具的实际可用性与语义。目标文件原本使用的抽象也是重要证据，不能在未说明理由时直接降级为更底层 API。
+3. **按语义选替代方案**：如果一个既有工具不再满足新需求，不要立刻退回原生 API；继续检查本 skill 已列出的同族工具或项目已有封装。只有确认没有更合适的现成能力后，才使用较底层实现。
+4. **按需读取参考文档**：新增、修改、重构、替换或排查某类响应式逻辑，都算触发相应 reference，不限于“从零选型”。
+5. **交付前复核实际 diff**：逐项检查改动是否符合本 skill、相关 reference 和邻居模式；确认没有无意降低抽象层级、删除已有工具或改变无关行为。执行自检清单，并运行可用的 lint / typecheck / test。无法执行的检查必须明确说明，不能默认视为通过。
+
+**允许偏离的条件**：如果确实需要从语义化封装降级到原生 API，交付说明必须指出具体原因（例如封装无法处理 falsy 输入或缺少所需选项），并说明检查过哪些替代方案。不得只用“实现正确”作为理由。
+
 ## 第 0 步：先看邻居、再看工具箱（MUST）
 
 动手前必须完成两件事：
@@ -48,17 +60,35 @@ description: 个人 Vue 开发习惯与实现规范（Vue 3 Composition API / `<
 - **SHOULD**：所有派生值用 `computed` 计算 —— 可见性、标题、请求参数、格式化结果。不额外维护一份可以算出来的状态。
 - **AVOID**：把 `reactive` 当作普通状态容器；无实测理由的性能微调 API（如 `shallowRef`）。
 
-### watch（不写裸 watch，用语义化工具替代）
+### watch（语义化工具优先，原生 watch 作为兜底）
 
 少写 watch 的真实原因是：**它几乎总能被更准确的工具替代。**
 
 - **AVOID**：用 `watch` / `watchEffect` 维护可以直接计算得到的状态（这是 `computed` 的事）。
-- **SHOULD**：优先使用项目已有的语义化监听工具，避免手写 `watch + if` / `watch + options` 样板。个人项目中默认检查 `@mixte/use`、vueuse 的等价能力；项目实际装了什么就用什么：
-  - 值 truthy 时执行副作用 → `whenever` / `wheneverImmediate`；
-  - 条件成立期间注册一组带生命周期的副作用（事件监听、子 watch、定时器）→ `wheneverEffectScope` / `wheneverEffectScopeImmediate`（失效自动清理、重建自动重建）；
-  - 需要 immediate / deep 预设 → `watchImmediate` / `watchDeep` / `watchImmediateDeep`；
+- **SHOULD**：优先使用项目已有的语义化监听工具，避免手写 `watch + if` / `watch + options` 样板。个人项目中默认检查 `@mixte/use`、vueuse 的等价能力；按**回调应该在什么情况下执行**选择，而不是按代码长短选择：
+  - 回调只应在值 truthy 时执行 → `whenever`；需要在开始监听时也检查当前 truthy 值 → `wheneverImmediate`。
+  - 条件成立期间注册一组带生命周期的副作用（事件监听、子 watch、定时器）→ `wheneverEffectScope` / `wheneverEffectScopeImmediate`（失效自动清理、重建自动重建）。
+  - 回调需要响应 `null`、`undefined`、`false` 等 falsy 值，或需要观察每次源值变化 → **不要使用 `whenever` 族**；需要 immediate 时优先检查 `watchImmediate`，需要 deep 时检查 `watchDeep` / `watchImmediateDeep`，否则使用匹配语义的 `watch`。
   - 请求类副作用 → 请求封装（`useRequest` / `useRequestReactive` 或项目等价物）。
-- **SHOULD**：上述语义化工具不可用时，裸 `watch` 只留给无法避免的命令式副作用（分页变化→重新请求、参数变化→刷新），并尽量下沉进 composable。
+- **SHOULD**：上述语义化工具不可用或语义不匹配时，裸 `watch` 才作为兜底，用于无法避免的命令式副作用（分页变化→重新请求、参数变化→刷新），并尽量下沉进 composable。
+
+正例：当回调必须处理文件被清空的情况时，即使需要立即执行，也应先评估 `watchImmediate`，而不是因为原先使用了 `wheneverImmediate` 就继续使用它，也不是直接退回 `watch(..., { immediate: true })`：
+
+```ts
+watchImmediate(
+  () => toValue(file),
+  (file) => {
+    if (!file) {
+      resetState()
+      return
+    }
+
+    readFile(file)
+  },
+)
+```
+
+以上示例中的业务函数仅用于说明工具选择；实际代码仍须沿用项目的函数命名、输入类型和清理方式。
 - **NEVER**：watch + 第二份状态做双向同步。
 - 具体选择规则与 `whenever` 族的个人用法见 `references/reactivity-patterns.md`。
 
@@ -139,20 +169,22 @@ Pinia store
 
 ## 自检清单
 
-提交前逐条过：
+**每次任务交付前逐条过，无论是否准备提交代码。** 必须基于实际 diff 检查；只记得规则、但没有检查改动，不算完成。
 
-1. 与相邻 1~3 个既有实现核对过模式，没有新发明？
-2. 没有 watch 维护可派生状态，也没有手写 `watch + if` / `watch + options` 样板（条件副作用优先走 whenever 族）？
-3. 没有自写 vueuse / @mixte/use / 项目工具库已能覆盖的 composable？
-4. 状态落点符合 组件 → composable / 模块级 → Pinia 的升级顺序？
-5. 宏用类型参数写法、v-model 用 `defineModel`？
-6. 请求有 loading/error 处理且 `finally` 复位？
-7. SFC 块顺序、目录落点与项目/本 skill 一致？
+1. 与相邻 1~3 个既有实现核对过模式，没有无理由偏离？
+2. 原实现的输入状态、触发时机、副作用与清理语义是否都核对过？有没有改变无关行为？
+3. 没有 watch 维护可派生状态，也没有手写 `watch + if` / `watch + options` 样板？如果使用原生 `watch`，是否确认了语义化工具不可用或不匹配，并说明原因？
+4. 没有自写 vueuse / @mixte/use / 项目工具库已能覆盖的 composable？
+5. 状态落点符合组件 → composable / 模块级 → Pinia 的升级顺序？
+6. 宏用类型参数写法、v-model 用 `defineModel`？
+7. 请求有 loading/error 处理且 `finally` 复位？
+8. SFC 块顺序、目录落点与项目/本 skill 一致？
+9. 已检查实际 diff，并运行可用的 lint / typecheck / test；无法运行的检查已注明？
 
 ## 参考
 
-- 涉及 `ref` / `reactive` / `computed` / `watch` / `whenever` 选择时：读 `references/reactivity-patterns.md`。
-- 要封装新的组合式函数、设计组件或确定组件 API 与结构时：读 `references/composable-design.md`（从 @mixte/use、@mixte/components 提炼的封装方法论）。
+- 新增、修改、重构、替换或排查 `ref` / `reactive` / `computed` / `watch` / `whenever` 相关逻辑时：读 `references/reactivity-patterns.md`；不局限于新代码选型。
+- 新增、修改或重构 composable，或设计 / 调整组件 API 与结构时：读 `references/composable-design.md`（从 @mixte/use、@mixte/components 提炼的封装方法论）。
 - 当前项目使用 Nuxt 时（存在 `nuxt.config.ts`）：读 `references/nuxt.md`（definePageMeta、自动导入、数据获取、SSR 注意）。
 - 需要命令式/动态渲染片段（弹窗内容、消息框、表格单元格）且项目支持 JSX 时：读 `references/jsx-render-fragments.md`。
 - 当前宿主项目的 Vue 事实与例外：`notes/README.md`（项目私有，不随 skill 复制）。
