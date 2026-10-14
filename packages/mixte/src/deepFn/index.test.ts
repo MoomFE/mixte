@@ -775,3 +775,48 @@ describe('嵌套数组不在末位时, 不会跳过后续兄弟元素', () => {
     expect(deepFind(list, item => item.id === 5, { nestedArray: true })).toEqual({ id: 5 });
   });
 });
+
+describe('嵌套数组的循环引用', () => {
+  it('自引用数组不会导致无限递归', () => {
+    // 自引用数组: array -> array
+    const selfReferenceArray: any[] = [];
+    selfReferenceArray.push(selfReferenceArray);
+
+    const list = [{ id: 1 }, selfReferenceArray, { id: 2 }];
+
+    const ids: number[] = [];
+    deepForEach(list, item => ids.push((item as any).id), { nestedArray: true });
+    expect(ids).toEqual([1, 2]);
+
+    expect(deepSome(list, item => (item as any).id === 2, { nestedArray: true })).toBe(true);
+    expect(deepSome([selfReferenceArray], item => (item as any).id === 1, { nestedArray: true })).toBe(false);
+    expect(deepFind(list, item => (item as any).id === 2, { nestedArray: true })).toEqual({ id: 2 });
+  });
+
+  it('相互引用的嵌套数组不会导致无限递归', () => {
+    // 相互引用的嵌套数组: arrayA -> arrayB -> arrayA
+    const arrayA: any[] = [];
+    const arrayB: any[] = [{ id: 1 }];
+    arrayA.push(arrayB);
+    arrayB.push(arrayA);
+
+    const ids: number[] = [];
+    deepForEach([arrayA], item => ids.push((item as any).id), { nestedArray: true });
+    expect(ids).toEqual([1]);
+
+    expect(deepSome([arrayA], item => (item as any).id === 1, { nestedArray: true })).toBe(true);
+    expect(deepSome([arrayA], item => (item as any).id === 2, { nestedArray: true })).toBe(false);
+    expect(deepFind([arrayA], item => (item as any).id === 2, { nestedArray: true })).toBeUndefined();
+  });
+
+  it('同一嵌套数组被多处引用时, 与对象元素一样只遍历一次', () => {
+    const sharedArray = [{ id: 1 }, { id: 2 }];
+
+    const ids: number[] = [];
+    deepForEach([sharedArray, sharedArray], item => ids.push((item as any).id), { nestedArray: true });
+    expect(ids).toEqual([1, 2]);
+
+    expect(deepSome([sharedArray, sharedArray], item => (item as any).id === 2, { nestedArray: true })).toBe(true);
+    expect(deepFind([sharedArray, sharedArray], item => (item as any).id === 2, { nestedArray: true })).toEqual({ id: 2 });
+  });
+});

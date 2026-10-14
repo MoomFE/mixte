@@ -1,6 +1,7 @@
 import type { PartialDeep } from 'type-fest';
 import type { DeepArray, FindOptions, Options } from './deepFind';
-import { isFunction, isObject } from 'mixte';
+import { isFunction } from 'mixte';
+import { traverse } from './traverse';
 
 /**
  * 在嵌套数据结构中深度遍历所有元素，并为每个元素执行回调函数
@@ -149,42 +150,7 @@ function forEach<
   callback: (value: PartialDeep<Item>) => void,
   options?: FindOptions<ChildrenKey>,
 ): void {
-  if (!data?.length) return;
-
-  const childrenKey = (options?.childrenKey ?? 'children') as ChildrenKey;
-  const cache = options?.cache ?? new WeakMap<Item, boolean>();
-  const nestedArray = options?.nestedArray ?? false;
-
-  for (const item of data) {
-    if (Array.isArray(item)) {
-      if (!nestedArray) continue;
-
-      forEach(item, callback, {
-        childrenKey,
-        cache,
-        nestedArray,
-      });
-
-      continue;
-    }
-
-    if (isObject(item)) {
-      if (cache.has(item))
-        continue;
-
-      cache.set(item, true);
-
-      callback(item);
-
-      const children = item[childrenKey as unknown as keyof typeof item];
-
-      if (Array.isArray(children) && children.length) {
-        forEach(children, callback, {
-          childrenKey,
-          cache,
-          nestedArray,
-        });
-      }
-    }
-  }
+  traverse<Item>(data, options, (item) => {
+    callback(item);
+  });
 }

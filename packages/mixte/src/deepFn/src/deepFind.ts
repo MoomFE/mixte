@@ -1,5 +1,6 @@
 import type { PartialDeep, Primitive } from 'type-fest';
-import { isFunction, isObject } from 'mixte';
+import { isFunction } from 'mixte';
+import { traverse } from './traverse';
 
 export type DeepArray<T> = (T | DeepArray<T> | Primitive)[];
 
@@ -159,49 +160,14 @@ function find<
   predicate: (value: PartialDeep<Item>) => boolean,
   options?: FindOptions<ChildrenKey>,
 ): PartialDeep<Item> | undefined {
-  if (!data?.length) return;
+  let result: PartialDeep<Item> | undefined;
 
-  const childrenKey = (options?.childrenKey ?? 'children') as ChildrenKey;
-  const cache = options?.cache ?? new WeakMap<Item, boolean>();
-  const nestedArray = options?.nestedArray ?? false;
-
-  for (const item of data) {
-    if (Array.isArray(item)) {
-      if (!nestedArray) continue;
-
-      const result = find(item, predicate, {
-        childrenKey,
-        cache,
-        nestedArray,
-      });
-
-      if (result)
-        return result;
-
-      continue;
+  traverse<Item>(data, options, (item) => {
+    if (predicate(item)) {
+      result = item;
+      return true;
     }
+  });
 
-    if (isObject(item)) {
-      if (cache.has(item))
-        continue;
-
-      cache.set(item, true);
-
-      if (predicate(item))
-        return item;
-
-      const children = item[childrenKey as unknown as keyof typeof item];
-
-      if (Array.isArray(children) && children.length) {
-        const result = find(children, predicate, {
-          childrenKey,
-          cache,
-          nestedArray,
-        });
-
-        if (result)
-          return result;
-      }
-    }
-  }
+  return result;
 }

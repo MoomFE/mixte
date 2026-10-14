@@ -10,7 +10,10 @@
   - 🐞 [@mixte/use] 修复 `createNamedSharedComposable` 调用 `clear` 后销毁旧作用域会误删同名缓存的问题
   - 🐞 [@mixte/snippets] 修复 `getFastestCDN` 缺少请求超时且在全部请求失败时未中断剩余请求的问题
   - 🐞 [@mixte/snippets] 修复 `toggleThemeViewTransition` 未处理视图过渡被中断时 `ready` 抛出的异常的问题
-  - 🐞 [@mixte/mel-components] 修复组件 `MelSelect` 暴露的 `selectRef` 未指向内部 `Select` 组件实例的问题  - 🐞 [mixte] 修复 `isEmptyObject` 对非对象、`isNumericString` 对其他进制数字字符串的误判, 并修正 `isPlainObject` 对构造函数实例的误判  - ⚠️ 构建由 `rollup` 迁移至 `tsdown`
+  - 🐞 [@mixte/mel-components] 修复组件 `MelSelect` 暴露的 `selectRef` 未指向内部 `Select` 组件实例的问题
+  - 🐞 [mixte] 修复 `isEmptyObject` 对非对象、`isNumericString` 对其他进制数字字符串的误判, 并修正 `isPlainObject` 对构造函数实例的误判
+  - 🐞 [mixte] 修复 `deepFind`、`deepSome`、`deepForEach` 遍历嵌套数组时循环引用会导致栈溢出的问题
+  - ⚠️ 构建由 `rollup` 迁移至 `tsdown`
   - ⚠️ [@mixte/snippets] 删除 `ant-design-x` 与 `tiptap-editor` 模块及相关依赖
 
 ## [v3.6.1]

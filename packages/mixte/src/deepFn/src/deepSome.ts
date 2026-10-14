@@ -1,6 +1,7 @@
 import type { PartialDeep } from 'type-fest';
 import type { DeepArray, FindOptions, Options } from './deepFind';
-import { isFunction, isObject } from 'mixte';
+import { isFunction } from 'mixte';
+import { traverse } from './traverse';
 
 /**
  * 在嵌套数据结构中深度检查是否存在满足条件的元素, 如果存在返回 true, 否则返回 false
@@ -152,51 +153,5 @@ function some<
   predicate: (value: PartialDeep<Item>) => boolean,
   options?: FindOptions<ChildrenKey>,
 ): boolean {
-  if (!data?.length) return false;
-
-  const childrenKey = (options?.childrenKey ?? 'children') as ChildrenKey;
-  const cache = options?.cache ?? new WeakMap<Item, boolean>();
-  const nestedArray = options?.nestedArray ?? false;
-
-  for (const item of data) {
-    if (Array.isArray(item)) {
-      if (!nestedArray) continue;
-
-      const result = some(item, predicate, {
-        childrenKey,
-        cache,
-        nestedArray,
-      });
-
-      if (result)
-        return true;
-
-      continue;
-    }
-
-    if (isObject(item)) {
-      if (cache.has(item))
-        continue;
-
-      cache.set(item, true);
-
-      if (predicate(item))
-        return true;
-
-      const children = item[childrenKey as unknown as keyof typeof item];
-
-      if (Array.isArray(children) && children.length) {
-        const result = some(children, predicate, {
-          childrenKey,
-          cache,
-          nestedArray,
-        });
-
-        if (result)
-          return true;
-      }
-    }
-  }
-
-  return false;
+  return traverse<Item>(data, options, item => predicate(item));
 }
