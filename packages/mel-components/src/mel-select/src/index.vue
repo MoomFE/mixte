@@ -1,5 +1,6 @@
 <template>
   <component
+    ref="selectRef"
     :is="h(
       ElSelect,
       {

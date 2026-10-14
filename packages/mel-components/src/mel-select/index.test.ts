@@ -102,6 +102,17 @@ describe('mel-select', () => {
     }
   });
 
+  it('暴露的 `selectRef` 指向内部的 `ElSelect` 组件实例', () => {
+    const mel = mount(MelSelect, {
+      props: { teleported: false },
+    });
+
+    const selectRef = mel.vm.selectRef;
+
+    expect(selectRef).toBeDefined();
+    expect(selectRef?.$el).toBe(mel.findComponent(ElSelect).element);
+  });
+
   describe('新增参数: options', () => {
     it.each([
       [
