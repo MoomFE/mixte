@@ -1,5 +1,13 @@
 {
   "extends": "./tsconfig.json",
+
+  // 根配置开启了 `noEmit`, 而构建配置 `packages/*/tsconfig.build.json` 继承自本配置,
+  // 需要能够生成 d.ts, 因此这里显式关闭;
+  // 是否真的产出文件由调用方决定: 类型检查传 `--noEmit`, 构建传 `--emitDeclarationOnly`
+  "compilerOptions": {
+    "noEmit": false
+  },
+
   "exclude": [
     "packages/.vitepress/**/*.ts",
     "packages/.vitepress/**/*.vue",
