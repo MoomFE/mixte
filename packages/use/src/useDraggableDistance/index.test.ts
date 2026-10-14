@@ -66,14 +66,14 @@ describe('useDraggableDistance', () => {
   });
 
   it('拖拽时返回相对拖拽起点的距离', async () => {
-    const { x, y, isDragging } = useDraggableDistanceInScope();
+    const { x, y } = useDraggableDistanceInScope();
 
     // 记录拖拽起点
     mocks.mouse.x.value = 50;
     mocks.mouse.y.value = 50;
     await nextTick();
 
-    isDragging.value = true;
+    mocks.isDragging.value = true;
     await nextTick();
 
     expect(x.value).toBe(0);
@@ -96,9 +96,9 @@ describe('useDraggableDistance', () => {
   });
 
   it('拖拽结束后距离归零', async () => {
-    const { x, y, isDragging } = useDraggableDistanceInScope();
+    const { x, y } = useDraggableDistanceInScope();
 
-    isDragging.value = true;
+    mocks.isDragging.value = true;
     await nextTick();
 
     mocks.mouse.x.value = 100;
@@ -108,7 +108,7 @@ describe('useDraggableDistance', () => {
     expect(x.value).toBe(100);
     expect(y.value).toBe(100);
 
-    isDragging.value = false;
+    mocks.isDragging.value = false;
     await nextTick();
 
     expect(x.value).toBe(0);
@@ -116,9 +116,9 @@ describe('useDraggableDistance', () => {
   });
 
   it('再次拖拽时以新的位置为起点', async () => {
-    const { x, isDragging } = useDraggableDistanceInScope();
+    const { x } = useDraggableDistanceInScope();
 
-    isDragging.value = true;
+    mocks.isDragging.value = true;
     await nextTick();
 
     mocks.mouse.x.value = 100;
@@ -126,7 +126,7 @@ describe('useDraggableDistance', () => {
 
     expect(x.value).toBe(100);
 
-    isDragging.value = false;
+    mocks.isDragging.value = false;
     await nextTick();
 
     mocks.mouse.x.value = 300;
@@ -134,7 +134,7 @@ describe('useDraggableDistance', () => {
 
     expect(x.value).toBe(0);
 
-    isDragging.value = true;
+    mocks.isDragging.value = true;
     await nextTick();
 
     mocks.mouse.x.value = 320;
