@@ -14,11 +14,15 @@ function createHarness(options: {
   measureSource: MeasureSource;
   columnIndex?: number;
   fixedRowHeight?: number;
+  estimatedRowHeight?: number;
 }) {
-  const { measureSource, columnIndex = 0, fixedRowHeight } = options;
+  const { measureSource, columnIndex = 0, fixedRowHeight, estimatedRowHeight } = options;
 
   /** 行高查询 ( 由 setup 捕获 ) */
   let findIndexByHeight: (height: number) => number = () => 0;
+
+  /** 可见行数据 ( 由 setup 捕获 ) */
+  let data: { value: any[] | undefined } = { value: undefined };
 
   /** 组件 props ( 可修改以验证响应式行为 ) */
   const props = reactive({
@@ -26,6 +30,7 @@ function createHarness(options: {
     columns: [{ field: 'name' }],
     virtual: true,
     fixedRowHeight,
+    estimatedRowHeight,
   });
 
   const Harness = defineComponent({
@@ -33,8 +38,9 @@ function createHarness(options: {
       useSharedStore(props as any, {} as any, { expandedRowKeys: ref<string[]>([]) });
       useTreeDataStore();
 
-      const { useRowMeasure, findIndexByHeight: find } = useVirtualStore({ measureSource });
+      const { useRowMeasure, findIndexByHeight: find, data: storeData } = useVirtualStore({ measureSource });
       findIndexByHeight = find;
+      data = storeData;
       const { displayedData } = useTreeData()!;
 
       const node = computed(() => displayedData.value[0]);
@@ -48,6 +54,7 @@ function createHarness(options: {
 
   return {
     props,
+    data,
     findIndexByHeight,
   };
 }
@@ -165,6 +172,45 @@ describe('useVirtual 测量注册', () => {
     props.fixedRowHeight = undefined;
     await nextTick();
     expect(findIndexByHeight(55)).toBe(1);
+  });
+
+  it('未开启虚拟列表时不返回可见行数据', async () => {
+    const measureSource = vi.fn<MeasureSource>(() => ref(60));
+
+    const { props, data } = createHarness({ measureSource });
+
+    await nextTick();
+
+    // 开启虚拟 → 返回可见行数据
+    expect(data.value).toBeDefined();
+
+    // 关闭虚拟 → 不返回可见行数据
+    props.virtual = false;
+    await nextTick();
+
+    expect(data.value).toBeUndefined();
+  });
+
+  it('预估行高不是有效的正数时, 使用默认的 50', async () => {
+    const measureSource = vi.fn<MeasureSource>(() => ref(60));
+
+    const { findIndexByHeight } = createHarness({ measureSource, estimatedRowHeight: 0 });
+
+    await nextTick();
+
+    // 0 不是有效的预估行高 → 使用默认值 50 → [0, 50, 100, 150]
+    expect(findIndexByHeight(55)).toBe(1);
+  });
+
+  it('固定行高不是有效的正数时, 视为未设置固定行高', async () => {
+    const measureSource = vi.fn<MeasureSource>(() => ref(60));
+
+    createHarness({ measureSource, fixedRowHeight: 0 });
+
+    await nextTick();
+
+    // 0 不是有效的固定行高 → 仍然进行行高测量
+    expect(measureSource).toHaveBeenCalled();
   });
 
   it('数据变化时, 缓存基于新数据重建', async () => {

@@ -554,6 +554,33 @@ describe('grid-table', () => {
     });
   });
 
+  it('鼠标移出表格后, 取消行的悬浮高亮', async () => {
+    const { tableWrap, getTableTds } = getTableStructure({
+      props: {
+        hover: 'row',
+        columns: createColumns(),
+        data: createData(),
+      },
+    });
+
+    const td = getTableTds()[0];
+
+    // 等待事件监听注册完成
+    await nextTick();
+
+    // 悬浮到单元格上 → 高亮所在行
+    td.element.dispatchEvent(new MouseEvent('pointerover', { bubbles: true }));
+    await nextTick();
+
+    expect(td.classes()).toContain('mixte-gt-tr-hover');
+
+    // 移出表格 → 取消高亮
+    tableWrap.element.dispatchEvent(new MouseEvent('pointerleave'));
+    await nextTick();
+
+    expect(td.classes()).not.toContain('mixte-gt-tr-hover');
+  });
+
   describe('树形数据', () => {
     function createTreeColumns() {
       return defineTableColumns([
@@ -1196,6 +1223,47 @@ describe('grid-table', () => {
       testTreeStructure();
       expect(vm.findAll('.mixte-gt-cell-expand').length).toBe(6);
     });
+
+    it('传入空的 keys 列表时, expandRows / collapseRows 不会触发更新', () => {
+      const { vm, expandedRowKeys } = getTableStructure({
+        props: {
+          columns: createTreeColumns(),
+          data: createTreeData(),
+        },
+      });
+
+      vm.vm.expandRows([]);
+      vm.vm.collapseRows([]);
+
+      expect(expandedRowKeys.value).toEqual([]);
+      expect(vm.emitted('update:expandedRowKeys')).toBeUndefined();
+    });
+
+    it('展开状态未发生变化时, 不会重复触发更新', () => {
+      const { vm, expandedRowKeys } = getTableStructure({
+        props: {
+          columns: createTreeColumns(),
+          data: createTreeData(),
+        },
+      });
+
+      vm.vm.expandAllRows();
+
+      expect(expandedRowKeys.value).toEqual(['1', '5', '6']);
+      expect(vm.emitted('update:expandedRowKeys')).toHaveLength(1);
+
+      // 重复展开所有行 → 展开状态未变化, 不会再次触发更新
+      vm.vm.expandAllRows();
+
+      expect(expandedRowKeys.value).toEqual(['1', '5', '6']);
+      expect(vm.emitted('update:expandedRowKeys')).toHaveLength(1);
+
+      // 折叠未展开的行 → 展开状态未变化, 不会再次触发更新
+      vm.vm.collapseRows(['2', '3']);
+
+      expect(expandedRowKeys.value).toEqual(['1', '5', '6']);
+      expect(vm.emitted('update:expandedRowKeys')).toHaveLength(1);
+    });
   });
 
   describe('插槽', () => {
@@ -1750,6 +1818,35 @@ describe('grid-table', () => {
     });
 
     describe('单元格行列合并: colSpan & rowSpan', () => {
+      it('数据清空后, 合并矩阵会重置', async () => {
+        const columns = defineTableColumns([
+          { field: 'col-1', title: 'Col-1', colSpan: () => 2 },
+          { field: 'col-2', title: 'Col-2' },
+        ]);
+
+        const { vm, getTableTds } = getTableStructure({
+          props: {
+            columns,
+            data: [{ 'id': '1', 'col-1': '1-1', 'col-2': '1-2' }],
+          },
+        });
+
+        // 列合并后只渲染一个单元格
+        expect(getTableTds().length).toBe(1);
+
+        // 清空数据 → 合并矩阵重置
+        await vm.setProps({ data: [] });
+        await delay(20);
+
+        expect(getTableTds().length).toBe(0);
+
+        // 重新写入数据 → 基于新数据重建合并矩阵
+        await vm.setProps({ data: [{ 'id': '2', 'col-1': '2-1', 'col-2': '2-2' }] });
+        await delay(20);
+
+        expect(getTableTds().length).toBe(1);
+      });
+
       describe('单元格列合并: colSpan', () => {
         it.each([
           ['现代渲染模式', 'modern'],

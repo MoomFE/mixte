@@ -68,6 +68,30 @@ describe('createHeightCache', () => {
     expect(cache.getHeights()).toEqual([0, 50, 100]);
   });
 
+  it('数据变短且存在超出数据长度的脏索引时, 裁剪累计高度数组', () => {
+    const nodes = createNodes(5);
+    const cache = createCache(nodes);
+
+    // 先重建一次缓存 ( 首次调用会记录数据引用 )
+    expect(cache.getHeights()).toEqual([0, 50, 100, 150, 200, 250]);
+
+    // 更新最后一行的行高后, 数据被裁剪为 2 行 → 脏索引超出当前数据长度
+    cache.updateHeight(4, nodes[4].rawNode, 100);
+    nodes.length = 2;
+
+    expect(cache.getHeights()).toEqual([0, 50, 100]);
+  });
+
+  it('数据为空时, 累计高度只有起始值', () => {
+    const cache = createHeightCache({
+      getData: () => undefined,
+      getEstimated: () => 50,
+      getFixed: () => null,
+    });
+
+    expect(cache.getHeights()).toEqual([0]);
+  });
+
   it('设置固定行高时, 使用固定高度计算, 忽略更新', () => {
     const nodes = createNodes(3);
     const cache = createCache(nodes, 50, 60);
