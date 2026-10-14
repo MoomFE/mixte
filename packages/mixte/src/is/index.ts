@@ -44,6 +44,9 @@ export function isNumber(value: unknown): value is number {
   return typeof value === 'number' && value === value; // eslint-disable-line no-self-compare
 }
 
+/** 数字字符串正则, 支持正负号 / 小数 / 科学计数法, 不接受其他进制与首尾空白 */
+const NUMERIC_STRING_REGEXP = /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i;
+
 /**
  * 判断传入参数是否数字字符串
  *
@@ -54,10 +57,11 @@ export function isNumber(value: unknown): value is number {
  * isNumericString('666'); // -> true
  * isNumericString(666); // -> false
  * isNumericString(NaN); // -> false
+ * isNumericString('0x10'); // -> false
+ * isNumericString(' 6 '); // -> false
  */
 export function isNumericString(value: unknown): value is `${number}` {
-  // @ts-expect-error
-  return isString(value) && !Number.isNaN(value - Number.parseFloat(value));
+  return isString(value) && NUMERIC_STRING_REGEXP.test(value);
 }
 
 /**
@@ -116,9 +120,19 @@ export function isObject(value: unknown): value is object {
  * isPlainObject({}); // -> true
  * isPlainObject(Object.create(null)); // -> true
  * isPlainObject([]); // -> false
+ * isPlainObject(new (class User {})); // -> false
  */
 export function isPlainObject<Value = unknown>(value: unknown): value is Record<PropertyKey, Value> {
-  return Object.prototype.toString.call(value) === '[object Object]';
+  if (Object.prototype.toString.call(value) !== '[object Object]') return false;
+
+  const proto = Object.getPrototypeOf(value as object) as object | null;
+
+  // Object.create(null) 创建的, 没有原型的对象
+  if (proto === null) return true;
+
+  // 对象字面量, 以及以字面量对象为原型创建的对象 ( 原型上没有自身的 constructor )
+  //  - 通过 class / 构造函数创建的实例, 其原型上有自身的 constructor, 不属于普通对象
+  return proto === Object.prototype || !Object.hasOwn(proto, 'constructor');
 }
 
 /**
@@ -139,7 +153,7 @@ export function isPlainObject<Value = unknown>(value: unknown): value is Record<
  * }
  */
 export function assertPlainObject<T = unknown>(value: unknown): value is T {
-  return Object.prototype.toString.call(value) === '[object Object]';
+  return isPlainObject(value);
 }
 
 /**
@@ -252,6 +266,8 @@ export function isPrimitive(value: unknown) {
  * isEmptyObject({ mixte: 6 }); // -> false
  */
 export function isEmptyObject(value: any): value is EmptyObject {
+  if (!isObject(value)) return false;
+
   // eslint-disable-next-line no-unreachable-loop
   for (const a in value) return false;
   return true;

@@ -1,6 +1,13 @@
 import { assertPlainObject, isBoolean, isEmptyObject, isESModule, isFunction, isNativePromise, isNumber, isNumeric, isNumericString, isObject, isPlainObject, isPrimitive, isPromise, isReference, isString, isSymbol } from 'mixte';
 import { testTypes, types } from './testTypes';
 
+/** 用于测试非普通对象 ( 通过构造函数创建的实例 ) */
+class User {
+  getName() {
+    return 'mixte';
+  }
+}
+
 describe('testTypes', () => {
   it('会把所有类型内的值传入方法执行', () => {
     let count = 0;
@@ -84,8 +91,17 @@ describe('is', () => {
 
   it('isNumericString', () => {
     expect(isNumericString('666')).toBe(true);
+    expect(isNumericString('-6.6')).toBe(true);
+    expect(isNumericString('.6')).toBe(true);
+    expect(isNumericString('6.')).toBe(true);
+    expect(isNumericString('1e3')).toBe(true);
     expect(isNumericString(666)).toBe(false);
     expect(isNumericString(Number.NaN)).toBe(false);
+    expect(isNumericString('')).toBe(false);
+    expect(isNumericString(' 6 ')).toBe(false);
+    expect(isNumericString('0x10')).toBe(false);
+    expect(isNumericString('0b11')).toBe(false);
+    expect(isNumericString('6px')).toBe(false);
     expect(testTypes(isNumericString, ['numericString'])).toBe(true);
   });
 
@@ -115,6 +131,8 @@ describe('is', () => {
   it('isPlainObject', () => {
     expect(isPlainObject({})).toBe(true);
     expect(isPlainObject(Object.create(null))).toBe(true);
+    expect(isPlainObject(Object.create({ mixte: 6 }))).toBe(true);
+    expect(isPlainObject(new User())).toBe(false);
     expect(isPlainObject([])).toBe(false);
     expect(testTypes(isPlainObject, ['object', 'promiseLike'])).toBe(true);
   });
@@ -122,6 +140,7 @@ describe('is', () => {
   it('assertPlainObject', () => {
     expect(assertPlainObject({})).toBe(true);
     expect(assertPlainObject(Object.create(null))).toBe(true);
+    expect(assertPlainObject(new User())).toBe(false);
     expect(assertPlainObject([])).toBe(false);
     expect(testTypes(assertPlainObject, ['object', 'promiseLike'])).toBe(true);
 
@@ -197,7 +216,13 @@ describe('is', () => {
 
   it('isEmptyObject', () => {
     expect(isEmptyObject({})).toBe(true);
+    expect(isEmptyObject(Object.create(null))).toBe(true);
     expect(isEmptyObject({ mixte: 6 })).toBe(false);
+    expect(isEmptyObject(null)).toBe(false);
+    expect(isEmptyObject(undefined)).toBe(false);
+    expect(isEmptyObject(666)).toBe(false);
+    expect(isEmptyObject('abc')).toBe(false);
+    expect(isEmptyObject('')).toBe(false);
   });
 
   it('isESModule', async () => {
