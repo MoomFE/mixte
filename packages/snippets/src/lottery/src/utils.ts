@@ -58,6 +58,18 @@ export function createElement(className?: string, html?: string) {
 }
 
 /**
+ * 生成卡片列表的用户分配
+ *  - 按照用户列表顺序循环分配
+ *  - 用户列表为空时全部为 undefined
+ */
+export function createCardUsers(users: User[], count: number): (User | undefined)[] {
+  return Array.from(
+    { length: count },
+    (_, index) => users.length ? users[index % users.length] : undefined,
+  );
+}
+
+/**
  * 创建卡片
  */
 export function createCard(user: User | undefined, isBold: boolean, id: string | number, showTable: boolean) {

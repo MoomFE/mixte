@@ -2,7 +2,7 @@
 
 import type { ComputedRef, Ref, ShallowRef } from 'vue';
 import type { LotteryProps, User } from './types';
-import { addHighlight, createCard, createHighlight, ensureSelectedCardsIndex, removeHighlight, updateCard, updateCardBg } from '@mixte/snippets/lottery/utils';
+import { addHighlight, createCard, createCardUsers, createHighlight, ensureSelectedCardsIndex, removeHighlight, updateCard, updateCardBg } from '@mixte/snippets/lottery/utils';
 import { useRequest, watchImmediate, wheneverEffectScope, wheneverEffectScopeImmediate } from '@mixte/use';
 import { createInjectionState, useCssVar, useElementSize, useIntervalFn } from '@vueuse/core';
 import { gsap } from 'gsap';
@@ -479,17 +479,16 @@ export function useInit(props: LotteryProps) {
 
   function initCard() {
     const users = Array.from(props.users);
-    const usersLength = users.length;
-
-    let index = 0;
+    const cardUsers = createCardUsers(users, rowCount * colCount);
 
     for (let i = 0; i < rowCount; i++) {
       for (let j = 0; j < colCount; j++) {
+        const index = i * colCount + j;
         const isBold = highlightCells.includes(`${j}-${i}`);
         const el = createCard(
-          users[index % usersLength],
+          cardUsers[index],
           isBold,
-          index++,
+          index,
           true,
         );
 

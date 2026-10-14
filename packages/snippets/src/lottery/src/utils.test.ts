@@ -1,6 +1,6 @@
 import type { CSS3DObject } from './CSS3DRenderer';
 import type { User } from './types';
-import { addHighlight, createCard, createElement, createHighlight, ensureSelectedCardsIndex, removeHighlight, updateCard, updateCardBg } from '@mixte/snippets/lottery/utils';
+import { addHighlight, createCard, createCardUsers, createElement, createHighlight, ensureSelectedCardsIndex, removeHighlight, updateCard, updateCardBg } from '@mixte/snippets/lottery/utils';
 
 const user: User = {
   id: '1',
@@ -101,6 +101,26 @@ describe('lottery/utils', () => {
       expect(card.id).toBe('card-3');
       expect(card.querySelector('.name')!.textContent).toBe('');
       expect(card.querySelector('.details')).toBeNull();
+    });
+  });
+
+  describe('createCardUsers', () => {
+    it('按照用户列表顺序循环分配', () => {
+      const users: User[] = [user, { id: '2', name: '李四' }];
+
+      expect(createCardUsers(users, 5).map(item => item?.name))
+        .toEqual(['张三', '李四', '张三', '李四', '张三']);
+    });
+
+    it('用户数量为偶数时, 每个用户都会被分配', () => {
+      const users: User[] = Array.from({ length: 4 }, (_, index) => ({ id: `${index}`, name: `用户${index}` }));
+      const names = new Set(createCardUsers(users, 8).map(item => item?.name));
+
+      expect(names.size).toBe(4);
+    });
+
+    it('用户列表为空时全部为 undefined', () => {
+      expect(createCardUsers([], 3)).toEqual([undefined, undefined, undefined]);
     });
   });
 
