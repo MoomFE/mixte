@@ -582,8 +582,15 @@ describe('grid-table', () => {
   });
 
   describe('树形数据', () => {
+    /** 树形数据测试使用的字段 */
+    interface TreeFields {
+      'col-1': string;
+      'col-2': string;
+      'col-3': string;
+    }
+
     function createTreeColumns() {
-      return defineTableColumns([
+      return defineTableColumns<TreeFields>([
         { field: 'col-1', title: 'Col 1' },
         { field: 'col-2', title: 'Col 2' },
         { field: 'col-3', title: 'Col 3' },
@@ -1087,7 +1094,7 @@ describe('grid-table', () => {
 
       const App = defineComponent({
         setup() {
-          return () => h(MixteGridTable, {
+          return () => h(MixteGridTable<TreeFields>, {
             'renderMode': 'legacy',
             'columns': createTreeColumns(),
             'data': createTreeData(),
@@ -1117,7 +1124,7 @@ describe('grid-table', () => {
 
       const App = defineComponent({
         setup() {
-          return () => h(MixteGridTable, {
+          return () => h(MixteGridTable<TreeFields>, {
             'renderMode': 'legacy',
             'columns': createTreeColumns(),
             'data': createTreeData(),
@@ -1146,7 +1153,7 @@ describe('grid-table', () => {
 
       const App = defineComponent({
         setup() {
-          return () => h(MixteGridTable, {
+          return () => h(MixteGridTable<TreeFields>, {
             'renderMode': 'legacy',
             'columns': createTreeColumns(),
             'data': createTreeData(),

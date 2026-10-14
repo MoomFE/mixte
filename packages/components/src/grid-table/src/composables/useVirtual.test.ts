@@ -1,3 +1,4 @@
+import type { ModelRef } from 'vue';
 import type { MeasureSource } from './useVirtual';
 import { enableAutoUnmount, mount } from '@vue/test-utils';
 import { useSharedStore } from './useShared';
@@ -35,7 +36,7 @@ function createHarness(options: {
 
   const Harness = defineComponent({
     setup() {
-      useSharedStore(props as any, {} as any, { expandedRowKeys: ref<string[]>([]) });
+      useSharedStore(props as any, {} as any, { expandedRowKeys: ref<string[]>([]) as unknown as ModelRef<string[]> });
       useTreeDataStore();
 
       const { useRowMeasure, findIndexByHeight: find, data: storeData } = useVirtualStore({ measureSource });

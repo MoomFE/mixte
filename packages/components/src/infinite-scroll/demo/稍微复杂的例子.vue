@@ -14,7 +14,7 @@
       :load="load"
       :distance="100"
     >
-      <template v-for="item in data" :key="item">
+      <template v-for="item in data" :key="item.name">
         <div class="px-2 py-2" style="background-color: var(--el-color-primary-light-7)">
           {{ item.name }}
         </div>
@@ -92,7 +92,7 @@
       :load="load"
       :distance="100"
     >
-      <template v-for="item in data" :key="item">
+      <template v-for="item in data" :key="item.name">
         <div class="px-2 py-2" style="background-color: var(--el-color-primary-light-7)">
           {{ item.name }}
         </div>
