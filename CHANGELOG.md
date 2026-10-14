@@ -16,6 +16,7 @@
   - 🐞 [mixte] 修复 `transformKeys` 和 `pick` 处理 `__proto__` 键时可能污染原型链的问题, 并修正 `deepClone` 克隆后丢失对象原型的问题
   - 🐞 [@mixte/use] 修复 `useRequest` 开启 `immediate` 时请求失败会产生未处理 rejection 的问题
   - 🐞 [@mixte/mel-components] 修复组件 `MelSelect` 的 `optionsApi` 请求失败时产生未处理 rejection 的问题
+  - 🐞 [@mixte/components] 修复组件 `GridTable` 使用新对象替换 `columns` 后 `fixed`、`align` 等列配置不生效的问题, 并修复 SSR 环境下渲染字符串宽度列时抛出异常的问题
   - ⚠️ 构建由 `rollup` 迁移至 `tsdown`
   - ⚠️ [@mixte/snippets] 删除 `ant-design-x` 与 `tiptap-editor` 模块及相关依赖
 

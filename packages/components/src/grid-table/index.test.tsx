@@ -1647,6 +1647,61 @@ describe('grid-table', () => {
 
     it('列固定: fixed ( 在浏览器模式中测试 )', () => {});
 
+    it('替换 columns 后, 列的 fixed 和 align 配置会重新生效', async () => {
+      const { vm, getTableThs, getTableTds } = getTableStructure({
+        props: {
+          columns: defineTableColumns<TestUser>([
+            { field: 'name', title: '姓名', fixed: 'left' },
+            { field: 'age', title: '年龄' },
+          ]),
+          data: createData(),
+        },
+      });
+
+      // 初始状态: name 列固定在左侧
+      getTableThs().forEach((th) => {
+        if (th.attributes('data-field') === 'name') {
+          expect(th.classes()).toEqual(expect.arrayContaining(['mixte-gt-cell-fix-left']));
+        }
+        else {
+          expect(th.classes()).not.includes('mixte-gt-cell-fix-left');
+        }
+      });
+
+      getTableTds().forEach((td) => {
+        if (td.attributes('data-field') === 'name') {
+          expect(td.classes()).toEqual(expect.arrayContaining(['mixte-gt-cell-fix-left']));
+        }
+        else {
+          expect(td.classes()).not.includes('mixte-gt-cell-fix-left');
+        }
+      });
+
+      // 使用新对象替换 columns: 取消固定, 并给 age 列设置右对齐
+      await vm.setProps({
+        columns: defineTableColumns<TestUser>([
+          { field: 'name', title: '姓名' },
+          { field: 'age', title: '年龄', align: 'right' },
+        ]),
+      });
+
+      getTableThs().forEach((th) => {
+        expect(th.classes()).not.includes('mixte-gt-cell-fix-left');
+
+        if (th.attributes('data-field') === 'age') {
+          expect(th.classes()).toEqual(expect.arrayContaining(['mixte-gt-cell-align-right']));
+        }
+      });
+
+      getTableTds().forEach((td) => {
+        expect(td.classes()).not.includes('mixte-gt-cell-fix-left');
+
+        if (td.attributes('data-field') === 'age') {
+          expect(td.classes()).toEqual(expect.arrayContaining(['mixte-gt-cell-align-right']));
+        }
+      });
+    });
+
     it('单元格样式类 ( th/td )', async () => {
       const data = createData();
       const { vm, getTableThs, getTableTds } = getTableStructure({

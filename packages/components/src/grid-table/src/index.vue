@@ -20,7 +20,7 @@
 >
   import type { GridTableExpose, GridTableProps, GridTableSlots } from '@mixte/components/grid-table/types';
   import type { StyleValue } from 'vue';
-  import { isFunction, isNumeric } from 'mixte';
+  import { isBrowser, isFunction, isNumeric } from 'mixte';
   import { computed, h } from 'vue';
   import Empty from './components/empty.vue';
   import Loading from './components/loading.vue';
@@ -93,8 +93,8 @@
         if (width == null) gridTemplateColumns += 'auto ';
         // 数字宽度
         else if (isNumeric(width) && Number(width) >= 0) gridTemplateColumns += `${width}px `;
-        // 合法的宽度
-        else if (CSS?.supports('grid-template-columns', `${width} auto`)) gridTemplateColumns += `${width} `;
+        // 合法的宽度 ( SSR 等非浏览器环境下不存在 CSS 全局对象, 直接回退为 auto )
+        else if (isBrowser && CSS?.supports('grid-template-columns', `${width} auto`)) gridTemplateColumns += `${width} `;
         // 其他情况
         else gridTemplateColumns += 'auto ';
       }

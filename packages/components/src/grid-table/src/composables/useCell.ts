@@ -32,13 +32,16 @@ export const [
   const createColumnStore = createNamedSharedComposable((column: GridTableColumn<Record<string, any>>) => {
     const columnField = String(column.field);
 
+    // 每次从当前列配置中获取列对象, 而不是一直使用首次调用时传入的对象, 以支持使用新对象替换 columns 后配置可以生效
+    const currentColumn = computed(() => columns.value?.find(item => String(item.field) === columnField) ?? column);
+
     const columnIndex = computed(() => columnFieldToIndex.value.get(columnField) ?? -1);
     const columnIsFirst = computed(() => columnIndex.value === 0);
     const columnIsLast = computed(() => columnIndex.value === (columns.value?.length ?? 0) - 1);
 
-    const fixedLeft = computed(() => columnIsFixedLeft(column));
+    const fixedLeft = computed(() => columnIsFixedLeft(currentColumn.value));
     const fixedLeftIndex = computed(() => fixedLeft.value ? (fixedLeftColumnFieldToIndex.value.get(columnField) ?? -1) : -1);
-    const fixedRight = computed(() => columnIsFixedRight(column));
+    const fixedRight = computed(() => columnIsFixedRight(currentColumn.value));
     const fixedRightIndex = computed(() => fixedRight.value ? (fixedRightColumnFieldToIndex.value.get(columnField) ?? -1) : -1);
 
     const zIndex = computed(() => {
@@ -110,8 +113,10 @@ export const [
         }
       }
 
-      if (column.align === 'center') classes += 'mixte-gt-cell-align-center ';
-      else if (column.align === 'right') classes += 'mixte-gt-cell-align-right ';
+      const { align } = currentColumn.value;
+
+      if (align === 'center') classes += 'mixte-gt-cell-align-center ';
+      else if (align === 'right') classes += 'mixte-gt-cell-align-right ';
 
       return classes;
     });
