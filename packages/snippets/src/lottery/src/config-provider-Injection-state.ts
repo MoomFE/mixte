@@ -2,7 +2,7 @@
 
 import type { ComputedRef, Ref, ShallowRef } from 'vue';
 import type { LotteryProps, User } from './types';
-import { addHighlight, createCard, createHighlight, removeHighlight, updateCard, updateCardBg } from '@mixte/snippets/lottery/utils';
+import { addHighlight, createCard, createHighlight, ensureSelectedCardsIndex, removeHighlight, updateCard, updateCardBg } from '@mixte/snippets/lottery/utils';
 import { useRequest, watchImmediate, wheneverEffectScope, wheneverEffectScopeImmediate } from '@mixte/use';
 import { createInjectionState, useCssVar, useElementSize, useIntervalFn } from '@vueuse/core';
 import { gsap } from 'gsap';
@@ -10,7 +10,7 @@ import { once } from 'lodash-es';
 import { random, randomNatural } from 'mixte';
 import * as THREE from 'three';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js';
-import { computed, markRaw, onMounted, ref, shallowReactive, shallowRef, watch } from 'vue';
+import { computed, markRaw, onMounted, onUnmounted, ref, shallowReactive, shallowRef, watch } from 'vue';
 import { CSS3DObject, CSS3DRenderer } from './CSS3DRenderer';
 
 interface LotterySharedStore {
@@ -350,7 +350,9 @@ function useSelect() {
       const width = (12 * vh.value) + (2 * vh.value);
       const height = (16 * vh.value) + (2 * vh.value);
       const locates: { x: number; y: number }[] = [];
-      const userTotal = users.length;
+
+      // 抽取数量不能超过卡片总数
+      const userTotal = Math.min(users.length, total);
 
       // 计算每行显示数量
       let colNum = 5; // 默认每行5个
@@ -363,11 +365,8 @@ function useSelect() {
       // 计算起始位置
       const startY = ((rowNum - 1) * height) / 2;
 
-      while (selectedCardsIndex.value.length < userTotal) {
-        const index = randomNatural(0, total - 1);
-        if (!selectedCardsIndex.value.includes(index))
-          selectedCardsIndex.value.push(index);
-      }
+      // 补足选中的卡片索引 ( 抽取数量变少时会裁剪, 避免后续按索引取值时越界 )
+      selectedCardsIndex.value = ensureSelectedCardsIndex(selectedCardsIndex.value, userTotal, total);
 
       // 计算每个卡片的位置
       for (let row = 0; row < rowNum; row++) {
@@ -505,7 +504,6 @@ export function useInit(props: LotteryProps) {
         obj.position.x = j * 140 - (140 * colCount - 20) / 2;
         obj.position.y = -(i * 180) + (180 * rowCount - 20) / 2;
         targets.table.push(obj);
-        index++;
       }
     }
 
@@ -541,10 +539,12 @@ export function useInit(props: LotteryProps) {
     renderer.value!.render(scene.value!, camera.value!);
   }
 
+  let animationFrameId: number | undefined;
+
   function animate() {
     controls.value?.update();
     render();
-    requestAnimationFrame(animate);
+    animationFrameId = requestAnimationFrame(animate);
   }
 
   wheneverEffectScope(() => rootRef.value && camera.value && scene.value && renderer.value, () => {
@@ -567,6 +567,13 @@ export function useInit(props: LotteryProps) {
     initControls();
     transformToTable();
     animate();
+  });
+
+  onUnmounted(() => {
+    if (animationFrameId !== undefined)
+      cancelAnimationFrame(animationFrameId);
+
+    controls.value?.dispose();
   });
 }
 

@@ -1,6 +1,6 @@
 import type { CSS3DObject } from './CSS3DRenderer';
 import type { User } from './types';
-import { addHighlight, createCard, createElement, createHighlight, removeHighlight, updateCard, updateCardBg } from '@mixte/snippets/lottery/utils';
+import { addHighlight, createCard, createElement, createHighlight, ensureSelectedCardsIndex, removeHighlight, updateCard, updateCardBg } from '@mixte/snippets/lottery/utils';
 
 const user: User = {
   id: '1',
@@ -94,6 +94,14 @@ describe('lottery/utils', () => {
 
       expect(card.style.backgroundColor).toMatch(/^rgba\(var\(--mixte-lottery-primary-rgb\), 0\.\d+\)$/);
     });
+
+    it('用户为空时生成空卡片', () => {
+      const card = createCard(undefined, false, 3, false);
+
+      expect(card.id).toBe('card-3');
+      expect(card.querySelector('.name')!.textContent).toBe('');
+      expect(card.querySelector('.details')).toBeNull();
+    });
   });
 
   describe('updateCard', () => {
@@ -114,6 +122,31 @@ describe('lottery/utils', () => {
       updateCardBg(createFakeCard(element));
 
       expect(element.style.backgroundColor).toMatch(/^rgba\(var\(--mixte-lottery-primary-rgb\), 0\.\d+\)$/);
+    });
+  });
+
+  describe('ensureSelectedCardsIndex', () => {
+    it('数量不足时随机补足不重复的索引', () => {
+      const indexes = ensureSelectedCardsIndex([1, 2], 10, 119);
+
+      expect(indexes.length).toBe(10);
+      expect(indexes.slice(0, 2)).toEqual([1, 2]);
+      expect(new Set(indexes).size).toBe(indexes.length);
+
+      indexes.forEach((index) => {
+        expect(index).toBeGreaterThanOrEqual(0);
+        expect(index).toBeLessThanOrEqual(118);
+      });
+    });
+
+    it('数量超出时按现有顺序裁剪', () => {
+      expect(ensureSelectedCardsIndex([5, 6, 7, 8], 2, 119)).toEqual([5, 6]);
+      expect(ensureSelectedCardsIndex([5, 6, 7, 8], 4, 119)).toEqual([5, 6, 7, 8]);
+      expect(ensureSelectedCardsIndex([5, 6, 7, 8], 0, 119)).toEqual([]);
+    });
+
+    it('数量相同时保持原有索引', () => {
+      expect(ensureSelectedCardsIndex([3, 1, 2], 3, 119)).toEqual([3, 1, 2]);
     });
   });
 

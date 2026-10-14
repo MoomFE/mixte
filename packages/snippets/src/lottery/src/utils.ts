@@ -60,7 +60,7 @@ export function createElement(className?: string, html?: string) {
 /**
  * 创建卡片
  */
-export function createCard(user: User, isBold: boolean, id: string | number, showTable: boolean) {
+export function createCard(user: User | undefined, isBold: boolean, id: string | number, showTable: boolean) {
   const el = createElement();
   el.id = `card-${id}`;
   el.className = 'mixte-lottery-card';
@@ -74,10 +74,10 @@ export function createCard(user: User, isBold: boolean, id: string | number, sho
   }
 
   el.appendChild(
-    createElement('name', user.name),
+    createElement('name', user?.name),
   );
 
-  user.jobNumber && el.appendChild(
+  user?.jobNumber && el.appendChild(
     createElement('details', `${user.jobNumber}`),
   );
 
@@ -99,6 +99,24 @@ export function updateCard(card: CSS3DObject, user: User) {
  */
 export function updateCardBg(card: CSS3DObject) {
   card.element.style.backgroundColor = `rgba(var(--mixte-lottery-primary-rgb), ${randomNatural(25, 95) / 100})`;
+}
+
+/**
+ * 补全选中的卡片索引列表
+ *  - 数量超出时, 按现有顺序裁剪
+ *  - 数量不足时, 从全部卡片中随机补足不重复的索引
+ */
+export function ensureSelectedCardsIndex(selectedIndexes: number[], count: number, total: number): number[] {
+  const indexes = selectedIndexes.slice(0, count);
+
+  while (indexes.length < count) {
+    const index = randomNatural(0, total - 1);
+
+    if (!indexes.includes(index))
+      indexes.push(index);
+  }
+
+  return indexes;
 }
 
 /**
