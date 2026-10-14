@@ -16,6 +16,8 @@ const SPLITTERS = ['-', '_', ' '] as const;
  * camelCase('Foo_Bar_Baz'); // -> 'fooBarBaz'
  * camelCase('foo bar baz'); // -> 'fooBarBaz'
  * camelCase('Foo Bar Baz'); // -> 'fooBarBaz'
+ * camelCase('FOO_BAR'); // -> 'fooBar'
+ * camelCase('HTTPServer'); // -> 'httpServer'
  */
 export function camelCase<T extends string>(str: T): CamelCase<T> {
   return lowerFirst(pascalCase(str)) as CamelCase<T>;
@@ -34,6 +36,7 @@ export function camelCase<T extends string>(str: T): CamelCase<T> {
  * pascalCase('Foo_Bar_Baz'); // -> 'FooBarBaz'
  * pascalCase('foo bar baz'); // -> 'FooBarBaz'
  * pascalCase('Foo Bar Baz'); // -> 'FooBarBaz'
+ * pascalCase('FOO_BAR'); // -> 'FooBar'
  */
 export function pascalCase<T extends string>(str: T): PascalCase<T> {
   return splitByCase(str, SPLITTERS).map(s => upperFirst(s.toLowerCase())).join('') as PascalCase<T>;

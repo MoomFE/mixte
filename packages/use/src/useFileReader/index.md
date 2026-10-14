@@ -4,6 +4,8 @@ outline: [2,3]
 
 读取文件内容
 
+- 当 `file` 被置为 `null` / `undefined` 时, 会中断当前读取, 并将 `result` / `error` 重置为 `undefined`、`isReading` 置为 `false`
+
 ### 示例
 
 ```vue twoslash

@@ -264,6 +264,7 @@ export function isPrimitive(value: unknown) {
  *
  * isEmptyObject({}); // -> true
  * isEmptyObject({ mixte: 6 }); // -> false
+ * isEmptyObject(null); // -> false
  */
 export function isEmptyObject(value: any): value is EmptyObject {
   if (!isObject(value)) return false;

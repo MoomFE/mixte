@@ -32,6 +32,11 @@ outline: [2,4]
 
   > 当未提供 `file` 时, [unpkg], [jsdelivr], [esm.sh] 将会默认请求 `/package.json` 文件<br>
   > 而 [cdnjs], [bootcdn], [baomitu], [staticfile] 将会请求类库根目录
+
+  - timeout:
+
+  > 请求超时时间 ( 毫秒 ), 默认为 `10000`<br>
+  > 超时的请求会被中断, 并视为该 CDN 不可用
 :::
 
 ### 示例
@@ -93,6 +98,11 @@ interface GetFastestCDNOptions {
   version?: string;
   /** 用于检测用的文件地址 */
   file?: string;
+  /**
+   * 请求超时时间 ( 毫秒 )
+   * @default 10000
+   */
+  timeout?: number;
 }
 
 /**

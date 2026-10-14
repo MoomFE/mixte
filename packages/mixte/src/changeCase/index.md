@@ -11,6 +11,8 @@ import { camelCase } from 'mixte';
 
 camelCase('foo-bar-baz'); // -> 'fooBarBaz'
 camelCase('Foo_Bar_Baz'); // -> 'fooBarBaz'
+camelCase('FOO_BAR'); // -> 'fooBar'
+camelCase('HTTPServer'); // -> 'httpServer'
 ```
 
 ## `pascalCase` {#pascalCase}
@@ -24,6 +26,7 @@ import { pascalCase } from 'mixte';
 
 pascalCase('foo-bar-baz'); // -> 'FooBarBaz'
 pascalCase('Foo_Bar_Baz'); // -> 'FooBarBaz'
+pascalCase('FOO_BAR'); // -> 'FooBar'
 ```
 
 ## `kebabCase` {#kebabCase}

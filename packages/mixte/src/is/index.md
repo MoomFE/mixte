@@ -54,6 +54,8 @@ import { isNumericString } from 'mixte';
 isNumericString('666'); // -> true
 isNumericString(666); // -> false
 isNumericString(Number.NaN); // -> false
+isNumericString('0x10'); // -> false
+isNumericString(' 6 '); // -> false
 ```
 
 ## `isNumeric` {#isNumeric}
@@ -110,6 +112,7 @@ import { isPlainObject } from 'mixte';
 isPlainObject({}); // -> true
 isPlainObject(Object.create(null)); // -> true
 isPlainObject([]); // -> false
+isPlainObject(new (class User {})()); // -> false
 ```
 
 ## `assertPlainObject` {#assertPlainObject}
@@ -125,6 +128,7 @@ import { assertPlainObject } from 'mixte';
 assertPlainObject({}); // -> true
 assertPlainObject(Object.create(null)); // -> true
 assertPlainObject([]); // -> false
+assertPlainObject(new (class User {})()); // -> false
 
 // 类型断言使用
 interface User {
@@ -240,6 +244,8 @@ import { isEmptyObject } from 'mixte';
 
 isEmptyObject({}); // -> true
 isEmptyObject({ mixte: 6 }); // -> false
+isEmptyObject(null); // -> false
+isEmptyObject(666); // -> false
 ```
 
 ## `isESModule` {#isESModule}
