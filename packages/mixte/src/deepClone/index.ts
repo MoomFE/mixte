@@ -8,9 +8,10 @@ function clone<T>(value: T, cache = new WeakMap<object, object>()) {
     if (cache.has(value))
       return cache.get(value);
 
+    // `Object.create` 保留原对象的原型, 避免 null 原型 / 自定义原型对象在克隆后丢失原型
     cache.set(
       value,
-      cloneValue = isObject ? {} : [],
+      cloneValue = isObject ? Object.create(Object.getPrototypeOf(value)) : [],
     );
 
     if (isObject) {

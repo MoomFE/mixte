@@ -136,7 +136,12 @@ export function transformKeys<T extends Record<string, any>>(
 
   for (const key in obj) {
     if (hasOwnProperty.call(obj, key)) {
-      result[fn(key)] = obj[key];
+      const newKey = fn(key);
+
+      // 忽略 `__proto__` 键, 避免赋值时触发原型 setter 改变结果对象的原型 ( 原型污染 )
+      if (newKey === '__proto__') continue;
+
+      result[newKey] = obj[key];
     }
   }
 

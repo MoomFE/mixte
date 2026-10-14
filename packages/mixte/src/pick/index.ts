@@ -22,6 +22,9 @@ export function pick<T extends object, K extends keyof T>(
   const keysArray = toArray(keys);
 
   for (const key of keysArray) {
+    // 忽略 `__proto__` 键, 避免赋值时触发原型 setter 改变结果对象的原型 ( 原型污染 )
+    if (key === '__proto__') continue;
+
     if (key as keyof T in obj) {
       result[key as string] = obj[key as keyof T];
     }

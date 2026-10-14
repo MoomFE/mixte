@@ -39,6 +39,16 @@ describe('pick', () => {
     expect(result).not.toBe(obj);
   });
 
+  it('不会因为 `__proto__` 键污染原型链', () => {
+    const source = JSON.parse('{"__proto__":{"polluted":true},"a":1}');
+
+    const result = pick(source, ['__proto__', 'a']);
+
+    expect(Object.getPrototypeOf(result)).toBe(Object.prototype);
+    expect(result.polluted).toBeUndefined();
+    expect(result).toStrictEqual({ a: 1 });
+  });
+
   it('类型测试', () => {
     const obj = { a: 1, b: '2', c: true };
     const result = pick(obj, ['a', 'c']);

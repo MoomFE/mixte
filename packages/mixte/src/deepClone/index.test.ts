@@ -28,6 +28,29 @@ describe('deepClone', () => {
     expect(Object.getPrototypeOf(result)).toBe(Object.prototype);
   });
 
+  it('保留原对象的原型', () => {
+    // null 原型对象
+    const nullProto = Object.create(null) as Record<string, any>;
+    nullProto.a = 1;
+
+    const result1 = deepClone(nullProto);
+
+    expect(result1).not.toBe(nullProto);
+    expect(Object.getPrototypeOf(result1)).toBeNull();
+    expect(result1).toStrictEqual(nullProto);
+
+    // 自定义原型对象
+    const proto = { mixte: 6 };
+    const customProto = Object.create(proto) as Record<string, any>;
+    customProto.a = 1;
+
+    const result2 = deepClone(customProto);
+
+    expect(result2).not.toBe(customProto);
+    expect(Object.getPrototypeOf(result2)).toBe(proto);
+    expect(result2).toStrictEqual(customProto);
+  });
+
   it('深拷贝数组', () => {
     const arr = [
       [1],

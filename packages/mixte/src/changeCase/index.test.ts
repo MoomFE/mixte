@@ -75,5 +75,21 @@ describe('change-case', () => {
         bazQux: [1, 2, 3],
       });
     });
+
+    it('不会因为转换后的 `__proto__` 键污染原型链', () => {
+      const source = JSON.parse('{"__proto__":{"polluted":true}}');
+
+      expect(Object.keys(source)).toContain('__proto__');
+
+      // 转换后依然是 `__proto__` 键名
+      const result = transformKeys(source, snakeCase);
+      expect(Object.getPrototypeOf(result)).toBe(Object.prototype);
+      expect(result.polluted).toBeUndefined();
+
+      // 使用原样输出的自定义转换函数
+      const result2 = transformKeys(source, key => key);
+      expect(Object.getPrototypeOf(result2)).toBe(Object.prototype);
+      expect(result2.polluted).toBeUndefined();
+    });
   });
 });
