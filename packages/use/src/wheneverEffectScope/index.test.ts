@@ -1,5 +1,5 @@
 import { wheneverEffectScope, wheneverEffectScopeDeep, wheneverEffectScopeImmediate, wheneverEffectScopeImmediateDeep } from '@mixte/use';
-import { nextTick, ref, watch } from 'vue';
+import { effectScope, nextTick, ref, watch } from 'vue';
 
 describe('wheneverEffectScope', () => {
   it('监听传入值为 truthy 时, 创建一个 effect 作用域', async () => {
@@ -48,6 +48,31 @@ describe('wheneverEffectScope', () => {
     expect(value2.value).toBe(2);
 
     unWatch();
+  });
+
+  it('父作用域销毁时, 创建的 effect 作用域会一起销毁', async () => {
+    const parentScope = effectScope();
+    const source = ref(false);
+    const value = ref(0);
+    const log: number[] = [];
+
+    parentScope.run(() => {
+      wheneverEffectScope(source, () => {
+        watch(value, v => log.push(v as number));
+      });
+    });
+
+    // 在父作用域之外触发时的创建时机, 创建 effect 作用域时不存在活动中的父作用域
+    source.value = true;
+    value.value = 1;
+    await nextTick();
+    expect(log).toEqual([1]);
+
+    // 父作用域销毁后, 创建的 effect 作用域应该一起销毁, 内部 watch 不再执行
+    parentScope.stop();
+    value.value = 2;
+    await nextTick();
+    expect(log).toEqual([1]);
   });
 
   it('当传入值改变但依旧为 truthy 时, 会停止之前创建的 effect 作用域并创建一个新的 effect 作用域', async () => {

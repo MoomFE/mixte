@@ -1,10 +1,12 @@
 import type { EffectScope, WatchCallback, WatchOptions, WatchSource, WatchStopHandle } from 'vue';
+import { tryOnScopeDispose } from '@vueuse/core';
 import { effectScope, watch } from 'vue';
 
 /**
  * 监听传入值为 truthy 时, 创建一个 effect 作用域
  *  - 当传入值改变但依旧为 truthy 时, 会停止之前创建的 effect 作用域并创建一个新的 effect 作用域
  *  - 当值变为 falsy 时, 将会停止之前创建的 effect 作用域
+ *  - 在父作用域 ( 如组件 ) 中使用时, 父作用域销毁时创建的 effect 作用域会一起销毁
  *
  * @see https://mixte.moomfe.com/mixte/use/wheneverEffectScope#wheneverEffectScope
  * @param source 侦听器的源, 和 watch 一致
@@ -33,6 +35,10 @@ export function wheneverEffectScope<T>(source: WatchSource<T | false | null | un
     scope?.stop();
     scope = undefined;
   };
+
+  // 创建 effect 作用域的回调可能在没有活动父作用域的时机执行 ( 如事件触发时 ), 此时创建的 effectScope 会游离在父作用域之外;
+  // 这里在创建时登记清理, 保证父作用域销毁时创建的 effect 作用域会一起销毁
+  tryOnScopeDispose(dispose);
 
   const unWatch = watch(
     source,

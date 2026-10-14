@@ -18,6 +18,7 @@
   - 🐞 [@mixte/mel-components] 修复组件 `MelSelect` 的 `optionsApi` 请求失败时产生未处理 rejection 的问题
   - 🐞 [@mixte/components] 修复组件 `GridTable` 使用新对象替换 `columns` 后 `fixed`、`align` 等列配置不生效的问题, 并修复 SSR 环境下渲染字符串宽度列时抛出异常的问题
   - 🐞 [@mixte/snippets] 修复 lottery 初始化卡片时仅显示一半用户、连续抽取减少人数后报错、空用户列表崩溃及渲染循环未随组件卸载停止的问题
+  - 🐞 [@mixte/use] 修复 `wheneverEffectScope` 创建的 effect 作用域在父作用域销毁时未被一起销毁的问题
   - ⚠️ 构建由 `rollup` 迁移至 `tsdown`
   - ⚠️ [@mixte/snippets] 删除 `ant-design-x` 与 `tiptap-editor` 模块及相关依赖
 
