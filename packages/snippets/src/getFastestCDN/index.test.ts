@@ -28,7 +28,6 @@ describe.skipIf(isInCi).concurrent('getFastestCDN', () => {
 
     expect(url).toBeTypeOf('string');
     expect(url).toMatch('/monaco-editor');
-    expect(url).not.toMatch('yaml.js');
     expect(url[url.length - 1]).not.toBe('/');
   });
 

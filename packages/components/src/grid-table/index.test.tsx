@@ -431,8 +431,8 @@ describe('grid-table', () => {
         },
       });
 
-      expect(vm.vm.tableWrapSize.width).toBeTypeOf('number');
-      expect(vm.vm.tableWrapSize.height).toBeTypeOf('number');
+      // jsdom 无布局能力, 初始尺寸恒为 0; 实际尺寸变更行为需要在浏览器模式中验证
+      expect(vm.vm.tableWrapSize).toStrictEqual({ width: 0, height: 0 });
     });
 
     it('tableSize: 表格主体宽高',  async () => {
@@ -445,8 +445,8 @@ describe('grid-table', () => {
         },
       });
 
-      expect(vm.vm.tableSize.width).toBeTypeOf('number');
-      expect(vm.vm.tableSize.height).toBeTypeOf('number');
+      // jsdom 无布局能力, 初始尺寸恒为 0; 实际尺寸变更行为需要在浏览器模式中验证
+      expect(vm.vm.tableSize).toStrictEqual({ width: 0, height: 0 });
     });
   });
 
@@ -1605,7 +1605,7 @@ describe('grid-table', () => {
       });
     });
 
-    it('列宽度: width ( 在浏览器模式中测试 )', () => {});
+    it.todo('列宽度: width ( 在浏览器模式中测试 )');
 
     it('列的对齐方式: align', () => {
       const columns = defineTableColumns<TestUser>([
@@ -1645,7 +1645,7 @@ describe('grid-table', () => {
       });
     });
 
-    it('列固定: fixed ( 在浏览器模式中测试 )', () => {});
+    it.todo('列固定: fixed ( 在浏览器模式中测试 )');
 
     it('替换 columns 后, 列的 fixed 和 align 配置会重新生效', async () => {
       const { vm, getTableThs, getTableTds } = getTableStructure({

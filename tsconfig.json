@@ -48,8 +48,8 @@
     "allowJs": true,
     "strict": true,
     "strictNullChecks": true,
-    "outDir": "./dist",
     "noEmit": true,
+    "outDir": "./dist",
     "esModuleInterop": true,
     "skipLibCheck": true
   },

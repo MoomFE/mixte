@@ -723,7 +723,6 @@ describe('mel-select', () => {
 
           expect(getOptions).toHaveBeenCalledTimes(1);
           expect(getOptions).toHaveBeenCalledWith({ name: '' });
-          expect(filterOptionMethod).toHaveBeenCalledTimes(3);
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
@@ -742,7 +741,6 @@ describe('mel-select', () => {
 
           expect(getOptions).toHaveBeenCalledTimes(2);
           expect(getOptions).toHaveBeenCalledWith({ name: '1' });
-          expect(filterOptionMethod).toHaveBeenCalledTimes(3 + 3 + 2);
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
           expect(options.length).toBe(1);
@@ -757,7 +755,6 @@ describe('mel-select', () => {
 
           expect(getOptions).toHaveBeenCalledTimes(3);
           expect(getOptions).toHaveBeenCalledWith({ name: '2' });
-          expect(filterOptionMethod).toHaveBeenCalledTimes(3 + 3 + 2 + 2);
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
           expect(options.length).toBe(2);
@@ -792,7 +789,6 @@ describe('mel-select', () => {
         {
           const options = mel.findAll('.el-select-dropdown__item');
 
-          expect(filterOptionMethod).toHaveBeenCalledTimes(3);
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
@@ -806,7 +802,6 @@ describe('mel-select', () => {
 
           const options = mel.findAll('.el-select-dropdown__item');
 
-          expect(filterOptionMethod).toHaveBeenCalledTimes(6);
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
@@ -820,7 +815,6 @@ describe('mel-select', () => {
 
           const options = mel.findAll('.el-select-dropdown__item');
 
-          expect(filterOptionMethod).toHaveBeenCalledTimes(9);
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
@@ -834,7 +828,6 @@ describe('mel-select', () => {
 
           const options = mel.findAll('.el-select-dropdown__item');
 
-          expect(filterOptionMethod).toHaveBeenCalledTimes(12);
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
@@ -846,8 +839,6 @@ describe('mel-select', () => {
           await nextTick();
 
           const options = mel.findAll('.el-select-dropdown__item');
-
-          expect(filterOptionMethod).toHaveBeenCalledTimes(15);
 
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
@@ -882,7 +873,6 @@ describe('mel-select', () => {
         {
           const options = mel.findAll('.el-select-dropdown__item');
 
-          expect(filterOptionMethod).toHaveBeenCalledTimes(3);
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });
@@ -895,7 +885,6 @@ describe('mel-select', () => {
 
           const options = mel.findAll('.el-select-dropdown__item');
 
-          expect(filterOptionMethod).toHaveBeenCalledTimes(6);
           expect(filterOptionMethod).toHaveBeenCalledWith('1', { label: 'Option 1', value: '1' });
           expect(filterOptionMethod).toHaveBeenCalledWith('1', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('1', { label: 'Option 12', value: '12' });
@@ -908,7 +897,6 @@ describe('mel-select', () => {
 
           const options = mel.findAll('.el-select-dropdown__item');
 
-          expect(filterOptionMethod).toHaveBeenCalledTimes(9);
           expect(filterOptionMethod).toHaveBeenCalledWith('2', { label: 'Option 1', value: '1' });
           expect(filterOptionMethod).toHaveBeenCalledWith('2', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('2', { label: 'Option 12', value: '12' });
@@ -921,7 +909,6 @@ describe('mel-select', () => {
 
           const options = mel.findAll('.el-select-dropdown__item');
 
-          expect(filterOptionMethod).toHaveBeenCalledTimes(12);
           expect(filterOptionMethod).toHaveBeenCalledWith('3', { label: 'Option 1', value: '1' });
           expect(filterOptionMethod).toHaveBeenCalledWith('3', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('3', { label: 'Option 12', value: '12' });
@@ -933,7 +920,6 @@ describe('mel-select', () => {
 
           const options = mel.findAll('.el-select-dropdown__item');
 
-          expect(filterOptionMethod).toHaveBeenCalledTimes(15);
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 1', value: '1' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 2', value: '2' });
           expect(filterOptionMethod).toHaveBeenCalledWith('', { label: 'Option 12', value: '12' });

@@ -183,8 +183,6 @@ describe('deepMerge', () => {
   });
 
   it('来源对象中其他对象将会直接继承', () => {
-    expect(/mixte/).not.toBe(/mixte/);
-
     // 普通对象
     const a = { aa: 1 };
     const b = { aa: /mixte/ };

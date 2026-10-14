@@ -501,7 +501,7 @@ describe.concurrent('useRequest', () => {
         expect(data.isFinished.value).toBe(false);
         expect(data.isSuccess.value).toBe(false);
 
-        await delay(100);
+        await until(data.isFinished).toBe(true);
 
         expect(data.response.value).toStrictEqual({ data: 1 });
         expect(data.data.value).toBe(1);
@@ -527,7 +527,7 @@ describe.concurrent('useRequest', () => {
         });
 
         // 等待请求执行完毕, 若产生未处理的 rejection, Vitest 会在运行时报错并导致测试进程失败
-        await delay(150);
+        await until(data.isFinished).toBe(true);
 
         expect(errorEventCount).toBe(1);
         expect(data.isExecuted.value).toBe(true);

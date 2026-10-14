@@ -211,45 +211,51 @@ describe('useFileReader', () => {
   it('作用域销毁时, 会中断当前文件读取', async () => {
     const _FileReader = globalThis.FileReader;
 
-    let isAbort = false;
+    let abortCount = 0;
 
     globalThis.FileReader = class extends _FileReader {
       abort() {
-        isAbort = true;
+        abortCount++;
+        return super.abort();
       }
     } as any;
 
-    let result: Ref<string | null | undefined>;
-    let error: Ref<ProgressEvent<FileReader> | null>;
-    let isReading: Ref<boolean>;
+    try {
+      let result: Ref<string | null | undefined>;
+      let error: Ref<ProgressEvent<FileReader> | null>;
+      let isReading: Ref<boolean>;
 
-    const scope = effectScope();
+      const scope = effectScope();
 
-    scope.run(() => {
-      const {
-        result: _result,
-        error: _error,
-        isReading: _isReading,
-      } = useFileReader(textBlob);
+      scope.run(() => {
+        const {
+          result: _result,
+          error: _error,
+          isReading: _isReading,
+        } = useFileReader(textBlob);
 
-      result = _result;
-      error = _error;
-      isReading = _isReading;
-    });
+        result = _result;
+        error = _error;
+        isReading = _isReading;
+      });
 
-    expect(result!.value).toBeUndefined();
-    expect(error!.value).toBeUndefined();
-    expect(isReading!.value).toBe(true);
-    expect(isAbort).toBe(true);
+      expect(result!.value).toBeUndefined();
+      expect(error!.value).toBeUndefined();
+      expect(isReading!.value).toBe(true);
 
-    scope.stop();
+      // 创建时 ( watchImmediate 的立即执行 ) 已中断过一次, 记录次数用于区分作用域销毁时的中断
+      const abortCountBeforeStop = abortCount;
 
-    expect(result!.value).toBeUndefined();
-    expect(error!.value).toBeUndefined();
-    expect(isReading!.value).toBe(true);
-    expect(isAbort).toBe(true);
+      scope.stop();
 
-    globalThis.FileReader = _FileReader;
+      expect(abortCount).toBe(abortCountBeforeStop + 1);
+      expect(result!.value).toBeUndefined();
+      expect(error!.value).toBeUndefined();
+      expect(isReading!.value).toBe(true);
+    }
+    finally {
+      globalThis.FileReader = _FileReader;
+    }
   });
 
   it('读取失败时, 返回的 error 中包含错误信息', async () => {

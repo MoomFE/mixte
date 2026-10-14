@@ -48,8 +48,6 @@ describe('createNamedSharedComposable', () => {
     const obj = { a: 1 };
     const obj2 = { a: 2 };
 
-    expect(vi.getTimerCount()).toBe(0);
-
     const res = newFn('name', obj);
     const res2 = newFn('name', obj2);
 

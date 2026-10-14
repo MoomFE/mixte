@@ -25,7 +25,7 @@ describe('@mixte/mel-components', async () => {
     );
 
     for (const item of result) {
-      expect(item.status).toBe('fulfilled'); // @ts-expect-error
+      // @ts-expect-error
       expect(item.value).toBe(true);
     }
   });

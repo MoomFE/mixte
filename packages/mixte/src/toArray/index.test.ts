@@ -19,9 +19,15 @@ describe('toArray', () => {
           expect(toArray(value)).toStrictEqual([]);
         });
       }
+      else if (type === 'array') {
+        values.forEach((value) => {
+          // 数组会原样返回, 保持同一引用
+          expect(toArray(value)).toBe(value);
+        });
+      }
       else {
         values.forEach((value) => {
-          expect(toArray(value)).toStrictEqual(Array.isArray(value) ? value : [value]);
+          expect(toArray(value)).toStrictEqual([value]);
         });
       }
     });
