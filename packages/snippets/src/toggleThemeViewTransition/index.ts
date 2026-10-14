@@ -7,6 +7,18 @@ function isAbortError(error: unknown) {
   return (error as { name?: string } | undefined)?.name === 'AbortError';
 }
 
+/**
+ * 过渡被正常跳过时, `ready` 可能抛出的错误
+ *  - `AbortError`: 过渡被中断
+ *  - `InvalidStateError`: 文档隐藏 / 视口尺寸变化等原因导致无法开始过渡
+ *  - `TimeoutError`: 浏览器超时跳过过渡
+ */
+function isTransitionSkippedError(error: unknown) {
+  const name = (error as { name?: string } | undefined)?.name;
+
+  return name === 'AbortError' || name === 'InvalidStateError' || name === 'TimeoutError';
+}
+
 interface ToggleThemeViewTransitionOptions {
   /** X 轴坐标 ( 传递鼠标事件的 clientX ) */
   x?: number;
@@ -83,8 +95,8 @@ export async function toggleThemeViewTransition(
       }).ready;
     }
     catch (error) {
-      // 过渡被中断 / 跳过时, `ready` 会以 AbortError 拒绝, 此时跳过动画
-      if (!isAbortError(error))
+      // 过渡被中断 / 跳过时 ( AbortError / InvalidStateError / TimeoutError ), 直接跳过后续动画
+      if (!isTransitionSkippedError(error))
         throw error;
 
       return;

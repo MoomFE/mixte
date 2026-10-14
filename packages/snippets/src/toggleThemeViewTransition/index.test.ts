@@ -245,4 +245,25 @@ describe('toggleThemeViewTransition', () => {
 
     await expect(toggleThemeViewTransition(() => {})).rejects.toThrow('other error');
   });
+
+  it('`ready` 因过渡被跳过 ( TimeoutError / InvalidStateError ) 而失败时, 不会抛出异常', async () => {
+    const headChildrenLength = document.head.children.length;
+
+    await asyncForEach(['TimeoutError', 'InvalidStateError'], async (name) => {
+      let isRun = false;
+
+      document.startViewTransition = ((fn: any) => {
+        fn();
+        return { ready: Promise.reject(new DOMException('Transition skipped', name)) };
+      }) as any;
+
+      await expect(toggleThemeViewTransition(() => {
+        isRun = true;
+      })).resolves.toBeUndefined();
+
+      expect(isRun).toBe(true);
+      expect(mockDocumentElementAnimate).toHaveBeenCalledTimes(0);
+      expect(document.head.children.length).toBe(headChildrenLength);
+    });
+  });
 });
