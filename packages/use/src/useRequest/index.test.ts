@@ -511,6 +511,31 @@ describe.concurrent('useRequest', () => {
         expect(data.isFinished.value).toBe(true);
         expect(data.isSuccess.value).toBe(true);
       });
+
+      it('请求失败时不会产生未处理的 rejection', async ({ expect }) => {
+        let errorEventCount = 0;
+
+        const data = useRequest(async () => {
+          await delay(100);
+          throw new Error('immediate 请求失败');
+        }, {
+          immediate: true,
+        });
+
+        data.onError(() => {
+          errorEventCount++;
+        });
+
+        // 等待请求执行完毕, 若产生未处理的 rejection, Vitest 会在运行时报错并导致测试进程失败
+        await delay(150);
+
+        expect(errorEventCount).toBe(1);
+        expect(data.isExecuted.value).toBe(true);
+        expect(data.isLoading.value).toBe(false);
+        expect(data.isFinished.value).toBe(true);
+        expect(data.isSuccess.value).toBe(false);
+        expect(data.error.value).toStrictEqual(new Error('immediate 请求失败'));
+      });
     });
 
     describe('initialData: 初始数据', () => {

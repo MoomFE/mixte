@@ -75,12 +75,14 @@ export function useOptionsApi<T>(
   const loading = computed(() => propApi.value && api.isLoading);
 
   if (propApi.value && propImmediate.value) {
-    api.execute();
+    // 请求失败时的状态与错误会记录在 api 上, 这里忽略返回 Promise 的 rejection, 避免产生未处理的 rejection
+    api.execute().catch(() => {});
   }
 
   wheneverEffectScopeImmediate(propApi, () => {
     watch(() => JSON.stringify(params.value), () => {
-      api.execute();
+      // 同上, 避免产生未处理的 rejection
+      api.execute().catch(() => {});
     });
   });
 

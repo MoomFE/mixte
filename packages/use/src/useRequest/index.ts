@@ -189,9 +189,9 @@ export function useRequest<
 
   // 初始化数据
   data.value = toValue(initialData);
-  // 立即发起请求
+  // 立即发起请求 ( 请求失败时的状态与 onError 钩子已在 execute 内部处理, 这里忽略返回 Promise 的 rejection, 避免产生未处理的 rejection )
   // @ts-expect-error
-  immediate && execute();
+  immediate && execute().catch(() => {});
 
   const common: UseRequestReturn<Response, Data, Args> = {
     response,

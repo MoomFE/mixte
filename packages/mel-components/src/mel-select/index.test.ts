@@ -325,6 +325,30 @@ describe('mel-select', () => {
       expect(options[2].text()).toBe('Option 12');
     });
 
+    it('请求失败时不会产生未处理的 rejection', async () => {
+      const getOptionsFailed = vi.fn(async () => {
+        await delay(100);
+        throw new Error('???');
+      });
+
+      const mel = mount(MelSelect, {
+        props: {
+          teleported: false,
+          optionsApi: getOptionsFailed,
+        },
+      });
+
+      expect(mel.vm.api.isLoading).toBe(true);
+      expect(getOptionsFailed).toHaveBeenCalledTimes(1);
+
+      await vi.advanceTimersByTimeAsync(100);
+
+      expect(mel.vm.api.isLoading).toBe(false);
+      expect(mel.vm.api.isFinished).toBe(true);
+      expect(mel.vm.api.isSuccess).toBe(false);
+      expect(mel.vm.api.error).toStrictEqual(new Error('???'));
+    });
+
     it('支持更深层次的数据返回', async () => {
       const mel = mount(MelSelect, {
         props: {

@@ -14,6 +14,8 @@
   - 🐞 [mixte] 修复 `isEmptyObject` 对非对象、`isNumericString` 对其他进制数字字符串的误判, 并修正 `isPlainObject` 对构造函数实例的误判
   - 🐞 [mixte] 修复 `deepFind`、`deepSome`、`deepForEach` 遍历嵌套数组时循环引用会导致栈溢出的问题
   - 🐞 [mixte] 修复 `transformKeys` 和 `pick` 处理 `__proto__` 键时可能污染原型链的问题, 并修正 `deepClone` 克隆后丢失对象原型的问题
+  - 🐞 [@mixte/use] 修复 `useRequest` 开启 `immediate` 时请求失败会产生未处理 rejection 的问题
+  - 🐞 [@mixte/mel-components] 修复组件 `MelSelect` 的 `optionsApi` 请求失败时产生未处理 rejection 的问题
   - ⚠️ 构建由 `rollup` 迁移至 `tsdown`
   - ⚠️ [@mixte/snippets] 删除 `ant-design-x` 与 `tiptap-editor` 模块及相关依赖
 
