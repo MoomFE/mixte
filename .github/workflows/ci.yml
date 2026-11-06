@@ -20,7 +20,7 @@ jobs:
       - name: Use Node.js v24
         uses: actions/setup-node@v7
         with:
-          node-version: 24.21.0
+          node-version: 24.22.2
           registry-url: https://registry.npmjs.org/
           cache: pnpm
 
@@ -39,7 +39,7 @@ jobs:
       - name: Use Node.js v24
         uses: actions/setup-node@v7
         with:
-          node-version: 24.21.0
+          node-version: 24.22.2
           registry-url: https://registry.npmjs.org/
           cache: pnpm
 
