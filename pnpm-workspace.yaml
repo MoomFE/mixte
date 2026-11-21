@@ -76,7 +76,7 @@ catalog:
   '@floating-ui/vue': ^2.0.1
   '@iconify/json': ^2.2.553
   '@moomfe/eslint-config': ^3.8.0
-  '@nuxt/kit': ^4.6.1
+  '@nuxt/kit': ^4.6.4
   '@nuxt/schema': ^4.6.1
   '@rollup/pluginutils': ^5.4.0
   '@shikijs/magic-move': ^4.5.0
